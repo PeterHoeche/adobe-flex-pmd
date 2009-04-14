@@ -57,6 +57,391 @@ public class AS3Parser
       return parseCompilationUnit();
    }
 
+   /**
+    * Get the next token Skip comments and newlines for now In the end we want
+    * to keep them though.
+    *
+    * @throws TokenException
+    */
+   void nextToken() throws TokenException
+   {
+      do
+      {
+         nextTokenAllowNewLine();
+      }
+      while ( tok.text.equals( KeyWords.NEW_LINE ) );
+      // S ystem.out.println("tok:" + tok.text + ".");
+   }
+
+   /**
+    * tok is first content token
+    *
+    * @throws TokenException
+    */
+   Node parseClassContent() throws TokenException
+   {
+      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
+      final ArrayList< Token > modifiers = new ArrayList< Token >();
+      final ArrayList< Node > meta = new ArrayList< Node >();
+
+      while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
+      {
+         if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+         {
+            meta.add( parseMetaData() );
+         }
+         else if ( tokIs( KeyWords.VAR ) )
+         {
+            result.addChild( parseVarList(
+                  meta, modifiers ) );
+            if ( tokIs( Operators.SEMI_COLUMN ) )
+            {
+               nextToken();
+            }
+            meta.clear();
+            modifiers.clear();
+         }
+         else if ( tokIs( KeyWords.CONST ) )
+         {
+            result.addChild( parseConstList(
+                  meta, modifiers ) );
+            if ( tokIs( Operators.SEMI_COLUMN ) )
+            {
+               nextToken();
+            }
+            meta.clear();
+            modifiers.clear();
+         }
+         else if ( tokIs( KeyWords.IMPORT ) )
+         {
+            result.addChild( parseImport() );
+         }
+         else if ( tokIs( KeyWords.FUNCTION ) )
+         {
+            result.addChild( parseFunction(
+                  meta, modifiers ) );
+            meta.clear();
+            modifiers.clear();
+         }
+         else
+         {
+            modifiers.add( tok );
+            // S ystem.out.println("add mod: " + tok.text + ".");
+            nextToken();
+         }
+      }
+      return result;
+   }
+
+   /**
+    * tok is empty, since nextToken has not been called before
+    *
+    * @throws UnExpectedTokenException
+    */
+   Node parseCompilationUnit() throws TokenException
+   {
+      final Node result = new Node( Node.COMPILATION_UNIT, -1, -1 );
+
+      nextToken();
+      if ( tokIs( KeyWords.PACKAGE ) )
+      {
+         result.addChild( parsePackage() );
+      }
+      result.addChild( parsePackageContent() );
+      return result;
+   }
+
+   Node parseExpression() throws TokenException
+   {
+      return parseAssignmentExpression();
+   }
+
+   /**
+    * tok is first content token
+    *
+    * @throws TokenException
+    */
+   Node parseInterfaceContent() throws TokenException
+   {
+      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
+      while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
+      {
+         if ( tokIs( KeyWords.IMPORT ) )
+         {
+            result.addChild( parseImport() );
+         }
+         else if ( tokIs( KeyWords.FUNCTION ) )
+         {
+            result.addChild( parseFunctionSignature() );
+         }
+         else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+         {
+            while ( !tokIs( Operators.RIGHT_SQUARE_BRACKET ) )
+            {
+               nextToken();
+            }
+            nextToken();
+         }
+      }
+      return result;
+   }
+
+   /**
+    * tok is first token of content
+    *
+    * @throws UnExpectedTokenException
+    */
+   Node parsePackageContent() throws TokenException
+   {
+      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
+      final ArrayList< Token > modifier = new ArrayList< Token >();
+      final ArrayList< Node > meta = new ArrayList< Node >();
+
+      while ( !tokIs( Operators.RIGHT_CURLY_BRACKET )
+            && !tokIs( KeyWords.EOF ) )
+      {
+         if ( tokIs( KeyWords.IMPORT ) )
+         {
+            result.addChild( parseImport() );
+         }
+         else if ( tokIs( KeyWords.USE ) )
+         {
+            result.addChild( parseUse() );
+         }
+         else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+         {
+            meta.add( parseMetaData() );
+         }
+         else if ( tokIs( KeyWords.CLASS ) )
+         {
+            result.addChild( parseClass(
+                  meta, modifier ) );
+            modifier.clear();
+            meta.clear();
+         }
+         else if ( tokIs( KeyWords.INTERFACE ) )
+         {
+            result.addChild( parseInterface(
+                  meta, modifier ) );
+            modifier.clear();
+            meta.clear();
+         }
+         else
+         {
+            modifier.add( tok );
+            nextToken();
+         }
+      }
+      return result;
+   }
+
+   // ------------------------------------------------------------------------
+   // language specific recursive descent parsing
+   // ------------------------------------------------------------------------
+
+   Node parsePrimaryExpression() throws TokenException
+   {
+      Node result = new Node( Node.PRIMARY, tok.line, tok.column );
+      result.stringValue = tok.text;
+      // S ystem.out.println("primary " + result );
+      if ( tokIs( KeyWords.UNDEFINED ) )
+      {
+         nextToken(); // undefined
+      }
+      else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+      {
+         result.addChild( parseArrayLiteral() );
+      }
+      else if ( tokIs( Operators.LEFT_CURLY_BRACKET ) )
+      {
+         result.addChild( parseObjectLiteral() );
+      }
+      else if ( tokIs( KeyWords.FUNCTION ) )
+      {
+         result.addChild( parseLambdaExpression() );
+      }
+      else if ( tokIs( KeyWords.NEW ) )
+      {
+         result = parseNewExpression();
+      }
+      else if ( tokIs( Operators.LEFT_PARENTHESIS ) )
+      {
+         result.addChild( parseEncapsulatedExpression() );
+      }
+      else if ( tok.text.startsWith( Operators.DOUBLE_QUOTE ) )
+      {
+         nextToken(); // string
+      }
+      else if ( tok.text.startsWith( Operators.SIMPLE_QUOTE ) )
+      {
+         nextToken(); // string
+      }
+      else if ( tok.text.startsWith( Operators.SLASH ) )
+      {
+         nextToken(); // regexp
+      }
+      else if ( tok.text.startsWith( Operators.INFERIOR ) )
+      {
+         nextToken(); // xml literal
+      }
+      else if ( tokIs( KeyWords.TRUE ) )
+      {
+         nextToken(); // true
+      }
+      else if ( tokIs( KeyWords.FALSE ) )
+      {
+         nextToken(); // false
+      }
+      else if ( tokIs( KeyWords.NULL ) )
+      {
+         nextToken(); // null
+      }
+      else if ( tok.isNum )
+      {
+         nextToken();
+      }
+      else if ( tokIs( KeyWords.AT ) )
+      {
+         result.addChild( parseE4XAttributeIdentifier() );
+      }
+      else
+      {
+         nextToken();
+      }
+      return result;
+   }
+
+   /**
+    * tok is the first token of a statement
+    *
+    * @throws TokenException
+    */
+   Node parseStatement() throws TokenException
+   {
+
+      Node result;
+      if ( tokIs( KeyWords.FOR ) )
+      {
+         result = parseFor();
+      }
+      else if ( tokIs( KeyWords.IF ) )
+      {
+         result = parseIf();
+      }
+      else if ( tokIs( KeyWords.SWITCH ) )
+      {
+         result = parseSwitch();
+      }
+      else if ( tokIs( KeyWords.DO ) )
+      {
+         result = parseDo();
+      }
+      else if ( tokIs( KeyWords.WHILE ) )
+      {
+         result = parseWhile();
+      }
+      else if ( tokIs( KeyWords.TRY ) )
+      {
+         nextToken();
+         result = new Node( KeyWords.TRY, tok.line, tok.column, parseBlock() );
+      }
+      else if ( tokIs( KeyWords.CATCH ) )
+      {
+         result = parseCatch();
+      }
+      else if ( tokIs( KeyWords.FINALLY ) )
+      {
+         nextToken();
+         result = new Node( KeyWords.FINALLY, tok.line, tok.column, parseBlock() );
+      }
+      else if ( tokIs( Operators.LEFT_CURLY_BRACKET ) )
+      {
+         result = parseBlock();
+      }
+      else if ( tokIs( KeyWords.VAR ) )
+      {
+         result = parseVarList(
+               null, null );
+         skip( Operators.SEMI_COLUMN );
+      }
+      else if ( tokIs( KeyWords.CONST ) )
+      {
+         result = parseConstList(
+               null, null );
+         skip( Operators.SEMI_COLUMN );
+      }
+      else if ( tokIs( KeyWords.RETURN ) )
+      {
+         /**
+          * TODO How can we decide if return needs an expression? The type of a
+          * method is optional, so we cant really derive it from the context.
+          * Aaah, i know! That is why the expression needs to start on the same
+          * line! So either the next symbol is a semicolon, which means no
+          * expression, or we have something else on the same line, which should
+          * parse as a expression. In Java it is a bit different, because the
+          * semicolon at the end of the line is mandatory.
+          */
+         nextTokenAllowNewLine();
+         if ( tokIs( KeyWords.NEW_LINE )
+               || tokIs( Operators.SEMI_COLUMN ) )
+         {
+            nextToken();
+            result = new Node( KeyWords.RETURN, tok.line, tok.column, "" );
+         }
+         else
+         {
+            result = new Node( KeyWords.RETURN, tok.line, tok.column,
+                  parseExpression() );
+            skip( Operators.SEMI_COLUMN );
+         }
+      }
+      else if ( tokIs( Operators.SEMI_COLUMN ) )
+      {
+         result = new Node( Node.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
+         nextToken();
+      }
+      else
+      {
+         result = parseExpressionList();
+         skip( Operators.SEMI_COLUMN );
+      }
+      return result;
+   }
+
+   Node parseUnaryExpression() throws TokenException
+   {
+      Node result;
+      if ( tokIs( Operators.INCREMENT ) )
+      {
+         nextToken();
+         result = new Node( Node.PRE_INC, tok.line, tok.column,
+               parseUnaryExpression() );
+      }
+      else if ( tokIs( Operators.DECREMENT ) )
+      {
+         nextToken();
+         result = new Node( Node.PRE_DEC, tok.line, tok.column,
+               parseUnaryExpression() );
+      }
+      else if ( tokIs( Operators.MINUS ) )
+      {
+         nextToken();
+         result = new Node( Node.MINUS, tok.line, tok.column,
+               parseUnaryExpression() );
+      }
+      else if ( tokIs( Operators.PLUS ) )
+      {
+         nextToken();
+         result = new Node( Node.PLUS, tok.line, tok.column,
+               parseUnaryExpression() );
+      }
+      else
+      {
+         result = parseUnaryExpressionNotPlusMinus();
+      }
+      return result;
+   }
+
    private Node collectVarListContent(
          final Node result ) throws TokenException
    {
@@ -140,26 +525,6 @@ public class AS3Parser
       return new Node[]
       { type, name, params, returnType };
    }
-
-   /**
-    * Get the next token Skip comments and newlines for now In the end we want
-    * to keep them though.
-    *
-    * @throws TokenException
-    */
-   private void nextToken() throws TokenException
-   {
-      do
-      {
-         nextTokenAllowNewLine();
-      }
-      while ( tok.text.equals( KeyWords.NEW_LINE ) );
-      // S ystem.out.println("tok:" + tok.text + ".");
-   }
-
-   // ------------------------------------------------------------------------
-   // language specific recursive descent parsing
-   // ------------------------------------------------------------------------
 
    /**
     * Get the next token Skip comments but keep newlines We need this method for
@@ -387,84 +752,6 @@ public class AS3Parser
    }
 
    /**
-    * tok is first content token
-    *
-    * @throws TokenException
-    */
-   private Node parseClassContent() throws TokenException
-   {
-      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
-      final ArrayList< Token > modifiers = new ArrayList< Token >();
-      final ArrayList< Node > meta = new ArrayList< Node >();
-
-      while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
-      {
-         if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-         {
-            meta.add( parseMetaData() );
-         }
-         else if ( tokIs( KeyWords.VAR ) )
-         {
-            result.addChild( parseVarList(
-                  meta, modifiers ) );
-            if ( tokIs( Operators.SEMI_COLUMN ) )
-            {
-               nextToken();
-            }
-            meta.clear();
-            modifiers.clear();
-         }
-         else if ( tokIs( KeyWords.CONST ) )
-         {
-            result.addChild( parseConstList(
-                  meta, modifiers ) );
-            if ( tokIs( Operators.SEMI_COLUMN ) )
-            {
-               nextToken();
-            }
-            meta.clear();
-            modifiers.clear();
-         }
-         else if ( tokIs( KeyWords.IMPORT ) )
-         {
-            result.addChild( parseImport() );
-         }
-         else if ( tokIs( KeyWords.FUNCTION ) )
-         {
-            result.addChild( parseFunction(
-                  meta, modifiers ) );
-            meta.clear();
-            modifiers.clear();
-         }
-         else
-         {
-            modifiers.add( tok );
-            // S ystem.out.println("add mod: " + tok.text + ".");
-            nextToken();
-         }
-      }
-      return result;
-   }
-
-   /**
-    * tok is empty, since nextToken has not been called before
-    *
-    * @throws UnExpectedTokenException
-    */
-   private Node parseCompilationUnit() throws TokenException
-   {
-      final Node result = new Node( Node.COMPILATION_UNIT, -1, -1 );
-
-      nextToken();
-      if ( tokIs( KeyWords.PACKAGE ) )
-      {
-         result.addChild( parsePackage() );
-      }
-      result.addChild( parsePackageContent() );
-      return result;
-   }
-
-   /**
     * tok is (
     *
     * @throws TokenException
@@ -571,11 +858,6 @@ public class AS3Parser
          result.addChild( parseRelationalExpression() );
       }
       return result.numChildren() > 1 ? result : result.getChild( 0 );
-   }
-
-   private Node parseExpression() throws TokenException
-   {
-      return parseAssignmentExpression();
    }
 
    private Node parseExpressionList() throws TokenException
@@ -786,36 +1068,6 @@ public class AS3Parser
    }
 
    /**
-    * tok is first content token
-    *
-    * @throws TokenException
-    */
-   private Node parseInterfaceContent() throws TokenException
-   {
-      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
-      while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
-      {
-         if ( tokIs( KeyWords.IMPORT ) )
-         {
-            result.addChild( parseImport() );
-         }
-         else if ( tokIs( KeyWords.FUNCTION ) )
-         {
-            result.addChild( parseFunctionSignature() );
-         }
-         else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-         {
-            while ( !tokIs( Operators.RIGHT_SQUARE_BRACKET ) )
-            {
-               nextToken();
-            }
-            nextToken();
-         }
-      }
-      return result;
-   }
-
-   /**
     * tok is function
     *
     * @throws TokenException
@@ -1003,55 +1255,6 @@ public class AS3Parser
    }
 
    /**
-    * tok is first token of content
-    *
-    * @throws UnExpectedTokenException
-    */
-   private Node parsePackageContent() throws TokenException
-   {
-      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
-      final ArrayList< Token > modifier = new ArrayList< Token >();
-      final ArrayList< Node > meta = new ArrayList< Node >();
-
-      while ( !tokIs( Operators.RIGHT_CURLY_BRACKET )
-            && !tokIs( KeyWords.EOF ) )
-      {
-         if ( tokIs( KeyWords.IMPORT ) )
-         {
-            result.addChild( parseImport() );
-         }
-         else if ( tokIs( KeyWords.USE ) )
-         {
-            result.addChild( parseUse() );
-         }
-         else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-         {
-            meta.add( parseMetaData() );
-         }
-         else if ( tokIs( KeyWords.CLASS ) )
-         {
-            result.addChild( parseClass(
-                  meta, modifier ) );
-            modifier.clear();
-            meta.clear();
-         }
-         else if ( tokIs( KeyWords.INTERFACE ) )
-         {
-            result.addChild( parseInterface(
-                  meta, modifier ) );
-            modifier.clear();
-            meta.clear();
-         }
-         else
-         {
-            modifier.add( tok );
-            nextToken();
-         }
-      }
-      return result;
-   }
-
-   /**
     * tok is the name of a parameter or ...
     */
    private Node parseParameter() throws TokenException
@@ -1094,78 +1297,6 @@ public class AS3Parser
          }
       }
       consume( Operators.RIGHT_PARENTHESIS );
-      return result;
-   }
-
-   private Node parsePrimaryExpression() throws TokenException
-   {
-      Node result = new Node( Node.PRIMARY, tok.line, tok.column );
-      result.stringValue = tok.text;
-      // S ystem.out.println("primary " + result );
-      if ( tokIs( KeyWords.UNDEFINED ) )
-      {
-         nextToken(); // undefined
-      }
-      else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-      {
-         result.addChild( parseArrayLiteral() );
-      }
-      else if ( tokIs( Operators.LEFT_CURLY_BRACKET ) )
-      {
-         result.addChild( parseObjectLiteral() );
-      }
-      else if ( tokIs( KeyWords.FUNCTION ) )
-      {
-         result.addChild( parseLambdaExpression() );
-      }
-      else if ( tokIs( KeyWords.NEW ) )
-      {
-         result = parseNewExpression();
-      }
-      else if ( tokIs( Operators.LEFT_PARENTHESIS ) )
-      {
-         result.addChild( parseEncapsulatedExpression() );
-      }
-      else if ( tok.text.startsWith( Operators.DOUBLE_QUOTE ) )
-      {
-         nextToken(); // string
-      }
-      else if ( tok.text.startsWith( Operators.SIMPLE_QUOTE ) )
-      {
-         nextToken(); // string
-      }
-      else if ( tok.text.startsWith( Operators.SLASH ) )
-      {
-         nextToken(); // regexp
-      }
-      else if ( tok.text.startsWith( Operators.INFERIOR ) )
-      {
-         nextToken(); // xml literal
-      }
-      else if ( tokIs( KeyWords.TRUE ) )
-      {
-         nextToken(); // true
-      }
-      else if ( tokIs( KeyWords.FALSE ) )
-      {
-         nextToken(); // false
-      }
-      else if ( tokIs( KeyWords.NULL ) )
-      {
-         nextToken(); // null
-      }
-      else if ( tok.isNum )
-      {
-         nextToken();
-      }
-      else if ( tokIs( KeyWords.AT ) )
-      {
-         result.addChild( parseE4XAttributeIdentifier() );
-      }
-      else
-      {
-         nextToken();
-      }
       return result;
    }
 
@@ -1221,103 +1352,6 @@ public class AS3Parser
          result.addChild( parseAdditiveExpression() );
       }
       return result.numChildren() > 1 ? result : result.getChild( 0 );
-   }
-
-   /**
-    * tok is the first token of a statement
-    *
-    * @throws TokenException
-    */
-   private Node parseStatement() throws TokenException
-   {
-
-      Node result;
-      if ( tokIs( KeyWords.FOR ) )
-      {
-         result = parseFor();
-      }
-      else if ( tokIs( KeyWords.IF ) )
-      {
-         result = parseIf();
-      }
-      else if ( tokIs( KeyWords.SWITCH ) )
-      {
-         result = parseSwitch();
-      }
-      else if ( tokIs( KeyWords.DO ) )
-      {
-         result = parseDo();
-      }
-      else if ( tokIs( KeyWords.WHILE ) )
-      {
-         result = parseWhile();
-      }
-      else if ( tokIs( KeyWords.TRY ) )
-      {
-         nextToken();
-         result = new Node( KeyWords.TRY, tok.line, tok.column, parseBlock() );
-      }
-      else if ( tokIs( KeyWords.CATCH ) )
-      {
-         result = parseCatch();
-      }
-      else if ( tokIs( KeyWords.FINALLY ) )
-      {
-         nextToken();
-         result = new Node( KeyWords.FINALLY, tok.line, tok.column, parseBlock() );
-      }
-      else if ( tokIs( Operators.LEFT_CURLY_BRACKET ) )
-      {
-         result = parseBlock();
-      }
-      else if ( tokIs( KeyWords.VAR ) )
-      {
-         result = parseVarList(
-               null, null );
-         skip( Operators.SEMI_COLUMN );
-      }
-      else if ( tokIs( KeyWords.CONST ) )
-      {
-         result = parseConstList(
-               null, null );
-         skip( Operators.SEMI_COLUMN );
-      }
-      else if ( tokIs( KeyWords.RETURN ) )
-      {
-         /**
-          * TODO How can we decide if return needs an expression? The type of a
-          * method is optional, so we cant really derive it from the context.
-          * Aaah, i know! That is why the expression needs to start on the same
-          * line! So either the next symbol is a semicolon, which means no
-          * expression, or we have something else on the same line, which should
-          * parse as a expression. In Java it is a bit different, because the
-          * semicolon at the end of the line is mandatory.
-          */
-         nextTokenAllowNewLine();
-         if ( tokIs( KeyWords.NEW_LINE )
-               || tokIs( Operators.SEMI_COLUMN ) )
-         {
-            nextToken();
-            result = new Node( KeyWords.RETURN, tok.line, tok.column, "" );
-         }
-         else
-         {
-            result = new Node( KeyWords.RETURN, tok.line, tok.column,
-                  parseExpression() );
-            skip( Operators.SEMI_COLUMN );
-         }
-      }
-      else if ( tokIs( Operators.SEMI_COLUMN ) )
-      {
-         result = new Node( Node.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
-         nextToken();
-      }
-      else
-      {
-         result = parseExpressionList();
-         skip( Operators.SEMI_COLUMN );
-      }
-      return result;
    }
 
    /**
@@ -1450,40 +1484,6 @@ public class AS3Parser
       }
       consume( Operators.RIGHT_PARENTHESIS );
       result.addChild( parseStatement() );
-      return result;
-   }
-
-   private Node parseUnaryExpression() throws TokenException
-   {
-      Node result;
-      if ( tokIs( Operators.INCREMENT ) )
-      {
-         nextToken();
-         result = new Node( Node.PRE_INC, tok.line, tok.column,
-               parseUnaryExpression() );
-      }
-      else if ( tokIs( Operators.DECREMENT ) )
-      {
-         nextToken();
-         result = new Node( Node.PRE_DEC, tok.line, tok.column,
-               parseUnaryExpression() );
-      }
-      else if ( tokIs( Operators.MINUS ) )
-      {
-         nextToken();
-         result = new Node( Node.MINUS, tok.line, tok.column,
-               parseUnaryExpression() );
-      }
-      else if ( tokIs( Operators.PLUS ) )
-      {
-         nextToken();
-         result = new Node( Node.PLUS, tok.line, tok.column,
-               parseUnaryExpression() );
-      }
-      else
-      {
-         result = parseUnaryExpressionNotPlusMinus();
-      }
       return result;
    }
 
