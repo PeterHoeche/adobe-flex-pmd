@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+       Copyright (c) 2008. Adobe Systems Incorporated.
+       All rights reserved.
+
+       Redistribution and use in source and binary forms, with or without
+       modification, are permitted provided that the following conditions
+       are met:
+
+         * Redistributions of source code must retain the above copyright
+           notice, this list of conditions and the following disclaimer.
+         * Redistributions in binary form must reproduce the above copyright
+           notice, this list of conditions and the following disclaimer in
+           the documentation and/or other materials provided with the
+           distribution.
+         * Neither the name of Adobe Systems Incorporated nor the names of
+           its contributors may be used to endorse or promote products derived
+           from this software without specific prior written permission.
+
+       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+       "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+       LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+       OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+       EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+       PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+       PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+       LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+       NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+       SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<mx:Application 
+	xmlns:local="*" 
+	xmlns:control="com.adobe.ac.pmd.control.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:services="com.adobe.ac.pmd.services.*"
+	xmlns:view="com.adobe.ac.pmd.view.*"
+	layout="vertical" 	
+	horizontalAlign="center" 
+	verticalAlign="top" 
+   minHeight="600"
+   minWidth="850"
+   verticalScrollPolicy="off"
+   horizontalScrollPolicy="off"	
+   styleName="flexUnitApplication" 
+	>
+	
+   <mx:Style
+      source="/css/default.css"
+      />
+		
+   <control:Controller
+      />
+   
+   <services:MyServiceLocator
+      />
+
+   <mx:Panel
+      styleName="mainPanel"
+      width="100%">
+
+      <mx:HBox
+         verticalAlign="bottom"
+         horizontalGap="0"
+         paddingRight="10"
+         width="100%">
+   
+         <view:Title
+            text="FlexPMD Ruleset Creator"
+            styleName="panelTitleStyle"
+            />
+         
+         <view:Title
+            text="powered by Adobe Consulting"
+            styleName="panelTitleSubStyle"
+            useHandCursor="true"
+            buttonMode="true"
+            mouseChildren= "false"
+            click="navigateToURL( new URLRequest( 'http://www.adobe.com/consulting/' ) )"
+            />
+            
+         <mx:Spacer
+            width="100%"
+            />
+            
+         <view:Title
+            text="v{ Version.BUILD_NUMBER } built on { Version.BUILD_DATE } at { Version.BUILD_TIME}"
+            styleName="panelTitleSubStyle"
+            />
+         
+      </mx:HBox>
+         
+      <mx:HRule
+         styleName="flexUnitHRule"
+         width="100%"
+         />
+      
+      <mx:HBox
+         width="100%"
+         paddingLeft="10"
+         paddingBottom="5">
+   
+         <view:RuleSetNavigator
+            id="navigator"
+            selectedRuleChange="editor.model.selectedRule = event.selectedRule"
+            width="100%"
+            />
+         
+         <mx:VRule
+            styleName="flexUnitHRule"
+            height="100%"
+            />
+            
+         <view:RuleEditor
+            id="editor"
+            />
+         
+      </mx:HBox>   
+      
+      <mx:HRule
+         styleName="flexUnitHRule"
+         width="100%"
+         />
+
+      <mx:HBox
+         width="100%"
+         horizontalAlign="center">
+         
+         <mx:Button
+            icon="@Embed(source='/assets/export.png')"
+            label="Export"
+            click="navigator.model.exportRootRuleset()"
+            />
+
+      </mx:HBox>
+
+   </mx:Panel>
+      
+</mx:Application>

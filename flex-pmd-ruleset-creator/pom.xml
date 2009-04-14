@@ -1,0 +1,265 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-ruleset-creator</artifactId>
+	<version>0.5.4-SNAPSHOT</version>
+	<packaging>swf</packaging>
+	<name>Adobe Flex PMD Ruleset creator</name>
+	<description>Adobe Flex PMD Ruleset creator</description>
+
+	<properties>
+
+		<!-- Plugin versions -->
+
+		<flex-pmd-maven-plugin.version>${project.version}</flex-pmd-maven-plugin.version>
+		<ant-run-plugin.version>1.2</ant-run-plugin.version>
+		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
+		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
+		<flex-mojos-plugin.version>2.0M8</flex-mojos-plugin.version>
+
+		<!-- Dependency versions -->
+
+		<flex.version>3.2.0.3958</flex.version>
+		<flash-player.version>10</flash-player.version>
+		<flexunit.version>0.9</flexunit.version>
+		<flexunit-optional.version>0.85</flexunit-optional.version>
+		<event-source.version>1.0</event-source.version>
+		<cairngorm.version>2.2.1</cairngorm.version>
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>flex-pmd-ruleset</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flexunit</groupId>
+			<artifactId>flexunit</artifactId>
+			<version>${flexunit.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>flexunit.junit</groupId>
+			<artifactId>flexunit-optional</artifactId>
+			<version>${flexunit-optional.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>event-source</artifactId>
+			<version>${event-source.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>cairngorm</artifactId>
+			<version>${cairngorm.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<!-- flex sdk dependencies -->
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>flex-framework</artifactId>
+			<version>${flex.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>datavisualization</artifactId>
+			<version>${flex.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>datavisualization</artifactId>
+			<version>${flex.version}</version>
+			<type>rb.swc</type>
+			<classifier>en_US</classifier>
+		</dependency>
+
+		<!-- end of flex sdk dependencies -->
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>playerglobal</artifactId>
+			<version>${flash-player.version}-${flex.version}</version>
+			<type>swc</type>
+			<scope>external</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/flex</sourceDirectory>
+		<testSourceDirectory>src/test/flex</testSourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${ant-run-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-version-as</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<tasks>
+								<tstamp>
+									<format property="last.updated.date" pattern="yyyy-MM-dd" />
+									<format property="last.updated.time" pattern="HH:mm:ss" />
+								</tstamp>
+								<echo message="Generating Version.as..." />
+								<echo file="${basedir}/src/main/flex/Version.as" append="false" message="package" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="{" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   public class Version" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   {" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_NUMBER : String = '${project.version}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_TIME : String = '${last.updated.time}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_DATE : String = '${last.updated.date}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   }" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="}" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven-dependency-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>unpack-binary-resources</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>com.adobe.ac</includeGroupIds>
+							<includes>**/*.xml</includes>
+							<outputDirectory>target/rulesets</outputDirectory>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>info.flex-mojos</groupId>
+				<artifactId>flex-compiler-mojo</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+					<includeSources>
+						<param>${project.build.sourceDirectory}</param>
+					</includeSources>
+					<locales>
+						<param>en_US</param>
+					</locales>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.adobe.ac</groupId>
+				<artifactId>as3Ncss-maven-plugin</artifactId>
+				<version>${as3Ncss-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.adobe.ac</groupId>
+				<artifactId>flex-pmd-maven-plugin</artifactId>
+				<version>${flex-pmd-maven-plugin.version}</version>
+				<configuration>
+					<ruleSet>customPmdRuleset.xml</ruleSet>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>flex-mojos-repository</id>
+			<url>http://svn.sonatype.org/flexmojos/repository/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>flex-mojos-repository</id>
+			<url>http://svn.sonatype.org/flexmojos/repository/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<configuration>
+					<reportsDirectory>surefire-reports</reportsDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>

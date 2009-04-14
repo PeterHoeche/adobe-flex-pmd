@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!--
+
+       Copyright (c) 2008. Adobe Systems Incorporated.
+       All rights reserved.
+
+       Redistribution and use in source and binary forms, with or without
+       modification, are permitted provided that the following conditions
+       are met:
+
+         * Redistributions of source code must retain the above copyright
+           notice, this list of conditions and the following disclaimer.
+         * Redistributions in binary form must reproduce the above copyright
+           notice, this list of conditions and the following disclaimer in
+           the documentation and/or other materials provided with the
+           distribution.
+         * Neither the name of Adobe Systems Incorporated nor the names of
+           its contributors may be used to endorse or promote products derived
+           from this software without specific prior written permission.
+
+       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+       "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+       LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+       OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+       EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+       PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+       PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+       LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+       NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+       SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<ruleset name="Basic Common Flex Rules"
+    xmlns="http://pmd.sf.net/ruleset/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+  <description>
+      The Basic As3/MXML Ruleset contains a collection of good practices which everyone should follow.
+  </description>
+
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here.">
+      <description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>      
+      <priority>3</priority>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
+      <description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
+      <priority>3</priority>
+      <example>
+   public class Foo 
+   {
+      public function bar() : void
+      {
+         dispatch( new Event( "myHardCodedEvent" ) ); // VIOLATION
+      }
+   }
+      </example>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
+      <description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
+      <priority>3</priority>
+      <example>
+   public class Foo 
+   {
+      public function bar() : void
+      {
+         addEventListener( "myHardCodedEvent", handleMyHardCodedEvent ); // VIOLATION
+      }
+   }      
+      </example>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.AlertShowRule" message="Do not call Alert.show directly.">
+      <description>You should not Alert.show() directly. If an error occured in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
+      <priority>1</priority>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.EmptyIfStmtRule" message="No statements in this if statement">
+      <description>Empty If Statement finds instances where a condition is checked but nothing is done about it. </description>
+      <priority>3</priority>
+      <example>
+   public class Foo 
+   {
+      public function bar( x : int ) : void
+      {
+         if ( x == 0 ) 
+         {
+            // VIOLATION
+         }
+      }
+   } 
+      </example>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum)">
+      <description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
+      <priority>3</priority>
+      <properties>
+         <property name="maximum">
+            <value>15</value>
+         </property>
+      </properties>
+      <example>
+   import blah.blah.Baz;
+   import blah.blah.Bif;
+   // 18 others from the same package elided
+   public class Foo 
+   {
+      public function doWork() : void 
+      {
+      }
+   }
+      </example>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.BindingUtilsRule" message="If you need to use BindingUtils, you should probably consider refactoring using events">
+      <description></description>
+      <priority>3</priority>
+      <example>
+      </example>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.OverLongLineRule" message="Too long line ({0} maximum)">
+      <description></description>
+      <priority>5</priority>
+      <properties>
+         <property name="maximum">
+            <value>120</value>
+         </property>
+      </properties>
+      <example>
+      </example>
+    </rule>
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ImportFromSamePackageRule" message="Imports from the same package are not necessary">
+      <description></description>
+      <priority>1</priority>
+      <example>
+package com.adobe.ac
+{
+   import com.adobe.ac.MyModel; // VIOLATION HERE
+
+   public class BigModel   
+   {
+      public var model : MyModel = null;
+   }
+}         
+      </example>
+    </rule>
+   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.UncorrectClassCase" message="A class name must start by a majuscule character">
+      <description></description> 
+      <priority>3</priority>
+      <example>
+   public class foo
+   {
+   }      
+      </example>
+   </rule>
+</ruleset>

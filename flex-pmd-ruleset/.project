@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>flex-pmd-ruleset</name>
+	<comment></comment>
+	<projects>
+		<project>flex-pmd-ruleset-api</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.cenqua.clover.core.prejavabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.cenqua.clover.core.postjavabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+		<nature>com.cenqua.clover.core.clovernature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>FLEX_PMD_TEST_RESOURCES_LOCATION</name>
+			<type>2</type>
+			<locationURI>FLEX_PMD_TEST_RESOURCES_LOCATION</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

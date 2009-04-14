@@ -1,0 +1,7 @@
+TODO callLater directly is wrong
+TODO Multiple assignations on one line
+TODO EmptyCatchStatement
+TODO static methods in mxml functions
+TODO variable hiding property
+TODO Function returning Array which is actually returning
+TODO Switch statement with identical case statement

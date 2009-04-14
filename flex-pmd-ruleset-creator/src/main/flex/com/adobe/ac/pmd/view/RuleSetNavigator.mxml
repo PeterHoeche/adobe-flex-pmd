@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+       Copyright (c) 2008. Adobe Systems Incorporated.
+       All rights reserved.
+
+       Redistribution and use in source and binary forms, with or without
+       modification, are permitted provided that the following conditions
+       are met:
+
+         * Redistributions of source code must retain the above copyright
+           notice, this list of conditions and the following disclaimer.
+         * Redistributions in binary form must reproduce the above copyright
+           notice, this list of conditions and the following disclaimer in
+           the documentation and/or other materials provided with the
+           distribution.
+         * Neither the name of Adobe Systems Incorporated nor the names of
+           its contributors may be used to endorse or promote products derived
+           from this software without specific prior written permission.
+
+       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+       "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+       LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+       OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+       EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+       PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+       PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+       LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+       NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+       SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<mx:VBox 
+   xmlns:mx="http://www.adobe.com/2006/mxml" 
+   xmlns:view="com.adobe.ac.pmd.view.*"
+   xmlns:renderers="com.adobe.ac.pmd.view.renderers.*"
+   paddingTop="5"
+   creationComplete="model.getRootRuleset()" 
+   >
+   <mx:Metadata>
+      [Event(name="selectedRuleChange", type="com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent")]
+   </mx:Metadata>
+   
+   <mx:Script>
+      <![CDATA[
+         import mx.events.CollectionEventKind;
+         import mx.events.CollectionEvent;
+         import com.adobe.ac.pmd.model.Ruleset;
+         import com.adobe.ac.pmd.model.Rule;
+         import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+         import com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent;
+
+         import mx.collections.IHierarchicalCollectionViewCursor;
+         
+         private var isFirstRulesetReceived : Boolean = true;
+         
+         public function onRuleRemoved() : void
+         {
+            dg.selectedItem = null;
+            onChange();
+         }
+
+         private function onChange() : void
+         {
+            dispatchEvent( new SelectedRuleChangeEvent( dg.selectedItem as Rule ) );
+         }
+         
+         private function onRulesetReceived( event : RulesetReceivedEvent ) : void
+         {
+            dg.dataProvider.openNode( event.ruleset );
+            event.ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
+            if ( isFirstRulesetReceived )
+            {
+               selectFirstRule( event.ruleset );
+               isFirstRulesetReceived = false;
+            }
+         }
+         
+         private function onRulesChange( event : CollectionEvent ) : void
+         {
+            if ( event.kind == CollectionEventKind.REMOVE )
+            {
+               selectFirstRule( model.rootRuleset.rulesets.getItemAt( 0 ) as Ruleset );
+            }
+         }
+         
+         private function selectFirstRule( ruleset : Ruleset ) : void
+         {
+            dg.selectedIndex = 1;
+            onChange();
+         }
+         
+      ]]>
+   </mx:Script>
+
+   <view:RuleSetNavigatorPM
+      id="model"
+      rulesetReceived="onRulesetReceived( event )"
+      />
+   
+   <mx:AdvancedDataGrid
+      id="dg"
+      height="600"
+      width="100%"
+      change="onChange()"
+      >
+
+      <mx:dataProvider>
+
+         <mx:HierarchicalData 
+            source="{ model.rootRuleset.rulesets }" 
+            childrenField="rules"            
+            />
+
+      </mx:dataProvider>
+
+      <mx:columns>
+
+         <mx:AdvancedDataGridColumn
+            headerText="Name"
+            dataField="name"
+            />
+
+         <mx:AdvancedDataGridColumn
+            headerText="Priority"
+            dataField="priority"
+            width="100"
+            />
+
+         <mx:AdvancedDataGridColumn
+            headerText=""
+            width="50"
+            sortable="false"
+            >
+
+            <mx:itemRenderer>
+
+               <mx:Component>
+
+                  <renderers:DeleteButtonRenderer
+                     ruleRemoved="outerDocument.onRuleRemoved()"
+                     />
+
+               </mx:Component>
+
+            </mx:itemRenderer>
+
+         </mx:AdvancedDataGridColumn>
+
+      </mx:columns>
+
+   </mx:AdvancedDataGrid>
+
+</mx:VBox>
