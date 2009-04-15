@@ -1,3 +1,0 @@
-FIXME maven site report
-TODO FlexPMD eclipse plugin
-TODO Add Ivy build (create build.xml and dependencies.xml)
