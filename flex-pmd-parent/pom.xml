@@ -9,6 +9,11 @@
 	<url>http://www.adobe.com/consulting</url>
 
 	<inceptionYear>2008</inceptionYear>
+	<scm>
+		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/flex-pmd-parent</connection>
+		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/flex-pmd-parent</developerConnection>
+		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/flex-pmd-parent</url>
+	</scm>
 
 	<organization>
 		<name>Adobe Systems Incorporated</name>
@@ -187,7 +192,7 @@
 				<version>${license.version}</version>
 				<configuration>
 					<failIfMissing>false</failIfMissing>
-					<header>src/etc/header.txt</header>
+					<header>../${project.artifactId}/src/etc/header.txt</header>
 					<includes>
 						<include>**/src/**</include>
 						<include>**/test/**</include>
