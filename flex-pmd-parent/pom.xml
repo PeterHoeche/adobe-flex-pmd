@@ -192,7 +192,7 @@
 				<version>${license.version}</version>
 				<configuration>
 					<failIfMissing>false</failIfMissing>
-					<header>../${project.artifactId}-parent/src/etc/header.txt</header>
+					<header>../flex-pmd-parent/src/etc/header.txt</header>
 					<includes>
 						<include>**/src/**</include>
 						<include>**/test/**</include>
