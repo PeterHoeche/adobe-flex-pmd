@@ -133,7 +133,7 @@
                            message="Extracting license..." 
                            />
                         <copy 
-                           file="../src/etc/header.txt"
+                           file="../flex-pmd-parent/src/etc/header.txt"
                            tofile="${project.build.directory}/release/LICENSE.txt" 
                            overwrite="true"
                            />
