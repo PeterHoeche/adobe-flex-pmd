@@ -1023,16 +1023,18 @@ public class AS3Parser
     */
    private String parseImportName() throws TokenException
    {
-      String result = tok.text;
+      final StringBuffer result = new StringBuffer();
+
+      result.append( tok.text );
       nextToken();
       while ( tokIs( Operators.DOT ) )
       {
-         result += Operators.DOT;
+         result.append( Operators.DOT );
          nextToken(); // .
-         result += tok.text;
+         result.append( tok.text );
          nextToken(); // part of name
       }
-      return result;
+      return result.toString();
    }
 
    /**
@@ -1650,7 +1652,7 @@ public class AS3Parser
    private void setFileName(
          final String fileNameToParse )
    {
-      this.fileName = fileNameToParse;
+      fileName = fileNameToParse;
    }
 
    /**
