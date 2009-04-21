@@ -101,7 +101,8 @@ public class WronglyOrderedClassElementRuleTest
       // assertViolations(
       // "com.adobe.ac.ncss.TestResult.as", expectedPositions5 );
       //
-      assertFalse( processFile(
+      assertFalse(
+            "rule message token are still in", processFile(
             "com.adobe.ac.ncss.TestResult.as" ).get(
             0 ).getRuleMessage().contains(
             "{0}" ) );

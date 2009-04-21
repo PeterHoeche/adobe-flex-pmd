@@ -30,53 +30,86 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
+import de.bokelberg.flex.parser.KeyWords;
+import de.bokelberg.flex.parser.Node;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class AvoidInstanciationInLoopTest
-      extends AbstractAstFlexRuleTest
+public class AvoidInstanciationInLoopRule
+      extends AbstractAstFlexRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   private int loopLevel = 0;
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      return ViolationPriority.WARNING;
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void visitFor(
+         final Node ast )
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 43, 43 ), new ViolationPosition( 46, 46 ),
-            new ViolationPosition( 50, 50 ), new ViolationPosition( 56, 56 ),
-            new ViolationPosition( 59, 59 ), new ViolationPosition( 63, 63 ),
-            new ViolationPosition( 68, 68 ), new ViolationPosition( 71, 71 ),
-            new ViolationPosition( 75, 75 ) };
-
-      assertViolations(
-            "Looping.as", expectedPositions );
+      loopLevel++;
+      super.visitFor( ast );
+      loopLevel--;
    }
 
    @Override
-   protected AbstractFlexRule getRule()
+   protected void visitForEach(
+         final Node ast )
    {
-      return new AvoidInstanciationInLoop();
+      loopLevel++;
+      super.visitForEach( ast );
+      loopLevel--;
+   }
+
+   @Override
+   protected void visitStatement(
+         final Node ast )
+   {
+      super.visitStatement( ast );
+
+      if ( ast != null && !ast.is( KeyWords.WHILE )
+            && !ast.is( KeyWords.FOR ) && !ast.is( KeyWords.FOREACH )
+            && !ast.is( KeyWords.FOR ) )
+      {
+         searchNewNode( ast );
+      }
+   }
+
+   @Override
+   protected void visitWhile(
+         final Node ast )
+   {
+      loopLevel++;
+      super.visitWhile( ast );
+      loopLevel--;
+   }
+
+   private void searchNewNode(
+         final Node ast )
+   {
+      if ( ast.numChildren() > 0 )
+      {
+         for ( final Node child : ast.children )
+         {
+            searchNewNode( child );
+         }
+      }
+      if ( ast.id != null
+            && ast.is( KeyWords.NEW ) && loopLevel != 0 )
+      {
+         addViolation(
+               ast, ast );
+      }
    }
 }

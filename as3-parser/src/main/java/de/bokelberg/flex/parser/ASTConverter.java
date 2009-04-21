@@ -32,8 +32,6 @@ package de.bokelberg.flex.parser;
 
 public interface ASTConverter
 {
-
-   public abstract String convert(
+   abstract String convert(
          Node ast );
-
 }

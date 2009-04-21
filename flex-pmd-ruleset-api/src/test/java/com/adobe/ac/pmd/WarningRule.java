@@ -62,7 +62,8 @@ public class WarningRule
 
    @Override
    protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file, Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode, final AbstractFlexFile file,
+         final Map< String, AbstractFlexFile > files )
    {
       return new ArrayList< Violation >();
    }

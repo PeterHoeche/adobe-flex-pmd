@@ -508,6 +508,10 @@
             <ruleset>Controversial Rules</ruleset>
         </rule>
         <rule>
+            <name>AvoidFinalLocalVariable</name>
+            <ruleset>Controversial Rules</ruleset>
+        </rule>
+        <rule>
             <name>AvoidUsingShortType</name>
             <ruleset>Controversial Rules</ruleset>
         </rule>

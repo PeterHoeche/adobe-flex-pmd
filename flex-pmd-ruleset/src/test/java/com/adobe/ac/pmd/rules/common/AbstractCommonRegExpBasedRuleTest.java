@@ -28,56 +28,22 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.common;
 
-import junit.framework.TestCase;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import de.bokelberg.flex.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 
-public class TestEmptyStatement
-      extends TestCase
+public abstract class AbstractCommonRegExpBasedRuleTest
+      extends AbstractRegExpBasedRuleTest
 {
-
-   private AS3Parser asp;
-   private AS3Scanner scn;
-
    @Override
-   @Before
-   public void setUp()
-   {
-      asp = new AS3Parser();
-      scn = new AS3Scanner();
-      asp.scn = scn;
-   }
-
    @Test
-   public void testComplex() throws TokenException
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      assertStatement(
-            "1",
-            "{;1;;}",
-            "<block line=\"1\" column=\"2\"><stmt-empty line=\"1\" column=\"2\">;</stmt-empty><primary line=\"1\" column=\"3\">1</primary><stmt-empty line=\"1\" column=\"5\">;</stmt-empty></block>" );
    }
-
-   @Test
-   public void testSimple() throws TokenException
-   {
-      assertStatement(
-            "1", ";", "<stmt-empty line=\"1\" column=\"1\">;</stmt-empty>" );
-   }
-
-   private void assertStatement(
-         final String message, final String input, final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input, "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals(
-            message, expected, result );
-   }
-
 }

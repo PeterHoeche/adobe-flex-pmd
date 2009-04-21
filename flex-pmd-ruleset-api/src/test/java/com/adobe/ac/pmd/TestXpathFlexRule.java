@@ -39,8 +39,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.XpathFlexRule;
 
 public class TestXpathFlexRule
@@ -55,6 +55,7 @@ public class TestXpathFlexRule
    }
 
    @Override
+   @Test
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
@@ -64,9 +65,11 @@ public class TestXpathFlexRule
    }
 
    @Override
+   @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
          URISyntaxException
    {
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override

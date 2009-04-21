@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestWhileStatement
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestWhileStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testWhile() throws TokenException
    {
       assertStatement(
@@ -56,6 +61,7 @@ public class TestWhileStatement
             "<while line=\"1\" column=\"6\"><condition line=\"1\" column=\"8\"><post-inc line=\"1\" column=\"12\"><primary line=\"1\" column=\"8\">i</primary></post-inc></condition><block line=\"1\" column=\"15\"><call line=\"1\" column=\"20\"><primary line=\"1\" column=\"15\">trace</primary><arguments line=\"1\" column=\"22\"><primary line=\"1\" column=\"22\">i</primary></arguments></call></block></while>" );
    }
 
+   @Test
    public void testWhileWithEmptyStatement() throws TokenException
    {
       assertStatement(
@@ -64,6 +70,7 @@ public class TestWhileStatement
             "<while line=\"1\" column=\"6\"><condition line=\"1\" column=\"8\"><post-inc line=\"1\" column=\"12\"><primary line=\"1\" column=\"8\">i</primary></post-inc></condition><stmt-empty line=\"1\" column=\"13\">;</stmt-empty></while>" );
    }
 
+   @Test
    public void testWhileWithoutBlock() throws TokenException
    {
       assertStatement(
@@ -82,5 +89,4 @@ public class TestWhileStatement
       assertEquals(
             message, expected, result );
    }
-
 }

@@ -36,11 +36,10 @@ import java.net.URISyntaxException;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class UncorrectClassCaseTest
-      extends AbstractFlexRuleTest
+      extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
@@ -48,13 +47,6 @@ public class UncorrectClassCaseTest
          throws FileNotFoundException, URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
    }
 
    @Override

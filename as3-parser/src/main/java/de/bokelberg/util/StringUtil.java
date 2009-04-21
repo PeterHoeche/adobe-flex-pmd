@@ -32,9 +32,8 @@ package de.bokelberg.util;
 
 import java.util.regex.Pattern;
 
-public class StringUtil
+public final class StringUtil
 {
-
    public static String addSpaceAfter(
          final String str, final String character )
    {
@@ -48,11 +47,11 @@ public class StringUtil
    }
 
    public static String compressWhitespace(
-         final String in )
+         final String string )
    {
       return Pattern.compile(
             "\\s+" ).matcher(
-            in ).replaceAll(
+            string ).replaceAll(
             " " );
    }
 
@@ -70,20 +69,25 @@ public class StringUtil
    }
 
    public static String escape(
-         final String in )
+         final String stringToEscape )
    {
       final StringBuffer result = new StringBuffer();
-      for ( int i = 0; i < in.length(); i++ )
+      for ( int i = 0; i < stringToEscape.length(); i++ )
       {
-         final char c = in.charAt( i );
-         if ( c == '('
-               || c == ')' || c == '.' || c == '*' || c == '[' || c == ']'
-               || c == '^' || c == '$' || c == '+' || c == '-' || c == '/'
-               || c == '?' || c == '|' || c == '{' || c == '}' || c == '\\' )
+         final char currentCharacter = stringToEscape.charAt( i );
+         if ( currentCharacter == '('
+               || currentCharacter == ')' || currentCharacter == '.'
+               || currentCharacter == '*' || currentCharacter == '['
+               || currentCharacter == ']' || currentCharacter == '^'
+               || currentCharacter == '$' || currentCharacter == '+'
+               || currentCharacter == '-' || currentCharacter == '/'
+               || currentCharacter == '?' || currentCharacter == '|'
+               || currentCharacter == '{' || currentCharacter == '}'
+               || currentCharacter == '\\' )
          {
-            result.append( "\\" );
+            result.append( '\\' );
          }
-         result.append( c );
+         result.append( currentCharacter );
       }
       return result.toString();
    }
@@ -100,60 +104,64 @@ public class StringUtil
          return operator;
       }
 
-      String result = "\\"
-            + operator.charAt( 0 );
+      final StringBuffer result = new StringBuffer();
+
+      result.append( '\\' );
+      result.append( operator.charAt( 0 ) );
+
       for ( int i = 1; i < operator.length(); i++ )
       {
-         result += " +\\"
-               + operator.charAt( i );
+         result.append( " +\\" );
+         result.append( operator.charAt( i ) );
       }
-      return result;
+      return result.toString();
    }
 
    public static String join(
          final String[] strings, final String delimiter )
    {
-      String result = "";
+      final StringBuffer result = new StringBuffer();
+
       if ( strings == null )
       {
-         return result;
+         return result.toString();
       }
 
       for ( int i = 0; i < strings.length; i++ )
       {
          if ( i > 0 )
          {
-            result += delimiter;
+            result.append( delimiter );
          }
-         result += strings[ i ];
+         result.append( strings[ i ] );
       }
-      return result;
+      return result.toString();
    }
 
    public static String ltrim(
-         final String in )
+         final String stringToTrim )
    {
       return replaceAll(
-            in, "^\\s+", "" ); // delete leading white spaces
+            stringToTrim, "^\\s+", "" ); // delete leading white spaces
    }
 
    public static boolean match(
-         final String in, final String regexp )
+         final String stringToInspect, final String regexp )
    {
       return Pattern.compile(
             regexp ).matcher(
-            in ).find();
+            stringToInspect ).find();
    }
 
    public static String repeatString(
-         final String in, final int count )
+         final String stringToRepeat, final int count )
    {
-      String result = "";
+      final StringBuffer result = new StringBuffer();
       for ( int i = 0; i < count; i++ )
       {
-         result += in;
+         result.append( stringToRepeat );
       }
-      return result;
+      return result.toString();
    }
 
    public static String replaceAll(
@@ -166,17 +174,20 @@ public class StringUtil
    }
 
    public static String rtrim(
-         final String in )
+         final String stringToTrim )
    {
       return replaceAll(
-            in, "\\s+$", "" ); // delete trailing white spaces
+            stringToTrim, "\\s+$", "" ); // delete trailing white spaces
    }
 
    public static String trim(
-         final String in )
+         final String stringToTrim )
    {
       return replaceAll(
-            in, "(^\\s+|//s+$)", "" ); // delete leading & trailing white spaces
+            stringToTrim, "(^\\s+|//s+$)", "" ); // delete leading & trailing white spaces
    }
 
+   private StringUtil()
+   {
+   }
 }

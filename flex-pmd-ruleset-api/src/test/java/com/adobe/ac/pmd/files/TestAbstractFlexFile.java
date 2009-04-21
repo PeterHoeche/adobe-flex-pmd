@@ -132,7 +132,7 @@ public class TestAbstractFlexFile
    public void testGetLines()
    {
       assertEquals(
-            "", 136, as3.getLines().size() );
+            "", 141, as3.getLines().size() );
       assertEquals(
             "", 100, mxml.getLines().size() );
    }

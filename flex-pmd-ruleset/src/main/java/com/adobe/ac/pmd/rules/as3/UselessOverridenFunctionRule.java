@@ -28,75 +28,53 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.as3;
 
-public class ASTToXMLConverter implements ASTConverter
+import java.util.Map;
+
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+import de.bokelberg.flex.parser.KeyWords;
+
+public class UselessOverridenFunctionRule
+      extends AbstractAstFlexRule
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
-    * .Node)
-    */
-   public String convert(
-         final Node ast )
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      final StringBuffer result = new StringBuffer();
-      visitNodes(
-            ast, result, 0 );
-      return result.toString();
+      return !file.isMxml();
    }
 
-   protected String escapeEntities(
-         final String stringToEscape )
+   @Override
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > files )
    {
-      if ( stringToEscape == null )
-      {
-         return null;
-      }
+      super.findViolationsFromPackageNode(
+            packageNode, files );
 
-      final StringBuffer buffer = new StringBuffer();
-      for ( int i = 0; i < stringToEscape.length(); i++ )
+      for ( final FunctionNode function : packageNode.getClassNode()
+            .getFunctions() )
       {
-         final char currentCharacter = stringToEscape.charAt( i );
-
-         if ( currentCharacter == '<' )
+         if ( function.getContentBlock() != null
+               && function.getContentBlock().numChildren() == 1
+               && function.isOverriden()
+               && function.findPrimaryStatementFromName( KeyWords.SUPER ) != null )
          {
-            buffer.append( "&lt;" );
-         }
-         else if ( currentCharacter == '>' )
-         {
-            buffer.append( "&gt;" );
-         }
-         else
-         {
-            buffer.append( currentCharacter );
+            addViolation(
+                  function.getInternalNode(), function.getContentBlock()
+                        .getLastChild() );
          }
       }
-      return buffer.toString();
    }
 
-   protected void visitNodes(
-         final Node ast, final StringBuffer result, final int level )
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-      result.append( "<"
-            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column
-            + "\">" );
-
-      final int numChildren = ast.numChildren();
-      if ( numChildren > 0 )
-      {
-         for ( int i = 0; i < numChildren; i++ )
-         {
-            visitNodes(
-                  ast.getChild( i ), result, level + 1 );
-         }
-      }
-      else if ( ast.stringValue != null )
-      {
-         result.append( escapeEntities( ast.stringValue ) );
-      }
-      result.append( "</"
-            + ast.id + ">" );
+      return ViolationPriority.INFO;
    }
 }

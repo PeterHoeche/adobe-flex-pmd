@@ -31,6 +31,10 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestConstStatement
@@ -41,6 +45,7 @@ public class TestConstStatement
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +53,7 @@ public class TestConstStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testFullFeaturedConst() throws TokenException
    {
       assertStatement(
@@ -56,6 +62,7 @@ public class TestConstStatement
             "<const-list line=\"1\" column=\"7\"><name-type-init line=\"1\" column=\"7\"><name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"9\">int</type><init line=\"1\" column=\"17\"><primary line=\"1\" column=\"17\">4</primary></init></name-type-init></const-list>" );
    }
 
+   @Test
    public void testInitializedConst() throws TokenException
    {
       assertStatement(
@@ -64,6 +71,7 @@ public class TestConstStatement
             "<const-list line=\"1\" column=\"7\"><name-type-init line=\"1\" column=\"7\"><name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"9\"></type><init line=\"1\" column=\"11\"><primary line=\"1\" column=\"11\">4</primary></init></name-type-init></const-list>" );
    }
 
+   @Test
    public void testSimpleConst() throws TokenException
    {
       assertStatement(
@@ -72,13 +80,14 @@ public class TestConstStatement
             "<const-list line=\"1\" column=\"7\"><name-type-init line=\"1\" column=\"7\"><name line=\"1\" column=\"7\">a</name><type line=\"2\" column=\"1\"></type></name-type-init></const-list>" );
    }
 
+   @Test
    public void testTypedConst() throws TokenException
    {
       assertStatement(
             "1",
             "const a : Object",
             "<const-list line=\"1\" column=\"7\"><name-type-init line=\"1\" column=\"7\"><name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"9\">Object</type></name-type-init></const-list>" );
-}
+   }
 
    private void assertStatement(
          final String message, final String input, final String expected ) throws TokenException
@@ -90,5 +99,4 @@ public class TestConstStatement
       assertEquals(
             message, expected, result );
    }
-
 }

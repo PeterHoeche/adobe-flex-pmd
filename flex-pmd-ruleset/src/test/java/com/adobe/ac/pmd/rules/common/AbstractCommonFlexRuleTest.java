@@ -28,57 +28,22 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.adobe.ac.pmd.rules.common;
 
-package com.adobe.ac.pmd.rules.as3;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import java.util.regex.Matcher;
+import org.junit.Test;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 
-public class ViewComponentReferencedInModel
-      extends AbstractRegexpBasedRule
+public abstract class AbstractCommonFlexRuleTest
+      extends AbstractFlexRuleTest
 {
-   private static final String ALERT_CLASS_NAME = "Alert";
-   private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
-   private static final String MODEL_CLASS_SUFFIX = "model";
-   private static final String MODEL_PACKAGE_NAME = "model";
-   private static final String VIEW_PACKAGE_NAME = "view";
-
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return !file.isMxml()
-            && file.getFullyQualifiedName().toLowerCase()
-                  .contains( MODEL_CLASS_SUFFIX );
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.WARNING;
-   }
-
-   @Override
-   protected String getRegexp()
-   {
-      return ".*import (.*);?.*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
-   {
-      final Matcher matcher = getMatcher( line );
-
-      matcher.matches();
-      final String importedClass = matcher.group( 1 );
-
-      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME ) && !importedClass
-            .contains( ALERT_CLASS_NAME )
-            || importedClass.contains( VIEW_PACKAGE_NAME ) && !importedClass
-                  .contains( MODEL_PACKAGE_NAME );
    }
 }

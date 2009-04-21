@@ -38,20 +38,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FileUtil
+public final class FileUtil
 {
    public static String[] readStrings(
-         final File f ) throws IOException
+         final File file ) throws IOException
    {
       final ArrayList< String > result = new ArrayList< String >();
-      final BufferedReader in = new BufferedReader( new FileReader( f ) );
+      final BufferedReader inReader = new BufferedReader( new FileReader( file ) );
 
       String line;
-      while ( ( line = in.readLine() ) != null )
+      while ( ( line = inReader.readLine() ) != null )
       {
          result.add( line );
       }
-      in.close();
+      inReader.close();
       return result.toArray( new String[]
       {} );
    }
@@ -67,5 +67,9 @@ public class FileUtil
          out.newLine();
       }
       out.close();
+   }
+
+   private FileUtil()
+   {
    }
 }

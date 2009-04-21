@@ -28,75 +28,62 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.common;
 
-public class ASTToXMLConverter implements ASTConverter
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class CallLaterDirectlyRuleTest
+      extends AbstractCommonRegExpBasedRuleTest
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
-    * .Node)
-    */
-   public String convert(
-         final Node ast )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      final StringBuffer result = new StringBuffer();
-      visitNodes(
-            ast, result, 0 );
-      return result.toString();
+      assertEmptyViolations( "Looping.as" );
    }
 
-   protected String escapeEntities(
-         final String stringToEscape )
+   @Override
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      if ( stringToEscape == null )
-      {
-         return null;
-      }
+      final ViolationPosition[] expectedPositions =
+      { new ViolationPosition( 36, 36 ) };
 
-      final StringBuffer buffer = new StringBuffer();
-      for ( int i = 0; i < stringToEscape.length(); i++ )
-      {
-         final char currentCharacter = stringToEscape.charAt( i );
+      assertViolations(
+            "Main.mxml", expectedPositions );
 
-         if ( currentCharacter == '<' )
-         {
-            buffer.append( "&lt;" );
-         }
-         else if ( currentCharacter == '>' )
-         {
-            buffer.append( "&gt;" );
-         }
-         else
-         {
-            buffer.append( currentCharacter );
-         }
-      }
-      return buffer.toString();
+      final ViolationPosition[] genericTypeExpectedPositions =
+      { new ViolationPosition( 41, 41 ) };
+      assertViolations(
+            "GenericType.as", genericTypeExpectedPositions );
    }
 
-   protected void visitNodes(
-         final Node ast, final StringBuffer result, final int level )
+   @Override
+   protected String[] getMatchableLines()
    {
-      result.append( "<"
-            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column
-            + "\">" );
+      final String[] lines = { "callLater( myFunction)", " callLater (myFunction)" };
+      return lines; // NOPMD by xagnetti on 4/20/09 10:57 PM
+   }
 
-      final int numChildren = ast.numChildren();
-      if ( numChildren > 0 )
-      {
-         for ( int i = 0; i < numChildren; i++ )
-         {
-            visitNodes(
-                  ast.getChild( i ), result, level + 1 );
-         }
-      }
-      else if ( ast.stringValue != null )
-      {
-         result.append( escapeEntities( ast.stringValue ) );
-      }
-      result.append( "</"
-            + ast.id + ">" );
+   @Override
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   {
+      return new CallLaterDirectlyRule();
+   }
+
+   @Override
+   protected String[] getUnmatchableLines()
+   {
+      final String[] lines =
+      { "callLate( myFunction)", " allLater(myFunction)" };
+      return lines;
    }
 }

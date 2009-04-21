@@ -28,56 +28,21 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
-
-import junit.framework.TestCase;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import de.bokelberg.flex.parser.exceptions.TokenException;
-
-public class TestEmptyStatement
-      extends TestCase
+package com.adobe.ac.pmd.view
 {
-
-   private AS3Parser asp;
-   private AS3Scanner scn;
-
-   @Override
-   @Before
-   public void setUp()
+   import mx.controls.Label;
+   import mx.core.UIComponent;
+   
+   public class BadComponent extends UIComponent
    {
-      asp = new AS3Parser();
-      scn = new AS3Scanner();
-      asp.scn = scn;
-   }
-
-   @Test
-   public void testComplex() throws TokenException
-   {
-      assertStatement(
-            "1",
-            "{;1;;}",
-            "<block line=\"1\" column=\"2\"><stmt-empty line=\"1\" column=\"2\">;</stmt-empty><primary line=\"1\" column=\"3\">1</primary><stmt-empty line=\"1\" column=\"5\">;</stmt-empty></block>" );
-   }
-
-   @Test
-   public void testSimple() throws TokenException
-   {
-      assertStatement(
-            "1", ";", "<stmt-empty line=\"1\" column=\"1\">;</stmt-empty>" );
-   }
-
-   private void assertStatement(
-         final String message, final String input, final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input, "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals(
-            message, expected, result );
-   }
-
+      override protected function updateDisplayList( w : Number, h : Number ) : void
+      {
+         super.updateDisplayList( w, h );
+         
+         addChild( new Label() );
+         addChildAt( new Label() );
+         removeChild( new Label() );
+         removeChildAt( 0 );
+      }
+   }   
 }

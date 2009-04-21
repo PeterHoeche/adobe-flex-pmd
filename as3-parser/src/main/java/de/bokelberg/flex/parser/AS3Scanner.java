@@ -98,129 +98,132 @@ public class AS3Scanner
    private String[] lines = null;
 
    public boolean isDecimalChar(
-         final char c )
+         final char currentCharacter )
    {
-      return c >= '0'
-            && c <= '9';
+      return currentCharacter >= '0'
+            && currentCharacter <= '9';
    }
 
    public Token nextToken()
    {
-      char c;
+      char currentCharacter;
 
       try
       {
-         c = nextNonWhitespaceCharacter();
+         currentCharacter = nextNonWhitespaceCharacter();
       }
       catch ( final Exception e )
       {
          return new Token( "__END__", line, column );
       }
 
-      if ( c == '\n' )
+      if ( currentCharacter == '\n' )
       {
          return new Token( "\n", line, column );
       }
-      if ( c == '/' )
+      if ( currentCharacter == '/' )
       {
-         return scanCommentRegExpOrOperator( c );
+         return scanCommentRegExpOrOperator();
       }
-      if ( c == '"' )
+      if ( currentCharacter == '"' )
       {
-         return scanString( c );
+         return scanString( currentCharacter );
       }
-      if ( c == '\'' )
+      if ( currentCharacter == '\'' )
       {
-         return scanString( c );
+         return scanString( currentCharacter );
       }
-      if ( c == '<' )
+      if ( currentCharacter == '<' )
       {
-         return scanXMLOrOperator( c );
+         return scanXMLOrOperator( currentCharacter );
       }
-      if ( c >= '0'
-            && c <= '9' || c == '.' )
+      if ( currentCharacter >= '0'
+            && currentCharacter <= '9' || currentCharacter == '.' )
       {
-         return scanNumberOrDots( c );
+         return scanNumberOrDots( currentCharacter );
       }
-      if ( c == '{'
-            || c == '}' || c == '(' || c == ')' || c == '[' || c == ']'
+      if ( currentCharacter == '{'
+            || currentCharacter == '}' || currentCharacter == '('
+            || currentCharacter == ')' || currentCharacter == '['
+            || currentCharacter == ']'
             // a number can start with a dot as well, see number || c == '.'
-            || c == ';' || c == ',' || c == '?' || c == '~' )
+            || currentCharacter == ';' || currentCharacter == ','
+            || currentCharacter == '?' || currentCharacter == '~' )
       {
-         return scanSingleCharacterToken( c );
+         return scanSingleCharacterToken( currentCharacter );
       }
-      if ( c == ':' )
+      if ( currentCharacter == ':' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "::" }, 2 );
       }
-      if ( c == '+' )
+      if ( currentCharacter == '+' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "++", "+=" }, 2 );
       }
-      if ( c == '-' )
+      if ( currentCharacter == '-' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "--", "-=" }, 2 );
       }
-      if ( c == '*' )
+      if ( currentCharacter == '*' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "*=" }, 2 );
       }
       // called by scanCommentOrRegExp if( c == '/' ) return
       // scanCharacterSequence( c, new String[]{"/="}, 2);
-      if ( c == '%' )
+      if ( currentCharacter == '%' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "%=" }, 2 );
       }
-      if ( c == '&' )
+      if ( currentCharacter == '&' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "&&", "&=" }, 2 );
       }
-      if ( c == '|' )
+      if ( currentCharacter == '|' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "||", "|=" }, 2 );
       }
-      if ( c == '^' )
+      if ( currentCharacter == '^' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "^=" }, 2 );
       }
       // called by scanXML if( c == '<' ) return scanCharacterSequence( c, new
       // String[]{"<<=","<<","<="}, 3);
-      if ( c == '>' )
+      if ( currentCharacter == '>' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { ">>>=", ">>>", ">>=", ">>", ">=" }, 4 );
       }
-      if ( c == '=' )
+      if ( currentCharacter == '=' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "===", "==" }, 3 );
       }
-      if ( c == '!' )
+      if ( currentCharacter == '!' )
       {
          return scanCharacterSequence(
-               c, new String[]
+               currentCharacter, new String[]
                { "!==", "!=" }, 3 );
       }
 
-      return scanWord( c );
+      return scanWord( currentCharacter );
    }
 
    public void setLines(
@@ -237,36 +240,28 @@ public class AS3Scanner
    }
 
    private boolean isHexChar(
-         final char c2 )
+         final char currentCharacter )
    {
-      return c2 >= '0'
-            && c2 <= '9' || c2 >= 'A' && c2 <= 'z' || c2 >= 'a' && c2 <= 'z';
+      return currentCharacter >= '0'
+            && currentCharacter <= '9' || currentCharacter >= 'A'
+            && currentCharacter <= 'z' || currentCharacter >= 'a'
+            && currentCharacter <= 'z';
    }
 
    private boolean isIdentifierCharacter(
-         final char c )
+         final char currentCharacter )
    {
-      return c >= 'A'
-            && c <= 'Z' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9'
-            || c == '_' || c == '$';
+      return currentCharacter >= 'A'
+            && currentCharacter <= 'Z' || currentCharacter >= 'a'
+            && currentCharacter <= 'z' || currentCharacter >= '0'
+            && currentCharacter <= '9' || currentCharacter == '_'
+            || currentCharacter == '$';
    }
 
    private boolean isProcessingInstruction(
          final String text )
    {
       return text.startsWith( "<?" );
-   }
-
-   /**
-    * try to parse the complete string into symbols without an error
-    *
-    * @param remainingLine
-    * @return
-    */
-   private boolean isValid(
-         final String remainingLine )
-   {
-      return true;
    }
 
    private boolean isValidRegExp(
@@ -301,8 +296,7 @@ public class AS3Scanner
          return '\n';
       }
 
-      final char result = currentLine.charAt( column );
-      return result;
+      return currentLine.charAt( column );
    }
 
    private char nextNonWhitespaceCharacter()
@@ -328,25 +322,25 @@ public class AS3Scanner
          return '\n';
       }
 
-      final char result = currentLine.charAt( index );
-      return result;
+      return currentLine.charAt( index );
    }
 
    /**
     * find the longest matching sequence
     *
-    * @param c
+    * @param currentCharacter
     * @param possibleMatches
     * @param maxLength
     * @return
     */
    private Token scanCharacterSequence(
-         final char c, final String[] possibleMatches, final int maxLength )
+         final char currentCharacter, final String[] possibleMatches,
+         final int maxLength )
    {
       int peekPos = 1;
       final StringBuffer buffer = new StringBuffer();
 
-      buffer.append( c );
+      buffer.append( currentCharacter );
       String found = buffer.toString();
       while ( peekPos < maxLength )
       {
@@ -354,7 +348,8 @@ public class AS3Scanner
          peekPos++;
          for ( final String possibleMatche : possibleMatches )
          {
-            if ( buffer.toString().equals( possibleMatche ) )
+            if ( buffer.toString().equals(
+                  possibleMatche ) )
             {
                found = buffer.toString();
             }
@@ -369,18 +364,18 @@ public class AS3Scanner
     * Something started with a slash This might be a comment, a regexp or a
     * operator
     *
-    * @param c
+    * @param currentCharacter
     * @return
     */
-   private Token scanCommentRegExpOrOperator(
-         final char c )
+   private Token scanCommentRegExpOrOperator()
    {
-      final char c2 = peekChar( 1 );
-      if ( c2 == '/' )
+      final char firstCharacter = peekChar( 1 );
+
+      if ( firstCharacter == '/' )
       {
          return scanSingleLineComment();
       }
-      if ( c2 == '*' )
+      if ( firstCharacter == '*' )
       {
          return scanMultiLineComment();
       }
@@ -395,19 +390,16 @@ public class AS3Scanner
       // another option
 
       String remainingLine = getRemainingLine();
-      Token result = scanRegExp( remainingLine );
+      Token result = scanRegExp();
 
       if ( result != null )
       {
          remainingLine = remainingLine.substring( result.text.length() );
-         if ( isValid( remainingLine ) )
-         {
             return result;
-         }
       }
 
       // it is not a regular expression
-      if ( c2 == '=' )
+      if ( firstCharacter == '=' )
       {
          result = new Token( "/=", line, column );
          skipChars( 1 );
@@ -424,9 +416,9 @@ public class AS3Scanner
     * @return
     */
    private Token scanDecimal(
-         final char c )
+         final char currentCharacter )
    {
-      char currentChar = c;
+      char currentChar = currentCharacter;
       final StringBuffer buffer = new StringBuffer();
       int peekPos = 1;
       // before dot
@@ -471,12 +463,13 @@ public class AS3Scanner
     */
    private Token scanDots()
    {
-      final char c2 = peekChar( 1 );
-      if ( c2 == '.' )
-      {
-         final char c3 = peekChar( 2 );
+      final char secondCharacter = peekChar( 1 );
 
-         final String text = c3 == '.' ? "..." : "..";
+      if ( secondCharacter == '.' )
+      {
+         final char thirdCharacter = peekChar( 2 );
+
+         final String text = thirdCharacter == '.' ? "..." : "..";
          final Token result = new Token( text, line, column );
          skipChars( text.length() - 1 );
          return result;
@@ -497,12 +490,13 @@ public class AS3Scanner
       int peekPos = 2;
       for ( ;; )
       {
-         final char c2 = peekChar( peekPos++ );
-         if ( !isHexChar( c2 ) )
+         final char character = peekChar( peekPos++ );
+
+         if ( !isHexChar( character ) )
          {
             break;
          }
-         buffer.append( c2 );
+         buffer.append( character );
       }
       final Token result = new Token( buffer.toString(), line, column );
       result.isNum = true;
@@ -517,20 +511,22 @@ public class AS3Scanner
     */
    private Token scanMultiLineComment()
    {
-      String text = "/*";
-      char c = ' ';
-      char cOld = ' ';
+      final StringBuffer buffer = new StringBuffer();
+      char currentCharacter = ' ';
+      char previousCharacter = ' ';
+
+      buffer.append( "/*" );
       skipChar();
       do
       {
-         cOld = c;
-         c = nextChar();
-         text += c;
+         previousCharacter = currentCharacter;
+         currentCharacter = nextChar();
+         buffer.append( currentCharacter );
       }
-      while ( c != 0
-            && !( c == '/' && cOld == '*' ) );
-      final Token result = new Token( text, line, column );
-      return result;
+      while ( currentCharacter != 0
+            && !( currentCharacter == '/' && previousCharacter == '*' ) );
+
+      return new Token( buffer.toString(), line, column );
    }
 
    /**
@@ -567,8 +563,7 @@ public class AS3Scanner
       return scanDecimal( c );
    }
 
-   private Token scanRegExp(
-         final String remainingLine )
+   private Token scanRegExp()
    {
       final Token t = scanUntilDelimiter( '/' );
       if ( t != null
@@ -582,8 +577,7 @@ public class AS3Scanner
    private Token scanSingleCharacterToken(
          final char c )
    {
-      return new Token( ""
-            + c, line, column );
+      return new Token( String.valueOf( c ), line, column );
    }
 
    /**
@@ -726,8 +720,7 @@ public class AS3Scanner
 
          if ( level <= 0 )
          {
-            final Token result = new Token( buffer.toString(), line, column );
-            return result;
+            return new Token( buffer.toString(), line, column );
          }
 
          for ( ;; )

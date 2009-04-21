@@ -308,10 +308,6 @@
             <ruleset>Design Rules</ruleset>
         </rule>
         <rule>
-            <name>EmptyMethodInAbstractClassShouldBeAbstract</name>
-            <ruleset>Design Rules</ruleset>
-        </rule>
-        <rule>
             <name>SingularField</name>
             <ruleset>Design Rules</ruleset>
         </rule>
@@ -740,10 +736,6 @@
             <ruleset>String and StringBuffer Rules</ruleset>
         </rule>
         <rule>
-            <name>BeanMembersShouldSerialize</name>
-            <ruleset>JavaBean Rules</ruleset>
-        </rule>
-        <rule>
             <name>MissingSerialVersionUID</name>
             <ruleset>JavaBean Rules</ruleset>
         </rule>
@@ -809,10 +801,6 @@
         </rule>
         <rule>
             <name>ShortVariable</name>
-            <ruleset>Naming Rules</ruleset>
-        </rule>
-        <rule>
-            <name>LongVariable</name>
             <ruleset>Naming Rules</ruleset>
         </rule>
         <rule>

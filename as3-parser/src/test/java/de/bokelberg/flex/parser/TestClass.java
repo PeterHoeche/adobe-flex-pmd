@@ -31,6 +31,10 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestClass
@@ -41,6 +45,7 @@ public class TestClass
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +53,7 @@ public class TestClass
       asp.scn = scn;
    }
 
+   @Test
    public void testExtends() throws TokenException
    {
       assertPackageContent(
@@ -56,6 +62,7 @@ public class TestClass
             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\"><name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\"><mod line=\"2\" column=\"16\">public</mod></mod-list><extends line=\"2\" column=\"24\">B</extends><content line=\"2\" column=\"28\"></content></class></content>" );
    }
 
+   @Test
    public void testFinalClass() throws TokenException
    {
       assertPackageContent(
@@ -70,6 +77,7 @@ public class TestClass
                   + "</class>" + "</content>" );
    }
 
+   @Test
    public void testFullFeatured() throws TokenException
    {
       assertPackageContent(
@@ -78,6 +86,7 @@ public class TestClass
             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\"><name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\"><mod line=\"2\" column=\"16\">public</mod></mod-list><extends line=\"2\" column=\"24\">B</extends><implements-list line=\"2\" column=\"37\"><implements line=\"2\" column=\"37\">C</implements><implements line=\"2\" column=\"39\">D</implements></implements-list><content line=\"2\" column=\"43\"></content></class></content>" );
    }
 
+   @Test
    public void testImplementsList() throws TokenException
    {
       assertPackageContent(
@@ -86,6 +95,7 @@ public class TestClass
             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\"><name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\"><mod line=\"2\" column=\"16\">public</mod></mod-list><implements-list line=\"2\" column=\"27\"><implements line=\"2\" column=\"27\">B</implements><implements line=\"2\" column=\"29\">C</implements></implements-list><content line=\"2\" column=\"33\"></content></class></content>" );
    }
 
+   @Test
    public void testImplementsSingle() throws TokenException
    {
       assertPackageContent(

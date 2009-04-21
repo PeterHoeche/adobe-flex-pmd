@@ -35,8 +35,8 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class PackageCaseRuleTest
@@ -47,8 +47,6 @@ public class PackageCaseRuleTest
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "Main.mxml" );
-
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
 
@@ -57,6 +55,7 @@ public class PackageCaseRuleTest
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
          URISyntaxException
    {
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override

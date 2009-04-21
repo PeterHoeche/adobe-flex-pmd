@@ -75,7 +75,7 @@ public class FlexPmdMojo
     * @required
     * @readonly
     */
-   private final MavenProject project = null;
+   private final MavenProject project = null; // NOPMD by xagnetti on 4/20/09 10:46 PM
 
    /**
     * Location of the file.
@@ -83,7 +83,7 @@ public class FlexPmdMojo
     * @parameter
     * @required
     */
-   private final File ruleSet = null;
+   private final File ruleSet = null; // NOPMD by xagnetti on 4/20/09 10:46 PM
 
    /**
     * @parameter
@@ -91,7 +91,7 @@ public class FlexPmdMojo
     * @required
     * @readonly
     */
-   private final SiteRenderer siteRenderer = null;
+   private final SiteRenderer siteRenderer = null; // NOPMD by xagnetti on 4/20/09 10:46 PM
 
    /**
     * Specifies the location of the source files to be used.

@@ -199,6 +199,7 @@
 					</includes>
 					<excludes>
 						<exclude>**/Simple.as</exclude>
+						<exclude>**/header.txt</exclude>
 					</excludes>
 					<aggregate>true</aggregate>
 					<properties>

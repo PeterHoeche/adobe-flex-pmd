@@ -79,12 +79,12 @@ public abstract class AbstractTestFlexPmdEngine
       final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
       violationsFound = engine.executeReport(
-            sourceDirectory, outputDirectory, ruleSetFile, new FlexPmdViolations() );
+            sourceDirectory, outputDirectory, ruleSetFile,
+            new FlexPmdViolations() );
 
       assertEquals(
-            "Number of violations found is not correct", 168, violationsFound );
+            "Number of violations found is not correct", 175, violationsFound );
    }
 
    protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
-
 }

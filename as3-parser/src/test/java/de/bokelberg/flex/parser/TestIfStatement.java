@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestIfStatement
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestIfStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testIf() throws TokenException
    {
       assertStatement(
@@ -56,6 +61,7 @@ public class TestIfStatement
             "<if line=\"1\" column=\"3\"><condition line=\"1\" column=\"5\"><primary line=\"1\" column=\"5\">true</primary></condition><block line=\"1\" column=\"13\"><call line=\"1\" column=\"18\"><primary line=\"1\" column=\"13\">trace</primary><arguments line=\"1\" column=\"20\"><primary line=\"1\" column=\"20\">true</primary></arguments></call></block></if>" );
    }
 
+   @Test
    public void testIfElse() throws TokenException
    {
       assertStatement(
@@ -64,6 +70,7 @@ public class TestIfStatement
             "<if line=\"1\" column=\"3\"><condition line=\"1\" column=\"5\"><primary line=\"1\" column=\"5\">true</primary></condition><block line=\"1\" column=\"13\"><call line=\"1\" column=\"18\"><primary line=\"1\" column=\"13\">trace</primary><arguments line=\"1\" column=\"20\"><primary line=\"1\" column=\"20\">true</primary></arguments></call></block><block line=\"1\" column=\"37\"><call line=\"1\" column=\"42\"><primary line=\"1\" column=\"37\">trace</primary><arguments line=\"1\" column=\"44\"><primary line=\"1\" column=\"44\">false</primary></arguments></call></block></if>" );
    }
 
+   @Test
    public void testIfWithEmptyStatement() throws TokenException
    {
       assertStatement(
@@ -72,6 +79,7 @@ public class TestIfStatement
             "<if line=\"1\" column=\"3\"><condition line=\"1\" column=\"5\"><post-inc line=\"1\" column=\"9\"><primary line=\"1\" column=\"5\">i</primary></post-inc></condition><stmt-empty line=\"1\" column=\"10\">;</stmt-empty></if>" );
    }
 
+   @Test
    public void testIfWithoutBlock() throws TokenException
    {
       assertStatement(

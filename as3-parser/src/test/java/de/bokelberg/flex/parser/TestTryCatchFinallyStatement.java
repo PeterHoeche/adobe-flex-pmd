@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestTryCatchFinallyStatement
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestTryCatchFinallyStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testCatch() throws TokenException
    {
       assertStatement(
@@ -56,6 +61,7 @@ public class TestTryCatchFinallyStatement
             "<catch line=\"1\" column=\"8\"><name line=\"1\" column=\"8\">e</name><type line=\"1\" column=\"12\">Error</type><block line=\"1\" column=\"21\"><call line=\"1\" column=\"26\"><primary line=\"1\" column=\"21\">trace</primary><arguments line=\"1\" column=\"28\"><primary line=\"1\" column=\"28\">true</primary></arguments></call></block></catch>" );
    }
 
+   @Test
    public void testFinally() throws TokenException
    {
       assertStatement(
@@ -64,6 +70,7 @@ public class TestTryCatchFinallyStatement
             "<finally line=\"1\" column=\"9\"><block line=\"1\" column=\"10\"><call line=\"1\" column=\"15\"><primary line=\"1\" column=\"10\">trace</primary><arguments line=\"1\" column=\"17\"><primary line=\"1\" column=\"17\">true</primary></arguments></call></block></finally>" );
    }
 
+   @Test
    public void testTry() throws TokenException
    {
       assertStatement(
@@ -82,5 +89,4 @@ public class TestTryCatchFinallyStatement
       assertEquals(
             message, expected, result );
    }
-
 }

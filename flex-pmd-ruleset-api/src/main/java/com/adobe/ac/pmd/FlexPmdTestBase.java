@@ -46,9 +46,14 @@ public class FlexPmdTestBase
    protected static final String END_COLUMN_IS_NOT_CORRECT = "End column is not correct";
    protected static final String END_LINE_IS_NOT_CORRECT = "Ending line is not correct";
    protected static final String VIOLATIONS_NUMBER_IS_NOT_CORRECT = "Violations number is not correct";
-   
+
    /**
     * Test files placeholder. The key is the qualified file name
     */
    protected final Map< String, AbstractFlexFile > testFiles = TestResourcesManager.getInstance().getTestFiles();
+
+   protected FlexPmdTestBase()
+   {
+      // Base constructor
+   }
 }

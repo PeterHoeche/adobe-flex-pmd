@@ -61,7 +61,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
 
       if ( rule != null )
       {
-         ruleMessage = rule.getMessage() != null ? rule.getMessage() : "";
+         ruleMessage = rule.getMessage() == null ? "" : rule.getMessage();
       }
    }
 
@@ -154,9 +154,9 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    }
 
    public void setEndColumn(
-         final int i )
+         final int column )
    {
-      endColumn = i;
+      endColumn = column;
    }
 
    public String toXmlString(

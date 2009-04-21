@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" name="pmd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
 <description>PMD Plugin preferences rule set</description>
 <rule ref="rulesets/logging-jakarta-commons.xml/UseCorrectExceptionLogging"/>
 <rule ref="rulesets/logging-jakarta-commons.xml/ProperLogger"/>
@@ -185,7 +185,6 @@
 <rule ref="rulesets/strings.xml/StringBufferInstantiationWithChar"/>
 <rule ref="rulesets/strings.xml/UseEqualsToCompareStrings"/>
 <rule ref="rulesets/strings.xml/AvoidStringBufferField"/>
-<rule ref="rulesets/javabeans.xml/BeanMembersShouldSerialize"/>
 <rule ref="rulesets/javabeans.xml/MissingSerialVersionUID"/>
 <rule ref="rulesets/finalizers.xml/EmptyFinalizer"/>
 <rule ref="rulesets/finalizers.xml/FinalizeOnlyCallsSuperFinalize"/>

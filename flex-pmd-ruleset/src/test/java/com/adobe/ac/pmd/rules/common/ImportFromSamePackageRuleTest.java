@@ -32,14 +32,14 @@ package com.adobe.ac.pmd.rules.common;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ImportFromSamePackageRuleTest
-      extends AbstractRegExpBasedRuleTest
+      extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
@@ -63,13 +63,6 @@ public class ImportFromSamePackageRuleTest
       assertEmptyViolations( "com.adobe.ac.ncss.ArrayVO.as" );
 
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
    }
 
    @Override

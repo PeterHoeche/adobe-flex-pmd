@@ -71,8 +71,23 @@ public class FunctionNode
    public Node findPrimaryStatementFromName(
          final String name )
    {
+      final String[] names =
+      { name };
       return getPrimaryStatementFromName(
-            name, getContentBlock() );
+            names, getContentBlock() );
+   }
+
+   /**
+    * Finds recursivly a statement in the function body from a list of names
+    * 
+    * @param names statement name
+    * @return corresponding node
+    */
+   public Node findPrimaryStatementFromName(
+         final String[] names )
+   {
+      return getPrimaryStatementFromName(
+            names, getContentBlock() );
    }
 
    public Node getContentBlock()
@@ -131,6 +146,11 @@ public class FunctionNode
          }
       }
       return null;
+   }
+
+   public boolean isOverriden()
+   {
+      return ModifierUtils.isOverriden( this );
    }
 
    public boolean isPublic()
@@ -214,12 +234,12 @@ public class FunctionNode
    }
 
    private Node getPrimaryStatementFromName(
-         final String name, final Node content )
+         final String[] names, final Node content )
    {
       Node dispatchNode = null;
 
       if ( content.stringValue != null
-            && name.compareTo( content.stringValue ) == 0 )
+            && isNameInArray( names, content.stringValue ) )
       {
          dispatchNode = content;
       }
@@ -228,7 +248,7 @@ public class FunctionNode
          for ( final Node child : content.children )
          {
             dispatchNode = getPrimaryStatementFromName(
-                  name, child );
+                  names, child );
             if ( dispatchNode != null )
             {
                break;
@@ -236,5 +256,19 @@ public class FunctionNode
          }
       }
       return dispatchNode;
+   }
+
+   private boolean isNameInArray( final String[] strings, final String name )
+   {
+      for ( int i = 0; i < strings.length; i++ )
+      {
+         final String currentName = strings[ i ];
+
+         if ( currentName.compareTo( name ) == 0 )
+         {
+            return true;
+         }
+      }
+      return false;
    }
 }

@@ -31,19 +31,25 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class TestAS3Scanner
       extends TestCase
 {
-
    private AS3Scanner scn;
 
+   @Override
+   @Before
    public void setUp()
    {
       scn = new AS3Scanner();
    }
 
+   @Test
    public void testAssignments()
    {
       final String[] lines = new String[]
@@ -53,12 +59,12 @@ public class TestAS3Scanner
       for ( int i = 0; i < lines.length; i++ )
       {
          assertText(
-               ""
-                     + i, lines[ i ] );
+               Integer.toString( i ), lines[ i ] );
          assertText( "\n" );
       }
    }
 
+   @Test
    public void testBooleanOperators()
    {
       final String[] lines = new String[]
@@ -68,12 +74,12 @@ public class TestAS3Scanner
       for ( int i = 0; i < lines.length; i++ )
       {
          assertText(
-               ""
-                     + i, lines[ i ] );
+               Integer.toString( i ), lines[ i ] );
          assertText( "\n" );
       }
    }
 
+   @Test
    public void testComparisonOperators()
    {
       final String[] lines = new String[]
@@ -83,12 +89,12 @@ public class TestAS3Scanner
       for ( int i = 0; i < lines.length; i++ )
       {
          assertText(
-               ""
-                     + i, lines[ i ] );
+               Integer.toString( i ), lines[ i ] );
          assertText( "\n" );
       }
    }
 
+   @Test
    public void testIdentifiers()
    {
       final String[] lines = new String[]
@@ -131,17 +137,19 @@ public class TestAS3Scanner
             "4", "E" );
    }
 
+   @Test
    public void testIsDecimalChar()
    {
-      final String s = "0123456789";
-      for ( int i = 0; i < s.length(); i++ )
+      final String decimalString = "0123456789";
+      for ( int i = 0; i < decimalString.length(); i++ )
       {
-         assertTrue( scn.isDecimalChar( s.charAt( 0 ) ) );
+         assertTrue( scn.isDecimalChar( decimalString.charAt( i ) ) );
       }
       assertFalse( scn.isDecimalChar( ( char ) 0 ) );
 
    }
 
+   @Test
    public void testMultiLineComment()
    {
       final String[] lines = new String[]
@@ -154,6 +162,7 @@ public class TestAS3Scanner
       assertText( "/** now for real\n/* now for real\n*/" );
    }
 
+   @Test
    public void testMultilineXML()
    {
       final String[] lines = new String[]
@@ -163,6 +172,7 @@ public class TestAS3Scanner
             lines, "\n" ) );
    }
 
+   @Test
    public void testMultipleWords()
    {
       final String[] lines = new String[]
@@ -179,6 +189,7 @@ public class TestAS3Scanner
       assertText( "word6" );
    }
 
+   @Test
    public void testNumbers()
    {
       final String[] lines = new String[]
@@ -194,6 +205,7 @@ public class TestAS3Scanner
       assertText( lines[ 3 ] );
    }
 
+   @Test
    public void testPlusSymbols()
    {
       final String[] lines = new String[]
@@ -203,12 +215,12 @@ public class TestAS3Scanner
       for ( int i = 0; i < lines.length; i++ )
       {
          assertText(
-               ""
-                     + i, lines[ i ] );
+               Integer.toString( i ), lines[ i ] );
          assertText( "\n" );
       }
    }
 
+   @Test
    public void testRegExp()
    {
       final String[] lines = new String[]
@@ -228,6 +240,7 @@ public class TestAS3Scanner
             "4", "/[+-.]\\\\/" );
    }
 
+   @Test
    public void testSingleCharacterSymbols()
    {
       final String[] lines = "{}()[]:;,?~".split( "" );
@@ -238,11 +251,11 @@ public class TestAS3Scanner
       {
          assertText( "\n" );
          assertText(
-               ""
-                     + i, lines[ i ] );
+               Integer.toString( i ), lines[ i ] );
       }
    }
 
+   @Test
    public void testSingleLineComment()
    {
       final String[] lines = new String[]
@@ -255,6 +268,7 @@ public class TestAS3Scanner
       assertText( "//another single line comment" );
    }
 
+   @Test
    public void testSingleWord()
    {
       final String[] lines = new String[]
@@ -264,6 +278,7 @@ public class TestAS3Scanner
       assertText( lines[ 0 ] );
    }
 
+   @Test
    public void testStrings()
    {
       final String[] lines = new String[]
@@ -280,6 +295,7 @@ public class TestAS3Scanner
             "3", lines[ 2 ] );
    }
 
+   @Test
    public void testXML()
    {
       final String[] lines = new String[]
@@ -289,8 +305,7 @@ public class TestAS3Scanner
       for ( int i = 0; i < lines.length; i++ )
       {
          assertText(
-               ""
-                     + i, lines[ i ] );
+               Integer.toString( i ), lines[ i ] );
          assertText( "\n" );
       }
    }
@@ -305,25 +320,25 @@ public class TestAS3Scanner
    private void assertText(
          final String message, final String text )
    {
-      Token t = null;
-      t = scn.nextToken();
+      Token tokent = null;
+      tokent = scn.nextToken();
       assertEquals(
-            message, text, t.text );
+            message, text, tokent.text );
    }
 
    private String join(
          final String[] lines, final String delimiter )
    {
-      String result = "";
+      final StringBuffer result = new StringBuffer();
       for ( int i = 0; i < lines.length; i++ )
       {
          if ( i > 0 )
          {
-            result += delimiter;
+            result.append( delimiter );
          }
-         result += lines[ i ];
+         result.append( lines[ i ] );
       }
-      return result;
+      return result.toString();
    }
 
 }

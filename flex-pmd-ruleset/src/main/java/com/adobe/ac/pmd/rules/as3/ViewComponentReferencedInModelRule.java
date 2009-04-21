@@ -30,22 +30,28 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
+import java.util.regex.Matcher;
+
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
-
-public class AvoidInstanciationInLoop
-      extends AbstractAstFlexRule
+public class ViewComponentReferencedInModelRule
+      extends AbstractRegexpBasedRule
 {
-   private int loopLevel = 0;
+   private static final String ALERT_CLASS_NAME = "Alert";
+   private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
+   private static final String MODEL_CLASS_SUFFIX = "model";
+   private static final String MODEL_PACKAGE_NAME = "model";
+   private static final String VIEW_PACKAGE_NAME = "view";
 
+   @Override
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
-      return !file.isMxml();
+      return !file.isMxml()
+            && file.getFullyQualifiedName().toLowerCase()
+                  .contains( MODEL_CLASS_SUFFIX );
    }
 
    @Override
@@ -55,61 +61,23 @@ public class AvoidInstanciationInLoop
    }
 
    @Override
-   protected void visitFor(
-         final Node ast )
+   protected String getRegexp()
    {
-      loopLevel++;
-      super.visitFor( ast );
-      loopLevel--;
+      return ".*import (.*);?.*";
    }
 
    @Override
-   protected void visitForEach(
-         final Node ast )
+   protected boolean isViolationDetectedOnThisMatchingLine(
+         final String line, final AbstractFlexFile file )
    {
-      loopLevel++;
-      super.visitForEach( ast );
-      loopLevel--;
-   }
+      final Matcher matcher = getMatcher( line );
 
-   @Override
-   protected void visitStatement(
-         final Node ast )
-   {
-      super.visitStatement( ast );
+      matcher.matches();
+      final String importedClass = matcher.group( 1 );
 
-      if ( ast != null && !ast.is( KeyWords.WHILE )
-            && !ast.is( KeyWords.FOR ) && !ast.is( KeyWords.FOREACH )
-            && !ast.is( KeyWords.FOR ) )
-      {
-         searchNewNode( ast );
-      }
-   }
-
-   @Override
-   protected void visitWhile(
-         final Node ast )
-   {
-      loopLevel++;
-      super.visitWhile( ast );
-      loopLevel--;
-   }
-
-   private void searchNewNode(
-         final Node ast )
-   {
-      if ( ast.numChildren() > 0 )
-      {
-         for ( final Node child : ast.children )
-         {
-            searchNewNode( child );
-         }
-      }
-      if ( ast.id != null
-            && ast.is( KeyWords.NEW ) && loopLevel != 0 )
-      {
-         addViolation(
-               ast, ast );
-      }
+      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME ) && !importedClass
+            .contains( ALERT_CLASS_NAME )
+            || importedClass.contains( VIEW_PACKAGE_NAME ) && !importedClass
+                  .contains( MODEL_PACKAGE_NAME );
    }
 }

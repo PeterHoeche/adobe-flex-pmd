@@ -31,6 +31,10 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestClassContent
@@ -41,6 +45,7 @@ public class TestClassContent
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +53,7 @@ public class TestClassContent
       asp.scn = scn;
    }
 
+   @Test
    public void testConstDeclarations() throws TokenException
    {
       assertClassContent(
@@ -71,6 +77,7 @@ public class TestClassContent
             "<const-list line=\"2\" column=\"18\"><meta-list line=\"2\" column=\"18\"><meta line=\"2\" column=\"12\">Bindable</meta></meta-list><mod-list line=\"2\" column=\"18\"></mod-list><name-type-init line=\"2\" column=\"18\"><name line=\"2\" column=\"18\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></const-list>" );
    }
 
+   @Test
    public void testImports() throws TokenException
    {
       assertClassContent(
@@ -82,6 +89,7 @@ public class TestClassContent
             "<import line=\"2\" column=\"8\">a.b.c</import><import line=\"2\" column=\"21\">x.y.z</import>" );
    }
 
+   @Test
    public void testMethods() throws TokenException
    {
       assertClassContent(
@@ -100,6 +108,7 @@ public class TestClassContent
             "<get line=\"2\" column=\"24\"><mod-list line=\"2\" column=\"24\"></mod-list><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" column=\"16\"></parameter-list><type line=\"2\" column=\"18\">int</type><block line=\"2\" column=\"25\"></block></get>" );
    }
 
+   @Test
    public void testVarDeclarations() throws TokenException
    {
       assertClassContent(

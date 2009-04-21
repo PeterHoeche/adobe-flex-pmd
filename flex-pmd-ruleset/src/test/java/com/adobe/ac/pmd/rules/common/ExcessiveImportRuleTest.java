@@ -32,14 +32,14 @@ package com.adobe.ac.pmd.rules.common;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ExcessiveImportRuleTest
-      extends AbstractRegExpBasedRuleTest
+      extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
@@ -47,13 +47,6 @@ public class ExcessiveImportRuleTest
          throws FileNotFoundException, URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
    }
 
    @Override

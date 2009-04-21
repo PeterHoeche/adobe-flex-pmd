@@ -28,75 +28,55 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.as3;
 
-public class ASTToXMLConverter implements ASTConverter
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class AvoidInstanciationInLoopRuleTest
+      extends AbstractAstFlexRuleTest
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
-    * .Node)
-    */
-   public String convert(
-         final Node ast )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      final StringBuffer result = new StringBuffer();
-      visitNodes(
-            ast, result, 0 );
-      return result.toString();
+      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
    }
 
-   protected String escapeEntities(
-         final String stringToEscape )
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      if ( stringToEscape == null )
-      {
-         return null;
-      }
-
-      final StringBuffer buffer = new StringBuffer();
-      for ( int i = 0; i < stringToEscape.length(); i++ )
-      {
-         final char currentCharacter = stringToEscape.charAt( i );
-
-         if ( currentCharacter == '<' )
-         {
-            buffer.append( "&lt;" );
-         }
-         else if ( currentCharacter == '>' )
-         {
-            buffer.append( "&gt;" );
-         }
-         else
-         {
-            buffer.append( currentCharacter );
-         }
-      }
-      return buffer.toString();
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
-   protected void visitNodes(
-         final Node ast, final StringBuffer result, final int level )
+   @Override
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      result.append( "<"
-            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column
-            + "\">" );
+      final ViolationPosition[] expectedPositions =
+      { new ViolationPosition( 43, 43 ), new ViolationPosition( 46, 46 ),
+            new ViolationPosition( 50, 50 ), new ViolationPosition( 56, 56 ),
+            new ViolationPosition( 59, 59 ), new ViolationPosition( 63, 63 ),
+            new ViolationPosition( 68, 68 ), new ViolationPosition( 71, 71 ),
+            new ViolationPosition( 75, 75 ) };
 
-      final int numChildren = ast.numChildren();
-      if ( numChildren > 0 )
-      {
-         for ( int i = 0; i < numChildren; i++ )
-         {
-            visitNodes(
-                  ast.getChild( i ), result, level + 1 );
-         }
-      }
-      else if ( ast.stringValue != null )
-      {
-         result.append( escapeEntities( ast.stringValue ) );
-      }
-      result.append( "</"
-            + ast.id + ">" );
+      assertViolations(
+            "Looping.as", expectedPositions );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new AvoidInstanciationInLoopRule();
    }
 }

@@ -1,10 +1,14 @@
 <ruleset name="All Flex Rules" xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd" xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd" xmlns="http://pmd.sf.net/ruleset/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <description/>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.MoreThanOneEntryPointInMxmlRule" message="There are more than 1 public variable in this MXML component">
+    <description/>
+    <priority>5</priority>
+  </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.MoreThanTwoEntryPointsInMxmlRule" message="There are more than 2 public variables in this MXML component">
     <description/>
     <priority>3</priority>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.TooLongBindingExpressionRule" message="This binding expression is too long">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.TooLongBindingExpressionRule" message="This binding expression is too long ({0} points maximum)">
     <description>A Binding expression is executed as soon as one of the bindable attributes changed. If a binding expression contains too many expression, there could be some performance issue.</description>
     <priority>3</priority>
     <properties>
@@ -13,7 +17,7 @@
       </property>
     </properties>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.TooLongScriptBlockRule" message="This script block is too long">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.TooLongScriptBlockRule" message="This script block is too long ({0} maximum)">
     <description/>
     <priority>3</priority>
     <properties>
@@ -23,7 +27,7 @@
     </properties>
   </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.NestedContainerRule" message="This container is too deeply nested.">
-    <description>Nested containers can descrease application overall performance especially if they are in item renderers.</description>
+    <description>Nested containers can decrease application overall performance especially if they are in item renderers.</description>
     <priority>3</priority>
   </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.DynamicClassRule" message="A class must not be dynamic">
@@ -78,6 +82,23 @@ public class VoidConstructor
   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.SwitchStmtsShouldHaveDefaultRule" message="A switch statement does not contain a default statement">
     <description>Switch statements should have a default label in order to detect corner cases.</description>
     <priority>1</priority>
+    <example><![CDATA[
+public class Foo 
+   {
+      public funciton bar() : void 
+      {
+         var  x : int = 2;
+         switch (x) 
+         {
+            case 2: var j : int = 8;
+         }
+      }
+   }
+           ]]></example>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.SwitchStmtsShouldHaveDefaultRule" message="A switch statement should have minimum {0} case statements">
+    <description>Switch statements should have more case statements, or consider refactring it to a if statement.</description>
+    <priority>3</priority>
     <example><![CDATA[
 public class Foo 
    {
@@ -173,7 +194,7 @@ public class MyObject {
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.unused.UnusedParameterRule" message="You should use all the parameters of a function">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.unused.UnusedParameterRule" message="Some parameters of this function are not used ({0})">
     <description/>
     <priority>1</priority>
     <example><![CDATA[
@@ -183,7 +204,7 @@ public function foo( param1 : Number, param2 : Number, param3 : Number, param4 :
       }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.unused.UnusedLocalVariableRule" message="You should delete an unused variable">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.unused.UnusedLocalVariableRule" message="You should delete this unused variable ({0})">
     <description/>
     <priority>3</priority>
     <example><![CDATA[
@@ -193,11 +214,11 @@ public function foo() : void
       }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.unused.UnusedPrivateMethodRule" message="This private method does not seem to be used">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.unused.UnusedPrivateMethodRule" message="This private method ({0}) does not seem to be used">
     <description/>
     <priority>3</priority>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.WronglyOrderedClassElementRule" message="This element ({0}) does not seem to be correctly ordered">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.WronglyOrderedClassElementRule" message="This element does not seem to be correctly ordered">
     <description/>
     <priority>3</priority>
   </rule>
@@ -209,16 +230,34 @@ public function foo() : void
     <description/>
     <priority>5</priority>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoop" message="Instanciating a variable in a loop can be expensive">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoopRule" message="Instanciating a variable in a loop can be expensive">
     <description/>
     <priority>3</priority>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModel" message="A view component should not be referenced in a model class">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModelRule" message="A view component should not be referenced in a model class">
     <description/>
     <priority>3</priority>
   </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UseGenericTypeRule" message="Use strongly typed objects instead of *">
     <description/>
+    <priority>1</priority>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ConstructorDispatchingEventRule" message="An event is dispatched in a constructor">
+    <description>This is pointless, since event listeners cannot be attached to an object before it has been constructed, so nothing can ever hear the event</description>
+    <priority>1</priority>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UselessOverridenFunctionRule" message="This method is empty. This should be removed">
+    <description>This function is not needed.</description>
+    <priority>3</priority>
+    <example><![CDATA[
+override protected function createChildren() : void
+      {
+         super.createChildren();
+      }
+           ]]></example>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UpdateChildrenNumberInUpdateDisplayListRule" message="Do not add or remove displayable children from updateDisplayList">
+    <description>Add children in createChildren</description>
     <priority>1</priority>
   </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here.">
@@ -271,7 +310,7 @@ public class Foo
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object.">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum)">
     <description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
     <priority>3</priority>
     <properties>
@@ -327,6 +366,10 @@ public class foo
    {
    }
            ]]></example>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.common.CallLaterDirectlyRule" message="Don't call 'callLater' explicitly">
+    <description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component lifecycle.</description>
+    <priority>3</priority>
   </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.cairngorm.BindableModelLocatorRule" message="A modelLocator must not be Bindable at a class level">
     <description>A bindable ModelLocator could leads to performance issues due to bindings</description>
@@ -386,7 +429,7 @@ package control
     <description>You would have something like 'productManagement.getProducts' as an event name.</description>
     <priority>3</priority>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFunctionRule" message="Too many methods detected">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFunctionRule" message="Too many methods detected ({0} maximum)">
     <description>A class with too many methods is probably a good suspect for refactoring, in order to reduce its complexity and find a way to have more fine grained objects.</description>
     <priority>3</priority>
     <properties>
@@ -404,7 +447,7 @@ public class Foo
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooLongFunctionRule" message="This function is far long">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooLongFunctionRule" message="This function is far too long ({0} maximum)">
     <description>Violations of this rule usually indicate that the method is doing too much. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
     <priority>3</priority>
     <properties>
@@ -424,9 +467,14 @@ public class Foo
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooLongSwitchCaseRule" message="Long switch case detected">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooLongSwitchCaseRule" message="Long switch case detected ({0} lines maximum)">
     <description>A switch case statement should be either empty, or contain a break, or call another method.</description>
     <priority>3</priority>
+    <properties>
+      <property name="maximum">
+        <value>3</value>
+      </property>
+    </properties>
     <example><![CDATA[
 public class Bar   
    {
@@ -449,7 +497,7 @@ public class Bar
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyParametersRule" message="Long parameter list detected">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyParametersRule" message="Long parameter list detected ({0} maximum)">
     <description>Long parameter lists can indicate that a new object should be created to wrap the numerous parameters.  Basically, try to group the parameters together.</description>
     <priority>1</priority>
     <properties>
@@ -467,7 +515,7 @@ public class Foo
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyPublicRule" message="Too much public fields or functions detected">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyPublicRule" message="Too much public fields or functions detected ({0} maximum)">
     <description>A large number of public methods and attributes declared in a class can indicate the class may need to be broken up as increased effort will be required to thoroughly test it.</description>
     <priority>3</priority>
     <properties>
@@ -492,7 +540,7 @@ public class Foo
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFieldsRule" message="Too many field detected">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFieldsRule" message="Too many field detected ({0} maximum)">
     <description>Classes that have too many fields could be redesigned to have fewer fields, possibly  through some nested object grouping of some of the information.  For example, a class with  city/state/zip fields could instead have one Address field.</description>
     <priority>3</priority>
     <properties>
@@ -512,9 +560,14 @@ public class Person
    }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule" message="This variable name is too short">
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule" message="This variable name is too short ({0} characters minimum)">
     <description>Detects when a field, local, or parameter has a very short name.</description>
     <priority>5</priority>
+    <properties>
+      <property name="minimum">
+        <value>3</value>
+      </property>
+    </properties>
     <example><![CDATA[
 public class Something 
    {

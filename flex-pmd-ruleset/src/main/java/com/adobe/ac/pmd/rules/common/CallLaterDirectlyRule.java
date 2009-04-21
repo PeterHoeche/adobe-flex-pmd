@@ -28,75 +28,38 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.common;
 
-public class ASTToXMLConverter implements ASTConverter
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class CallLaterDirectlyRule
+      extends AbstractRegexpBasedRule
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
-    * .Node)
-    */
-   public String convert(
-         final Node ast )
+   @Override
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      final StringBuffer result = new StringBuffer();
-      visitNodes(
-            ast, result, 0 );
-      return result.toString();
+      return true;
    }
 
-   protected String escapeEntities(
-         final String stringToEscape )
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-      if ( stringToEscape == null )
-      {
-         return null;
-      }
-
-      final StringBuffer buffer = new StringBuffer();
-      for ( int i = 0; i < stringToEscape.length(); i++ )
-      {
-         final char currentCharacter = stringToEscape.charAt( i );
-
-         if ( currentCharacter == '<' )
-         {
-            buffer.append( "&lt;" );
-         }
-         else if ( currentCharacter == '>' )
-         {
-            buffer.append( "&gt;" );
-         }
-         else
-         {
-            buffer.append( currentCharacter );
-         }
-      }
-      return buffer.toString();
+      return ViolationPriority.ERROR;
    }
 
-   protected void visitNodes(
-         final Node ast, final StringBuffer result, final int level )
+   @Override
+   protected String getRegexp()
    {
-      result.append( "<"
-            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column
-            + "\">" );
+      return ".*callLater.*\\(.*";
+   }
 
-      final int numChildren = ast.numChildren();
-      if ( numChildren > 0 )
-      {
-         for ( int i = 0; i < numChildren; i++ )
-         {
-            visitNodes(
-                  ast.getChild( i ), result, level + 1 );
-         }
-      }
-      else if ( ast.stringValue != null )
-      {
-         result.append( escapeEntities( ast.stringValue ) );
-      }
-      result.append( "</"
-            + ast.id + ">" );
+   @Override
+   protected boolean isViolationDetectedOnThisMatchingLine(
+         final String line, final AbstractFlexFile file )
+   {
+      return true;
    }
 }

@@ -34,12 +34,15 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestAS3Parser
       extends TestCase
 {
-
+   @Test
    public void testBuildAst() throws IOException, URISyntaxException
    {
       final AS3Parser parser = new AS3Parser();

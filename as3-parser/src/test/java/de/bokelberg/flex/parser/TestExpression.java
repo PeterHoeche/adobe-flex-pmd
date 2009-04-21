@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestExpression
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestExpression
       asp.scn = scn;
    }
 
+   @Test
    public void testAddExpression() throws TokenException
    {
       assertExpression(
@@ -56,6 +61,7 @@ public class TestExpression
             "<add line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">+</op><primary line=\"1\" column=\"3\">6</primary></add>" );
    }
 
+   @Test
    public void testAndExpression() throws TokenException
    {
       assertExpression(
@@ -64,6 +70,7 @@ public class TestExpression
             "<and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&&</op><primary line=\"1\" column=\"4\">6</primary></and>" );
    }
 
+   @Test
    public void testAssignmentExpression() throws TokenException
    {
       assertExpression(
@@ -72,6 +79,7 @@ public class TestExpression
             "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" column=\"4\">6</primary></assign>" );
    }
 
+   @Test
    public void testBitwiseAndExpression() throws TokenException
    {
       assertExpression(
@@ -80,6 +88,7 @@ public class TestExpression
             "<b-and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&</op><primary line=\"1\" column=\"3\">6</primary></b-and>" );
    }
 
+   @Test
    public void testBitwiseOrExpression() throws TokenException
    {
       assertExpression(
@@ -88,6 +97,7 @@ public class TestExpression
             "<b-or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">|</op><primary line=\"1\" column=\"3\">6</primary></b-or>" );
    }
 
+   @Test
    public void testBitwiseXorExpression() throws TokenException
    {
       assertExpression(
@@ -96,6 +106,7 @@ public class TestExpression
             "<b-xor line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">^</op><primary line=\"1\" column=\"3\">6</primary></b-xor>" );
    }
 
+   @Test
    public void testConditionalExpression() throws TokenException
    {
       assertExpression(
@@ -104,6 +115,7 @@ public class TestExpression
             "<conditional line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">true</primary><primary line=\"1\" column=\"6\">5</primary><primary line=\"1\" column=\"8\">6</primary></conditional>" );
    }
 
+   @Test
    public void testEqualityExpression() throws TokenException
    {
       assertExpression(
@@ -112,6 +124,7 @@ public class TestExpression
             "<equality line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">!==</op><primary line=\"1\" column=\"5\">6</primary></equality>" );
    }
 
+   @Test
    public void testMulExpression() throws TokenException
    {
       assertExpression(
@@ -120,6 +133,7 @@ public class TestExpression
             "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" column=\"3\">6</primary></mul>" );
    }
 
+   @Test
    public void testOrExpression() throws TokenException
    {
       assertExpression(
@@ -128,6 +142,7 @@ public class TestExpression
             "<or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">||</op><primary line=\"1\" column=\"4\">6</primary></or>" );
    }
 
+   @Test
    public void testRelationalExpression() throws TokenException
    {
       assertExpression(
@@ -136,6 +151,7 @@ public class TestExpression
             "<relation line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;=</op><primary line=\"1\" column=\"4\">6</primary></relation>" );
    }
 
+   @Test
    public void testShiftExpression() throws TokenException
    {
       assertExpression(

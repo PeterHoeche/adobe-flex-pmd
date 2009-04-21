@@ -35,6 +35,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 import de.bokelberg.util.FileUtil;
 
@@ -45,11 +49,13 @@ public class TestAS3ScannerWithFiles
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       scn = new AS3Scanner();
    }
 
+   @Test
    public void testSimple() throws IOException, URISyntaxException
    {
       final String[] expected = new String[]
@@ -78,18 +84,16 @@ public class TestAS3ScannerWithFiles
       for ( int i = 0; i < expected.length; i++ )
       {
          assertText(
-               ""
-                     + i, expected[ i ] );
+               Integer.toString( i ), expected[ i ] );
       }
    }
 
    private void assertText(
          final String message, final String text )
    {
-      Token t = null;
-      t = scn.nextToken();
+      Token token = null;
+      token = scn.nextToken();
       assertEquals(
-            message, text, t.text );
+            message, text, token.text );
    }
-
 }

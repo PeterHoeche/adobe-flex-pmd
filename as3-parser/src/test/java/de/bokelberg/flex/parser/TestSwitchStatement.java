@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestSwitchStatement
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestSwitchStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testFullFeatured() throws TokenException
    {
       assertStatement(

@@ -56,7 +56,7 @@ public class FlexPmdViolations
    public static final Logger LOGGER = Logger
          .getLogger( FlexPmdViolations.class.getName() );
 
-   private boolean hasViolationsBeenComputed = false;
+   private boolean beenComputed = false;
 
    private final SortedMap< AbstractFlexFile, List< Violation > > violations = new TreeMap< AbstractFlexFile, List< Violation > >(
          new FlexFileComparator() );
@@ -65,7 +65,7 @@ public class FlexPmdViolations
          final File sourceDirectory, final RuleSet ruleSet )
          throws PMDException
    {
-      hasViolationsBeenComputed = true;
+      beenComputed = true;
 
       final Map< String , AbstractFlexRule > rules = computeRulesList( ruleSet );
       final Map< String, AbstractFlexFile > files = FileSetUtils.computeFilesList( sourceDirectory );
@@ -111,7 +111,7 @@ public class FlexPmdViolations
 
    public boolean hasViolationsBeenComputed()
    {
-      return hasViolationsBeenComputed;
+      return beenComputed;
    }
 
    private Map< String, AbstractFlexRule > computeRulesList(

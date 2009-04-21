@@ -28,7 +28,6 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
@@ -89,7 +88,7 @@ public class ViewComponentReferencedInModelTest
    @Override
    protected AbstractRegexpBasedRule getRegexpBasedRule()
    {
-      return new ViewComponentReferencedInModel();
+      return new ViewComponentReferencedInModelRule();
    }
 
    @Override

@@ -38,6 +38,7 @@ package flexUnit.flexui.data
 
       public function get assertionsMade() : *
       {
+         callLater( assertionsMadeLegend, [ null ] );
       }
 
       public function set assertionsMadeLegend( value : * ) : void

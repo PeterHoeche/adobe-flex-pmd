@@ -32,14 +32,14 @@ package com.adobe.ac.pmd.rules.common;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class DeadCodeRuleTest
-      extends AbstractFlexRuleTest
+      extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
@@ -49,13 +49,6 @@ public class DeadCodeRuleTest
       assertEmptyViolations( "GenericType.as" );
 
       assertEmptyViolations( "Looping.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
    }
 
    @Override

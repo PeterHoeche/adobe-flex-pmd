@@ -54,9 +54,12 @@ public class UntypedEventMetadataRule
    {
       final ClassNode classNode = packageNode.getClassNode();
 
-      for ( final MetaDataNode metaData : classNode.getMetaDataList() )
+      if ( classNode.getMetaDataList() != null )
       {
-         findViolationsInMetaDataNode( metaData );
+         for ( final MetaDataNode metaData : classNode.getMetaDataList() )
+         {
+            findViolationsInMetaDataNode( metaData );
+         }
       }
    }
 

@@ -241,11 +241,11 @@ public function foo() : void
       <description/>
       <priority>5</priority>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoop" message="Instanciating a variable in a loop can be expensive">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoopRule" message="Instanciating a variable in a loop can be expensive">
       <description/>
       <priority>3</priority>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModel" message="A view component should not be referenced in a model class">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModelRule" message="A view component should not be referenced in a model class">
       <description/>
       <priority>3</priority>
     </rule>

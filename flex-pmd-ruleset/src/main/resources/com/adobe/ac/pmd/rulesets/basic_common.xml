@@ -152,4 +152,7 @@ package com.adobe.ac
    }      
       </example>
    </rule>
+   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.CallLaterDirectlyRule" message="Don't call 'callLater' explicitly">
+      <description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component lifecycle.</description>
+   </rule>
 </ruleset>

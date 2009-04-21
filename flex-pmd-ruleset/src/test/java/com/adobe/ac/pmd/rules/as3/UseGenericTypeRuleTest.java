@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class UseGenericTypeRuleTest
@@ -63,9 +64,9 @@ public class UseGenericTypeRuleTest
          URISyntaxException
    {
       final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 45, 45 ), new ViolationPosition( 36, 36 ),
+      { new ViolationPosition( 46, 46 ), new ViolationPosition( 36, 36 ),
             new ViolationPosition( 37, 37 ), new ViolationPosition( 35, 35 ),
-            new ViolationPosition( 39, 39 ), new ViolationPosition( 43, 43 ) };
+            new ViolationPosition( 39, 39 ), new ViolationPosition( 44, 44 ) };
 
       assertViolations(
             "GenericType.as", expectedPositions );

@@ -36,11 +36,10 @@ import java.net.URISyntaxException;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class OverLongLineRuleTest
-      extends AbstractFlexRuleTest
+      extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
@@ -54,13 +53,6 @@ public class OverLongLineRuleTest
       assertEmptyViolations( "com.adobe.ac.ncss.ConfigProxy.as" );
 
       assertEmptyViolations( "cairngorm.FatController.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
    }
 
    @Override

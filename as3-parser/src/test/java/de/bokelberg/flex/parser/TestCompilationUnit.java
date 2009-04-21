@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestCompilationUnit
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestCompilationUnit
       asp.scn = scn;
    }
 
+   @Test
    public void testEmptyPackage() throws TokenException
    {
       assertCompilationUnit(
@@ -56,6 +61,7 @@ public class TestCompilationUnit
             "<compilation-unit line=\"-1\" column=\"-1\"><package line=\"1\" column=\"9\"><name line=\"1\" column=\"11\">a</name><content line=\"1\" column=\"13\"></content></package><content line=\"2\" column=\"1\"></content></compilation-unit>" );
    }
 
+   @Test
    public void testEmptyPackagePlusLocalClass() throws TokenException
    {
       assertCompilationUnit(
@@ -64,6 +70,7 @@ public class TestCompilationUnit
             "<compilation-unit line=\"-1\" column=\"-1\"><package line=\"1\" column=\"9\"><name line=\"1\" column=\"11\">a</name><content line=\"1\" column=\"13\"></content></package><content line=\"1\" column=\"15\"><class line=\"1\" column=\"21\"><name line=\"1\" column=\"21\">Local</name><mod-list line=\"1\" column=\"27\"></mod-list><content line=\"1\" column=\"29\"></content></class></content></compilation-unit>" );
    }
 
+   @Test
    public void testPackageWithClass() throws TokenException
    {
       assertCompilationUnit(
@@ -72,6 +79,7 @@ public class TestCompilationUnit
             "<compilation-unit line=\"-1\" column=\"-1\"><package line=\"1\" column=\"9\"><name line=\"1\" column=\"11\">a</name><content line=\"1\" column=\"13\"><class line=\"1\" column=\"26\"><name line=\"1\" column=\"26\">B</name><mod-list line=\"1\" column=\"28\"><mod line=\"1\" column=\"28\">public</mod></mod-list><content line=\"1\" column=\"30\"></content></class></content></package><content line=\"2\" column=\"1\"></content></compilation-unit>" );
    }
 
+   @Test
    public void testPackageWithInterface() throws TokenException
    {
       assertCompilationUnit(
@@ -90,5 +98,4 @@ public class TestCompilationUnit
       assertEquals(
             message, expected, result );
    }
-
 }

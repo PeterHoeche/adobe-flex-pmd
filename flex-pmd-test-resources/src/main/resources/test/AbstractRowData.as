@@ -132,5 +132,10 @@ package flexUnit.flexui.data
                            assertionsMade,
                            isAverage );
       }
+      
+      override protected function createChildren() : void
+      {
+         super.createChildren();
+      }
    }
 }

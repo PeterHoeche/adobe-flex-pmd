@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class UntypedEventMetadataRuleTest
@@ -46,6 +47,7 @@ public class UntypedEventMetadataRuleTest
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
+      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
 
    @Override

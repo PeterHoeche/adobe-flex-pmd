@@ -31,6 +31,10 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestReturnStatement
@@ -41,6 +45,7 @@ public class TestReturnStatement
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +53,7 @@ public class TestReturnStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testEmptyReturn() throws TokenException
    {
       assertStatement(
@@ -57,6 +63,7 @@ public class TestReturnStatement
             "2", "return;", "<return line=\"2\" column=\"1\"></return>" );
    }
 
+   @Test
    public void testReturnArrayLiteral() throws TokenException
    {
       assertStatement(
@@ -79,5 +86,4 @@ public class TestReturnStatement
       assertEquals(
             message, expected, result );
    }
-
 }

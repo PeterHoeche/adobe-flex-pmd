@@ -31,16 +31,20 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestUnaryExpression
       extends TestCase
 {
-
    private AS3Parser asp;
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +52,7 @@ public class TestUnaryExpression
       asp.scn = scn;
    }
 
+   @Test
    public void testArrayAccess() throws TokenException
    {
       assertUnary(
@@ -56,6 +61,7 @@ public class TestUnaryExpression
             "<arr-acc line=\"1\" column=\"2\"><primary line=\"1\" column=\"1\">x</primary><primary line=\"1\" column=\"3\">0</primary></arr-acc>" );
    }
 
+   @Test
    public void testComplex() throws TokenException
    {
       assertUnary(
@@ -69,6 +75,7 @@ public class TestUnaryExpression
             "<dot line=\"1\" column=\"3\"><primary line=\"1\" column=\"1\">a</primary><dot line=\"1\" column=\"15\"><arr-acc line=\"1\" column=\"4\"><primary line=\"1\" column=\"3\">b</primary><primary line=\"1\" column=\"5\">'c'</primary><primary line=\"1\" column=\"10\">'d'</primary></arr-acc><call line=\"1\" column=\"16\"><primary line=\"1\" column=\"15\">e</primary><arguments line=\"1\" column=\"17\"><primary line=\"1\" column=\"17\">1</primary></arguments></call></dot></dot>" );
    }
 
+   @Test
    public void testMethodCall() throws TokenException
    {
       assertUnary(
@@ -82,6 +89,7 @@ public class TestUnaryExpression
             "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">method</primary><arguments line=\"1\" column=\"9\"><primary line=\"1\" column=\"9\">1</primary><primary line=\"1\" column=\"12\">\"two\"</primary></arguments></call>" );
    }
 
+   @Test
    public void testMultipleMethodCall() throws TokenException
    {
       assertUnary(
@@ -90,6 +98,7 @@ public class TestUnaryExpression
             "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">method</primary><arguments line=\"1\" column=\"8\"></arguments><arguments line=\"1\" column=\"10\"></arguments></call>" );
    }
 
+   @Test
    public void testParseUnaryExpressions() throws TokenException
    {
       assertUnary(
@@ -179,5 +188,4 @@ public class TestUnaryExpression
       assertEquals(
             message, expected, result );
    }
-
 }

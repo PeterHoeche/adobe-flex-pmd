@@ -63,6 +63,13 @@ final public class ModifierUtils
       return isModiferPresent( modifierHolder, Modifier.INTERNAL );
    }
 
+   public static boolean isOverriden(
+         final IModifiersHolder modifierHolder )
+   {
+      return isModiferPresent(
+            modifierHolder, Modifier.OVERRIDE );
+   }
+
    public static boolean isPrivate(
          final IModifiersHolder modifierHolder )
    {

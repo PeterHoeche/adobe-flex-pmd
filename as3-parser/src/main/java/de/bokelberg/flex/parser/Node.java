@@ -182,6 +182,11 @@ public class Node
             || children.size() <= index ? null : children.get( index );
    }
 
+   public Node getLastChild()
+   {
+      return getChild( numChildren() - 1 );
+   }
+
    public boolean is(
          final String id )
    {
@@ -192,8 +197,8 @@ public class Node
    public boolean isString(
          final String value )
    {
-      return this.stringValue == null
-            && value == null || this.stringValue.equals( value );
+      return stringValue == null
+            && value == null || stringValue.equals( value );
    }
 
    public int numChildren()

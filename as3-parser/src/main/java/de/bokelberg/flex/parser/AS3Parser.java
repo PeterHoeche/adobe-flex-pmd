@@ -475,7 +475,7 @@ public class AS3Parser
          final ArrayList< Node > meta )
    {
       if ( meta == null
-            || meta.size() == 0 )
+            || meta.isEmpty() )
       {
          return null;
       }

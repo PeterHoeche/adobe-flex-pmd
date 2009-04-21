@@ -31,6 +31,10 @@
 package de.bokelberg.flex.parser;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class TestDoStatement
@@ -41,6 +45,7 @@ public class TestDoStatement
    private AS3Scanner scn;
 
    @Override
+   @Before
    public void setUp()
    {
       asp = new AS3Parser();
@@ -48,6 +53,7 @@ public class TestDoStatement
       asp.scn = scn;
    }
 
+   @Test
    public void testDo() throws TokenException
    {
       assertStatement(
@@ -56,6 +62,7 @@ public class TestDoStatement
             "<do line=\"1\" column=\"3\"><block line=\"1\" column=\"5\"><call line=\"1\" column=\"10\"><primary line=\"1\" column=\"5\">trace</primary><arguments line=\"1\" column=\"12\"><primary line=\"1\" column=\"12\">i</primary></arguments></call></block><condition line=\"1\" column=\"26\"><post-inc line=\"1\" column=\"30\"><primary line=\"1\" column=\"26\">i</primary></post-inc></condition></do>" );
    }
 
+   @Test
    public void testDoWithEmptyStatement() throws TokenException
    {
       assertStatement(
@@ -64,6 +71,7 @@ public class TestDoStatement
             "<do line=\"1\" column=\"4\"><stmt-empty line=\"1\" column=\"4\">;</stmt-empty><condition line=\"1\" column=\"13\"><post-inc line=\"1\" column=\"17\"><primary line=\"1\" column=\"13\">i</primary></post-inc></condition></do>" );
    }
 
+   @Test
    public void testDoWithoutBlock() throws TokenException
    {
       assertStatement(
@@ -82,5 +90,4 @@ public class TestDoStatement
       assertEquals(
             message, expected, result );
    }
-
 }

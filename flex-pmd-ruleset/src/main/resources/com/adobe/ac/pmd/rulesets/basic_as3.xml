@@ -256,13 +256,13 @@
       <example>
       </example>
    </rule>
-   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoop" message="Instanciating a variable in a loop can be expensive">
+   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoopRule" message="Instanciating a variable in a loop can be expensive">
       <description></description>
       <priority>3</priority>
       <example>
       </example>
    </rule>
-   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModel" message="A view component should not be referenced in a model class">
+   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModelRule" message="A view component should not be referenced in a model class">
       <description></description>
       <priority>3</priority>
       <example>
@@ -279,5 +279,20 @@
       <priority>1</priority>
       <example>
       </example>
+   </rule>
+   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UselessOverridenFunctionRule" message="This method is empty. This should be removed">
+      <description>This function is not needed.</description>
+      <priority>3</priority>
+      <example>
+      override protected function createChildren() : void
+      {
+         super.createChildren();
+      }
+      </example>
+   </rule>
+   <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UpdateChildrenNumberInUpdateDisplayListRule" message="Do not add or remove displayable children from updateDisplayList">
+      <description>Add children in createChildren</description>
+      <priority>1</priority>
+      <example></example>
    </rule>
 </ruleset>
