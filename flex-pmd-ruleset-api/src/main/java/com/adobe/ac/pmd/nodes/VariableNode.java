@@ -40,10 +40,10 @@ import de.bokelberg.flex.parser.Node;
 
 /**
  * Node representing a variable (var i : int = 0)
- * 
- * It contains the variable name, its type name, the list of modifiers, the list of metadata, 
+ *
+ * It contains the variable name, its type name, the list of modifiers, the list of metadata,
  * and the initialization expression (if any).
- * 
+ *
  * @author xagnetti
  */
 public class VariableNode
@@ -92,15 +92,15 @@ public class VariableNode
    }
 
    public void setMetaDataList(
-         final List< MetaDataNode > metaDataList )
+         final List< MetaDataNode > metaDataListToBeSet )
    {
-      this.metaDataList = metaDataList;
+      metaDataList = metaDataListToBeSet;
    }
 
    public void setModifiers(
-         final List< Modifier > modifiers )
+         final List< Modifier > modifiersToBeSet )
    {
-      this.modifiers = modifiers;
+      modifiers = modifiersToBeSet;
    }
 
    @Override
@@ -151,15 +151,15 @@ public class VariableNode
          {
             if ( child.is( Node.NAME ) )
             {
-               this.name = new IdentifierNode( child );
+               name = new IdentifierNode( child );
             }
             else if ( child.is( Node.TYPE ) )
             {
-               this.type = new IdentifierNode( child );
+               type = new IdentifierNode( child );
             }
             else if ( child.is( Node.INIT ) )
             {
-               this.initializationExpression = new FieldInitializationNode( child );
+               initializationExpression = new FieldInitializationNode( child );
             }
             else
             {

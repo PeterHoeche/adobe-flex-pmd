@@ -61,9 +61,18 @@ public abstract class AbstractMoreThanEntryPointInMxmlRule
    {
       if ( publicVarCount > getThreshold() )
       {
-         addViolation( violations, file, new ViolationPosition( lastPublicVarLine, lastPublicVarLine, 0, file.getLines().get(
-                     lastPublicVarLine - 1 ).length() ) );
+         addViolation(
+               violations, file, new ViolationPosition( lastPublicVarLine,
+                     lastPublicVarLine, 0, file.getLines().get(
+                           lastPublicVarLine - 1 ).length() ) );
       }
+   }
+
+   @Override
+   protected void onFileProcessingStarting()
+   {
+      publicVarCount = 0;
+      lastPublicVarLine = 0;
    }
 
    @Override
@@ -85,12 +94,5 @@ public abstract class AbstractMoreThanEntryPointInMxmlRule
       }
 
       return new ArrayList< Violation >();
-   }
-
-   @Override
-   protected void onFileProcessingStarting()
-   {
-      publicVarCount = 0;
-      lastPublicVarLine = 0;
    }
 }

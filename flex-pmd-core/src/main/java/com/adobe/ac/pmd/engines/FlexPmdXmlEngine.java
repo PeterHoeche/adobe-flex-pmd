@@ -52,6 +52,12 @@ public class FlexPmdXmlEngine
          .getLogger( FlexPmdXmlEngine.class.getName() );
 
    @Override
+   protected String getReportType()
+   {
+      return "xml";
+   }
+
+   @Override
    protected void writeReport(
          final FlexPmdViolations pmd, final File outputDirectory )
          throws PMDException
@@ -60,7 +66,10 @@ public class FlexPmdXmlEngine
 
       if ( !realOutputDirectory.exists() )
       {
-         realOutputDirectory.mkdirs();
+         if ( !realOutputDirectory.mkdirs() )
+         {
+            LOGGER.severe( "Unable to create an output folder" );
+         }
       }
 
       final File pmdReport = new File( realOutputDirectory, PMD_XML );
@@ -90,7 +99,7 @@ public class FlexPmdXmlEngine
          writter.write( "</pmd>"
                + getNewLine() );
       }
-      catch ( IOException e )
+      catch ( final IOException e )
       {
          throw new PMDException( "Error creating file "
                + pmdReport, e );
@@ -106,7 +115,7 @@ public class FlexPmdXmlEngine
                LOGGER.finest( "Closing the XML writter" );
                writter.close();
             }
-            catch ( IOException e )
+            catch ( final IOException e )
             {
                LOGGER.warning( Arrays.toString( e.getStackTrace() ) );
             }
@@ -133,10 +142,5 @@ public class FlexPmdXmlEngine
          writter.write( "   </file>"
                + getNewLine() );
       }
-   }
-   
-   protected String getReportType()
-   {
-      return "xml";
    }
 }

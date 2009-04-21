@@ -124,15 +124,15 @@ public class FlexPmdMojo
    }
 
    public void setOutputDirectory(
-         final File outputDirectory )
+         final File outputDirectoryToSet )
    {
-      this.outputDirectory = outputDirectory;
+      outputDirectory = outputDirectoryToSet;
    }
 
    public void setSourceDirectory(
-         final File sourceDirectory )
+         final File sourceDirectoryToSet )
    {
-      this.sourceDirectory = sourceDirectory;
+      sourceDirectory = sourceDirectoryToSet;
    }
 
    @Override
@@ -142,7 +142,7 @@ public class FlexPmdMojo
       try
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
-         
+
          new FlexPmdXmlEngine().executeReport(
                sourceDirectory, outputDirectory, ruleSet, pmd  );
          new FlexPmdHtmlEngine().executeReport(

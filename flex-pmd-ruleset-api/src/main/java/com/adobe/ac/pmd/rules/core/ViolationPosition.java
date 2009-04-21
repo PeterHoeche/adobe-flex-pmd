@@ -38,20 +38,21 @@ public class ViolationPosition
    private final int endLine;
 
    public ViolationPosition(
-         final int beginLine, final int endLine, final int beginColumn, final int endColumn )
+         final int beginLineToBeSet, final int endLineToBeSet )
    {
-      super();
-
-      this.beginLine = beginLine;
-      this.beginColumn = beginColumn;
-      this.endLine = endLine;
-      this.endColumn = endColumn;
+      this( beginLineToBeSet, endLineToBeSet, 0, 0 );
    }
 
    public ViolationPosition(
-         final int beginLine, final int endLine )
+         final int beginLineToBeSet, final int endLineToBeSet,
+         final int beginColumnToBeSet, final int endColumnToBeSet )
    {
-      this( beginLine, endLine, 0, 0 );
+      super();
+
+      beginLine = beginLineToBeSet;
+      beginColumn = beginColumnToBeSet;
+      endLine = endLineToBeSet;
+      endColumn = endColumnToBeSet;
    }
 
    public int getBeginColumn()

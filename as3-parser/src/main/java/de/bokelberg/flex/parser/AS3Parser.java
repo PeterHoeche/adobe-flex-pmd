@@ -48,10 +48,10 @@ public class AS3Parser
    private String fileName;
    private Token tok;
    public Node buildAst(
-         final String fileName ) throws IOException, TokenException
+         final String fileNameToParth ) throws IOException, TokenException
    {
-      final String[] lines = FileUtil.readStrings( new File( fileName ) );
-      setFileName( fileName );
+      final String[] lines = FileUtil.readStrings( new File( fileNameToParth ) );
+      setFileName( fileNameToParth );
       scn = new AS3Scanner();
       scn.setLines( lines );
       return parseCompilationUnit();
@@ -1648,9 +1648,9 @@ public class AS3Parser
    }
 
    private void setFileName(
-         final String fileName )
+         final String fileNameToParse )
    {
-      this.fileName = fileName;
+      this.fileName = fileNameToParse;
    }
 
    /**

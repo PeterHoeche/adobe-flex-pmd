@@ -37,6 +37,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -63,21 +64,17 @@ public final class FileSetUtils
    public static final Logger LOGGER = Logger.getLogger( FileSetUtils.class
          .getName() );
 
-   private final static ThreadPoolExecutor executor = ( ThreadPoolExecutor ) Executors
+   private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors
          .newFixedThreadPool( 5 );
-
-   private FileSetUtils()
-   {
-   }
 
    public static Map< String, PackageNode > computeAsts(
          final Map< String, AbstractFlexFile > files ) throws PMDException
    {
       final Map< String, PackageNode > asts = new HashMap< String, PackageNode >();
 
-      for ( final String qualifiedName : files.keySet() )
+      for ( final Entry< String, AbstractFlexFile > fileEntry : files.entrySet() )
       {
-         final AbstractFlexFile file = files.get( qualifiedName );
+         final AbstractFlexFile file = fileEntry.getValue();
 
          if ( !file.isMxml() )
          {
@@ -86,7 +83,7 @@ public final class FileSetUtils
                final Node node = buildThreadedAst( file );
 
                asts.put(
-                     qualifiedName, new PackageNode( node ) );
+                     file.getFullyQualifiedName(), new PackageNode( node ) );
             }
             catch ( final InterruptedException e )
             {
@@ -176,7 +173,7 @@ public final class FileSetUtils
             return buildAst( file );
          }
       } );
-      final List< Future< Object >> futures = executor.invokeAll(
+      final List< Future< Object >> futures = EXECUTOR.invokeAll(
             toRun, 5, TimeUnit.SECONDS );
       // Find out what happened when the service was
       // called.
@@ -211,5 +208,9 @@ public final class FileSetUtils
       LOGGER.warning( "while building AST on "
             + file.getFullyQualifiedName() + ", an error occured: "
             + exception.getMessage() );
+   }
+
+   private FileSetUtils()
+   {
    }
 }

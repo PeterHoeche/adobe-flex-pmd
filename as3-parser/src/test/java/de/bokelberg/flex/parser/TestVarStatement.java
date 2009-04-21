@@ -58,7 +58,10 @@ public class TestVarStatement
       assertStatement(
             "1",
             "var a : int = 4",
-            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\"><name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">int</type><init line=\"1\" column=\"15\"><primary line=\"1\" column=\"15\">4</primary></init></name-type-init></var-list>" );
+            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                  + "<name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">int</type>"
+                  + "<init line=\"1\" column=\"15\"><primary line=\"1\" column=\"15\">4</primary>"
+                  + "</init></name-type-init></var-list>" );
    }
 
    @Test
@@ -67,7 +70,10 @@ public class TestVarStatement
       assertStatement(
             "1",
             "var a = 4",
-            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\"><name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\"></type><init line=\"1\" column=\"9\"><primary line=\"1\" column=\"9\">4</primary></init></name-type-init></var-list>" );
+            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                  + "<name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">"
+                  + "</type><init line=\"1\" column=\"9\"><primary line=\"1\" column=\"9\">4</primary>"
+                  + "</init></name-type-init></var-list>" );
    }
 
    @Test
@@ -76,7 +82,9 @@ public class TestVarStatement
       assertStatement(
             "1",
             "var a",
-            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\"><name line=\"1\" column=\"5\">a</name><type line=\"2\" column=\"1\"></type></name-type-init></var-list>" );
+            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                  + "<name line=\"1\" column=\"5\">a</name><type line=\"2\" column=\"1\">"
+                  + "</type></name-type-init></var-list>" );
    }
 
    @Test
@@ -85,7 +93,9 @@ public class TestVarStatement
       assertStatement(
             "1",
             "var a : Object",
-            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\"><name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">Object</type></name-type-init></var-list>" );
+            "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                  + "<name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">Object</type>"
+                  + "</name-type-init></var-list>" );
    }
 
    private void assertStatement(

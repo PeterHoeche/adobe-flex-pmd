@@ -43,10 +43,10 @@ public class ModifierHolder implements IModifiersHolder
    private final String name;
 
    public ModifierHolder(
-         final String name )
+         final String modifierName )
    {
-      this.name = name;
-      this.modifiers = new ArrayList< Modifier >();
+      name = modifierName;
+      modifiers = new ArrayList< Modifier >();
    }
 
    public void addModifier(
@@ -71,7 +71,8 @@ public class ModifierHolder implements IModifiersHolder
    }
 
    public void setModifiers(
-         final List< Modifier > modifiers )
+         final List< Modifier > modifiersNotToBeSet )
    {
+      // IGNORED
    }
 }

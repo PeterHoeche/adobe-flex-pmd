@@ -45,7 +45,7 @@ import com.adobe.ac.pmd.files.FileSetUtils;
 
 /**
  * Internal utility which finds out the test resources, and map them to their qualified names.
- * 
+ *
  * @author xagnetti
  */
 final class TestResourcesManager

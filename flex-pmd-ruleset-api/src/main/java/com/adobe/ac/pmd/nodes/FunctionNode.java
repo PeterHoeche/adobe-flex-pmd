@@ -65,29 +65,29 @@ public class FunctionNode
    /**
     * Finds recursivly a statement in the function body from its name
     *
-    * @param name statement name
+    * @param primaryName statement name
     * @return corresponding node
     */
    public Node findPrimaryStatementFromName(
-         final String name )
+         final String primaryName )
    {
       final String[] names =
-      { name };
+      { primaryName };
       return getPrimaryStatementFromName(
             names, getContentBlock() );
    }
 
    /**
     * Finds recursivly a statement in the function body from a list of names
-    * 
-    * @param names statement name
+    *
+    * @param primaryNames statement name
     * @return corresponding node
     */
    public Node findPrimaryStatementFromName(
-         final String[] names )
+         final String[] primaryNames )
    {
       return getPrimaryStatementFromName(
-            names, getContentBlock() );
+            primaryNames, getContentBlock() );
    }
 
    public Node getContentBlock()
@@ -159,15 +159,15 @@ public class FunctionNode
    }
 
    public void setMetaDataList(
-         final List< MetaDataNode > metaDataList )
+         final List< MetaDataNode > metaDataListToBeSet )
    {
-      this.metaDataList = metaDataList;
+      metaDataList = metaDataListToBeSet;
    }
 
    public void setModifiers(
-         final List< Modifier > modifiers )
+         final List< Modifier > modifiersToBeSet )
    {
-      this.modifiers = modifiers;
+      modifiers = modifiersToBeSet;
    }
 
    @Override
@@ -258,13 +258,14 @@ public class FunctionNode
       return dispatchNode;
    }
 
-   private boolean isNameInArray( final String[] strings, final String name )
+   private boolean isNameInArray(
+         final String[] strings, final String string )
    {
       for ( int i = 0; i < strings.length; i++ )
       {
          final String currentName = strings[ i ];
 
-         if ( currentName.compareTo( name ) == 0 )
+         if ( currentName.compareTo( string ) == 0 )
          {
             return true;
          }

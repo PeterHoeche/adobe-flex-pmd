@@ -43,7 +43,7 @@ import de.bokelberg.flex.parser.Node;
 public class UpdateChildrenNumberInUpdateDisplayListRule
       extends AbstractAstFlexRule
 {
-   private static final String[] methodNames =
+   private static final String[] METHOD_NAMES =
    { "addChild", "addChildAt", "removeChild", "removeChildAt" };
 
    public boolean isConcernedByTheGivenFile(
@@ -66,9 +66,9 @@ public class UpdateChildrenNumberInUpdateDisplayListRule
          if ( function.getName().compareTo(
                "updateDisplayList" ) == 0 )
          {
-            for ( int i = 0; i < methodNames.length; i++ )
+            for ( int i = 0; i < METHOD_NAMES.length; i++ )
             {
-               final String methodName = methodNames[ i ];
+               final String methodName = METHOD_NAMES[ i ];
                final Node primaryNode = function.findPrimaryStatementFromName( methodName );
 
                if ( primaryNode != null )

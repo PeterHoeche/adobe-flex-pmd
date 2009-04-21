@@ -70,20 +70,20 @@ public class FlexPmdAntTask
    }
 
    public void setOutputDirectory(
-         final File outputDirectory )
+         final File outputDirectoryToBeSet )
    {
-      this.outputDirectory = outputDirectory;
+      outputDirectory = outputDirectoryToBeSet;
    }
 
    public void setRuleSet(
-         final File ruleSet )
+         final File ruleSetToBeSet )
    {
-      this.ruleSet = ruleSet;
+      ruleSet = ruleSetToBeSet;
    }
 
    public void setSourceDirectory(
-         final File sourceDirectory )
+         final File sourceDirectoryToBeSet )
    {
-      this.sourceDirectory = sourceDirectory;
+      sourceDirectory = sourceDirectoryToBeSet;
    }
 }

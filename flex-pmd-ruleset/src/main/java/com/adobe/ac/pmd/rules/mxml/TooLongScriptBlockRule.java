@@ -78,8 +78,8 @@ public class TooLongScriptBlockRule
    protected List< Violation > processFileBody(
          final PackageNode rootNode, final AbstractFlexFile file, final Map< String, AbstractFlexFile > files )
    {
-      final int LINE_INITIAL_VALUE = -1;
-      int linesInScriptBlock = LINE_INITIAL_VALUE;
+      final int lineInitialValue = -1;
+      int linesInScriptBlock = lineInitialValue;
       final List< Violation > violations = new ArrayList< Violation >();
 
       for ( int i = 0; i < file.getLines().size(); i++ )
@@ -87,14 +87,14 @@ public class TooLongScriptBlockRule
          final String line = file.getLines().get(
                i );
 
-         if ( linesInScriptBlock == LINE_INITIAL_VALUE
+         if ( linesInScriptBlock == lineInitialValue
                && line.contains( "Script>" ) )
          {
             linesInScriptBlock = 0;
          }
          else
          {
-            if ( linesInScriptBlock != LINE_INITIAL_VALUE )
+            if ( linesInScriptBlock != lineInitialValue )
             {
                if ( line.contains( "Script>" ) )
                {
@@ -107,7 +107,7 @@ public class TooLongScriptBlockRule
                            violations, file, new ViolationPosition(
                                  beginningScriptLine, i ) );
                   }
-                  linesInScriptBlock = LINE_INITIAL_VALUE;
+                  linesInScriptBlock = lineInitialValue;
                }
                else
                {

@@ -69,11 +69,13 @@ public class TestReturnStatement
       assertStatement(
             "1",
             "return []",
-            "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\"><array line=\"1\" column=\"8\"></array></primary></return>" );
+            "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
+                  + "<array line=\"1\" column=\"8\"></array></primary></return>" );
       assertStatement(
             "2",
             "return [];",
-            "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\"><array line=\"1\" column=\"8\"></array></primary></return>" );
+            "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
+                  + "<array line=\"1\" column=\"8\"></array></primary></return>" );
    }
 
    private void assertStatement(

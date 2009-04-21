@@ -49,26 +49,27 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    private String ruleMessage = "";
 
    public Violation(
-         final ViolationPosition position, final AbstractFlexRule rule, final AbstractFlexFile file )
+         final ViolationPosition position, final AbstractFlexRule violatedRule,
+         final AbstractFlexFile violatedFile )
    {
       super();
       beginLine = position.getBeginLine();
       endLine = position.getEndLine();
       beginColumn = position.getBeginColumn();
       endColumn = position.getEndColumn();
-      this.rule = rule;
-      this.file = file;
+      rule = violatedRule;
+      file = violatedFile;
 
-      if ( rule != null )
+      if ( violatedRule != null )
       {
-         ruleMessage = rule.getMessage() == null ? "" : rule.getMessage();
+         ruleMessage = violatedRule.getMessage() == null ? "" : violatedRule.getMessage();
       }
    }
 
    public int compareTo(
          final Violation otherViolation )
    {
-      int res = 0;
+      int res;
       final int priorityOrder = getPrioriyOrder( otherViolation );
 
       if ( priorityOrder == 0 )
@@ -160,7 +161,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    }
 
    public String toXmlString(
-         final AbstractFlexFile file, final String ruleSetName )
+         final AbstractFlexFile violatedFile, final String ruleSetName )
    {
       final Formatter formatter = new Formatter();
 
@@ -174,8 +175,8 @@ public class Violation implements Comparable< Violation >, IRuleViolation
                            + "endcolumn=\"%d\" rule=\"%s\" ruleset=\"%s\" package=\"%s\" "
                            + "class=\"%s\" externalInfoUrl=\"\" priority=\"%s\">%s</violation>"
                            + getNewLine(), beginLine, endLine, beginColumn,
-                     endColumn, rule.getRuleName(), ruleSetName, file
-                           .getPackageName(), file.getClassName(), rule
+                     endColumn, rule.getRuleName(), ruleSetName, violatedFile
+                           .getPackageName(), violatedFile.getClassName(), rule
                            .getPriority(), message );
       }
       return formatter.toString();

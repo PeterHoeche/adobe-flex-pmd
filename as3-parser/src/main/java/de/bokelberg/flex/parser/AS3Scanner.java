@@ -55,22 +55,20 @@ public class AS3Scanner
       public String text;
 
       public Token(
-            final String text, final int line, final int column )
+            final String textContent, final int tokenLine, final int tokenColumn )
       {
-         this.text = text;
-         this.line = line + 1;
-         this.column = column + 1;
+         text = textContent;
+         line = tokenLine + 1;
+         column = tokenColumn + 1;
       }
    }
 
    static public class XMLVerifier
          extends DefaultHandler
    {
-
       public boolean verify(
             final String text )
       {
-
          // Use the default (non-validating) parser
          final SAXParserFactory factory = SAXParserFactory.newInstance();
          factory.setNamespaceAware( false );
@@ -90,8 +88,8 @@ public class AS3Scanner
          }
          return false;
       }
-
    }
+
    private int column;
    private int line;
 
@@ -227,9 +225,9 @@ public class AS3Scanner
    }
 
    public void setLines(
-         final String[] lines )
+         final String[] linesToBeSet )
    {
-      this.lines = lines;
+      lines = linesToBeSet;
       line = 0;
       column = -1;
    }
@@ -389,13 +387,11 @@ public class AS3Scanner
       // as we see this error, we have to go back and try
       // another option
 
-      String remainingLine = getRemainingLine();
       Token result = scanRegExp();
 
       if ( result != null )
       {
-         remainingLine = remainingLine.substring( result.text.length() );
-            return result;
+         return result;
       }
 
       // it is not a regular expression
@@ -709,11 +705,7 @@ public class AS3Scanner
          {
             level--;
          }
-         else if ( t.text.endsWith( "/>" ) )
-         {
-            ;
-         }
-         else
+         else if ( !t.text.endsWith( "/>" ) )
          {
             level++;
          }

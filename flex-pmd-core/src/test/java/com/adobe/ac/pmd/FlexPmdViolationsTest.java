@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,7 +45,7 @@ import org.junit.Test;
 public class FlexPmdViolationsTest
       extends FlexPmdTestBase
 {
-   private final RuleSet ALL_FLEX_RULESET;
+   private final RuleSet allFlexRuleset;
 
    public FlexPmdViolationsTest() throws FileNotFoundException,
          URISyntaxException
@@ -56,7 +54,7 @@ public class FlexPmdViolationsTest
 
       final URL resource = getClass().getResource(
             "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
-      ALL_FLEX_RULESET = new RuleSetFactory()
+      allFlexRuleset = new RuleSetFactory()
             .createRuleSet( new FileInputStream( new File( resource.toURI()
                   .getPath() ) ) );
    }
@@ -65,13 +63,13 @@ public class FlexPmdViolationsTest
    public void testProcessFile() throws FileNotFoundException,
          URISyntaxException, PMDException
    {
-      final FlexPmdViolations pmd = new FlexPmdViolations();
+      // final FlexPmdViolations pmd = new FlexPmdViolations();
 
 //      final File directory = new File( getClass().getResource(
 //      "/com/adobe/ncss" ).toURI()
 //            .getPath() );
 //      pmd.computeViolations( directory, ALL_FLEX_RULESET );
-//      
+//
 //      assertNotNull( pmd.getViolations() );
       // assertNotNull( pmd.processFile(
       // extractFlexResource( "sprintf.as" ), ALL_FLEX_RULESET ) );

@@ -38,9 +38,9 @@ import de.bokelberg.flex.parser.Node;
 
 /**
  * Node representing a package.
- * 
+ *
  * It contains the nested class node, the list of imports, and the package name.
- * 
+ *
  * @author xagnetti
  */
 public class PackageNode
@@ -116,12 +116,12 @@ public class PackageNode
          {
             return child;
          }
-         final Node classNode = getClassNodeFromCompilationUnitNode(
+         final Node localClassNode = getClassNodeFromCompilationUnitNode(
                child, depth - 1 );
 
-         if ( classNode != null )
+         if ( localClassNode != null )
          {
-            return classNode;
+            return localClassNode;
          }
       }
       return null;

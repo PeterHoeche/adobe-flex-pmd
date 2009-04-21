@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
@@ -58,8 +59,13 @@ public class FlexPmdViolations
 
    private boolean beenComputed = false;
 
-   private final SortedMap< AbstractFlexFile, List< Violation > > violations = new TreeMap< AbstractFlexFile, List< Violation > >(
-         new FlexFileComparator() );
+   private final SortedMap< AbstractFlexFile, List< Violation > > violations;
+
+   public FlexPmdViolations()
+   {
+      violations = new TreeMap< AbstractFlexFile, List< Violation > >(
+            new FlexFileComparator() );
+   }
 
    public void computeViolations(
          final File sourceDirectory, final RuleSet ruleSet )
@@ -67,21 +73,24 @@ public class FlexPmdViolations
    {
       beenComputed = true;
 
-      final Map< String , AbstractFlexRule > rules = computeRulesList( ruleSet );
+      final Map< String, AbstractFlexRule > rules = computeRulesList( ruleSet );
       final Map< String, AbstractFlexFile > files = FileSetUtils.computeFilesList( sourceDirectory );
       final Map< String, PackageNode > asts = FileSetUtils.computeAsts( files );
 
-      for ( final String ruleName : rules.keySet() )
+      for ( final Entry< String, AbstractFlexRule > ruleEntry : rules
+            .entrySet() )
       {
-         final AbstractFlexRule rule = rules.get( ruleName );
+         final AbstractFlexRule rule = ruleEntry.getValue();
 
          LOGGER.fine( "Processing "
-               + ruleName + "..." );
-         for ( final String qualifiedName : files.keySet() )
+               + rule.getRuleName() + "..." );
+         for ( final Entry< String, AbstractFlexFile > fileEntry : files
+               .entrySet() )
          {
-            final AbstractFlexFile file = files.get( qualifiedName );
+            final AbstractFlexFile file = fileEntry.getValue();
             final List< Violation > foundViolations = rule.processFile(
-                  file, rule instanceof AbstractAstFlexRule ? asts.get( qualifiedName ) : null, files );
+                  file, rule instanceof AbstractAstFlexRule ? asts.get( file
+                        .getFullyQualifiedName() ) : null, files );
 
             if ( violations.containsKey( file ) )
             {
@@ -96,11 +105,9 @@ public class FlexPmdViolations
             }
          }
       }
-      for ( final String qualifiedName : files.keySet() )
+      for ( final Entry< String, AbstractFlexFile > entry : files.entrySet() )
       {
-         final AbstractFlexFile file = files.get( qualifiedName );
-
-         sortViolations( file );
+         sortViolations( entry.getValue() );
       }
    }
 

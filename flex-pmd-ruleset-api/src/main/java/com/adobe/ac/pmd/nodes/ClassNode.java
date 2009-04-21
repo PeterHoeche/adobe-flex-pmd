@@ -41,10 +41,10 @@ import de.bokelberg.flex.parser.Node;
 
 /**
  * Node representing a class.
- * 
+ *
  * It contains different lists (constants, variables, functions, implementations, ...), but also
  * a reference to its constructor (if any), the extension name (if any), and its name.
- * 
+ *
  * @author xagnetti
  */
 public class ClassNode
@@ -122,13 +122,13 @@ public class ClassNode
    public void setMetaDataList(
          final List< MetaDataNode > metaDataList )
    {
-      this.metadata = metaDataList;
+      metadata = metaDataList;
    }
 
    public void setModifiers(
-         final List< Modifier > modifiers )
+         final List< Modifier > modifiersToBeSet )
    {
-      this.modifiers = modifiers;
+      modifiers = modifiersToBeSet;
    }
 
    @Override

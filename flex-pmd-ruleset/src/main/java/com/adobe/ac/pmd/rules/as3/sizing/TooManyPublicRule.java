@@ -46,7 +46,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class TooManyPublicRule
       extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private int publicCount = 0;
+   private int publicCount;
 
    public int getDefaultThreshold()
    {

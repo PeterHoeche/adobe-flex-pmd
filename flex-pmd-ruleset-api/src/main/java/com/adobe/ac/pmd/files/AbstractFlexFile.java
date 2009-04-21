@@ -59,14 +59,14 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    private String packageName;
 
    public AbstractFlexFile(
-         final File file, final File rootDirectory )
+         final File underlyingFile, final File rootDirectory )
    {
-      final String filePath = file.getPath();
+      final String filePath = underlyingFile.getPath();
       final String rootPath = rootDirectory.getPath();
 
-      this.file = file;
-      lines = FileUtils.readFile( file );
-      className = file.getName();
+      file = underlyingFile;
+      lines = FileUtils.readFile( underlyingFile );
+      className = underlyingFile.getName();
       packageName = filePath.replace(
             className, "" ).replace(
             rootPath, "" ).replace(
@@ -90,22 +90,6 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    {
       return getFileName().compareTo(
             otherViolation.getFileName() );
-   }
-   
-   /**
-    * @return java.io.File name
-    */
-   public final String getFileName()
-   {
-      return file.getName();
-   }
-   
-   /**
-    * @return java.io.File absolute path
-    */
-   public final String getFilePath()
-   {
-      return file.toURI().getPath();
    }
 
    /**
@@ -140,6 +124,22 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    public final String getClassName()
    {
       return className;
+   }
+
+   /**
+    * @return java.io.File name
+    */
+   public final String getFileName()
+   {
+      return file.getName();
+   }
+
+   /**
+    * @return java.io.File absolute path
+    */
+   public final String getFilePath()
+   {
+      return file.toURI().getPath();
    }
 
    public final String getFullyQualifiedName()

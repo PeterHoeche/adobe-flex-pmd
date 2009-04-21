@@ -78,7 +78,8 @@ final public class FlexPMD
                                  .getString( FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME ) ),
                      new File(
                            config
-                                 .getString( FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME ) ), new FlexPmdViolations() );
+                                 .getString( FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME ) ),
+                     new FlexPmdViolations() );
       }
       else
       {

@@ -34,13 +34,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.XpathFlexRule;
 
 public class TestXpathFlexRule
@@ -77,23 +77,15 @@ public class TestXpathFlexRule
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      List< Violation > violations;
-      final XpathFlexRule rule = ( XpathFlexRule ) getRule();
+      final XpathFlexRule xpathRule = ( XpathFlexRule ) getRule();
 
-      rule.setXPathExpression( "//if[block[count(*) = 0]]" );
+      xpathRule.setXPathExpression( "//if[block[count(*) = 0]]" );
 
-      violations = processFile( "AbstractRowData.as" );
+      final ViolationPosition[] expectedPositions =
+      { new ViolationPosition( 105, 107 ) };
 
-      assertEquals(
-            VIOLATIONS_NUMBER_IS_NOT_CORRECT, 1, violations.size() );
-
-      final Violation firstViolation = violations.get( 0 );
-
-      assertEquals(
-            "", 105, firstViolation.getBeginLine() );
-
-      assertEquals(
-            "", 107, firstViolation.getEndLine() );
+      assertViolations(
+            "AbstractRowData.as", expectedPositions );
    }
 
    @Override
