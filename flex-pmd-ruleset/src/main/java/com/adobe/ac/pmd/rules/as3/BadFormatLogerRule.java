@@ -70,7 +70,7 @@ public class BadFormatLogerRule
          if ( field.getType().toString().compareTo(
                "ILogger" ) == 0 )
          {
-            if ( field.getName().toString().compareTo(
+            if ( field.getName().compareTo(
                   "LOG" ) != 0 )
             {
                addViolation( field.getInternalNode(), field.getInternalNode(),

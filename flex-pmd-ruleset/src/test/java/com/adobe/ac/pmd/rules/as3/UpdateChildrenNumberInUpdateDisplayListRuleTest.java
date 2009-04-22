@@ -63,12 +63,11 @@ public class UpdateChildrenNumberInUpdateDisplayListRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 42, 42 ), new ViolationPosition( 43, 43 ),
-            new ViolationPosition( 44, 44 ), new ViolationPosition( 45, 45 ) };
-
       assertViolations(
-            "BadComponent.as", expectedPositions );
+            "BadComponent.as", new ViolationPosition[]
+            { new ViolationPosition( 42, 42 ), new ViolationPosition( 43, 43 ),
+                  new ViolationPosition( 44, 44 ),
+                  new ViolationPosition( 45, 45 ) } );
    }
 
    @Override

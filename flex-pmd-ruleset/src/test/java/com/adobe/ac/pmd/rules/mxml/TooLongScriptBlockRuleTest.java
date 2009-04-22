@@ -71,8 +71,9 @@ public class TooLongScriptBlockRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions = { new ViolationPosition( 39, 91 ) };
-
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml", expectedPositions  );
+      assertViolations(
+            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+            new ViolationPosition[]
+            { new ViolationPosition( 39, 91 ) } );
    }
 }

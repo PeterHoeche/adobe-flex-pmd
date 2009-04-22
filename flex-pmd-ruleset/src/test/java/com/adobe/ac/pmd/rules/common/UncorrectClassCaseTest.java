@@ -54,9 +54,9 @@ public class UncorrectClassCaseTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions = { new ViolationPosition( 1, 34 ) };
-
-      assertViolations( "com.adobe.ac.foo.as", expectedPositions  );
+      assertViolations(
+            "com.adobe.ac.foo.as", new ViolationPosition[]
+            { new ViolationPosition( 1, 34 ) } );
    }
 
    @Override

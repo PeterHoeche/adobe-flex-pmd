@@ -63,11 +63,9 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 33, 33 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.ArrayVO.as", expectedPositions );
+            "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
+            { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override

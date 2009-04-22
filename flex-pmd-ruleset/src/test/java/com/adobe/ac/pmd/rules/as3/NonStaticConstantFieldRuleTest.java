@@ -63,11 +63,9 @@ public class NonStaticConstantFieldRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 38, 38 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.ArrayVO.as", expectedPositions );
+            "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
+            { new ViolationPosition( 38, 38 ) } );
    }
 
    @Override

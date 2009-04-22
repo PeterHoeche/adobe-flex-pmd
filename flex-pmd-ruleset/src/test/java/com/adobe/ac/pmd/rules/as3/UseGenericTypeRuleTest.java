@@ -63,13 +63,13 @@ public class UseGenericTypeRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 46, 46 ), new ViolationPosition( 36, 36 ),
-            new ViolationPosition( 37, 37 ), new ViolationPosition( 35, 35 ),
-            new ViolationPosition( 39, 39 ), new ViolationPosition( 44, 44 ) };
-
       assertViolations(
-            "GenericType.as", expectedPositions );
+            "GenericType.as", new ViolationPosition[]
+            { new ViolationPosition( 46, 46 ), new ViolationPosition( 36, 36 ),
+                  new ViolationPosition( 37, 37 ),
+                  new ViolationPosition( 35, 35 ),
+                  new ViolationPosition( 39, 39 ),
+                  new ViolationPosition( 44, 44 ) } );
    }
 
    @Override

@@ -54,23 +54,20 @@ public class CallLaterDirectlyRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 36, 36 ) };
+      assertViolations(
+            "Main.mxml", new ViolationPosition[]
+            { new ViolationPosition( 36, 36 ) } );
 
       assertViolations(
-            "Main.mxml", expectedPositions );
-
-      final ViolationPosition[] genericTypeExpectedPositions =
-      { new ViolationPosition( 41, 41 ) };
-      assertViolations(
-            "GenericType.as", genericTypeExpectedPositions );
+            "GenericType.as", new ViolationPosition[]
+            { new ViolationPosition( 41, 41 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines = { "callLater( myFunction)", " callLater (myFunction)" };
-      return lines; // NOPMD by xagnetti on 4/20/09 10:57 PM
+      return new String[]
+      { "callLater( myFunction)", " callLater (myFunction)" };
    }
 
    @Override
@@ -82,8 +79,7 @@ public class CallLaterDirectlyRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "callLate( myFunction)", " allLater(myFunction)" };
-      return lines;
    }
 }

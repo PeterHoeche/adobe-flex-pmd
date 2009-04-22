@@ -63,11 +63,9 @@ public class UselessOverridenFunctionRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 137, 138 ) };
-
       assertViolations(
-            "AbstractRowData.as", expectedPositions );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 137, 138 ) } );
    }
 
    @Override

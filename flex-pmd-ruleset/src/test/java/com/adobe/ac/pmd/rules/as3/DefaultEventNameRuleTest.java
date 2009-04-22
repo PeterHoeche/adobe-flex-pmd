@@ -63,11 +63,9 @@ public class DefaultEventNameRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 38, 38 ) };
-
       assertViolations(
-            "DefaultNameEvent.as", expectedPositions );
+            "DefaultNameEvent.as", new ViolationPosition[]
+            { new ViolationPosition( 38, 38 ) } );
    }
 
    @Override

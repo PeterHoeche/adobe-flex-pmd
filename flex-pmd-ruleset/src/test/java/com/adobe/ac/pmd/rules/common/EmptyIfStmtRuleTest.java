@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.common;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class EmptyIfStmtRuleTest
@@ -64,11 +65,9 @@ public class EmptyIfStmtRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 105, 107 ) };
-
       assertViolations(
-            "AbstractRowData.as", expectedPositions );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 105, 107 ) } );
    }
 
    @Override

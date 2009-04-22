@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ViewComponentReferencedInModelTest
@@ -68,21 +69,17 @@ public class ViewComponentReferencedInModelTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 35, 35 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "import lala.view.MyObject;", "import MyObject   ",
             "   import lala.view.MyObject" };
-
-      return lines;
    }
 
    @Override
@@ -94,12 +91,10 @@ public class ViewComponentReferencedInModelTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "mport lala.view.MyObject", " text=\"{ vfrfr().frfr.frf.lala }\"/>",
             " text=\"{vfrfr().frfr.frf.lala}\"/>",
             "public dynamic class DynamicObject {",
             "dynamic public class DynamicObject" };
-
-      return lines;
    }
 }

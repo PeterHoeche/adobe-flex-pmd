@@ -63,17 +63,13 @@ public class UnusedLocalVariableRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 64, 64 ) };
+      assertViolations(
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 64, 64 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", expectedPositions );
-
-      final ViolationPosition[] expectedPositions2 =
-      { new ViolationPosition( 47, 47 ) };
-
-      assertViolations(
-            "com.adobe.ac.ncss.BigModel.as", expectedPositions2 );
+            "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+            { new ViolationPosition( 47, 47 ) } );
    }
 
    @Override

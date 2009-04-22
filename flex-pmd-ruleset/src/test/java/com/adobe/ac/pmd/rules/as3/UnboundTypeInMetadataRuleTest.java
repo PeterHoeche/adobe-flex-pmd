@@ -63,9 +63,9 @@ public class UnboundTypeInMetadataRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions = { new ViolationPosition( 39, 39 ) };
-
-      assertViolations( "UnboundMetadata.as", expectedPositions );
+      assertViolations(
+            "UnboundMetadata.as", new ViolationPosition[]
+            { new ViolationPosition( 39, 39 ) } );
    }
 
    @Override

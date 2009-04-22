@@ -63,15 +63,16 @@ public class AvoidInstanciationInLoopRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 43, 43 ), new ViolationPosition( 46, 46 ),
-            new ViolationPosition( 50, 50 ), new ViolationPosition( 56, 56 ),
-            new ViolationPosition( 59, 59 ), new ViolationPosition( 63, 63 ),
-            new ViolationPosition( 68, 68 ), new ViolationPosition( 71, 71 ),
-            new ViolationPosition( 75, 75 ) };
-
       assertViolations(
-            "Looping.as", expectedPositions );
+            "Looping.as", new ViolationPosition[]
+            { new ViolationPosition( 43, 43 ), new ViolationPosition( 46, 46 ),
+                  new ViolationPosition( 50, 50 ),
+                  new ViolationPosition( 56, 56 ),
+                  new ViolationPosition( 59, 59 ),
+                  new ViolationPosition( 63, 63 ),
+                  new ViolationPosition( 68, 68 ),
+                  new ViolationPosition( 71, 71 ),
+                  new ViolationPosition( 75, 75 ) } );
    }
 
    @Override

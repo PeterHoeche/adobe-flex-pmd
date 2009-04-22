@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.cairngorm;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class BindableModelLocatorRuleTest
@@ -62,11 +63,9 @@ public class BindableModelLocatorRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] positions =
-      { new ViolationPosition( 33, 33 ) };
-
       assertViolations(
-            "cairngorm.BindableModelLocator.as", positions );
+            "cairngorm.BindableModelLocator.as", new ViolationPosition[]
+            { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override

@@ -71,7 +71,7 @@ public class BadCairngormEventNameFormatRule
          for ( final FieldNode constantNode : packageNode.getClassNode()
                .getConstants() )
          {
-            if ( constantNode.getName().toString().startsWith(
+            if ( constantNode.getName().startsWith(
                   "EVENT" ) )
             {
                eventName = extractEventNameFromConstant( constantNode

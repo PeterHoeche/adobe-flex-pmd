@@ -67,13 +67,13 @@ public class BadFormatLogerRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 43, 43 ), new ViolationPosition( 44, 44 ),
-            new ViolationPosition( 44, 44 ), new ViolationPosition( 45, 45 ),
-            new ViolationPosition( 46, 46 ), new ViolationPosition( 47, 47 ) };
-
       assertViolations(
-            "AbstractRowData.as", expectedPositions );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 43, 43 ), new ViolationPosition( 44, 44 ),
+                  new ViolationPosition( 44, 44 ),
+                  new ViolationPosition( 45, 45 ),
+                  new ViolationPosition( 46, 46 ),
+                  new ViolationPosition( 47, 47 ) } );
    }
 
    @Override

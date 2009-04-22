@@ -30,17 +30,14 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class UnusedParameterRuleTest
       extends AbstractAstFlexRuleTest
@@ -66,14 +63,16 @@ public class UnusedParameterRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final List< Violation > violations = processFile( "com.adobe.ac.ncss.BigImporterModel.as" );
+      assertViolations(
+            "com.adobe.ac.ncss.BigImporterModel.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 62, 62 ), new ViolationPosition( 62, 62 ),
+                  new ViolationPosition( 62, 62 ),
+                  new ViolationPosition( 62, 62 ) } );
 
-      assertEquals(
-            VIOLATIONS_NUMBER_IS_NOT_CORRECT, 4, violations.size() );
-
-      assertEquals(
-            VIOLATIONS_NUMBER_IS_NOT_CORRECT, 2, processFile(
-                  "Sorted.as" ).size() );
+      assertViolations(
+            "Sorted.as", new ViolationPosition[]
+            { new ViolationPosition( 58, 58 ), new ViolationPosition( 67, 67 ) } );
    }
 
    @Override

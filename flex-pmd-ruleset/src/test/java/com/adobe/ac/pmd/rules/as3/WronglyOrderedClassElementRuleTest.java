@@ -71,30 +71,24 @@ public class WronglyOrderedClassElementRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions1 =
-      { new ViolationPosition( 44, 44 ), new ViolationPosition( 45, 45 ),
-            new ViolationPosition( 46, 46 ), new ViolationPosition( 47, 47 ) };
+      assertViolations(
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 44, 44 ), new ViolationPosition( 45, 45 ),
+                  new ViolationPosition( 46, 46 ),
+                  new ViolationPosition( 47, 47 ) } );
 
       assertViolations(
-            "AbstractRowData.as", expectedPositions1 );
-
-      final ViolationPosition[] expectedPositions2 =
-      { new ViolationPosition( 43, 43 ) };
+            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
+            { new ViolationPosition( 43, 43 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", expectedPositions2 );
-
-      final ViolationPosition[] expectedPositions3 =
-      { new ViolationPosition( 116, 116 ), new ViolationPosition( 135, 135 ) };
-
-      assertViolations(
-            "cairngorm.LightController.as", expectedPositions3 );
-
-      final ViolationPosition[] expectedPositions4 =
-      { new ViolationPosition( 38, 38 ) };
+            "cairngorm.LightController.as", new ViolationPosition[]
+            { new ViolationPosition( 116, 116 ),
+                  new ViolationPosition( 135, 135 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.ArrayVO.as", expectedPositions4 );
+            "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
+            { new ViolationPosition( 38, 38 ) } );
 
       // FIXME uncomment this assertion
 

@@ -35,8 +35,8 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class TooLongBindingExpressionRuleTest
@@ -63,23 +63,19 @@ public class TooLongBindingExpressionRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 54, 54 ) };
-
       assertViolations(
             "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
-            expectedPositions );
+            new ViolationPosition[]
+            { new ViolationPosition( 54, 54 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " text=\"{ vfrfr.frfr.frf.lala }\"/>",
             " text=\"{ vfrfr().frfr.frf.lala }\"/>",
             " text=\"{vfrfr().frfr.frf.lala}\"/>" };
-
-      return lines;
    }
 
    @Override
@@ -91,9 +87,7 @@ public class TooLongBindingExpressionRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " text=\"\"/>", "lala()" };
-
-      return lines;
    }
 }

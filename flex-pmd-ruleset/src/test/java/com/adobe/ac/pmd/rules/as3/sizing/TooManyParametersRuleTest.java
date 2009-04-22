@@ -63,11 +63,9 @@ public class TooManyParametersRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 62, 62 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 62, 62 ) } );
    }
 
    @Override

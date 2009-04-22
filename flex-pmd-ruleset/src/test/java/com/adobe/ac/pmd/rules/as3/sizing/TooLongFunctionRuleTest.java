@@ -63,11 +63,9 @@ public class TooLongFunctionRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 41, 84 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as", expectedPositions );
+            "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 41, 84 ) } );
    }
 
    @Override

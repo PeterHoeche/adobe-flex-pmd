@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3.sizing;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class TooLongSwitchCaseRuleTest
@@ -62,11 +63,10 @@ public class TooLongSwitchCaseRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 47, 50 ), new ViolationPosition( 52, 66 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as", expectedPositions );
+            "com.adobe.ac.ncss.LongSwitch.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 47, 50 ), new ViolationPosition( 52, 66 ) } );
    }
 
    @Override

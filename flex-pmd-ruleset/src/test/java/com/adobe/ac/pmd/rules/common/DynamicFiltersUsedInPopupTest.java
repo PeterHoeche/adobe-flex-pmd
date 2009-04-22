@@ -63,17 +63,14 @@ public class DynamicFiltersUsedInPopupTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 37, 37 ) };
+      assertViolations(
+            "filters.MyPopup.as", new ViolationPosition[]
+            { new ViolationPosition( 37, 37 ) } );
 
       assertViolations(
-            "filters.MyPopup.as", expectedPositions );
-
-      final ViolationPosition[] expectedPositions2 =
-      { new ViolationPosition( 41, 41 ), new ViolationPosition( 44, 44 ) };
-
-      assertViolations(
-            "filters.MyPopup.mxml", expectedPositions2 );
+            "filters.MyPopup.mxml",
+            new ViolationPosition[]
+            { new ViolationPosition( 41, 41 ), new ViolationPosition( 44, 44 ) } );
    }
 
    @Override

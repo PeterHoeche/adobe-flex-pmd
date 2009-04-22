@@ -68,11 +68,9 @@ public class ConstructorNonEmptyReturnTypeRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 36, 37 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.VoidConstructor.as", expectedPositions );
+            "com.adobe.ac.ncss.VoidConstructor.as", new ViolationPosition[]
+            { new ViolationPosition( 36, 37 ) } );
    }
 
    @Override

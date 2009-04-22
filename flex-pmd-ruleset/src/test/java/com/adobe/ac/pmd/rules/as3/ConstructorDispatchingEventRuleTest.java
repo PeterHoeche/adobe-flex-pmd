@@ -67,11 +67,9 @@ public class ConstructorDispatchingEventRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 58, 58 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 58, 58 ) } );
    }
 
    @Override

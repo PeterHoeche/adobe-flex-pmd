@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class EventMissingCloneFunctionRuleTest
@@ -65,17 +66,15 @@ public class EventMissingCloneFunctionRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( -1, -1 ) };
+      assertViolations(
+            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( -1, -1 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.event.FirstCustomEvent.as", expectedPositions );
-
-      final ViolationPosition[] expectedPositions2 =
-      { new ViolationPosition( -1, -1 ) };
-
-      assertViolations(
-            "com.adobe.ac.ncss.event.SecondCustomEvent.as", expectedPositions2 );
+            "com.adobe.ac.ncss.event.SecondCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( -1, -1 ) } );
    }
 
    @Override

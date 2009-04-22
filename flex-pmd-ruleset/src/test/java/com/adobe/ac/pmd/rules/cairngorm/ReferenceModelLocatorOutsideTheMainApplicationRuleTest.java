@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.rules.cairngorm;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -66,12 +67,9 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition
-      [] expectedPositions =
-      { new ViolationPosition( 33, 33 ) };
-
       assertViolations(
-            "AbstractRowData.as", expectedPositions );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override

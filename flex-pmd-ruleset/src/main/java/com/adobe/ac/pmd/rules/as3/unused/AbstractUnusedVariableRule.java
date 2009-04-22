@@ -54,9 +54,8 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode >
 
             if ( !visited
                   && variable.getName() != null
-                  && variable.getName().toString() != null
                   && ast.stringValue != null
-                  && variable.getName().toString().compareTo(
+                  && variable.getName().compareTo(
                         ast.stringValue ) == 0 )
             {
                variablesUsed.put(

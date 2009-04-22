@@ -33,7 +33,7 @@ package de.bokelberg.flex.parser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 import de.bokelberg.flex.parser.exceptions.NullTokenException;
@@ -472,37 +472,37 @@ public class AS3Parser
    }
 
    private Node convertMeta(
-         final ArrayList< Node > meta )
+         final List< Node > metadataList )
    {
-      if ( meta == null
-            || meta.isEmpty() )
+      if ( metadataList == null
+            || metadataList.isEmpty() )
       {
          return null;
       }
 
       final Node result = new Node( Node.META_LIST, tok.line, tok.column );
-      final Iterator< Node > it = meta.iterator();
-      while ( it.hasNext() )
+
+      for ( final Node metadataNode : metadataList )
       {
-         result.addChild( it.next() );
+         result.addChild( metadataNode );
       }
       return result;
    }
 
    private Node convertModifiers(
-         final ArrayList< Token > modifier )
+         final List< Token > modifierList )
    {
-      if ( modifier == null )
+      if ( modifierList == null )
       {
          return null;
       }
 
       final Node result = new Node( Node.MOD_LIST, tok.line, tok.column );
-      final Iterator< Token > it = modifier.iterator();
-      while ( it.hasNext() )
+
+      for ( final Token modifierToken : modifierList )
       {
          result.addChild(
-               Node.MODIFIER, tok.line, tok.column, it.next().text );
+               Node.MODIFIER, tok.line, tok.column, modifierToken.text );
       }
       return result;
    }
@@ -622,8 +622,10 @@ public class AS3Parser
       final Node result = new Node( Node.ASSIGN, tok.line, tok.column,
             parseConditionalExpression() );
       while ( tokIs( KeyWords.EQUAL )
-            || tokIs( KeyWords.PLUS_EQUAL ) || tokIs( KeyWords.MINUS_EQUAL ) || tokIs( KeyWords.TIMES_EQUAL ) || tokIs( KeyWords.DIVIDED_EQUAL )
-            || tokIs( KeyWords.MODULO_EQUAL ) || tokIs( KeyWords.AND_EQUAL ) || tokIs( KeyWords.OR_EQUAL ) || tokIs( KeyWords.XOR_EQUAL ) )
+            || tokIs( KeyWords.PLUS_EQUAL ) || tokIs( KeyWords.MINUS_EQUAL )
+            || tokIs( KeyWords.TIMES_EQUAL ) || tokIs( KeyWords.DIVIDED_EQUAL )
+            || tokIs( KeyWords.MODULO_EQUAL ) || tokIs( KeyWords.AND_EQUAL )
+            || tokIs( KeyWords.OR_EQUAL ) || tokIs( KeyWords.XOR_EQUAL ) )
       {
          result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
          nextToken();

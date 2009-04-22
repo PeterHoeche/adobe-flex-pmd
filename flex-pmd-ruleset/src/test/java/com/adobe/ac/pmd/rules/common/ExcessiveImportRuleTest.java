@@ -54,19 +54,16 @@ public class ExcessiveImportRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 0, 0 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 0, 0 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "   import lalal.lalla;", "import lala;" };
-      return lines;
    }
 
    @Override
@@ -78,8 +75,7 @@ public class ExcessiveImportRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "   function lala() : void", "var lala : Number", "important" };
-      return lines;
    }
 }

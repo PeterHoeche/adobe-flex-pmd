@@ -63,12 +63,11 @@ public class UnusedPrivateMethodRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 95, 96 ), new ViolationPosition( 87, 88 ),
-            new ViolationPosition( 99, 100 ), new ViolationPosition( 91, 92 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+            { new ViolationPosition( 95, 96 ), new ViolationPosition( 87, 88 ),
+                  new ViolationPosition( 99, 100 ),
+                  new ViolationPosition( 91, 92 ) } );
    }
 
    @Override

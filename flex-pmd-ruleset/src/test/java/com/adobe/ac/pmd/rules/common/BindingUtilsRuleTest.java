@@ -54,20 +54,17 @@ public class BindingUtilsRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 99, 99 ) };
-
       assertViolations(
-            "cairngorm.FatController.as", expectedPositions );
+            "cairngorm.FatController.as", new ViolationPosition[]
+            { new ViolationPosition( 99, 99 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " BindingUtils.", " BindingUtils.bindSetter",
             "         BindingUtils.bindSetter(setContent, value, \"content\");" };
-      return lines;
    }
 
    @Override
@@ -79,9 +76,8 @@ public class BindingUtilsRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " MyBindingUtils.", " var i : int = 0;", ".BindingUtils",
             " BindingUtilsT" };
-      return lines;
    }
 }

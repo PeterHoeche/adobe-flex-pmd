@@ -54,20 +54,17 @@ public class AlertShowRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 48, 48 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", expectedPositions );
+            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
+            { new ViolationPosition( 48, 48 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " Alert.show(", " Alert.show( ", " Alert.show( \"something\" );",
             " Alert.show(\"something\");" };
-      return lines;
    }
 
    @Override
@@ -79,10 +76,8 @@ public class AlertShowRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "var i : Number", "Alert.sho( ", "lert.show( \"something\" );",
             "Alrt.show(\"something\");", "ScoyoAlert.show(" };
-
-      return lines;
    }
 }

@@ -54,20 +54,17 @@ public class DispatchHardCodedEventNameRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 109, 109 ), new ViolationPosition( 110, 110 ) };
-
       assertViolations(
-            "AbstractRowData.as", expectedPositions );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 109, 109 ),
+                  new ViolationPosition( 110, 110 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "dispatchEvent( \"change\" );", "dispatchEvent(\"change\");" };
-
-      return lines;
    }
 
    @Override
@@ -79,10 +76,8 @@ public class DispatchHardCodedEventNameRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "var i : int = 0;", "lala();", "dispatchEvent( CONST );",
             "dispatchEvent(Rule.CONST);" };
-
-      return lines;
    }
 }

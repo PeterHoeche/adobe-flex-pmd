@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ExplicitStaticAccessFromStaticMethodRuleTest
@@ -64,17 +65,14 @@ public class ExplicitStaticAccessFromStaticMethodRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] modelLocatorExpectedPositions =
-      { new ViolationPosition( 52, 52 ) };
       assertViolations(
-            "cairngorm.NonBindableModelLocator.as", modelLocatorExpectedPositions );
-
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 44, 44 ), new ViolationPosition( 49, 49 ),
-            new ViolationPosition( 53, 53 ) };
+            "cairngorm.NonBindableModelLocator.as", new ViolationPosition[]
+            { new ViolationPosition( 52, 52 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", expectedPositions );
+            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
+            { new ViolationPosition( 44, 44 ), new ViolationPosition( 49, 49 ),
+                  new ViolationPosition( 53, 53 ) } );
    }
 
    @Override

@@ -54,19 +54,18 @@ public class ListenForHardCodedEventNameRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions = { new ViolationPosition( 108, 108 ) };
-
-      assertViolations( "AbstractRowData.as", expectedPositions );
+      assertViolations(
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 108, 108 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "addEventListener( \"change\", handleChange );",
             "addEventListener(\"change\",handleChange);",
-            "addEventListener( \"change\"," };
-      return lines;
+      "addEventListener( \"change\"," };
    }
 
    @Override
@@ -78,10 +77,9 @@ public class ListenForHardCodedEventNameRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "addEventListener( CHANGE, handleChange );",
             "addEventListener(CHANGE,handleChange);",
             "addEventListener( CHANGE," };
-      return lines;
    }
 }

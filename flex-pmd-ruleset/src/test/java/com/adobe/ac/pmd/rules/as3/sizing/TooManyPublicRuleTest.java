@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3.sizing;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class TooManyPublicRuleTest
@@ -62,11 +63,9 @@ public class TooManyPublicRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 35, 35 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+            { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override

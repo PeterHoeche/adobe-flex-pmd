@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.cairngorm;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class FatControllerRuleTest
@@ -64,11 +65,9 @@ public class FatControllerRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 95, 196 ) };
-
       assertViolations(
-            "cairngorm.FatController.as", expectedPositions );
+            "cairngorm.FatController.as", new ViolationPosition[]
+            { new ViolationPosition( 95, 196 ) } );
    }
 
    @Override

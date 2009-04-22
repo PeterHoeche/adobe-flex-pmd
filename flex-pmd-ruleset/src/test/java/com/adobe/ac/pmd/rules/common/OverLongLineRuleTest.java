@@ -60,12 +60,10 @@ public class OverLongLineRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] positions =
-      { new ViolationPosition( 45, 45 ), new ViolationPosition( 46, 46 ),
-            new ViolationPosition( 48, 48 ) };
-
       assertViolations(
-            "AbstractRowData.as", positions );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 45, 45 ), new ViolationPosition( 46, 46 ),
+                  new ViolationPosition( 48, 48 ) } );
    }
 
    @Override

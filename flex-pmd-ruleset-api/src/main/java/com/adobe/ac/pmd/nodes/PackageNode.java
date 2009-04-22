@@ -63,7 +63,8 @@ public class PackageNode
 
    public String getFullyQualifiedClassName()
    {
-      return name + "." + classNode.getName().toString();
+      return name
+            + "." + classNode.getName();
    }
 
    public List< Node > getImports()
@@ -85,17 +86,18 @@ public class PackageNode
       name = internalNode.getChild( 0 ).getChild( 0 ).stringValue;
       imports = new ArrayList< Node >();
       classNode = new ClassNode( classWrapperNode );
+      
       try
       {
-      for ( final Node node : internalNode.getChild(
-            0 ).getChild(
-            1 ).children )
-      {
-         if ( node.is( KeyWords.IMPORT ) )
+         for ( final Node node : internalNode.getChild(
+               0 ).getChild(
+               1 ).children )
          {
-            imports.add( node );
+            if ( node.is( KeyWords.IMPORT ) )
+            {
+               imports.add( node );
+            }
          }
-      }
       }
       catch ( final NullPointerException e )
       {

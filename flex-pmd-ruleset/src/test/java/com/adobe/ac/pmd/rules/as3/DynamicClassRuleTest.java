@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class DynamicClassRuleTest
@@ -62,20 +63,18 @@ public class DynamicClassRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 33, 33 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.event.DynamicCustomEvent.as", expectedPositions );
+            "com.adobe.ac.ncss.event.DynamicCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "public dynamic class DynamicObject {",
             "dynamic public class DynamicObject" };
-      return lines;
    }
 
    @Override
@@ -87,8 +86,7 @@ public class DynamicClassRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "public class DynamicObject {", "foo()", "var i : int;" };
-      return lines;
    }
 }

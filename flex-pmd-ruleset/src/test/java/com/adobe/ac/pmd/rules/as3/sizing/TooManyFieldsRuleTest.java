@@ -63,11 +63,9 @@ public class TooManyFieldsRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 35, 37 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+            { new ViolationPosition( 35, 37 ) } );
    }
 
    @Override

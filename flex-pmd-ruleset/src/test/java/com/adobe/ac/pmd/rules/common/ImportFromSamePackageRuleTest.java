@@ -70,19 +70,16 @@ public class ImportFromSamePackageRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 34, 34 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", expectedPositions );
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 34, 34 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " import lala.*;", "import myClass;", "import com.adobe.ac.TodoEvent" };
-      return lines;
    }
 
    @Override
@@ -94,9 +91,8 @@ public class ImportFromSamePackageRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { " Alert.show(", " Alert.show( ", " Alert.show( \"something\" );",
             " Alert.show(\"something\"); function importData()" };
-      return lines;
    }
 }

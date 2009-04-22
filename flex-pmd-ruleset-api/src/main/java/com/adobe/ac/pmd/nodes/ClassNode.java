@@ -163,7 +163,7 @@ public class ClassNode
          }
          for ( final FunctionNode function : functions )
          {
-            if ( function.getName().toString().equals(
+            if ( function.getName().equals(
                   name.toString() ) )
             {
                constructor = function;

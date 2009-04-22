@@ -56,11 +56,10 @@ public class DeadCodeRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 50, 50 ), new ViolationPosition( 56, 69 ) };
-
       assertViolations(
-            "AbstractRowData.as", expectedPositions );
+            "AbstractRowData.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 50, 50 ), new ViolationPosition( 56, 69 ) } );
    }
 
    @Override

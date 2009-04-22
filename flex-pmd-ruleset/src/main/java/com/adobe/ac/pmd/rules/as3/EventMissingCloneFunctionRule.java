@@ -60,7 +60,7 @@ public class EventMissingCloneFunctionRule
          for ( final FunctionNode functionNode : rootNode.getClassNode()
                .getFunctions() )
          {
-            if ( "clone".equals( functionNode.getName().toString() ) )
+            if ( "clone".equals( functionNode.getName() ) )
             {
                cloneFound = true;
             }

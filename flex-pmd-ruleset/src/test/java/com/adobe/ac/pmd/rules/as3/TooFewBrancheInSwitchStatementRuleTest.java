@@ -32,10 +32,11 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class TooFewBrancheInSwitchStatementRuleTest
@@ -62,17 +63,13 @@ public class TooFewBrancheInSwitchStatementRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 53, 54 ) };
+      assertViolations(
+            "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 53, 54 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as", expectedPositions );
-
-      final ViolationPosition[] expectedPositions2 =
-      { new ViolationPosition( 43, 44 ) };
-
-      assertViolations(
-            "com.adobe.ac.ncss.NestedSwitch.as", expectedPositions2 );
+            "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 43, 44 ) } );
    }
 
    @Override

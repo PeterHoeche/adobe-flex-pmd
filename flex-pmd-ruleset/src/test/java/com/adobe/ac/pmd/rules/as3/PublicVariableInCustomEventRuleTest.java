@@ -64,19 +64,17 @@ public class PublicVariableInCustomEventRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 35, 35 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.event.FirstCustomEvent.as", expectedPositions );
+            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "public var lala : int;" };
-      return lines;
    }
 
    @Override
@@ -88,8 +86,7 @@ public class PublicVariableInCustomEventRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "private var _lala : int", "lala()" };
-      return lines;
    }
 }

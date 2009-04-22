@@ -35,12 +35,19 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
+import com.adobe.ac.pmd.rules.common.AbstractCommonFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public abstract class AbstractMoreThanEntryPointInMxmlRuleTest
-      extends AbstractFlexRuleTest
+      extends AbstractCommonFlexRuleTest
 {
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
+   {
+   }
+
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,

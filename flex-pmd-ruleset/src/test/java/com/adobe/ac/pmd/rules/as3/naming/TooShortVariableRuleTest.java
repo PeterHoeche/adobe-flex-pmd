@@ -35,12 +35,12 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class TooShortVariableRuleTest
-      extends AbstractRegExpBasedRuleTest
+      extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
@@ -52,32 +52,23 @@ public class TooShortVariableRuleTest
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
-   }
-
-   @Override
-   @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 52, 52 ), new ViolationPosition( 63, 63 ),
-            new ViolationPosition( 75, 75 ), new ViolationPosition( 86, 86 ) };
-
       assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList.mxml", expectedPositions );
+            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+            new ViolationPosition[]
+            { new ViolationPosition( 52, 52 ), new ViolationPosition( 63, 63 ),
+                  new ViolationPosition( 75, 75 ),
+                  new ViolationPosition( 86, 86 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "  var toto : int = 0;", "  var i : int = 0;", "var ii : int = 0;",
             "var iii : int = 0;" };
-
-      return lines;
    }
 
    @Override
@@ -89,9 +80,7 @@ public class TooShortVariableRuleTest
    @Override
    protected String[] getUnmatchableLines()
    {
-      final String[] lines =
+      return new String[]
       { "function lala() : Number", "lala();" };
-
-      return lines;
    }
 }

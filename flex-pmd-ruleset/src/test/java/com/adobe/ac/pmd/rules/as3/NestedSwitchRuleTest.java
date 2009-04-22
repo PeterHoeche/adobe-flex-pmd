@@ -63,15 +63,13 @@ public class NestedSwitchRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 53, 54 ) };
+      assertViolations(
+            "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 53, 54 ) } );
 
       assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as", expectedPositions );
-
-      final ViolationPosition[] expectedPositions2 = { new ViolationPosition( 43, 44 ) };
-
-      assertViolations( "com.adobe.ac.ncss.NestedSwitch.as", expectedPositions2 );
+            "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 43, 44 ) } );
    }
 
    @Override

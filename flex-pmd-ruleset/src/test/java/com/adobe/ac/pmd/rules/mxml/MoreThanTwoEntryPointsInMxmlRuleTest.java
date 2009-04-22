@@ -30,24 +30,12 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
-import org.junit.Test;
-
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class MoreThanTwoEntryPointsInMxmlRuleTest
       extends AbstractMoreThanEntryPointInMxmlRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
-   {
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
@@ -57,16 +45,14 @@ public class MoreThanTwoEntryPointsInMxmlRuleTest
    @Override
    protected ViolationPosition[] iterationsList2Violations()
    {
-      final  ViolationPosition[] violations = {};
-
-      return violations;
+      return new ViolationPosition[]
+      {};
    }
 
    @Override
    protected ViolationPosition[] iterationsListViolations()
    {
-      final  ViolationPosition[] violations = { new ViolationPosition( 73, 73 ) };
-
-      return violations;
+      return new ViolationPosition[]
+      { new ViolationPosition( 73, 73 ) };
    }
 }

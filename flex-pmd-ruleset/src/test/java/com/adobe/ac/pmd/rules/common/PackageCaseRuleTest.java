@@ -63,9 +63,9 @@ public class PackageCaseRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      final ViolationPosition[] positions = { new ViolationPosition( -1, -1 ) };
-
-      assertViolations( "cairngorm.FatController.as", positions );
+      assertViolations(
+            "cairngorm.FatController.as", new ViolationPosition[]
+            { new ViolationPosition( -1, -1 ) } );
    }
 
    @Override
