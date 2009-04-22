@@ -41,11 +41,11 @@
       The Basic As3/MXML Ruleset contains a collection of good practices which everyone should follow.
   </description>
 
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here.">
+    <rule class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here.">
       <description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>      
       <priority>3</priority>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
+    <rule class="com.adobe.ac.pmd.rules.common.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
       <description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
       <priority>3</priority>
       <example>
@@ -58,7 +58,7 @@
    }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
+    <rule class="com.adobe.ac.pmd.rules.common.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
       <description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
       <priority>3</priority>
       <example>
@@ -71,11 +71,11 @@
    }      
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.AlertShowRule" message="Do not call Alert.show directly.">
+    <rule class="com.adobe.ac.pmd.rules.common.AlertShowRule" message="Do not call Alert.show directly.">
       <description>You should not Alert.show() directly. If an error occured in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
       <priority>1</priority>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.EmptyIfStmtRule" message="No statements in this if statement">
+    <rule class="com.adobe.ac.pmd.rules.common.EmptyIfStmtRule" message="No statements in this if statement">
       <description>Empty If Statement finds instances where a condition is checked but nothing is done about it. </description>
       <priority>3</priority>
       <example>
@@ -91,7 +91,7 @@
    } 
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum)">
       <description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
       <priority>3</priority>
       <properties>
@@ -111,13 +111,13 @@
    }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.BindingUtilsRule" message="If you need to use BindingUtils, you should probably consider refactoring using events">
+    <rule class="com.adobe.ac.pmd.rules.common.BindingUtilsRule" message="If you need to use BindingUtils, you should probably consider refactoring using events">
       <description></description>
       <priority>3</priority>
       <example>
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.OverLongLineRule" message="Too long line ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.common.OverLongLineRule" message="Too long line ({0} maximum)">
       <description></description>
       <priority>5</priority>
       <properties>
@@ -128,7 +128,7 @@
       <example>
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ImportFromSamePackageRule" message="Imports from the same package are not necessary">
+    <rule class="com.adobe.ac.pmd.rules.common.ImportFromSamePackageRule" message="Imports from the same package are not necessary">
       <description></description>
       <priority>1</priority>
       <example>
@@ -143,7 +143,7 @@ package com.adobe.ac
 }         
       </example>
     </rule>
-   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.UncorrectClassCase" message="A class name must start by a majuscule character">
+   <rule class="com.adobe.ac.pmd.rules.common.UncorrectClassCase" message="A class name must start by a majuscule character">
       <description></description> 
       <priority>3</priority>
       <example>
@@ -152,7 +152,7 @@ package com.adobe.ac
    }      
       </example>
    </rule>
-   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.CallLaterDirectlyRule" message="Don't call 'callLater' explicitly">
+   <rule class="com.adobe.ac.pmd.rules.common.CallLaterDirectlyRule" message="Don't call 'callLater' explicitly">
       <description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component lifecycle.</description>
    </rule>
 </ruleset>

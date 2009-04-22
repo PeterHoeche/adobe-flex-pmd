@@ -5,5 +5,3 @@ TODO variable hiding property
 TODO Function returning Array which is actually returning
 TODO Switch statement with identical case statement
 TODO UseTraceFunction
-TODO UpdateChildrenNumberInUpdateDisplayList
-TODO NoChildrenAddedInCreateChildren

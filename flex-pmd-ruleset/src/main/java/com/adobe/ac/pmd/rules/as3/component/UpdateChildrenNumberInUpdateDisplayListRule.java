@@ -28,63 +28,62 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.rules.as3.component;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.Map;
 
-import junit.framework.TestCase;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-import org.xml.sax.SAXException;
+import de.bokelberg.flex.parser.Node;
 
-import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
-
-public abstract class AbstractTestFlexPmdEngine
-      extends TestCase
+public class UpdateChildrenNumberInUpdateDisplayListRule
+      extends AbstractAstFlexRule
 {
-   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
+   private static final String[] METHOD_NAMES =
+   { "addChild", "addChildAt", "removeChild", "removeChildAt" };
 
-   protected int violationsFound = 0;
-
-   public AbstractTestFlexPmdEngine(
-         final String name )
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      super( name );
+      return !file.isMxml();
    }
 
-   @Test
-   public void testExecuteReport() throws PMDException, SAXException,
-         URISyntaxException, IOException
+   @Override
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > files )
    {
-      final AbstractFlexPmdEngine engine = getFlexPmdEngine();
-      final File sourceDirectory = new File( getClass().getResource(
-            "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource(
-            "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
+      super.findViolationsFromPackageNode(
+            packageNode, files );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl );
+      for ( final FunctionNode function : packageNode.getClassNode()
+            .getFunctions() )
+      {
+         if ( function.getName().compareTo(
+               "updateDisplayList" ) == 0 )
+         {
+            for ( int i = 0; i < METHOD_NAMES.length; i++ )
+            {
+               final String methodName = METHOD_NAMES[ i ];
+               final Node primaryNode = function.findPrimaryStatementFromName( methodName );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI() );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI().getPath() );
-
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
-
-      violationsFound = engine.executeReport(
-            sourceDirectory, outputDirectory, ruleSetFile,
-            new FlexPmdViolations() );
-
-      assertEquals(
-            "Number of violations found is not correct", 178, violationsFound );
+               if ( primaryNode != null )
+               {
+                  addViolation(
+                        primaryNode, primaryNode );
+               }
+            }
+         }
+      }
    }
 
-   protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.ERROR;
+   }
 }

@@ -39,7 +39,7 @@
 		The Styling Ruleset contains a collection of good practices related to
 		styling.
   </description>
-	<rule since="0.1"
+	<rule
 		class="com.adobe.ac.pmd.rules.css.StyleBlockInMxmlRule" message="The style block is embed in the MXML file">
 		<description>It is not a good practice to embed style blocks inside the MXML component. Prefer using external css files.</description>
       <priority>3</priority>

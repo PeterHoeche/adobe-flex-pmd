@@ -39,7 +39,7 @@
   <description>
       The Basic As3 Ruleset contains a collection of good practices which everyone should follow.
   </description>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule" message="This variable name is too short ({0} characters minimum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule" message="This variable name is too short ({0} characters minimum)">
       <description>Detects when a field, local, or parameter has a very short name.</description>
       <priority>5</priority>
       <properties>
@@ -59,7 +59,7 @@
    }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.naming.PackageCaseRule" message="A package name should be lower case">
+    <rule class="com.adobe.ac.pmd.rules.as3.naming.PackageCaseRule" message="A package name should be lower case">
       <description>Detects when a package definition contains upper case characters.</description>
       <priority>3</priority>
       <example>

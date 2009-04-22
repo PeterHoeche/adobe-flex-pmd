@@ -256,10 +256,6 @@ override protected function createChildren() : void
       }
            ]]></example>
   </rule>
-  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UpdateChildrenNumberInUpdateDisplayListRule" message="Do not add or remove displayable children from updateDisplayList">
-    <description>Add children in createChildren</description>
-    <priority>1</priority>
-  </rule>
   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here.">
     <description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>
     <priority>3</priority>
@@ -601,5 +597,13 @@ public class Something
   <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
     <description>Prefer using embed filters in assets</description>
     <priority>3</priority>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.component.UpdateChildrenNumberInUpdateDisplayListRule" message="Do not add or remove displayable children from updateDisplayList">
+    <description>Add children in createChildren</description>
+    <priority>1</priority>
+  </rule>
+  <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.component.NoChildrenAddedInCreateChildrenRule" message="No children are added from createChildren">
+    <description/>
+    <priority>1</priority>
   </rule>
 </ruleset>

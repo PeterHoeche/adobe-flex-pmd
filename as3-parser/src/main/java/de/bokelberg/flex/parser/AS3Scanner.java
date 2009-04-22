@@ -528,13 +528,13 @@ public class AS3Scanner
    /**
     * Something started with a number or a dot.
     *
-    * @param c
+    * @param characterToBeScanned
     * @return
     */
    private Token scanNumberOrDots(
-         final char c )
+         final char characterToBeScanned )
    {
-      if ( c == '.' )
+      if ( characterToBeScanned == '.' )
       {
          final Token result = scanDots();
          if ( result != null )
@@ -542,38 +542,38 @@ public class AS3Scanner
             return result;
          }
 
-         final char c2 = peekChar( 1 );
-         if ( !isDecimalChar( c2 ) )
+         final char firstCharacter = peekChar( 1 );
+         if ( !isDecimalChar( firstCharacter ) )
          {
             return new Token( ".", line, column );
          }
       }
-      if ( c == '0' )
+      if ( characterToBeScanned == '0' )
       {
-         final char c2 = peekChar( 1 );
-         if ( c2 == 'x' )
+         final char firstCharacter = peekChar( 1 );
+         if ( firstCharacter == 'x' )
          {
             return scanHex();
          }
       }
-      return scanDecimal( c );
+      return scanDecimal( characterToBeScanned );
    }
 
    private Token scanRegExp()
    {
-      final Token t = scanUntilDelimiter( '/' );
-      if ( t != null
-            && isValidRegExp( t.text ) )
+      final Token token = scanUntilDelimiter( '/' );
+      if ( token != null
+            && isValidRegExp( token.text ) )
       {
-         return t;
+         return token;
       }
       return null;
    }
 
    private Token scanSingleCharacterToken(
-         final char c )
+         final char character )
    {
-      return new Token( String.valueOf( c ), line, column );
+      return new Token( String.valueOf( character ), line, column );
    }
 
    /**

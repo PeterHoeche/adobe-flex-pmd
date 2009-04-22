@@ -39,7 +39,7 @@
   <description>
       The Sizing As3 Ruleset contains a collection of good practices related to code sizing.
   </description>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFunctionRule" message="Too many methods detected ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFunctionRule" message="Too many methods detected ({0} maximum)">
       <description>A class with too many methods is probably a good suspect for refactoring, in order to reduce its complexity and find a way to have more fine grained objects.</description>
       <priority>3</priority>
       <properties>
@@ -57,7 +57,7 @@
    }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooLongFunctionRule" message="This function is far too long ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.sizing.TooLongFunctionRule" message="This function is far too long ({0} maximum)">
       <description>Violations of this rule usually indicate that the method is doing too much. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
       <priority>3</priority>
       <properties>
@@ -77,7 +77,7 @@
    }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooLongSwitchCaseRule" message="Long switch case detected ({0} lines maximum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.sizing.TooLongSwitchCaseRule" message="Long switch case detected ({0} lines maximum)">
       <description>A switch case statement should be either empty, or contain a break, or call another method.</description>
       <priority>3</priority>
       <properties>
@@ -107,7 +107,7 @@
    }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyParametersRule" message="Long parameter list detected ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.sizing.TooManyParametersRule" message="Long parameter list detected ({0} maximum)">
       <description>Long parameter lists can indicate that a new object should be created to wrap the numerous parameters.  Basically, try to group the parameters together.
       </description>
       <priority>1</priority>
@@ -127,7 +127,7 @@
       </example>
     </rule>
     
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyPublicRule" message="Too much public fields or functions detected ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.sizing.TooManyPublicRule" message="Too much public fields or functions detected ({0} maximum)">
       <description>A large number of public methods and attributes declared in a class can indicate the class may need to be broken up as increased effort will be required to thoroughly test it.</description>
       <priority>3</priority>
       <properties>
@@ -153,7 +153,7 @@
       </example>
     </rule>
     
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFieldsRule" message="Too many field detected ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFieldsRule" message="Too many field detected ({0} maximum)">
       <description>Classes that have too many fields could be redesigned to have fewer fields, possibly  through some nested object grouping of some of the information.  For example, a class with  city/state/zip fields could instead have one Address field.</description>
       <priority>3</priority>
       <properties>

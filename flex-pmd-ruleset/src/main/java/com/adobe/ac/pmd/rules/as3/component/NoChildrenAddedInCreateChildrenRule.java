@@ -28,51 +28,65 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.component;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Map;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import de.bokelberg.flex.parser.Node;
 
-public class UpdateChildrenNumberInUpdateDisplayListRuleTest
-      extends AbstractAstFlexRuleTest
+public class NoChildrenAddedInCreateChildrenRule
+      extends AbstractAstFlexRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   private static final String CREATE_CHILDREN = "createChildren";
+   private static final String[] METHOD_NAMES =
+   { "addChild", "addChildAt" };
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "AbstractRowData.as" );
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > files )
    {
-      assertEmptyViolations( "Main.mxml" );
+      super.findViolationsFromPackageNode(
+            packageNode, files );
+
+      for ( final FunctionNode function : packageNode.getClassNode()
+            .getFunctions() )
+      {
+         if ( function.getName().compareTo(
+               CREATE_CHILDREN ) == 0 )
+         {
+            for ( int i = 0; i < METHOD_NAMES.length; i++ )
+            {
+               final String methodName = METHOD_NAMES[ i ];
+               final Node primaryNode = function.findPrimaryStatementFromName( methodName );
+
+               if ( primaryNode != null )
+               {
+                  return;
+               }
+            }
+            addViolation(
+                  function.getInternalNode(), function.getContentBlock()
+                        .getLastChild() );
+         }
+      }
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertViolations(
-            "BadComponent.as", new ViolationPosition[]
-            { new ViolationPosition( 42, 42 ), new ViolationPosition( 43, 43 ),
-                  new ViolationPosition( 44, 44 ),
-                  new ViolationPosition( 45, 45 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UpdateChildrenNumberInUpdateDisplayListRule();
+      return ViolationPriority.ERROR;
    }
 }

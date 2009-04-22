@@ -722,7 +722,7 @@ public class AS3Parser
     * @throws TokenException
     */
    private Node parseClass(
-         final ArrayList< Node > meta, final ArrayList< Token > modifier )
+         final List< Node > meta, final List< Token > modifier )
          throws TokenException
    {
       consume( KeyWords.CLASS );
@@ -789,7 +789,7 @@ public class AS3Parser
     * @throws TokenException
     */
    private Node parseConstList(
-         final ArrayList< Node > meta, final ArrayList< Token > modifiers )
+         final List< Node > meta, final List< Token > modifiers )
          throws TokenException
    {
       consume( KeyWords.CONST );
@@ -934,11 +934,12 @@ public class AS3Parser
     * @throws TokenException
     */
    private Node parseFunction(
-         final ArrayList< Node > meta, final ArrayList< Token > modifiers )
+         final List< Node > meta, final List< Token > modifiers )
          throws TokenException
    {
       final Node[] signature = doParseSignature();
       final Node result = new Node( signature[ 0 ].stringValue, tok.line, tok.column );
+
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
       result.addChild( signature[ 1 ] );
@@ -1047,7 +1048,7 @@ public class AS3Parser
     * @throws TokenException
     */
    private Node parseInterface(
-         final ArrayList< Node > meta, final ArrayList< Token > modifier )
+         final List< Node > meta, final List< Token > modifier )
          throws TokenException
    {
       consume( KeyWords.INTERFACE );
@@ -1626,7 +1627,7 @@ public class AS3Parser
     * @throws TokenException
     */
    private Node parseVarList(
-         final ArrayList< Node > meta, final ArrayList< Token > modifiers )
+         final List< Node > meta, final List< Token > modifiers )
          throws TokenException
    {
       consume( KeyWords.VAR );

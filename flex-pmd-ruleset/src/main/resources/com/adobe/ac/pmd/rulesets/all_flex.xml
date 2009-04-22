@@ -47,5 +47,6 @@
     <rule ref="com/adobe/ac/pmd/rulesets/naming.xml"/>
     <rule ref="com/adobe/ac/pmd/rulesets/styling.xml"/>
     <rule ref="com/adobe/ac/pmd/rulesets/performance.xml"/>
+    <rule ref="com/adobe/ac/pmd/rulesets/component.xml"/>
 
 </ruleset>

@@ -39,7 +39,7 @@
   <description>
       This Ruleset contains a collection of good practices related to the performance (CPU and memory).
   </description>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
+    <rule class="com.adobe.ac.pmd.rules.common.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
       <description>Prefer using embed filters in assets</description>
       <priority>3</priority>
       <example>

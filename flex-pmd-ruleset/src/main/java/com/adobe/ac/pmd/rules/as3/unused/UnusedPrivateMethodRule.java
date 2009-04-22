@@ -110,7 +110,7 @@ public class UnusedPrivateMethodRule
       if ( ModifierUtils.isPrivate( function ) )
       {
          unvisitedPrivateFunctions.put(
-               function.getName().toString(), function );
+               function.getName(), function );
       }
    }
 }

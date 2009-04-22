@@ -28,63 +28,52 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.rules.as3.component;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.net.URL;
-
-import junit.framework.TestCase;
-import net.sourceforge.pmd.PMDException;
 
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
+import com.adobe.ac.pmd.rules.as3.component.UpdateChildrenNumberInUpdateDisplayListRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public abstract class AbstractTestFlexPmdEngine
-      extends TestCase
+public class UpdateChildrenNumberInUpdateDisplayListRuleTest
+      extends AbstractAstFlexRuleTest
 {
-   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
-
-   protected int violationsFound = 0;
-
-   public AbstractTestFlexPmdEngine(
-         final String name )
-   {
-      super( name );
-   }
-
+   @Override
    @Test
-   public void testExecuteReport() throws PMDException, SAXException,
-         URISyntaxException, IOException
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      final AbstractFlexPmdEngine engine = getFlexPmdEngine();
-      final File sourceDirectory = new File( getClass().getResource(
-            "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource(
-            "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI() );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI().getPath() );
-
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
-
-      violationsFound = engine.executeReport(
-            sourceDirectory, outputDirectory, ruleSetFile,
-            new FlexPmdViolations() );
-
-      assertEquals(
-            "Number of violations found is not correct", 178, violationsFound );
+      assertEmptyViolations( "AbstractRowData.as" );
    }
 
-   protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertEmptyViolations( "Main.mxml" );
+   }
+
+   @Override
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertViolations(
+            "BadComponent.as", new ViolationPosition[]
+            { new ViolationPosition( 42, 42 ), new ViolationPosition( 43, 43 ),
+                  new ViolationPosition( 44, 44 ),
+                  new ViolationPosition( 45, 45 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UpdateChildrenNumberInUpdateDisplayListRule();
+   }
 }

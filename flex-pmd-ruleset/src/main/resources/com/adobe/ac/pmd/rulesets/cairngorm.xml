@@ -39,7 +39,7 @@
   <description>
       The Cairngorm Ruleset contains a collection of good practices related to Cairngorm.
   </description>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.cairngorm.BindableModelLocatorRule" message="A modelLocator must not be Bindable at a class level">
+    <rule class="com.adobe.ac.pmd.rules.cairngorm.BindableModelLocatorRule" message="A modelLocator must not be Bindable at a class level">
       <description>A bindable ModelLocator could leads to performance issues due to bindings</description>
       <priority>1</priority>
       <example>
@@ -49,7 +49,7 @@
    }      
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.cairngorm.ReferenceModelLocatorOutsideTheMainApplicationRule" message="The ModelLocator should be only accessible from the main application file">
+    <rule class="com.adobe.ac.pmd.rules.cairngorm.ReferenceModelLocatorOutsideTheMainApplicationRule" message="The ModelLocator should be only accessible from the main application file">
       <description>The ModelLocator should be only accessible from the main application file. Then sub-models should be injected to the nested views.</description>
       <priority>3</priority>
       <example>
@@ -63,7 +63,7 @@ package business
 }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule" message="A FrontController must nor add all its commands within the Controller constructor.">
+    <rule class="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule" message="A FrontController must nor add all its commands within the Controller constructor.">
       <description>Try split them into methods where you add commands depending on their fonctional area.</description>
       <priority>3</priority>
       <example>
@@ -93,7 +93,7 @@ package control
 }
       </example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.cairngorm.BadCairngormEventNameFormatRule" message="A Cairngorm event name should contain the function area name before the actual event name">
+    <rule class="com.adobe.ac.pmd.rules.cairngorm.BadCairngormEventNameFormatRule" message="A Cairngorm event name should contain the function area name before the actual event name">
       <description>You would have something like 'productManagement.getProducts' as an event name.</description>
       <priority>3</priority>
       <example>

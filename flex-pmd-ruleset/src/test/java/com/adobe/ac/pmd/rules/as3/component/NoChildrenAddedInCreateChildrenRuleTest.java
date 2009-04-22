@@ -28,62 +28,53 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.component;
 
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import org.junit.Test;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UpdateChildrenNumberInUpdateDisplayListRule
-      extends AbstractAstFlexRule
+public class NoChildrenAddedInCreateChildrenRuleTest
+      extends AbstractAstFlexRuleTest
 {
-   private static final String[] METHOD_NAMES =
-   { "addChild", "addChildAt", "removeChild", "removeChildAt" };
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return !file.isMxml();
+      assertEmptyViolations( "GoodComponent.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > files )
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      super.findViolationsFromPackageNode(
-            packageNode, files );
-
-      for ( final FunctionNode function : packageNode.getClassNode()
-            .getFunctions() )
-      {
-         if ( function.getName().compareTo(
-               "updateDisplayList" ) == 0 )
-         {
-            for ( int i = 0; i < METHOD_NAMES.length; i++ )
-            {
-               final String methodName = METHOD_NAMES[ i ];
-               final Node primaryNode = function.findPrimaryStatementFromName( methodName );
-
-               if ( primaryNode != null )
-               {
-                  addViolation(
-                        primaryNode, primaryNode );
-               }
-            }
-         }
-      }
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ViolationPriority.ERROR;
+      assertViolations(
+            "BadComponent.as", new ViolationPosition[]
+            { new ViolationPosition( 49, 52 ) } );
+
+      assertViolations(
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 137, 138 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new NoChildrenAddedInCreateChildrenRule();
    }
 }
