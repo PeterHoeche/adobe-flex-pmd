@@ -1,3 +1,33 @@
+/**
+ *    Copyright (c) 2008. Adobe Systems Incorporated.
+ *    All rights reserved.
+ *
+ *    Redistribution and use in source and binary forms, with or without
+ *    modification, are permitted provided that the following conditions
+ *    are met:
+ *
+ *      * Redistributions of source code must retain the above copyright
+ *        notice, this list of conditions and the following disclaimer.
+ *      * Redistributions in binary form must reproduce the above copyright
+ *        notice, this list of conditions and the following disclaimer in
+ *        the documentation and/or other materials provided with the
+ *        distribution.
+ *      * Neither the name of Adobe Systems Incorporated nor the names of
+ *        its contributors may be used to endorse or promote products derived
+ *        from this software without specific prior written permission.
+ *
+ *    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ *    PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+ *    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ *    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ *    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ *    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ *    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package com.adobe.radon.core.controls
 {
 	import flash.display.GradientType;
@@ -7,7 +37,7 @@ package com.adobe.radon.core.controls
 	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
-	
+
 	import mx.controls.DataGrid;
 	import mx.controls.dataGridClasses.DataGridColumn;
 	import mx.controls.listClasses.IListItemRenderer;
@@ -15,139 +45,149 @@ package com.adobe.radon.core.controls
 	import mx.core.FlexShape;
 	import mx.core.mx_internal;
 	import mx.events.DataGridEvent;
-	
+
 	use namespace mx_internal;
-	
+
 	public class RadonDataGrid extends DataGrid
 	{
 		public function RadonDataGrid()
 		{
 			super();
-			
-			headerClass = RadonDataGridHeader;
-			
-			rowHeight= 34;
-			draggableColumns = false;
-			resizableColumns = false;
+
+			headerClass=RadonDataGridHeader;
+
+			rowHeight=34;
+			draggableColumns=false;
+			resizableColumns=false;
 		}
-		
-		override protected function drawHighlightIndicator(
-			indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint,itemRenderer:IListItemRenderer):void
+
+		override protected function drawHighlightIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
 		{
-			super.drawSelectionIndicator( indicator, x, y, width, height, color, itemRenderer);
-			var realWidth : Number = unscaledWidth - viewMetrics.left - viewMetrics.right;
-			
-			var g:Graphics = Sprite(indicator).graphics;
+			super.drawSelectionIndicator(indicator, x, y, width, height, color, itemRenderer);
+			var realWidth:Number=unscaledWidth - viewMetrics.left - viewMetrics.right;
+
+			var g:Graphics=Sprite(indicator).graphics;
 			g.clear();
-			g.beginFill(0xFFFFFF,0.15);
+			g.beginFill(0xFFFFFF, 0.15);
 			g.drawRect(0, 0, realWidth, height);
 			g.endFill();
-			
-			indicator.x = x;
-			indicator.y = y;
+
+			indicator.x=x;
+			indicator.y=y;
 		}
-		
-		override protected function drawSelectionIndicator(
-			indicator:Sprite, x:Number, y:Number, width:Number, height:Number, 
-			color:uint, itemRenderer:IListItemRenderer):void
+
+		override protected function drawSelectionIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
 		{
-			super.drawSelectionIndicator( indicator, x, y, width, height, color, itemRenderer);
-			var realWidth : Number = unscaledWidth - viewMetrics.left - viewMetrics.right;
-				
-			var type:String = GradientType.LINEAR;
-			var colors:Array = [0x2bc9f6, 0x0086ad];
-			var alphas:Array = [1, 1];
-			var ratios:Array = [0, 190 ];
-			var spreadMethod:String = SpreadMethod.PAD;
-			var interp:String = InterpolationMethod.RGB;
-			var focalPtRatio:Number = 0;
-	
-			var matrix:Matrix = new Matrix();
-			var boxRotation:Number = Math.PI/2; // 90˚
-			var tx:Number = 0;
-			var ty:Number = 0;
-		
-			var g:Graphics = Sprite(indicator).graphics;
+			super.drawSelectionIndicator(indicator, x, y, width, height, color, itemRenderer);
+			var realWidth:Number=unscaledWidth - viewMetrics.left - viewMetrics.right;
+
+			var type:String=GradientType.LINEAR;
+			var colors:Array=[0x2bc9f6, 0x0086ad];
+			var alphas:Array=[1, 1];
+			var ratios:Array=[0, 190];
+			var spreadMethod:String=SpreadMethod.PAD;
+			var interp:String=InterpolationMethod.RGB;
+			var focalPtRatio:Number=0;
+
+			var matrix:Matrix=new Matrix();
+			var boxRotation:Number=Math.PI / 2; // 90˚
+			var tx:Number=0;
+			var ty:Number=0;
+
+			var g:Graphics=Sprite(indicator).graphics;
 			g.clear();
-			
+
 			matrix.createGradientBox(realWidth, height, boxRotation, tx, ty);
-			g.beginGradientFill(
-				type, 
-            colors,
-            alphas,
-            ratios, 
-            matrix, 
-            spreadMethod, 
-            interp, 
-            focalPtRatio);
-	            
+			g.beginGradientFill(type, colors, alphas, ratios, matrix, spreadMethod, interp, focalPtRatio);
+
 			//g.beginFill(color);
 			g.drawRect(0, 0, realWidth, height);
 			g.endFill();
-			
-			indicator.x = x;
-			indicator.y = y;
+
+			indicator.x=x;
+			indicator.y=y;
 		}
-    
-		override protected function drawRowBackground(
-			s:Sprite, rowIndex:int, y:Number, height:Number, color:uint, dataIndex:int):void
+
+		override protected function drawRowBackground(s:Sprite, rowIndex:int, y:Number, height:Number, color:uint, dataIndex:int):void
 		{
-			var contentHolder:ListBaseContentHolder = ListBaseContentHolder(s.parent);
-			
+			var contentHolder:ListBaseContentHolder=ListBaseContentHolder(s.parent);
+
 			var background:Shape;
 			if (rowIndex < s.numChildren)
 			{
-				background = Shape(s.getChildAt(rowIndex));
+				background=Shape(s.getChildAt(rowIndex));
 			}
 			else
 			{
-				background = new FlexShape();
-				background.name = "background";
+				background=new FlexShape();
+				background.name="background";
 				s.addChild(background);
 			}
-			
-			background.y = y;
-			
+
+			background.y=y;
+
 			// Height is usually as tall is the items in the row, but not if
 			// it would extend below the bottom of listContent
-			var height:Number = Math.min(height,contentHolder.height - y);
-			
-			var g:Graphics = background.graphics;
+			var height:Number=Math.min(height, contentHolder.height - y);
+
+			var g:Graphics=background.graphics;
 			g.clear();
-			
-			var backgroundAlpha : Number = getStyle("backgroundAlpha");
-			
-			if( color == 0x000000 )
+
+			var backgroundAlpha:Number=getStyle("backgroundAlpha");
+
+			if (color == 0x000000)
 			{
-				backgroundAlpha = 0;
+				backgroundAlpha=0;
 			}
-			else if( color == 0xFFFFFF )
+			else if (color == 0xFFFFFF)
 			{
-				backgroundAlpha = 0.04;
+				backgroundAlpha=0.04;
 			}
-			
+
 			g.beginFill(color, backgroundAlpha);
 			g.drawRect(0, 0, contentHolder.width, height);
 			g.endFill();
 		}
-		
+
 		override protected function placeSortArrow():void
-    	{
-    		super.placeSortArrow();
-    		
-    		var sortedColumn : DataGridColumn = columns[sortIndex];
-    		
-    		for each( var dgcolumn : Object in columns )
+		{
+			super.placeSortArrow();
+
+			var sortedColumn:DataGridColumn=columns[sortIndex];
+
+			for each (var dgcolumn:Object in columns)
 			{
-				if( dgcolumn == sortedColumn )
+				if (dgcolumn == sortedColumn)
 				{
-					dgcolumn.setStyle( "headerStyleName", "radonDataGridSelectedHeader" );
+					dgcolumn.setStyle("headerStyleName", "radonDataGridSelectedHeader");
 				}
 				else
 				{
-					dgcolumn.setStyle( "headerStyleName", "radonDataGridHeader" );
+					dgcolumn.setStyle("headerStyleName", "radonDataGridHeader");
+				}
+				switch (10)
+				{
+					case 1:
+						break;
+					case 2:
+						break;
+               case 3:
+                  break;
+               case 4:
+                  break;
+               default:
+                  for ( var i : int = 0; i < 10; i++ )
+                  {
+                     if ( true )
+                     {
+                     }
+                     if ( false )
+                     {
+                     }
+                  }
+                  break;
 				}
 			}
-    	}
+		}
 	}
 }

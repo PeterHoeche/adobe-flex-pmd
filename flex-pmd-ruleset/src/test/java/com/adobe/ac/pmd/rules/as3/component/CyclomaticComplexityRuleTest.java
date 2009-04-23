@@ -30,64 +30,47 @@
  */
 package com.adobe.ac.pmd.rules.as3.component;
 
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import org.junit.Test;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class NoChildrenAddedInCreateChildrenRule
-      extends AbstractAstFlexRule
+public class CyclomaticComplexityRuleTest
+      extends AbstractAstFlexRuleTest
 {
-   private static final String CREATE_CHILDREN = "createChildren";
-   private static final String[] METHOD_NAMES =
-   { "addChild", "addChildAt" };
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return !file.isMxml();
+      assertEmptyViolations( "AbstractRowData.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > files )
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      super.findViolationsFromPackageNode(
-            packageNode, files );
-
-      for ( final FunctionNode function : packageNode.getClassNode()
-            .getFunctions() )
-      {
-         if ( function.getName().compareTo(
-               CREATE_CHILDREN ) == 0 )
-         {
-            for ( int i = 0; i < METHOD_NAMES.length; i++ )
-            {
-               final String methodName = METHOD_NAMES[ i ];
-               final Node primaryNode = function
-                     .findPrimaryStatementFromName( methodName );
-
-               if ( primaryNode != null )
-               {
-                  return;
-               }
-            }
-            addViolation(
-                  function.getInternalNode(), function.getContentBlock()
-                        .getLastChild() );
-         }
-      }
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ViolationPriority.ERROR;
+      assertViolations(
+            "RadonDataGrid.as", new ViolationPosition[]
+            { new ViolationPosition( 153, 153 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new CyclomaticComplexityRule();
    }
 }

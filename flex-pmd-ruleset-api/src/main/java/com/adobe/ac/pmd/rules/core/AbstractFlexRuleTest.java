@@ -46,7 +46,7 @@ public abstract class AbstractFlexRuleTest
 {
    /**
     * Test case which contains non-violating files but which are concerned by the given rule
-    * 
+    *
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -56,7 +56,7 @@ public abstract class AbstractFlexRuleTest
 
    /**
     * Test case which contains non-concerned files by the given rule
-    * 
+    *
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -66,7 +66,7 @@ public abstract class AbstractFlexRuleTest
 
    /**
     * Test case which contains violating files
-    * 
+    *
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -79,7 +79,8 @@ public abstract class AbstractFlexRuleTest
          URISyntaxException
    {
       assertViolations(
-            resourcePath, null );
+            resourcePath, new ViolationPosition[]
+            {} );
    }
 
    final protected void assertViolations(
@@ -88,17 +89,13 @@ public abstract class AbstractFlexRuleTest
    {
       final List< Violation > violations = processFile( resourcePath );
 
-      if ( expectedPositions == null )
-      {
-         assertEquals(
-               "Violations list is not empty", 0, violations.size() );
-      }
-      else
-      {
-         assertEquals(
-               VIOLATIONS_NUMBER_IS_NOT_CORRECT, expectedPositions.length,
-               violations.size() );
+      assertEquals(
+            expectedPositions.length == 0 ? "Violations list is not empty"
+                  : VIOLATIONS_NUMBER_IS_NOT_CORRECT, expectedPositions.length,
+            violations.size() );
 
+      if ( expectedPositions.length != 0 )
+      {
          for ( int i = 0; i < expectedPositions.length; i++ )
          {
             final Violation violation = violations.get( i );

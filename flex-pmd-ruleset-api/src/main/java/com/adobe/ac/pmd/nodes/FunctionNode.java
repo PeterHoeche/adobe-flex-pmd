@@ -50,6 +50,7 @@ public class FunctionNode
       INamable
 {
    private Node contentBlock;
+   private int cyclomaticComplexity;
    private List< MetaDataNode > metaDataList;
    private List< Modifier > modifiers;
    private IdentifierNode name;
@@ -95,6 +96,11 @@ public class FunctionNode
       return contentBlock;
    }
 
+   public int getCyclomaticComplexity()
+   {
+      return cyclomaticComplexity;
+   }
+
    public List< MetaDataNode > getMetaDataList()
    {
       return metaDataList;
@@ -126,7 +132,6 @@ public class FunctionNode
     */
    public Node getSuperCall()
    {
-      // TODO return findPrimaryStatementFromName( "super" )
       if ( contentBlock != null
             && contentBlock.children != null )
       {
@@ -213,10 +218,32 @@ public class FunctionNode
       }
    }
 
+   private void computeCyclomaticComplexity(
+         final Node node )
+   {
+      if ( node.is( KeyWords.IF )
+            || node.is( KeyWords.FOR ) || node.is( KeyWords.FOREACH )
+            || node.is( KeyWords.FORIN ) || node.is( KeyWords.CASE )
+            || node.is( KeyWords.DEFAULT ) || node.is( KeyWords.WHILE ) )
+      {
+         cyclomaticComplexity++;
+      }
+      if ( node.numChildren() > 0 )
+      {
+         for ( final Node child : node.children )
+         {
+            computeCyclomaticComplexity( child );
+         }
+      }
+   }
+
    private void computeFunctionContent(
          final Node node )
    {
       contentBlock = node;
+      cyclomaticComplexity = 1;
+
+      computeCyclomaticComplexity( node );
    }
 
    private void computeParameterList(
@@ -239,7 +266,8 @@ public class FunctionNode
       Node dispatchNode = null;
 
       if ( content.stringValue != null
-            && isNameInArray( names, content.stringValue ) )
+            && isNameInArray(
+                  names, content.stringValue ) )
       {
          dispatchNode = content;
       }

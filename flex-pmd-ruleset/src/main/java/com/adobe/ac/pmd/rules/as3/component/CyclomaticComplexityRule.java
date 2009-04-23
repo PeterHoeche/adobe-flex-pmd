@@ -32,20 +32,32 @@ package com.adobe.ac.pmd.rules.as3.component;
 
 import java.util.Map;
 
+import net.sourceforge.pmd.PropertyDescriptor;
+
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
-
-public class NoChildrenAddedInCreateChildrenRule
-      extends AbstractAstFlexRule
+public class CyclomaticComplexityRule
+      extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private static final String CREATE_CHILDREN = "createChildren";
-   private static final String[] METHOD_NAMES =
-   { "addChild", "addChildAt" };
+   public int getDefaultThreshold()
+   {
+      return 10;
+   }
+
+   public int getThreshold()
+   {
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MAXIMUM;
+   }
 
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
@@ -61,26 +73,16 @@ public class NoChildrenAddedInCreateChildrenRule
       super.findViolationsFromPackageNode(
             packageNode, files );
 
-      for ( final FunctionNode function : packageNode.getClassNode()
-            .getFunctions() )
+      if ( packageNode.getClassNode().getFunctions() != null )
       {
-         if ( function.getName().compareTo(
-               CREATE_CHILDREN ) == 0 )
+         for ( final FunctionNode function : packageNode.getClassNode()
+               .getFunctions() )
          {
-            for ( int i = 0; i < METHOD_NAMES.length; i++ )
+            if ( function.getCyclomaticComplexity() > getThreshold() )
             {
-               final String methodName = METHOD_NAMES[ i ];
-               final Node primaryNode = function
-                     .findPrimaryStatementFromName( methodName );
-
-               if ( primaryNode != null )
-               {
-                  return;
-               }
+               addViolation(
+                     function.getInternalNode(), function.getInternalNode() );
             }
-            addViolation(
-                  function.getInternalNode(), function.getContentBlock()
-                        .getLastChild() );
          }
       }
    }
@@ -89,5 +91,11 @@ public class NoChildrenAddedInCreateChildrenRule
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
+   }
+
+   @Override
+   protected Map< String, PropertyDescriptor > propertiesByName()
+   {
+      return getRuleProperties( this );
    }
 }

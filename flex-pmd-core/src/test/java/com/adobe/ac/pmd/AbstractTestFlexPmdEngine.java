@@ -83,7 +83,7 @@ public abstract class AbstractTestFlexPmdEngine
             new FlexPmdViolations() );
 
       assertEquals(
-            "Number of violations found is not correct", 197, violationsFound );
+            "Number of violations found is not correct", 203, violationsFound );
    }
 
    protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
