@@ -154,7 +154,8 @@ public final class FileSetUtils
          {
             throw new PMDException(
                   "TokenException thrown while building AST on "
-                        + file.getFullyQualifiedName(), e );
+                        + file.getFullyQualifiedName() + " with message: "
+                        + e.getMessage(), e );
          }
       }
       return rootNode;
@@ -174,7 +175,7 @@ public final class FileSetUtils
          }
       } );
       final List< Future< Object >> futures = EXECUTOR.invokeAll(
-            toRun, 5, TimeUnit.SECONDS );
+            toRun, 400, TimeUnit.SECONDS );
       // Find out what happened when the service was
       // called.
 

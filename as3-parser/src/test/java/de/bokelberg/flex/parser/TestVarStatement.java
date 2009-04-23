@@ -62,6 +62,18 @@ public class TestVarStatement
                   + "<name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">int</type>"
                   + "<init line=\"1\" column=\"15\"><primary line=\"1\" column=\"15\">4</primary>"
                   + "</init></name-type-init></var-list>" );
+
+      assertStatement(
+            "with array",
+            "var colors:Array = [0x2bc9f6, 0x0086ad];",
+            "<var-list line=\"1\" column=\"5\">"
+                  + "<name-type-init line=\"1\" column=\"5\">"
+                  + "<name line=\"1\" column=\"5\">colors</name><type line=\"1\" column=\"11\">Array</type>"
+                  + "<init line=\"1\" column=\"20\">"
+                  + "<primary line=\"1\" column=\"20\"><array line=\"1\" column=\"20\">"
+                  + "<primary line=\"1\" column=\"21\">0x2bc9f6</primary>"
+                  + "<primary line=\"1\" column=\"31\">0x0086ad</primary>"
+                  + "</array></primary></init></name-type-init></var-list>" );
    }
 
    @Test

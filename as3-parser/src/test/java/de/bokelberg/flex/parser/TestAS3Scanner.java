@@ -150,6 +150,20 @@ public class TestAS3Scanner
    }
 
    @Test
+   public void testIsHex()
+   {
+      assertTrue( scn.isHexChar( '0' ) );
+      assertTrue( scn.isHexChar( '9' ) );
+      assertTrue( scn.isHexChar( 'A' ) );
+      assertTrue( scn.isHexChar( 'a' ) );
+      assertTrue( scn.isHexChar( 'F' ) );
+      assertTrue( scn.isHexChar( 'f' ) );
+      assertFalse( scn.isHexChar( ';' ) );
+      assertFalse( scn.isHexChar( ']' ) );
+      assertFalse( scn.isHexChar( ' ' ) );
+   }
+
+   @Test
    public void testMultiLineComment()
    {
       final String[] lines = new String[]

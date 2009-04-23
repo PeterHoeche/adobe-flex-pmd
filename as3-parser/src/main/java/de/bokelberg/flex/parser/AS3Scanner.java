@@ -232,18 +232,23 @@ public class AS3Scanner
       column = -1;
    }
 
+   boolean isHexChar(
+         final char currentCharacter )
+   {
+      final boolean isNum = currentCharacter >= '0'
+            && currentCharacter <= '9';
+      final boolean isLower = currentCharacter >= 'A'
+            && currentCharacter <= 'Z';
+      final boolean isUpper = currentCharacter >= 'a'
+            && currentCharacter <= 'z';
+
+      return isNum
+            || isLower || isUpper;
+   }
+
    private String getRemainingLine()
    {
       return lines[ line ].substring( column );
-   }
-
-   private boolean isHexChar(
-         final char currentCharacter )
-   {
-      return currentCharacter >= '0'
-            && currentCharacter <= '9' || currentCharacter >= 'A'
-            && currentCharacter <= 'z' || currentCharacter >= 'a'
-            && currentCharacter <= 'z';
    }
 
    private boolean isIdentifierCharacter(
