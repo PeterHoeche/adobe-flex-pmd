@@ -37,7 +37,7 @@ package com.adobe.ac.pmd.control.commands
    import com.adobe.ac.pmd.services.translators.RulesetTranslator;
    import com.adobe.cairngorm.commands.ICommand;
    import com.adobe.cairngorm.control.CairngormEvent;
-   
+
    import mx.logging.ILogger;
    import mx.logging.Log;
    import mx.rpc.IResponder;
@@ -45,29 +45,28 @@ package com.adobe.ac.pmd.control.commands
 
    public class GetRulesetContentCommand implements ICommand, IResponder
    {
-      private static const LOG : ILogger = 
-            Log.getLogger( "com.adobe.ac.pmd.control.commands.GetRulesetContentCommand" );
+      private static const LOG : ILogger = Log.getLogger( "com.adobe.ac.pmd.control.commands.GetRulesetContentCommand" );
 
       private var invoker : IGetRulesetContent;
-      
+
       public function GetRulesetContentCommand()
       {
       }
-      
-      public function execute(event:CairngormEvent):void
+
+      public function execute( event : CairngormEvent ) : void
       {
          invoker = GetRulesetContentEvent( event ).invoker;
          new RulesetDelegate().getRuleset( this, GetRulesetContentEvent( event ).ref );
       }
-      
+
       public function result( data : Object ) : void
       {
          var xml : XML = ResultEvent( data ).result as XML;
          var ruleset : Ruleset = RulesetTranslator.deserialize( xml );
-         
+
          invoker.onReceiveRulesetContent( ruleset );
       }
-      
+
       public function fault( info : Object ) : void
       {
          LOG.error( info.toString() );

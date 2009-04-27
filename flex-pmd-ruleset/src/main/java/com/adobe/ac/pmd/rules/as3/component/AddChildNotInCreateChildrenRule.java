@@ -28,55 +28,64 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.component;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Map;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import de.bokelberg.flex.parser.Node;
 
-public class SwitchStmtsShouldHaveDefaultRuleTest
-      extends AbstractAstFlexRuleTest
+public class AddChildNotInCreateChildrenRule
+      extends AbstractAstFlexRule
 {
+   private static final String CREATE_CHILDREN = "createChildren";
+   private static final String[] METHOD_NAMES =
+   { "addChild", "addChildAt" };
 
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > filesInSourcePath )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      super.findViolationsFromPackageNode(
+            packageNode, filesInSourcePath );
+
+      for ( final FunctionNode function : packageNode.getClassNode()
+            .getFunctions() )
+      {
+         if ( function.getName().compareTo(
+               CREATE_CHILDREN ) != 0 )
+         {
+            for ( int i = 0; i < METHOD_NAMES.length; i++ )
+            {
+               final String methodName = METHOD_NAMES[ i ];
+               final Node primaryNode = function
+                     .findPrimaryStatementFromName( methodName );
+
+               if ( primaryNode != null )
+               {
+                  addViolation(
+                        primaryNode, primaryNode );
+               }
+            }
+         }
+      }
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 53, 58 ), new ViolationPosition( 41, 51 ) } );
-
-      assertViolations(
-            "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
-            { new ViolationPosition( 43, 48 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new SwitchStmtsShouldHaveDefaultRule();
+      return ViolationPriority.ERROR;
    }
 }

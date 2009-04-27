@@ -36,7 +36,7 @@ package com.adobe.ac.pmd.control.commands
    import com.adobe.ac.pmd.services.translators.RulesetTranslator;
    import com.adobe.cairngorm.commands.ICommand;
    import com.adobe.cairngorm.control.CairngormEvent;
-   
+
    import mx.logging.ILogger;
    import mx.logging.Log;
    import mx.rpc.IResponder;
@@ -47,27 +47,27 @@ package com.adobe.ac.pmd.control.commands
       private static const LOG : ILogger = Log.getLogger( "com.adobe.ac.pmd.control.commands.GetRootRulesetCommand" );
 
       private var invoker : IGetRootRuleset;
-      
+
       public function GetRootRulesetCommand()
       {
       }
-      
+
       public function execute( event : CairngormEvent ) : void
       {
          invoker = GetRootRulesetEvent( event ).invoker;
          new RulesetDelegate().getRootRuleset( this );
-      }   
-      
+      }
+
       public function result( data : Object ) : void
       {
          var xml : XML = XML( ResultEvent( data ).result );
 
          invoker.onReceiveRootRuleset( RulesetTranslator.deserialize( xml ) );
       }
-   
-      public function fault( info : Object ) : void 
+
+      public function fault( info : Object ) : void
       {
          LOG.error( info.toString() );
-      }  
+      }
    }
 }

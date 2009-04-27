@@ -87,7 +87,7 @@
    }
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.SwitchStmtsShouldHaveDefaultRule" message="A switch statement does not contain a default statement">
+    <rule class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStmtsShouldHaveDefaultRule" message="A switch statement does not contain a default statement">
       <description>Switch statements should have a default label in order to detect corner cases.</description>
       <priority>1</priority>
       <example>
@@ -104,7 +104,7 @@
    }     
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.SwitchStmtsShouldHaveDefaultRule" message="A switch statement should have minimum {0} case statements">
+    <rule class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStmtsShouldHaveDefaultRule" message="A switch statement should have minimum {0} case statements">
       <description>Switch statements should have more case statements, or consider refactring it to a if statement.</description>
       <priority>3</priority>
       <example>
@@ -159,7 +159,7 @@
       </example>
    </rule>
    
-   <rule class="com.adobe.ac.pmd.rules.as3.NestedSwitchRule" message="Switch must not be nested.">
+   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule" message="Switch must not be nested.">
       <description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when siwtch statements are nested.</description>
       <priority>3</priority>
       <example>
@@ -244,7 +244,7 @@
       <example>
       </example>
    </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.TooFewBrancheInSwitchStatementRule" message="There are too few branches in this swicth statement">
+   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule" message="There are too few branches in this swicth statement">
       <description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
       <priority>5</priority>
       <example>

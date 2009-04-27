@@ -28,53 +28,43 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
+import de.bokelberg.flex.parser.Node;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class TooFewBrancheInSwitchStatementRuleTest
-      extends AbstractAstFlexRuleTest
+public class NestedSwitchRule
+      extends AbstractAstFlexRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   private int switchLevel = 0;
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      return ViolationPriority.WARNING;
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void visitSwitch(
+         final Node ast )
    {
-      assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
-            { new ViolationPosition( 53, 54 ) } );
+      switchLevel++;
+      if ( switchLevel > 1 )
+      {
+         addViolation(
+               ast, ast.getChild( ast.numChildren() - 1 ) );
+      }
+      super.visitSwitch( ast );
 
-      assertViolations(
-            "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
-            { new ViolationPosition( 43, 44 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new TooFewBrancheInSwitchStatementRule();
+      switchLevel--;
    }
 }

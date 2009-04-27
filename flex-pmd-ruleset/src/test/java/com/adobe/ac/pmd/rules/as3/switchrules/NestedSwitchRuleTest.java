@@ -28,35 +28,54 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.services.rulesets
+package com.adobe.ac.pmd.rules.as3.switchrules;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class NestedSwitchRuleTest
+      extends AbstractAstFlexRuleTest
 {
-   import com.adobe.ac.pmd.services.MyServiceLocator;
-   import com.adobe.cairngorm.business.ServiceLocator;
-
-   import mx.rpc.IResponder;
-   import mx.rpc.http.HTTPService;
-
-   public class RulesetDelegate
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      public function getRuleset( responder : IResponder, ref : String ) : void
-      {
-         rulesetService.url = MyServiceLocator.RULESETS_PREFIX + ref;
-         rulesetService.send().addResponder( responder );
-      }
+      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
+   }
 
-      public function getRootRuleset( responder : IResponder ) : void
-      {
-         rootRulesetService.send().addResponder( responder );
-      }
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+   }
 
-      private function get rootRulesetService() : HTTPService
-      {
-         return MyServiceLocator( ServiceLocator.getInstance() ).rootRulesetService;
-      }
+   @Override
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertViolations(
+            "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 53, 54 ) } );
 
-      private function get rulesetService() : HTTPService
-      {
-         return MyServiceLocator( ServiceLocator.getInstance() ).rulesetService;
-      }
+      assertViolations(
+            "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+            { new ViolationPosition( 43, 44 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new NestedSwitchRule();
    }
 }

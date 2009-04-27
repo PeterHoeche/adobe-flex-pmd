@@ -49,12 +49,30 @@ public class FunctionNode
       extends AbstractNode implements IModifiersHolder, IMetaDataListHolder,
       INamable
 {
+   public static int countNodeFromType( final Node rootNode, final String type )
+   {
+      int count = 0;
+
+      if ( rootNode.is( type ) )
+      {
+         count++;
+      }
+      if ( rootNode.numChildren() > 0 )
+      {
+         for ( final Node child : rootNode.children )
+         {
+            count += countNodeFromType( child, type );
+         }
+      }
+      return count;
+   }
    private Node contentBlock;
    private int cyclomaticComplexity;
    private List< MetaDataNode > metaDataList;
    private List< Modifier > modifiers;
    private IdentifierNode name;
    private List< FormalNode > parameters;
+
    private IdentifierNode returnType;
 
    public FunctionNode(
@@ -221,13 +239,22 @@ public class FunctionNode
    private void computeCyclomaticComplexity(
          final Node node )
    {
-      if ( node.is( KeyWords.IF )
-            || node.is( KeyWords.FOR ) || node.is( KeyWords.FOREACH )
+      if ( node.is( KeyWords.FOREACH )
             || node.is( KeyWords.FORIN ) || node.is( KeyWords.CASE )
-            || node.is( KeyWords.DEFAULT ) || node.is( KeyWords.WHILE ) )
+            || node.is( KeyWords.DEFAULT ) )
       {
          cyclomaticComplexity++;
       }
+      else if ( node.is( KeyWords.IF )
+            || node.is( KeyWords.WHILE ) || node.is( KeyWords.FOR ) )
+      {
+         cyclomaticComplexity++;
+         cyclomaticComplexity += countNodeFromType(
+               node.getChild( 0 ), Node.AND );
+         cyclomaticComplexity += countNodeFromType(
+               node.getChild( 0 ), Node.OR );
+      }
+
       if ( node.numChildren() > 0 )
       {
          for ( final Node child : node.children )

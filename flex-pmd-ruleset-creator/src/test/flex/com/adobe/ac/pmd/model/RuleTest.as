@@ -28,52 +28,41 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
-
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-import de.bokelberg.flex.parser.Node;
-
-public class SwitchStmtsShouldHaveDefaultRule
-      extends AbstractAstFlexRule
+ package com.adobe.ac.pmd.model
 {
-   private boolean defaultStatementFound = false;
+   import flexunit.framework.EventfulTestCase;
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public class RuleTest extends EventfulTestCase
    {
-      return !file.isMxml();
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.ERROR;
-   }
-
-   @Override
-   protected void visitSwitch(
-         final Node ast )
-   {
-      super.visitSwitch( ast );
-
-      if ( !defaultStatementFound )
+      private var rule : Rule;
+      
+      override public function setUp():void
       {
-         final Node switchBody = ast.getChild( 1 );
-
-         addViolation(
-               ast, switchBody.getChild( switchBody.numChildren() - 1 ) );
+         rule = new Rule();
       }
-   }
-
-   @Override
-   protected void visitSwitchDefaultCase(
-         final Node child )
-   {
-      super.visitSwitchDefaultCase( child );
-
-      defaultStatementFound = true;
+      
+      public function testName() : void
+      {
+         listenForEvent( rule, Rule.NAME_CHANGE );
+         
+         rule.name = "com.adobe.ac.MyRule";
+         
+         assertEvents();
+         assertEquals( "MyRule", rule.shortName );
+         
+         rule.name = "MyRule";
+         assertEquals( "MyRule", rule.shortName );         
+      }
+      
+      public function testRemove() : void
+      {
+         var parentRuleset : Ruleset = new Ruleset();
+         
+         rule.ruleset = parentRuleset;
+         parentRuleset.rules.addItem( rule );
+         rule.remove();
+         
+         assertEquals( 0, parentRuleset.rules.length );
+      }
    }
 }

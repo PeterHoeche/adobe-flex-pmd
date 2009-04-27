@@ -28,23 +28,18 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
-
-import java.util.Map;
-
-import net.sourceforge.pmd.PropertyDescriptor;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class TooFewBrancheInSwitchStatementRule
-      extends AbstractAstFlexRule implements IThresholdedRule
+public class SwitchStmtsShouldHaveDefaultRule
+      extends AbstractAstFlexRule
 {
-   private int switchCases;
+   private boolean defaultStatementFound = false;
 
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
@@ -55,49 +50,30 @@ public class TooFewBrancheInSwitchStatementRule
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.ERROR;
    }
 
    @Override
    protected void visitSwitch(
          final Node ast )
    {
-      switchCases = 0;
       super.visitSwitch( ast );
 
-      if ( switchCases < getThreshold() )
+      if ( !defaultStatementFound )
       {
+         final Node switchBody = ast.getChild( 1 );
+
          addViolation(
-               ast, ast.getChild( ast.numChildren() - 1 ) );
+               ast, switchBody.getChild( switchBody.numChildren() - 1 ) );
       }
    }
 
    @Override
-   protected void visitSwitchCase(
+   protected void visitSwitchDefaultCase(
          final Node child )
    {
-      super.visitSwitchCase( child );
-      switchCases++;
-   }
+      super.visitSwitchDefaultCase( child );
 
-   public int getDefaultThreshold()
-   {
-      return 3;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-   
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
-   }
-
-   public String getThresholdName()
-   {
-      return MINIMUM;
+      defaultStatementFound = true;
    }
 }

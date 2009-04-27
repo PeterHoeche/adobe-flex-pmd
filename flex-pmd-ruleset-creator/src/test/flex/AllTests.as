@@ -30,14 +30,21 @@
  */
 package
 {
-	import flexunit.framework.TestSuite;
+   import com.adobe.ac.pmd.model.RuleTest;
+   import com.adobe.ac.pmd.model.RulesetTest;
+   import com.adobe.ac.pmd.view.RuleSetNavigatorPMTest;
+   
+   import flexunit.framework.TestSuite;
 
-	public class AllTests extends TestSuite
-	{
-		public function AllTests()
-		{
+   public class AllTests extends TestSuite
+   {
+      public function AllTests()
+      {
          super();
 
-		}		
-	}
+         addTestSuite( RuleSetNavigatorPMTest );
+         addTestSuite( RulesetTest );
+         addTestSuite( RuleTest );
+      }
+   }
 }

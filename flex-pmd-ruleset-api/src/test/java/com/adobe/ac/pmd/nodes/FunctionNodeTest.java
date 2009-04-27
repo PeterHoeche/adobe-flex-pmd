@@ -83,7 +83,7 @@ public class FunctionNodeTest
       assertEquals(
             4, drawRowBackground.getCyclomaticComplexity() );
       assertEquals(
-            12, placeSortArrow.getCyclomaticComplexity() );
+            13, placeSortArrow.getCyclomaticComplexity() );
    }
 
    @Test

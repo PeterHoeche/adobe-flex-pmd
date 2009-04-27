@@ -178,7 +178,7 @@ package com.adobe.radon.core.controls
                default:
                   for ( var i : int = 0; i < 10; i++ )
                   {
-                     if ( true )
+                     if ( true && false )
                      {
                      }
                      if ( false )

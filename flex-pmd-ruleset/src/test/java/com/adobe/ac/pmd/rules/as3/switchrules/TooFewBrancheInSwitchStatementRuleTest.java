@@ -28,18 +28,19 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
 
+import com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class NestedSwitchRuleTest
+public class TooFewBrancheInSwitchStatementRuleTest
       extends AbstractAstFlexRuleTest
 {
    @Override
@@ -47,7 +48,7 @@ public class NestedSwitchRuleTest
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
 
    @Override
@@ -75,6 +76,6 @@ public class NestedSwitchRuleTest
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new NestedSwitchRule();
+      return new TooFewBrancheInSwitchStatementRule();
    }
 }

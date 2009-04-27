@@ -45,4 +45,7 @@
       <priority>1</priority>
       <example></example>
    </rule>
+   <rule class="com.adobe.ac.pmd.rules.as3.component.AddChildNotInCreateChildrenRule" message="You must add child only inside the createChildren method">
+      <priority>1</priority>
+   </rule>
 </ruleset>

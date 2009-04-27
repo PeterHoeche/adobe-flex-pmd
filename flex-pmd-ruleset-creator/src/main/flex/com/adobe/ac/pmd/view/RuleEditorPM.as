@@ -38,8 +38,8 @@ package com.adobe.ac.pmd.view
       public function RuleEditorPM()
       {
       }
-      
+
       [Bindable]
-      public var selectedRule : Rule;      
+      public var selectedRule : Rule;
    }
 }

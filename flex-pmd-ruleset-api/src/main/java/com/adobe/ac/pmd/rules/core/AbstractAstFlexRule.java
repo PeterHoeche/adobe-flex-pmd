@@ -115,10 +115,10 @@ public abstract class AbstractAstFlexRule
     * or any subsequent node like class or function)
     *
     * @param packageNode
-    * @param files
+    * @param filesInSourcePath
     */
    protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode packageNode, final Map< String, AbstractFlexFile > filesInSourcePath )
    {
    }
 

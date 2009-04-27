@@ -45,4 +45,7 @@
       <example>
       </example>
     </rule>
+    <rule class="com.adobe.ac.pmd.rules.as3.component.CyclomaticComplexityRule" message="This method is too complex. Its cyclomatic complexity is {0}.">
+      <priority>3</priority>
+    </rule>
 </ruleset>

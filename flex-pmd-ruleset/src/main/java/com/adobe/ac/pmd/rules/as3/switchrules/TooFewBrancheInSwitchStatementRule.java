@@ -28,35 +28,76 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.services.rulesets
+package com.adobe.ac.pmd.rules.as3.switchrules;
+
+import java.util.Map;
+
+import net.sourceforge.pmd.PropertyDescriptor;
+
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.IThresholdedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+import de.bokelberg.flex.parser.Node;
+
+public class TooFewBrancheInSwitchStatementRule
+      extends AbstractAstFlexRule implements IThresholdedRule
 {
-   import com.adobe.ac.pmd.services.MyServiceLocator;
-   import com.adobe.cairngorm.business.ServiceLocator;
+   private int switchCases;
 
-   import mx.rpc.IResponder;
-   import mx.rpc.http.HTTPService;
-
-   public class RulesetDelegate
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      public function getRuleset( responder : IResponder, ref : String ) : void
-      {
-         rulesetService.url = MyServiceLocator.RULESETS_PREFIX + ref;
-         rulesetService.send().addResponder( responder );
-      }
+      return !file.isMxml();
+   }
 
-      public function getRootRuleset( responder : IResponder ) : void
-      {
-         rootRulesetService.send().addResponder( responder );
-      }
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.INFO;
+   }
 
-      private function get rootRulesetService() : HTTPService
-      {
-         return MyServiceLocator( ServiceLocator.getInstance() ).rootRulesetService;
-      }
+   @Override
+   protected void visitSwitch(
+         final Node ast )
+   {
+      switchCases = 0;
+      super.visitSwitch( ast );
 
-      private function get rulesetService() : HTTPService
+      if ( switchCases < getThreshold() )
       {
-         return MyServiceLocator( ServiceLocator.getInstance() ).rulesetService;
+         addViolation(
+               ast, ast.getChild( ast.numChildren() - 1 ) );
       }
+   }
+
+   @Override
+   protected void visitSwitchCase(
+         final Node child )
+   {
+      super.visitSwitchCase( child );
+      switchCases++;
+   }
+
+   public int getDefaultThreshold()
+   {
+      return 3;
+   }
+
+   public int getThreshold()
+   {
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+   
+   @Override
+   protected Map< String, PropertyDescriptor > propertiesByName()
+   {
+      return getRuleProperties( this );
+   }
+
+   public String getThresholdName()
+   {
+      return MINIMUM;
    }
 }

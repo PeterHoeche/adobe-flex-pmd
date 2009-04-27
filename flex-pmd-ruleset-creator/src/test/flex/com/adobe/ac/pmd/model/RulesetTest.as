@@ -28,61 +28,55 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.model
+ package com.adobe.ac.pmd.model
 {
-   import com.adobe.ac.model.IDomainModel;
-
-   import flash.events.Event;
-   import flash.events.EventDispatcher;
-
+   import com.adobe.ac.pmd.control.events.GetRulesetContentEvent;
+   import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+   
+   import flexunit.framework.CairngormEventSource;
+   import flexunit.framework.EventfulTestCase;
+   
    import mx.collections.ArrayCollection;
-   import mx.collections.ListCollectionView;
 
-   [Bindable]
-   public class Rule extends EventDispatcher implements IDomainModel
+   public class RulesetTest extends EventfulTestCase
    {
-      public static const NAME_CHANGE : String = "nameChange";
-
-      public var since : String;
-      public var message : String;
-      public var examples : String;
-      public var description : String;
-      public var properties : ListCollectionView = new ArrayCollection();
-      public var priority : ViolationPriority;
-      public var ruleset : Ruleset;
-
-      private var _name : String;
-
-      public function Rule()
+      private var model : Ruleset;
+      
+      override public function setUp():void
       {
+         model = new Ruleset();
       }
-
-      [Bindable( "nameChange" )]
-      public function get name() : String
+      
+      public function testGetRulesetContent() : void
       {
-         return _name;
+         listenForEvent( CairngormEventSource.instance, GetRulesetContentEvent.EVENT_NAME );
+         
+         model.getRulesetContent( "ref" );
+         
+         assertEvents();
+         assertEquals( model, GetRulesetContentEvent( lastDispatchedExpectedEvent ).invoker );
+         assertEquals( "ref", GetRulesetContentEvent( lastDispatchedExpectedEvent ).ref );
       }
-
-      public function set name( value : String ) : void
+      
+      public function testOnReceiveRulesetContent() : void
       {
-         _name = value;
-         dispatchEvent( new Event( NAME_CHANGE ) );
-      }
-
-      [Bindable( "nameChange" )]
-      public function get shortName() : String
-      {
-         return name.substr( name.lastIndexOf( "." ) + 1 );
-      }
-
-      public function remove() : void
-      {
-         var ruleIndex : int = ruleset.rules.getItemIndex( this );
-
-         if( ruleIndex != -1 )
-         {
-            ruleset.rules.removeItemAt( ruleIndex );
-         }
+         var receivedRuleset : Ruleset = new Ruleset();
+         
+         listenForEvent( model, RulesetReceivedEvent.EVENT_NAME );
+         
+         receivedRuleset.name = "name";
+         receivedRuleset.description = "description";
+         receivedRuleset.rules = new ArrayCollection();
+         receivedRuleset.rulesets = new ArrayCollection();
+         
+         model.onReceiveRulesetContent( receivedRuleset );
+         
+         assertEvents();
+         assertEquals( model, RulesetReceivedEvent( lastDispatchedExpectedEvent ).ruleset );
+         assertEquals( receivedRuleset.name, model.name );
+         assertEquals( receivedRuleset.description, model.description );
+         assertEquals( receivedRuleset.rules, model.rules );
+         assertEquals( receivedRuleset.rulesets, model.rulesets );
       }
    }
 }
