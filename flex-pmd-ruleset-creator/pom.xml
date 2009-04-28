@@ -23,8 +23,9 @@
 		<flex.version>3.2.0.3958</flex.version>
 		<flash-player.version>10</flash-player.version>
 		<flexunit.version>0.9</flexunit.version>
+		<event-source.version>1.1</event-source.version>
 		<flexunit-optional.version>0.85</flexunit-optional.version>
-		<event-source.version>1.0</event-source.version>
+		<event-source.version>1.1</event-source.version>
 		<cairngorm.version>2.2.1</cairngorm.version>
 
 	</properties>
@@ -41,6 +42,14 @@
 			<groupId>com.adobe.flexunit</groupId>
 			<artifactId>flexunit</artifactId>
 			<version>${flexunit.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>event-source</artifactId>
+			<version>${event-source.version}</version>
 			<type>swc</type>
 			<scope>test</scope>
 		</dependency>
@@ -136,15 +145,24 @@
 									<format property="last.updated.time" pattern="HH:mm:ss" />
 								</tstamp>
 								<echo message="Generating Version.as..." />
-								<echo file="${basedir}/src/main/flex/Version.as" append="false" message="package" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="{" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   public class Version" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   {" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_NUMBER : String = '${project.version}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_TIME : String = '${last.updated.time}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_DATE : String = '${last.updated.date}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   }" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="}" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="false"
+									message="package" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="{" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="   public class Version" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="   {" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="      public static const BUILD_NUMBER : String = '${project.version}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="      public static const BUILD_TIME : String = '${last.updated.time}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="      public static const BUILD_DATE : String = '${last.updated.date}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="   }" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="}" />
 							</tasks>
 						</configuration>
 						<goals>
