@@ -32,6 +32,8 @@ package com.adobe.ac
 {
    public class VoidConstructor   
    {
+      public var i : Number;
+      
       public function VoidConstructor() : void
       {         
          return;

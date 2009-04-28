@@ -293,4 +293,7 @@
    <rule class="com.adobe.ac.pmd.rules.as3.EmptyCatchStatementRule" message="This catch statement is empty">
       <priority>3</priority>
    </rule>
+   <rule class="com.adobe.ac.pmd.rules.as3.PropertyHiddenByLocalVariableRule" message="A class property is hidden by this local variable">
+      <priority>3</priority>
+   </rule>
 </ruleset>

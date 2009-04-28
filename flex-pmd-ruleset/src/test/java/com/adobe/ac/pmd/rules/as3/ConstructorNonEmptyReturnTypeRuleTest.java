@@ -70,7 +70,7 @@ public class ConstructorNonEmptyReturnTypeRuleTest
    {
       assertViolations(
             "com.adobe.ac.ncss.VoidConstructor.as", new ViolationPosition[]
-            { new ViolationPosition( 36, 37 ) } );
+            { new ViolationPosition( 38, 39 ) } );
    }
 
    @Override

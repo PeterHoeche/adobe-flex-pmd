@@ -31,7 +31,9 @@
 package com.adobe.ac.pmd.nodes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
@@ -68,11 +70,12 @@ public class FunctionNode
    }
    private Node contentBlock;
    private int cyclomaticComplexity;
+   private Map< String, Node > localVariables;
    private List< MetaDataNode > metaDataList;
    private List< Modifier > modifiers;
    private IdentifierNode name;
-   private List< FormalNode > parameters;
 
+   private List< FormalNode > parameters;
    private IdentifierNode returnType;
 
    public FunctionNode(
@@ -117,6 +120,11 @@ public class FunctionNode
    public int getCyclomaticComplexity()
    {
       return cyclomaticComplexity;
+   }
+
+   public Map< String, Node > getLocalVariables()
+   {
+      return localVariables;
    }
 
    public List< MetaDataNode > getMetaDataList()
@@ -265,12 +273,14 @@ public class FunctionNode
    }
 
    private void computeFunctionContent(
-         final Node node )
+         final Node functionBodyNode )
    {
-      contentBlock = node;
+      localVariables = new HashMap< String, Node >();
+      contentBlock = functionBodyNode;
       cyclomaticComplexity = 1;
 
-      computeCyclomaticComplexity( node );
+      computeCyclomaticComplexity( functionBodyNode );
+      computeVariableList( functionBodyNode );
    }
 
    private void computeParameterList(
@@ -283,6 +293,25 @@ public class FunctionNode
          for ( final Node parameterNode : node.children )
          {
             parameters.add( new FormalNode( parameterNode ) );
+         }
+      }
+   }
+
+   private void computeVariableList(
+         final Node node )
+   {
+      if ( node.is( Node.VAR_LIST ) )
+      {
+         localVariables.put(
+               node.getChild(
+                     0 ).getChild(
+                     0 ).stringValue, node );
+      }
+      else if ( node.numChildren() > 0 )
+      {
+         for ( final Node child : node.children )
+         {
+            computeVariableList( child );
          }
       }
    }

@@ -134,4 +134,17 @@ public class FunctionNodeTest
             "void",
             placeSortArrow.getReturnType().getInternalNode().stringValue );
    }
+
+   @Test
+   public void testLocalVariables()
+   {
+      assertEquals(
+            0, constructor.getLocalVariables().size() );
+      assertEquals(
+            2, drawHighlightIndicator.getLocalVariables().size() );
+      assertEquals(
+            13, drawSelectionIndicator.getLocalVariables().size() );
+      assertEquals(
+            5, drawRowBackground.getLocalVariables().size() );
+   }
 }
