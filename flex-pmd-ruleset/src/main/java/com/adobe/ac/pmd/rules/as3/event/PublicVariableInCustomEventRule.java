@@ -28,19 +28,16 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
-
-import java.util.Map;
+package com.adobe.ac.pmd.rules.as3.event;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DefaultEventNameRule
-      extends AbstractAstFlexRule
+public class PublicVariableInCustomEventRule
+      extends AbstractRegexpBasedRule
 {
+   @Override
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
@@ -49,33 +46,21 @@ public class DefaultEventNameRule
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   protected ViolationPriority getDefaultPriority()
    {
-      super.findViolationsFromPackageNode( packageNode, files );
-
-      if ( packageNode.getClassNode() != null )
-      {
-         final FunctionNode ctor = packageNode.getClassNode().getConstructor();
-
-         // FIXME Uncomment this expression
-         if ( ctor != null
-               && ctor.getParameters().size() > 0 && ctor.getParameters().get(
-                     0 ).getType().toString().compareTo(
-                     "String" ) == 0 ) //&& ctor.getParameters().get(
-                     //0 ).getInitializationExpression() != null )
-         {
-            addViolation(
-                  ctor.getParameters().get(
-                        0 ).getInternalNode(), ctor.getParameters().get(
-                        0 ).getInternalNode() );
-         }
-      }
+      return ViolationPriority.WARNING;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected String getRegexp()
    {
-      return ViolationPriority.ERROR;
+      return ".*public var.*";
+   }
+
+   @Override
+   protected boolean isViolationDetectedOnThisMatchingLine(
+         final String line, final AbstractFlexFile file )
+   {
+      return true;
    }
 }

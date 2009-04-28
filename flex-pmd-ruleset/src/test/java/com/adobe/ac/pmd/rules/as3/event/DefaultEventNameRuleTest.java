@@ -28,55 +28,50 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.MetaDataNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import org.junit.Test;
 
-public class UntypedEventMetadataRule
-      extends AbstractAstFlexRule
+import com.adobe.ac.pmd.rules.as3.event.DefaultEventNameRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class DefaultEventNameRuleTest
+      extends AbstractAstFlexRuleTest
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return !file.isMxml();
+      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      final ClassNode classNode = packageNode.getClassNode();
-
-      if ( classNode.getMetaDataList() != null )
-      {
-         for ( final MetaDataNode metaData : classNode.getMetaDataList() )
-         {
-            findViolationsInMetaDataNode( metaData );
-         }
-      }
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ViolationPriority.INFO;
+      assertViolations(
+            "DefaultNameEvent.as", new ViolationPosition[]
+            { new ViolationPosition( 38, 38 ) } );
    }
 
-   private void findViolationsInMetaDataNode(
-         final MetaDataNode metaData )
+   @Override
+   protected AbstractFlexRule getRule()
    {
-      final String metaDataValue = metaData.getInternalNode().stringValue;
-
-      if ( metaDataValue.contains( "Event" ) && !metaDataValue.contains( "type = \"" ) )
-      {
-         addViolation( metaData.getInternalNode(), metaData.getInternalNode() );
-      }
+      return new DefaultEventNameRule();
    }
 }

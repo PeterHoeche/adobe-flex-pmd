@@ -28,45 +28,39 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- package com.adobe.ac.pmd.model
+package com.adobe.ac.pmd.rules.performance;
+
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class DynamicFiltersUsedInPopup
+      extends AbstractRegexpBasedRule
 {
-   import flexunit.framework.EventfulTestCase;
-
-   public class RuleTest extends EventfulTestCase
+   @Override
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      private var rule : Rule;
-      
-      public function RuleTest()
-      {
-      }
+      return file.getClassName().contains(
+            "Popup" );
+   }
 
-      override public function setUp():void
-      {
-         rule = new Rule();
-      }
-      
-      public function testName() : void
-      {
-         listenForEvent( rule, Rule.NAME_CHANGE );
-         
-         rule.name = "com.adobe.ac.MyRule";
-         
-         assertEvents();
-         assertEquals( "MyRule", rule.shortName );
-         
-         rule.name = "MyRule";
-         assertEquals( "MyRule", rule.shortName );         
-      }
-      
-      public function testRemove() : void
-      {
-         var parentRuleset : Ruleset = new Ruleset();
-         
-         rule.ruleset = parentRuleset;
-         parentRuleset.rules.addItem( rule );
-         rule.remove();
-         
-         assertEquals( 0, parentRuleset.rules.length );
-      }
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.ERROR;
+   }
+
+   @Override
+   protected String getRegexp()
+   {
+      return ".*Filter.*";
+   }
+
+   @Override
+   protected boolean isViolationDetectedOnThisMatchingLine(
+         final String line, final AbstractFlexFile file )
+   {
+      return true;
    }
 }

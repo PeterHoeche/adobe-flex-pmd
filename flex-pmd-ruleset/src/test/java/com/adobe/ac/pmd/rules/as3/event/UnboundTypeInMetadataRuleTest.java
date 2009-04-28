@@ -28,39 +28,50 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-public class PublicVariableInCustomEventRule
-      extends AbstractRegexpBasedRule
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.as3.event.UnboundTypeInMetadataRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class UnboundTypeInMetadataRuleTest
+      extends AbstractAstFlexRuleTest
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return file.getClassName().endsWith(
-            "Event.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ViolationPriority.WARNING;
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
-   protected String getRegexp()
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ".*public var.*";
+      assertViolations(
+            "UnboundMetadata.as", new ViolationPosition[]
+            { new ViolationPosition( 39, 39 ) } );
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+   protected AbstractFlexRule getRule()
    {
-      return true;
+      return new UnboundTypeInMetadataRule();
    }
 }

@@ -30,52 +30,38 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.util.Map;
-
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EventMissingCloneFunctionRule
+import de.bokelberg.flex.parser.Node;
+
+public class EmptyCatchStatementRule
       extends AbstractAstFlexRule
 {
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
-      return !file.isMxml()
-            && file.getClassName().endsWith(
-                  "Event.as" );
-   }
-
-   @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
-   {
-      boolean cloneFound = false;
-
-      if ( rootNode.getClassNode().getFunctions() != null )
-      {
-         for ( final FunctionNode functionNode : rootNode.getClassNode()
-               .getFunctions() )
-         {
-            if ( "clone".equals( functionNode.getName() ) )
-            {
-               cloneFound = true;
-            }
-         }
-         if ( !cloneFound )
-         {
-            addViolation(
-                  rootNode.getInternalNode(), rootNode.getInternalNode() );
-         }
-      }
+      return !file.isMxml();
    }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.WARNING;
+   }
+
+   @Override
+   protected void visitCatch(
+         final Node ast )
+   {
+      super.visitCatch( ast );
+
+      if ( ast.getChild(
+            2 ).numChildren() == 0 )
+      {
+         addViolation(
+               ast, ast );
+      }
    }
 }

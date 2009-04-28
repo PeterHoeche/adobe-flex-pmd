@@ -28,25 +28,34 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.common;
+package com.adobe.ac.pmd.rules.performance;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ListenForHardCodedEventNameRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class CyclomaticComplexityRuleTest
+      extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
+      assertEmptyViolations( "AbstractRowData.as" );
+   }
+
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
@@ -55,31 +64,13 @@ public class ListenForHardCodedEventNameRuleTest
          URISyntaxException
    {
       assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 108, 108 ) } );
+            "RadonDataGrid.as", new ViolationPosition[]
+            { new ViolationPosition( 157, 157 ) } );
    }
 
    @Override
-   protected String[] getMatchableLines()
+   protected AbstractFlexRule getRule()
    {
-      return new String[]
-      { "addEventListener( \"change\", handleChange );",
-            "addEventListener(\"change\",handleChange);",
-      "addEventListener( \"change\"," };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
-   {
-      return new ListenForHardCodedEventNameRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "addEventListener( CHANGE, handleChange );",
-            "addEventListener(CHANGE,handleChange);",
-            "addEventListener( CHANGE," };
+      return new CyclomaticComplexityRule();
    }
 }

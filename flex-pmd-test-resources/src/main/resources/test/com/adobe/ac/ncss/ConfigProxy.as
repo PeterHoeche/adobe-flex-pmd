@@ -50,7 +50,13 @@ package com.bnpp.msms.model
 		}
 
 		internal static function insertConfig(configVO:ConfigVO):void {
-			ConfigProxy.configs.remove(Number(configVO.idUser));
+		   try
+		   {
+			   ConfigProxy.configs.remove(Number(configVO.idUser));
+			}
+			catch( e : Exception )
+			{
+			}
 		}
 	}
 }

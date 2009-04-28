@@ -28,18 +28,19 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
 
+import com.adobe.ac.pmd.rules.as3.event.ConstructorDispatchingEventRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class DefaultEventNameRuleTest
+public class ConstructorDispatchingEventRuleTest
       extends AbstractAstFlexRuleTest
 {
    @Override
@@ -47,7 +48,11 @@ public class DefaultEventNameRuleTest
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
+
+      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
+
+      assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
    }
 
    @Override
@@ -55,7 +60,7 @@ public class DefaultEventNameRuleTest
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
@@ -64,13 +69,13 @@ public class DefaultEventNameRuleTest
          URISyntaxException
    {
       assertViolations(
-            "DefaultNameEvent.as", new ViolationPosition[]
-            { new ViolationPosition( 38, 38 ) } );
+            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+            { new ViolationPosition( 58, 58 ) } );
    }
 
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new DefaultEventNameRule();
+      return new ConstructorDispatchingEventRule();
    }
 }

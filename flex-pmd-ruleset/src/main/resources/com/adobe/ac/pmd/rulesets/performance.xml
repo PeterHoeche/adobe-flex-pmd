@@ -39,13 +39,27 @@
   <description>
       This Ruleset contains a collection of good practices related to the performance (CPU and memory).
   </description>
-    <rule class="com.adobe.ac.pmd.rules.common.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
+    <rule class="com.adobe.ac.pmd.rules.performance.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
       <description>Prefer using embed filters in assets</description>
       <priority>3</priority>
       <example>
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.component.CyclomaticComplexityRule" message="This method is too complex. Its cyclomatic complexity is {0}.">
+    <rule class="com.adobe.ac.pmd.rules.performance.CyclomaticComplexityRule" message="This method is too complex. Its cyclomatic complexity is {0}.">
       <priority>3</priority>
+      <properties>
+         <property name="maximum">
+            <value>10</value>
+         </property>
+      </properties>
+    </rule>
+    <rule class="com.adobe.ac.pmd.rules.performance.HeavyConstructorRule" message="Constructor must be as lightweight as possible. No control statement allowed.">
+      <priority>3</priority>
+      <description><![CDATA[The Just-In-Time compiler does not compile constructors. Make them as lightweight as possible.]]></description>
+      <properties>
+         <property name="maximum">
+            <value>1</value>
+         </property>
+      </properties>
     </rule>
 </ruleset>

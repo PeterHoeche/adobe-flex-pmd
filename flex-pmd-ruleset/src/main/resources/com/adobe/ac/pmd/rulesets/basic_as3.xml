@@ -48,7 +48,7 @@
    }
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.EventMissingCloneFunctionRule" message="The clone event must be overiden in a custom event">
+    <rule class="com.adobe.ac.pmd.rules.as3.event.EventMissingCloneFunctionRule" message="The clone event must be overiden in a custom event">
       <description>Why do you need to override clone? Well, the clone method creates a copy of your event (or object - whatever object has the clone event; this isn't limited to Event objects). The default clone method inherited by the Event class or whatever class your custom class extends, will return an event object of the type of that class, not your custom event subclass. In the situations where a clone is needed, it is needed to be of the same type of your class, not the class it extends.</description>
       <priority>1</priority>
       <example>
@@ -62,7 +62,7 @@
    }
       </example>    
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.PublicVariableInCustomEventRule" message="No public variables should be inside a custom event">
+    <rule class="com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule" message="No public variables should be inside a custom event">
       <description>In order to improve encapsulation in your custom event, it is better not to have public variable in your event. Prefer having read-only attributes, set by the event constructor.</description>
       <priority>3</priority>
       <example>
@@ -274,7 +274,7 @@
       <example>
       </example>
    </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.ConstructorDispatchingEventRule" message="An event is dispatched in a constructor">
+   <rule class="com.adobe.ac.pmd.rules.as3.event.ConstructorDispatchingEventRule" message="An event is dispatched in a constructor">
       <description>This is pointless, since event listeners cannot be attached to an object before it has been constructed, so nothing can ever hear the event</description>
       <priority>1</priority>
       <example>
@@ -289,5 +289,8 @@
          super.createChildren();
       }
       </example>
+   </rule>
+   <rule class="com.adobe.ac.pmd.rules.as3.EmptyCatchStatementRule" message="This catch statement is empty">
+      <priority>3</priority>
    </rule>
 </ruleset>

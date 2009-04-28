@@ -72,7 +72,7 @@ public class ExplicitStaticAccessFromStaticMethodRuleTest
       assertViolations(
             "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
             { new ViolationPosition( 44, 44 ), new ViolationPosition( 49, 49 ),
-                  new ViolationPosition( 53, 53 ) } );
+                  new ViolationPosition( 55, 55 ) } );
    }
 
    @Override

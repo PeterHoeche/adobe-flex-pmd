@@ -28,35 +28,26 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class PublicVariableInCustomEventRuleTest
-      extends AbstractRegExpBasedRuleTest
+public class ListenForHardCodedEventNameRuleTest
+      extends AbstractCommonRegExpBasedRuleTest
 {
-
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
 
    @Override
@@ -65,28 +56,31 @@ public class PublicVariableInCustomEventRuleTest
          URISyntaxException
    {
       assertViolations(
-            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 35, 35 ) } );
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 108, 108 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "public var lala : int;" };
+      { "addEventListener( \"change\", handleChange );",
+            "addEventListener(\"change\",handleChange);",
+      "addEventListener( \"change\"," };
    }
 
    @Override
    protected AbstractRegexpBasedRule getRegexpBasedRule()
    {
-      return new PublicVariableInCustomEventRule();
+      return new ListenForHardCodedEventNameRule();
    }
 
    @Override
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "private var _lala : int", "lala()" };
+      { "addEventListener( CHANGE, handleChange );",
+            "addEventListener(CHANGE,handleChange);",
+            "addEventListener( CHANGE," };
    }
 }

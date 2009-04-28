@@ -45,7 +45,7 @@
       <description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>      
       <priority>3</priority>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.common.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
+    <rule class="com.adobe.ac.pmd.rules.as3.event.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
       <description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
       <priority>3</priority>
       <example>
@@ -58,7 +58,7 @@
    }
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.common.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
+    <rule class="com.adobe.ac.pmd.rules.as3.event.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
       <description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
       <priority>3</priority>
       <example>

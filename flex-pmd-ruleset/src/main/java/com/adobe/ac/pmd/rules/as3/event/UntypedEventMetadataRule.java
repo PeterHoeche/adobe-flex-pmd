@@ -28,49 +28,55 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.component;
+package com.adobe.ac.pmd.rules.as3.event;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Map;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
+import com.adobe.ac.pmd.nodes.MetaDataNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class CyclomaticComplexityRuleTest
-      extends AbstractAstFlexRuleTest
+public class UntypedEventMetadataRule
+      extends AbstractAstFlexRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "AbstractRowData.as" );
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
    {
-      assertEmptyViolations( "Main.mxml" );
+      final ClassNode classNode = packageNode.getClassNode();
+
+      if ( classNode.getMetaDataList() != null )
+      {
+         for ( final MetaDataNode metaData : classNode.getMetaDataList() )
+         {
+            findViolationsInMetaDataNode( metaData );
+         }
+      }
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertViolations(
-            "RadonDataGrid.as", new ViolationPosition[]
-            { new ViolationPosition( 153, 153 ) } );
+      return ViolationPriority.INFO;
    }
 
-   @Override
-   protected AbstractFlexRule getRule()
+   private void findViolationsInMetaDataNode(
+         final MetaDataNode metaData )
    {
-      return new CyclomaticComplexityRule();
+      final String metaDataValue = metaData.getInternalNode().stringValue;
+
+      if ( metaDataValue.contains( "Event" ) && !metaDataValue.contains( "type = \"" ) )
+      {
+         addViolation( metaData.getInternalNode(), metaData.getInternalNode() );
+      }
    }
 }

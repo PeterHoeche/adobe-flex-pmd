@@ -28,39 +28,54 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.common;
+package com.adobe.ac.pmd.rules.as3.event;
+
+import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DynamicFiltersUsedInPopup
-      extends AbstractRegexpBasedRule
+public class DefaultEventNameRule
+      extends AbstractAstFlexRule
 {
-   @Override
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
-      return file.getClassName().contains(
-            "Popup" );
+      return file.getClassName().endsWith(
+            "Event.as" );
+   }
+
+   @Override
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   {
+      super.findViolationsFromPackageNode( packageNode, files );
+
+      if ( packageNode.getClassNode() != null )
+      {
+         final FunctionNode ctor = packageNode.getClassNode().getConstructor();
+
+         // FIXME Uncomment this expression
+         if ( ctor != null
+               && ctor.getParameters().size() > 0 && ctor.getParameters().get(
+                     0 ).getType().toString().compareTo(
+                     "String" ) == 0 ) //&& ctor.getParameters().get(
+                     //0 ).getInitializationExpression() != null )
+         {
+            addViolation(
+                  ctor.getParameters().get(
+                        0 ).getInternalNode(), ctor.getParameters().get(
+                        0 ).getInternalNode() );
+         }
+      }
    }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
-   }
-
-   @Override
-   protected String getRegexp()
-   {
-      return ".*Filter.*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
-   {
-      return true;
    }
 }

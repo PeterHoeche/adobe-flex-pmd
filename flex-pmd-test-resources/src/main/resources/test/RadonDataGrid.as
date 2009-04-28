@@ -59,6 +59,10 @@ package com.adobe.radon.core.controls
 			rowHeight=34;
 			draggableColumns=false;
 			resizableColumns=false;
+			
+			if ( true )
+			{
+			}   
 		}
 
 		override protected function drawHighlightIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void

@@ -28,49 +28,53 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Map;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import de.bokelberg.flex.parser.Node;
 
-public class UntypedEventMetadataRuleTest
-      extends AbstractAstFlexRuleTest
+public class ConstructorDispatchingEventRule
+      extends AbstractAstFlexRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > files )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      final ClassNode classNode = packageNode.getClassNode();
+      final FunctionNode constructor = classNode.getConstructor();
+
+      if ( constructor != null )
+      {
+         final Node dispatchNode = constructor
+               .findPrimaryStatementFromName( "dispatchEvent" );
+
+         if ( dispatchNode != null )
+         {
+            addViolation(
+                  dispatchNode, dispatchNode );
+         }
+      }
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertViolations(
-            "UnboundMetadata.as", new ViolationPosition[]
-            { new ViolationPosition( 41, 41 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UntypedEventMetadataRule();
+      return ViolationPriority.ERROR;
    }
 }

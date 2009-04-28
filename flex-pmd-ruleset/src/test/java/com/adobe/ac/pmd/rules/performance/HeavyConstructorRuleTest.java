@@ -28,39 +28,54 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.common;
+package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-public class ListenForHardCodedEventNameRule
-      extends AbstractRegexpBasedRule
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class HeavyConstructorRuleTest
+      extends AbstractAstFlexRuleTest
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return true;
+      assertEmptyViolations( "AbstractRowData.as" );
+      assertEmptyViolations( "DefaultNameEvent.as" );
+      assertEmptyViolations( "GenericType.as" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ViolationPriority.WARNING;
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
-   protected String getRegexp()
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ".*addEventListener *\\( *\".*\".*";
+      assertViolations(
+            "Looping.as", new ViolationPosition[]
+            { new ViolationPosition( 40, 40 ) } );
+      assertViolations(
+            "RadonDataGrid.as", new ViolationPosition[]
+            { new ViolationPosition( 54, 54 ) } );
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+   protected AbstractFlexRule getRule()
    {
-      return getMatcher(
-            line ).matches();
+      return new HeavyConstructorRule();
    }
 }

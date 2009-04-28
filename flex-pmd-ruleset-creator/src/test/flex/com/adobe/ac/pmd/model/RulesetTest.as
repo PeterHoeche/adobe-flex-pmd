@@ -42,6 +42,10 @@
    {
       private var model : Ruleset;
       
+      public function RulesetTest()
+      {
+      }
+
       override public function setUp():void
       {
          model = new Ruleset();

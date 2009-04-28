@@ -28,45 +28,66 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- package com.adobe.ac.pmd.model
+package com.adobe.ac.pmd.rules.as3.event;
+
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule;
+import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class PublicVariableInCustomEventRuleTest
+      extends AbstractRegExpBasedRuleTest
 {
-   import flexunit.framework.EventfulTestCase;
 
-   public class RuleTest extends EventfulTestCase
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      private var rule : Rule;
-      
-      public function RuleTest()
-      {
-      }
+      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
+   }
 
-      override public function setUp():void
-      {
-         rule = new Rule();
-      }
-      
-      public function testName() : void
-      {
-         listenForEvent( rule, Rule.NAME_CHANGE );
-         
-         rule.name = "com.adobe.ac.MyRule";
-         
-         assertEvents();
-         assertEquals( "MyRule", rule.shortName );
-         
-         rule.name = "MyRule";
-         assertEquals( "MyRule", rule.shortName );         
-      }
-      
-      public function testRemove() : void
-      {
-         var parentRuleset : Ruleset = new Ruleset();
-         
-         rule.ruleset = parentRuleset;
-         parentRuleset.rules.addItem( rule );
-         rule.remove();
-         
-         assertEquals( 0, parentRuleset.rules.length );
-      }
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+   }
+
+   @Override
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertViolations(
+            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 35, 35 ) } );
+   }
+
+   @Override
+   protected String[] getMatchableLines()
+   {
+      return new String[]
+      { "public var lala : int;" };
+   }
+
+   @Override
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   {
+      return new PublicVariableInCustomEventRule();
+   }
+
+   @Override
+   protected String[] getUnmatchableLines()
+   {
+      return new String[]
+      { "private var _lala : int", "lala()" };
    }
 }

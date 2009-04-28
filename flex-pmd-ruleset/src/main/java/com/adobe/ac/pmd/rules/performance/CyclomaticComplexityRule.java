@@ -28,49 +28,74 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.performance;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Map;
 
-import org.junit.Test;
+import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.IThresholdedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnboundTypeInMetadataRuleTest
-      extends AbstractAstFlexRuleTest
+public class CyclomaticComplexityRule
+      extends AbstractAstFlexRule implements IThresholdedRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public int getDefaultThreshold()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
+      return 10;
+   }
+
+   public int getThreshold()
+   {
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MAXIMUM;
+   }
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
+   {
+      return !file.isMxml();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > files )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      super.findViolationsFromPackageNode(
+            packageNode, files );
+
+      if ( packageNode.getClassNode().getFunctions() != null )
+      {
+         for ( final FunctionNode function : packageNode.getClassNode()
+               .getFunctions() )
+         {
+            if ( function.getCyclomaticComplexity() > getThreshold() )
+            {
+               addViolation(
+                     function.getInternalNode(), function.getInternalNode() );
+            }
+         }
+      }
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertViolations(
-            "UnboundMetadata.as", new ViolationPosition[]
-            { new ViolationPosition( 39, 39 ) } );
+      return ViolationPriority.ERROR;
    }
 
    @Override
-   protected AbstractFlexRule getRule()
+   protected Map< String, PropertyDescriptor > propertiesByName()
    {
-      return new UnboundTypeInMetadataRule();
+      return getRuleProperties( this );
    }
 }

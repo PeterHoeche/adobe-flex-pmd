@@ -36,7 +36,7 @@ package
 
    public class Looping
    {
-      public static function populateStub() : void 
+      public function Looping()
       {
          for ( var i : int = 0; i < 10; i++ )
          {

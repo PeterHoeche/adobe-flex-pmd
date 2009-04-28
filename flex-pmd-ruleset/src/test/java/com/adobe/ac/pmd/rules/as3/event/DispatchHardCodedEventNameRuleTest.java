@@ -28,64 +28,57 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.MetaDataNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import org.junit.Test;
 
-public class UnboundTypeInMetadataRule
-      extends AbstractAstFlexRule
+import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class DispatchHardCodedEventNameRuleTest
+      extends AbstractCommonRegExpBasedRuleTest
 {
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return !file.isMxml();
+      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      final ClassNode classNode = packageNode.getClassNode();
-
-      if ( classNode.getMetaDataList() != null )
-      {
-         for ( final MetaDataNode metaData : classNode.getMetaDataList() )
-         {
-            findViolationsInMetaDataNode(
-                  metaData, files );
-         }
-      }
+      assertViolations(
+            "AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 109, 109 ),
+                  new ViolationPosition( 110, 110 ) } );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected String[] getMatchableLines()
    {
-      return ViolationPriority.WARNING;
+      return new String[]
+      { "dispatchEvent( \"change\" );", "dispatchEvent(\"change\");" };
    }
 
-   private void findViolationsInMetaDataNode(
-         final MetaDataNode metaData, final Map< String, AbstractFlexFile > files )
+   @Override
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
    {
-      final String metaDataValue = metaData.getInternalNode().stringValue;
-      final int startIndex = metaDataValue.indexOf( "type = \"" );
+      return new DispatchHardCodedEventNameRule();
+   }
 
-      if ( startIndex > -1 )
-      {
-         final int length = metaDataValue.substring( startIndex + 8 ).indexOf( "\"" );
-         final String type = metaDataValue.substring( startIndex + 8, startIndex + 8 + length );
-
-         if ( !files.containsKey( type + ".as" ) )
-         {
-            addViolation( metaData.getInternalNode(), metaData.getInternalNode() );
-         }
-      }
+   @Override
+   protected String[] getUnmatchableLines()
+   {
+      return new String[]
+      { "var i : int = 0;", "lala();", "dispatchEvent( CONST );",
+            "dispatchEvent(Rule.CONST);" };
    }
 }

@@ -159,28 +159,12 @@
 				<configuration>
 					<xmlOutput>true</xmlOutput>
 				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>findbugs</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${checkstyle.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>checkstyle</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<configLocation>checkstyle.xml</configLocation>
 				</configuration>
@@ -214,28 +198,13 @@
 				</configuration>
 				<executions>
 					<execution>
-						<phase>install</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
-
-			<!--			<plugin>-->
-			<!--				<groupId>com.google.testability-explorer</groupId>-->
-			<!--				<artifactId>maven2-testability-plugin</artifactId>-->
-			<!--				<version>${testability.version}</version>-->
-			<!--				<executions>-->
-			<!--					<execution>-->
-			<!--						<phase>install</phase>-->
-			<!--						<goals>-->
-			<!--							<goal>testability</goal>-->
-			<!--						</goals>-->
-			<!--					</execution>-->
-			<!--				</executions>-->
-			<!--			</plugin>-->
-
 		</plugins>
 	</build>
 

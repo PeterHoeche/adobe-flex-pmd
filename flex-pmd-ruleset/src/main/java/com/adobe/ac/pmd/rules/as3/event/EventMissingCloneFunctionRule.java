@@ -28,64 +28,54 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.rules.as3.event;
+
+import java.util.Map;
+
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class EventMissingCloneFunctionRule
+      extends AbstractAstFlexRule
 {
-   import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
-   import com.adobe.ac.pmd.model.Ruleset;
-   import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
-
-   import flexunit.framework.CairngormEventSource;
-   import flexunit.framework.EventfulTestCase;
-
-   import mx.collections.ArrayCollection;
-
-   public class RuleSetNavigatorPMTest extends EventfulTestCase
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      private var model : RuleSetNavigatorPM;
-      
-      public function RuleSetNavigatorPMTest()
+      return !file.isMxml()
+            && file.getClassName().endsWith(
+                  "Event.as" );
+   }
+
+   @Override
+   protected void findViolationsFromPackageNode(
+         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+   {
+      boolean cloneFound = false;
+
+      if ( rootNode.getClassNode().getFunctions() != null )
       {
-      }
-
-      override public function setUp() : void
-      {
-         model = new RuleSetNavigatorPM();
-      }
-
-      public function testGetRootRuleset() : void
-      {
-         listenForEvent( CairngormEventSource.instance, GetRootRulesetEvent.EVENT_NAME );
-
-         model.getRootRuleset();
-
-         assertEvents();
-      }
-
-      public function testOnReceiveRootRuleset() : void
-      {
-         var emptyRootRuleset : Ruleset = new Ruleset();
-
-         listenForEvent( model, RuleSetNavigatorPM.ROOT_RULESET_RECEIVED );
-
-         model.onReceiveRootRuleset( emptyRootRuleset );
-
-         assertEvents();
-         assertEquals( emptyRootRuleset, model.rootRuleset );
-
-         var rootRuleset : Ruleset = new Ruleset();
-
-         rootRuleset.rulesets = new ArrayCollection();
-         rootRuleset.rulesets.addItem( new Ruleset() );
-         rootRuleset.rulesets.addItem( new Ruleset() );
-
-         model.onReceiveRootRuleset( rootRuleset );
-
-         assertEquals( rootRuleset, model.rootRuleset );
-
-         for each( var childRuleset : Ruleset in rootRuleset.rulesets )
+         for ( final FunctionNode functionNode : rootNode.getClassNode()
+               .getFunctions() )
          {
-            assertTrue( childRuleset.hasEventListener( RulesetReceivedEvent.EVENT_NAME ) );
+            if ( "clone".equals( functionNode.getName() ) )
+            {
+               cloneFound = true;
+            }
+         }
+         if ( !cloneFound )
+         {
+            addViolation(
+                  rootNode.getInternalNode(), rootNode.getInternalNode() );
          }
       }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.ERROR;
    }
 }

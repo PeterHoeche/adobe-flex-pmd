@@ -1,7 +1,5 @@
 TODO 1 variable hiding property
-TODO 1 EmptyCatchStatement
 TODO 1 AvoidDeeplyNestedIf
-TODO 1 HeavyConstructor
 TODO 1 CreationPolicySetToAll
 TODO 2 Switch statement with identical case statement
 TODO 2 AvoidProtectedFieldInFinalClass

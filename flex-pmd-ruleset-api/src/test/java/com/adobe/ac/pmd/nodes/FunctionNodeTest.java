@@ -75,7 +75,7 @@ public class FunctionNodeTest
    public void testGetCyclomaticComplexity()
    {
       assertEquals(
-            1, constructor.getCyclomaticComplexity() );
+            2, constructor.getCyclomaticComplexity() );
       assertEquals(
             1, drawHighlightIndicator.getCyclomaticComplexity() );
       assertEquals(

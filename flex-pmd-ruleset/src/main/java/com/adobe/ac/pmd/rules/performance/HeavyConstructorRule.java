@@ -28,45 +28,71 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- package com.adobe.ac.pmd.model
+package com.adobe.ac.pmd.rules.performance;
+
+import java.util.Map;
+
+import net.sourceforge.pmd.PropertyDescriptor;
+
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.IThresholdedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class HeavyConstructorRule
+      extends AbstractAstFlexRule implements IThresholdedRule
 {
-   import flexunit.framework.EventfulTestCase;
-
-   public class RuleTest extends EventfulTestCase
+   public int getDefaultThreshold()
    {
-      private var rule : Rule;
-      
-      public function RuleTest()
-      {
-      }
+      return 1;
+   }
 
-      override public function setUp():void
+   public int getThreshold()
+   {
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MAXIMUM;
+   }
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
+   {
+      return !file.isMxml();
+   }
+
+   @Override
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > filesInSourcePath )
+   {
+      super.findViolationsFromPackageNode(
+            packageNode, filesInSourcePath );
+
+      final FunctionNode constructor = packageNode.getClassNode()
+            .getConstructor();
+
+      if ( constructor != null
+            && constructor.getCyclomaticComplexity() > getThreshold() )
       {
-         rule = new Rule();
+         addViolation(
+               constructor.getInternalNode(), constructor.getInternalNode() );
       }
-      
-      public function testName() : void
-      {
-         listenForEvent( rule, Rule.NAME_CHANGE );
-         
-         rule.name = "com.adobe.ac.MyRule";
-         
-         assertEvents();
-         assertEquals( "MyRule", rule.shortName );
-         
-         rule.name = "MyRule";
-         assertEquals( "MyRule", rule.shortName );         
-      }
-      
-      public function testRemove() : void
-      {
-         var parentRuleset : Ruleset = new Ruleset();
-         
-         rule.ruleset = parentRuleset;
-         parentRuleset.rules.addItem( rule );
-         rule.remove();
-         
-         assertEquals( 0, parentRuleset.rules.length );
-      }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.ERROR;
+   }
+
+   @Override
+   protected Map< String, PropertyDescriptor > propertiesByName()
+   {
+      return getRuleProperties( this );
    }
 }

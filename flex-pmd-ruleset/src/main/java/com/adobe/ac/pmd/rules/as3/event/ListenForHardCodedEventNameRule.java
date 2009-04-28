@@ -28,58 +28,39 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class EventMissingCloneFunctionRuleTest
-      extends AbstractAstFlexRuleTest
+public class ListenForHardCodedEventNameRule
+      extends AbstractRegexpBasedRule
 {
-
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
-
-      assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
+      return true;
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml" );
+      return ViolationPriority.WARNING;
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected String getRegexp()
    {
-      assertViolations(
-            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-            new ViolationPosition[]
-            { new ViolationPosition( -1, -1 ) } );
-
-      assertViolations(
-            "com.adobe.ac.ncss.event.SecondCustomEvent.as",
-            new ViolationPosition[]
-            { new ViolationPosition( -1, -1 ) } );
+      return ".*addEventListener *\\( *\".*\".*";
    }
 
    @Override
-   protected AbstractFlexRule getRule()
+   protected boolean isViolationDetectedOnThisMatchingLine(
+         final String line, final AbstractFlexFile file )
    {
-      return new EventMissingCloneFunctionRule();
+      return getMatcher(
+            line ).matches();
    }
 }

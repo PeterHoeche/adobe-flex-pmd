@@ -30,51 +30,48 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import org.junit.Test;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ConstructorDispatchingEventRule
-      extends AbstractAstFlexRule
+public class EmptyCatchStatementRuleTest
+      extends AbstractAstFlexRuleTest
 {
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      return !file.isMxml();
+      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > files )
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      final ClassNode classNode = packageNode.getClassNode();
-      final FunctionNode constructor = classNode.getConstructor();
-
-      if ( constructor != null )
-      {
-         final Node dispatchNode = constructor
-               .findPrimaryStatementFromName( "dispatchEvent" );
-
-         if ( dispatchNode != null )
-         {
-            addViolation(
-                  dispatchNode, dispatchNode );
-         }
-      }
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return ViolationPriority.ERROR;
+      assertViolations(
+            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
+            { new ViolationPosition( 57, 57 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new EmptyCatchStatementRule();
    }
 }

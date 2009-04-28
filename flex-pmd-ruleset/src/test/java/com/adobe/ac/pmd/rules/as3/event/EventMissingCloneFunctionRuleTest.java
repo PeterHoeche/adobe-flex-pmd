@@ -28,30 +28,30 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.as3.event;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
 
+import com.adobe.ac.pmd.rules.as3.event.EventMissingCloneFunctionRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ConstructorDispatchingEventRuleTest
+public class EventMissingCloneFunctionRuleTest
       extends AbstractAstFlexRuleTest
 {
+
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
 
-      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-
-      assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
    }
 
    @Override
@@ -59,7 +59,7 @@ public class ConstructorDispatchingEventRuleTest
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
          URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml" );
    }
 
    @Override
@@ -68,13 +68,19 @@ public class ConstructorDispatchingEventRuleTest
          URISyntaxException
    {
       assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
-            { new ViolationPosition( 58, 58 ) } );
+            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( -1, -1 ) } );
+
+      assertViolations(
+            "com.adobe.ac.ncss.event.SecondCustomEvent.as",
+            new ViolationPosition[]
+            { new ViolationPosition( -1, -1 ) } );
    }
 
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new ConstructorDispatchingEventRule();
+      return new EventMissingCloneFunctionRule();
    }
 }

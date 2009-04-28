@@ -67,7 +67,7 @@ dynamic public class DynamicObject // VIOLATION
    }
            ]]></example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.EventMissingCloneFunctionRule" message="The clone event must be overiden in a custom event">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.event.EventMissingCloneFunctionRule" message="The clone event must be overiden in a custom event">
       <description>Why do you need to override clone? Well, the clone method creates a copy of your event (or object - whatever object has the clone event; this isn't limited to Event objects). The default clone method inherited by the Event class or whatever class your custom class extends, will return an event object of the type of that class, not your custom event subclass. In the situations where a clone is needed, it is needed to be of the same type of your class, not the class it extends.</description>
       <priority>1</priority>
       <example><![CDATA[
@@ -81,7 +81,7 @@ public class FirstCustomEvent   // VIOLATION - clone method is missing
    }
            ]]></example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.PublicVariableInCustomEventRule" message="No public variables should be inside a custom event">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule" message="No public variables should be inside a custom event">
       <description>In order to improve encapsulation in your custom event, it is better not to have public variable in your event. Prefer having read-only attributes, set by the event constructor.</description>
       <priority>3</priority>
       <example><![CDATA[
@@ -257,7 +257,7 @@ public function foo() : void
       <description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>
       <priority>3</priority>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.event.DispatchHardCodedEventNameRule" message="DispatchEvent function must dispatch constant strings">
       <description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
       <priority>3</priority>
       <example><![CDATA[
@@ -270,7 +270,7 @@ public class Foo
    }
            ]]></example>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.as3.event.ListenForHardCodedEventNameRule" message="addEventListener must not contain hard coded strings.">
       <description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
       <priority>3</priority>
       <example><![CDATA[
@@ -576,7 +576,7 @@ public class Something
       <description>It is not a good practice to embed style blocks inside the MXML component. Prefer using external css files.</description>
       <priority>3</priority>
     </rule>
-    <rule since="0.1" class="com.adobe.ac.pmd.rules.common.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
+    <rule since="0.1" class="com.adobe.ac.pmd.rules.performance.DynamicFiltersUsedInPopup" message="A popup should use dynamic filters">
       <description>Prefer using embed filters in assets</description>
       <priority>3</priority>
     </rule>
