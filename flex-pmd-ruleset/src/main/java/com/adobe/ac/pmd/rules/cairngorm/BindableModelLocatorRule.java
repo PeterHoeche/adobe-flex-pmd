@@ -42,10 +42,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class BindableModelLocatorRule
       extends AbstractAstFlexRule
 {
+   @Override
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
-      return !file.isMxml()
+      return super.isConcernedByTheGivenFile( file )
             && file.getClassName().endsWith(
                   "ModelLocator.as" );
    }

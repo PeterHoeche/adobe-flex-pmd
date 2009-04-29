@@ -48,12 +48,6 @@ import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndSta
 public class WronglyOrderedClassElementRule
       extends AbstractAstFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageNode, final Map< String, AbstractFlexFile > files )

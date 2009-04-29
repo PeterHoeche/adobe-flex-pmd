@@ -65,7 +65,7 @@ public class StyleBlockInMxmlRuleTest
    {
       assertViolations(
             "Main.mxml", new ViolationPosition[]
-            { new ViolationPosition( 49, 49 ) } );
+            { new ViolationPosition( 50, 50 ) } );
    }
 
    @Override

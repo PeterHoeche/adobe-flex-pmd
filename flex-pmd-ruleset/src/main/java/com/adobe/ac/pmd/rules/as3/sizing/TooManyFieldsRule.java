@@ -59,12 +59,6 @@ public class TooManyFieldsRule
       return MAXIMUM;
    }
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode rootNode, final Map< String, AbstractFlexFile > files )

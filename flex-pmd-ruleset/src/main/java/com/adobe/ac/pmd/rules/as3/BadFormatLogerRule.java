@@ -44,12 +44,6 @@ import de.bokelberg.flex.parser.Node;
 public class BadFormatLogerRule
       extends AbstractAstFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageName, final Map< String, AbstractFlexFile > files )

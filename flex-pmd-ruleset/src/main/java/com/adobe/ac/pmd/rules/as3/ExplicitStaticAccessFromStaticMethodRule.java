@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -43,12 +42,6 @@ public class ExplicitStaticAccessFromStaticMethodRule
 {
    private String className;
    private boolean isInNewExpression = false;
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
 
    @Override
    protected ViolationPriority getDefaultPriority()

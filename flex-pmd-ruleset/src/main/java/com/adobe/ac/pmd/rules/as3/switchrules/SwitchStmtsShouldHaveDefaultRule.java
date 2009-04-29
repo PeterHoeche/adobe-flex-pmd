@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.switchrules;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -40,12 +39,6 @@ public class SwitchStmtsShouldHaveDefaultRule
       extends AbstractAstFlexRule
 {
    private boolean defaultStatementFound = false;
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
 
    @Override
    protected ViolationPriority getDefaultPriority()

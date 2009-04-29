@@ -41,11 +41,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class EventMissingCloneFunctionRule
       extends AbstractAstFlexRule
 {
+   @Override
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
-      return !file.isMxml()
-            && file.getClassName().endsWith(
+      return file.getClassName().endsWith(
                   "Event.as" );
    }
 

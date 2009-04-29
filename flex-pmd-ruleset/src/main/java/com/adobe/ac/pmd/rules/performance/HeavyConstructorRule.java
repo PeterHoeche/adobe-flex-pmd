@@ -59,12 +59,6 @@ public class HeavyConstructorRule
       return MAXIMUM;
    }
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageNode,

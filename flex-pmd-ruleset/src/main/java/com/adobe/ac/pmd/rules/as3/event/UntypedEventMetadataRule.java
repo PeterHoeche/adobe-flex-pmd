@@ -42,12 +42,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UntypedEventMetadataRule
       extends AbstractAstFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageNode, final Map< String, AbstractFlexFile > files )

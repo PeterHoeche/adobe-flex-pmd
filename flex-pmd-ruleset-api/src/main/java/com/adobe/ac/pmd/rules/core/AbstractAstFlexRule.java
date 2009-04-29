@@ -48,10 +48,10 @@ import de.bokelberg.flex.parser.Node;
  * Abstract class for AST-based rule
  * Extends this class if your rule is only detectable in an AS file, which can be converted
  * into an Abstract Synthax Tree.
- * 
+ *
  * Then you will be able to either use the visitor pattern, or to iterate from the package node, i
  * in order to find your violation(s).
- * 
+ *
  * @author xagnetti
  */
 public abstract class AbstractAstFlexRule
@@ -68,6 +68,12 @@ public abstract class AbstractAstFlexRule
       super();
 
       violations = new ArrayList< Violation >();
+   }
+
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
+   {
+      return !file.isMxml();
    }
 
    /**
@@ -597,7 +603,7 @@ public abstract class AbstractAstFlexRule
 
    /**
     * Overrides it if you need to visit a metadata node
-    * 
+    *
     * @param node
     */
    protected void visitMetaData(

@@ -34,7 +34,6 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -46,10 +45,19 @@ public class TooFewBrancheInSwitchStatementRule
 {
    private int switchCases;
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public int getDefaultThreshold()
    {
-      return !file.isMxml();
+      return 3;
+   }
+
+   public int getThreshold()
+   {
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MINIMUM;
    }
 
    @Override
@@ -58,6 +66,12 @@ public class TooFewBrancheInSwitchStatementRule
       return ViolationPriority.INFO;
    }
 
+   @Override
+   protected Map< String, PropertyDescriptor > propertiesByName()
+   {
+      return getRuleProperties( this );
+   }
+   
    @Override
    protected void visitSwitch(
          final Node ast )
@@ -78,26 +92,5 @@ public class TooFewBrancheInSwitchStatementRule
    {
       super.visitSwitchCase( child );
       switchCases++;
-   }
-
-   public int getDefaultThreshold()
-   {
-      return 3;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-   
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
-   }
-
-   public String getThresholdName()
-   {
-      return MINIMUM;
    }
 }

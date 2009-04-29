@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -40,12 +39,6 @@ public class UnusedLocalVariableRule
       extends AbstractUnusedVariableRule< VariableNode >
 {
    private boolean isInFunction;
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
 
    @Override
    protected ViolationPriority getDefaultPriority()

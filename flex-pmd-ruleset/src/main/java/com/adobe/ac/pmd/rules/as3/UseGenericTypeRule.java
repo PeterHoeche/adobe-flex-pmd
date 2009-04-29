@@ -47,12 +47,6 @@ public class UseGenericTypeRule
 {
    private static final String STAR = "*";
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageNode, final Map< String, AbstractFlexFile > files )

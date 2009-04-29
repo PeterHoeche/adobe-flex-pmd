@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -39,12 +38,6 @@ import de.bokelberg.flex.parser.Node;
 public class EmptyCatchStatementRule
       extends AbstractAstFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected ViolationPriority getDefaultPriority()
    {

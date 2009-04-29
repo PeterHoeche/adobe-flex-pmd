@@ -44,11 +44,11 @@ import de.bokelberg.flex.parser.Node;
 public class BadCairngormEventNameFormatRule
       extends AbstractAstFlexRule
 {
+   @Override
    public boolean isConcernedByTheGivenFile(
          final AbstractFlexFile file )
    {
-      return !file.isMxml()
-            && file.getClassName().endsWith(
+      return file.getClassName().endsWith(
                   "Event.as" );
    }
 

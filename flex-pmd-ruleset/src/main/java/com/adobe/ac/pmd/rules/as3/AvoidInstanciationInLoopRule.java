@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -41,12 +40,6 @@ public class AvoidInstanciationInLoopRule
       extends AbstractAstFlexRule
 {
    private int loopLevel = 0;
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
 
    @Override
    protected ViolationPriority getDefaultPriority()

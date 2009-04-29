@@ -44,13 +44,6 @@ import de.bokelberg.flex.parser.Node;
 public class ConstructorDispatchingEventRule
       extends AbstractAstFlexRule
 {
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageNode,

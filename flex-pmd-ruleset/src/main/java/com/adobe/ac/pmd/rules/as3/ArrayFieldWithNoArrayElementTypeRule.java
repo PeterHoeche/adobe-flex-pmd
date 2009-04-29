@@ -46,12 +46,6 @@ public class ArrayFieldWithNoArrayElementTypeRule
    private static final String ARRAY_ELEMENT_TYPE_BINDING = "ArrayElementType";
    private static final String ARRAY_TYPE = "Array";
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode rootNode, final Map< String, AbstractFlexFile > files )

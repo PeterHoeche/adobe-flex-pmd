@@ -35,7 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -48,12 +47,6 @@ public class UnusedPrivateMethodRule
 {
    private List< Node > functionCalls;
    private Map< String, FunctionNode > unvisitedPrivateFunctions;
-
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
 
    @Override
    protected ViolationPriority getDefaultPriority()

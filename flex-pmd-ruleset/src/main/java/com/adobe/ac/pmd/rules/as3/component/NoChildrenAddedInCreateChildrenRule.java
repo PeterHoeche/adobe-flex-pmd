@@ -47,12 +47,6 @@ public class NoChildrenAddedInCreateChildrenRule
    private static final String[] METHOD_NAMES =
    { "addChild", "addChildAt" };
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
-   {
-      return !file.isMxml();
-   }
-
    @Override
    protected void findViolationsFromPackageNode(
          final PackageNode packageNode,
