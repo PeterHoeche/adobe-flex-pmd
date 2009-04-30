@@ -65,7 +65,7 @@ public class TooLongFunctionRuleTest
    {
       assertViolations(
             "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
-            { new ViolationPosition( 41, 84 ) } );
+            { new ViolationPosition( 40, 84 ) } );
    }
 
    @Override

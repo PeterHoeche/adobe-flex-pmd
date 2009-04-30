@@ -83,7 +83,8 @@ public class TooShortVariableRule
    {
       final Matcher matcher = getMatcher( line );
 
-      return matcher.matches()
+      return !line.contains( "for " )
+            && matcher.matches()
             && matcher.group(
                   1 ).trim().length() < getThreshold();
    }

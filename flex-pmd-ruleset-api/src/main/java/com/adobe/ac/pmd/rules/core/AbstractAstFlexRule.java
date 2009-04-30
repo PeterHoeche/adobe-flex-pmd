@@ -875,20 +875,6 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitStatements(
-         final Node ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         final Iterator< Node > iterator = ast.children.iterator();
-         while ( iterator.hasNext() )
-         {
-            final Node node = iterator.next();
-            visitStatement( node );
-         }
-      }
-   }
-
    protected void visitSwitch(
          final Node ast )
    {
@@ -926,13 +912,13 @@ public abstract class AbstractAstFlexRule
    protected void visitSwitchCase(
          final Node child )
    {
-      visitStatements( child );
+      visitBlock( child );
    }
 
    protected void visitSwitchDefaultCase(
          final Node child )
    {
-      visitStatements( child );
+      visitBlock( child );
    }
 
    protected void visitTry(

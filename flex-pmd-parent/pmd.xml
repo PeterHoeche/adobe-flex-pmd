@@ -20,7 +20,6 @@
 <rule ref="rulesets/junit.xml/JUnitStaticSuite"/>
 <rule ref="rulesets/junit.xml/JUnitSpelling"/>
 <rule ref="rulesets/junit.xml/JUnitAssertionsShouldIncludeMessage"/>
-<rule ref="rulesets/junit.xml/JUnitTestsShouldIncludeAssert"/>
 <rule ref="rulesets/junit.xml/TestClassWithoutTestCases"/>
 <rule ref="rulesets/junit.xml/UnnecessaryBooleanAssertion"/>
 <rule ref="rulesets/junit.xml/UseAssertEqualsInsteadOfAssertTrue"/>

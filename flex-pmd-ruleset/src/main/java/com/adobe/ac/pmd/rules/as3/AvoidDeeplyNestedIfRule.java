@@ -28,57 +28,72 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.naming;
+package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.util.Map;
 
-import org.junit.Test;
+import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.IThresholdedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooShortVariableRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+import de.bokelberg.flex.parser.Node;
+
+public class AvoidDeeplyNestedIfRule
+      extends AbstractAstFlexRule implements IThresholdedRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   private int ifLevel = 0;
+
+   public int getDefaultThreshold()
    {
-      assertEmptyViolations( "GenericType.as" );
+      return 2;
+   }
+
+   public int getThreshold()
+   {
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MAXIMUM;
    }
 
    @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 86, 86 ) } );
+      return ViolationPriority.WARNING;
    }
 
    @Override
-   protected String[] getMatchableLines()
+   protected Map< String, PropertyDescriptor > propertiesByName()
    {
-      return new String[]
-      { "  var toto : int = 0;", "  var i : int = 0;", "var ii : int = 0;",
-            "var iii : int = 0;" };
+      return getRuleProperties( this );
    }
 
    @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected void visitFunctionBody(
+         final Node node )
    {
-      return new TooShortVariableRule();
+      ifLevel = 0;
+
+      super.visitFunctionBody( node );
    }
 
    @Override
-   protected String[] getUnmatchableLines()
+   protected void visitIf(
+         final Node ast )
    {
-      return new String[]
-      { "function lala() : Number", "lala();" };
+      ifLevel++;
+
+      super.visitIf( ast );
+
+      if ( ifLevel > getThreshold() )
+      {
+         addViolation( ast, ast );
+      }
+
+      ifLevel--;
    }
 }

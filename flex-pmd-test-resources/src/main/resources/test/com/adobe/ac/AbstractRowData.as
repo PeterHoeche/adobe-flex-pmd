@@ -56,7 +56,10 @@ package flexunit.flexui.data
 
             if ( splitIndex >= 0 )
             {
-               return qualifiedClassName.substring( splitIndex + 2 );
+               if ( true )
+               {
+                  return qualifiedClassName.substring( splitIndex + 2 );
+               }
             }
          }
 

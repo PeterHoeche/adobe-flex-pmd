@@ -28,26 +28,36 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.naming;
+package com.adobe.ac.pmd.rules.as3;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooShortVariableRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class AvoidDeeplyNestedIfRuleTest
+      extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
          throws FileNotFoundException, URISyntaxException
    {
-      assertEmptyViolations( "GenericType.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
+      assertEmptyViolations( "Looping.as" );
+      assertEmptyViolations( "AbstractRowData.as" );
+   }
+
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
@@ -56,29 +66,13 @@ public class TooShortVariableRuleTest
          URISyntaxException
    {
       assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 86, 86 ) } );
+            "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
+            { new ViolationPosition( 0, 0 ) } );
    }
 
    @Override
-   protected String[] getMatchableLines()
+   protected AbstractFlexRule getRule()
    {
-      return new String[]
-      { "  var toto : int = 0;", "  var i : int = 0;", "var ii : int = 0;",
-            "var iii : int = 0;" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
-   {
-      return new TooShortVariableRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "function lala() : Number", "lala();" };
+      return new AvoidDeeplyNestedIfRule();
    }
 }

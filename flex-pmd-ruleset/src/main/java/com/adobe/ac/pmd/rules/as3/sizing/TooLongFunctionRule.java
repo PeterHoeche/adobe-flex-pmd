@@ -72,24 +72,24 @@ public class TooLongFunctionRule
 
    @Override
    protected void visitFunction(
-         final Node ast, final String type )
+         final Node functionNode, final String type )
    {
       super.visitFunction(
-            ast, type );
+            functionNode, type );
 
-      final Node block = ast.getChild( ast.numChildren() - 1 );
+      final Node block = functionNode.getLastChild();
 
       if ( block != null
             && block.children != null )
       {
          final int beginningLine = block.line;
-         final int lastLine = block.getChild( block.numChildren() - 1 ).line;
+         final int lastLine = block.getLastChild().line;
 
          if ( lastLine
                - beginningLine > getThreshold() )
          {
             addViolation(
-                  block, block.getChild( block.numChildren() - 1 ) );
+                  functionNode, block.getLastChild() );
          }
       }
    }
