@@ -28,63 +28,59 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.rules.common;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class MxmlFile
-      extends AbstractFlexFile
+import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.MxmlFile;
+import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class CopyrightMissingRule
+      extends AbstractFlexRule
 {
-   private boolean mainApplication = false;
-
-   public MxmlFile(
-         final File file, final File rootDirectory )
-   {
-      super( file, rootDirectory );
-      computeIfIsMainApplication();
-   }
-
-   @Override
-   public boolean doesCurrentLineContainOneLineComment(
-         final String line )
-   {
-      return false;
-   }
-
-   @Override
-   public String getCommentClosingTag()
-   {
-      return "-->";
-   }
-
-   @Override
-   public String getCommentOpeningTag()
-   {
-      return "<!--";
-   }
-
-   @Override
-   public boolean isMainApplication()
-   {
-      return mainApplication;
-   }
-
-   @Override
-   public boolean isMxml()
+   public boolean isConcernedByTheGivenFile(
+         final AbstractFlexFile file )
    {
       return true;
    }
 
-   private void computeIfIsMainApplication()
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-      for ( final String line : getLines() )
+      return ViolationPriority.WARNING;
+   }
+
+   @Override
+   protected List< Violation > processFileBody(
+         final PackageNode rootNode, final AbstractFlexFile file,
+         final Map< String, AbstractFlexFile > files )
+   {
+      final List< Violation > violations = new ArrayList< Violation >();
+      final String commentOpeningTag = file.getCommentOpeningTag();
+      final boolean hasMxmlCopyright = file instanceof MxmlFile
+            && file.getLines().size() > 1 && file.getLines().get(
+                  1 ).contains(
+                  commentOpeningTag );
+      final String firstLine = file.getLines().get(
+            0 );
+      final boolean isFirstLineContainCopyright = firstLine
+            .startsWith(
+            commentOpeningTag );
+
+      if ( !isFirstLineContainCopyright
+            && !hasMxmlCopyright )
       {
-         if ( line.contains( "Application " )
-               && line.charAt( 0 ) == '<' )
-         {
-            mainApplication = true;
-            break;
-         }
+         addViolation(
+               violations, file, new ViolationPosition( 0, 0 ) );
       }
+
+      return violations;
    }
 }

@@ -184,6 +184,7 @@
 					<excludes>
 						<exclude>**/Simple.as</exclude>
 						<exclude>**/header.txt</exclude>
+						<exclude>**/MainWithNoCopyright.mxml</exclude>
 					</excludes>
 					<aggregate>true</aggregate>
 					<properties>

@@ -127,6 +127,16 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    }
 
    /**
+    * @return the token for comment closing
+    */
+   public abstract String getCommentClosingTag();
+
+   /**
+    * @return the token for comment opening
+    */
+   public abstract String getCommentOpeningTag();
+
+   /**
     * @return java.io.File name
     */
    public final String getFileName()
@@ -167,14 +177,4 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
     * @return true if the file is a MXML file
     */
    public abstract boolean isMxml();
-
-   /**
-    * @return the token for comment closing
-    */
-   protected abstract String getCommentClosingTag();
-
-   /**
-    * @return the token for comment opening
-    */
-   protected abstract String getCommentOpeningTag();
 }

@@ -28,63 +28,44 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.rules.common;
 
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-public class MxmlFile
-      extends AbstractFlexFile
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class CopyrightMissingRuleTest
+      extends AbstractCommonFlexRuleTest
 {
-   private boolean mainApplication = false;
-
-   public MxmlFile(
-         final File file, final File rootDirectory )
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      super( file, rootDirectory );
-      computeIfIsMainApplication();
+      assertEmptyViolations( "Main.mxml" );
+      assertEmptyViolations( "AbstractRowData.as" );
    }
 
    @Override
-   public boolean doesCurrentLineContainOneLineComment(
-         final String line )
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      return false;
+      assertViolations(
+            "Simple.as", new ViolationPosition[]
+            { new ViolationPosition( 0, 0 ) } );
+      assertViolations(
+            "MainWithNoCopyright.mxml", new ViolationPosition[]
+            { new ViolationPosition( 0, 0 ) } );
    }
 
    @Override
-   public String getCommentClosingTag()
+   protected AbstractFlexRule getRule()
    {
-      return "-->";
-   }
-
-   @Override
-   public String getCommentOpeningTag()
-   {
-      return "<!--";
-   }
-
-   @Override
-   public boolean isMainApplication()
-   {
-      return mainApplication;
-   }
-
-   @Override
-   public boolean isMxml()
-   {
-      return true;
-   }
-
-   private void computeIfIsMainApplication()
-   {
-      for ( final String line : getLines() )
-      {
-         if ( line.contains( "Application " )
-               && line.charAt( 0 ) == '<' )
-         {
-            mainApplication = true;
-            break;
-         }
-      }
+      return new CopyrightMissingRule();
    }
 }

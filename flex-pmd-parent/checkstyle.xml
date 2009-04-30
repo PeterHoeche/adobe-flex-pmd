@@ -3,8 +3,8 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Ac
-    Description: none
+    Checkstyle-Configuration: AdobeProfessionalSerives
+    Description: Adobe Professional Services checkstyle ruleset
 -->
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">

@@ -51,6 +51,18 @@ public class As3File
    }
 
    @Override
+   public String getCommentClosingTag()
+   {
+      return "*/";
+   }
+
+   @Override
+   public String getCommentOpeningTag()
+   {
+      return "/*";
+   }
+
+   @Override
    public boolean isMainApplication()
    {
       return false;
@@ -60,17 +72,5 @@ public class As3File
    public boolean isMxml()
    {
       return false;
-   }
-
-   @Override
-   protected String getCommentClosingTag()
-   {
-      return "*/";
-   }
-
-   @Override
-   protected String getCommentOpeningTag()
-   {
-      return "/*";
    }
 }
