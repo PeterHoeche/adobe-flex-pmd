@@ -125,7 +125,6 @@
 <rule ref="rulesets/controversial.xml/UnnecessaryParentheses"/>
 <rule ref="rulesets/controversial.xml/DefaultPackage"/>
 <rule ref="rulesets/controversial.xml/BooleanInversion"/>
-<rule ref="rulesets/controversial.xml/DataflowAnomalyAnalysis"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingShortType"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingVolatile"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingNativeCode"/>
