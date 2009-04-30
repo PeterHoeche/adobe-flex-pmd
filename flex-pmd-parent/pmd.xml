@@ -116,7 +116,6 @@
 <rule ref="rulesets/basic.xml/AvoidMultipleUnaryOperators"/>
 <rule ref="rulesets/controversial.xml/UnnecessaryConstructor"/>
 <rule ref="rulesets/controversial.xml/NullAssignment"/>
-<rule ref="rulesets/controversial.xml/OnlyOneReturn"/>
 <rule ref="rulesets/controversial.xml/UnusedModifier"/>
 <rule ref="rulesets/controversial.xml/AssignmentInOperand"/>
 <rule ref="rulesets/controversial.xml/AtLeastOneConstructor"/>
@@ -127,6 +126,7 @@
 <rule ref="rulesets/controversial.xml/DefaultPackage"/>
 <rule ref="rulesets/controversial.xml/BooleanInversion"/>
 <rule ref="rulesets/controversial.xml/DataflowAnomalyAnalysis"/>
+<rule ref="rulesets/controversial.xml/AvoidFinalLocalVariable"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingShortType"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingVolatile"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingNativeCode"/>

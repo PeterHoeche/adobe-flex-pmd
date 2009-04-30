@@ -597,14 +597,14 @@ public class AS3Scanner
    /**
     * Something started with a quote or double quote consume characters until
     * the quote/double quote shows up again and is not escaped
-    *
-    * @param c
+    * 
+    * @param startingCharacter
     * @return
     */
    private Token scanString(
-         final char c )
+         final char startingCharacter )
    {
-      return scanUntilDelimiter( c );
+      return scanUntilDelimiter( startingCharacter );
    }
 
    private Token scanUntilDelimiter(
@@ -619,34 +619,35 @@ public class AS3Scanner
          final char start, final char delimiter )
    {
       final StringBuffer buffer = new StringBuffer();
-
-      buffer.append( start );
       int peekPos = 1;
       int numberOfBackslashes = 0;
+
+      buffer.append( start );
+
       for ( ;; )
       {
-         final char c2 = peekChar( peekPos++ );
-         if ( c2 == '\n' )
+         final char currentCharacter = peekChar( peekPos++ );
+         if ( currentCharacter == '\n' )
          {
             return null;
          }
-         buffer.append( c2 );
-         if ( c2 == delimiter
+         buffer.append( currentCharacter );
+         if ( currentCharacter == delimiter
                && numberOfBackslashes == 0 )
          {
             final Token result = new Token( buffer.toString(), line, column );
             skipChars( buffer.toString().length() - 1 );
             return result;
          }
-         numberOfBackslashes = c2 == '\\' ? ( numberOfBackslashes + 1 ) % 2
+         numberOfBackslashes = currentCharacter == '\\' ? ( numberOfBackslashes + 1 ) % 2
                : 0;
       }
    }
 
    private Token scanWord(
-         final char c )
+         final char startingCharacter )
    {
-      char currentChar = c;
+      char currentChar = startingCharacter;
       final StringBuffer buffer = new StringBuffer();
 
       buffer.append( currentChar );
@@ -677,40 +678,40 @@ public class AS3Scanner
       final int currentColumn = column;
       int level = 0;
       final StringBuffer buffer = new StringBuffer();
-      char c = '<';
+      char currentCharacter = '<';
 
       for ( ;; )
       {
-         Token t = null;
+         Token currentToken = null;
          do
          {
-            t = scanUntilDelimiter(
+            currentToken = scanUntilDelimiter(
                   '<', '>' );
-            if ( t == null )
+            if ( currentToken == null )
             {
                line = currentLine;
                column = currentColumn;
                return null;
             }
-            buffer.append( t.text );
-            if ( isProcessingInstruction( t.text ) )
+            buffer.append( currentToken.text );
+            if ( isProcessingInstruction( currentToken.text ) )
             {
-               c = nextChar();
-               if ( c == '\n' )
+               currentCharacter = nextChar();
+               if ( currentCharacter == '\n' )
                {
                   buffer.append( '\n' );
                   skipChar();
                }
-               t = null;
+               currentToken = null;
             }
          }
-         while ( t == null );
+         while ( currentToken == null );
 
-         if ( t.text.startsWith( "</" ) )
+         if ( currentToken.text.startsWith( "</" ) )
          {
             level--;
          }
-         else if ( !t.text.endsWith( "/>" ) )
+         else if ( !currentToken.text.endsWith( "/>" ) )
          {
             level++;
          }
@@ -722,34 +723,34 @@ public class AS3Scanner
 
          for ( ;; )
          {
-            c = nextChar();
-            if ( c == '<' )
+            currentCharacter = nextChar();
+            if ( currentCharacter == '<' )
             {
                break;
             }
-            buffer.append( c );
+            buffer.append( currentCharacter );
          }
       }
    }
 
    /**
     * Something started with a lower sign <
-    *
-    * @param c
+    * 
+    * @param startingCharacterc
     * @return
     */
    private Token scanXMLOrOperator(
-         final char c )
+         final char startingCharacterc )
    {
-      final Token t = scanXML();
-      // S ystem.out.println( t.text );
-      if ( t != null
-            && isValidXML( t.text ) )
+      final Token xmlToken = scanXML();
+
+      if ( xmlToken != null
+            && isValidXML( xmlToken.text ) )
       {
-         return t;
+         return xmlToken;
       }
       return scanCharacterSequence(
-            c, new String[]
+            startingCharacterc, new String[]
             { "<<<=", "<<<", "<<=", "<<", "<=" }, 4 );
    }
 
