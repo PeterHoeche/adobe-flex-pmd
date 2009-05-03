@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.adobe.ac</groupId>
+  <artifactId>flex-pmd</artifactId>
+  <version>0.5.4-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20090503084606</lastUpdated>
+  </versioning>
+</metadata>
