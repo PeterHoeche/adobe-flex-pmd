@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.adobe.ac</groupId>
+  <artifactId>flex-pmd-ruleset</artifactId>
+  <version>0.5.4-SNAPSHOT</version>
+  <versioning>
+    <versions>
+      <version>0.5.4-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20090503085620</lastUpdated>
+  </versioning>
+</metadata>
