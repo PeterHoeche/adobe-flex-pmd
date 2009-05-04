@@ -64,6 +64,8 @@ public class AvoidDeeplyNestedIfRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
          URISyntaxException
    {
+      // FIXME uncomment this assertion.
+
       // assertViolations(
       // "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
       // { new ViolationPosition( 0, 0 ) } );
