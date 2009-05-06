@@ -62,13 +62,15 @@ public class FlexPmdHtmlEngine
    final private Sink sink;
 
    public FlexPmdHtmlEngine(
-         final Sink sink, final ResourceBundle bundle, final boolean aggregate,
-         final MavenProject project )
+         final Sink sinkToBeSet, final ResourceBundle bundleToBeSet,
+         final boolean aggregateToBeSet, final MavenProject projectToBeSet )
    {
-      this.sink = sink;
-      this.bundle = bundle;
-      this.aggregate = aggregate;
-      this.project = project;
+      super();
+
+      sink = sinkToBeSet;
+      bundle = bundleToBeSet;
+      aggregate = aggregateToBeSet;
+      project = projectToBeSet;
    }
 
    @Override
@@ -134,6 +136,7 @@ public class FlexPmdHtmlEngine
                new FileWriter( new File( outputDirectory.getAbsolutePath()
                      + "/" + PMD_HTML ) ), report );
          renderer.getWriter().flush();
+         renderer.getWriter().close();
       }
       catch ( final IOException e )
       {
