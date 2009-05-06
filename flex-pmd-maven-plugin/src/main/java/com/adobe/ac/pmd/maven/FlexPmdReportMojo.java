@@ -28,59 +28,60 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.maven;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.FileNotFoundException;
+import java.util.Locale;
 
 import net.sourceforge.pmd.PMDException;
 
-import org.junit.Test;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.ParserAdapter;
-import org.xml.sax.helpers.XMLReaderAdapter;
+import org.apache.maven.reporting.MavenReportException;
 
-import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
-import com.adobe.ac.pmd.engines.FlexPmdHtmlEngine;
+import com.adobe.ac.pmd.FlexPmdViolations;
 
-public class FlexPmdHtmlEngineTest
-      extends AbstractTestFlexPmdEngine
+/**
+ * @author xagnetti
+ * @goal report
+ * @phase site
+ */
+public class FlexPmdReportMojo
+      extends AbstractFlexPmdMojo
 {
-   public FlexPmdHtmlEngineTest(
-         final String name )
-   {
-      super( name );
-   }
+   /**
+    * Specifies the location of the source files to be used.
+    *
+    * @parameter default-value="false"
+    * @required
+    * @readonly
+    */
+   private boolean aggregate;
 
-   @Test
    @Override
-   public void testExecuteReport() throws PMDException, SAXException,
-         URISyntaxException, IOException
+   protected void executeReport(
+         final Locale locale ) throws MavenReportException
    {
-      super.testExecuteReport();
-
-      final org.xml.sax.XMLReader reader = new ParserAdapter(
-            new XMLReaderAdapter() );
+      LOGGER.info( "FlexPmdReportMojo starts" );
 
       try
       {
-         reader.parse( new InputSource( new FileInputStream( new File(
-               OUTPUT_DIRECTORY_URL
-                     + FlexPmdHtmlEngine.PMD_HTML ) ) ) );
-      }
-      catch ( final SAXParseException e )
-      {
-         fail( e.getMessage() );
-      }
-   }
+         final FlexPmdViolations pmd = new FlexPmdViolations();
 
-   @Override
-   protected AbstractFlexPmdEngine getFlexPmdEngine()
-   {
-      return new FlexPmdHtmlEngine();
+         new FlexPmdHtmlEngine( getSink(), getBundle( locale ), aggregate,
+               getProject() )
+               .executeReport(
+               sourceDirectory, new File( outputDirectory
+                     + "/site" ), ruleSet, pmd );
+      }
+      catch ( final PMDException e )
+      {
+         throw new MavenReportException(
+               "An error has been thrown while executing the PMD report", e );
+      }
+      catch ( final FileNotFoundException e )
+      {
+         throw new MavenReportException( "The Ruleset url has not been found",
+               e );
+      }
    }
 }

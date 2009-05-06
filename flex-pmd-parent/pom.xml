@@ -9,7 +9,7 @@
 	<url>http://www.adobe.com/consulting</url>
 
 	<inceptionYear>2008</inceptionYear>
-	
+
 	<scm>
 		<connection>scm:svn:http://${source.url}/flex-pmd-parent</connection>
 		<developerConnection>scm:svn:http://${source.url}/flex-pmd-parent</developerConnection>
@@ -25,7 +25,7 @@
 		<!-- Project properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<source.url>opensource.adobe.com/svn/opensource/flexpmd/trunk</source.url>
-		
+
 		<!-- Plugins/Dependencies version -->
 		<pmd.version>4.2.2</pmd.version>
 		<compileSource>1.5</compileSource>
@@ -180,7 +180,6 @@
 				<artifactId>maven-license-plugin</artifactId>
 				<version>${license.version}</version>
 				<configuration>
-					<failIfMissing>false</failIfMissing>
 					<header>../flex-pmd-parent/src/etc/header.txt</header>
 					<includes>
 						<include>**/src/**</include>
@@ -212,45 +211,45 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
-      <extensions>
-        <extension>
-	        <groupId>org.jvnet.wagon-svn</groupId>
-	        <artifactId>wagon-svn</artifactId>
-	        <version>${wagon-svn.version}</version>
-	      </extension>
-      </extensions>		
+
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>${wagon-svn.version}</version>
+			</extension>
+		</extensions>
 	</build>
-   
-   <distributionManagement>
-	   <repository>
-	      <id>flexpmd.opensource.adobe.com</id>
-	      <url>svn:https://${source.url}/maven-repository/release/</url>
-	   </repository>
-	   <snapshotRepository>
-	      <id>flexpmd.opensource.adobe.com</id>
-	      <url>svn:https://${source.url}/maven-repository/snapshot/</url>
-	      <uniqueVersion>false</uniqueVersion>
-      </snapshotRepository>
-   </distributionManagement>
+
+	<distributionManagement>
+		<repository>
+			<id>flexpmd.opensource.adobe.com</id>
+			<url>svn:https://${source.url}/maven-repository/release/</url>
+		</repository>
+		<snapshotRepository>
+			<id>flexpmd.opensource.adobe.com</id>
+			<url>svn:https://${source.url}/maven-repository/snapshot/</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<repositories>
-	  <repository>
-		  <id>maven2-repository.dev.java.net</id>
-		  <name>Java.net Repository for Maven</name>
-		  <url>http://download.java.net/maven/2/</url>
-	  </repository>
-	  <repository>
-	     <id>central</id>
-	     <name>maven-central</name>
-	     <url>http://repo1.maven.org/maven2</url>
-	     <releases>
-	        <enabled>true</enabled>
-	     </releases>
-	     <snapshots>
-	        <enabled>false</enabled>
-	     </snapshots>
-	  </repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>maven-central</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>fna-repository</id>
 			<name>fna-repository</name>
@@ -361,18 +360,8 @@
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>emma-maven-plugin</artifactId>
-				<inherited>true</inherited>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>surefire-report-maven-plugin</artifactId>
 				<inherited>true</inherited>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -387,28 +376,7 @@
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${cobertura.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jdepend-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>taglist-maven-plugin</artifactId>
-				<configuration>
-					<tags>
-						<tag>FIXME</tag>
-						<tag>@todo</tag>
-						<tag>@fixme</tag>
-						<tag>@deprecated</tag>
-					</tags>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

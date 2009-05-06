@@ -31,61 +31,60 @@
 package com.adobe.ac.pmd.engines;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.net.URISyntaxException;
+import java.net.URL;
 
+import junit.framework.TestCase;
 import net.sourceforge.pmd.PMDException;
-import net.sourceforge.pmd.Report;
-import net.sourceforge.pmd.renderers.HTMLRenderer;
+
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 
-public class FlexPmdHtmlEngine
-      extends AbstractFlexPmdEngine
+public abstract class AbstractTestFlexPmdEngine
+      extends TestCase
 {
-   public static final String PMD_HTML = "flexPmd.html";
+   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
-   @Override
-   protected void writeReport(
-         final FlexPmdViolations pmd, final File outputDirectory )
-         throws PMDException
+   protected int violationsFound = 0;
+
+   public AbstractTestFlexPmdEngine(
+         final String name )
    {
-      final Report report = new Report();
-
-      report.start();
-
-      for ( final AbstractFlexFile file : pmd.getViolations().keySet() )
-      {
-         final List< Violation > violations = pmd.getViolations().get(
-               file );
-
-         for ( final Violation violation : violations )
-         {
-            report.addRuleViolation( violation );
-         }
-      }
-      report.end();
-
-      final HTMLRenderer renderer = new HTMLRenderer( "", "" );
-
-      try
-      {
-         renderer.render(
-               new FileWriter( new File( outputDirectory.getAbsolutePath()
-                     + "/" + PMD_HTML ) ), report );
-         renderer.getWriter().flush();
-      }
-      catch ( final IOException e )
-      {
-         throw new PMDException( "unable to write the HTML report", e );
-      }
+      super( name );
    }
-   
-   protected String getReportType()
+
+   @Test
+   public void testExecuteReport() throws PMDException, SAXException,
+         URISyntaxException, IOException
    {
-      return "html";
+      final AbstractFlexPmdEngine engine = getFlexPmdEngine();
+      final File sourceDirectory = new File( getClass().getResource(
+            "/test" ).toURI().getPath() );
+      final URL ruleSetUrl = getClass().getResource(
+            "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
+
+      assertNotNull(
+            "RuleSet has not been found", ruleSetUrl );
+
+      assertNotNull(
+            "RuleSet has not been found", ruleSetUrl.toURI() );
+
+      assertNotNull(
+            "RuleSet has not been found", ruleSetUrl.toURI().getPath() );
+
+      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
+      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
+
+      violationsFound = engine.executeReport(
+            sourceDirectory, outputDirectory, ruleSetFile,
+            new FlexPmdViolations() );
+
+      assertEquals(
+            "Number of violations found is not correct", 205, violationsFound );
    }
+
+   protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
 }

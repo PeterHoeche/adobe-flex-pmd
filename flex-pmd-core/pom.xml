@@ -14,6 +14,11 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+	   <dependency>
+			<groupId>doxia</groupId>
+			<artifactId>doxia-core</artifactId>
+			<version>1.0-alpha-4</version>
+		</dependency>
 		<dependency>
 			<groupId>com.adobe.ac</groupId>
 			<artifactId>as3-plugin-utils</artifactId>

@@ -277,6 +277,22 @@
 					<reportsDirectory>surefire-reports</reportsDirectory>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+			   <groupId>com.adobe.ac</groupId>
+            <artifactId>flex-pmd-maven-plugin</artifactId>
+            <version>${flex-pmd-maven-plugin.version}</version>
+            <configuration>
+               <ruleSet>allflex.xml</ruleSet>
+            </configuration>
+			</plugin>
+			
+			<plugin>
+			   <groupId>com.adobe.ac</groupId>
+            <artifactId>as3Ncss-maven-plugin</artifactId>
+            <version>${as3Ncss-maven-plugin.version}</version>
+			</plugin>			
+
 		</plugins>
 	</reporting>
 

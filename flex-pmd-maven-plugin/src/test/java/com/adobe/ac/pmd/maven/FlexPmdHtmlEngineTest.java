@@ -28,63 +28,69 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.maven;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.ResourceBundle;
 
-import junit.framework.TestCase;
 import net.sourceforge.pmd.PMDException;
 
+import org.apache.maven.reporting.sink.SinkFactory;
+import org.codehaus.doxia.sink.Sink;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
+import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngine;
 
-public abstract class AbstractTestFlexPmdEngine
-      extends TestCase
+public class FlexPmdHtmlEngineTest
+      extends AbstractTestFlexPmdEngine
 {
-   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
-
-   protected int violationsFound = 0;
-
-   public AbstractTestFlexPmdEngine(
+   public FlexPmdHtmlEngineTest(
          final String name )
    {
       super( name );
    }
 
    @Test
+   @Override
    public void testExecuteReport() throws PMDException, SAXException,
          URISyntaxException, IOException
    {
-      final AbstractFlexPmdEngine engine = getFlexPmdEngine();
-      final File sourceDirectory = new File( getClass().getResource(
-            "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource(
-            "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI() );
-
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI().getPath() );
-
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
-
-      violationsFound = engine.executeReport(
-            sourceDirectory, outputDirectory, ruleSetFile,
-            new FlexPmdViolations() );
-
-      assertEquals(
-            "Number of violations found is not correct", 205, violationsFound );
+      // super.testExecuteReport();
+      //
+      // final org.xml.sax.XMLReader reader = new ParserAdapter(
+      // new XMLReaderAdapter() );
+      //
+      // try
+      // {
+      // reader.parse( new InputSource( new FileInputStream( new File(
+      // OUTPUT_DIRECTORY_URL
+      // + FlexPmdHtmlEngine.PMD_HTML ) ) ) );
+      // }
+      // catch ( final SAXParseException e )
+      // {
+      // fail( e.getMessage() );
+      // }
    }
 
-   protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
+   @Override
+   protected AbstractFlexPmdEngine getFlexPmdEngine()
+   {
+      try
+      {
+         final Sink sink = new SinkFactory().getSink( OUTPUT_DIRECTORY_URL
+               + FlexPmdHtmlEngine.PMD_HTML );
+
+         return new FlexPmdHtmlEngine( sink, ResourceBundle
+               .getBundle( "flexPmd" ), false, null );
+      }
+      catch ( final Exception exception )
+      {
+         exception.printStackTrace();
+
+         return null;
+      }
+   }
 }

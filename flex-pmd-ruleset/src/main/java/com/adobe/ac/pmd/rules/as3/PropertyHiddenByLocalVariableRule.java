@@ -58,6 +58,10 @@ public class PropertyHiddenByLocalVariableRule
       for ( final FunctionNode function : packageNode.getClassNode()
             .getFunctions() )
       {
+         if ( function.getLocalVariables() == null )
+         {
+            continue;
+         }
          final Set< String > localVariables = function.getLocalVariables()
                .keySet();
 

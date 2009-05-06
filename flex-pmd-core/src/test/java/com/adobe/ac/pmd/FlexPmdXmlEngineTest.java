@@ -47,6 +47,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
+import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 public class FlexPmdXmlEngineTest

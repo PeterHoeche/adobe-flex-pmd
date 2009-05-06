@@ -321,13 +321,15 @@ public class FunctionNode
    {
       Node dispatchNode = null;
 
-      if ( content.stringValue != null
+      if ( content != null
+            && content.stringValue != null
             && isNameInArray(
                   names, content.stringValue ) )
       {
          dispatchNode = content;
       }
-      else if ( content.numChildren() > 0 )
+      else if ( content != null
+            && content.numChildren() > 0 )
       {
          for ( final Node child : content.children )
          {

@@ -33,17 +33,12 @@ package com.adobe.ac.pmd.maven;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import net.sourceforge.pmd.PMDException;
 
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
-import org.codehaus.doxia.site.renderer.SiteRenderer;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
-import com.adobe.ac.pmd.engines.FlexPmdHtmlEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 /**
@@ -51,102 +46,25 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
  * @phase verify
  */
 public class FlexPmdMojo
-      extends AbstractMavenReport
+      extends AbstractFlexPmdMojo
 {
-   private static final String OUTPUT_NAME = "flexPmd";
-
-   private static ResourceBundle getBundle(
-         final Locale locale )
-   {
-      return ResourceBundle.getBundle(
-            "flexPmd", locale, FlexPmdMojo.class.getClassLoader() );
-   }
-
-   /**
-    * Location of the file.
-    *
-    * @parameter expression="${project.build.directory}"
-    * @required
-    */
-   private File outputDirectory;
-
-   /**
-    * @parameter expression="${project}"
-    * @required
-    * @readonly
-    */
-   private final MavenProject project = null; // NOPMD by xagnetti on 4/20/09 10:46 PM
-
-   /**
-    * Location of the file.
-    *
-    * @parameter
-    * @required
-    */
-   private final File ruleSet = null; // NOPMD by xagnetti on 4/20/09 10:46 PM
-
-   /**
-    * @parameter
-    *            expression="${component.org.codehaus.doxia.site.renderer.SiteRenderer}"
-    * @required
-    * @readonly
-    */
-   private final SiteRenderer siteRenderer = null; // NOPMD by xagnetti on 4/20/09 10:46 PM
-
-   /**
-    * Specifies the location of the source files to be used.
-    *
-    * @parameter expression="${project.build.sourceDirectory}"
-    * @required
-    * @readonly
-    */
-   private File sourceDirectory;
-
-   public final String getDescription(
-         final Locale locale )
-   {
-      return getBundle(
-            locale ).getString(
-            "report.flexPmd.description" );
-   }
-
-   public final String getName(
-         final Locale locale )
-   {
-      return getBundle(
-            locale ).getString(
-            "report.flexPmd.name" );
-   }
-
-   public final String getOutputName()
-   {
-      return OUTPUT_NAME;
-   }
-
    public void setOutputDirectory(
          final File outputDirectoryToSet )
    {
       outputDirectory = outputDirectoryToSet;
    }
 
-   public void setSourceDirectory(
-         final File sourceDirectoryToSet )
-   {
-      sourceDirectory = sourceDirectoryToSet;
-   }
-
    @Override
    protected void executeReport(
          final Locale locale ) throws MavenReportException
    {
+      LOGGER.info( "FlexPmdMojo starts" );
       try
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
          new FlexPmdXmlEngine().executeReport(
                sourceDirectory, outputDirectory, ruleSet, pmd  );
-         new FlexPmdHtmlEngine().executeReport(
-               sourceDirectory, new File( outputDirectory + "/site" ), ruleSet, pmd );
       }
       catch ( final PMDException e )
       {
@@ -158,23 +76,5 @@ public class FlexPmdMojo
          throw new MavenReportException( "The Ruleset url has not been found",
                e );
       }
-   }
-
-   @Override
-   protected final String getOutputDirectory()
-   {
-      return outputDirectory.getAbsolutePath();
-   }
-
-   @Override
-   protected final MavenProject getProject()
-   {
-      return project;
-   }
-
-   @Override
-   protected final SiteRenderer getSiteRenderer()
-   {
-      return siteRenderer;
    }
 }
