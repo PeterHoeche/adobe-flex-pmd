@@ -28,55 +28,48 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.component;
+package com.adobe.ac.pmd.nodes;
 
-import java.util.Map;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.io.IOException;
 
-import de.bokelberg.flex.parser.Node;
+import org.junit.Test;
 
-public class NoChildrenAddedInCreateChildrenRule
-      extends AbstractAstFlexRule
+import com.adobe.ac.pmd.FlexPmdTestBase;
+
+import de.bokelberg.flex.parser.AS3Parser;
+import de.bokelberg.flex.parser.exceptions.TokenException;
+
+public class PackageNodeTest
+      extends FlexPmdTestBase
 {
-   private static final String CREATE_CHILDREN = "createChildren";
-   private static final String[] METHOD_NAMES =
-   { "addChild", "addChildAt" };
-
-   @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+   @Test
+   public void testConstructNamespace() throws IOException, TokenException
    {
-      for ( final FunctionNode function : classNode.getFunctions() )
-      {
-         if ( function.getName().compareTo(
-               CREATE_CHILDREN ) == 0 )
-         {
-            for ( int i = 0; i < METHOD_NAMES.length; i++ )
-            {
-               final String methodName = METHOD_NAMES[ i ];
-               final Node primaryNode = function
-                     .findPrimaryStatementFromName( methodName );
+      final PackageNode namespacePackage = new PackageNode( new AS3Parser()
+            .buildAst( testFiles.get(
+                  "schedule_internal.as" ).getFilePath() ) );
 
-               if ( primaryNode != null )
-               {
-                  return;
-               }
-            }
-            addViolation(
-                  function.getInternalNode(), function.getContentBlock()
-                        .getLastChild() );
-         }
-      }
+      assertNull( namespacePackage.getClassNode() );
+      assertEquals(
+            "flexlib.scheduling.scheduleClasses", namespacePackage.getName() );
+      assertEquals(
+            0, namespacePackage.getImports().size() );
    }
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testConstructStyles() throws IOException, TokenException
    {
-      return ViolationPriority.ERROR;
+      final PackageNode stylePackage = new PackageNode( new AS3Parser()
+            .buildAst( testFiles.get(
+                  "SkinStyles.as" ).getFilePath() ) );
+
+      assertNull( stylePackage.getClassNode() );
+      assertEquals(
+            "", stylePackage.getName() );
+      assertEquals(
+            0, stylePackage.getImports().size() );
    }
 }

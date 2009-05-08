@@ -40,7 +40,6 @@ import com.adobe.ac.pmd.nodes.AbstractNode;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndStaticityComparator;
@@ -49,12 +48,9 @@ public class WronglyOrderedClassElementRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
    {
-      super.findViolationsFromPackageNode( packageNode, files );
-
-      final ClassNode classNode = packageNode.getClassNode();
       final List< FieldNode > constants = new ArrayList< FieldNode >();
       final List< FieldNode > variables = new ArrayList< FieldNode >();
       final List< FunctionNode > functions = new ArrayList< FunctionNode >();

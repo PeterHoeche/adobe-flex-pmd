@@ -132,7 +132,7 @@ public class VariableNode
                   MetaDataUtils.computeMetaDataList(
                         this, child );
                }
-               else
+               else if ( !child.is( Node.REST ) )
                {
                   LOGGER.warning( "unknown node type "
                         + child.id );

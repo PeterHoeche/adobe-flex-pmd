@@ -56,6 +56,14 @@ public class FlexPmdAntTask
 
       try
       {
+         if ( sourceDirectory == null )
+         {
+            throw new PMDException( "unspecified sourceDirectory" );
+         }
+         if ( outputDirectory == null )
+         {
+            throw new PMDException( "unspecified outputDirectory" );
+         }
          engine.executeReport(
                sourceDirectory, outputDirectory, ruleSet, new FlexPmdViolations() );
       }

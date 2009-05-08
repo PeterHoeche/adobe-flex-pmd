@@ -39,6 +39,7 @@ import java.util.logging.Logger;
 import com.adobe.ac.pmd.StackTraceUtils;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 
 import de.bokelberg.flex.parser.KeyWords;
@@ -116,6 +117,11 @@ public abstract class AbstractAstFlexRule
       return violation;
    }
 
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+   {
+   }
+
    /**
     * Override this method if you need to find violations from the package (
     * or any subsequent node like class or function)
@@ -130,7 +136,8 @@ public abstract class AbstractAstFlexRule
 
    @Override
    final protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file, final Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode, final AbstractFlexFile file,
+         final Map< String, AbstractFlexFile > files )
    {
       currentFile = file;
       try
@@ -138,13 +145,18 @@ public abstract class AbstractAstFlexRule
          if ( rootNode != null )
          {
             visitNodes( rootNode.getInternalNode() );
-            findViolationsFromPackageNode( rootNode, files );
+            findViolationsFromPackageNode(
+                  rootNode, files );
+            if ( rootNode.getClassNode() != null )
+            {
+               findViolationsFromClassNode(
+                     rootNode.getClassNode(), files );
+            }
          }
       }
       catch ( final Exception e )
       {
-         LOGGER.warning(
-               StackTraceUtils.print( e ) );
+         LOGGER.warning( StackTraceUtils.print( e ) );
       }
       final List< Violation > copy = new ArrayList< Violation >( violations );
 

@@ -35,9 +35,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -45,18 +45,13 @@ public class PropertyHiddenByLocalVariableRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > filesInSourcePath )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
    {
-      super.findViolationsFromPackageNode(
-            packageNode, filesInSourcePath );
 
-      final List< FieldNode > variables = packageNode.getClassNode()
-            .getVariables();
+      final List< FieldNode > variables = classNode.getVariables();
 
-      for ( final FunctionNode function : packageNode.getClassNode()
-            .getFunctions() )
+      for ( final FunctionNode function : classNode.getFunctions() )
       {
          if ( function.getLocalVariables() == null )
          {

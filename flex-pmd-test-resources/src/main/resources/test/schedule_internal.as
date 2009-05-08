@@ -28,55 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.component;
-
-import java.util.Map;
-
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-import de.bokelberg.flex.parser.Node;
-
-public class NoChildrenAddedInCreateChildrenRule
-      extends AbstractAstFlexRule
+package flexlib.scheduling.scheduleClasses
 {
-   private static final String CREATE_CHILDREN = "createChildren";
-   private static final String[] METHOD_NAMES =
-   { "addChild", "addChildAt" };
-
-   @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
-   {
-      for ( final FunctionNode function : classNode.getFunctions() )
-      {
-         if ( function.getName().compareTo(
-               CREATE_CHILDREN ) == 0 )
-         {
-            for ( int i = 0; i < METHOD_NAMES.length; i++ )
-            {
-               final String methodName = METHOD_NAMES[ i ];
-               final Node primaryNode = function
-                     .findPrimaryStatementFromName( methodName );
-
-               if ( primaryNode != null )
-               {
-                  return;
-               }
-            }
-            addViolation(
-                  function.getInternalNode(), function.getContentBlock()
-                        .getLastChild() );
-         }
-      }
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.ERROR;
-   }
+   public namespace schedule_internal = "http://www.adobe.com/ac/scheduling/internal";
 }

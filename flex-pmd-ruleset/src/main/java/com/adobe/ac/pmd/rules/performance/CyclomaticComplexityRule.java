@@ -35,6 +35,7 @@ import java.util.Map;
 import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -58,18 +59,13 @@ public class CyclomaticComplexityRule
    {
       return MAXIMUM;
    }
-
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
    {
-      super.findViolationsFromPackageNode(
-            packageNode, files );
-
-      if ( packageNode.getClassNode().getFunctions() != null )
+      if ( classNode.getFunctions() != null )
       {
-         for ( final FunctionNode function : packageNode.getClassNode()
+         for ( final FunctionNode function : classNode
                .getFunctions() )
          {
             if ( function.getCyclomaticComplexity() > getThreshold() )
@@ -80,6 +76,16 @@ public class CyclomaticComplexityRule
          }
       }
    }
+
+   @Override
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode,
+         final Map< String, AbstractFlexFile > files )
+   {
+      super.findViolationsFromPackageNode(
+            packageNode, files );
+
+      }
 
    @Override
    protected ViolationPriority getDefaultPriority()

@@ -33,8 +33,8 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -44,15 +44,10 @@ public class UselessOverridenFunctionRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
    {
-      super.findViolationsFromPackageNode(
-            packageNode, files );
-
-      for ( final FunctionNode function : packageNode.getClassNode()
-            .getFunctions() )
+      for ( final FunctionNode function : classNode.getFunctions() )
       {
          if ( function.getContentBlock() != null
                && function.getContentBlock().numChildren() == 1

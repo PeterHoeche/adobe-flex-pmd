@@ -46,40 +46,50 @@ public class BadFormatLogerRule
 {
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode packageName, final Map< String, AbstractFlexFile > files )
+         final PackageNode packageName,
+         final Map< String, AbstractFlexFile > files )
    {
-      super.findViolationsFromPackageNode( packageName, files );
+      super.findViolationsFromPackageNode(
+            packageName, files );
 
-      for ( final FieldNode field : packageName.getClassNode().getVariables() )
+      if ( packageName.getClassNode() != null )
       {
-         if ( field.getType().toString().compareTo(
-               "ILogger" ) == 0 )
+         for ( final FieldNode field : packageName.getClassNode()
+               .getVariables() )
          {
-            addViolation( field.getInternalNode(), field.getInternalNode(),
-                  "A logger should be constant" );
+            if ( field.getType().toString().compareTo(
+                  "ILogger" ) == 0 )
+            {
+               addViolation(
+                     field.getInternalNode(), field.getInternalNode(),
+                     "A logger should be constant" );
+            }
          }
-      }
-      for ( final FieldNode field : packageName.getClassNode().getConstants() )
-      {
-         if ( field.getType().toString().compareTo(
-               "ILogger" ) == 0 )
+         for ( final FieldNode field : packageName.getClassNode()
+               .getConstants() )
          {
-            if ( field.getName().compareTo(
-                  "LOG" ) != 0 )
+            if ( field.getType().toString().compareTo(
+                  "ILogger" ) == 0 )
             {
-               addViolation( field.getInternalNode(), field.getInternalNode(),
-                     "The logger name is not LOG" );
-            }
-            if ( field.getInitializationExpression() == null )
-            {
-               addViolation( field.getInternalNode(), field.getInternalNode(),
-                     "The logger is not initialized" );
-            }
-            else
-            {
-               lookupStringMethodArguments(
-                     field.getInitializationExpression(), packageName
-                           .getFullyQualifiedClassName() );
+               if ( field.getName().compareTo(
+                     "LOG" ) != 0 )
+               {
+                  addViolation(
+                        field.getInternalNode(), field.getInternalNode(),
+                        "The logger name is not LOG" );
+               }
+               if ( field.getInitializationExpression() == null )
+               {
+                  addViolation(
+                        field.getInternalNode(), field.getInternalNode(),
+                        "The logger is not initialized" );
+               }
+               else
+               {
+                  lookupStringMethodArguments(
+                        field.getInitializationExpression(), packageName
+                              .getFullyQualifiedClassName() );
+               }
             }
          }
       }
@@ -118,7 +128,8 @@ public class BadFormatLogerRule
                   && argumentNode.stringValue.compareTo( "\""
                         + fullyQualifiedClassName + "\"" ) != 0 )
             {
-               addViolation( internalNode, internalNode,
+               addViolation(
+                     internalNode, internalNode,
                      "The logger is not initialized with the fully qualified class name" );
             }
          }

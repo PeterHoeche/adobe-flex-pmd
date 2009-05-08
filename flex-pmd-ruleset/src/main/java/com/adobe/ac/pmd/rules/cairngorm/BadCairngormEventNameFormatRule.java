@@ -78,7 +78,8 @@ public class BadCairngormEventNameFormatRule
                      .getInitializationExpression().getInternalNode() );
             }
          }
-         if ( eventName.compareTo( "" ) == 0 )
+         if ( eventName.compareTo( "" ) == 0
+               && packageNode.getClassNode().getConstructor() != null )
          {
             eventName = extractEventNameFromConstructor( packageNode
                   .getClassNode().getConstructor() );

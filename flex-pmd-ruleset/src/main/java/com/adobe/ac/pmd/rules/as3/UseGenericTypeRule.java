@@ -34,8 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -48,15 +48,13 @@ public class UseGenericTypeRule
    private static final String STAR = "*";
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
    {
-      super.findViolationsFromPackageNode( packageNode, files );
+      findViolationInVariableLists( classNode.getConstants() );
+      findViolationInVariableLists( classNode.getVariables() );
 
-      findViolationInVariableLists( packageNode.getClassNode().getConstants() );
-      findViolationInVariableLists( packageNode.getClassNode().getVariables() );
-
-      for ( final FunctionNode function : packageNode.getClassNode().getFunctions() )
+      for ( final FunctionNode function : classNode.getFunctions() )
       {
          findViolationInVariableLists( function.getParameters() );
 

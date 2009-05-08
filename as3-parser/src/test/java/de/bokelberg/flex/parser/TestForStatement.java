@@ -68,6 +68,9 @@ public class TestForStatement
             "1",
             "for each( var obj : Object in list ){ obj.print( i ); }",
             "<foreach line=\"1\" column=\"11\"><var line=\"1\" column=\"11\"><name-type-init line=\"1\" column=\"15\"><name line=\"1\" column=\"15\">obj</name><type line=\"1\" column=\"19\">Object</type></name-type-init></var><in line=\"1\" column=\"31\"><primary line=\"1\" column=\"31\">list</primary></in><block line=\"1\" column=\"39\"><dot line=\"1\" column=\"43\"><primary line=\"1\" column=\"39\">obj</primary><call line=\"1\" column=\"48\"><primary line=\"1\" column=\"43\">print</primary><arguments line=\"1\" column=\"50\"><primary line=\"1\" column=\"50\">i</primary></arguments></call></dot></block></foreach>" );
+
+      // assertStatement(
+      // "", "for each (var a:XML in classInfo..accessor) {}", "" );
    }
 
    @Test

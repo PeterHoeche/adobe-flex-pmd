@@ -37,9 +37,8 @@ import de.bokelberg.flex.parser.KeyWords;
 import de.bokelberg.flex.parser.Node;
 
 /**
- * Node representing a package.
- *
- * It contains the nested class node, the list of imports, and the package name.
+ * Node representing a package. It contains the nested class node, the list of
+ * imports, and the package name.
  *
  * @author xagnetti
  */
@@ -83,11 +82,28 @@ public class PackageNode
       final Node classWrapperNode = getClassNodeFromCompilationUnitNode(
             internalNode, 3 );
 
-      name = internalNode.getChild( 0 ).getChild( 0 ).stringValue;
       imports = new ArrayList< Node >();
-      classNode = new ClassNode( classWrapperNode );
-      
-      try
+      if ( internalNode.getChild(
+            0 ).numChildren() > 0 )
+      {
+         name = internalNode.getChild(
+               0 ).getChild(
+               0 ).stringValue;
+      }
+      else
+      {
+         name = "";
+      }
+      if ( classWrapperNode != null )
+      {
+         classNode = new ClassNode( classWrapperNode );
+      }
+
+      if ( internalNode.getChild(
+            0 ).numChildren() > 1
+            && internalNode.getChild(
+                  0 ).getChild(
+                  1 ).children != null )
       {
          for ( final Node node : internalNode.getChild(
                0 ).getChild(
@@ -98,9 +114,6 @@ public class PackageNode
                imports.add( node );
             }
          }
-      }
-      catch ( final NullPointerException e )
-      {
       }
    }
 
@@ -114,7 +127,8 @@ public class PackageNode
       }
       for ( final Node child : node.children )
       {
-         if ( child.is( KeyWords.CLASS ) || child.is( KeyWords.INTERFACE ) )
+         if ( child.is( KeyWords.CLASS )
+               || child.is( KeyWords.INTERFACE ) )
          {
             return child;
          }

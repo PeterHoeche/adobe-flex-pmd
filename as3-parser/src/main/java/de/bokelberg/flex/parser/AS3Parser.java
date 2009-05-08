@@ -629,7 +629,7 @@ public class AS3Parser
       {
          result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
          nextToken();
-         result.addChild( parseAssignmentExpression() );
+         result.addChild( parseExpression() );
       }
       return result.numChildren() > 1 ? result : result.getChild( 0 );
    }
@@ -1063,6 +1063,12 @@ public class AS3Parser
       if ( tokIs( KeyWords.EXTENDS ) )
       {
          nextToken(); // extends
+         result.addChild(
+               KeyWords.EXTENDS, tok.line, tok.column, parseQualifiedName() );
+      }
+      while ( tokIs( Operators.COMMA ) )
+      {
+         nextToken(); // comma
          result.addChild(
                KeyWords.EXTENDS, tok.line, tok.column, parseQualifiedName() );
       }
@@ -1551,6 +1557,11 @@ public class AS3Parser
          {
             result.addChild( parseArgumentList() );
          }
+         while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+         {
+            result.addChild( parseArrayLiteral() );
+         }
+
          e1 = result;
       }
       else

@@ -74,6 +74,16 @@ public class TestVarStatement
                   + "<primary line=\"1\" column=\"21\">0x2bc9f6</primary>"
                   + "<primary line=\"1\" column=\"31\">0x0086ad</primary>"
                   + "</array></primary></init></name-type-init></var-list>" );
+
+      // assertStatement(
+      // "",
+      // "           var currentTime : Number = ( i * columnWidth + columnWidth / 2 ) * totalMilliseconds / contentWidth",
+      // "" );
+      //
+      // assertStatement(
+      // "",
+      // "           var currentTime : Number = ( i * columnWidth + columnWidth / 2 ) * totalMilliseconds / contentWidth;",
+      // "" );
    }
 
    @Test
