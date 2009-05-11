@@ -31,10 +31,8 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
@@ -46,31 +44,33 @@ public class PropertyHiddenByLocalVariableRule
 {
    @Override
    protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+         final ClassNode classNode )
    {
-
       final List< FieldNode > variables = classNode.getVariables();
 
-      for ( final FunctionNode function : classNode.getFunctions() )
+      if ( classNode.getFunctions() != null )
       {
-         if ( function.getLocalVariables() == null )
+         for ( final FunctionNode function : classNode.getFunctions() )
          {
-            continue;
-         }
-         final Set< String > localVariables = function.getLocalVariables()
-               .keySet();
-
-         for ( final String localVariable : localVariables )
-         {
-            for ( final FieldNode field : variables )
+            if ( function.getLocalVariables() == null )
             {
-               if ( localVariable.compareTo( field.getName() ) == 0 )
+               continue;
+            }
+            final Set< String > localVariables = function.getLocalVariables()
+                  .keySet();
+
+            for ( final String localVariable : localVariables )
+            {
+               for ( final FieldNode field : variables )
                {
-                  addViolation(
-                        function.getLocalVariables().get(
-                              localVariable ), function.getLocalVariables()
-                              .get(
-                                    localVariable ) );
+                  if ( localVariable.compareTo( field.getName() ) == 0 )
+                  {
+                     addViolation(
+                           function.getLocalVariables().get(
+                                 localVariable ), function.getLocalVariables()
+                                 .get(
+                                       localVariable ) );
+                  }
                }
             }
          }

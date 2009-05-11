@@ -38,9 +38,9 @@ package flexUnit.flexui.data
     * Abstract class representing a row in the test cases tree.
     * A row can be either a test class (node) or a test case (leaf)
     */   
-   public class AbstractRowData
+   final public class AbstractRowData
    {
-      public var logger : ILogger;
+      protected var logger : ILogger;
       public const logger : ILogger;
                                  public const logger : ILogger = Log.getLogger( "flexUnit.flexui.data.AbstractRowData" );
                                  public const LOGGER : ILogger = Log.getLogger( "flexUnit.flexui.data.AbstractRowData" );
@@ -85,7 +85,7 @@ package flexUnit.flexui.data
          throw new Error( "TestSummaryRowData::failIcon is an abstract method" );
       }
 
-      public function get passIcon() : Class
+      protected function get passIcon() : Class
       {
          throw new Error( "TestSummaryRowData::passIcon is an abstract method" );
       }

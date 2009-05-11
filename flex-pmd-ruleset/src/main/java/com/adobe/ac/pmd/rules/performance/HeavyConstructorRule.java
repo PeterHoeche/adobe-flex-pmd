@@ -34,7 +34,6 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -61,7 +60,7 @@ public class HeavyConstructorRule
 
    @Override
    protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+         final ClassNode classNode )
    {
       final FunctionNode constructor = classNode.getConstructor();
 

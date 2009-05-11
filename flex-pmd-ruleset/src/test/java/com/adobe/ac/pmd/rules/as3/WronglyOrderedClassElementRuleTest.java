@@ -75,7 +75,9 @@ public class WronglyOrderedClassElementRuleTest
             "AbstractRowData.as", new ViolationPosition[]
             { new ViolationPosition( 44, 44 ), new ViolationPosition( 45, 45 ),
                   new ViolationPosition( 46, 46 ),
-                  new ViolationPosition( 47, 47 ) } );
+                  new ViolationPosition( 47, 47 ),
+                  new ViolationPosition( 43, 43 ),
+                  new ViolationPosition( 89, 89 ) } );
 
       assertViolations(
             "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]

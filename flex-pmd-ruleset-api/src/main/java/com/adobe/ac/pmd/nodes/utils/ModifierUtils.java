@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.nodes.utils;
 
 import java.util.ArrayList;
 
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.Modifier;
 
@@ -55,6 +56,12 @@ final public class ModifierUtils
                   modifier );
          }
       }
+   }
+
+   public static boolean isFinal(
+         final ClassNode classNode )
+   {
+      return isModiferPresent( classNode, Modifier.FINAL );
    }
 
    public static boolean isInternal(

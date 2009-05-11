@@ -296,4 +296,7 @@
    <rule class="com.adobe.ac.pmd.rules.as3.PropertyHiddenByLocalVariableRule" message="A class property is hidden by this local variable">
       <priority>3</priority>
    </rule>
+   <rule class="com.adobe.ac.pmd.rules.as3.AvoidProtectedFieldInFinalClass" message="Protected accessors are useless in a final class. Make them private.">
+      <priority>3</priority>
+   </rule>
 </ruleset>

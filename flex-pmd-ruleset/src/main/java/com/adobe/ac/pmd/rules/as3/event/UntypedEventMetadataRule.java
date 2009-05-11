@@ -30,12 +30,9 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.MetaDataNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -43,11 +40,9 @@ public class UntypedEventMetadataRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode )
    {
-      final ClassNode classNode = packageNode.getClassNode();
-
       if ( classNode.getMetaDataList() != null )
       {
          for ( final MetaDataNode metaData : classNode.getMetaDataList() )

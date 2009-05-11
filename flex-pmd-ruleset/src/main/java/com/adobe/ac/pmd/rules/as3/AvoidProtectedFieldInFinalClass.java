@@ -30,55 +30,51 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.nodes.ClassNode;
+import com.adobe.ac.pmd.nodes.FieldNode;
+import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class BadFormatLogerRuleTest
-      extends AbstractAstFlexRuleTest
+public class AvoidProtectedFieldInFinalClass
+      extends AbstractAstFlexRule
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode )
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
+      final boolean isClassFinal = classNode.isFinal();
 
-      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-
-      assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
+      if ( classNode.getVariables() != null )
+      {
+         for ( final FieldNode field : classNode.getVariables() )
+         {
+            if ( field.isProtected()
+                  && isClassFinal )
+            {
+               addViolation(
+                     field.getInternalNode(), field.getInternalNode() );
+            }
+         }
+      }
+      if ( classNode.getFunctions() != null )
+      {
+         for ( final FunctionNode function : classNode.getFunctions() )
+         {
+            if ( function.isProtected()
+                  && !function.isOverriden() && isClassFinal )
+            {
+               addViolation(
+                     function.getInternalNode(), function.getInternalNode() );
+            }
+         }
+      }
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+   protected ViolationPriority getDefaultPriority()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
-   {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 43, 43 ), new ViolationPosition( 44, 44 ),
-                  new ViolationPosition( 44, 44 ),
-                  new ViolationPosition( 45, 45 ),
-                  new ViolationPosition( 45, 45 ),
-                  new ViolationPosition( 46, 46 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new BadFormatLogerRule();
+      return ViolationPriority.INFO;
    }
 }

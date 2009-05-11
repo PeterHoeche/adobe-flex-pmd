@@ -28,50 +28,52 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.rules.as3;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.net.URL;
-
-import net.sourceforge.pmd.PMDException;
-import net.sourceforge.pmd.RuleSet;
-import net.sourceforge.pmd.RuleSetFactory;
 
 import org.junit.Test;
 
-public class FlexPmdViolationsTest
-      extends FlexPmdTestBase
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class AvoidProtectedFieldInFinalClassTest
+      extends AbstractAstFlexRuleTest
 {
-   private final RuleSet allFlexRuleset;
-
-   public FlexPmdViolationsTest() throws FileNotFoundException,
-         URISyntaxException
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+         throws FileNotFoundException, URISyntaxException
    {
-      super();
-
-      final URL resource = getClass().getResource(
-            "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
-      allFlexRuleset = new RuleSetFactory()
-            .createRuleSet( new FileInputStream( new File( resource.toURI()
-                  .getPath() ) ) );
+      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
+      assertEmptyViolations( "BadComponent.as" );
+      assertEmptyViolations( "Looping.as" );
    }
 
+   @Override
    @Test
-   public void testProcessFile() throws FileNotFoundException,
-         URISyntaxException, PMDException
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+         URISyntaxException
    {
-      // final FlexPmdViolations pmd = new FlexPmdViolations();
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+   }
 
-//      final File directory = new File( getClass().getResource(
-//      "/com/adobe/ncss" ).toURI()
-//            .getPath() );
-//      pmd.computeViolations( directory, ALL_FLEX_RULESET );
-//
-//      assertNotNull( pmd.getViolations() );
-      // assertNotNull( pmd.processFile(
-      // extractFlexResource( "sprintf.as" ), ALL_FLEX_RULESET ) );
+   @Override
+   @Test
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+         URISyntaxException
+   {
+      assertViolations(
+            "AbstractRowData.as",
+            new ViolationPosition[]
+            { new ViolationPosition( 43, 43 ), new ViolationPosition( 89, 89 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new AvoidProtectedFieldInFinalClass();
    }
 }

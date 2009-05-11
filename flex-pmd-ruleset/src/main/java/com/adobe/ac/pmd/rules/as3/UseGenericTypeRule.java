@@ -31,9 +31,7 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
-import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.VariableNode;
@@ -49,7 +47,7 @@ public class UseGenericTypeRule
 
    @Override
    protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+         final ClassNode classNode )
    {
       findViolationInVariableLists( classNode.getConstants() );
       findViolationInVariableLists( classNode.getVariables() );

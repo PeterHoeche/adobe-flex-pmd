@@ -32,7 +32,5 @@ package com.adobe.ac.pmd.nodes;
 
 public interface INamable
 {
-
-   public abstract String getName();
-
+   abstract String getName();
 }

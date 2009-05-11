@@ -65,6 +65,11 @@ public class ModifierHolder implements IModifiersHolder
       return name;
    }
 
+   public boolean isProtected()
+   {
+      return ModifierUtils.isProtected( this );
+   }
+
    public boolean isPublic()
    {
       return ModifierUtils.isPublic( this );

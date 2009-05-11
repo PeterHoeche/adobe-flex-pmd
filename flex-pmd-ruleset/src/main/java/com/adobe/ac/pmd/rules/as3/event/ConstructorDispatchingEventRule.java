@@ -30,10 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -44,21 +41,16 @@ public class ConstructorDispatchingEventRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromConstructor(
+         final FunctionNode constructor )
    {
-      final FunctionNode constructor = classNode.getConstructor();
+      final Node dispatchNode = constructor
+            .findPrimaryStatementFromName( "dispatchEvent" );
 
-      if ( constructor != null )
+      if ( dispatchNode != null )
       {
-         final Node dispatchNode = constructor
-               .findPrimaryStatementFromName( "dispatchEvent" );
-
-         if ( dispatchNode != null )
-         {
-            addViolation(
-                  dispatchNode, dispatchNode );
-         }
+         addViolation(
+               dispatchNode, dispatchNode );
       }
    }
 

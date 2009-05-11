@@ -114,6 +114,16 @@ public class ClassNode
       return variables;
    }
 
+   public boolean isFinal()
+   {
+      return ModifierUtils.isFinal( this );
+   }
+
+   public boolean isProtected()
+   {
+      return ModifierUtils.isProtected( this );
+   }
+
    public boolean isPublic()
    {
       return ModifierUtils.isPublic( this );

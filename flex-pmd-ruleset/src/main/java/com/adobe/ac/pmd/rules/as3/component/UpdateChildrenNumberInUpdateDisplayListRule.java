@@ -30,10 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3.component;
 
-import java.util.Map;
+import java.util.List;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -47,10 +45,10 @@ public class UpdateChildrenNumberInUpdateDisplayListRule
    { "addChild", "addChildAt", "removeChild", "removeChildAt" };
 
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromFunctionsList(
+         final List< FunctionNode > functions )
    {
-      for ( final FunctionNode function : classNode.getFunctions() )
+      for ( final FunctionNode function : functions )
       {
          if ( function.getName().compareTo(
                "updateDisplayList" ) == 0 )

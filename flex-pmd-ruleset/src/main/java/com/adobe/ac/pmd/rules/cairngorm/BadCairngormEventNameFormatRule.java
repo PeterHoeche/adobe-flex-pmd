@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FieldNode;
@@ -54,9 +53,9 @@ public class BadCairngormEventNameFormatRule
 
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode packageNode )
    {
-      super.findViolationsFromPackageNode( packageNode, files );
+      super.findViolationsFromPackageNode( packageNode );
 
       if ( packageNode != null
             && packageNode.getClassNode() != null

@@ -30,40 +30,35 @@
  */
 package com.adobe.ac.pmd.rules.as3.naming;
 
+
 import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-import de.bokelberg.flex.parser.Node;
 
 public class PackageCaseRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected void findViolationsFromPackageNode(
+         final PackageNode packageNode )
    {
-      return ViolationPriority.WARNING;
+      if ( packageNode != null
+            && packageNode.getName() != null
+            && containsUpperCharacter( packageNode.getName() ) )
+      {
+         final Violation violation = addViolation(
+               packageNode.getInternalNode(), packageNode.getInternalNode() );
+
+         violation.setEndColumn( packageNode.getName().length()
+               + violation.getBeginColumn() );
+      }
    }
 
    @Override
-   protected void visitCompilationUnit(
-         final Node ast )
+   protected ViolationPriority getDefaultPriority()
    {
-      super.visitCompilationUnit( ast );
-
-      if ( ast.children.size() > 1 )
-      {
-         final Node packageNode = ast.getChild( 0 );
-
-         if ( packageNode.children.size() > 1 )
-         {
-            final Node packageNameNode = packageNode.getChild( 0 );
-            final String packageName = packageNameNode.stringValue;
-
-            ifViolationDetected(
-                  packageNode, packageName );
-         }
-      }
+      return ViolationPriority.WARNING;
    }
 
    private boolean containsUpperCharacter(
@@ -83,18 +78,5 @@ public class PackageCaseRule
          }
       }
       return found;
-   }
-
-   private void ifViolationDetected(
-         final Node packageNode, final String packageName )
-   {
-      if ( containsUpperCharacter( packageName ) )
-      {
-         final Violation violation = addViolation(
-               packageNode, packageNode );
-
-         violation.setEndColumn( packageName.length()
-               + violation.getBeginColumn() );
-      }
    }
 }

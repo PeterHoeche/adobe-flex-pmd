@@ -40,6 +40,8 @@ import com.adobe.ac.pmd.StackTraceUtils;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
+import com.adobe.ac.pmd.nodes.FieldNode;
+import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 
 import de.bokelberg.flex.parser.KeyWords;
@@ -61,7 +63,8 @@ public abstract class AbstractAstFlexRule
    private static final Logger LOGGER = Logger.getLogger(
          AbstractAstFlexRule.class.getName() );
    private static final String MOD_LIST = "mod-list";
-   protected AbstractFlexFile currentFile;
+   private AbstractFlexFile currentFile;
+   private Map< String, AbstractFlexFile > filesInSourcePath;
    private final List< Violation > violations;
 
    public AbstractAstFlexRule()
@@ -118,7 +121,22 @@ public abstract class AbstractAstFlexRule
    }
 
    protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+         final ClassNode classNode )
+   {
+   }
+
+   protected void findViolationsFromConstantsList(
+         final List< FieldNode > constants )
+   {
+   }
+
+   protected void findViolationsFromConstructor(
+         final FunctionNode constructor )
+   {
+   }
+
+   protected void findViolationsFromFunctionsList(
+         final List< FunctionNode > functions )
    {
    }
 
@@ -127,30 +145,68 @@ public abstract class AbstractAstFlexRule
     * or any subsequent node like class or function)
     *
     * @param packageNode
-    * @param filesInSourcePath
     */
    protected void findViolationsFromPackageNode(
-         final PackageNode packageNode, final Map< String, AbstractFlexFile > filesInSourcePath )
+         final PackageNode packageNode )
    {
+   }
+
+   protected void findViolationsFromVariablesList(
+         final List< FieldNode > variables )
+   {
+   }
+
+   protected AbstractFlexFile getCurrentFile()
+   {
+      return currentFile;
+   }
+
+   protected Map< String, AbstractFlexFile > getFilesInSourcePath()
+   {
+      return filesInSourcePath;
    }
 
    @Override
    final protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
+         final PackageNode packageNode, final AbstractFlexFile file,
          final Map< String, AbstractFlexFile > files )
    {
       currentFile = file;
+      filesInSourcePath = files;
       try
       {
-         if ( rootNode != null )
+         if ( packageNode != null )
          {
-            visitNodes( rootNode.getInternalNode() );
+            visitNodes( packageNode.getInternalNode() );
             findViolationsFromPackageNode(
-                  rootNode, files );
-            if ( rootNode.getClassNode() != null )
+                  packageNode );
+            final ClassNode classNode = packageNode.getClassNode();
+
+            if ( classNode != null )
             {
                findViolationsFromClassNode(
-                     rootNode.getClassNode(), files );
+                     classNode );
+
+               if ( classNode.getVariables() != null )
+               {
+                  findViolationsFromVariablesList(
+                        classNode.getVariables() );
+               }
+               if ( classNode.getConstants() != null )
+               {
+                  findViolationsFromConstantsList(
+                        classNode.getConstants() );
+               }
+               if ( classNode.getFunctions() != null )
+               {
+                  findViolationsFromFunctionsList(
+                        classNode.getFunctions() );
+               }
+               if ( classNode.getConstructor() != null )
+               {
+                  findViolationsFromConstructor(
+                        classNode.getConstructor() );
+               }
             }
          }
       }

@@ -66,7 +66,7 @@ public class PackageCaseRuleTest
    {
       assertViolations(
             "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 31, 31 ) } );
+            { new ViolationPosition( -1, -1 ) } );
    }
 
    @Override

@@ -34,7 +34,6 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
@@ -61,7 +60,7 @@ public class CyclomaticComplexityRule
    }
    @Override
    protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+         final ClassNode classNode )
    {
       if ( classNode.getFunctions() != null )
       {
@@ -79,11 +78,10 @@ public class CyclomaticComplexityRule
 
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode packageNode,
-         final Map< String, AbstractFlexFile > files )
+         final PackageNode packageNode )
    {
       super.findViolationsFromPackageNode(
-            packageNode, files );
+            packageNode );
 
       }
 

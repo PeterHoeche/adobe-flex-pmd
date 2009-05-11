@@ -34,7 +34,6 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -61,7 +60,7 @@ public class TooManyFieldsRule
 
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode )
    {
       final ClassNode classNode = rootNode.getClassNode();
 

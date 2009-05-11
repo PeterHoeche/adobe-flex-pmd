@@ -31,11 +31,9 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
-import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.MetaDataNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -47,22 +45,18 @@ public class ArrayFieldWithNoArrayElementTypeRule
    private static final String ARRAY_TYPE = "Array";
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromVariablesList(
+         final List< FieldNode > variables )
    {
-      if ( rootNode.getClassNode() != null
-            && rootNode.getClassNode().getVariables() != null )
+      for ( final VariableNode variable : variables )
       {
-         for ( final VariableNode variable : rootNode.getClassNode().getVariables() )
+         if ( ARRAY_TYPE.equals( variable.getType().toString() )
+               && !doesMetaDataContainArrayElementType( variable
+                     .getMetaDataList() ) )
          {
-            if ( ARRAY_TYPE.equals( variable.getType().toString() )
-                  && !doesMetaDataContainArrayElementType( variable
-                        .getMetaDataList() ) )
-            {
-               addViolation(
-                     variable.getInternalNode(), variable.getType()
-                           .getInternalNode() );
-            }
+            addViolation(
+                  variable.getInternalNode(), variable.getType()
+                        .getInternalNode() );
          }
       }
    }

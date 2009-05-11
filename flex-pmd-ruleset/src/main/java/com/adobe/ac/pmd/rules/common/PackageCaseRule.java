@@ -30,10 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.util.Map;
 
 import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -45,7 +43,7 @@ public class PackageCaseRule
 {
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode )
    {
       detectViolation(
             rootNode.getInternalNode(), rootNode.getName() );

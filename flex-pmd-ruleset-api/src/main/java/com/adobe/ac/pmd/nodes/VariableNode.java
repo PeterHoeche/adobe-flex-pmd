@@ -86,6 +86,11 @@ public class VariableNode
       return type;
    }
 
+   public boolean isProtected()
+   {
+      return ModifierUtils.isProtected( this );
+   }
+
    public boolean isPublic()
    {
       return ModifierUtils.isPublic( this );

@@ -30,12 +30,9 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.util.Map;
-
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldInitializationNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -45,51 +42,42 @@ public class BadFormatLogerRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageName,
-         final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode )
    {
-      super.findViolationsFromPackageNode(
-            packageName, files );
-
-      if ( packageName.getClassNode() != null )
+      for ( final FieldNode field : classNode.getVariables() )
       {
-         for ( final FieldNode field : packageName.getClassNode()
-               .getVariables() )
+         if ( field.getType().toString().compareTo(
+               "ILogger" ) == 0 )
          {
-            if ( field.getType().toString().compareTo(
-                  "ILogger" ) == 0 )
+            addViolation(
+                  field.getInternalNode(), field.getInternalNode(),
+                  "A logger should be constant" );
+         }
+      }
+      for ( final FieldNode field : classNode.getConstants() )
+      {
+         if ( field.getType().toString().compareTo(
+               "ILogger" ) == 0 )
+         {
+            if ( field.getName().compareTo(
+                  "LOG" ) != 0 )
             {
                addViolation(
                      field.getInternalNode(), field.getInternalNode(),
-                     "A logger should be constant" );
+                     "The logger name is not LOG" );
             }
-         }
-         for ( final FieldNode field : packageName.getClassNode()
-               .getConstants() )
-         {
-            if ( field.getType().toString().compareTo(
-                  "ILogger" ) == 0 )
+            if ( field.getInitializationExpression() == null )
             {
-               if ( field.getName().compareTo(
-                     "LOG" ) != 0 )
-               {
-                  addViolation(
-                        field.getInternalNode(), field.getInternalNode(),
-                        "The logger name is not LOG" );
-               }
-               if ( field.getInitializationExpression() == null )
-               {
-                  addViolation(
-                        field.getInternalNode(), field.getInternalNode(),
-                        "The logger is not initialized" );
-               }
-               else
-               {
-                  lookupStringMethodArguments(
-                        field.getInitializationExpression(), packageName
-                              .getFullyQualifiedClassName() );
-               }
+               addViolation(
+                     field.getInternalNode(), field.getInternalNode(),
+                     "The logger is not initialized" );
+            }
+            else
+            {
+               lookupStringMethodArguments(
+                     field.getInitializationExpression(), getCurrentFile()
+                           .getFullyQualifiedName() );
             }
          }
       }

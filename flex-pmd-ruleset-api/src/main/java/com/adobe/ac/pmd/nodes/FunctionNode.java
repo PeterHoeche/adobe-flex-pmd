@@ -184,6 +184,11 @@ public class FunctionNode
       return ModifierUtils.isOverriden( this );
    }
 
+   public boolean isProtected()
+   {
+      return ModifierUtils.isProtected( this );
+   }
+
    public boolean isPublic()
    {
       return ModifierUtils.isPublic( this );

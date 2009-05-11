@@ -33,9 +33,7 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.AbstractNode;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
@@ -49,7 +47,7 @@ public class WronglyOrderedClassElementRule
 {
    @Override
    protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+         final ClassNode classNode )
    {
       final List< FieldNode > constants = new ArrayList< FieldNode >();
       final List< FieldNode > variables = new ArrayList< FieldNode >();

@@ -89,11 +89,6 @@ public abstract class AbstractFlexRuleTest
    {
       final List< Violation > violations = processFile( resourcePath );
 
-      assertEquals(
-            expectedPositions.length == 0 ? "Violations list is not empty"
-                  : VIOLATIONS_NUMBER_IS_NOT_CORRECT, expectedPositions.length,
-            violations.size() );
-
       if ( expectedPositions.length != 0 )
       {
          for ( int i = 0; i < expectedPositions.length; i++ )

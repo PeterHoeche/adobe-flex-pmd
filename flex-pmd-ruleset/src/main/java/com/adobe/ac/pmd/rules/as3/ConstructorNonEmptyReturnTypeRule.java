@@ -30,11 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -44,13 +41,10 @@ public class ConstructorNonEmptyReturnTypeRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromClassNode(
+         final ClassNode classNode )
    {
-      final ClassNode classNode = rootNode.getClassNode();
-
-      if ( classNode != null
-            && classNode.getConstructor() != null
+      if ( classNode.getConstructor() != null
             && classNode.getConstructor().getReturnType() != null
             && !"".equals( classNode.getConstructor().getReturnType()
                   .toString() ) )

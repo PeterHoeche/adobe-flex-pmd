@@ -34,7 +34,6 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
@@ -65,7 +64,7 @@ public class TooManyPublicRule
 
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode )
    {
       final ClassNode classNode = rootNode.getClassNode();
 

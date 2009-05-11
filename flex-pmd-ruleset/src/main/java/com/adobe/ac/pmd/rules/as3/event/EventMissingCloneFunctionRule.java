@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FunctionNode;
@@ -51,7 +50,7 @@ public class EventMissingCloneFunctionRule
 
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode )
    {
       boolean cloneFound = false;
 

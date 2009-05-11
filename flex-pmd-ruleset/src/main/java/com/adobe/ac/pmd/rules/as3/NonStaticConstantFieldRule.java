@@ -30,10 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.util.Map;
+import java.util.List;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -43,19 +41,15 @@ public class NonStaticConstantFieldRule
       extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode, final Map< String, AbstractFlexFile > files )
+   protected void findViolationsFromConstantsList(
+         final List< FieldNode > constants )
    {
-      if ( classNode != null
-            && classNode.getConstants() != null )
+      for ( final FieldNode field : constants )
       {
-         for ( final FieldNode field : classNode.getConstants() )
+         if ( !doesFieldContainStatic( field ) )
          {
-            if ( !doesFieldContainStatic( field ) )
-            {
-               addViolation(
-                     field.getInternalNode(), field.getInternalNode() );
-            }
+            addViolation(
+                  field.getInternalNode(), field.getInternalNode() );
          }
       }
    }

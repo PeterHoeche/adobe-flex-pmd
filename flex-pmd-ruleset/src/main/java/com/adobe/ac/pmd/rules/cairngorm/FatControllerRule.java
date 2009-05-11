@@ -31,7 +31,6 @@
 package com.adobe.ac.pmd.rules.cairngorm;
 
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.PackageNode;
@@ -53,7 +52,7 @@ public class FatControllerRule
 
    @Override
    protected void findViolationsFromPackageNode(
-         final PackageNode rootNode, final Map< String, AbstractFlexFile > files )
+         final PackageNode rootNode )
    {
       if ( rootNode.getClassNode() != null )
       {
