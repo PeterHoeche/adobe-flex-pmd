@@ -38,7 +38,7 @@ package flexunit.flexui.data
     * Abstract class representing a row in the test cases tree.
     * A row can be either a test class (node) or a test case (leaf)
     */   
-   public class AbstractRowData
+   final public class AbstractRowData
    {
       public var label : String;
       public var qualifiedClassName : String;

@@ -76,8 +76,8 @@ public class UnusedPrivateMethodRule
                .get( functionName );
 
          addViolation(
-               function.getInternalNode(), function.getInternalNode().getChild(
-                     function.getInternalNode().numChildren() - 1 ) );
+               function.getInternalNode(), function.getInternalNode()
+                     .getLastChild(), functionName );
       }
    }
 
@@ -99,7 +99,9 @@ public class UnusedPrivateMethodRule
    {
       super.visitFunction(
             ast, type );
+
       final FunctionNode function = new FunctionNode( ast );
+
       if ( ModifierUtils.isPrivate( function ) )
       {
          unvisitedPrivateFunctions.put(

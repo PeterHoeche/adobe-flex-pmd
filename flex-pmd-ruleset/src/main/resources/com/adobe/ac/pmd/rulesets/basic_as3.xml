@@ -148,7 +148,7 @@
       </example>
     </rule>
 
-   <rule class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule" message="Do not use Object class.">
+   <rule class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule" message="Do not use Object class">
       <description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
       <priority>1</priority>
       <example>
@@ -159,7 +159,7 @@
       </example>
    </rule>
    
-   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule" message="Switch must not be nested.">
+   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule" message="Switch must not be nested">
       <description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when siwtch statements are nested.</description>
       <priority>3</priority>
       <example>
@@ -231,13 +231,6 @@
       </example>
    </rule>
    <rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedPrivateMethodRule" message="This private method ({0}) does not seem to be used">
-      <description>
-      </description>
-      <priority>3</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.WronglyOrderedClassElementRule" message="This element does not seem to be correctly ordered">
       <description>
       </description>
       <priority>3</priority>

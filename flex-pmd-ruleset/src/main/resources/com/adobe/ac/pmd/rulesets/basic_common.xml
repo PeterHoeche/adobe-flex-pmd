@@ -41,7 +41,7 @@
       The Basic As3/MXML Ruleset contains a collection of good practices which everyone should follow.
   </description>
 
-    <rule class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here.">
+    <rule class="com.adobe.ac.pmd.rules.common.DeadCodeRule" message="There are some dead code here">
       <description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>      
       <priority>3</priority>
     </rule>
