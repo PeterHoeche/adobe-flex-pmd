@@ -70,11 +70,6 @@ public class NestedContainerRule extends AbstractRegexpBasedRule implements IThr
       return file.isMxml();
    }
 
-   private boolean doesLineContainEndTag( final String line )
-   {
-      return line.contains( "</" );
-   }
-
    @Override
    protected ViolationPriority getDefaultPriority()
    {
@@ -114,5 +109,10 @@ public class NestedContainerRule extends AbstractRegexpBasedRule implements IThr
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
+   }
+
+   private boolean doesLineContainEndTag( final String line )
+   {
+      return line.contains( "</" );
    }
 }

@@ -62,7 +62,8 @@ public class Violation implements Comparable< Violation >, IRuleViolation
 
       if ( violatedRule != null )
       {
-         ruleMessage = violatedRule.getMessage() == null ? "" : violatedRule.getMessage();
+         ruleMessage = violatedRule.getMessage() == null ? ""
+                                                        : violatedRule.getMessage();
       }
    }
 
@@ -139,7 +140,9 @@ public class Violation implements Comparable< Violation >, IRuleViolation
 
    public String getRuleMessage()
    {
-      return ruleMessage;
+      return ruleMessage.endsWith( "." ) ? ruleMessage.substring( 0,
+                                                                  ruleMessage.length() - 2 )
+                                        : ruleMessage;
    }
 
    public String getVariableName()
@@ -180,9 +183,10 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       {
          final StringBuffer message = new StringBuffer( ruleMessage );
 
-         formatter.format( "      <violation beginline=\"%d\" endline=\"%d\" begincolumn=\"%d\" "
-                                 + "endcolumn=\"%d\" rule=\"%s\" ruleset=\"%s\" package=\"%s\" "
-                                 + "class=\"%s\" externalInfoUrl=\"\" priority=\"%s\">%s</violation>" + getNewLine(),
+         formatter.format( "      <violation beginline=\"%d\" "
+                                 + "endline=\"%d\" begincolumn=\"%d\" " + "endcolumn=\"%d\" rule=\"%s\" "
+                                 + "ruleset=\"%s\" package=\"%s\" " + "class=\"%s\" externalInfoUrl=\"\" "
+                                 + "priority=\"%s\">%s</violation>" + getNewLine(),
                            beginLine,
                            endLine,
                            beginColumn,
@@ -195,6 +199,11 @@ public class Violation implements Comparable< Violation >, IRuleViolation
                            message );
       }
       return formatter.toString();
+   }
+
+   String getNewLine()
+   {
+      return System.getProperty( "line.separator" );
    }
 
    private int getLinePriority( final Violation otherViolation )
@@ -235,10 +244,5 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       }
 
       return res;
-   }
-
-   String getNewLine()
-   {
-      return System.getProperty( "line.separator" );
    }
 }

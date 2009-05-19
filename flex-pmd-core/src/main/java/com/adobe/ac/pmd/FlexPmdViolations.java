@@ -84,7 +84,7 @@ public class FlexPmdViolations
             final AbstractFlexFile file = fileEntry.getValue();
             final List< Violation > foundViolations = rule.processFile( file,
                                                                         rule instanceof AbstractAstFlexRule ? asts.get( file.getFullyQualifiedName() )
-                                                                              : null,
+                                                                                                           : null,
                                                                         files );
 
             if ( violations.containsKey( file ) )

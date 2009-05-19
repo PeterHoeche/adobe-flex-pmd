@@ -37,7 +37,7 @@ import com.adobe.ac.ncss.utils.FileUtils;
 
 /**
  * Abstract class representing a Flex File (either MXML or AS)
- * 
+ *
  * @author xagnetti
  */
 public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
@@ -149,8 +149,9 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
 
    public final String getFullyQualifiedName()
    {
-      return ( packageName.compareTo( "" ) == 0 ? "" : packageName
-            + "." )
+      return ( packageName.compareTo( "" ) == 0 ? ""
+                                               : packageName
+                                                     + "." )
             + className;
    }
 

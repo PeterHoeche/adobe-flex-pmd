@@ -53,9 +53,8 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
       {
          if ( function.getName().compareTo( "updateDisplayList" ) == 0 )
          {
-            for ( int i = 0; i < METHOD_NAMES.length; i++ )
+            for ( final String methodName : METHOD_NAMES )
             {
-               final String methodName = METHOD_NAMES[ i ];
                final Node primaryNode = function.findPrimaryStatementFromName( methodName );
 
                if ( primaryNode != null )

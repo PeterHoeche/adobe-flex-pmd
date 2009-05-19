@@ -36,7 +36,7 @@ import de.bokelberg.flex.parser.Node;
 
 /**
  * FlexPmdNode which wraps the parser node into a concrete type
- * 
+ *
  * @author xagnetti
  */
 public abstract class AbstractNode

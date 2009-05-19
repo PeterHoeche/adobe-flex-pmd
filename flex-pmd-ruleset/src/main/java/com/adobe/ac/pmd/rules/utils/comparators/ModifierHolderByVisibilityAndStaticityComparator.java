@@ -56,6 +56,7 @@ public class ModifierHolderByVisibilityAndStaticityComparator implements Compara
 
    private int getStaticityWeight( final IModifiersHolder field )
    {
-      return ModifierUtils.isStatic( field ) ? 1 : 0;
+      return ModifierUtils.isStatic( field ) ? 1
+                                            : 0;
    }
 }

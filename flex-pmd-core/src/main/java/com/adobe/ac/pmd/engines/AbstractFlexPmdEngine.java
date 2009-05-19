@@ -105,8 +105,8 @@ public abstract class AbstractFlexPmdEngine
       return ruleSet;
    }
 
+   protected abstract String getReportType();
+
    protected abstract void writeReport( final FlexPmdViolations pmd,
                                         final File outputDirectory ) throws PMDException;
-
-   protected abstract String getReportType();
 }

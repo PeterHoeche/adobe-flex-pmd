@@ -35,8 +35,8 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest

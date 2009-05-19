@@ -44,8 +44,8 @@ public class FlexPmdReportMojoTest extends TestCase
    public void testExecuteReport() throws MojoExecutionException
    {
       final Locale[] availableLocales = Locale.getAvailableLocales();
-      final ResourceBundle bundle = FlexPmdReportMojo.getBundle( availableLocales[ 0 ] );
-      final ResourceBundle englishBundle = FlexPmdReportMojo.getBundle( Locale.ENGLISH );
+      final ResourceBundle bundle = AbstractFlexPmdMojo.getBundle( availableLocales[ 0 ] );
+      final ResourceBundle englishBundle = AbstractFlexPmdMojo.getBundle( Locale.ENGLISH );
 
       assertNotNull( bundle );
       assertNotNull( englishBundle );

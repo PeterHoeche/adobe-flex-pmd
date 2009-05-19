@@ -50,7 +50,7 @@ public class DefaultEventNameRule extends AbstractAstFlexRule
       if ( constructor != null
             && constructor.getParameters().size() > 0
             && constructor.getParameters().get( 0 ).getType().toString().compareTo( "String" ) == 0 ) // &&
-                                                                                                      // constructor.getParameters().get(
+      // constructor.getParameters().get(
       // 0 ).getInitializationExpression() != null )
       {
          addViolation( constructor.getParameters().get( 0 ).getInternalNode(),

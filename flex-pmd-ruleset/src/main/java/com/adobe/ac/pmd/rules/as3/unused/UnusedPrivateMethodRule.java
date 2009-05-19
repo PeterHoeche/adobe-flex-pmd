@@ -44,29 +44,6 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
    private Map< String, FunctionNode > privateFunctions;
 
-   private void findUnusedFunction( final Node body )
-   {
-      if ( body.stringValue != null
-            && !privateFunctions.isEmpty() )
-      {
-         for ( final String functionName : privateFunctions.keySet() )
-         {
-            if ( body.stringValue.compareTo( functionName ) == 0 )
-            {
-               privateFunctions.remove( functionName );
-               break;
-            }
-         }
-      }
-      if ( body.children != null )
-      {
-         for ( final Node child : body.children )
-         {
-            findUnusedFunction( child );
-         }
-      }
-   }
-
    @Override
    protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
    {
@@ -102,5 +79,28 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
+   }
+
+   private void findUnusedFunction( final Node body )
+   {
+      if ( body.stringValue != null
+            && !privateFunctions.isEmpty() )
+      {
+         for ( final String functionName : privateFunctions.keySet() )
+         {
+            if ( body.stringValue.compareTo( functionName ) == 0 )
+            {
+               privateFunctions.remove( functionName );
+               break;
+            }
+         }
+      }
+      if ( body.children != null )
+      {
+         for ( final Node child : body.children )
+         {
+            findUnusedFunction( child );
+         }
+      }
    }
 }

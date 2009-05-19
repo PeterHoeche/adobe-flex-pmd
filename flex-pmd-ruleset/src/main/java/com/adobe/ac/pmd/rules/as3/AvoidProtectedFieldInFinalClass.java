@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
+import java.util.List;
+
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
@@ -43,9 +45,24 @@ public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
    {
       final boolean isClassFinal = classNode.isFinal();
 
-      if ( classNode.getVariables() != null )
+      findProtectedFields( classNode.getVariables(),
+                           isClassFinal );
+      findProtectedMethods( classNode.getFunctions(),
+                            isClassFinal );
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.INFO;
+   }
+
+   private void findProtectedFields( final List< FieldNode > variables,
+                                     final boolean isClassFinal )
+   {
+      if ( variables != null )
       {
-         for ( final FieldNode field : classNode.getVariables() )
+         for ( final FieldNode field : variables )
          {
             if ( field.isProtected()
                   && isClassFinal )
@@ -55,9 +72,14 @@ public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
             }
          }
       }
-      if ( classNode.getFunctions() != null )
+   }
+
+   private void findProtectedMethods( final List< FunctionNode > functions,
+                                      final boolean isClassFinal )
+   {
+      if ( functions != null )
       {
-         for ( final FunctionNode function : classNode.getFunctions() )
+         for ( final FunctionNode function : functions )
          {
             if ( function.isProtected()
                   && !function.isOverriden() && isClassFinal )
@@ -67,11 +89,5 @@ public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
             }
          }
       }
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.INFO;
    }
 }

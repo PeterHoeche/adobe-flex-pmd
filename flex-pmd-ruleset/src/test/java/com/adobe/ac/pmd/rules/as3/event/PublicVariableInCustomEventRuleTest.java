@@ -35,7 +35,6 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule;
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;

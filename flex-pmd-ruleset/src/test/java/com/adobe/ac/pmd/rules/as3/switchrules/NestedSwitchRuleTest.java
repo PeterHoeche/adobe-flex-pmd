@@ -35,7 +35,6 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;

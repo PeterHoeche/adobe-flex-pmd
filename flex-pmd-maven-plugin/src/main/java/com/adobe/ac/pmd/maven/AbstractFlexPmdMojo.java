@@ -54,14 +54,14 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
 
    /**
     * Location of the file.
-    * 
+    *
     * @parameter expression="${project.build.directory}"
     * @required
     */
    protected File       outputDirectory;
    /**
     * Location of the file.
-    * 
+    *
     * @parameter
     * @required
     */
@@ -69,7 +69,7 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
 
    /**
     * Specifies the location of the source files to be used.
-    * 
+    *
     * @parameter expression="${project.build.sourceDirectory}"
     * @required
     * @readonly
@@ -82,7 +82,7 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     */
    private MavenProject project;
    /**
-    * @parameter 
+    * @parameter
     *            expression="${component.org.codehaus.doxia.site.renderer.SiteRenderer}"
     * @required
     * @readonly

@@ -65,6 +65,33 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
       return MAXIMUM;
    }
 
+   @Override
+   protected void findViolationsFromClassNode( final ClassNode classNode )
+   {
+      super.findViolationsFromClassNode( classNode );
+      publicCount = 0;
+
+      detectPublicMethods( classNode );
+      detectPublicVariables( classNode );
+      if ( publicCount > getThreshold() )
+      {
+         addViolation( classNode.getInternalNode(),
+                       classNode.getInternalNode() );
+      }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.WARNING;
+   }
+
+   @Override
+   protected Map< String, PropertyDescriptor > propertiesByName()
+   {
+      return getRuleProperties( this );
+   }
+
    private void detectPublicMethods( final ClassNode classNode )
    {
       if ( classNode.getFunctions() != null )
@@ -92,32 +119,5 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
             }
          }
       }
-   }
-
-   @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
-   {
-      super.findViolationsFromClassNode( classNode );
-      publicCount = 0;
-
-      detectPublicMethods( classNode );
-      detectPublicVariables( classNode );
-      if ( publicCount > getThreshold() )
-      {
-         addViolation( classNode.getInternalNode(),
-                       classNode.getInternalNode() );
-      }
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.WARNING;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }

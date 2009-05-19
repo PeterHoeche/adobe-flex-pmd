@@ -61,7 +61,7 @@ public class CreationPolicySetToAllRule extends AbstractRegexpBasedRule
                                                             final AbstractFlexFile file )
    {
       return line.toLowerCase( Locale.FRANCE ).contains( "all" ); // Because
-                                                                  // French
-                                                                  // rock!
+      // French
+      // rock!
    }
 }

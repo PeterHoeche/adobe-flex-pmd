@@ -50,7 +50,7 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
 {
    /**
     * Specifies the location of the source files to be used.
-    * 
+    *
     * @parameter default-value="false"
     * @required
     * @readonly

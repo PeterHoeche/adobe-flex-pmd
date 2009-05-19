@@ -70,22 +70,6 @@ public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implem
       return file.isMxml();
    }
 
-   private int countChar( final String input,
-                          final char charToSearch )
-   {
-      int charCount = 0;
-
-      for ( int i = 0; i < input.length(); i++ )
-      {
-         if ( input.charAt( i ) == charToSearch )
-         {
-            charCount++;
-         }
-      }
-
-      return charCount;
-   }
-
    @Override
    protected ViolationPriority getDefaultPriority()
    {
@@ -118,5 +102,21 @@ public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implem
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
+   }
+
+   private int countChar( final String input,
+                          final char charToSearch )
+   {
+      int charCount = 0;
+
+      for ( int i = 0; i < input.length(); i++ )
+      {
+         if ( input.charAt( i ) == charToSearch )
+         {
+            charCount++;
+         }
+      }
+
+      return charCount;
    }
 }

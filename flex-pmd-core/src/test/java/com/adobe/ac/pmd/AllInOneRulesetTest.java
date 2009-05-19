@@ -35,12 +35,11 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import junit.framework.TestCase;
 import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
-
-import junit.framework.TestCase;
 
 public class AllInOneRulesetTest extends TestCase
 {

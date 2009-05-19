@@ -39,7 +39,7 @@ import de.bokelberg.flex.parser.Node;
 /**
  * Node representing a package. It contains the nested class node, the list of
  * imports, and the package name.
- * 
+ *
  * @author xagnetti
  */
 public class PackageNode extends AbstractNode implements INamable
