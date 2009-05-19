@@ -32,116 +32,117 @@
 
 -->
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
-   xmlns:renderers="com.adobe.ac.pmd.view.renderers.*"
-   xmlns:view="com.adobe.ac.pmd.view.*"
-   paddingTop="5"
-   creationComplete="model.getRootRuleset()"
-   >
-   <mx:Metadata>
+    xmlns:renderers="com.adobe.ac.pmd.view.renderers.*"
+    xmlns:view="com.adobe.ac.pmd.view.*"
+    paddingTop="5"
+    creationComplete="model.getRootRuleset()"
+    >
+    <mx:Metadata>
       [Event(name="selectedRuleChange", type="com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent")]
    </mx:Metadata>
 
-   <mx:Script>
-      <![CDATA[
-         import mx.events.CollectionEventKind;
-         import mx.events.CollectionEvent;
-         import com.adobe.ac.pmd.model.Ruleset;
-         import com.adobe.ac.pmd.model.Rule;
-         import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
-         import com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent;
+    <mx:Script>
+        <![CDATA[
+            import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+            import com.adobe.ac.pmd.model.Ruleset;
+            import com.adobe.ac.pmd.model.Rule;
+            import com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent;
 
-         import mx.collections.IHierarchicalCollectionViewCursor;
+            import mx.events.CollectionEventKind;
+            import mx.events.CollectionEvent;
 
-         private var isFirstRulesetReceived : Boolean = true;
+            import mx.collections.IHierarchicalCollectionViewCursor;
 
-         public function onRuleRemoved() : void
-         {
-            dg.selectedItem = null;
-            onChange();
-         }
+            private var isFirstRulesetReceived : Boolean = true;
 
-         private function onChange() : void
-         {
-            dispatchEvent( new SelectedRuleChangeEvent( dg.selectedItem as Rule ) );
-         }
-
-         private function onRulesetReceived( event : RulesetReceivedEvent ) : void
-         {
-            dg.dataProvider.openNode( event.ruleset );
-            event.ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
-
-            if( isFirstRulesetReceived )
+            public function onRuleRemoved() : void
             {
-               selectFirstRule( event.ruleset );
-               isFirstRulesetReceived = false;
+                dg.selectedItem = null;
+                onChange();
             }
-         }
 
-         private function onRulesChange( event : CollectionEvent ) : void
-         {
-            if( event.kind == CollectionEventKind.REMOVE )
+            private function onChange() : void
             {
-               selectFirstRule( model.rootRuleset.rulesets.getItemAt( 0 ) as Ruleset );
+                dispatchEvent( new SelectedRuleChangeEvent( dg.selectedItem as Rule ) );
             }
-         }
 
-         private function selectFirstRule( ruleset : Ruleset ) : void
-         {
-            dg.selectedIndex = 1;
-            onChange();
-         }
-      ]]>
-   </mx:Script>
+            private function onRulesetReceived( event : RulesetReceivedEvent ) : void
+            {
+                dg.dataProvider.openNode( event.ruleset );
+                event.ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
 
-   <view:RuleSetNavigatorPM id="model"
-      rulesetReceived="onRulesetReceived( event )"
-      />
+                if ( isFirstRulesetReceived )
+                {
+                    selectFirstRule( event.ruleset );
+                    isFirstRulesetReceived = false;
+                }
+            }
 
-   <mx:AdvancedDataGrid id="dg"
-      width="100%"
-      height="600"
-      change="onChange()"
-      >
+            private function onRulesChange( event : CollectionEvent ) : void
+            {
+                if ( event.kind == CollectionEventKind.REMOVE )
+                {
+                    selectFirstRule( model.rootRuleset.rulesets.getItemAt( 0 ) as Ruleset );
+                }
+            }
 
-      <mx:dataProvider>
+            private function selectFirstRule( ruleset : Ruleset ) : void
+            {
+                dg.selectedIndex = 1;
+                onChange();
+            }
+        ]]>
+    </mx:Script>
 
-         <mx:HierarchicalData source="{ model.rootRuleset.rulesets }"
-            childrenField="rules"
-            />
+    <view:RuleSetNavigatorPM id="model"
+        rulesetReceived="onRulesetReceived( event )"
+        />
 
-      </mx:dataProvider>
+    <mx:AdvancedDataGrid id="dg"
+        width="100%"
+        height="600"
+        change="onChange()"
+        >
 
-      <mx:columns>
+        <mx:dataProvider>
 
-         <mx:AdvancedDataGridColumn dataField="name"
-            headerText="Name"
-            />
+            <mx:HierarchicalData source="{ model.rootRuleset.rulesets }"
+                childrenField="rules"
+                />
 
-         <mx:AdvancedDataGridColumn width="100"
-            dataField="priority"
-            headerText="Priority"
-            />
+        </mx:dataProvider>
 
-         <mx:AdvancedDataGridColumn width="50"
-            headerText=""
-            sortable="false"
-            >
+        <mx:columns>
 
-            <mx:itemRenderer>
+            <mx:AdvancedDataGridColumn dataField="name"
+                headerText="Name"
+                />
 
-               <mx:Component>
+            <mx:AdvancedDataGridColumn width="100"
+                dataField="priority"
+                headerText="Priority"
+                />
 
-                  <renderers:DeleteButtonRenderer ruleRemoved="outerDocument.onRuleRemoved()"
-                     />
+            <mx:AdvancedDataGridColumn width="50"
+                headerText=""
+                sortable="false"
+                >
 
-               </mx:Component>
+                <mx:itemRenderer>
 
-            </mx:itemRenderer>
+                    <mx:Component>
 
-         </mx:AdvancedDataGridColumn>
+                        <renderers:DeleteButtonRenderer ruleRemoved="outerDocument.onRuleRemoved()"
+                            />
 
-      </mx:columns>
+                    </mx:Component>
 
-   </mx:AdvancedDataGrid>
+                </mx:itemRenderer>
+
+            </mx:AdvancedDataGridColumn>
+
+        </mx:columns>
+
+    </mx:AdvancedDataGrid>
 
 </mx:VBox>

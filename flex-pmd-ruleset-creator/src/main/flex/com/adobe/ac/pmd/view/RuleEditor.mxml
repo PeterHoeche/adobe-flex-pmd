@@ -32,122 +32,122 @@
 
 -->
 <mx:Form xmlns:mx="http://www.adobe.com/2006/mxml"
-   xmlns:view="com.adobe.ac.pmd.view.*"
-   width="400"
-   height="100%"
-   paddingBottom="0"
-   paddingLeft="0"
-   paddingRight="0"
-   paddingTop="5"
-   visible="{ model.selectedRule != null }"
-   >
+    xmlns:view="com.adobe.ac.pmd.view.*"
+    width="400"
+    height="100%"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="0"
+    paddingTop="5"
+    visible="{ model.selectedRule != null }"
+    >
 
-   <mx:Script>
-      <![CDATA[
-         import com.adobe.ac.pmd.model.ViolationPriority;
+    <mx:Script>
+        <![CDATA[
+            import com.adobe.ac.pmd.model.ViolationPriority;
 
-         private static const FORM_LABELS_WIDTH : int = 90;
+            private static const FORM_LABELS_WIDTH : int = 90;
 
-         private function onPrioritiesValueCommit() : void
-         {
-            if( model.selectedRule )
+            private function onPrioritiesValueCommit() : void
             {
-               model.selectedRule.priority = ViolationPriority( priorities.selectedItem );
+                if ( model.selectedRule )
+                {
+                    model.selectedRule.priority = ViolationPriority( priorities.selectedItem );
+                }
             }
-         }
-      ]]>
-   </mx:Script>
+        ]]>
+    </mx:Script>
 
-   <view:RuleEditorPM id="model"
-      />
+    <view:RuleEditorPM id="model"
+        />
 
-   <mx:Label width="{ width }"
-      text="{ model.selectedRule.shortName }"
-      truncateToFit="true"
-      fontWeight="bold"
-      />
+    <mx:Label width="{ width }"
+        text="{ model.selectedRule.shortName }"
+        truncateToFit="true"
+        fontWeight="bold"
+        />
 
-   <mx:HRule width="{ width }"
-      styleName="flexUnitHRule"
-      />
+    <mx:HRule width="{ width }"
+        styleName="flexUnitHRule"
+        />
 
-   <mx:FormItem label="Message"
-      >
+    <mx:FormItem label="Message"
+        >
 
-      <mx:TextInput id="message"
-         width="{ width - FORM_LABELS_WIDTH }"
-         text="{ model.selectedRule.message }"
-         enabled="{ model.selectedRule != null }"
-         change="model.selectedRule.message = message.text"
-         />
+        <mx:TextInput id="message"
+            width="{ width - FORM_LABELS_WIDTH }"
+            text="{ model.selectedRule.message }"
+            enabled="{ model.selectedRule != null }"
+            change="model.selectedRule.message = message.text"
+            />
 
-   </mx:FormItem>
+    </mx:FormItem>
 
-   <mx:FormItem label="Description"
-      >
+    <mx:FormItem label="Description"
+        >
 
-      <mx:TextArea id="description"
-         width="{ width - FORM_LABELS_WIDTH }"
-         height="150"
-         text="{ model.selectedRule.description }"
-         enabled="{ model.selectedRule != null }"
-         change="model.selectedRule.description = description.text"
-         />
+        <mx:TextArea id="description"
+            width="{ width - FORM_LABELS_WIDTH }"
+            height="150"
+            text="{ model.selectedRule.description }"
+            enabled="{ model.selectedRule != null }"
+            change="model.selectedRule.description = description.text"
+            />
 
-   </mx:FormItem>
+    </mx:FormItem>
 
-   <mx:FormItem label="Priority"
-      >
+    <mx:FormItem label="Priority"
+        >
 
-      <mx:ComboBox id="priorities"
-         dataProvider="{ ViolationPriority.values }"
-         enabled="{ model.selectedRule != null }"
-         selectedIndex="{ model.selectedRule.priority.level == 1 ? 0 : model.selectedRule.priority.level == 3 ? 1 : 2 }"
-         change="onPrioritiesValueCommit()"
-         />
+        <mx:ComboBox id="priorities"
+            dataProvider="{ ViolationPriority.values }"
+            enabled="{ model.selectedRule != null }"
+            selectedIndex="{ model.selectedRule.priority.level == 1 ? 0 : model.selectedRule.priority.level == 3 ? 1 : 2 }"
+            change="onPrioritiesValueCommit()"
+            />
 
-   </mx:FormItem>
+    </mx:FormItem>
 
-   <mx:FormItem label="Examples"
-      >
+    <mx:FormItem label="Examples"
+        >
 
-      <mx:TextArea id="examples"
-         width="{ width - FORM_LABELS_WIDTH }"
-         height="200"
-         text="{ model.selectedRule.examples }"
-         enabled="{ model.selectedRule != null }"
-         change="model.selectedRule.examples = examples.text"
-         wordWrap="false"
-         />
+        <mx:TextArea id="examples"
+            width="{ width - FORM_LABELS_WIDTH }"
+            height="200"
+            text="{ model.selectedRule.examples }"
+            enabled="{ model.selectedRule != null }"
+            change="model.selectedRule.examples = examples.text"
+            wordWrap="false"
+            />
 
-   </mx:FormItem>
+    </mx:FormItem>
 
-   <mx:FormItem label="Properties"
-      visible="{ model.selectedRule.properties.length > 0 }"
-      >
+    <mx:FormItem label="Properties"
+        visible="{ model.selectedRule.properties.length > 0 }"
+        >
 
-      <mx:DataGrid width="{ width - FORM_LABELS_WIDTH }"
-         dataProvider="{ model.selectedRule.properties }"
-         editable="true"
-         rowCount="3"
-         >
+        <mx:DataGrid width="{ width - FORM_LABELS_WIDTH }"
+            dataProvider="{ model.selectedRule.properties }"
+            editable="true"
+            rowCount="3"
+            >
 
-         <mx:columns>
+            <mx:columns>
 
-            <mx:DataGridColumn dataField="name"
-               editable="false"
-               headerText="Name"
-               />
+                <mx:DataGridColumn dataField="name"
+                    editable="false"
+                    headerText="Name"
+                    />
 
-            <mx:DataGridColumn dataField="value"
-               editable="true"
-               headerText="Value"
-               />
+                <mx:DataGridColumn dataField="value"
+                    editable="true"
+                    headerText="Value"
+                    />
 
-         </mx:columns>
+            </mx:columns>
 
-      </mx:DataGrid>
+        </mx:DataGrid>
 
-   </mx:FormItem>
+    </mx:FormItem>
 
 </mx:Form>
