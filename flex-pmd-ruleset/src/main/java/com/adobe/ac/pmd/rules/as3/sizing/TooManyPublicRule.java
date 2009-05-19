@@ -45,6 +45,11 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
 {
    private int publicCount;
 
+   public int getActualValue()
+   {
+      return publicCount;
+   }
+
    public int getDefaultThreshold()
    {
       return 10;

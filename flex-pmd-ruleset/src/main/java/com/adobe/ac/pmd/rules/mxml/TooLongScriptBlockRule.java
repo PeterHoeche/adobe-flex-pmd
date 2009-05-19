@@ -45,8 +45,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooLongScriptBlockRule
-      extends AbstractFlexRule implements IThresholdedRule
+extends AbstractFlexRule implements IThresholdedRule
 {
+   private int linesInScriptBlock;
+
+   public int getActualValue()
+   {
+      return linesInScriptBlock;
+   }
+
    public int getDefaultThreshold()
    {
       return 50;
@@ -63,7 +70,7 @@ public class TooLongScriptBlockRule
    }
 
    public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+                                            final AbstractFlexFile file )
    {
       return file.isMxml();
    }
@@ -77,10 +84,10 @@ public class TooLongScriptBlockRule
    @Override
    protected List< Violation > processFileBody(
          final PackageNode rootNode, final AbstractFlexFile file, final Map< String, AbstractFlexFile > files )
-   {
+         {
       final int lineInitialValue = -1;
-      int linesInScriptBlock = lineInitialValue;
       final List< Violation > violations = new ArrayList< Violation >();
+      linesInScriptBlock = lineInitialValue;
 
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
@@ -101,7 +108,7 @@ public class TooLongScriptBlockRule
                   if ( linesInScriptBlock > getThreshold() )
                   {
                      final int beginningScriptLine = i
-                           - linesInScriptBlock;
+                     - linesInScriptBlock;
 
                      addViolation(
                            violations, file, new ViolationPosition(
@@ -117,7 +124,7 @@ public class TooLongScriptBlockRule
          }
       }
       return violations;
-   }
+         }
 
    @Override
    protected Map< String, PropertyDescriptor > propertiesByName()

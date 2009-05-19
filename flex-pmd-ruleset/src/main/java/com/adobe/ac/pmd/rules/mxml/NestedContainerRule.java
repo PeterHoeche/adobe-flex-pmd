@@ -40,10 +40,15 @@ import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class NestedContainerRule
-      extends AbstractRegexpBasedRule implements IThresholdedRule
+extends AbstractRegexpBasedRule implements IThresholdedRule
 {
    private int currentLevel = 0;
    private boolean violationFound = false;
+
+   public int getActualValue()
+   {
+      return currentLevel;
+   }
 
    public int getDefaultThreshold()
    {
@@ -62,9 +67,15 @@ public class NestedContainerRule
 
    @Override
    public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+                                            final AbstractFlexFile file )
    {
       return file.isMxml();
+   }
+
+   private boolean doesLineContainEndTag(
+                                         final String line )
+   {
+      return line.contains( "</" );
    }
 
    @Override
@@ -81,7 +92,7 @@ public class NestedContainerRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+                                                           final String line, final AbstractFlexFile file )
    {
       boolean result = false;
       if ( doesLineContainEndTag( line ) )
@@ -106,11 +117,5 @@ public class NestedContainerRule
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
-   }
-
-   private boolean doesLineContainEndTag(
-         final String line )
-   {
-      return line.contains( "</" );
    }
 }

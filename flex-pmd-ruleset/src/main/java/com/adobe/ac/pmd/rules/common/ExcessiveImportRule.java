@@ -44,9 +44,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class ExcessiveImportRule
-      extends AbstractRegexpBasedRule implements IThresholdedRule
+extends AbstractRegexpBasedRule implements IThresholdedRule
 {
    private int importNumber;
+
+   public int getActualValue()
+   {
+      return importNumber;
+   }
 
    public int getDefaultThreshold()
    {
@@ -65,7 +70,7 @@ public class ExcessiveImportRule
 
    @Override
    public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+                                            final AbstractFlexFile file )
    {
       return true;
    }
@@ -84,7 +89,7 @@ public class ExcessiveImportRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+                                                           final String line, final AbstractFlexFile file )
    {
       importNumber++;
 
@@ -93,8 +98,8 @@ public class ExcessiveImportRule
 
    @Override
    protected void onFileProcessingEnded(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final List< Violation > violations )
+                                        final PackageNode rootNode, final AbstractFlexFile file,
+                                        final List< Violation > violations )
    {
       if ( importNumber > getThreshold() )
       {

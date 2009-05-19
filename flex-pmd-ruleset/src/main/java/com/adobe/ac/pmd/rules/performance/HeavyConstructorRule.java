@@ -30,58 +30,26 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.Map;
-
-import net.sourceforge.pmd.PropertyDescriptor;
-
-import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class HeavyConstructorRule
-      extends AbstractAstFlexRule implements IThresholdedRule
+extends AbstractAstFlexRule
 {
-   public int getDefaultThreshold()
-   {
-      return 1;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
-   }
-
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromConstructor( final FunctionNode constructor )
    {
-      final FunctionNode constructor = classNode.getConstructor();
-
-      if ( constructor != null
-            && constructor.getCyclomaticComplexity() > getThreshold() )
+      if ( constructor.getCyclomaticComplexity() > 1 )
       {
          addViolation(
                constructor.getInternalNode(), constructor.getInternalNode() );
       }
-
    }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }

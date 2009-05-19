@@ -41,8 +41,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import de.bokelberg.flex.parser.Node;
 
 public class TooLongFunctionRule
-      extends AbstractAstFlexRule implements IThresholdedRule
+extends AbstractAstFlexRule implements IThresholdedRule
 {
+   private int functionLength;
+
+   public int getActualValue()
+   {
+      return functionLength;
+   }
+
    public int getDefaultThreshold()
    {
       return 25;
@@ -72,7 +79,7 @@ public class TooLongFunctionRule
 
    @Override
    protected void visitFunction(
-         final Node functionNode, final String type )
+                                final Node functionNode, final String type )
    {
       super.visitFunction(
             functionNode, type );
@@ -85,8 +92,9 @@ public class TooLongFunctionRule
          final int beginningLine = block.line;
          final int lastLine = block.getLastChild().line;
 
-         if ( lastLine
-               - beginningLine > getThreshold() )
+         functionLength = lastLine
+         - beginningLine;
+         if ( functionLength > getThreshold() )
          {
             addViolation(
                   functionNode, block.getLastChild() );

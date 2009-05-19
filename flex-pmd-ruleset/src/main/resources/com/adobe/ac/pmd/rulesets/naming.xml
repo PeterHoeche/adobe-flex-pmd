@@ -39,7 +39,7 @@
   <description>
       The Basic As3 Ruleset contains a collection of good practices which everyone should follow.
   </description>
-    <rule class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule" message="This variable name is too short ({0} characters minimum)">
+    <rule class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule" message="This variable name is too short ({0} characters minimum, but {1} actually)">
       <description>Detects when a field, local, or parameter has a very short name.</description>
       <priority>5</priority>
       <properties>

@@ -41,8 +41,15 @@ import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooLongBindingExpressionRule
-      extends AbstractRegexpBasedRule implements IThresholdedRule
+extends AbstractRegexpBasedRule implements IThresholdedRule
 {
+   private int currentCount;
+
+   public int getActualValue()
+   {
+      return currentCount;
+   }
+
    public int getDefaultThreshold()
    {
       return 2;
@@ -60,9 +67,25 @@ public class TooLongBindingExpressionRule
 
    @Override
    public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+                                            final AbstractFlexFile file )
    {
       return file.isMxml();
+   }
+
+   private int countChar(
+                         final String input, final char charToSearch )
+   {
+      int charCount = 0;
+
+      for ( int i = 0; i < input.length(); i++ )
+      {
+         if ( input.charAt( i ) == charToSearch )
+         {
+            charCount++;
+         }
+      }
+
+      return charCount;
    }
 
    @Override
@@ -79,34 +102,23 @@ public class TooLongBindingExpressionRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+                                                           final String line, final AbstractFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 
-      return matcher.matches()
-            && countChar(
-                  matcher.group( 1 ), '.' ) > getThreshold();
+      if ( matcher.matches() )
+      {
+         currentCount = countChar(
+               matcher.group( 1 ), '.' );
+         return matcher.matches()
+         && currentCount > getThreshold();
+      }
+      return false;
    }
 
    @Override
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
-   }
-
-   private int countChar(
-         final String input, final char charToSearch )
-   {
-      int charCount = 0;
-
-      for ( int i = 0; i < input.length(); i++ )
-      {
-         if ( input.charAt( i ) == charToSearch )
-         {
-            charCount++;
-         }
-      }
-
-      return charCount;
    }
 }

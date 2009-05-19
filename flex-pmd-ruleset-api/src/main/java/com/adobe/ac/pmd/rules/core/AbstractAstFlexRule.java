@@ -80,6 +80,38 @@ public abstract class AbstractAstFlexRule
       return !file.isMxml();
    }
 
+   final private boolean isNodeNavigable(
+         final Node node )
+   {
+      return node != null
+            && node.numChildren() != 0;
+   }
+
+   private void visitNameTypeInit(
+         final Node ast )
+   {
+      if ( ast != null
+            && ast.children != null )
+      {
+         final Iterator< Node > iterator = ast.children.iterator();
+         Node node;
+
+         iterator.next();
+         if ( iterator.hasNext() )
+         {
+            node = iterator.next();
+         }
+         if ( iterator.hasNext() )
+         {
+            node = iterator.next();
+            if ( node.is( Node.INIT ) )
+            {
+               visitExpression( node );
+            }
+         }
+      }
+   }
+
    /**
     * @param beginningNode
     * @param endNode
@@ -95,6 +127,7 @@ public abstract class AbstractAstFlexRule
          final IThresholdedRule thresholdeRule = (IThresholdedRule ) this;
 
          violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValue() ), 1 );
       }
       violations.add( violation );
 
@@ -1145,38 +1178,6 @@ public abstract class AbstractAstFlexRule
       {
          visitExpression( ast.getChild( 0 ) );
          visitBlock( ast.getChild( 1 ) );
-      }
-   }
-
-   final private boolean isNodeNavigable(
-         final Node node )
-   {
-      return node != null
-            && node.numChildren() != 0;
-   }
-
-   private void visitNameTypeInit(
-         final Node ast )
-   {
-      if ( ast != null
-            && ast.children != null )
-      {
-         final Iterator< Node > iterator = ast.children.iterator();
-         Node node;
-
-         iterator.next();
-         if ( iterator.hasNext() )
-         {
-            node = iterator.next();
-         }
-         if ( iterator.hasNext() )
-         {
-            node = iterator.next();
-            if ( node.is( Node.INIT ) )
-            {
-               visitExpression( node );
-            }
-         }
       }
    }
 }

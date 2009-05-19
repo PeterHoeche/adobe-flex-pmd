@@ -237,9 +237,14 @@
       <example>
       </example>
    </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule" message="There are too few branches in this swicth statement">
+   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule" message="There are too few branches in this switch statement ({0} minimum, but {1} actual)">
       <description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
       <priority>5</priority>
+      <properties>
+         <property name="minimum">
+            <value>3</value>
+         </property>
+      </properties>
       <example>
       </example>
    </rule>

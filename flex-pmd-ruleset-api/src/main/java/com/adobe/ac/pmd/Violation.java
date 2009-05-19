@@ -49,8 +49,8 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    private String ruleMessage = "";
 
    public Violation(
-         final ViolationPosition position, final AbstractFlexRule violatedRule,
-         final AbstractFlexFile violatedFile )
+                    final ViolationPosition position, final AbstractFlexRule violatedRule,
+                    final AbstractFlexFile violatedFile )
    {
       super();
       beginLine = position.getBeginLine();
@@ -67,7 +67,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    }
 
    public int compareTo(
-         final Violation otherViolation )
+                        final Violation otherViolation )
    {
       int res;
       final int priorityOrder = getPrioriyOrder( otherViolation );
@@ -149,19 +149,28 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    }
 
    public void replacePlaceholderInMessage(
-         final String replacement )
+                                           final String replacement )
    {
-      ruleMessage = ruleMessage.replace( "{0}", replacement );
+      replacePlaceholderInMessage(
+            replacement, 0 );
+   }
+
+   public void replacePlaceholderInMessage( final String replacement,
+                                            final int index )
+   {
+      ruleMessage = ruleMessage.replace(
+            "{"
+                  + index + "}", replacement );
    }
 
    public void setEndColumn(
-         final int column )
+                            final int column )
    {
       endColumn = column;
    }
 
    public String toXmlString(
-         final AbstractFlexFile violatedFile, final String ruleSetName )
+                             final AbstractFlexFile violatedFile, final String ruleSetName )
    {
       final Formatter formatter = new Formatter();
 
@@ -170,25 +179,20 @@ public class Violation implements Comparable< Violation >, IRuleViolation
          final StringBuffer message = new StringBuffer( ruleMessage );
 
          formatter
-               .format(
-                     "      <violation beginline=\"%d\" endline=\"%d\" begincolumn=\"%d\" "
-                           + "endcolumn=\"%d\" rule=\"%s\" ruleset=\"%s\" package=\"%s\" "
-                           + "class=\"%s\" externalInfoUrl=\"\" priority=\"%s\">%s</violation>"
-                           + getNewLine(), beginLine, endLine, beginColumn,
-                     endColumn, rule.getRuleName(), ruleSetName, violatedFile
-                           .getPackageName(), violatedFile.getClassName(), rule
-                           .getPriority(), message );
+         .format(
+               "      <violation beginline=\"%d\" endline=\"%d\" begincolumn=\"%d\" "
+               + "endcolumn=\"%d\" rule=\"%s\" ruleset=\"%s\" package=\"%s\" "
+               + "class=\"%s\" externalInfoUrl=\"\" priority=\"%s\">%s</violation>"
+               + getNewLine(), beginLine, endLine, beginColumn,
+               endColumn, rule.getRuleName(), ruleSetName, violatedFile
+               .getPackageName(), violatedFile.getClassName(), rule
+               .getPriority(), message );
       }
       return formatter.toString();
    }
 
-   String getNewLine()
-   {
-      return System.getProperty( "line.separator" );
-   }
-
    private int getLinePriority(
-         final Violation otherViolation )
+                               final Violation otherViolation )
    {
       int res;
 
@@ -209,7 +213,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    }
 
    private int getPrioriyOrder(
-         final Violation otherViolation )
+                               final Violation otherViolation )
    {
       int res;
 
@@ -227,5 +231,10 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       }
 
       return res;
+   }
+
+   String getNewLine()
+   {
+      return System.getProperty( "line.separator" );
    }
 }

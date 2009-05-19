@@ -48,6 +48,11 @@ extends AbstractAstFlexRule implements IThresholdedRule
    private FunctionNode constructor;
    private int functionNb;
 
+   public int getActualValue()
+   {
+      return functionNb;
+   }
+
    public int getDefaultThreshold()
    {
       return 10;

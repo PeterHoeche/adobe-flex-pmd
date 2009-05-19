@@ -45,8 +45,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class OverLongLineRule
-      extends AbstractFlexRule implements IThresholdedRule
+extends AbstractFlexRule implements IThresholdedRule
 {
+   private int currentLine;
+
+   public int getActualValue()
+   {
+      return currentLine;
+   }
+
    public int getDefaultThreshold()
    {
       return 120;
@@ -63,16 +70,17 @@ public class OverLongLineRule
    }
 
    public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+                                            final AbstractFlexFile file )
    {
       return true;
    }
+
 
    @Override
    final public List< Violation > processFileBody(
          final PackageNode rootNode, final AbstractFlexFile file,
          final Map< String, AbstractFlexFile > files )
-   {
+         {
       final List< Violation > violations = new ArrayList< Violation >();
 
       if ( isConcernedByTheGivenFile( file ) )
@@ -83,9 +91,10 @@ public class OverLongLineRule
                   i );
 
             if ( !line.trim().startsWith(
-                  "import" )
-                  && line.length() >= getThreshold() )
+            "import" )
+            && line.length() >= getThreshold() )
             {
+               currentLine = line.length();
                addViolation(
                      violations, file, new ViolationPosition( i + 1, i + 1, 0,
                            line.length() ) );
@@ -93,8 +102,7 @@ public class OverLongLineRule
          }
       }
       return violations;
-   }
-
+         }
 
    @Override
    protected ViolationPriority getDefaultPriority()

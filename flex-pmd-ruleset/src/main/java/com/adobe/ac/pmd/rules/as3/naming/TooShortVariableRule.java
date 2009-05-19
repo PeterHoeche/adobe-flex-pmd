@@ -41,8 +41,15 @@ import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooShortVariableRule
-      extends AbstractRegexpBasedRule implements IThresholdedRule
+extends AbstractRegexpBasedRule implements IThresholdedRule
 {
+   private int length;
+
+   public int getActualValue()
+   {
+      return length;
+   }
+
    public int getDefaultThreshold()
    {
       return 3;
@@ -60,7 +67,7 @@ public class TooShortVariableRule
 
    @Override
    public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+                                            final AbstractFlexFile file )
    {
       return true;
    }
@@ -79,14 +86,19 @@ public class TooShortVariableRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+                                                           final String line, final AbstractFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 
-      return !line.contains( "for " )
-            && matcher.matches()
-            && matcher.group(
-                  1 ).trim().length() < getThreshold();
+      if ( !line.contains( "for " )
+            && matcher.matches() )
+      {
+         length = matcher.group(
+               1 ).trim().length();
+
+         return length < getThreshold();
+      }
+      return false;
    }
 
    @Override

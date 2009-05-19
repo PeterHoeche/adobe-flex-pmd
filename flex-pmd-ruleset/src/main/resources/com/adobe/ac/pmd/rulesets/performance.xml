@@ -45,7 +45,7 @@
       <example>
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.performance.CyclomaticComplexityRule" message="This method is too complex. Its cyclomatic complexity is {0}.">
+    <rule class="com.adobe.ac.pmd.rules.performance.CyclomaticComplexityRule" message="This method is too complex. Maximum complexity is {0}, but its cyclomatic complexity was {1}">
       <priority>3</priority>
       <properties>
          <property name="maximum">
@@ -54,13 +54,8 @@
       </properties>
     </rule>
     <rule class="com.adobe.ac.pmd.rules.performance.HeavyConstructorRule" message="Constructor must be as lightweight as possible. No control statement allowed.">
-      <priority>3</priority>
       <description><![CDATA[The Just-In-Time compiler does not compile constructors. Make them as lightweight as possible.]]></description>
-      <properties>
-         <property name="maximum">
-            <value>1</value>
-         </property>
-      </properties>
+      <priority>3</priority>
     </rule>
     <rule class="com.adobe.ac.pmd.rules.performance.CreationPolicySetToAllRule" message="creationPolicy to ALL impacts the performance significantly">
       <priority>1</priority>

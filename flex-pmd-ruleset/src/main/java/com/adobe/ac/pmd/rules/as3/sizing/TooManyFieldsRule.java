@@ -43,6 +43,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class TooManyFieldsRule
       extends AbstractAstFlexRule implements IThresholdedRule
 {
+   private int variablesNb;
+
+   public int getActualValue()
+   {
+      return variablesNb;
+   }
+
    public int getDefaultThreshold()
    {
       return 5;
@@ -68,6 +75,7 @@ public class TooManyFieldsRule
             && classNode.getVariables() != null
             && classNode.getVariables().size() > getThreshold() )
       {
+         variablesNb = classNode.getVariables().size();
          addViolation(
                classNode.getInternalNode(), classNode.getInternalNode()
                      .getChild(

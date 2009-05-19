@@ -41,9 +41,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import de.bokelberg.flex.parser.Node;
 
 public class TooFewBrancheInSwitchStatementRule
-      extends AbstractAstFlexRule implements IThresholdedRule
+extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int switchCases;
+
+   public int getActualValue()
+   {
+      return switchCases;
+   }
 
    public int getDefaultThreshold()
    {
@@ -71,10 +76,10 @@ public class TooFewBrancheInSwitchStatementRule
    {
       return getRuleProperties( this );
    }
-   
+
    @Override
    protected void visitSwitch(
-         final Node ast )
+                              final Node ast )
    {
       switchCases = 0;
       super.visitSwitch( ast );
@@ -88,7 +93,7 @@ public class TooFewBrancheInSwitchStatementRule
 
    @Override
    protected void visitSwitchCase(
-         final Node child )
+                                  final Node child )
    {
       super.visitSwitchCase( child );
       switchCases++;

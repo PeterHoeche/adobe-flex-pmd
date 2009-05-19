@@ -91,7 +91,7 @@
    } 
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule" message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum but {1} actually)">
       <description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
       <priority>3</priority>
       <properties>
@@ -117,7 +117,7 @@
       <example>
       </example>
     </rule>
-    <rule class="com.adobe.ac.pmd.rules.common.OverLongLineRule" message="Too long line ({0} maximum)">
+    <rule class="com.adobe.ac.pmd.rules.common.OverLongLineRule" message="Too long line ({0} maximum, but {1} actually)">
       <description></description>
       <priority>5</priority>
       <properties>
