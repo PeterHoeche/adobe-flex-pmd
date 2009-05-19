@@ -66,6 +66,11 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       }
    }
 
+   public void appendToMessage( final String messageToAppend )
+   {
+      ruleMessage += messageToAppend;
+   }
+
    public int compareTo( final Violation otherViolation )
    {
       int res;

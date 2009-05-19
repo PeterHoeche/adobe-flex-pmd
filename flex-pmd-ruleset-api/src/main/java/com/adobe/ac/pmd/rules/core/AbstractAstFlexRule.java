@@ -119,7 +119,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
                                                                         beginningNode.column,
                                                                         endNode.column ), this, currentFile );
 
-      addThresoldValues( violation );
+      prettyPrintMessage( violation );
       violations.add( violation );
 
       return violation;

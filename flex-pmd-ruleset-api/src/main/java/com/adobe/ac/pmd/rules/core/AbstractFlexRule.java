@@ -111,25 +111,13 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IIs
       setPriority( Integer.valueOf( getDefaultPriority().toString() ) );
    }
 
-   protected void addThresoldValues( final Violation violation )
-   {
-      if ( this instanceof IThresholdedRule )
-      {
-         final IThresholdedRule thresholdeRule = ( IThresholdedRule ) this;
-
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValue() ),
-                                                1 );
-      }
-   }
-
    final protected void addViolation( final List< Violation > violations,
                                       final AbstractFlexFile file,
                                       final ViolationPosition position )
    {
       final Violation violation = new Violation( position, this, file );
 
-      addThresoldValues( violation );
+      prettyPrintMessage( violation );
       violations.add( violation );
    }
 
@@ -165,6 +153,23 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IIs
     */
    protected void onFileProcessingStarting()
    {
+   }
+
+   protected void prettyPrintMessage( final Violation violation )
+   {
+      if ( this instanceof IThresholdedRule )
+      {
+         final IThresholdedRule thresholdeRule = ( IThresholdedRule ) this;
+
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValue() ),
+                                                1 );
+      }
+      if ( getDescription() != null )
+      {
+         violation.appendToMessage( ". " );
+         violation.appendToMessage( getDescription() );
+      }
    }
 
    protected abstract List< Violation > processFileBody( final PackageNode rootNode,
