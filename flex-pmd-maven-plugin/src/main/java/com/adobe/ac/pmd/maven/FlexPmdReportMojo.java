@@ -39,6 +39,7 @@ import net.sourceforge.pmd.PMDException;
 import org.apache.maven.reporting.MavenReportException;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 /**
  * @author xagnetti
@@ -46,7 +47,7 @@ import com.adobe.ac.pmd.FlexPmdViolations;
  * @phase site
  */
 public class FlexPmdReportMojo
-      extends AbstractFlexPmdMojo
+extends AbstractFlexPmdMojo
 {
    /**
     * Specifies the location of the source files to be used.
@@ -59,17 +60,20 @@ public class FlexPmdReportMojo
 
    @Override
    protected void executeReport(
-         final Locale locale ) throws MavenReportException
-   {
+                                final Locale locale ) throws MavenReportException
+                                {
       LOGGER.info( "FlexPmdReportMojo starts" );
 
       try
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
+         new FlexPmdXmlEngine().executeReport(
+               sourceDirectory, outputDirectory, ruleSet, pmd );
+
          new FlexPmdHtmlEngine( getSink(), getBundle( locale ), aggregate,
                getProject() )
-               .executeReport(
+         .executeReport(
                sourceDirectory, new File( outputDirectory
                      + "/site" ), ruleSet, pmd );
       }
@@ -83,5 +87,5 @@ public class FlexPmdReportMojo
          throw new MavenReportException( "The Ruleset url has not been found",
                e );
       }
-   }
+                                }
 }
