@@ -65,13 +65,14 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
    public void testProcessViolatingFiles() throws FileNotFoundException,
                                           URISyntaxException
    {
+      final ViolationPosition[] expectedPositions = new ViolationPosition[]
+      { new ViolationPosition( 33, 33 ) };
+
       assertViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( -1, -1 ) } );
+                        expectedPositions );
 
       assertViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( -1, -1 ) } );
+                        expectedPositions );
    }
 
    @Override

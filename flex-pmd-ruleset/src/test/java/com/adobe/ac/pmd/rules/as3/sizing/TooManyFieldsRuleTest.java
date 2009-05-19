@@ -64,7 +64,7 @@ public class TooManyFieldsRuleTest extends AbstractAstFlexRuleTest
    {
       assertViolations( "com.adobe.ac.ncss.BigModel.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 35, 37 ) } );
+                        { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override

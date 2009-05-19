@@ -64,7 +64,7 @@ public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
    {
       assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 40, 84 ) } );
+                        { new ViolationPosition( 39, 39 ) } );
    }
 
    @Override

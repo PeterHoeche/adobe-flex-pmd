@@ -31,11 +31,9 @@
 package de.bokelberg.flex.parser.exceptions;
 
 @SuppressWarnings("serial")
-public class TokenException
-      extends Exception
+public class TokenException extends Exception
 {
-   public TokenException(
-         final String message )
+   public TokenException( final String message )
    {
       super( message );
    }

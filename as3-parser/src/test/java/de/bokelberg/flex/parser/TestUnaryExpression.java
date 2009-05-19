@@ -37,10 +37,9 @@ import org.junit.Test;
 
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public class TestUnaryExpression
-      extends TestCase
+public class TestUnaryExpression extends TestCase
 {
-   private AS3Parser asp;
+   private AS3Parser  asp;
    private AS3Scanner scn;
 
    @Override
@@ -55,141 +54,122 @@ public class TestUnaryExpression
    @Test
    public void testArrayAccess() throws TokenException
    {
-      assertUnary(
-            "1",
-            "x[0]",
-            "<arr-acc line=\"1\" column=\"2\"><primary line=\"1\" column=\"1\">x<"
-                  + "/primary><primary line=\"1\" column=\"3\">0</primary></arr-acc>" );
+      assertUnary( "1",
+                   "x[0]",
+                   "<arr-acc line=\"1\" column=\"2\"><primary line=\"1\" column=\"1\">x<"
+                         + "/primary><primary line=\"1\" column=\"3\">0</primary></arr-acc>" );
    }
 
    @Test
    public void testComplex() throws TokenException
    {
-      assertUnary(
-            "1",
-            "a.b['c'].d.e(1)",
-            "<dot line=\"1\" column=\"3\"><primary line=\"1\" column=\"1\">a"
-                  + "</primary><dot line=\"1\" column=\"10\"><arr-acc line=\"1\" column=\"4\">"
-                  + "<primary line=\"1\" column=\"3\">b</primary><primary line=\"1\" column=\"5\">"
-                  + "'c'</primary></arr-acc><dot line=\"1\" column=\"12\"><primary line=\"1\" column=\"10\">"
-                  + "d</primary><call line=\"1\" column=\"13\"><primary line=\"1\" column=\"12\">e"
-                  + "</primary><arguments line=\"1\" column=\"14\"><primary line=\"1\" column=\"14\">1"
-                  + "</primary></arguments></call></dot></dot></dot>" );
+      assertUnary( "1",
+                   "a.b['c'].d.e(1)",
+                   "<dot line=\"1\" column=\"3\"><primary line=\"1\" column=\"1\">a"
+                         + "</primary><dot line=\"1\" column=\"10\"><arr-acc line=\"1\" column=\"4\">"
+                         + "<primary line=\"1\" column=\"3\">b</primary><primary line=\"1\" column=\"5\">"
+                         + "'c'</primary></arr-acc><dot line=\"1\" column=\"12\"><primary line=\"1\" column=\"10\">"
+                         + "d</primary><call line=\"1\" column=\"13\"><primary line=\"1\" column=\"12\">e"
+                         + "</primary><arguments line=\"1\" column=\"14\"><primary line=\"1\" column=\"14\">1"
+                         + "</primary></arguments></call></dot></dot></dot>" );
 
-      assertUnary(
-            "2",
-            "a.b['c']['d'].e(1)",
-            "<dot line=\"1\" column=\"3\"><primary line=\"1\" column=\"1\">a"
-                  + "</primary><dot line=\"1\" column=\"15\"><arr-acc line=\"1\" column=\"4\">"
-                  + "<primary line=\"1\" column=\"3\">b</primary><primary line=\"1\" column=\"5\">"
-                  + "'c'</primary><primary line=\"1\" column=\"10\">'d'</primary>"
-                  + "</arr-acc><call line=\"1\" column=\"16\"><primary line=\"1\" column=\"15\">"
-                  + "e</primary><arguments line=\"1\" column=\"17\"><primary line=\"1\" column=\"17\">1"
-                  + "</primary></arguments></call></dot></dot>" );
+      assertUnary( "2",
+                   "a.b['c']['d'].e(1)",
+                   "<dot line=\"1\" column=\"3\"><primary line=\"1\" column=\"1\">a"
+                         + "</primary><dot line=\"1\" column=\"15\"><arr-acc line=\"1\" column=\"4\">"
+                         + "<primary line=\"1\" column=\"3\">b</primary><primary line=\"1\" column=\"5\">"
+                         + "'c'</primary><primary line=\"1\" column=\"10\">'d'</primary>"
+                         + "</arr-acc><call line=\"1\" column=\"16\"><primary line=\"1\" column=\"15\">"
+                         + "e</primary><arguments line=\"1\" column=\"17\"><primary line=\"1\" column=\"17\">1"
+                         + "</primary></arguments></call></dot></dot>" );
    }
 
    @Test
    public void testMethodCall() throws TokenException
    {
-      assertUnary(
-            "1",
-            "method()",
-            "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">"
-                  + "method</primary><arguments line=\"1\" column=\"8\"></arguments></call>" );
+      assertUnary( "1",
+                   "method()",
+                   "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">"
+                         + "method</primary><arguments line=\"1\" column=\"8\"></arguments></call>" );
 
-      assertUnary(
-            "2",
-            "method( 1, \"two\" )",
-            "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">"
-                  + "method</primary><arguments line=\"1\" column=\"9\"><primary line=\"1\" column=\"9\">1"
-                  + "</primary><primary line=\"1\" column=\"12\">\"two\"</primary></arguments></call>" );
+      assertUnary( "2",
+                   "method( 1, \"two\" )",
+                   "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">"
+                         + "method</primary><arguments line=\"1\" column=\"9\"><primary line=\"1\" column=\"9\">1"
+                         + "</primary><primary line=\"1\" column=\"12\">\"two\"</primary></arguments></call>" );
    }
 
    @Test
    public void testMultipleMethodCall() throws TokenException
    {
-      assertUnary(
-            "1",
-            "method()()",
-            "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">"
-                  + "method</primary><arguments line=\"1\" column=\"8\"></arguments>"
-                  + "<arguments line=\"1\" column=\"10\"></arguments></call>" );
+      assertUnary( "1",
+                   "method()()",
+                   "<call line=\"1\" column=\"7\"><primary line=\"1\" column=\"1\">"
+                         + "method</primary><arguments line=\"1\" column=\"8\"></arguments>"
+                         + "<arguments line=\"1\" column=\"10\"></arguments></call>" );
    }
 
    @Test
    public void testParseUnaryExpressions() throws TokenException
    {
-      assertUnary(
-            "1",
-            "++x",
-            "<pre-inc line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></pre-inc>" );
-      assertUnary(
-            "2",
-            "x++",
-            "<post-inc line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-inc>" );
-      assertUnary(
-            "3",
-            "--x",
-            "<pre-dec line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></pre-dec>" );
-      assertUnary(
-            "4",
-            "x--",
-            "<post-dec line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-dec>" );
-      assertUnary(
-            "5",
-            "+x",
-            "<plus line=\"1\" column=\"2\"><primary line=\"1\" column=\"2\">x</primary></plus>" );
-      assertUnary(
-            "6",
-            "+ x",
-            "<plus line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></plus>" );
-      assertUnary(
-            "7",
-            "-x",
-            "<minus line=\"1\" column=\"2\"><primary line=\"1\" column=\"2\">x</primary></minus>" );
-      assertUnary(
-            "8",
-            "- x",
-            "<minus line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></minus>" );
-      assertUnary(
-            "9",
-            "delete x",
-            "<delete line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">x</primary></delete>" );
-      assertUnary(
-            "a",
-            "void x",
-            "<void line=\"1\" column=\"6\"><primary line=\"1\" column=\"6\">x</primary></void>" );
-      assertUnary(
-            "b",
-            "typeof x",
-            "<typeof line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">x</primary></typeof>" );
-      assertUnary(
-            "c",
-            "! x",
-            "<not line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></not>" );
-      assertUnary(
-            "d",
-            "~ x",
-            "<b-not line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></b-not>" );
-      assertUnary(
-            "e",
-            "x++",
-            "<post-inc line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-inc>" );
-      assertUnary(
-            "f",
-            "x--",
-            "<post-dec line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-dec>" );
+      assertUnary( "1",
+                   "++x",
+                   "<pre-inc line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></pre-inc>" );
+      assertUnary( "2",
+                   "x++",
+                   "<post-inc line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-inc>" );
+      assertUnary( "3",
+                   "--x",
+                   "<pre-dec line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></pre-dec>" );
+      assertUnary( "4",
+                   "x--",
+                   "<post-dec line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-dec>" );
+      assertUnary( "5",
+                   "+x",
+                   "<plus line=\"1\" column=\"2\"><primary line=\"1\" column=\"2\">x</primary></plus>" );
+      assertUnary( "6",
+                   "+ x",
+                   "<plus line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></plus>" );
+      assertUnary( "7",
+                   "-x",
+                   "<minus line=\"1\" column=\"2\"><primary line=\"1\" column=\"2\">x</primary></minus>" );
+      assertUnary( "8",
+                   "- x",
+                   "<minus line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></minus>" );
+      assertUnary( "9",
+                   "delete x",
+                   "<delete line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">x</primary></delete>" );
+      assertUnary( "a",
+                   "void x",
+                   "<void line=\"1\" column=\"6\"><primary line=\"1\" column=\"6\">x</primary></void>" );
+      assertUnary( "b",
+                   "typeof x",
+                   "<typeof line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">x</primary></typeof>" );
+      assertUnary( "c",
+                   "! x",
+                   "<not line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></not>" );
+      assertUnary( "d",
+                   "~ x",
+                   "<b-not line=\"1\" column=\"3\"><primary line=\"1\" column=\"3\">x</primary></b-not>" );
+      assertUnary( "e",
+                   "x++",
+                   "<post-inc line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-inc>" );
+      assertUnary( "f",
+                   "x--",
+                   "<post-dec line=\"2\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary></post-dec>" );
    }
 
-   private void assertUnary(
-         final String message, final String input, final String expected ) throws TokenException
+   private void assertUnary( final String message,
+                             final String input,
+                             final String expected ) throws TokenException
    {
       scn.setLines( new String[]
-      { input, "__END__" } );
+      { input,
+                  "__END__" } );
       asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp
-            .parseUnaryExpression() );
-      assertEquals(
-            message, expected, result );
+      final String result = new ASTToXMLConverter().convert( asp.parseUnaryExpression() );
+      assertEquals( message,
+                    expected,
+                    result );
    }
 }

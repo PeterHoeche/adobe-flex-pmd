@@ -40,8 +40,7 @@ import java.util.ArrayList;
 
 public final class FileUtil
 {
-   public static String[] readStrings(
-         final File file ) throws IOException
+   public static String[] readStrings( final File file ) throws IOException
    {
       final ArrayList< String > result = new ArrayList< String >();
       final BufferedReader inReader = new BufferedReader( new FileReader( file ) );
@@ -56,11 +55,10 @@ public final class FileUtil
       {} );
    }
 
-   public static void writeStrings(
-         final String[] strings, final File actualOutputFile ) throws IOException
+   public static void writeStrings( final String[] strings,
+                                    final File actualOutputFile ) throws IOException
    {
-      final BufferedWriter out = new BufferedWriter(
-            new FileWriter( actualOutputFile ) );
+      final BufferedWriter out = new BufferedWriter( new FileWriter( actualOutputFile ) );
       for ( final String string : strings )
       {
          out.write( string );

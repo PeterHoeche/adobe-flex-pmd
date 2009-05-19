@@ -33,14 +33,12 @@ package de.bokelberg.flex.parser.exceptions;
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 @SuppressWarnings("serial")
-public class UnExpectedTokenException
-      extends TokenException
+public class UnExpectedTokenException extends TokenException
 {
-   public UnExpectedTokenException(
-         final Token token, final String fileName )
+   public UnExpectedTokenException( final Token token,
+                                    final String fileName )
    {
       super( "Unexpected token: "
-            + token.text + " in " + fileName + " at " + token.line + ":"
-            + token.column + "." );
+            + token.text + " in " + fileName + " at " + token.line + ":" + token.column + "." );
    }
 }

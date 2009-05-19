@@ -37,11 +37,10 @@ import org.junit.Test;
 
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public class TestEmptyStatement
-      extends TestCase
+public class TestEmptyStatement extends TestCase
 {
 
-   private AS3Parser asp;
+   private AS3Parser  asp;
    private AS3Scanner scn;
 
    @Override
@@ -56,28 +55,31 @@ public class TestEmptyStatement
    @Test
    public void testComplex() throws TokenException
    {
-      assertStatement(
-            "1",
-            "{;1;;}",
-            "<block line=\"1\" column=\"2\"><stmt-empty line=\"1\" column=\"2\">;</stmt-empty><primary line=\"1\" column=\"3\">1</primary><stmt-empty line=\"1\" column=\"5\">;</stmt-empty></block>" );
+      assertStatement( "1",
+                       "{;1;;}",
+                       "<block line=\"1\" column=\"2\"><stmt-empty line=\"1\" column=\"2\">;</stmt-empty><primary line=\"1\" column=\"3\">1</primary><stmt-empty line=\"1\" column=\"5\">;</stmt-empty></block>" );
    }
 
    @Test
    public void testSimple() throws TokenException
    {
-      assertStatement(
-            "1", ";", "<stmt-empty line=\"1\" column=\"1\">;</stmt-empty>" );
+      assertStatement( "1",
+                       ";",
+                       "<stmt-empty line=\"1\" column=\"1\">;</stmt-empty>" );
    }
 
-   private void assertStatement(
-         final String message, final String input, final String expected ) throws TokenException
+   private void assertStatement( final String message,
+                                 final String input,
+                                 final String expected ) throws TokenException
    {
       scn.setLines( new String[]
-      { input, "__END__" } );
+      { input,
+                  "__END__" } );
       asp.nextToken();
       final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals(
-            message, expected, result );
+      assertEquals( message,
+                    expected,
+                    result );
    }
 
 }

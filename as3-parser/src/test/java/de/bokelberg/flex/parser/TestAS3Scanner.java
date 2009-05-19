@@ -37,8 +37,7 @@ import org.junit.Test;
 
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
-public class TestAS3Scanner
-      extends TestCase
+public class TestAS3Scanner extends TestCase
 {
    private AS3Scanner scn;
 
@@ -53,13 +52,20 @@ public class TestAS3Scanner
    public void testAssignments()
    {
       final String[] lines = new String[]
-      { "=", "+=", "-=", "*=", "%=", "^=", "&=", "|=", "/=" };
+      { "=",
+                  "+=",
+                  "-=",
+                  "%=",
+                  "^=",
+                  "&=",
+                  "|=",
+                  "/=" };
       scn.setLines( lines );
 
       for ( int i = 0; i < lines.length; i++ )
       {
-         assertText(
-               Integer.toString( i ), lines[ i ] );
+         assertText( Integer.toString( i ),
+                     lines[ i ] );
          assertText( "\n" );
       }
    }
@@ -68,13 +74,16 @@ public class TestAS3Scanner
    public void testBooleanOperators()
    {
       final String[] lines = new String[]
-      { "&&", "&=", "||", "|=" };
+      { "&&",
+                  "&=",
+                  "||",
+                  "|=" };
       scn.setLines( lines );
 
       for ( int i = 0; i < lines.length; i++ )
       {
-         assertText(
-               Integer.toString( i ), lines[ i ] );
+         assertText( Integer.toString( i ),
+                     lines[ i ] );
          assertText( "\n" );
       }
    }
@@ -83,13 +92,22 @@ public class TestAS3Scanner
    public void testComparisonOperators()
    {
       final String[] lines = new String[]
-      { ">", ">>>=", ">>>", ">>=", ">>", ">=", "===", "==", "!==", "!=" };
+      { ">",
+                  ">>>=",
+                  ">>>",
+                  ">>=",
+                  ">>",
+                  ">=",
+                  "===",
+                  "==",
+                  "!==",
+                  "!=" };
       scn.setLines( lines );
 
       for ( int i = 0; i < lines.length; i++ )
       {
-         assertText(
-               Integer.toString( i ), lines[ i ] );
+         assertText( Integer.toString( i ),
+                     lines[ i ] );
          assertText( "\n" );
       }
    }
@@ -98,43 +116,46 @@ public class TestAS3Scanner
    public void testIdentifiers()
    {
       final String[] lines = new String[]
-      { "a", "a.b.*", "a.b::c", "a.E" };
+      { "a",
+                  "a.b.*",
+                  "a.b::c",
+                  "a.E" };
       scn.setLines( lines );
 
-      assertText(
-            "1", lines[ 0 ] );
+      assertText( "1",
+                  lines[ 0 ] );
       assertText( "\n" );
 
-      assertText(
-            "2", "a" );
-      assertText(
-            "2", "." );
-      assertText(
-            "2", "b" );
-      assertText(
-            "2", "." );
-      assertText(
-            "2", "*" );
+      assertText( "2",
+                  "a" );
+      assertText( "2",
+                  "." );
+      assertText( "2",
+                  "b" );
+      assertText( "2",
+                  "." );
+      assertText( "2",
+                  "*" );
       assertText( "\n" );
 
-      assertText(
-            "3", "a" );
-      assertText(
-            "3", "." );
-      assertText(
-            "3", "b" );
-      assertText(
-            "3", "::" );
-      assertText(
-            "3", "c" );
+      assertText( "3",
+                  "a" );
+      assertText( "3",
+                  "." );
+      assertText( "3",
+                  "b" );
+      assertText( "3",
+                  "::" );
+      assertText( "3",
+                  "c" );
       assertText( "\n" );
 
-      assertText(
-            "4", "a" );
-      assertText(
-            "4", "." );
-      assertText(
-            "4", "E" );
+      assertText( "4",
+                  "a" );
+      assertText( "4",
+                  "." );
+      assertText( "4",
+                  "E" );
    }
 
    @Test
@@ -167,8 +188,10 @@ public class TestAS3Scanner
    public void testMultiLineComment()
    {
       final String[] lines = new String[]
-      { "/* this is a multi line comment, not really */", "/** now for real",
-            "/* now for real", "*/" };
+      { "/* this is a multi line comment, not really */",
+                  "/** now for real",
+                  "/* now for real",
+                  "*/" };
       scn.setLines( lines );
 
       assertText( lines[ 0 ] );
@@ -180,17 +203,22 @@ public class TestAS3Scanner
    public void testMultilineXML()
    {
       final String[] lines = new String[]
-      { "<?xml version=\"1.0\"?>", "<a>", "<b>test</b>", "</a>" };
+      { "<?xml version=\"1.0\"?>",
+                  "<a>",
+                  "<b>test</b>",
+                  "</a>" };
       scn.setLines( lines );
-      assertText( join(
-            lines, "\n" ) );
+      assertText( join( lines,
+                        "\n" ) );
    }
 
    @Test
    public void testMultipleWords()
    {
       final String[] lines = new String[]
-      { "word1 word2 word3", "word4", "word5 word6" };
+      { "word1 word2 word3",
+                  "word4",
+                  "word5 word6" };
       scn.setLines( lines );
 
       assertText( "word1" );
@@ -207,7 +235,10 @@ public class TestAS3Scanner
    public void testNumbers()
    {
       final String[] lines = new String[]
-      { "0", "1.2", "1.2E5", "0xffgg" };
+      { "0",
+                  "1.2",
+                  "1.2E5",
+                  "0xffgg" };
       scn.setLines( lines );
 
       assertText( lines[ 0 ] );
@@ -223,13 +254,18 @@ public class TestAS3Scanner
    public void testPlusSymbols()
    {
       final String[] lines = new String[]
-      { "++", "+=", "+", "--", "-=", "-" };
+      { "++",
+                  "+=",
+                  "+",
+                  "--",
+                  "-=",
+                  "-" };
       scn.setLines( lines );
 
       for ( int i = 0; i < lines.length; i++ )
       {
-         assertText(
-               Integer.toString( i ), lines[ i ] );
+         assertText( Integer.toString( i ),
+                     lines[ i ] );
          assertText( "\n" );
       }
    }
@@ -238,20 +274,23 @@ public class TestAS3Scanner
    public void testRegExp()
    {
       final String[] lines = new String[]
-      { "/a/", "/[+-.]/", "/[+-.\\/]/", "/[+-.]\\\\//" };
+      { "/a/",
+                  "/[+-.]/",
+                  "/[+-.\\/]/",
+                  "/[+-.]\\\\//" };
       scn.setLines( lines );
 
-      assertText(
-            "1", lines[ 0 ] );
+      assertText( "1",
+                  lines[ 0 ] );
       assertText( "\n" );
-      assertText(
-            "2", lines[ 1 ] );
+      assertText( "2",
+                  lines[ 1 ] );
       assertText( "\n" );
-      assertText(
-            "3", lines[ 2 ] );
+      assertText( "3",
+                  lines[ 2 ] );
       assertText( "\n" );
-      assertText(
-            "4", "/[+-.]\\\\/" );
+      assertText( "4",
+                  "/[+-.]\\\\/" );
    }
 
    @Test
@@ -264,8 +303,8 @@ public class TestAS3Scanner
       for ( int i = 1; i < lines.length; i++ )
       {
          assertText( "\n" );
-         assertText(
-               Integer.toString( i ), lines[ i ] );
+         assertText( Integer.toString( i ),
+                     lines[ i ] );
       }
    }
 
@@ -273,7 +312,8 @@ public class TestAS3Scanner
    public void testSingleLineComment()
    {
       final String[] lines = new String[]
-      { "//this is a single line comment", "word //another single line comment" };
+      { "//this is a single line comment",
+                  "word //another single line comment" };
       scn.setLines( lines );
 
       assertText( lines[ 0 ] );
@@ -296,52 +336,55 @@ public class TestAS3Scanner
    public void testStrings()
    {
       final String[] lines = new String[]
-      { "\"string\"", "\'string\'", "\"string\\\"\"" };
+      { "\"string\"",
+                  "\'string\'",
+                  "\"string\\\"\"" };
       scn.setLines( lines );
 
-      assertText(
-            "1", lines[ 0 ] );
+      assertText( "1",
+                  lines[ 0 ] );
       assertText( "\n" );
-      assertText(
-            "2", lines[ 1 ] );
+      assertText( "2",
+                  lines[ 1 ] );
       assertText( "\n" );
-      assertText(
-            "3", lines[ 2 ] );
+      assertText( "3",
+                  lines[ 2 ] );
    }
 
    @Test
    public void testXML()
    {
       final String[] lines = new String[]
-      { "<root/>", "<root>test</root>",
-            "<?xml version=\"1.0\"?><root>test</root>" };
+      { "<root/>",
+                  "<root>test</root>",
+                  "<?xml version=\"1.0\"?><root>test</root>" };
       scn.setLines( lines );
       for ( int i = 0; i < lines.length; i++ )
       {
-         assertText(
-               Integer.toString( i ), lines[ i ] );
+         assertText( Integer.toString( i ),
+                     lines[ i ] );
          assertText( "\n" );
       }
    }
 
-   private void assertText(
-         final String text )
+   private void assertText( final String text )
    {
-      assertText(
-            "", text );
+      assertText( "",
+                  text );
    }
 
-   private void assertText(
-         final String message, final String text )
+   private void assertText( final String message,
+                            final String text )
    {
       Token tokent = null;
       tokent = scn.nextToken();
-      assertEquals(
-            message, text, tokent.text );
+      assertEquals( message,
+                    text,
+                    tokent.text );
    }
 
-   private String join(
-         final String[] lines, final String delimiter )
+   private String join( final String[] lines,
+                        final String delimiter )
    {
       final StringBuffer result = new StringBuffer();
       for ( int i = 0; i < lines.length; i++ )

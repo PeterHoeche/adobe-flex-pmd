@@ -37,10 +37,9 @@ import org.junit.Test;
 
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public class TestExpression
-      extends TestCase
+public class TestExpression extends TestCase
 {
-   private AS3Parser asp;
+   private AS3Parser  asp;
    private AS3Scanner scn;
 
    @Override
@@ -55,120 +54,111 @@ public class TestExpression
    @Test
    public void testAddExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5+6",
-            "<add line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">+</op><primary line=\"1\" column=\"3\">6</primary></add>" );
+      assertExpression( "1",
+                        "5+6",
+                        "<add line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">+</op><primary line=\"1\" column=\"3\">6</primary></add>" );
    }
 
    @Test
    public void testAndExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5&&6",
-            "<and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&&</op><primary line=\"1\" column=\"4\">6</primary></and>" );
+      assertExpression( "1",
+                        "5&&6",
+                        "<and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&&</op><primary line=\"1\" column=\"4\">6</primary></and>" );
    }
 
    @Test
    public void testAssignmentExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "x+=6",
-            "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" column=\"4\">6</primary></assign>" );
+      assertExpression( "1",
+                        "x+=6",
+                        "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" column=\"4\">6</primary></assign>" );
    }
 
    @Test
    public void testBitwiseAndExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5&6",
-            "<b-and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&</op><primary line=\"1\" column=\"3\">6</primary></b-and>" );
+      assertExpression( "1",
+                        "5&6",
+                        "<b-and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&</op><primary line=\"1\" column=\"3\">6</primary></b-and>" );
    }
 
    @Test
    public void testBitwiseOrExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5|6",
-            "<b-or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">|</op><primary line=\"1\" column=\"3\">6</primary></b-or>" );
+      assertExpression( "1",
+                        "5|6",
+                        "<b-or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">|</op><primary line=\"1\" column=\"3\">6</primary></b-or>" );
    }
 
    @Test
    public void testBitwiseXorExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5^6",
-            "<b-xor line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">^</op><primary line=\"1\" column=\"3\">6</primary></b-xor>" );
+      assertExpression( "1",
+                        "5^6",
+                        "<b-xor line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">^</op><primary line=\"1\" column=\"3\">6</primary></b-xor>" );
    }
 
    @Test
    public void testConditionalExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "true?5:6",
-            "<conditional line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">true</primary><primary line=\"1\" column=\"6\">5</primary><primary line=\"1\" column=\"8\">6</primary></conditional>" );
+      assertExpression( "1",
+                        "true?5:6",
+                        "<conditional line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">true</primary><primary line=\"1\" column=\"6\">5</primary><primary line=\"1\" column=\"8\">6</primary></conditional>" );
    }
 
    @Test
    public void testEqualityExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5!==6",
-            "<equality line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">!==</op><primary line=\"1\" column=\"5\">6</primary></equality>" );
+      assertExpression( "1",
+                        "5!==6",
+                        "<equality line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">!==</op><primary line=\"1\" column=\"5\">6</primary></equality>" );
    }
 
    @Test
    public void testMulExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5/6",
-            "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" column=\"3\">6</primary></mul>" );
+      assertExpression( "1",
+                        "5/6",
+                        "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" column=\"3\">6</primary></mul>" );
    }
 
    @Test
    public void testOrExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5||6",
-            "<or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">||</op><primary line=\"1\" column=\"4\">6</primary></or>" );
+      assertExpression( "1",
+                        "5||6",
+                        "<or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">||</op><primary line=\"1\" column=\"4\">6</primary></or>" );
    }
 
    @Test
    public void testRelationalExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5<=6",
-            "<relation line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;=</op><primary line=\"1\" column=\"4\">6</primary></relation>" );
+      assertExpression( "1",
+                        "5<=6",
+                        "<relation line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;=</op><primary line=\"1\" column=\"4\">6</primary></relation>" );
    }
 
    @Test
    public void testShiftExpression() throws TokenException
    {
-      assertExpression(
-            "1",
-            "5<<6",
-            "<shift line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;&lt;</op><primary line=\"1\" column=\"4\">6</primary></shift>" );
+      assertExpression( "1",
+                        "5<<6",
+                        "<shift line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;&lt;</op><primary line=\"1\" column=\"4\">6</primary></shift>" );
    }
 
-   private void assertExpression(
-         final String message, final String input, final String expected ) throws TokenException
+   private void assertExpression( final String message,
+                                  final String input,
+                                  final String expected ) throws TokenException
    {
       scn.setLines( new String[]
-      { input, "__END__" } );
+      { input,
+                  "__END__" } );
       asp.nextToken();
       final String result = new ASTToXMLConverter().convert( asp.parseExpression() );
-      assertEquals(
-            message, expected, result );
+      assertEquals( message,
+                    expected,
+                    result );
    }
 
 }

@@ -93,11 +93,27 @@ public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresho
 
          functionLength = lastLine
                - beginningLine;
+         final Node nameNode = extractName( functionNode );
          if ( functionLength > getThreshold() )
          {
-            addViolation( functionNode,
-                          block.getLastChild() );
+            addViolation( nameNode,
+                          nameNode );
          }
       }
+   }
+
+   private Node extractName( final Node functionNode )
+   {
+      if ( functionNode.children != null )
+      {
+         for ( final Node child : functionNode.children )
+         {
+            if ( child.is( Node.NAME ) )
+            {
+               return child;
+            }
+         }
+      }
+      return functionNode;
    }
 }

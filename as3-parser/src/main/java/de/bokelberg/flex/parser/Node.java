@@ -35,104 +35,107 @@ import java.util.List;
 
 /**
  * A single node of the ast
- *
+ * 
  * @author rbokel
  */
 public class Node
 {
-   static public final String ADD = "add";
-   static public final String AND = "and";
-   static public final String ARGUMENTS = "arguments";
-   static public final String ARRAY = "array";
-   static public final String ARRAY_ACCESSOR = "arr-acc";
-   static public final String ASSIGN = "assign";
-   static public final String B_AND = "b-and";
-   static public final String B_NOT = "b-not";
-   static public final String B_OR = "b-or";
-   static public final String B_XOR = "b-xor";
-   static public final String BLOCK = "block";
-   static public final String CALL = "call";
-   static public final String CASES = "cases";
+   static public final String ADD              = "add";
+   static public final String AND              = "and";
+   static public final String ARGUMENTS        = "arguments";
+   static public final String ARRAY            = "array";
+   static public final String ARRAY_ACCESSOR   = "arr-acc";
+   static public final String ASSIGN           = "assign";
+   static public final String B_AND            = "b-and";
+   static public final String B_NOT            = "b-not";
+   static public final String B_OR             = "b-or";
+   static public final String B_XOR            = "b-xor";
+   static public final String BLOCK            = "block";
+   static public final String CALL             = "call";
+   static public final String CASES            = "cases";
    static public final String COMPILATION_UNIT = "compilation-unit";
-   static public final String COND = "cond";
-   static public final String CONDITION = "condition";
-   static public final String CONDITIONAL = "conditional";
-   static public final String CONST_LIST = "const-list";
-   static public final String CONTENT = "content";
-   static public final String DOT = "dot";
-   static public final String E4X_ATTR = "e4x-attr";
-   static public final String E4X_FILTER = "e4x-filter";
-   static public final String E4X_STAR = "e4x-star";
-   static public final String ENCAPSULATED = "encapsulated";
-   static public final String EQUALITY = "equality";
-   static public final String EXPR_LIST = "expr-list";
-   static public final String IMPLEMENTS_LIST = "implements-list";
-   static public final String IN = "in";
-   static public final String INIT = "init";
-   static public final String ITER = "iter";
-   static public final String LAMBDA = "lambda";
-   static public final String META = "meta";
-   static public final String META_LIST = "meta-list";
-   static public final String MINUS = "minus";
-   static public final String MOD_LIST = "mod-list";
-   static public final String MODIFIER = "mod";
-   static public final String MULTIPLICATION = "mul";
-   static public final String NAME = "name";
-   static public final String NAME_TYPE_INIT = "name-type-init";
-   static public final String NOT = "not";
-   static public final String OBJECT = "object";
-   static public final String OP = "op";
-   static public final String OR = "or";
-   static public final String PARAMETER = "parameter";
-   static public final String PARAMETER_LIST = "parameter-list";
-   static public final String PLUS = "plus";
-   static public final String POST_DEC = "post-dec";
-   static public final String POST_INC = "post-inc";
-   static public final String PRE_DEC = "pre-dec";
-   static public final String PRE_INC = "pre-inc";
-   static public final String PRIMARY = "primary";
-   static public final String PROP = "prop";
-   static public final String RELATION = "relation";
-   static public final String REST = "rest";
-   static public final String SHIFT = "shift";
-   static public final String STAR = "star";
-   static public final String STMT_EMPTY = "stmt-empty";
-   static public final String SWITCH_BLOCK = "switch-block";
-   static public final String TYPE = "type";
-   static public final String VALUE = "value";
-   static public final String VAR_LIST = "var-list";
+   static public final String COND             = "cond";
+   static public final String CONDITION        = "condition";
+   static public final String CONDITIONAL      = "conditional";
+   static public final String CONST_LIST       = "const-list";
+   static public final String CONTENT          = "content";
+   static public final String DOT              = "dot";
+   static public final String E4X_ATTR         = "e4x-attr";
+   static public final String E4X_FILTER       = "e4x-filter";
+   static public final String E4X_STAR         = "e4x-star";
+   static public final String ENCAPSULATED     = "encapsulated";
+   static public final String EQUALITY         = "equality";
+   static public final String EXPR_LIST        = "expr-list";
+   static public final String IMPLEMENTS_LIST  = "implements-list";
+   static public final String IN               = "in";
+   static public final String INIT             = "init";
+   static public final String ITER             = "iter";
+   static public final String LAMBDA           = "lambda";
+   static public final String META             = "meta";
+   static public final String META_LIST        = "meta-list";
+   static public final String MINUS            = "minus";
+   static public final String MOD_LIST         = "mod-list";
+   static public final String MODIFIER         = "mod";
+   static public final String MULTIPLICATION   = "mul";
+   static public final String NAME             = "name";
+   static public final String NAME_TYPE_INIT   = "name-type-init";
+   static public final String NOT              = "not";
+   static public final String OBJECT           = "object";
+   static public final String OP               = "op";
+   static public final String OR               = "or";
+   static public final String PARAMETER        = "parameter";
+   static public final String PARAMETER_LIST   = "parameter-list";
+   static public final String PLUS             = "plus";
+   static public final String POST_DEC         = "post-dec";
+   static public final String POST_INC         = "post-inc";
+   static public final String PRE_DEC          = "pre-dec";
+   static public final String PRE_INC          = "pre-inc";
+   static public final String PRIMARY          = "primary";
+   static public final String PROP             = "prop";
+   static public final String RELATION         = "relation";
+   static public final String REST             = "rest";
+   static public final String SHIFT            = "shift";
+   static public final String STAR             = "star";
+   static public final String STMT_EMPTY       = "stmt-empty";
+   static public final String SWITCH_BLOCK     = "switch-block";
+   static public final String TYPE             = "type";
+   static public final String VALUE            = "value";
+   static public final String VAR_LIST         = "var-list";
 
-   public List< Node > children;
-   public int column;
-   public String id;
-   public int line;
-   public String stringValue;
+   public List< Node >        children;
+   public int                 column;
+   public String              id;
+   public int                 line;
+   public String              stringValue;
 
-   public Node(
-               final String idToBeSet, final int lineToBeSet, final int columnToBeSet )
+   public Node( final String idToBeSet,
+                final int lineToBeSet,
+                final int columnToBeSet )
    {
       id = idToBeSet;
       line = lineToBeSet;
       column = columnToBeSet;
    }
 
-   public Node(
-               final String idToBeSet, final int lineToBeSet,
-               final int columnToBeSet, final Node childToBeSet )
+   public Node( final String idToBeSet,
+                final int lineToBeSet,
+                final int columnToBeSet,
+                final Node childToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
       addChild( childToBeSet );
    }
 
-   public Node(
-               final String idToBeSet, final int lineToBeSet, final int columnToBeSet, final String valueToBeSet )
+   public Node( final String idToBeSet,
+                final int lineToBeSet,
+                final int columnToBeSet,
+                final String valueToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
       stringValue = valueToBeSet;
    }
 
-   final public void addChild(
-                              final Node child )
+   final public void addChild( final Node child )
    {
       if ( child == null )
       {
@@ -146,20 +149,23 @@ public class Node
       children.add( child );
    }
 
-   public void addChild(
-                        final String childId, final int childLine, final int childColumn, final Node nephew )
+   public void addChild( final String childId,
+                         final int childLine,
+                         final int childColumn,
+                         final Node nephew )
    {
       addChild( new Node( childId, childLine, childColumn, nephew ) );
    }
 
-   public void addChild(
-                        final String childId, final int childLine, final int childColumn, final String value )
+   public void addChild( final String childId,
+                         final int childLine,
+                         final int childColumn,
+                         final String value )
    {
       addChild( new Node( childId, childLine, childColumn, value ) );
    }
 
-   public boolean findChildFromTokenType(
-                                         final String tokenTypeToFind )
+   public boolean findChildFromTokenType( final String tokenTypeToFind )
    {
       if ( numChildren() == 0 )
       {
@@ -176,11 +182,11 @@ public class Node
       return false;
    }
 
-   public Node getChild(
-                        final int index )
+   public Node getChild( final int index )
    {
       return children == null
-      || children.size() <= index ? null : children.get( index );
+            || children.size() <= index ? null
+                                       : children.get( index );
    }
 
    public Node getLastChild()
@@ -188,23 +194,22 @@ public class Node
       return getChild( numChildren() - 1 );
    }
 
-   public boolean is(
-                     final String expectedType )
+   public boolean is( final String expectedType )
    {
       return id == null
-      && expectedType == null || expectedType.equals( id );
+            && expectedType == null || expectedType.equals( id );
    }
 
-   public boolean isString(
-                           final String value )
+   public boolean isString( final String value )
    {
       return stringValue == null
-      && value == null || value.equals( stringValue );
+            && value == null || value.equals( stringValue );
    }
 
    public int numChildren()
    {
-      return children == null ? 0 : children.size();
+      return children == null ? 0
+                             : children.size();
    }
 
    @Override

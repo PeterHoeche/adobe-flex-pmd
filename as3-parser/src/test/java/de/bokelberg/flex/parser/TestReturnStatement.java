@@ -37,11 +37,10 @@ import org.junit.Test;
 
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public class TestReturnStatement
-      extends TestCase
+public class TestReturnStatement extends TestCase
 {
 
-   private AS3Parser asp;
+   private AS3Parser  asp;
    private AS3Scanner scn;
 
    @Override
@@ -56,36 +55,39 @@ public class TestReturnStatement
    @Test
    public void testEmptyReturn() throws TokenException
    {
-      assertStatement(
-            "1", "return", "<return line=\"2\" column=\"1\"></return>" );
+      assertStatement( "1",
+                       "return",
+                       "<return line=\"2\" column=\"1\"></return>" );
 
-      assertStatement(
-            "2", "return;", "<return line=\"2\" column=\"1\"></return>" );
+      assertStatement( "2",
+                       "return;",
+                       "<return line=\"2\" column=\"1\"></return>" );
    }
 
    @Test
    public void testReturnArrayLiteral() throws TokenException
    {
-      assertStatement(
-            "1",
-            "return []",
-            "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                  + "<array line=\"1\" column=\"8\"></array></primary></return>" );
-      assertStatement(
-            "2",
-            "return [];",
-            "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                  + "<array line=\"1\" column=\"8\"></array></primary></return>" );
+      assertStatement( "1",
+                       "return []",
+                       "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
+                             + "<array line=\"1\" column=\"8\"></array></primary></return>" );
+      assertStatement( "2",
+                       "return [];",
+                       "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
+                             + "<array line=\"1\" column=\"8\"></array></primary></return>" );
    }
 
-   private void assertStatement(
-         final String message, final String input, final String expected ) throws TokenException
+   private void assertStatement( final String message,
+                                 final String input,
+                                 final String expected ) throws TokenException
    {
       scn.setLines( new String[]
-      { input, "__END__" } );
+      { input,
+                  "__END__" } );
       asp.nextToken();
       final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals(
-            message, expected, result );
+      assertEquals( message,
+                    expected,
+                    result );
    }
 }

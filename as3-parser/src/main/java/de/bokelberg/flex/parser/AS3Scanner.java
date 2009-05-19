@@ -41,7 +41,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * convert a actionscript to a stream of tokens
- *
+ * 
  * @author rbokel
  */
 public class AS3Scanner
@@ -49,13 +49,14 @@ public class AS3Scanner
 
    static public class Token
    {
-      public int column;
+      public int     column;
       public boolean isNum;
-      public int line;
-      public String text;
+      public int     line;
+      public String  text;
 
-      public Token(
-            final String textContent, final int tokenLine, final int tokenColumn )
+      public Token( final String textContent,
+                    final int tokenLine,
+                    final int tokenColumn )
       {
          text = textContent;
          line = tokenLine + 1;
@@ -63,11 +64,9 @@ public class AS3Scanner
       }
    }
 
-   static public class XMLVerifier
-         extends DefaultHandler
+   static public class XMLVerifier extends DefaultHandler
    {
-      public boolean verify(
-            final String text )
+      public boolean verify( final String text )
       {
          // Use the default (non-validating) parser
          final SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -78,8 +77,8 @@ public class AS3Scanner
          try
          {
             saxParser = factory.newSAXParser();
-            saxParser.parse(
-                  new InputSource( new StringReader( text ) ), this );
+            saxParser.parse( new InputSource( new StringReader( text ) ),
+                             this );
             return true;
          }
          catch ( final Throwable e )
@@ -90,13 +89,12 @@ public class AS3Scanner
       }
    }
 
-   private int column;
-   private int line;
+   private int      column;
+   private int      line;
 
    private String[] lines = null;
 
-   public boolean isDecimalChar(
-         final char currentCharacter )
+   public boolean isDecimalChar( final char currentCharacter )
    {
       return currentCharacter >= '0'
             && currentCharacter <= '9';
@@ -141,99 +139,109 @@ public class AS3Scanner
          return scanNumberOrDots( currentCharacter );
       }
       if ( currentCharacter == '{'
-            || currentCharacter == '}' || currentCharacter == '('
-            || currentCharacter == ')' || currentCharacter == '['
+            || currentCharacter == '}' || currentCharacter == '(' || currentCharacter == ')' || currentCharacter == '['
             || currentCharacter == ']'
             // a number can start with a dot as well, see number || c == '.'
-            || currentCharacter == ';' || currentCharacter == ','
-            || currentCharacter == '?' || currentCharacter == '~' )
+            || currentCharacter == ';' || currentCharacter == ',' || currentCharacter == '?' || currentCharacter == '~' )
       {
          return scanSingleCharacterToken( currentCharacter );
       }
       if ( currentCharacter == ':' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "::" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "::" },
+                                       2 );
       }
       if ( currentCharacter == '+' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "++", "+=" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "++",
+                                                   "+=" },
+                                       2 );
       }
       if ( currentCharacter == '-' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "--", "-=" }, 2 );
-      }
-      if ( currentCharacter == '*' )
-      {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "*=" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "--",
+                                                   "-=" },
+                                       2 );
       }
       // called by scanCommentOrRegExp if( c == '/' ) return
       // scanCharacterSequence( c, new String[]{"/="}, 2);
       if ( currentCharacter == '%' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "%=" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "%=" },
+                                       2 );
       }
       if ( currentCharacter == '&' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "&&", "&=" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "&&",
+                                                   "&=" },
+                                       2 );
       }
       if ( currentCharacter == '|' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "||", "|=" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "||",
+                                                   "|=" },
+                                       2 );
       }
       if ( currentCharacter == '^' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "^=" }, 2 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "^=" },
+                                       2 );
       }
       // called by scanXML if( c == '<' ) return scanCharacterSequence( c, new
       // String[]{"<<=","<<","<="}, 3);
       if ( currentCharacter == '>' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { ">>>=", ">>>", ">>=", ">>", ">=" }, 4 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { ">>>=",
+                                                   ">>>",
+                                                   ">>=",
+                                                   ">>",
+                                                   ">=" },
+                                       4 );
       }
       if ( currentCharacter == '=' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "===", "==" }, 3 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "===",
+                                                   "==" },
+                                       3 );
       }
       if ( currentCharacter == '!' )
       {
-         return scanCharacterSequence(
-               currentCharacter, new String[]
-               { "!==", "!=" }, 3 );
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       { "!==",
+                                                   "!=" },
+                                       3 );
       }
 
       return scanWord( currentCharacter );
    }
 
-   public void setLines(
-         final String[] linesToBeSet )
+   public void setLines( final String[] linesToBeSet )
    {
       lines = linesToBeSet;
       line = 0;
       column = -1;
    }
 
-   boolean isHexChar(
-         final char currentCharacter )
+   boolean isHexChar( final char currentCharacter )
    {
       final boolean isNum = currentCharacter >= '0'
             && currentCharacter <= '9';
@@ -251,24 +259,19 @@ public class AS3Scanner
       return lines[ line ].substring( column );
    }
 
-   private boolean isIdentifierCharacter(
-         final char currentCharacter )
+   private boolean isIdentifierCharacter( final char currentCharacter )
    {
       return currentCharacter >= 'A'
-            && currentCharacter <= 'Z' || currentCharacter >= 'a'
-            && currentCharacter <= 'z' || currentCharacter >= '0'
-            && currentCharacter <= '9' || currentCharacter == '_'
-            || currentCharacter == '$';
+            && currentCharacter <= 'Z' || currentCharacter >= 'a' && currentCharacter <= 'z' || currentCharacter >= '0'
+            && currentCharacter <= '9' || currentCharacter == '_' || currentCharacter == '$';
    }
 
-   private boolean isProcessingInstruction(
-         final String text )
+   private boolean isProcessingInstruction( final String text )
    {
       return text.startsWith( "<?" );
    }
 
-   private boolean isValidRegExp(
-         final String pattern )
+   private boolean isValidRegExp( final String pattern )
    {
       try
       {
@@ -281,8 +284,7 @@ public class AS3Scanner
       return false;
    }
 
-   private boolean isValidXML(
-         final String text )
+   private boolean isValidXML( final String text )
    {
       return new XMLVerifier().verify( text );
    }
@@ -314,8 +316,7 @@ public class AS3Scanner
       return result;
    }
 
-   private char peekChar(
-         final int offset )
+   private char peekChar( final int offset )
    {
       final String currentLine = lines[ line ];
       final int index = column
@@ -330,15 +331,15 @@ public class AS3Scanner
 
    /**
     * find the longest matching sequence
-    *
+    * 
     * @param currentCharacter
     * @param possibleMatches
     * @param maxLength
     * @return
     */
-   private Token scanCharacterSequence(
-         final char currentCharacter, final String[] possibleMatches,
-         final int maxLength )
+   private Token scanCharacterSequence( final char currentCharacter,
+                                        final String[] possibleMatches,
+                                        final int maxLength )
    {
       int peekPos = 1;
       final StringBuffer buffer = new StringBuffer();
@@ -351,8 +352,7 @@ public class AS3Scanner
          peekPos++;
          for ( final String possibleMatche : possibleMatches )
          {
-            if ( buffer.toString().equals(
-                  possibleMatche ) )
+            if ( buffer.toString().equals( possibleMatche ) )
             {
                found = buffer.toString();
             }
@@ -366,7 +366,7 @@ public class AS3Scanner
    /**
     * Something started with a slash This might be a comment, a regexp or a
     * operator
-    *
+    * 
     * @param currentCharacter
     * @return
     */
@@ -413,11 +413,10 @@ public class AS3Scanner
 
    /**
     * c is either a dot or a number
-    *
+    * 
     * @return
     */
-   private Token scanDecimal(
-         final char currentCharacter )
+   private Token scanDecimal( final char currentCharacter )
    {
       char currentChar = currentCharacter;
       final StringBuffer buffer = new StringBuffer();
@@ -459,7 +458,7 @@ public class AS3Scanner
 
    /**
     * The first dot has been scanned Are the next chars dots as well?
-    *
+    * 
     * @return
     */
    private Token scanDots()
@@ -470,7 +469,8 @@ public class AS3Scanner
       {
          final char thirdCharacter = peekChar( 2 );
 
-         final String text = thirdCharacter == '.' ? "..." : "..";
+         final String text = thirdCharacter == '.' ? "..."
+                                                  : "..";
          final Token result = new Token( text, line, column );
          skipChars( text.length() - 1 );
          return result;
@@ -480,7 +480,7 @@ public class AS3Scanner
 
    /**
     * we have seen the 0x prefix
-    *
+    * 
     * @return
     */
    private Token scanHex()
@@ -507,7 +507,7 @@ public class AS3Scanner
 
    /**
     * the current char is the first slash plus we know, that a * is following
-    *
+    * 
     * @return
     */
    private Token scanMultiLineComment()
@@ -532,12 +532,11 @@ public class AS3Scanner
 
    /**
     * Something started with a number or a dot.
-    *
+    * 
     * @param characterToBeScanned
     * @return
     */
-   private Token scanNumberOrDots(
-         final char characterToBeScanned )
+   private Token scanNumberOrDots( final char characterToBeScanned )
    {
       if ( characterToBeScanned == '.' )
       {
@@ -575,8 +574,7 @@ public class AS3Scanner
       return null;
    }
 
-   private Token scanSingleCharacterToken(
-         final char character )
+   private Token scanSingleCharacterToken( final char character )
    {
       return new Token( String.valueOf( character ), line, column );
    }
@@ -584,7 +582,7 @@ public class AS3Scanner
    /**
     * the current char is the first slash plus we know, that another slash is
     * following
-    *
+    * 
     * @return
     */
    private Token scanSingleLineComment()
@@ -601,22 +599,20 @@ public class AS3Scanner
     * @param startingCharacter
     * @return
     */
-   private Token scanString(
-         final char startingCharacter )
+   private Token scanString( final char startingCharacter )
    {
       return scanUntilDelimiter( startingCharacter );
    }
 
-   private Token scanUntilDelimiter(
-         final char delimiter )
+   private Token scanUntilDelimiter( final char delimiter )
    {
-      return scanUntilDelimiter(
-            delimiter, delimiter );
+      return scanUntilDelimiter( delimiter,
+                                 delimiter );
 
    }
 
-   private Token scanUntilDelimiter(
-         final char start, final char delimiter )
+   private Token scanUntilDelimiter( final char start,
+                                     final char delimiter )
    {
       final StringBuffer buffer = new StringBuffer();
       int peekPos = 1;
@@ -640,12 +636,11 @@ public class AS3Scanner
             return result;
          }
          numberOfBackslashes = currentCharacter == '\\' ? ( numberOfBackslashes + 1 ) % 2
-               : 0;
+                                                       : 0;
       }
    }
 
-   private Token scanWord(
-         final char startingCharacter )
+   private Token scanWord( final char startingCharacter )
    {
       char currentChar = startingCharacter;
       final StringBuffer buffer = new StringBuffer();
@@ -669,7 +664,7 @@ public class AS3Scanner
 
    /**
     * Try to parse a XML document
-    *
+    * 
     * @return
     */
    private Token scanXML()
@@ -685,8 +680,8 @@ public class AS3Scanner
          Token currentToken = null;
          do
          {
-            currentToken = scanUntilDelimiter(
-                  '<', '>' );
+            currentToken = scanUntilDelimiter( '<',
+                                               '>' );
             if ( currentToken == null )
             {
                line = currentLine;
@@ -739,8 +734,7 @@ public class AS3Scanner
     * @param startingCharacterc
     * @return
     */
-   private Token scanXMLOrOperator(
-         final char startingCharacterc )
+   private Token scanXMLOrOperator( final char startingCharacterc )
    {
       final Token xmlToken = scanXML();
 
@@ -749,9 +743,14 @@ public class AS3Scanner
       {
          return xmlToken;
       }
-      return scanCharacterSequence(
-            startingCharacterc, new String[]
-            { "<<<=", "<<<", "<<=", "<<", "<=" }, 4 );
+      return scanCharacterSequence( startingCharacterc,
+                                    new String[]
+                                    { "<<<=",
+                                                "<<<",
+                                                "<<=",
+                                                "<<",
+                                                "<=" },
+                                    4 );
    }
 
    private void skipChar()
@@ -759,8 +758,7 @@ public class AS3Scanner
       nextChar();
    }
 
-   private void skipChars(
-         final int count )
+   private void skipChars( final int count )
    {
       int decrementCount = count;
 

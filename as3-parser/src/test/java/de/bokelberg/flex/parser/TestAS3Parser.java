@@ -39,21 +39,19 @@ import org.junit.Test;
 
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public class TestAS3Parser
-      extends TestCase
+public class TestAS3Parser extends TestCase
 {
    @Test
-   public void testBuildAst() throws IOException, URISyntaxException
+   public void testBuildAst() throws IOException,
+                             URISyntaxException
    {
       final AS3Parser parser = new AS3Parser();
 
       try
       {
-         parser.buildAst( getClass().getResource(
-               "/examples/unformatted/IContext.as" ).toURI().getPath() );
+         parser.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
 
-         parser.buildAst( getClass().getResource(
-               "/examples/unformatted/Title.as" ).toURI().getPath() );
+         parser.buildAst( getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath() );
          // parser.buildAst( getClass().getResource(
          // "/examples/unformatted/RfqQuoteChartLegendRenderer.as"
          // ).toURI().getPath() );

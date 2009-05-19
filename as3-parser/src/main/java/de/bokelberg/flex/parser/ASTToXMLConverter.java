@@ -38,17 +38,16 @@ public class ASTToXMLConverter implements ASTConverter
     * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
     * .Node)
     */
-   public String convert(
-         final Node ast )
+   public String convert( final Node ast )
    {
       final StringBuffer result = new StringBuffer();
-      visitNodes(
-            ast, result, 0 );
+      visitNodes( ast,
+                  result,
+                  0 );
       return result.toString();
    }
 
-   protected String escapeEntities(
-         final String stringToEscape )
+   protected String escapeEntities( final String stringToEscape )
    {
       if ( stringToEscape == null )
       {
@@ -76,20 +75,21 @@ public class ASTToXMLConverter implements ASTConverter
       return buffer.toString();
    }
 
-   protected void visitNodes(
-         final Node ast, final StringBuffer result, final int level )
+   protected void visitNodes( final Node ast,
+                              final StringBuffer result,
+                              final int level )
    {
       result.append( "<"
-            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column
-            + "\">" );
+            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column + "\">" );
 
       final int numChildren = ast.numChildren();
       if ( numChildren > 0 )
       {
          for ( int i = 0; i < numChildren; i++ )
          {
-            visitNodes(
-                  ast.getChild( i ), result, level + 1 );
+            visitNodes( ast.getChild( i ),
+                        result,
+                        level + 1 );
          }
       }
       else if ( ast.stringValue != null )

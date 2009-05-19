@@ -31,11 +31,9 @@
 package de.bokelberg.flex.parser.exceptions;
 
 @SuppressWarnings("serial")
-public class NullTokenException
-      extends TokenException
+public class NullTokenException extends TokenException
 {
-   public NullTokenException(
-         final String fileName )
+   public NullTokenException( final String fileName )
    {
       super( "null token in "
             + fileName + "." );
