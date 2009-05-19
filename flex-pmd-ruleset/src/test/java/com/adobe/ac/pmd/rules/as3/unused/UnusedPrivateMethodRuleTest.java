@@ -47,6 +47,8 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
                                                          URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
+
+      assertEmptyViolations( "com.adobe.cairngorm.work.SequenceWorkFlow.as" );
    }
 
    @Override

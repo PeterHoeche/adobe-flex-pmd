@@ -30,13 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -44,33 +42,55 @@ import de.bokelberg.flex.parser.Node;
 
 public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
-   private List< Node >                functionCalls;
-   private Map< String, FunctionNode > unvisitedPrivateFunctions;
+   private Map< String, FunctionNode > privateFunctions;
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
+   private void findUnusedFunction( final Node body )
    {
-      return ViolationPriority.WARNING;
+      if ( body.stringValue != null
+            && !privateFunctions.isEmpty() )
+      {
+         for ( final String functionName : privateFunctions.keySet() )
+         {
+            if ( body.stringValue.compareTo( functionName ) == 0 )
+            {
+               privateFunctions.remove( functionName );
+               break;
+            }
+         }
+      }
+      if ( body.children != null )
+      {
+         for ( final Node child : body.children )
+         {
+            findUnusedFunction( child );
+         }
+      }
    }
 
    @Override
-   protected void visitClassContent( final Node ast )
+   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
    {
-      unvisitedPrivateFunctions = new HashMap< String, FunctionNode >();
-      functionCalls = new ArrayList< Node >();
+      super.findViolationsFromFunctionsList( functions );
 
-      super.visitClassContent( ast );
+      privateFunctions = new HashMap< String, FunctionNode >();
 
-      for ( final Node call : functionCalls )
+      for ( final FunctionNode function : functions )
       {
-         if ( unvisitedPrivateFunctions.containsKey( call.stringValue ) )
+         if ( function.isPrivate() )
          {
-            unvisitedPrivateFunctions.remove( call.stringValue );
+            privateFunctions.put( function.getName(),
+                                  function );
          }
       }
-      for ( final String functionName : unvisitedPrivateFunctions.keySet() )
+
+      for ( final FunctionNode function : functions )
       {
-         final FunctionNode function = unvisitedPrivateFunctions.get( functionName );
+         findUnusedFunction( function.getContentBlock() );
+      }
+
+      for ( final String functionName : privateFunctions.keySet() )
+      {
+         final FunctionNode function = privateFunctions.get( functionName );
 
          addViolation( function.getInternalNode(),
                        function.getInternalNode().getLastChild(),
@@ -79,29 +99,8 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitExpression( final Node ast )
+   protected ViolationPriority getDefaultPriority()
    {
-      super.visitExpression( ast );
-
-      if ( ast.is( Node.PRIMARY ) )
-      {
-         functionCalls.add( ast );
-      }
-   }
-
-   @Override
-   protected void visitFunction( final Node ast,
-                                 final String type )
-   {
-      super.visitFunction( ast,
-                           type );
-
-      final FunctionNode function = new FunctionNode( ast );
-
-      if ( ModifierUtils.isPrivate( function ) )
-      {
-         unvisitedPrivateFunctions.put( function.getName(),
-                                        function );
-      }
+      return ViolationPriority.WARNING;
    }
 }

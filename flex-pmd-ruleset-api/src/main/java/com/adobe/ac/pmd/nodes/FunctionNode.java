@@ -68,6 +68,7 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       }
       return count;
    }
+
    private Node                 contentBlock;
    private int                  cyclomaticComplexity;
    private Map< String, Node >  localVariables;
@@ -184,6 +185,11 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
    public boolean isOverriden()
    {
       return ModifierUtils.isOverriden( this );
+   }
+
+   public boolean isPrivate()
+   {
+      return ModifierUtils.isPrivate( this );
    }
 
    public boolean isProtected()
