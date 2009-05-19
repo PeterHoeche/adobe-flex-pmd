@@ -109,7 +109,7 @@ public class Node
    public String stringValue;
 
    public Node(
-         final String idToBeSet, final int lineToBeSet, final int columnToBeSet )
+               final String idToBeSet, final int lineToBeSet, final int columnToBeSet )
    {
       id = idToBeSet;
       line = lineToBeSet;
@@ -117,22 +117,22 @@ public class Node
    }
 
    public Node(
-         final String idToBeSet, final int lineToBeSet,
-         final int columnToBeSet, final Node childToBeSet )
+               final String idToBeSet, final int lineToBeSet,
+               final int columnToBeSet, final Node childToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
       addChild( childToBeSet );
    }
 
    public Node(
-         final String idToBeSet, final int lineToBeSet, final int columnToBeSet, final String valueToBeSet )
+               final String idToBeSet, final int lineToBeSet, final int columnToBeSet, final String valueToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
       stringValue = valueToBeSet;
    }
 
    final public void addChild(
-         final Node child )
+                              final Node child )
    {
       if ( child == null )
       {
@@ -147,19 +147,19 @@ public class Node
    }
 
    public void addChild(
-         final String childId, final int childLine, final int childColumn, final Node nephew )
+                        final String childId, final int childLine, final int childColumn, final Node nephew )
    {
       addChild( new Node( childId, childLine, childColumn, nephew ) );
    }
 
    public void addChild(
-         final String childId, final int childLine, final int childColumn, final String value )
+                        final String childId, final int childLine, final int childColumn, final String value )
    {
       addChild( new Node( childId, childLine, childColumn, value ) );
    }
 
    public boolean findChildFromTokenType(
-         final String tokenTypeToFind )
+                                         final String tokenTypeToFind )
    {
       if ( numChildren() == 0 )
       {
@@ -177,10 +177,10 @@ public class Node
    }
 
    public Node getChild(
-         final int index )
+                        final int index )
    {
       return children == null
-            || children.size() <= index ? null : children.get( index );
+      || children.size() <= index ? null : children.get( index );
    }
 
    public Node getLastChild()
@@ -189,21 +189,48 @@ public class Node
    }
 
    public boolean is(
-         final String expectedType )
+                     final String expectedType )
    {
       return id == null
-            && expectedType == null || expectedType.equals( id );
+      && expectedType == null || expectedType.equals( id );
    }
 
    public boolean isString(
-         final String value )
+                           final String value )
    {
       return stringValue == null
-            && value == null || value.equals( stringValue );
+      && value == null || value.equals( stringValue );
    }
 
    public int numChildren()
    {
       return children == null ? 0 : children.size();
+   }
+
+   @Override
+   public String toString()
+   {
+      final StringBuffer buffer = new StringBuffer();
+
+      if ( stringValue == null )
+      {
+         buffer.append( id );
+      }
+      else
+      {
+         buffer.append( stringValue );
+      }
+
+      buffer.append( ' ' );
+
+      if ( children != null )
+      {
+         for ( final Node child : children )
+         {
+            buffer.append( child.toString() );
+            buffer.append( ' ' );
+         }
+      }
+      return buffer.toString();
    }
 }

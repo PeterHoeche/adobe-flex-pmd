@@ -42,7 +42,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.Violation;
 
 public abstract class AbstractFlexRuleTest
-      extends FlexPmdTestBase
+extends FlexPmdTestBase
 {
    /**
     * Test case which contains non-violating files but which are concerned by the given rule
@@ -52,7 +52,7 @@ public abstract class AbstractFlexRuleTest
     */
    @Test
    public abstract void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-         URISyntaxException;
+   URISyntaxException;
 
    /**
     * Test case which contains non-concerned files by the given rule
@@ -62,7 +62,7 @@ public abstract class AbstractFlexRuleTest
     */
    @Test
    public abstract void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException;
+   URISyntaxException;
 
    /**
     * Test case which contains violating files
@@ -72,22 +72,25 @@ public abstract class AbstractFlexRuleTest
     */
    @Test
    public abstract void testProcessViolatingFiles()
-         throws FileNotFoundException, URISyntaxException;
+   throws FileNotFoundException, URISyntaxException;
 
    final protected void assertEmptyViolations(
-         final String resourcePath ) throws FileNotFoundException,
-         URISyntaxException
-   {
+                                              final String resourcePath ) throws FileNotFoundException,
+                                              URISyntaxException
+                                              {
       assertViolations(
             resourcePath, new ViolationPosition[]
-            {} );
-   }
+                                                {} );
+                                              }
 
    final protected void assertViolations(
-         final String resourcePath, final ViolationPosition[] expectedPositions )
-         throws FileNotFoundException, URISyntaxException
+                                         final String resourcePath, final ViolationPosition[] expectedPositions )
+   throws FileNotFoundException, URISyntaxException
    {
       final List< Violation > violations = processFile( resourcePath );
+
+      assertEquals(
+            expectedPositions.length, violations.size() );
 
       if ( expectedPositions.length != 0 )
       {
@@ -97,10 +100,12 @@ public abstract class AbstractFlexRuleTest
             final ViolationPosition expectedPosition = expectedPositions[ i ];
 
             assertEquals(
-                  BEGIN_LINE_IS_NOT_CORRECT, expectedPosition.getBeginLine(),
+                  BEGIN_LINE_IS_NOT_CORRECT
+                        + " at " + i + "th violation", expectedPosition.getBeginLine(),
                   violation.getBeginLine() );
             assertEquals(
-                  END_LINE_IS_NOT_CORRECT, expectedPosition.getEndLine(),
+                  END_LINE_IS_NOT_CORRECT
+                        + " at " + i + "th violation", expectedPosition.getEndLine(),
                   violation.getEndLine() );
          }
       }
@@ -111,8 +116,8 @@ public abstract class AbstractFlexRuleTest
    protected List< Violation > processFile(
          final String resourcePath ) throws FileNotFoundException,
          URISyntaxException
-   {
+         {
       return getRule().processFile(
             testFiles.get( resourcePath ), null, testFiles );
-   }
+         }
 }

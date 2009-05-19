@@ -31,6 +31,8 @@
 package com.adobe.ac.pmd.nodes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -43,12 +45,14 @@ import de.bokelberg.flex.parser.AS3Parser;
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class FunctionNodeTest
-      extends FlexPmdTestBase
+extends FlexPmdTestBase
 {
    private FunctionNode constructor;
    private FunctionNode drawHighlightIndicator;
    private FunctionNode drawRowBackground;
    private FunctionNode drawSelectionIndicator;
+   private FunctionNode isTrueGetter;
+   private FunctionNode isTrueSetter;
    private FunctionNode placeSortArrow;
 
    @Before
@@ -69,6 +73,10 @@ public class FunctionNodeTest
             3 );
       placeSortArrow = radonDataGridClassNode.getFunctions().get(
             4 );
+      isTrueGetter = radonDataGridClassNode.getFunctions().get(
+            5 );
+      isTrueSetter = radonDataGridClassNode.getFunctions().get(
+            6 );
    }
 
    @Test
@@ -133,6 +141,24 @@ public class FunctionNodeTest
       assertEquals(
             "void",
             placeSortArrow.getReturnType().getInternalNode().stringValue );
+   }
+
+   @Test
+   public void testIsGetter()
+   {
+      assertFalse( constructor.isGetter() );
+      assertFalse( drawHighlightIndicator.isGetter() );
+      assertFalse( isTrueSetter.isGetter() );
+      assertTrue( isTrueGetter.isGetter() );
+   }
+
+   @Test
+   public void testIsSetter()
+   {
+      assertFalse( constructor.isSetter() );
+      assertFalse( drawHighlightIndicator.isSetter() );
+      assertFalse( isTrueGetter.isSetter() );
+      assertTrue( isTrueSetter.isSetter() );
    }
 
    @Test

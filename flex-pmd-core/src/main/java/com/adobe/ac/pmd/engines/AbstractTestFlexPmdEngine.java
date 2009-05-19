@@ -44,27 +44,27 @@ import org.xml.sax.SAXException;
 import com.adobe.ac.pmd.FlexPmdViolations;
 
 public abstract class AbstractTestFlexPmdEngine
-      extends TestCase
+extends TestCase
 {
    static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
    protected int violationsFound = 0;
 
    public AbstractTestFlexPmdEngine(
-         final String name )
+                                    final String name )
    {
       super( name );
    }
 
    @Test
    public void testExecuteReport() throws PMDException, SAXException,
-         URISyntaxException, IOException
+   URISyntaxException, IOException
    {
       final AbstractFlexPmdEngine engine = getFlexPmdEngine();
       final File sourceDirectory = new File( getClass().getResource(
-            "/test" ).toURI().getPath() );
+      "/test" ).toURI().getPath() );
       final URL ruleSetUrl = getClass().getResource(
-            "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
+      "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
 
       assertNotNull(
             "RuleSet has not been found", ruleSetUrl );

@@ -36,14 +36,12 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooManyPublicRule
-      extends AbstractAstFlexRule implements IThresholdedRule
+public class TooManyPublicRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int publicCount;
 
@@ -62,23 +60,47 @@ public class TooManyPublicRule
       return MAXIMUM;
    }
 
-   @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode )
+   private void detectPublicMethods( final ClassNode classNode )
    {
-      final ClassNode classNode = rootNode.getClassNode();
-
-      if ( classNode != null )
+      if ( classNode.getFunctions() != null )
       {
-         publicCount = 0;
-
-         detectPublicMethods( classNode );
-         detectPublicVariables( classNode );
-         if ( publicCount > getThreshold() )
+         for ( final FunctionNode function : classNode.getFunctions() )
          {
-            addViolation(
-                  classNode.getInternalNode(), classNode.getInternalNode() );
+            if ( function.isPublic()
+                  && function != classNode.getConstructor() && !function.isGetter() && !function.isSetter() )
+            {
+               publicCount++;
+            }
          }
+      }
+   }
+
+   private void detectPublicVariables( final ClassNode classNode )
+   {
+      if ( classNode.getVariables() != null )
+      {
+         for ( final VariableNode variable : classNode.getVariables() )
+         {
+            if ( variable.isPublic() )
+            {
+               publicCount++;
+            }
+         }
+      }
+   }
+
+   @Override
+   protected void findViolationsFromClassNode( final ClassNode classNode )
+   {
+      super.findViolationsFromClassNode( classNode );
+      publicCount = 0;
+
+      detectPublicMethods( classNode );
+      detectPublicVariables( classNode );
+      if ( publicCount > getThreshold() )
+      {
+         addViolation(
+               classNode.getInternalNode(), classNode.getInternalNode() );
       }
    }
 
@@ -92,35 +114,5 @@ public class TooManyPublicRule
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
-   }
-
-   private void detectPublicMethods(
-         final ClassNode classNode )
-   {
-      if ( classNode.getFunctions() != null )
-      {
-         for ( final FunctionNode function : classNode.getFunctions() )
-         {
-            if ( function.isPublic() )
-            {
-               publicCount++;
-            }
-         }
-      }
-   }
-
-   private void detectPublicVariables(
-         final ClassNode classNode )
-   {
-      if ( classNode.getVariables() != null )
-      {
-         for ( final VariableNode variable : classNode.getVariables() )
-         {
-            if ( variable.isPublic() )
-            {
-               publicCount++;
-            }
-         }
-      }
    }
 }

@@ -152,7 +152,7 @@ package com.adobe.radon.core.controls
 			g.drawRect(0, 0, contentHolder.width, height);
 			g.endFill();
 		}
-
+		
 		override protected function placeSortArrow():void
 		{
 			super.placeSortArrow();
@@ -192,6 +192,16 @@ package com.adobe.radon.core.controls
                   break;
 				}
 			}
+		}
+
+		private function get isTrue() : Boolean
+		{
+			return _isTrue;
+		}
+		
+		private function set isTrue( value : Boolean ) : void
+		{
+			_isTrue = value;
 		}
 	}
 }

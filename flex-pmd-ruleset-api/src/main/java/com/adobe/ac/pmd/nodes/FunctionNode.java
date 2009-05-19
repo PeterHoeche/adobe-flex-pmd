@@ -44,14 +44,13 @@ import de.bokelberg.flex.parser.Node;
 /**
  * Node representing a Function It contains the function name, its parameters,
  * its return type, its modifiers, its metadata
- *
+ * 
  * @author xagnetti
  */
-public class FunctionNode
-      extends AbstractNode implements IModifiersHolder, IMetaDataListHolder,
-      INamable
+public class FunctionNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
 {
-   public static int countNodeFromType( final Node rootNode, final String type )
+   public static int countNodeFromType( final Node rootNode,
+                                        final String type )
    {
       int count = 0;
 
@@ -63,7 +62,8 @@ public class FunctionNode
       {
          for ( final Node child : rootNode.children )
          {
-            count += countNodeFromType( child, type );
+            count += countNodeFromType(
+                  child, type );
          }
       }
       return count;
@@ -78,20 +78,18 @@ public class FunctionNode
    private List< FormalNode > parameters;
    private IdentifierNode returnType;
 
-   public FunctionNode(
-         final Node node )
+   public FunctionNode( final Node node )
    {
       super( node );
    }
 
    /**
     * Finds recursivly a statement in the function body from its name
-    *
+    * 
     * @param primaryName statement name
     * @return corresponding node
     */
-   public Node findPrimaryStatementFromName(
-         final String primaryName )
+   public Node findPrimaryStatementFromName( final String primaryName )
    {
       final String[] names =
       { primaryName };
@@ -101,12 +99,11 @@ public class FunctionNode
 
    /**
     * Finds recursivly a statement in the function body from a list of names
-    *
+    * 
     * @param primaryNames statement name
     * @return corresponding node
     */
-   public Node findPrimaryStatementFromName(
-         final String[] primaryNames )
+   public Node findPrimaryStatementFromName( final String[] primaryNames )
    {
       return getPrimaryStatementFromName(
             primaryNames, getContentBlock() );
@@ -179,6 +176,11 @@ public class FunctionNode
       return null;
    }
 
+   public boolean isGetter()
+   {
+      return internalNode.is( KeyWords.GET );
+   }
+
    public boolean isOverriden()
    {
       return ModifierUtils.isOverriden( this );
@@ -194,16 +196,126 @@ public class FunctionNode
       return ModifierUtils.isPublic( this );
    }
 
-   public void setMetaDataList(
-         final List< MetaDataNode > metaDataListToBeSet )
+   public boolean isSetter()
+   {
+      return internalNode.is( KeyWords.SET );
+   }
+
+   public void setMetaDataList( final List< MetaDataNode > metaDataListToBeSet )
    {
       metaDataList = metaDataListToBeSet;
    }
 
-   public void setModifiers(
-         final List< Modifier > modifiersToBeSet )
+   public void setModifiers( final List< Modifier > modifiersToBeSet )
    {
       modifiers = modifiersToBeSet;
+   }
+
+   private void computeCyclomaticComplexity( final Node node )
+   {
+      if ( node.is( KeyWords.FOREACH )
+            || node.is( KeyWords.FORIN ) || node.is( KeyWords.CASE ) || node.is( KeyWords.DEFAULT ) )
+      {
+         cyclomaticComplexity++;
+      }
+      else if ( node.is( KeyWords.IF )
+            || node.is( KeyWords.WHILE ) || node.is( KeyWords.FOR ) )
+      {
+         cyclomaticComplexity++;
+         cyclomaticComplexity += countNodeFromType(
+               node.getChild( 0 ), Node.AND );
+         cyclomaticComplexity += countNodeFromType(
+               node.getChild( 0 ), Node.OR );
+      }
+
+      if ( node.numChildren() > 0 )
+      {
+         for ( final Node child : node.children )
+         {
+            computeCyclomaticComplexity( child );
+         }
+      }
+   }
+
+   private void computeFunctionContent( final Node functionBodyNode )
+   {
+      localVariables = new HashMap< String, Node >();
+      contentBlock = functionBodyNode;
+      cyclomaticComplexity = 1;
+
+      computeCyclomaticComplexity( functionBodyNode );
+      computeVariableList( functionBodyNode );
+   }
+
+   private void computeParameterList( final Node node )
+   {
+      parameters = new ArrayList< FormalNode >();
+
+      if ( node.children != null )
+      {
+         for ( final Node parameterNode : node.children )
+         {
+            parameters.add( new FormalNode( parameterNode ) );
+         }
+      }
+   }
+
+   private void computeVariableList( final Node node )
+   {
+      if ( node.is( Node.VAR_LIST ) )
+      {
+         localVariables.put(
+               node.getChild(
+                     0 ).getChild(
+                           0 ).stringValue, node );
+      }
+      else if ( node.numChildren() > 0 )
+      {
+         for ( final Node child : node.children )
+         {
+            computeVariableList( child );
+         }
+      }
+   }
+
+   private Node getPrimaryStatementFromName( final String[] names,
+                                             final Node content )
+   {
+      Node dispatchNode = null;
+
+      if ( content != null
+            && content.stringValue != null && isNameInArray(
+                  names, content.stringValue ) )
+      {
+         dispatchNode = content;
+      }
+      else if ( content != null
+            && content.numChildren() > 0 )
+      {
+         for ( final Node child : content.children )
+         {
+            dispatchNode = getPrimaryStatementFromName(
+                  names, child );
+            if ( dispatchNode != null )
+            {
+               break;
+            }
+         }
+      }
+      return dispatchNode;
+   }
+
+   private boolean isNameInArray( final String[] strings,
+                                  final String string )
+   {
+      for ( final String currentName : strings )
+      {
+         if ( currentName.compareTo( string ) == 0 )
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    @Override
@@ -247,120 +359,5 @@ public class FunctionNode
             }
          }
       }
-   }
-
-   private void computeCyclomaticComplexity(
-         final Node node )
-   {
-      if ( node.is( KeyWords.FOREACH )
-            || node.is( KeyWords.FORIN ) || node.is( KeyWords.CASE )
-            || node.is( KeyWords.DEFAULT ) )
-      {
-         cyclomaticComplexity++;
-      }
-      else if ( node.is( KeyWords.IF )
-            || node.is( KeyWords.WHILE ) || node.is( KeyWords.FOR ) )
-      {
-         cyclomaticComplexity++;
-         cyclomaticComplexity += countNodeFromType(
-               node.getChild( 0 ), Node.AND );
-         cyclomaticComplexity += countNodeFromType(
-               node.getChild( 0 ), Node.OR );
-      }
-
-      if ( node.numChildren() > 0 )
-      {
-         for ( final Node child : node.children )
-         {
-            computeCyclomaticComplexity( child );
-         }
-      }
-   }
-
-   private void computeFunctionContent(
-         final Node functionBodyNode )
-   {
-      localVariables = new HashMap< String, Node >();
-      contentBlock = functionBodyNode;
-      cyclomaticComplexity = 1;
-
-      computeCyclomaticComplexity( functionBodyNode );
-      computeVariableList( functionBodyNode );
-   }
-
-   private void computeParameterList(
-         final Node node )
-   {
-      parameters = new ArrayList< FormalNode >();
-
-      if ( node.children != null )
-      {
-         for ( final Node parameterNode : node.children )
-         {
-            parameters.add( new FormalNode( parameterNode ) );
-         }
-      }
-   }
-
-   private void computeVariableList(
-         final Node node )
-   {
-      if ( node.is( Node.VAR_LIST ) )
-      {
-         localVariables.put(
-               node.getChild(
-                     0 ).getChild(
-                     0 ).stringValue, node );
-      }
-      else if ( node.numChildren() > 0 )
-      {
-         for ( final Node child : node.children )
-         {
-            computeVariableList( child );
-         }
-      }
-   }
-
-   private Node getPrimaryStatementFromName(
-         final String[] names, final Node content )
-   {
-      Node dispatchNode = null;
-
-      if ( content != null
-            && content.stringValue != null
-            && isNameInArray(
-                  names, content.stringValue ) )
-      {
-         dispatchNode = content;
-      }
-      else if ( content != null
-            && content.numChildren() > 0 )
-      {
-         for ( final Node child : content.children )
-         {
-            dispatchNode = getPrimaryStatementFromName(
-                  names, child );
-            if ( dispatchNode != null )
-            {
-               break;
-            }
-         }
-      }
-      return dispatchNode;
-   }
-
-   private boolean isNameInArray(
-         final String[] strings, final String string )
-   {
-      for ( int i = 0; i < strings.length; i++ )
-      {
-         final String currentName = strings[ i ];
-
-         if ( currentName.compareTo( string ) == 0 )
-         {
-            return true;
-         }
-      }
-      return false;
    }
 }

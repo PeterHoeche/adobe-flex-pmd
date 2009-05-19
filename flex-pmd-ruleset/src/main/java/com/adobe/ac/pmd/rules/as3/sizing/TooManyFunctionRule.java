@@ -30,19 +30,22 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
+import java.util.List;
 import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.nodes.ClassNode;
+import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
-
 public class TooManyFunctionRule
-      extends AbstractAstFlexRule implements IThresholdedRule
+extends AbstractAstFlexRule implements IThresholdedRule
 {
+   private ClassNode classNode;
+   private FunctionNode constructor;
    private int functionNb;
 
    public int getDefaultThreshold()
@@ -61,6 +64,31 @@ public class TooManyFunctionRule
    }
 
    @Override
+   protected void findViolationsFromClassNode( final ClassNode classNodeToSet )
+   {
+      functionNb = 0;
+      classNode = classNodeToSet;
+   }
+
+   @Override
+   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
+   {
+      for ( final FunctionNode functionNode : functions )
+      {
+         if ( !functionNode.isGetter()
+               && !functionNode.isSetter() && functionNode != constructor )
+         {
+            functionNb++;
+         }
+      }
+      if ( functionNb > getThreshold() )
+      {
+         addViolation(
+               classNode.getInternalNode(), classNode.getInternalNode() );
+      }
+   }
+
+   @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
@@ -70,31 +98,5 @@ public class TooManyFunctionRule
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
-   }
-
-   @Override
-   protected void visitClassContent(
-         final Node classContentNode )
-   {
-      functionNb = 0;
-
-      super.visitClassContent( classContentNode );
-
-      if ( functionNb > getThreshold() )
-      {
-         addViolation(
-               classContentNode, classContentNode.getChild( classContentNode
-                     .numChildren() - 1 ) );
-      }
-   }
-
-   @Override
-   protected void visitFunction(
-         final Node ast, final String type )
-   {
-      super.visitFunction(
-            ast, type );
-
-      functionNb++;
    }
 }
