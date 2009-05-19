@@ -62,21 +62,21 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       {
          for ( final Node child : rootNode.children )
          {
-            count += countNodeFromType(
-                  child, type );
+            count += countNodeFromType( child,
+                                        type );
          }
       }
       return count;
    }
-   private Node contentBlock;
-   private int cyclomaticComplexity;
-   private Map< String, Node > localVariables;
+   private Node                 contentBlock;
+   private int                  cyclomaticComplexity;
+   private Map< String, Node >  localVariables;
    private List< MetaDataNode > metaDataList;
-   private List< Modifier > modifiers;
-   private IdentifierNode name;
+   private List< Modifier >     modifiers;
+   private IdentifierNode       name;
 
-   private List< FormalNode > parameters;
-   private IdentifierNode returnType;
+   private List< FormalNode >   parameters;
+   private IdentifierNode       returnType;
 
    public FunctionNode( final Node node )
    {
@@ -93,8 +93,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
    {
       final String[] names =
       { primaryName };
-      return getPrimaryStatementFromName(
-            names, getContentBlock() );
+      return getPrimaryStatementFromName( names,
+                                          getContentBlock() );
    }
 
    /**
@@ -105,8 +105,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
     */
    public Node findPrimaryStatementFromName( final String[] primaryNames )
    {
-      return getPrimaryStatementFromName(
-            primaryNames, getContentBlock() );
+      return getPrimaryStatementFromName( primaryNames,
+                                          getContentBlock() );
    }
 
    public Node getContentBlock()
@@ -222,10 +222,10 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
             || node.is( KeyWords.WHILE ) || node.is( KeyWords.FOR ) )
       {
          cyclomaticComplexity++;
-         cyclomaticComplexity += countNodeFromType(
-               node.getChild( 0 ), Node.AND );
-         cyclomaticComplexity += countNodeFromType(
-               node.getChild( 0 ), Node.OR );
+         cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),
+                                                    Node.AND );
+         cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),
+                                                    Node.OR );
       }
 
       if ( node.numChildren() > 0 )
@@ -264,10 +264,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
    {
       if ( node.is( Node.VAR_LIST ) )
       {
-         localVariables.put(
-               node.getChild(
-                     0 ).getChild(
-                           0 ).stringValue, node );
+         localVariables.put( node.getChild( 0 ).getChild( 0 ).stringValue,
+                             node );
       }
       else if ( node.numChildren() > 0 )
       {
@@ -284,8 +282,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       Node dispatchNode = null;
 
       if ( content != null
-            && content.stringValue != null && isNameInArray(
-                  names, content.stringValue ) )
+            && content.stringValue != null && isNameInArray( names,
+                                                             content.stringValue ) )
       {
          dispatchNode = content;
       }
@@ -294,8 +292,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       {
          for ( final Node child : content.children )
          {
-            dispatchNode = getPrimaryStatementFromName(
-                  names, child );
+            dispatchNode = getPrimaryStatementFromName( names,
+                                                        child );
             if ( dispatchNode != null )
             {
                break;
@@ -336,8 +334,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
             }
             else if ( node.is( Node.MOD_LIST ) )
             {
-               ModifierUtils.computeModifierList(
-                     this, node );
+               ModifierUtils.computeModifierList( this,
+                                                  node );
             }
             else if ( node.is( Node.PARAMETER_LIST ) )
             {
@@ -349,8 +347,8 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
             }
             else if ( node.is( Node.META_LIST ) )
             {
-               MetaDataUtils.computeMetaDataList(
-                     this, node );
+               MetaDataUtils.computeMetaDataList( this,
+                                                  node );
             }
             else
             {

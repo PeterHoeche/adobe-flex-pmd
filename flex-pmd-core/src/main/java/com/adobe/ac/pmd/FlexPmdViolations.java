@@ -51,25 +51,21 @@ import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 
-
 public class FlexPmdViolations
 {
-   public static final Logger LOGGER = Logger
-         .getLogger( FlexPmdViolations.class.getName() );
+   public static final Logger                                     LOGGER       = Logger.getLogger( FlexPmdViolations.class.getName() );
 
-   private boolean beenComputed = false;
+   private boolean                                                beenComputed = false;
 
    private final SortedMap< AbstractFlexFile, List< Violation > > violations;
 
    public FlexPmdViolations()
    {
-      violations = new TreeMap< AbstractFlexFile, List< Violation > >(
-            new FlexFileComparator() );
+      violations = new TreeMap< AbstractFlexFile, List< Violation > >( new FlexFileComparator() );
    }
 
-   public void computeViolations(
-         final File sourceDirectory, final RuleSet ruleSet )
-         throws PMDException
+   public void computeViolations( final File sourceDirectory,
+                                  final RuleSet ruleSet ) throws PMDException
    {
       beenComputed = true;
 
@@ -77,31 +73,28 @@ public class FlexPmdViolations
       final Map< String, AbstractFlexFile > files = FileSetUtils.computeFilesList( sourceDirectory );
       final Map< String, PackageNode > asts = FileSetUtils.computeAsts( files );
 
-      for ( final Entry< String, AbstractFlexRule > ruleEntry : rules
-            .entrySet() )
+      for ( final Entry< String, AbstractFlexRule > ruleEntry : rules.entrySet() )
       {
          final AbstractFlexRule rule = ruleEntry.getValue();
 
          LOGGER.fine( "Processing "
                + rule.getRuleName() + "..." );
-         for ( final Entry< String, AbstractFlexFile > fileEntry : files
-               .entrySet() )
+         for ( final Entry< String, AbstractFlexFile > fileEntry : files.entrySet() )
          {
             final AbstractFlexFile file = fileEntry.getValue();
-            final List< Violation > foundViolations = rule.processFile(
-                  file, rule instanceof AbstractAstFlexRule ? asts.get( file
-                        .getFullyQualifiedName() ) : null, files );
+            final List< Violation > foundViolations = rule.processFile( file,
+                                                                        rule instanceof AbstractAstFlexRule ? asts.get( file.getFullyQualifiedName() )
+                                                                              : null,
+                                                                        files );
 
             if ( violations.containsKey( file ) )
             {
-               violations.get(
-                     file ).addAll(
-                     foundViolations );
+               violations.get( file ).addAll( foundViolations );
             }
             else
             {
-               violations.put(
-                     file, foundViolations );
+               violations.put( file,
+                               foundViolations );
             }
          }
       }
@@ -121,8 +114,7 @@ public class FlexPmdViolations
       return beenComputed;
    }
 
-   private Map< String, AbstractFlexRule > computeRulesList(
-         final RuleSet ruleSet )
+   private Map< String, AbstractFlexRule > computeRulesList( final RuleSet ruleSet )
    {
       final Map< String, AbstractFlexRule > rules = new HashMap< String, AbstractFlexRule >();
 
@@ -136,15 +128,15 @@ public class FlexPmdViolations
          {
             final AbstractFlexRule flexRule = ( AbstractFlexRule ) rule;
 
-            rules.put( flexRule.getRuleName(), flexRule );
+            rules.put( flexRule.getRuleName(),
+                       flexRule );
          }
       }
 
       return rules;
    }
 
-   private void sortViolations(
-         final AbstractFlexFile file )
+   private void sortViolations( final AbstractFlexFile file )
    {
       if ( violations.get( file ) != null )
       {

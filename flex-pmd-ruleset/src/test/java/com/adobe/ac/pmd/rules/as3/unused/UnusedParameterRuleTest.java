@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UnusedParameterRuleTest
-      extends AbstractAstFlexRuleTest
+public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
    }
@@ -53,7 +52,7 @@ public class UnusedParameterRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -61,18 +60,19 @@ public class UnusedParameterRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 62, 62 ), new ViolationPosition( 62, 62 ),
-                  new ViolationPosition( 62, 62 ),
-                  new ViolationPosition( 62, 62 ) } );
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 62, 62 ),
+                                    new ViolationPosition( 62, 62 ),
+                                    new ViolationPosition( 62, 62 ),
+                                    new ViolationPosition( 62, 62 ) } );
 
-      assertViolations(
-            "Sorted.as", new ViolationPosition[]
-            { new ViolationPosition( 58, 58 ), new ViolationPosition( 67, 67 ) } );
+      assertViolations( "Sorted.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 58, 58 ),
+                                    new ViolationPosition( 67, 67 ) } );
    }
 
    @Override

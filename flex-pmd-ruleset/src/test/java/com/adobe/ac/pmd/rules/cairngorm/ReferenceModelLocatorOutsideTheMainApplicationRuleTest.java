@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest
-      extends AbstractFlexRuleTest
+public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends AbstractFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
 
@@ -57,7 +56,7 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "MainWithModelLocator.mxml" );
    }
@@ -65,11 +64,11 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 33, 33 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override

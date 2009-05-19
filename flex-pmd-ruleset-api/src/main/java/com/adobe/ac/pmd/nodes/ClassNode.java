@@ -40,28 +40,25 @@ import de.bokelberg.flex.parser.KeyWords;
 import de.bokelberg.flex.parser.Node;
 
 /**
- * Node representing a class.
- *
- * It contains different lists (constants, variables, functions, implementations, ...), but also
- * a reference to its constructor (if any), the extension name (if any), and its name.
- *
+ * Node representing a class. It contains different lists (constants, variables,
+ * functions, implementations, ...), but also a reference to its constructor (if
+ * any), the extension name (if any), and its name.
+ * 
  * @author xagnetti
  */
-public class ClassNode
-      extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
+public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
 {
-   private List< FieldNode > constants;
-   private FunctionNode constructor;
-   private String extensionName;
+   private List< FieldNode >    constants;
+   private FunctionNode         constructor;
+   private String               extensionName;
    private List< FunctionNode > functions;
-   private List< Node > implementations;
+   private List< Node >         implementations;
    private List< MetaDataNode > metadata;
-   private List< Modifier > modifiers;
-   private IdentifierNode name;
-   private List< FieldNode > variables;
+   private List< Modifier >     modifiers;
+   private IdentifierNode       name;
+   private List< FieldNode >    variables;
 
-   public ClassNode(
-         final Node node )
+   public ClassNode( final Node node )
    {
       super( node );
    }
@@ -101,7 +98,8 @@ public class ClassNode
       return modifiers;
    }
 
-   /* (non-Javadoc)
+   /*
+    * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.INamable#getName()
     */
    public String getName()
@@ -129,14 +127,12 @@ public class ClassNode
       return ModifierUtils.isPublic( this );
    }
 
-   public void setMetaDataList(
-         final List< MetaDataNode > metaDataList )
+   public void setMetaDataList( final List< MetaDataNode > metaDataList )
    {
       metadata = metaDataList;
    }
 
-   public void setModifiers(
-         final List< Modifier > modifiersToBeSet )
+   public void setModifiers( final List< Modifier > modifiersToBeSet )
    {
       modifiers = modifiersToBeSet;
    }
@@ -155,8 +151,8 @@ public class ClassNode
             }
             else if ( node.is( Node.MOD_LIST ) )
             {
-               ModifierUtils.computeModifierList(
-                     this, node );
+               ModifierUtils.computeModifierList( this,
+                                                  node );
             }
             else if ( node.is( Node.NAME ) )
             {
@@ -164,8 +160,8 @@ public class ClassNode
             }
             else if ( node.is( Node.META_LIST ) )
             {
-               MetaDataUtils.computeMetaDataList(
-                     this, node );
+               MetaDataUtils.computeMetaDataList( this,
+                                                  node );
             }
 
             detectImplementations( node );
@@ -173,8 +169,7 @@ public class ClassNode
          }
          for ( final FunctionNode function : functions )
          {
-            if ( function.getName().equals(
-                  name.toString() ) )
+            if ( function.getName().equals( name.toString() ) )
             {
                constructor = function;
             }
@@ -182,8 +177,7 @@ public class ClassNode
       }
    }
 
-   private void computeClassContent(
-         final Node classContentNode )
+   private void computeClassContent( final Node classContentNode )
    {
       constants = new ArrayList< FieldNode >();
       variables = new ArrayList< FieldNode >();
@@ -199,8 +193,7 @@ public class ClassNode
       }
    }
 
-   private void detectConstant(
-         final Node node )
+   private void detectConstant( final Node node )
    {
       if ( node.is( Node.CONST_LIST ) )
       {
@@ -208,8 +201,7 @@ public class ClassNode
       }
    }
 
-   private void detectExtensions(
-         final Node node )
+   private void detectExtensions( final Node node )
    {
       if ( node.is( KeyWords.EXTENDS ) )
       {
@@ -217,17 +209,16 @@ public class ClassNode
       }
    }
 
-   private void detectFunction(
-         final Node node )
+   private void detectFunction( final Node node )
    {
-      if ( node.is( KeyWords.FUNCTION ) || node.is( KeyWords.GET ) || node.is( KeyWords.SET ) )
+      if ( node.is( KeyWords.FUNCTION )
+            || node.is( KeyWords.GET ) || node.is( KeyWords.SET ) )
       {
          functions.add( new FunctionNode( node ) );
       }
    }
 
-   private void detectImplementations(
-         final Node node )
+   private void detectImplementations( final Node node )
    {
       if ( node.is( Node.IMPLEMENTS_LIST ) )
       {
@@ -235,8 +226,7 @@ public class ClassNode
       }
    }
 
-   private void detectVariable(
-         final Node node )
+   private void detectVariable( final Node node )
    {
       if ( node.is( Node.VAR_LIST ) )
       {

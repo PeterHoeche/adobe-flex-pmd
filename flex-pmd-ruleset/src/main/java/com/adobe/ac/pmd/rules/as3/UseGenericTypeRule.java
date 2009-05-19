@@ -40,14 +40,12 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class UseGenericTypeRule
-      extends AbstractAstFlexRule
+public class UseGenericTypeRule extends AbstractAstFlexRule
 {
    private static final String STAR = "*";
 
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       findViolationInVariableLists( classNode.getConstants() );
       findViolationInVariableLists( classNode.getVariables() );
@@ -56,9 +54,8 @@ public class UseGenericTypeRule
       {
          findViolationInVariableLists( function.getParameters() );
 
-         tryToAddViolation(
-               function.getReturnType().getInternalNode(), function
-                     .getReturnType().toString() );
+         tryToAddViolation( function.getReturnType().getInternalNode(),
+                            function.getReturnType().toString() );
       }
    }
 
@@ -69,8 +66,7 @@ public class UseGenericTypeRule
    }
 
    @Override
-   protected void visitStatement(
-         final Node ast )
+   protected void visitStatement( final Node ast )
    {
       super.visitStatement( ast );
 
@@ -85,8 +81,8 @@ public class UseGenericTypeRule
                {
                   if ( variableChild.is( Node.TYPE ) )
                   {
-                     tryToAddViolation(
-                           variable, variableChild.stringValue );
+                     tryToAddViolation( variable,
+                                        variableChild.stringValue );
                   }
                }
             }
@@ -94,26 +90,25 @@ public class UseGenericTypeRule
       }
    }
 
-   private < E extends VariableNode > void findViolationInVariableLists(
-         final List< E > variables )
+   private < E extends VariableNode > void findViolationInVariableLists( final List< E > variables )
    {
       for ( final VariableNode variable : variables )
       {
          if ( variable.getType() != null )
          {
-            tryToAddViolation(
-                  variable.getInternalNode(), variable.getType().toString() );
+            tryToAddViolation( variable.getInternalNode(),
+                               variable.getType().toString() );
          }
       }
    }
 
-   private void tryToAddViolation(
-         final Node node, final String typeName )
+   private void tryToAddViolation( final Node node,
+                                   final String typeName )
    {
       if ( typeName.compareTo( STAR ) == 0 )
       {
-         addViolation(
-               node, node );
+         addViolation( node,
+                       node );
       }
    }
 }

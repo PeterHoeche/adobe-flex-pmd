@@ -40,31 +40,30 @@ import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public abstract class AbstractMoreThanEntryPointInMxmlRule
-      extends AbstractFlexRule
+public abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
 {
    private int lastPublicVarLine = 0;
-   private int publicVarCount = 0;
+   private int publicVarCount    = 0;
 
    abstract public int getThreshold();
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return file.isMxml();
    }
 
    @Override
-   protected void onFileProcessingEnded(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final List< Violation > violations )
+   protected void onFileProcessingEnded( final PackageNode rootNode,
+                                         final AbstractFlexFile file,
+                                         final List< Violation > violations )
    {
       if ( publicVarCount > getThreshold() )
       {
-         addViolation(
-               violations, file, new ViolationPosition( lastPublicVarLine,
-                     lastPublicVarLine, 0, file.getLines().get(
-                           lastPublicVarLine - 1 ).length() ) );
+         addViolation( violations,
+                       file,
+                       new ViolationPosition( lastPublicVarLine, lastPublicVarLine, 0, file.getLines()
+                                                                                           .get( lastPublicVarLine - 1 )
+                                                                                           .length() ) );
       }
    }
 
@@ -76,14 +75,13 @@ public abstract class AbstractMoreThanEntryPointInMxmlRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
    {
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
-         final String line = file.getLines().get(
-               i );
+         final String line = file.getLines().get( i );
 
          if ( line.contains( "public var" )
                || line.contains( "public function set " ) )

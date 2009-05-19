@@ -34,12 +34,10 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DispatchHardCodedEventNameRule
-      extends AbstractRegexpBasedRule
+public class DispatchHardCodedEventNameRule extends AbstractRegexpBasedRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
@@ -57,10 +55,9 @@ public class DispatchHardCodedEventNameRule
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                            final AbstractFlexFile file )
    {
-      return getMatcher(
-            line ).matches();
+      return getMatcher( line ).matches();
    }
 }

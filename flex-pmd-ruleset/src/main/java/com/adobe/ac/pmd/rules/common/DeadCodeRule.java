@@ -42,11 +42,9 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DeadCodeRule
-      extends AbstractFlexRule
+public class DeadCodeRule extends AbstractFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
@@ -58,9 +56,9 @@ public class DeadCodeRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
    {
       int startComment = -1;
       boolean inDeadCode = false;
@@ -68,16 +66,15 @@ public class DeadCodeRule
 
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
-         final String line = file.getLines().get(
-               i );
+         final String line = file.getLines().get( i );
 
          if ( file.doesCurrentLineContainOneLineComment( line ) )
          {
             if ( FileUtils.isLineACorrectStatement( line ) )
             {
-               addViolation(
-                     violations, file, new ViolationPosition( i + 1, i + 1, 0,
-                           line.length() ) );
+               addViolation( violations,
+                             file,
+                             new ViolationPosition( i + 1, i + 1, 0, line.length() ) );
             }
          }
          else
@@ -90,9 +87,9 @@ public class DeadCodeRule
             {
                if ( inDeadCode )
                {
-                  addViolation(
-                        violations, file, new ViolationPosition(
-                              startComment + 1, i + 1, 0, line.length() ) );
+                  addViolation( violations,
+                                file,
+                                new ViolationPosition( startComment + 1, i + 1, 0, line.length() ) );
                }
                startComment = -1;
                inDeadCode = false;

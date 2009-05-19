@@ -41,11 +41,9 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UncorrectClassCase
-      extends AbstractFlexRule
+public class UncorrectClassCase extends AbstractFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
@@ -57,20 +55,19 @@ public class UncorrectClassCase
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
    {
       final List< Violation > violations = new ArrayList< Violation >();
-      final char firstChar = file.getClassName().charAt(
-            0 );
+      final char firstChar = file.getClassName().charAt( 0 );
 
       if ( firstChar < 'A'
             || firstChar > 'Z' )
       {
-         addViolation(
-               violations, file, new ViolationPosition( 1, file.getLines()
-                     .size() ) );
+         addViolation( violations,
+                       file,
+                       new ViolationPosition( 1, file.getLines().size() ) );
       }
       return violations;
    }

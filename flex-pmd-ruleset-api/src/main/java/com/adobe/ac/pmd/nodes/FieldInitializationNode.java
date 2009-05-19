@@ -35,8 +35,7 @@ import de.bokelberg.flex.parser.Node;
 public class FieldInitializationNode extends AbstractNode
 {
 
-   protected FieldInitializationNode(
-         final Node node )
+   protected FieldInitializationNode( final Node node )
    {
       super( node );
    }

@@ -48,24 +48,20 @@ import de.bokelberg.flex.parser.KeyWords;
 import de.bokelberg.flex.parser.Node;
 
 /**
- * Abstract class for AST-based rule
- * Extends this class if your rule is only detectable in an AS file, which can be converted
- * into an Abstract Synthax Tree.
- *
- * Then you will be able to either use the visitor pattern, or to iterate from the package node, i
- * in order to find your violation(s).
- *
+ * Abstract class for AST-based rule Extends this class if your rule is only
+ * detectable in an AS file, which can be converted into an Abstract Synthax
+ * Tree. Then you will be able to either use the visitor pattern, or to iterate
+ * from the package node, i in order to find your violation(s).
+ * 
  * @author xagnetti
  */
-public abstract class AbstractAstFlexRule
-      extends AbstractFlexRule
+public abstract class AbstractAstFlexRule extends AbstractFlexRule
 {
-   private static final Logger LOGGER = Logger.getLogger(
-         AbstractAstFlexRule.class.getName() );
-   private static final String MOD_LIST = "mod-list";
-   private AbstractFlexFile currentFile;
+   private static final Logger             LOGGER   = Logger.getLogger( AbstractAstFlexRule.class.getName() );
+   private static final String             MOD_LIST = "mod-list";
+   private AbstractFlexFile                currentFile;
    private Map< String, AbstractFlexFile > filesInSourcePath;
-   private final List< Violation > violations;
+   private final List< Violation >         violations;
 
    public AbstractAstFlexRule()
    {
@@ -74,21 +70,18 @@ public abstract class AbstractAstFlexRule
       violations = new ArrayList< Violation >();
    }
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return !file.isMxml();
    }
 
-   final private boolean isNodeNavigable(
-         final Node node )
+   final private boolean isNodeNavigable( final Node node )
    {
       return node != null
             && node.numChildren() != 0;
    }
 
-   private void visitNameTypeInit(
-         final Node ast )
+   private void visitNameTypeInit( final Node ast )
    {
       if ( ast != null
             && ast.children != null )
@@ -115,37 +108,37 @@ public abstract class AbstractAstFlexRule
    /**
     * @param beginningNode
     * @param endNode
-    * @return the added violation replacing the threshold value in the message if any.
+    * @return the added violation replacing the threshold value in the message
+    *         if any.
     */
-   final protected Violation addViolation( final Node beginningNode, final Node endNode )
+   final protected Violation addViolation( final Node beginningNode,
+                                           final Node endNode )
    {
       final Violation violation = new Violation( new ViolationPosition( beginningNode.line,
-            endNode.line, beginningNode.column, endNode.column ), this, currentFile );
+                                                                        endNode.line,
+                                                                        beginningNode.column,
+                                                                        endNode.column ), this, currentFile );
 
-      if ( this instanceof IThresholdedRule )
-      {
-         final IThresholdedRule thresholdeRule = (IThresholdedRule ) this;
-
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValue() ), 1 );
-      }
+      addThresoldValues( violation );
       violations.add( violation );
 
       return violation;
    }
 
    /**
-    *
     * @param beginningNode
     * @param endNode
     * @param messageToReplace
     * @return the add violation replacing the {0} token by the specified message
     */
-   final protected Violation addViolation(
-         final Node beginningNode, final Node endNode, final String messageToReplace )
+   final protected Violation addViolation( final Node beginningNode,
+                                           final Node endNode,
+                                           final String messageToReplace )
    {
       final Violation violation = new Violation( new ViolationPosition( beginningNode.line,
-            endNode.line, beginningNode.column, endNode.column ), this, currentFile );
+                                                                        endNode.line,
+                                                                        beginningNode.column,
+                                                                        endNode.column ), this, currentFile );
 
       violation.replacePlaceholderInMessage( messageToReplace );
       violations.add( violation );
@@ -153,39 +146,33 @@ public abstract class AbstractAstFlexRule
       return violation;
    }
 
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
    }
 
-   protected void findViolationsFromConstantsList(
-         final List< FieldNode > constants )
+   protected void findViolationsFromConstantsList( final List< FieldNode > constants )
    {
    }
 
-   protected void findViolationsFromConstructor(
-         final FunctionNode constructor )
+   protected void findViolationsFromConstructor( final FunctionNode constructor )
    {
    }
 
-   protected void findViolationsFromFunctionsList(
-         final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
    {
    }
 
    /**
-    * Override this method if you need to find violations from the package (
-    * or any subsequent node like class or function)
-    *
+    * Override this method if you need to find violations from the package ( or
+    * any subsequent node like class or function)
+    * 
     * @param packageNode
     */
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode )
+   protected void findViolationsFromPackageNode( final PackageNode packageNode )
    {
    }
 
-   protected void findViolationsFromVariablesList(
-         final List< FieldNode > variables )
+   protected void findViolationsFromVariablesList( final List< FieldNode > variables )
    {
    }
 
@@ -200,9 +187,9 @@ public abstract class AbstractAstFlexRule
    }
 
    @Override
-   final protected List< Violation > processFileBody(
-         final PackageNode packageNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   final protected List< Violation > processFileBody( final PackageNode packageNode,
+                                                      final AbstractFlexFile file,
+                                                      final Map< String, AbstractFlexFile > files )
    {
       currentFile = file;
       filesInSourcePath = files;
@@ -211,34 +198,28 @@ public abstract class AbstractAstFlexRule
          if ( packageNode != null )
          {
             visitNodes( packageNode.getInternalNode() );
-            findViolationsFromPackageNode(
-                  packageNode );
+            findViolationsFromPackageNode( packageNode );
             final ClassNode classNode = packageNode.getClassNode();
 
             if ( classNode != null )
             {
-               findViolationsFromClassNode(
-                     classNode );
+               findViolationsFromClassNode( classNode );
 
                if ( classNode.getVariables() != null )
                {
-                  findViolationsFromVariablesList(
-                        classNode.getVariables() );
+                  findViolationsFromVariablesList( classNode.getVariables() );
                }
                if ( classNode.getConstants() != null )
                {
-                  findViolationsFromConstantsList(
-                        classNode.getConstants() );
+                  findViolationsFromConstantsList( classNode.getConstants() );
                }
                if ( classNode.getFunctions() != null )
                {
-                  findViolationsFromFunctionsList(
-                        classNode.getFunctions() );
+                  findViolationsFromFunctionsList( classNode.getFunctions() );
                }
                if ( classNode.getConstructor() != null )
                {
-                  findViolationsFromConstructor(
-                        classNode.getConstructor() );
+                  findViolationsFromConstructor( classNode.getConstructor() );
                }
             }
          }
@@ -254,8 +235,7 @@ public abstract class AbstractAstFlexRule
       return copy;
    }
 
-   protected void visitAdditiveExpression(
-         final Node ast )
+   protected void visitAdditiveExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -277,8 +257,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitAndExpression(
-         final Node ast )
+   protected void visitAndExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -300,8 +279,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitBitwiseAndExpression(
-         final Node ast )
+   protected void visitBitwiseAndExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -323,8 +301,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitBitwiseOrExpression(
-         final Node ast )
+   protected void visitBitwiseOrExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -346,8 +323,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitBitwiseXorExpression(
-         final Node ast )
+   protected void visitBitwiseXorExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -369,8 +345,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitBlock(
-         final Node ast )
+   protected void visitBlock( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -381,8 +356,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitCatch(
-         final Node ast )
+   protected void visitCatch( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -391,8 +365,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitClass(
-         final Node ast )
+   protected void visitClass( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -423,8 +396,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitClassContent(
-         final Node ast )
+   protected void visitClassContent( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -432,35 +404,34 @@ public abstract class AbstractAstFlexRule
          {
             if ( node.is( Node.VAR_LIST ) )
             {
-               visitVarOrConstList(
-                     node, KeyWords.VAR );
+               visitVarOrConstList( node,
+                                    KeyWords.VAR );
             }
             else if ( node.is( Node.CONST_LIST ) )
             {
-               visitVarOrConstList(
-                     node, KeyWords.CONST );
+               visitVarOrConstList( node,
+                                    KeyWords.CONST );
             }
             else if ( node.is( KeyWords.FUNCTION ) )
             {
-               visitFunction(
-                     node, "" );
+               visitFunction( node,
+                              "" );
             }
             else if ( node.is( KeyWords.SET ) )
             {
-               visitFunction(
-                     node, "set " );
+               visitFunction( node,
+                              "set " );
             }
             else if ( node.is( KeyWords.GET ) )
             {
-               visitFunction(
-                     node, "get " );
+               visitFunction( node,
+                              "get " );
             }
          }
       }
    }
 
-   protected void visitCompilationUnit(
-         final Node ast )
+   protected void visitCompilationUnit( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -484,8 +455,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitConditionalExpression(
-         final Node ast )
+   protected void visitConditionalExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -507,8 +477,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitDo(
-         final Node ast )
+   protected void visitDo( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -517,8 +486,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitEqualityExpression(
-         final Node ast )
+   protected void visitEqualityExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -540,8 +508,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitExpression(
-         final Node ast )
+   protected void visitExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -563,8 +530,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitExpressionList(
-         final Node ast )
+   protected void visitExpressionList( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -575,8 +541,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitFinally(
-         final Node ast )
+   protected void visitFinally( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -584,8 +549,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitFor(
-         final Node ast )
+   protected void visitFor( final Node ast )
    {
       if ( ast.numChildren() > 3 )
       {
@@ -593,8 +557,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitForEach(
-         final Node ast )
+   protected void visitForEach( final Node ast )
    {
       if ( ast.numChildren() > 2 )
       {
@@ -602,13 +565,12 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitForIn(
-         final Node ast )
+   protected void visitForIn( final Node ast )
    {
    }
 
-   protected void visitFunction(
-         final Node ast, final String type )
+   protected void visitFunction( final Node ast,
+                                 final String type )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -637,20 +599,17 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitFunctionBody(
-         final Node node )
+   protected void visitFunctionBody( final Node node )
    {
       visitBlock( node );
    }
 
-   protected void visitFunctionReturnType(
-         final Node node )
+   protected void visitFunctionReturnType( final Node node )
    {
       visitBlock( node );
    }
 
-   protected void visitIf(
-         final Node ast )
+   protected void visitIf( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -663,8 +622,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitImplementsList(
-         final Node ast )
+   protected void visitImplementsList( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -677,15 +635,14 @@ public abstract class AbstractAstFlexRule
 
    /**
     * Overrides it if you need to visit each implementation
+    * 
     * @param next
     */
-   protected void visitImplementsListChildren(
-         final Node next )
+   protected void visitImplementsListChildren( final Node next )
    {
    }
 
-   protected void visitInterface(
-         final Node ast )
+   protected void visitInterface( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -704,25 +661,23 @@ public abstract class AbstractAstFlexRule
 
    /**
     * Overrides it if you need to visit a metadata node
-    *
+    * 
     * @param node
     */
-   protected void visitMetaData(
-         final Node node )
+   protected void visitMetaData( final Node node )
    {
    }
 
    /**
     * Overrides it if you need to visit a modifier
+    * 
     * @param ast
     */
-   protected void visitModifiers(
-         final Node ast )
+   protected void visitModifiers( final Node ast )
    {
    }
 
-   protected void visitMultiplicativeExpression(
-         final Node ast )
+   protected void visitMultiplicativeExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -744,14 +699,12 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitNodes(
-         final Node ast )
+   protected void visitNodes( final Node ast )
    {
       visitCompilationUnit( ast );
    }
 
-   protected void visitOrExpression(
-         final Node ast )
+   protected void visitOrExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -773,8 +726,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitPackageContent(
-         final Node ast )
+   protected void visitPackageContent( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -792,15 +744,13 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitParameters(
-         final Node ast )
+   protected void visitParameters( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
          for ( final Node node2 : ast.children )
          {
-            final Node node = node2.getChild(
-                  0 );
+            final Node node = node2.getChild( 0 );
 
             if ( node.is( Node.NAME_TYPE_INIT ) )
             {
@@ -810,8 +760,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitPrimaryExpression(
-         final Node ast )
+   protected void visitPrimaryExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -851,8 +800,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitRelationalExpression(
-         final Node ast )
+   protected void visitRelationalExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -874,8 +822,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitReturn(
-         final Node ast )
+   protected void visitReturn( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -883,8 +830,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitShiftExpression(
-         final Node ast )
+   protected void visitShiftExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -906,8 +852,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitStatement(
-         final Node ast )
+   protected void visitStatement( final Node ast )
    {
       if ( ast != null )
       {
@@ -957,13 +902,13 @@ public abstract class AbstractAstFlexRule
          }
          else if ( ast.is( KeyWords.VAR ) )
          {
-            visitVarOrConstList(
-                  ast, KeyWords.VAR );
+            visitVarOrConstList( ast,
+                                 KeyWords.VAR );
          }
          else if ( ast.is( KeyWords.CONST ) )
          {
-            visitVarOrConstList(
-                  ast, KeyWords.CONST );
+            visitVarOrConstList( ast,
+                                 KeyWords.CONST );
          }
          else if ( ast.is( KeyWords.RETURN ) )
          {
@@ -976,8 +921,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitSwitch(
-         final Node ast )
+   protected void visitSwitch( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -1010,20 +954,17 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitSwitchCase(
-         final Node child )
+   protected void visitSwitchCase( final Node child )
    {
       visitBlock( child );
    }
 
-   protected void visitSwitchDefaultCase(
-         final Node child )
+   protected void visitSwitchDefaultCase( final Node child )
    {
       visitBlock( child );
    }
 
-   protected void visitTry(
-         final Node ast )
+   protected void visitTry( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -1031,8 +972,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitUnaryExpression(
-         final Node ast )
+   protected void visitUnaryExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -1059,8 +999,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitUnaryExpressionNotPlusMinus(
-         final Node ast )
+   protected void visitUnaryExpressionNotPlusMinus( final Node ast )
    {
       if ( ast != null )
       {
@@ -1091,8 +1030,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitUnaryPostfixExpression(
-         final Node ast )
+   protected void visitUnaryPostfixExpression( final Node ast )
    {
       if ( ast != null )
       {
@@ -1146,8 +1084,8 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitVarOrConstList(
-         final Node ast, final String varOrConst )
+   protected void visitVarOrConstList( final Node ast,
+                                       final String varOrConst )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -1171,8 +1109,7 @@ public abstract class AbstractAstFlexRule
       }
    }
 
-   protected void visitWhile(
-         final Node ast )
+   protected void visitWhile( final Node ast )
    {
       if ( isNodeNavigable( ast ) )
       {

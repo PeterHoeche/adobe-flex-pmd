@@ -30,13 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.core.exceptions;
 
-public class UnspecifiedXPath
-      extends Exception
+public class UnspecifiedXPath extends Exception
 {
    private static final long serialVersionUID = 1L;
 
-   public UnspecifiedXPath(
-         final Exception exception )
+   public UnspecifiedXPath( final Exception exception )
    {
       super( "No xpath property has been specified", exception );
    }

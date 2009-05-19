@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UnusedLocalVariableRuleTest
-      extends AbstractAstFlexRuleTest
+public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -53,7 +52,7 @@ public class UnusedLocalVariableRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
    }
@@ -61,15 +60,15 @@ public class UnusedLocalVariableRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
-            { new ViolationPosition( 64, 64 ) } );
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 64, 64 ) } );
 
-      assertViolations(
-            "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
-            { new ViolationPosition( 47, 47 ) } );
+      assertViolations( "com.adobe.ac.ncss.BigModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 47, 47 ) } );
    }
 
    @Override

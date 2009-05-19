@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UseOfObjectTypeRuleTest
-      extends AbstractAstFlexRuleTest
+public class UseOfObjectTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Test
    @Override
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
    }
@@ -53,7 +52,7 @@ public class UseOfObjectTypeRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -61,11 +60,11 @@ public class UseOfObjectTypeRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 51, 51 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 51, 51 ) } );
    }
 
    @Override

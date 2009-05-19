@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooShortVariableRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class TooShortVariableRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "GenericType.as" );
    }
@@ -53,20 +52,21 @@ public class TooShortVariableRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 86, 86 ) } );
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 86, 86 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "  var toto : int = 0;", "  var i : int = 0;", "var ii : int = 0;",
-            "var iii : int = 0;" };
+      { "  var toto : int = 0;",
+                  "  var i : int = 0;",
+                  "var ii : int = 0;",
+                  "var iii : int = 0;" };
    }
 
    @Override
@@ -79,6 +79,7 @@ public class TooShortVariableRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "function lala() : Number", "lala();" };
+      { "function lala() : Number",
+                  "lala();" };
    }
 }

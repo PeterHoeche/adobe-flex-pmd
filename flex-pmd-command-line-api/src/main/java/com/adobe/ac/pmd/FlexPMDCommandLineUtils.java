@@ -36,17 +36,17 @@ import com.martiansoftware.jsap.JSAPException;
 
 public final class FlexPMDCommandLineUtils
 {
-   public static void registerParameter(
-         final JSAP jsap, final String optionName, final char shortName,
-         final boolean required ) throws JSAPException
+   public static void registerParameter( final JSAP jsap,
+                                         final String optionName,
+                                         final char shortName,
+                                         final boolean required ) throws JSAPException
    {
-      jsap.registerParameter( new FlaggedOption( optionName ).setStringParser(
-            JSAP.STRING_PARSER ).setRequired(
-            required ).setShortFlag(
-            shortName ).setLongFlag(
-            optionName ) );
+      jsap.registerParameter( new FlaggedOption( optionName ).setStringParser( JSAP.STRING_PARSER )
+                                                             .setRequired( required )
+                                                             .setShortFlag( shortName )
+                                                             .setLongFlag( optionName ) );
    }
-   
+
    private FlexPMDCommandLineUtils()
    {
    }

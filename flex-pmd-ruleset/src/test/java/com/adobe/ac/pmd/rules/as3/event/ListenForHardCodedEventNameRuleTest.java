@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ListenForHardCodedEventNameRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class ListenForHardCodedEventNameRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -53,11 +52,11 @@ public class ListenForHardCodedEventNameRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 108, 108 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 108, 108 ) } );
    }
 
    @Override
@@ -65,8 +64,8 @@ public class ListenForHardCodedEventNameRuleTest
    {
       return new String[]
       { "addEventListener( \"change\", handleChange );",
-            "addEventListener(\"change\",handleChange);",
-      "addEventListener( \"change\"," };
+                  "addEventListener(\"change\",handleChange);",
+                  "addEventListener( \"change\"," };
    }
 
    @Override
@@ -80,7 +79,7 @@ public class ListenForHardCodedEventNameRuleTest
    {
       return new String[]
       { "addEventListener( CHANGE, handleChange );",
-            "addEventListener(CHANGE,handleChange);",
-            "addEventListener( CHANGE," };
+                  "addEventListener(CHANGE,handleChange);",
+                  "addEventListener( CHANGE," };
    }
 }

@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class CopyrightMissingRuleTest
-      extends AbstractCommonFlexRuleTest
+public class CopyrightMissingRuleTest extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
       assertEmptyViolations( "AbstractRowData.as" );
@@ -53,14 +52,14 @@ public class CopyrightMissingRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "Simple.as", new ViolationPosition[]
-            { new ViolationPosition( 0, 0 ) } );
-      assertViolations(
-            "MainWithNoCopyright.mxml", new ViolationPosition[]
-            { new ViolationPosition( 0, 0 ) } );
+      assertViolations( "Simple.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 0, 0 ) } );
+      assertViolations( "MainWithNoCopyright.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 0, 0 ) } );
    }
 
    @Override

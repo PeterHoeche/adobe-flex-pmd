@@ -34,16 +34,13 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ReferenceModelLocatorOutsideTheMainApplicationRule
-      extends AbstractRegexpBasedRule
+public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule
 {
 
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      return !file.getClassName().endsWith(
-            "ModelLocator.as" )
+      return !file.getClassName().endsWith( "ModelLocator.as" )
             && ( !file.isMxml() || !file.isMainApplication() );
    }
 
@@ -60,8 +57,8 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRule
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                            final AbstractFlexFile file )
    {
       return true;
    }

@@ -35,8 +35,7 @@ import de.bokelberg.flex.parser.Node;
 
 final public class ClassUtils
 {
-   public static Node getClassExtension(
-         final Node classNode )
+   public static Node getClassExtension( final Node classNode )
    {
       Node content = null;
 
@@ -55,14 +54,12 @@ final public class ClassUtils
       return content;
    }
 
-   public static String getClassNameFromClassNode(
-         final Node classNode )
+   public static String getClassNameFromClassNode( final Node classNode )
    {
       return classNode.getChild( 0 ).stringValue;
    }
 
-   public static Node getTypeFromFieldDeclaration(
-         final Node fieldNode )
+   public static Node getTypeFromFieldDeclaration( final Node fieldNode )
    {
       Node typeNode = null;
 

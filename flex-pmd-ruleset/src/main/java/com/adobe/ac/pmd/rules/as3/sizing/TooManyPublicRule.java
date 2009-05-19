@@ -104,8 +104,8 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
       detectPublicVariables( classNode );
       if ( publicCount > getThreshold() )
       {
-         addViolation(
-               classNode.getInternalNode(), classNode.getInternalNode() );
+         addViolation( classNode.getInternalNode(),
+                       classNode.getInternalNode() );
       }
    }
 

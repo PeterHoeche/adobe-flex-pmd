@@ -36,8 +36,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import de.bokelberg.flex.parser.KeyWords;
 import de.bokelberg.flex.parser.Node;
 
-public class AvoidInstanciationInLoopRule
-      extends AbstractAstFlexRule
+public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
 {
    private int loopLevel = 0;
 
@@ -48,8 +47,7 @@ public class AvoidInstanciationInLoopRule
    }
 
    @Override
-   protected void visitFor(
-         final Node ast )
+   protected void visitFor( final Node ast )
    {
       loopLevel++;
       super.visitFor( ast );
@@ -57,8 +55,7 @@ public class AvoidInstanciationInLoopRule
    }
 
    @Override
-   protected void visitForEach(
-         final Node ast )
+   protected void visitForEach( final Node ast )
    {
       loopLevel++;
       super.visitForEach( ast );
@@ -66,13 +63,12 @@ public class AvoidInstanciationInLoopRule
    }
 
    @Override
-   protected void visitStatement(
-         final Node ast )
+   protected void visitStatement( final Node ast )
    {
       super.visitStatement( ast );
 
-      if ( ast != null && !ast.is( KeyWords.WHILE )
-            && !ast.is( KeyWords.FOR ) && !ast.is( KeyWords.FOREACH )
+      if ( ast != null
+            && !ast.is( KeyWords.WHILE ) && !ast.is( KeyWords.FOR ) && !ast.is( KeyWords.FOREACH )
             && !ast.is( KeyWords.FOR ) )
       {
          searchNewNode( ast );
@@ -80,16 +76,14 @@ public class AvoidInstanciationInLoopRule
    }
 
    @Override
-   protected void visitWhile(
-         final Node ast )
+   protected void visitWhile( final Node ast )
    {
       loopLevel++;
       super.visitWhile( ast );
       loopLevel--;
    }
 
-   private void searchNewNode(
-         final Node ast )
+   private void searchNewNode( final Node ast )
    {
       if ( ast.numChildren() > 0 )
       {
@@ -101,8 +95,8 @@ public class AvoidInstanciationInLoopRule
       if ( ast.id != null
             && ast.is( KeyWords.NEW ) && loopLevel != 0 )
       {
-         addViolation(
-               ast, ast );
+         addViolation( ast,
+                       ast );
       }
    }
 }

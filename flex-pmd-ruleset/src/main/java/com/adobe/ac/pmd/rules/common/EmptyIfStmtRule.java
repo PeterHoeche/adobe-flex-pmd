@@ -35,8 +35,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class EmptyIfStmtRule
-      extends AbstractAstFlexRule
+public class EmptyIfStmtRule extends AbstractAstFlexRule
 {
    @Override
    protected ViolationPriority getDefaultPriority()
@@ -45,8 +44,7 @@ public class EmptyIfStmtRule
    }
 
    @Override
-   protected void visitIf(
-         final Node ast )
+   protected void visitIf( final Node ast )
    {
       super.visitIf( ast );
 
@@ -54,13 +52,12 @@ public class EmptyIfStmtRule
 
       if ( theIfBlockIsEmpty( block ) )
       {
-         addViolation(
-               ast, block );
+         addViolation( ast,
+                       block );
       }
    }
 
-   private boolean theIfBlockIsEmpty(
-         final Node block )
+   private boolean theIfBlockIsEmpty( final Node block )
    {
       return "block".equals( block.id )
             && ( block.children == null || block.children.size() == 0 );

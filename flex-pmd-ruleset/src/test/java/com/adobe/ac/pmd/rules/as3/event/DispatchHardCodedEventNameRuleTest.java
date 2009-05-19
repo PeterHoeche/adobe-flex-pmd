@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class DispatchHardCodedEventNameRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class DispatchHardCodedEventNameRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -53,19 +52,20 @@ public class DispatchHardCodedEventNameRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 109, 109 ),
-                  new ViolationPosition( 110, 110 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 109, 109 ),
+                                    new ViolationPosition( 110, 110 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "dispatchEvent( \"change\" );", "dispatchEvent(\"change\");" };
+      { "dispatchEvent( \"change\" );",
+                  "dispatchEvent(\"change\");" };
    }
 
    @Override
@@ -78,7 +78,9 @@ public class DispatchHardCodedEventNameRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "var i : int = 0;", "lala();", "dispatchEvent( CONST );",
-            "dispatchEvent(Rule.CONST);" };
+      { "var i : int = 0;",
+                  "lala();",
+                  "dispatchEvent( CONST );",
+                  "dispatchEvent(Rule.CONST);" };
    }
 }

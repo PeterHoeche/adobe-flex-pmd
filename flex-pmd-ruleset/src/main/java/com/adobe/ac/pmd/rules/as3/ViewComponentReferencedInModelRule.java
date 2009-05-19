@@ -36,22 +36,19 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ViewComponentReferencedInModelRule
-      extends AbstractRegexpBasedRule
+public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
 {
-   private static final String ALERT_CLASS_NAME = "Alert";
+   private static final String ALERT_CLASS_NAME           = "Alert";
    private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
-   private static final String MODEL_CLASS_SUFFIX = "model";
-   private static final String MODEL_PACKAGE_NAME = "model";
-   private static final String VIEW_PACKAGE_NAME = "view";
+   private static final String MODEL_CLASS_SUFFIX         = "model";
+   private static final String MODEL_PACKAGE_NAME         = "model";
+   private static final String VIEW_PACKAGE_NAME          = "view";
 
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return !file.isMxml()
-            && file.getFullyQualifiedName().toLowerCase()
-                  .contains( MODEL_CLASS_SUFFIX );
+            && file.getFullyQualifiedName().toLowerCase().contains( MODEL_CLASS_SUFFIX );
    }
 
    @Override
@@ -67,17 +64,16 @@ public class ViewComponentReferencedInModelRule
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file )
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                            final AbstractFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 
       matcher.matches();
       final String importedClass = matcher.group( 1 );
 
-      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME ) && !importedClass
-            .contains( ALERT_CLASS_NAME )
-            || importedClass.contains( VIEW_PACKAGE_NAME ) && !importedClass
-                  .contains( MODEL_PACKAGE_NAME );
+      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME )
+            && !importedClass.contains( ALERT_CLASS_NAME ) || importedClass.contains( VIEW_PACKAGE_NAME )
+            && !importedClass.contains( MODEL_PACKAGE_NAME );
    }
 }

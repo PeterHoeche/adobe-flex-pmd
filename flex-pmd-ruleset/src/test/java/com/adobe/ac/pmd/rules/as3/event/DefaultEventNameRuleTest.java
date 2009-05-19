@@ -40,13 +40,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class DefaultEventNameRuleTest
-      extends AbstractAstFlexRuleTest
+public class DefaultEventNameRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
    }
@@ -54,7 +53,7 @@ public class DefaultEventNameRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
@@ -62,11 +61,11 @@ public class DefaultEventNameRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "DefaultNameEvent.as", new ViolationPosition[]
-            { new ViolationPosition( 38, 38 ) } );
+      assertViolations( "DefaultNameEvent.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 38, 38 ) } );
    }
 
    @Override

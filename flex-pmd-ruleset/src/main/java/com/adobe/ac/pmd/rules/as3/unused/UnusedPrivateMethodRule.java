@@ -42,10 +42,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class UnusedPrivateMethodRule
-      extends AbstractAstFlexRule
+public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
-   private List< Node > functionCalls;
+   private List< Node >                functionCalls;
    private Map< String, FunctionNode > unvisitedPrivateFunctions;
 
    @Override
@@ -55,8 +54,7 @@ public class UnusedPrivateMethodRule
    }
 
    @Override
-   protected void visitClassContent(
-         final Node ast )
+   protected void visitClassContent( final Node ast )
    {
       unvisitedPrivateFunctions = new HashMap< String, FunctionNode >();
       functionCalls = new ArrayList< Node >();
@@ -72,18 +70,16 @@ public class UnusedPrivateMethodRule
       }
       for ( final String functionName : unvisitedPrivateFunctions.keySet() )
       {
-         final FunctionNode function = unvisitedPrivateFunctions
-               .get( functionName );
+         final FunctionNode function = unvisitedPrivateFunctions.get( functionName );
 
-         addViolation(
-               function.getInternalNode(), function.getInternalNode()
-                     .getLastChild(), functionName );
+         addViolation( function.getInternalNode(),
+                       function.getInternalNode().getLastChild(),
+                       functionName );
       }
    }
 
    @Override
-   protected void visitExpression(
-         final Node ast )
+   protected void visitExpression( final Node ast )
    {
       super.visitExpression( ast );
 
@@ -94,18 +90,18 @@ public class UnusedPrivateMethodRule
    }
 
    @Override
-   protected void visitFunction(
-         final Node ast, final String type )
+   protected void visitFunction( final Node ast,
+                                 final String type )
    {
-      super.visitFunction(
-            ast, type );
+      super.visitFunction( ast,
+                           type );
 
       final FunctionNode function = new FunctionNode( ast );
 
       if ( ModifierUtils.isPrivate( function ) )
       {
-         unvisitedPrivateFunctions.put(
-               function.getName(), function );
+         unvisitedPrivateFunctions.put( function.getName(),
+                                        function );
       }
    }
 }

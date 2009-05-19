@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class BindingUtilsRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class BindingUtilsRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -52,19 +51,20 @@ public class BindingUtilsRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "cairngorm.FatController.as", new ViolationPosition[]
-            { new ViolationPosition( 99, 99 ) } );
+      assertViolations( "cairngorm.FatController.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 99, 99 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { " BindingUtils.", " BindingUtils.bindSetter",
-            "         BindingUtils.bindSetter(setContent, value, \"content\");" };
+      { " BindingUtils.",
+                  " BindingUtils.bindSetter",
+                  "         BindingUtils.bindSetter(setContent, value, \"content\");" };
    }
 
    @Override
@@ -77,7 +77,9 @@ public class BindingUtilsRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { " MyBindingUtils.", " var i : int = 0;", ".BindingUtils",
-            " BindingUtilsT" };
+      { " MyBindingUtils.",
+                  " var i : int = 0;",
+                  ".BindingUtils",
+                  " BindingUtilsT" };
    }
 }

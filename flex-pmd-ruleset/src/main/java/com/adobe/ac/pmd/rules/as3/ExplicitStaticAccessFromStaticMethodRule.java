@@ -37,10 +37,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import de.bokelberg.flex.parser.KeyWords;
 import de.bokelberg.flex.parser.Node;
 
-public class ExplicitStaticAccessFromStaticMethodRule
-      extends AbstractAstFlexRule
+public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRule
 {
-   private String className;
+   private String  className;
    private boolean isInNewExpression = false;
 
    @Override
@@ -50,8 +49,7 @@ public class ExplicitStaticAccessFromStaticMethodRule
    }
 
    @Override
-   protected void visitClass(
-         final Node ast )
+   protected void visitClass( final Node ast )
    {
       className = ClassUtils.getClassNameFromClassNode( ast );
 
@@ -59,8 +57,7 @@ public class ExplicitStaticAccessFromStaticMethodRule
    }
 
    @Override
-   protected void visitExpression(
-         final Node statement )
+   protected void visitExpression( final Node statement )
    {
       if ( statement != null
             && className != null )
@@ -73,8 +70,7 @@ public class ExplicitStaticAccessFromStaticMethodRule
       isInNewExpression = false;
    }
 
-   private void detectArgument(
-         final Node statement )
+   private void detectArgument( final Node statement )
    {
       if ( statement.children != null
             && statement.is( Node.ARGUMENTS ) )
@@ -86,8 +82,7 @@ public class ExplicitStaticAccessFromStaticMethodRule
       }
    }
 
-   private void detectNewOperator(
-         final Node statement )
+   private void detectNewOperator( final Node statement )
    {
       if ( statement.is( KeyWords.NEW ) )
       {
@@ -95,17 +90,15 @@ public class ExplicitStaticAccessFromStaticMethodRule
       }
    }
 
-   private void detectViolation(
-         final Node statement )
+   private void detectViolation( final Node statement )
    {
 
       if ( !isInNewExpression
-            && statement.stringValue != null
-            && !statement.stringValue.equals( "" )
+            && statement.stringValue != null && !statement.stringValue.equals( "" )
             && statement.stringValue.equals( className ) )
       {
-         addViolation(
-               statement, statement );
+         addViolation( statement,
+                       statement );
       }
    }
 }

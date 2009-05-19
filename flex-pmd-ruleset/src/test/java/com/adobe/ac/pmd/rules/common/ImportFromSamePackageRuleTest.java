@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ImportFromSamePackageRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class ImportFromSamePackageRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
 
@@ -68,18 +67,20 @@ public class ImportFromSamePackageRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
-            { new ViolationPosition( 34, 34 ) } );
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 34, 34 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { " import lala.*;", "import myClass;", "import com.adobe.ac.TodoEvent" };
+      { " import lala.*;",
+                  "import myClass;",
+                  "import com.adobe.ac.TodoEvent" };
    }
 
    @Override
@@ -92,7 +93,9 @@ public class ImportFromSamePackageRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { " Alert.show(", " Alert.show( ", " Alert.show( \"something\" );",
-            " Alert.show(\"something\"); function importData()" };
+      { " Alert.show(",
+                  " Alert.show( ",
+                  " Alert.show( \"something\" );",
+                  " Alert.show(\"something\"); function importData()" };
    }
 }

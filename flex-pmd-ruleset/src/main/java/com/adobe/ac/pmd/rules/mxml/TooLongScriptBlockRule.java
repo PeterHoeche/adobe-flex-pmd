@@ -44,8 +44,7 @@ import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooLongScriptBlockRule
-extends AbstractFlexRule implements IThresholdedRule
+public class TooLongScriptBlockRule extends AbstractFlexRule implements IThresholdedRule
 {
    private int linesInScriptBlock;
 
@@ -69,8 +68,7 @@ extends AbstractFlexRule implements IThresholdedRule
       return MAXIMUM;
    }
 
-   public boolean isConcernedByTheGivenFile(
-                                            final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return file.isMxml();
    }
@@ -82,17 +80,17 @@ extends AbstractFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file, final Map< String, AbstractFlexFile > files )
-         {
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
+   {
       final int lineInitialValue = -1;
       final List< Violation > violations = new ArrayList< Violation >();
       linesInScriptBlock = lineInitialValue;
 
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
-         final String line = file.getLines().get(
-               i );
+         final String line = file.getLines().get( i );
 
          if ( linesInScriptBlock == lineInitialValue
                && line.contains( "Script>" ) )
@@ -108,11 +106,11 @@ extends AbstractFlexRule implements IThresholdedRule
                   if ( linesInScriptBlock > getThreshold() )
                   {
                      final int beginningScriptLine = i
-                     - linesInScriptBlock;
+                           - linesInScriptBlock;
 
-                     addViolation(
-                           violations, file, new ViolationPosition(
-                                 beginningScriptLine, i ) );
+                     addViolation( violations,
+                                   file,
+                                   new ViolationPosition( beginningScriptLine, i ) );
                   }
                   linesInScriptBlock = lineInitialValue;
                }
@@ -124,7 +122,7 @@ extends AbstractFlexRule implements IThresholdedRule
          }
       }
       return violations;
-         }
+   }
 
    @Override
    protected Map< String, PropertyDescriptor > propertiesByName()

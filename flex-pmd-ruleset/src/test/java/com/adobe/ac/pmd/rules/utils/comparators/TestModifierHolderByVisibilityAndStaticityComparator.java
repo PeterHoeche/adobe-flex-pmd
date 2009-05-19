@@ -47,30 +47,39 @@ public class TestModifierHolderByVisibilityAndStaticityComparator
    {
       final List< ModifierHolder > fields = new ArrayList< ModifierHolder >();
 
-      fields.add( create(
-            "publicStatic", true, Modifier.PUBLIC ) );
-      fields.add( create(
-            "internalStatic", true, Modifier.INTERNAL ) );
-      fields.add( create(
-            "protectedStatic", true, Modifier.PROTECTED ) );
-      fields.add( create(
-            "privateStatic", true, Modifier.PRIVATE ) );
-      fields.add( create(
-            "public", false, Modifier.PUBLIC ) );
-      fields.add( create(
-            "internal", false, Modifier.INTERNAL ) );
-      fields.add( create(
-            "protected", false, Modifier.PROTECTED ) );
-      fields.add( create(
-            "private", false, Modifier.PRIVATE ) );
+      fields.add( create( "publicStatic",
+                          true,
+                          Modifier.PUBLIC ) );
+      fields.add( create( "internalStatic",
+                          true,
+                          Modifier.INTERNAL ) );
+      fields.add( create( "protectedStatic",
+                          true,
+                          Modifier.PROTECTED ) );
+      fields.add( create( "privateStatic",
+                          true,
+                          Modifier.PRIVATE ) );
+      fields.add( create( "public",
+                          false,
+                          Modifier.PUBLIC ) );
+      fields.add( create( "internal",
+                          false,
+                          Modifier.INTERNAL ) );
+      fields.add( create( "protected",
+                          false,
+                          Modifier.PROTECTED ) );
+      fields.add( create( "private",
+                          false,
+                          Modifier.PRIVATE ) );
 
       shuffleSortAndAssert( fields );
       shuffleSortAndAssert( fields );
       shuffleSortAndAssert( fields );
    }
 
-   private ModifierHolder create(
-         final String name, final boolean isStatic, final Modifier modifier )
+   private ModifierHolder create( final String name,
+                                  final boolean isStatic,
+                                  final Modifier modifier )
    {
       final ModifierHolder holder = new ModifierHolder( name );
 
@@ -82,36 +91,35 @@ public class TestModifierHolderByVisibilityAndStaticityComparator
       return holder;
    }
 
-   private void shuffleSortAndAssert(
-         final List< ModifierHolder > fields )
+   private void shuffleSortAndAssert( final List< ModifierHolder > fields )
    {
       Collections.shuffle( fields );
-      Collections.sort(
-            fields, new ModifierHolderByVisibilityAndStaticityComparator() );
+      Collections.sort( fields,
+                        new ModifierHolderByVisibilityAndStaticityComparator() );
 
-      assertEquals(
-            "", "publicStatic", fields.get(
-                  0 ).getName() );
-      assertEquals(
-            "", "internalStatic", fields.get(
-                  1 ).getName() );
-      assertEquals(
-            "", "protectedStatic", fields.get(
-                  2 ).getName() );
-      assertEquals(
-            "", "privateStatic", fields.get(
-                  3 ).getName() );
-      assertEquals(
-            "", "public", fields.get(
-                  4 ).getName() );
-      assertEquals(
-            "", "internal", fields.get(
-                  5 ).getName() );
-      assertEquals(
-            "", "protected", fields.get(
-                  6 ).getName() );
-      assertEquals(
-            "", "private", fields.get(
-                  7 ).getName() );
+      assertEquals( "",
+                    "publicStatic",
+                    fields.get( 0 ).getName() );
+      assertEquals( "",
+                    "internalStatic",
+                    fields.get( 1 ).getName() );
+      assertEquals( "",
+                    "protectedStatic",
+                    fields.get( 2 ).getName() );
+      assertEquals( "",
+                    "privateStatic",
+                    fields.get( 3 ).getName() );
+      assertEquals( "",
+                    "public",
+                    fields.get( 4 ).getName() );
+      assertEquals( "",
+                    "internal",
+                    fields.get( 5 ).getName() );
+      assertEquals( "",
+                    "protected",
+                    fields.get( 6 ).getName() );
+      assertEquals( "",
+                    "private",
+                    fields.get( 7 ).getName() );
    }
 }

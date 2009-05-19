@@ -38,35 +38,28 @@ import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class BindableModelLocatorRule
-      extends AbstractAstFlexRule
+public class BindableModelLocatorRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return super.isConcernedByTheGivenFile( file )
-            && file.getClassName().endsWith(
-                  "ModelLocator.as" );
+            && file.getClassName().endsWith( "ModelLocator.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode )
+   protected void findViolationsFromPackageNode( final PackageNode rootNode )
    {
-      final List< MetaDataNode > metaDatas = rootNode.getClassNode()
-            .getMetaDataList();
+      final List< MetaDataNode > metaDatas = rootNode.getClassNode().getMetaDataList();
 
       if ( metaDatas != null )
       {
          for ( final MetaDataNode metaDataNode : metaDatas )
          {
-            if ( metaDataNode.getName().equalsIgnoreCase(
-                  "bindable" ) )
+            if ( metaDataNode.getName().equalsIgnoreCase( "bindable" ) )
             {
-               addViolation(
-                     rootNode.getClassNode().getInternalNode(), rootNode
-                           .getClassNode().getInternalNode() );
+               addViolation( rootNode.getClassNode().getInternalNode(),
+                             rootNode.getClassNode().getInternalNode() );
                break;
             }
          }

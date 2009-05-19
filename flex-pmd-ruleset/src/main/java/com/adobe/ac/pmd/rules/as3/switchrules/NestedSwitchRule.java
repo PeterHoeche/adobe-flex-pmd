@@ -35,8 +35,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class NestedSwitchRule
-      extends AbstractAstFlexRule
+public class NestedSwitchRule extends AbstractAstFlexRule
 {
    private int switchLevel = 0;
 
@@ -47,14 +46,13 @@ public class NestedSwitchRule
    }
 
    @Override
-   protected void visitSwitch(
-         final Node ast )
+   protected void visitSwitch( final Node ast )
    {
       switchLevel++;
       if ( switchLevel > 1 )
       {
-         addViolation(
-               ast, ast.getChild( ast.numChildren() - 1 ) );
+         addViolation( ast,
+                       ast.getChild( ast.numChildren() - 1 ) );
       }
       super.visitSwitch( ast );
 

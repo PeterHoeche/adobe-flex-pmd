@@ -36,8 +36,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class UseOfObjectTypeRule
-      extends AbstractAstFlexRule
+public class UseOfObjectTypeRule extends AbstractAstFlexRule
 {
    @Override
    protected ViolationPriority getDefaultPriority()
@@ -46,8 +45,7 @@ public class UseOfObjectTypeRule
    }
 
    @Override
-   protected void visitFunctionReturnType(
-         final Node node )
+   protected void visitFunctionReturnType( final Node node )
    {
       super.visitFunctionReturnType( node );
 
@@ -55,11 +53,11 @@ public class UseOfObjectTypeRule
    }
 
    @Override
-   protected void visitVarOrConstList(
-         final Node ast, final String varOrConst )
+   protected void visitVarOrConstList( final Node ast,
+                                       final String varOrConst )
    {
-      super.visitVarOrConstList(
-            ast, varOrConst );
+      super.visitVarOrConstList( ast,
+                                 varOrConst );
 
       if ( "var".equals( varOrConst ) )
       {
@@ -67,19 +65,17 @@ public class UseOfObjectTypeRule
       }
    }
 
-   private void detectObjectInTypeNode(
-         final Node type )
+   private void detectObjectInTypeNode( final Node type )
    {
       if ( type.stringValue != null
             && type.stringValue.equals( "Object" ) )
       {
-         addViolation(
-               type, type );
+         addViolation( type,
+                       type );
       }
    }
 
-   private void detectObjectInVariableDefinition(
-         final Node ast )
+   private void detectObjectInVariableDefinition( final Node ast )
    {
       final Node type = ClassUtils.getTypeFromFieldDeclaration( ast );
 

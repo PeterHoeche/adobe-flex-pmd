@@ -38,36 +38,32 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class NoChildrenAddedInCreateChildrenRule
-      extends AbstractAstFlexRule
+public class NoChildrenAddedInCreateChildrenRule extends AbstractAstFlexRule
 {
-   private static final String CREATE_CHILDREN = "createChildren";
-   private static final String[] METHOD_NAMES =
-   { "addChild", "addChildAt" };
+   private static final String   CREATE_CHILDREN = "createChildren";
+   private static final String[] METHOD_NAMES    =
+                                                 { "addChild",
+               "addChildAt"                     };
 
    @Override
-   protected void findViolationsFromFunctionsList(
-         final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
    {
       for ( final FunctionNode function : functions )
       {
-         if ( function.getName().compareTo(
-               CREATE_CHILDREN ) == 0 )
+         if ( function.getName().compareTo( CREATE_CHILDREN ) == 0 )
          {
             for ( int i = 0; i < METHOD_NAMES.length; i++ )
             {
                final String methodName = METHOD_NAMES[ i ];
-               final Node primaryNode = function
-                     .findPrimaryStatementFromName( methodName );
+               final Node primaryNode = function.findPrimaryStatementFromName( methodName );
 
                if ( primaryNode != null )
                {
                   return;
                }
             }
-            addViolation(
-                  function.getInternalNode(), function.getContentBlock()
-                        .getLastChild() );
+            addViolation( function.getInternalNode(),
+                          function.getContentBlock().getLastChild() );
          }
       }
    }

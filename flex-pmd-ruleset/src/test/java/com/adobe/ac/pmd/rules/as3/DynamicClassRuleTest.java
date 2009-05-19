@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class DynamicClassRuleTest
-      extends AbstractRegExpBasedRuleTest
+public class DynamicClassRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
    }
@@ -53,7 +52,7 @@ public class DynamicClassRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -61,12 +60,11 @@ public class DynamicClassRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.event.DynamicCustomEvent.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 33, 33 ) } );
+      assertViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override
@@ -74,7 +72,7 @@ public class DynamicClassRuleTest
    {
       return new String[]
       { "public dynamic class DynamicObject {",
-            "dynamic public class DynamicObject" };
+                  "dynamic public class DynamicObject" };
    }
 
    @Override
@@ -87,6 +85,8 @@ public class DynamicClassRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "public class DynamicObject {", "foo()", "var i : int;" };
+      { "public class DynamicObject {",
+                  "foo()",
+                  "var i : int;" };
    }
 }

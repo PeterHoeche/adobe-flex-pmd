@@ -63,25 +63,20 @@ import com.adobe.ac.pmd.rules.core.exceptions.UnspecifiedXPath;
 import de.bokelberg.flex.parser.ASTToXMLConverter;
 import de.bokelberg.flex.parser.Node;
 
-public class XpathFlexRule
-      extends AbstractFlexRule
+public class XpathFlexRule extends AbstractFlexRule
 {
-   private static final Logger LOGGER = Logger.getLogger( XpathFlexRule.class
-         .getName() );
+   private static final Logger LOGGER              = Logger.getLogger( XpathFlexRule.class.getName() );
    private static final String XPATH_PROPERTY_NAME = "xpath";
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
 
-   public void setXPathExpression(
-         final String xpathExpression )
+   public void setXPathExpression( final String xpathExpression )
    {
-      setProperty(
-            new StringProperty( XPATH_PROPERTY_NAME, "", "", 0 ),
-            xpathExpression );
+      setProperty( new StringProperty( XPATH_PROPERTY_NAME, "", "", 0 ),
+                   xpathExpression );
    }
 
    @Override
@@ -91,9 +86,9 @@ public class XpathFlexRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
    {
       final List< Violation > violations = new ArrayList< Violation >();
 
@@ -101,18 +96,16 @@ public class XpathFlexRule
       {
          if ( rootNode != null )
          {
-            final Document doc = createASTXmlDocument( rootNode
-                  .getInternalNode() );
+            final Document doc = createASTXmlDocument( rootNode.getInternalNode() );
             final XPathExpression xpathExpression = getXPathExpression();
-            final NodeList violationsNode = ( NodeList ) xpathExpression
-                  .evaluate(
-                        doc, XPathConstants.NODESET );
+            final NodeList violationsNode = ( NodeList ) xpathExpression.evaluate( doc,
+                                                                                   XPathConstants.NODESET );
 
             for ( int i = 0; i < violationsNode.getLength(); i++ )
             {
                final org.w3c.dom.Node beginningNode = violationsNode.item( i );
-               final Violation violation = computeViolation(
-                     beginningNode, file );
+               final Violation violation = computeViolation( beginningNode,
+                                                             file );
 
                violations.add( violation );
             }
@@ -146,64 +139,53 @@ public class XpathFlexRule
    {
       final Map< String, PropertyDescriptor > properties = new HashMap< String, PropertyDescriptor >();
 
-      properties.put(
-            XPATH_PROPERTY_NAME, new StringProperty( XPATH_PROPERTY_NAME, "",
-                  "", 0 ) );
+      properties.put( XPATH_PROPERTY_NAME,
+                      new StringProperty( XPATH_PROPERTY_NAME, "", "", 0 ) );
 
       return properties;
    }
 
-   private Violation computeViolation(
-         final org.w3c.dom.Node beginningNode, final AbstractFlexFile file )
+   private Violation computeViolation( final org.w3c.dom.Node beginningNode,
+                                       final AbstractFlexFile file )
    {
       final org.w3c.dom.Node lastChild = beginningNode.getLastChild();
 
-      final Violation violation = new Violation( new ViolationPosition(
-            getLineValueInNode( beginningNode ),
-            getLineValueInNode( lastChild ),
-            getColumnValueInNode( beginningNode ),
-            getColumnValueInNode( lastChild ) ), this, file );
+      final Violation violation = new Violation( new ViolationPosition( getLineValueInNode( beginningNode ),
+                                                                        getLineValueInNode( lastChild ),
+                                                                        getColumnValueInNode( beginningNode ),
+                                                                        getColumnValueInNode( lastChild ) ), this, file );
 
       return violation;
    }
 
-   private Document createASTXmlDocument(
-         final Node rootNode ) throws ParserConfigurationException,
-         SAXException, IOException
+   private Document createASTXmlDocument( final Node rootNode ) throws ParserConfigurationException,
+                                                               SAXException,
+                                                               IOException
    {
       final String astXml = new ASTToXMLConverter().convert( rootNode );
-      final DocumentBuilderFactory factory = DocumentBuilderFactory
-            .newInstance();
+      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
       factory.setNamespaceAware( true ); // never forget this!
       final DocumentBuilder builder = factory.newDocumentBuilder();
       return builder.parse( new StringInputStream( astXml ) );
    }
 
-   private Integer getColumnValueInNode(
-         final org.w3c.dom.Node beginningNode )
+   private Integer getColumnValueInNode( final org.w3c.dom.Node beginningNode )
    {
-      final org.w3c.dom.Node beginningColumnNode = beginningNode
-            .getAttributes().getNamedItem(
-                  "column" );
-      final Integer beginningColumn = Integer.valueOf( beginningColumnNode
-            .getNodeValue() );
+      final org.w3c.dom.Node beginningColumnNode = beginningNode.getAttributes().getNamedItem( "column" );
+      final Integer beginningColumn = Integer.valueOf( beginningColumnNode.getNodeValue() );
       return beginningColumn;
    }
 
-   private Integer getLineValueInNode(
-         final org.w3c.dom.Node beginningNode )
+   private Integer getLineValueInNode( final org.w3c.dom.Node beginningNode )
    {
-      final org.w3c.dom.Node beginningLineNode = beginningNode.getAttributes()
-            .getNamedItem(
-                  "line" );
-      final Integer beginningLine = Integer.valueOf( beginningLineNode
-            .getNodeValue() );
+      final org.w3c.dom.Node beginningLineNode = beginningNode.getAttributes().getNamedItem( "line" );
+      final Integer beginningLine = Integer.valueOf( beginningLineNode.getNodeValue() );
       return beginningLine;
    }
 
    private XPathExpression getXPathExpression() throws UnspecifiedXPath,
-         XPathExpressionException
+                                               XPathExpressionException
    {
       String xPathExpressionString;
       final XPathFactory factory = XPathFactory.newInstance();
@@ -217,7 +199,6 @@ public class XpathFlexRule
          throw new UnspecifiedXPath( e );
       }
 
-      return factory.newXPath().compile(
-            xPathExpressionString );
+      return factory.newXPath().compile( xPathExpressionString );
    }
 }

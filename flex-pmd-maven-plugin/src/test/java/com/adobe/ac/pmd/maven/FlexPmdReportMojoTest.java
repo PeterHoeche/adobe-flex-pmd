@@ -38,17 +38,14 @@ import junit.framework.TestCase;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.Test;
 
-public class FlexPmdReportMojoTest
-      extends TestCase
+public class FlexPmdReportMojoTest extends TestCase
 {
    @Test
    public void testExecuteReport() throws MojoExecutionException
    {
       final Locale[] availableLocales = Locale.getAvailableLocales();
-      final ResourceBundle bundle = FlexPmdReportMojo
-            .getBundle( availableLocales[ 0 ] );
-      final ResourceBundle englishBundle = FlexPmdReportMojo
-            .getBundle( Locale.ENGLISH );
+      final ResourceBundle bundle = FlexPmdReportMojo.getBundle( availableLocales[ 0 ] );
+      final ResourceBundle englishBundle = FlexPmdReportMojo.getBundle( Locale.ENGLISH );
 
       assertNotNull( bundle );
       assertNotNull( englishBundle );

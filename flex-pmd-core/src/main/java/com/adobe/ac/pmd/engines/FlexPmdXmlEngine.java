@@ -44,12 +44,10 @@ import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 
-public class FlexPmdXmlEngine
-      extends AbstractFlexPmdEngine
+public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 {
-   public static final String PMD_XML = "pmd.xml";
-   private static final Logger LOGGER = Logger
-         .getLogger( FlexPmdXmlEngine.class.getName() );
+   public static final String  PMD_XML = "pmd.xml";
+   private static final Logger LOGGER  = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
 
    @Override
    protected String getReportType()
@@ -58,9 +56,8 @@ public class FlexPmdXmlEngine
    }
 
    @Override
-   protected void writeReport(
-         final FlexPmdViolations pmd, final File outputDirectory )
-         throws PMDException
+   protected void writeReport( final FlexPmdViolations pmd,
+                               final File outputDirectory ) throws PMDException
    {
       final File realOutputDirectory = outputDirectory;
 
@@ -89,12 +86,13 @@ public class FlexPmdXmlEngine
 
          for ( final AbstractFlexFile sourceFile : pmd.getViolations().keySet() )
          {
-            final Collection< Violation > violations = pmd.getViolations().get(
-                  sourceFile );
+            final Collection< Violation > violations = pmd.getViolations().get( sourceFile );
             final String sourceFilePath = sourceFile.getFilePath();
 
-            formatFileFiolation(
-                  writter, sourceFile, violations, sourceFilePath );
+            formatFileFiolation( writter,
+                                 sourceFile,
+                                 violations,
+                                 sourceFilePath );
          }
          writter.write( "</pmd>"
                + getNewLine() );
@@ -124,20 +122,20 @@ public class FlexPmdXmlEngine
       }
    }
 
-   private void formatFileFiolation(
-         final FileWriter writter, final AbstractFlexFile sourceFile,
-         final Collection< Violation > violations, final String sourceFilePath )
-         throws IOException
+   private void formatFileFiolation( final FileWriter writter,
+                                     final AbstractFlexFile sourceFile,
+                                     final Collection< Violation > violations,
+                                     final String sourceFilePath ) throws IOException
    {
       if ( !violations.isEmpty() )
       {
          writter.write( "   <file name=\""
-               + sourceFilePath.substring(
-                     1, sourceFilePath.length() ) + "\">" + getNewLine() );
+               + sourceFilePath.substring( 1,
+                                           sourceFilePath.length() ) + "\">" + getNewLine() );
          for ( final Violation violation : violations )
          {
-            writter.write( violation.toXmlString(
-                  sourceFile, violation.getRule().getRuleSetName() ) );
+            writter.write( violation.toXmlString( sourceFile,
+                                                  violation.getRule().getRuleSetName() ) );
          }
          writter.write( "   </file>"
                + getNewLine() );

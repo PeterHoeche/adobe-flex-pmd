@@ -40,8 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class TooManyParametersRule
-extends AbstractAstFlexRule implements IThresholdedRule
+public class TooManyParametersRule extends AbstractAstFlexRule implements IThresholdedRule
 {
 
    private int paramsNb;
@@ -79,11 +78,11 @@ extends AbstractAstFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected void visitFunction(
-                                final Node ast, final String type )
+   protected void visitFunction( final Node ast,
+                                 final String type )
    {
-      super.visitFunction(
-            ast, type );
+      super.visitFunction( ast,
+                           type );
 
       final Node paramList = ast.getChild( 2 );
 
@@ -91,9 +90,8 @@ extends AbstractAstFlexRule implements IThresholdedRule
 
       if ( paramsNb > getThreshold() )
       {
-         addViolation(
-               paramList.getChild( 0 ), paramList.getChild( paramList
-                     .numChildren() - 1 ) );
+         addViolation( paramList.getChild( 0 ),
+                       paramList.getChild( paramList.numChildren() - 1 ) );
       }
    }
 }

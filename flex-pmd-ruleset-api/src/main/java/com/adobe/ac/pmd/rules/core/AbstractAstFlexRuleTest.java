@@ -43,16 +43,13 @@ import com.adobe.ac.pmd.nodes.PackageNode;
 import de.bokelberg.flex.parser.AS3Parser;
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public abstract class AbstractAstFlexRuleTest
-      extends AbstractFlexRuleTest
+public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 {
-   private static final Logger LOGGER = Logger
-         .getLogger( AbstractAstFlexRuleTest.class.getName() );
+   private static final Logger LOGGER = Logger.getLogger( AbstractAstFlexRuleTest.class.getName() );
 
    @Override
-   protected List< Violation > processFile(
-         final String resourcePath ) throws FileNotFoundException,
-         URISyntaxException
+   protected List< Violation > processFile( final String resourcePath ) throws FileNotFoundException,
+                                                                       URISyntaxException
    {
       final AS3Parser parser = new AS3Parser();
       final AbstractFlexFile file = testFiles.get( resourcePath );
@@ -75,7 +72,8 @@ public abstract class AbstractAstFlexRuleTest
          }
       }
 
-      return getRule().processFile(
-            file, rootNode, testFiles );
+      return getRule().processFile( file,
+                                    rootNode,
+                                    testFiles );
    }
 }

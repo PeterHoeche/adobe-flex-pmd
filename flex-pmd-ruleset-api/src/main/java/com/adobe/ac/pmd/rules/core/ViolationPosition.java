@@ -37,15 +37,16 @@ public class ViolationPosition
    private final int endColumn;
    private final int endLine;
 
-   public ViolationPosition(
-         final int beginLineToBeSet, final int endLineToBeSet )
+   public ViolationPosition( final int beginLineToBeSet,
+                             final int endLineToBeSet )
    {
       this( beginLineToBeSet, endLineToBeSet, 0, 0 );
    }
 
-   public ViolationPosition(
-         final int beginLineToBeSet, final int endLineToBeSet,
-         final int beginColumnToBeSet, final int endColumnToBeSet )
+   public ViolationPosition( final int beginLineToBeSet,
+                             final int endLineToBeSet,
+                             final int beginColumnToBeSet,
+                             final int endColumnToBeSet )
    {
       super();
 

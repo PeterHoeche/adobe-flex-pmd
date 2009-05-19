@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class PropertyHiddenByLocalVariableRuleTest
-      extends AbstractAstFlexRuleTest
+public class PropertyHiddenByLocalVariableRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "GoodComponent.as" );
       assertEmptyViolations( "RadonDataGrid.as" );
@@ -54,7 +53,7 @@ public class PropertyHiddenByLocalVariableRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
    }
@@ -62,11 +61,11 @@ public class PropertyHiddenByLocalVariableRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.VoidConstructor.as", new ViolationPosition[]
-            { new ViolationPosition( 40, 40 ) } );
+      assertViolations( "com.adobe.ac.ncss.VoidConstructor.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 40, 40 ) } );
    }
 
    @Override

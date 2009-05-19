@@ -38,19 +38,17 @@ import com.adobe.ac.pmd.nodes.MetaDataNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnboundTypeInMetadataRule
-      extends AbstractAstFlexRule
+public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       if ( classNode.getMetaDataList() != null )
       {
          for ( final MetaDataNode metaData : classNode.getMetaDataList() )
          {
-            findViolationsInMetaDataNode(
-                  metaData, getFilesInSourcePath() );
+            findViolationsInMetaDataNode( metaData,
+                                          getFilesInSourcePath() );
          }
       }
    }
@@ -61,8 +59,8 @@ public class UnboundTypeInMetadataRule
       return ViolationPriority.WARNING;
    }
 
-   private void findViolationsInMetaDataNode(
-         final MetaDataNode metaData, final Map< String, AbstractFlexFile > files )
+   private void findViolationsInMetaDataNode( final MetaDataNode metaData,
+                                              final Map< String, AbstractFlexFile > files )
    {
       final String metaDataValue = metaData.getInternalNode().stringValue;
       final int startIndex = metaDataValue.indexOf( "type = \"" );
@@ -70,11 +68,15 @@ public class UnboundTypeInMetadataRule
       if ( startIndex > -1 )
       {
          final int length = metaDataValue.substring( startIndex + 8 ).indexOf( "\"" );
-         final String type = metaDataValue.substring( startIndex + 8, startIndex + 8 + length );
+         final String type = metaDataValue.substring( startIndex + 8,
+                                                      startIndex
+                                                            + 8 + length );
 
-         if ( !files.containsKey( type + ".as" ) )
+         if ( !files.containsKey( type
+               + ".as" ) )
          {
-            addViolation( metaData.getInternalNode(), metaData.getInternalNode() );
+            addViolation( metaData.getInternalNode(),
+                          metaData.getInternalNode() );
          }
       }
    }

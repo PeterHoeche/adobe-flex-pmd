@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooLongFunctionRuleTest
-      extends AbstractAstFlexRuleTest
+public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
@@ -53,7 +52,7 @@ public class TooLongFunctionRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -61,11 +60,11 @@ public class TooLongFunctionRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
-            { new ViolationPosition( 40, 84 ) } );
+      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 40, 84 ) } );
    }
 
    @Override

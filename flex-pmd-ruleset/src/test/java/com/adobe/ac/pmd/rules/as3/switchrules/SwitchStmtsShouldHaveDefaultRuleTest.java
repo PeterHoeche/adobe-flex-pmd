@@ -40,14 +40,13 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class SwitchStmtsShouldHaveDefaultRuleTest
-      extends AbstractAstFlexRuleTest
+public class SwitchStmtsShouldHaveDefaultRuleTest extends AbstractAstFlexRuleTest
 {
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
@@ -55,7 +54,7 @@ public class SwitchStmtsShouldHaveDefaultRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -63,16 +62,16 @@ public class SwitchStmtsShouldHaveDefaultRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.LongSwitch.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 53, 58 ), new ViolationPosition( 41, 51 ) } );
+      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 53, 58 ),
+                                    new ViolationPosition( 41, 51 ) } );
 
-      assertViolations(
-            "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
-            { new ViolationPosition( 43, 48 ) } );
+      assertViolations( "com.adobe.ac.ncss.NestedSwitch.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 43, 48 ) } );
    }
 
    @Override

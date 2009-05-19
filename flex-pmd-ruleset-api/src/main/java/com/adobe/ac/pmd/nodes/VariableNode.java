@@ -39,24 +39,21 @@ import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import de.bokelberg.flex.parser.Node;
 
 /**
- * Node representing a variable (var i : int = 0)
- *
- * It contains the variable name, its type name, the list of modifiers, the list of metadata,
- * and the initialization expression (if any).
- *
+ * Node representing a variable (var i : int = 0) It contains the variable name,
+ * its type name, the list of modifiers, the list of metadata, and the
+ * initialization expression (if any).
+ * 
  * @author xagnetti
  */
-public class VariableNode
-      extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
+public class VariableNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
 {
    private FieldInitializationNode initializationExpression;
-   private List< MetaDataNode > metaDataList;
-   private List< Modifier > modifiers;
-   private IdentifierNode name;
-   private IdentifierNode type;
+   private List< MetaDataNode >    metaDataList;
+   private List< Modifier >        modifiers;
+   private IdentifierNode          name;
+   private IdentifierNode          type;
 
-   public VariableNode(
-         final Node rootNode )
+   public VariableNode( final Node rootNode )
    {
       super( rootNode );
    }
@@ -96,14 +93,12 @@ public class VariableNode
       return ModifierUtils.isPublic( this );
    }
 
-   public void setMetaDataList(
-         final List< MetaDataNode > metaDataListToBeSet )
+   public void setMetaDataList( final List< MetaDataNode > metaDataListToBeSet )
    {
       metaDataList = metaDataListToBeSet;
    }
 
-   public void setModifiers(
-         final List< Modifier > modifiersToBeSet )
+   public void setModifiers( final List< Modifier > modifiersToBeSet )
    {
       modifiers = modifiersToBeSet;
    }
@@ -129,13 +124,13 @@ public class VariableNode
                }
                else if ( child.is( Node.MOD_LIST ) )
                {
-                  ModifierUtils.computeModifierList(
-                        this, child );
+                  ModifierUtils.computeModifierList( this,
+                                                     child );
                }
                else if ( child.is( Node.META_LIST ) )
                {
-                  MetaDataUtils.computeMetaDataList(
-                        this, child );
+                  MetaDataUtils.computeMetaDataList( this,
+                                                     child );
                }
                else if ( !child.is( Node.REST ) )
                {
@@ -147,8 +142,7 @@ public class VariableNode
       }
    }
 
-   private void computeNameTypeInit(
-         final Node nameTypeInit )
+   private void computeNameTypeInit( final Node nameTypeInit )
    {
       if ( nameTypeInit.children != null )
       {

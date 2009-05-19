@@ -32,11 +32,9 @@ package com.adobe.ac.pmd.nodes;
 
 import de.bokelberg.flex.parser.Node;
 
-public class MetaDataNode
-      extends AbstractNode implements INamable
+public class MetaDataNode extends AbstractNode implements INamable
 {
-   public MetaDataNode(
-         final Node node )
+   public MetaDataNode( final Node node )
    {
       super( node );
    }

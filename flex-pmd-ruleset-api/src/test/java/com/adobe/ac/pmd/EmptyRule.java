@@ -40,8 +40,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EmptyRule
-extends AbstractFlexRule implements IThresholdedRule
+public class EmptyRule extends AbstractFlexRule implements IThresholdedRule
 {
    public int getActualValue()
    {
@@ -69,8 +68,7 @@ extends AbstractFlexRule implements IThresholdedRule
       return "maximum";
    }
 
-   public boolean isConcernedByTheGivenFile(
-                                            final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
@@ -82,9 +80,10 @@ extends AbstractFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file, final Map< String, AbstractFlexFile > files )
-         {
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
+   {
       return new ArrayList< Violation >();
-         }
+   }
 }

@@ -32,11 +32,9 @@ package com.adobe.ac.pmd.nodes;
 
 import de.bokelberg.flex.parser.Node;
 
-public class FieldNode
-      extends VariableNode
+public class FieldNode extends VariableNode
 {
-   public FieldNode(
-         final Node rootNode )
+   public FieldNode( final Node rootNode )
    {
       super( rootNode );
    }

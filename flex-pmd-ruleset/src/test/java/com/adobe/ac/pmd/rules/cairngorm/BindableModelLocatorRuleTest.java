@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class BindableModelLocatorRuleTest
-      extends AbstractAstFlexRuleTest
+public class BindableModelLocatorRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "cairngorm.NonBindableModelLocator.as" );
    }
@@ -53,7 +52,7 @@ public class BindableModelLocatorRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
    }
@@ -61,11 +60,11 @@ public class BindableModelLocatorRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "cairngorm.BindableModelLocator.as", new ViolationPosition[]
-            { new ViolationPosition( 33, 33 ) } );
+      assertViolations( "cairngorm.BindableModelLocator.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 33, 33 ) } );
    }
 
    @Override

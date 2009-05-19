@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class DeadCodeRuleTest
-      extends AbstractCommonFlexRuleTest
+public class DeadCodeRuleTest extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "GenericType.as" );
 
@@ -54,12 +53,12 @@ public class DeadCodeRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 50, 50 ), new ViolationPosition( 56, 69 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 50, 50 ),
+                                    new ViolationPosition( 56, 69 ) } );
    }
 
    @Override

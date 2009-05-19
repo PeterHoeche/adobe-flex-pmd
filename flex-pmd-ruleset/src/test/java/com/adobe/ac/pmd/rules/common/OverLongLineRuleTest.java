@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class OverLongLineRuleTest
-      extends AbstractCommonFlexRuleTest
+public class OverLongLineRuleTest extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
 
@@ -58,12 +57,13 @@ public class OverLongLineRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 45, 45 ), new ViolationPosition( 46, 46 ),
-                  new ViolationPosition( 48, 48 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 45, 45 ),
+                                    new ViolationPosition( 46, 46 ),
+                                    new ViolationPosition( 48, 48 ) } );
    }
 
    @Override

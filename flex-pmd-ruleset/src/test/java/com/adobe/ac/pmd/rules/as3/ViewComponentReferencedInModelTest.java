@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ViewComponentReferencedInModelTest
-      extends AbstractRegExpBasedRuleTest
+public class ViewComponentReferencedInModelTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "cairngorm.BindableModelLocator.as" );
 
@@ -59,7 +58,7 @@ public class ViewComponentReferencedInModelTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -67,19 +66,20 @@ public class ViewComponentReferencedInModelTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
-            { new ViolationPosition( 35, 35 ) } );
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "import lala.view.MyObject;", "import MyObject   ",
-            "   import lala.view.MyObject" };
+      { "import lala.view.MyObject;",
+                  "import MyObject   ",
+                  "   import lala.view.MyObject" };
    }
 
    @Override
@@ -92,9 +92,10 @@ public class ViewComponentReferencedInModelTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "mport lala.view.MyObject", " text=\"{ vfrfr().frfr.frf.lala }\"/>",
-            " text=\"{vfrfr().frfr.frf.lala}\"/>",
-            "public dynamic class DynamicObject {",
-            "dynamic public class DynamicObject" };
+      { "mport lala.view.MyObject",
+                  " text=\"{ vfrfr().frfr.frf.lala }\"/>",
+                  " text=\"{vfrfr().frfr.frf.lala}\"/>",
+                  "public dynamic class DynamicObject {",
+                  "dynamic public class DynamicObject" };
    }
 }

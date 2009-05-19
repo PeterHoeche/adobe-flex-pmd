@@ -30,27 +30,23 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class ConstructorDispatchingEventRule
-      extends AbstractAstFlexRule
+public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromConstructor(
-         final FunctionNode constructor )
+   protected void findViolationsFromConstructor( final FunctionNode constructor )
    {
-      final Node dispatchNode = constructor
-            .findPrimaryStatementFromName( "dispatchEvent" );
+      final Node dispatchNode = constructor.findPrimaryStatementFromName( "dispatchEvent" );
 
       if ( dispatchNode != null )
       {
-         addViolation(
-               dispatchNode, dispatchNode );
+         addViolation( dispatchNode,
+                       dispatchNode );
       }
    }
 

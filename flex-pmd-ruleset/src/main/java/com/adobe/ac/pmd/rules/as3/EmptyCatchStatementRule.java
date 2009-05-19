@@ -35,8 +35,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class EmptyCatchStatementRule
-      extends AbstractAstFlexRule
+public class EmptyCatchStatementRule extends AbstractAstFlexRule
 {
    @Override
    protected ViolationPriority getDefaultPriority()
@@ -45,16 +44,14 @@ public class EmptyCatchStatementRule
    }
 
    @Override
-   protected void visitCatch(
-         final Node ast )
+   protected void visitCatch( final Node ast )
    {
       super.visitCatch( ast );
 
-      if ( ast.getChild(
-            2 ).numChildren() == 0 )
+      if ( ast.getChild( 2 ).numChildren() == 0 )
       {
-         addViolation(
-               ast, ast );
+         addViolation( ast,
+                       ast );
       }
    }
 }

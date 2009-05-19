@@ -36,16 +36,15 @@ import de.bokelberg.flex.parser.Node;
 
 /**
  * FlexPmdNode which wraps the parser node into a concrete type
- *
+ * 
  * @author xagnetti
  */
 public abstract class AbstractNode
 {
    protected final static Logger LOGGER = Logger.getLogger( "Node" );
-   protected final Node internalNode;
+   protected final Node          internalNode;
 
-   protected AbstractNode(
-         final Node node )
+   protected AbstractNode( final Node node )
    {
       internalNode = node;
 

@@ -36,8 +36,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class UnusedParameterRule
-      extends AbstractUnusedVariableRule< FormalNode >
+public class UnusedParameterRule extends AbstractUnusedVariableRule< FormalNode >
 {
    @Override
    protected ViolationPriority getDefaultPriority()
@@ -46,8 +45,7 @@ public class UnusedParameterRule
    }
 
    @Override
-   protected void visitParameters(
-         final Node ast )
+   protected void visitParameters( final Node ast )
    {
       super.visitParameters( ast );
 
@@ -55,15 +53,13 @@ public class UnusedParameterRule
       {
          for ( final Node parameterNode : ast.children )
          {
-            final Node parameterType = ClassUtils
-                  .getTypeFromFieldDeclaration( parameterNode );
+            final Node parameterType = ClassUtils.getTypeFromFieldDeclaration( parameterNode );
 
             if ( parameterType != null
-                  && parameterType.stringValue != null
-                  && !parameterType.stringValue.contains( "Event" ) )
+                  && parameterType.stringValue != null && !parameterType.stringValue.contains( "Event" ) )
             {
-               variablesUsed.put(
-                     new FormalNode( parameterNode ), false );
+               variablesUsed.put( new FormalNode( parameterNode ),
+                                  false );
             }
          }
       }

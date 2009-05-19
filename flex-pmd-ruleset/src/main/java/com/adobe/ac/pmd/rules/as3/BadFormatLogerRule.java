@@ -38,46 +38,40 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class BadFormatLogerRule
-      extends AbstractAstFlexRule
+public class BadFormatLogerRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       for ( final FieldNode field : classNode.getVariables() )
       {
-         if ( field.getType().toString().compareTo(
-               "ILogger" ) == 0 )
+         if ( field.getType().toString().compareTo( "ILogger" ) == 0 )
          {
-            addViolation(
-                  field.getInternalNode(), field.getInternalNode(),
-                  "A logger should be constant" );
+            addViolation( field.getInternalNode(),
+                          field.getInternalNode(),
+                          "A logger should be constant" );
          }
       }
       for ( final FieldNode field : classNode.getConstants() )
       {
-         if ( field.getType().toString().compareTo(
-               "ILogger" ) == 0 )
+         if ( field.getType().toString().compareTo( "ILogger" ) == 0 )
          {
-            if ( field.getName().compareTo(
-                  "LOG" ) != 0 )
+            if ( field.getName().compareTo( "LOG" ) != 0 )
             {
-               addViolation(
-                     field.getInternalNode(), field.getInternalNode(),
-                     "The logger name is not LOG" );
+               addViolation( field.getInternalNode(),
+                             field.getInternalNode(),
+                             "The logger name is not LOG" );
             }
             if ( field.getInitializationExpression() == null )
             {
-               addViolation(
-                     field.getInternalNode(), field.getInternalNode(),
-                     "The logger is not initialized" );
+               addViolation( field.getInternalNode(),
+                             field.getInternalNode(),
+                             "The logger is not initialized" );
             }
             else
             {
-               lookupStringMethodArguments(
-                     field.getInitializationExpression(), getCurrentFile()
-                           .getFullyQualifiedName() );
+               lookupStringMethodArguments( field.getInitializationExpression(),
+                                            getCurrentFile().getFullyQualifiedName() );
             }
          }
       }
@@ -89,23 +83,22 @@ public class BadFormatLogerRule
       return ViolationPriority.INFO;
    }
 
-   private void lookupStringMethodArguments(
-         final FieldInitializationNode initializationExpression,
-         final String fullyQualifiedClassName )
+   private void lookupStringMethodArguments( final FieldInitializationNode initializationExpression,
+                                             final String fullyQualifiedClassName )
    {
-      visitNode(
-            initializationExpression.getInternalNode(), fullyQualifiedClassName );
+      visitNode( initializationExpression.getInternalNode(),
+                 fullyQualifiedClassName );
    }
 
-   private void visitNode(
-         final Node internalNode, final String fullyQualifiedClassName )
+   private void visitNode( final Node internalNode,
+                           final String fullyQualifiedClassName )
    {
       if ( internalNode.numChildren() > 0 )
       {
          for ( final Node child : internalNode.children )
          {
-            visitNode(
-                  child, fullyQualifiedClassName );
+            visitNode( child,
+                       fullyQualifiedClassName );
          }
       }
       if ( internalNode.is( Node.ARGUMENTS ) )
@@ -116,9 +109,9 @@ public class BadFormatLogerRule
                   && argumentNode.stringValue.compareTo( "\""
                         + fullyQualifiedClassName + "\"" ) != 0 )
             {
-               addViolation(
-                     internalNode, internalNode,
-                     "The logger is not initialized with the fully qualified class name" );
+               addViolation( internalNode,
+                             internalNode,
+                             "The logger is not initialized with the fully qualified class name" );
             }
          }
       }

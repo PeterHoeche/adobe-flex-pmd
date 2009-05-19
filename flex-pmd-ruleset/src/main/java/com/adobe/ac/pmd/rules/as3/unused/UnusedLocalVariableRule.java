@@ -35,8 +35,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class UnusedLocalVariableRule
-      extends AbstractUnusedVariableRule< VariableNode >
+public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< VariableNode >
 {
    private boolean isInFunction;
 
@@ -47,23 +46,21 @@ public class UnusedLocalVariableRule
    }
 
    @Override
-   protected void visitFunction(
-         final Node ast, final String type )
+   protected void visitFunction( final Node ast,
+                                 final String type )
    {
       isInFunction = true;
-      super.visitFunction(
-            ast, type );
+      super.visitFunction( ast,
+                           type );
       isInFunction = false;
    }
 
    @Override
-   protected void visitStatement(
-         final Node ast )
+   protected void visitStatement( final Node ast )
    {
       super.visitStatement( ast );
       if ( isInFunction
-            && ast != null && !tryToAddVariableNode( ast )
-            && ast.is( Node.VAR_LIST ) )
+            && ast != null && !tryToAddVariableNode( ast ) && ast.is( Node.VAR_LIST ) )
       {
          for ( final Node child : ast.children )
          {
@@ -72,13 +69,12 @@ public class UnusedLocalVariableRule
       }
    }
 
-   private boolean tryToAddVariableNode(
-         final Node ast )
+   private boolean tryToAddVariableNode( final Node ast )
    {
       if ( ast.is( Node.NAME_TYPE_INIT ) )
       {
-         variablesUsed.put(
-               new VariableNode( ast ), false );
+         variablesUsed.put( new VariableNode( ast ),
+                            false );
          return true;
       }
       return false;

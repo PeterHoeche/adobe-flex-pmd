@@ -39,8 +39,8 @@ import de.bokelberg.flex.parser.Node;
 
 final public class MetaDataUtils
 {
-   public static void computeMetaDataList(
-         final IMetaDataListHolder metaDataHolder, final Node child )
+   public static void computeMetaDataList( final IMetaDataListHolder metaDataHolder,
+                                           final Node child )
    {
       metaDataHolder.setMetaDataList( new ArrayList< MetaDataNode >() );
 
@@ -48,8 +48,7 @@ final public class MetaDataUtils
       {
          for ( final Node metadataNode : child.children )
          {
-            metaDataHolder.getMetaDataList().add(
-                  new MetaDataNode( metadataNode ) );
+            metaDataHolder.getMetaDataList().add( new MetaDataNode( metadataNode ) );
          }
       }
    }

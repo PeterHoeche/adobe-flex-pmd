@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class CallLaterDirectlyRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class CallLaterDirectlyRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "Looping.as" );
    }
@@ -52,22 +51,23 @@ public class CallLaterDirectlyRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "Main.mxml", new ViolationPosition[]
-            { new ViolationPosition( 36, 36 ) } );
+      assertViolations( "Main.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 36, 36 ) } );
 
-      assertViolations(
-            "GenericType.as", new ViolationPosition[]
-            { new ViolationPosition( 41, 41 ) } );
+      assertViolations( "GenericType.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 41, 41 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "callLater( myFunction)", " callLater (myFunction)" };
+      { "callLater( myFunction)",
+                  " callLater (myFunction)" };
    }
 
    @Override
@@ -80,6 +80,7 @@ public class CallLaterDirectlyRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "callLate( myFunction)", " allLater(myFunction)" };
+      { "callLate( myFunction)",
+                  " allLater(myFunction)" };
    }
 }

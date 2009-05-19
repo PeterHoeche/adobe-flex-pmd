@@ -32,21 +32,19 @@ package com.adobe.ac.pmd.files;
 
 import java.io.File;
 
-public class MxmlFile
-      extends AbstractFlexFile
+public class MxmlFile extends AbstractFlexFile
 {
    private boolean mainApplication = false;
 
-   public MxmlFile(
-         final File file, final File rootDirectory )
+   public MxmlFile( final File file,
+                    final File rootDirectory )
    {
       super( file, rootDirectory );
       computeIfIsMainApplication();
    }
 
    @Override
-   public boolean doesCurrentLineContainOneLineComment(
-         final String line )
+   public boolean doesCurrentLineContainOneLineComment( final String line )
    {
       return false;
    }

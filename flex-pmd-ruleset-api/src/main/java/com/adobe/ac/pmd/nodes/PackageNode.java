@@ -39,18 +39,16 @@ import de.bokelberg.flex.parser.Node;
 /**
  * Node representing a package. It contains the nested class node, the list of
  * imports, and the package name.
- *
+ * 
  * @author xagnetti
  */
-public class PackageNode
-      extends AbstractNode implements INamable
+public class PackageNode extends AbstractNode implements INamable
 {
-   private ClassNode classNode;
+   private ClassNode    classNode;
    private List< Node > imports;
-   private String name;
+   private String       name;
 
-   public PackageNode(
-         final Node node )
+   public PackageNode( final Node node )
    {
       super( node );
    }
@@ -79,16 +77,13 @@ public class PackageNode
    @Override
    protected void compute()
    {
-      final Node classWrapperNode = getClassNodeFromCompilationUnitNode(
-            internalNode, 3 );
+      final Node classWrapperNode = getClassNodeFromCompilationUnitNode( internalNode,
+                                                                         3 );
 
       imports = new ArrayList< Node >();
-      if ( internalNode.getChild(
-            0 ).numChildren() > 0 )
+      if ( internalNode.getChild( 0 ).numChildren() > 0 )
       {
-         name = internalNode.getChild(
-               0 ).getChild(
-               0 ).stringValue;
+         name = internalNode.getChild( 0 ).getChild( 0 ).stringValue;
       }
       else
       {
@@ -99,15 +94,10 @@ public class PackageNode
          classNode = new ClassNode( classWrapperNode );
       }
 
-      if ( internalNode.getChild(
-            0 ).numChildren() > 1
-            && internalNode.getChild(
-                  0 ).getChild(
-                  1 ).children != null )
+      if ( internalNode.getChild( 0 ).numChildren() > 1
+            && internalNode.getChild( 0 ).getChild( 1 ).children != null )
       {
-         for ( final Node node : internalNode.getChild(
-               0 ).getChild(
-               1 ).children )
+         for ( final Node node : internalNode.getChild( 0 ).getChild( 1 ).children )
          {
             if ( node.is( KeyWords.IMPORT ) )
             {
@@ -117,8 +107,8 @@ public class PackageNode
       }
    }
 
-   private Node getClassNodeFromCompilationUnitNode(
-         final Node node, final int depth )
+   private Node getClassNodeFromCompilationUnitNode( final Node node,
+                                                     final int depth )
    {
       if ( depth == 0
             || node.children == null )
@@ -132,8 +122,8 @@ public class PackageNode
          {
             return child;
          }
-         final Node localClassNode = getClassNodeFromCompilationUnitNode(
-               child, depth - 1 );
+         final Node localClassNode = getClassNodeFromCompilationUnitNode( child,
+                                                                          depth - 1 );
 
          if ( localClassNode != null )
          {

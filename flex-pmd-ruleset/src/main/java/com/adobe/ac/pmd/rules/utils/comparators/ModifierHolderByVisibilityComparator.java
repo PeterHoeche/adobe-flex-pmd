@@ -36,21 +36,18 @@ import java.util.Comparator;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 
-public class ModifierHolderByVisibilityComparator implements
-      Comparator< IModifiersHolder >, Serializable
+public class ModifierHolderByVisibilityComparator implements Comparator< IModifiersHolder >, Serializable
 {
    private static final long serialVersionUID = 2019528304660124281L;
 
-   public int compare(
-         final IModifiersHolder firstModifierHolder,
-         final IModifiersHolder secondModifierHolder )
+   public int compare( final IModifiersHolder firstModifierHolder,
+                       final IModifiersHolder secondModifierHolder )
    {
       return getVisibilityWeight( secondModifierHolder )
             - getVisibilityWeight( firstModifierHolder );
    }
 
-   private int getVisibilityWeight(
-         final IModifiersHolder field )
+   private int getVisibilityWeight( final IModifiersHolder field )
    {
       int weight = 0;
 

@@ -41,12 +41,11 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooManyFunctionRule
-extends AbstractAstFlexRule implements IThresholdedRule
+public class TooManyFunctionRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private ClassNode classNode;
+   private ClassNode    classNode;
    private FunctionNode constructor;
-   private int functionNb;
+   private int          functionNb;
 
    public int getActualValue()
    {
@@ -88,8 +87,8 @@ extends AbstractAstFlexRule implements IThresholdedRule
       }
       if ( functionNb > getThreshold() )
       {
-         addViolation(
-               classNode.getInternalNode(), classNode.getInternalNode() );
+         addViolation( classNode.getInternalNode(),
+                       classNode.getInternalNode() );
       }
    }
 

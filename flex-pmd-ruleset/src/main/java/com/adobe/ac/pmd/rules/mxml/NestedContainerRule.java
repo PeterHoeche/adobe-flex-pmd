@@ -39,10 +39,9 @@ import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class NestedContainerRule
-extends AbstractRegexpBasedRule implements IThresholdedRule
+public class NestedContainerRule extends AbstractRegexpBasedRule implements IThresholdedRule
 {
-   private int currentLevel = 0;
+   private int     currentLevel   = 0;
    private boolean violationFound = false;
 
    public int getActualValue()
@@ -66,14 +65,12 @@ extends AbstractRegexpBasedRule implements IThresholdedRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile(
-                                            final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return file.isMxml();
    }
 
-   private boolean doesLineContainEndTag(
-                                         final String line )
+   private boolean doesLineContainEndTag( final String line )
    {
       return line.contains( "</" );
    }
@@ -91,8 +88,8 @@ extends AbstractRegexpBasedRule implements IThresholdedRule
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-                                                           final String line, final AbstractFlexFile file )
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                            final AbstractFlexFile file )
    {
       boolean result = false;
       if ( doesLineContainEndTag( line ) )

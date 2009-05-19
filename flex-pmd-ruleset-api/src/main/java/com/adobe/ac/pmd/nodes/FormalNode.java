@@ -32,11 +32,9 @@ package com.adobe.ac.pmd.nodes;
 
 import de.bokelberg.flex.parser.Node;
 
-public class FormalNode
-      extends VariableNode
+public class FormalNode extends VariableNode
 {
-   public FormalNode(
-         final Node node )
+   public FormalNode( final Node node )
    {
       super( node );
    }

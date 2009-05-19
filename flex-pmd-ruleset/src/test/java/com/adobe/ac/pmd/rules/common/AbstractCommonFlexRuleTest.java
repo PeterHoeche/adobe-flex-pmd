@@ -37,13 +37,12 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 
-public abstract class AbstractCommonFlexRuleTest
-      extends AbstractFlexRuleTest
+public abstract class AbstractCommonFlexRuleTest extends AbstractFlexRuleTest
 {
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
    }
 }

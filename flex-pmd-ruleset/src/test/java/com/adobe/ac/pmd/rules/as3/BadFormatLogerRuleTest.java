@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class BadFormatLogerRuleTest
-extends AbstractAstFlexRuleTest
+public class BadFormatLogerRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
 
@@ -57,7 +56,7 @@ extends AbstractAstFlexRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-   URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -65,17 +64,20 @@ extends AbstractAstFlexRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-   URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-                                                        { new ViolationPosition( 43, 43 ), new ViolationPosition( 44, 44 ),
-                  new ViolationPosition( 44, 44 ),
-                  new ViolationPosition( 45, 45 ),
-                  new ViolationPosition( 45, 45 ),
-                  new ViolationPosition( 46, 46 ),
-                  new ViolationPosition( 46, 46 ), new ViolationPosition( 47, 47 ), new ViolationPosition( 48, 48 ),
-                  new ViolationPosition( 49, 49 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 43, 43 ),
+                                    new ViolationPosition( 44, 44 ),
+                                    new ViolationPosition( 44, 44 ),
+                                    new ViolationPosition( 45, 45 ),
+                                    new ViolationPosition( 45, 45 ),
+                                    new ViolationPosition( 46, 46 ),
+                                    new ViolationPosition( 46, 46 ),
+                                    new ViolationPosition( 47, 47 ),
+                                    new ViolationPosition( 48, 48 ),
+                                    new ViolationPosition( 49, 49 ) } );
    }
 
    @Override

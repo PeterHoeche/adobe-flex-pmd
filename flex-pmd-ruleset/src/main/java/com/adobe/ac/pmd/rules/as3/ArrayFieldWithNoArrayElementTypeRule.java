@@ -38,25 +38,21 @@ import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ArrayFieldWithNoArrayElementTypeRule
-      extends AbstractAstFlexRule
+public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
 {
    private static final String ARRAY_ELEMENT_TYPE_BINDING = "ArrayElementType";
-   private static final String ARRAY_TYPE = "Array";
+   private static final String ARRAY_TYPE                 = "Array";
 
    @Override
-   protected void findViolationsFromVariablesList(
-         final List< FieldNode > variables )
+   protected void findViolationsFromVariablesList( final List< FieldNode > variables )
    {
       for ( final VariableNode variable : variables )
       {
          if ( ARRAY_TYPE.equals( variable.getType().toString() )
-               && !doesMetaDataContainArrayElementType( variable
-                     .getMetaDataList() ) )
+               && !doesMetaDataContainArrayElementType( variable.getMetaDataList() ) )
          {
-            addViolation(
-                  variable.getInternalNode(), variable.getType()
-                        .getInternalNode() );
+            addViolation( variable.getInternalNode(),
+                          variable.getType().getInternalNode() );
          }
       }
    }
@@ -67,15 +63,13 @@ public class ArrayFieldWithNoArrayElementTypeRule
       return ViolationPriority.WARNING;
    }
 
-   private boolean doesMetaDataContainArrayElementType(
-         final List< MetaDataNode > metaDataList )
+   private boolean doesMetaDataContainArrayElementType( final List< MetaDataNode > metaDataList )
    {
       boolean arrayElementTypeFound = false;
 
       for ( final MetaDataNode metaDataNode : metaDataList )
       {
-         if ( metaDataNode.getName().startsWith(
-               ARRAY_ELEMENT_TYPE_BINDING ) )
+         if ( metaDataNode.getName().startsWith( ARRAY_ELEMENT_TYPE_BINDING ) )
          {
             arrayElementTypeFound = true;
             break;

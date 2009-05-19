@@ -35,8 +35,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class SwitchStmtsShouldHaveDefaultRule
-      extends AbstractAstFlexRule
+public class SwitchStmtsShouldHaveDefaultRule extends AbstractAstFlexRule
 {
    private boolean defaultStatementFound = false;
 
@@ -47,8 +46,7 @@ public class SwitchStmtsShouldHaveDefaultRule
    }
 
    @Override
-   protected void visitSwitch(
-         final Node ast )
+   protected void visitSwitch( final Node ast )
    {
       super.visitSwitch( ast );
 
@@ -56,14 +54,13 @@ public class SwitchStmtsShouldHaveDefaultRule
       {
          final Node switchBody = ast.getChild( 1 );
 
-         addViolation(
-               ast, switchBody.getChild( switchBody.numChildren() - 1 ) );
+         addViolation( ast,
+                       switchBody.getChild( switchBody.numChildren() - 1 ) );
       }
    }
 
    @Override
-   protected void visitSwitchDefaultCase(
-         final Node child )
+   protected void visitSwitchDefaultCase( final Node child )
    {
       super.visitSwitchDefaultCase( child );
 

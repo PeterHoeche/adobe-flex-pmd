@@ -39,35 +39,28 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class FatControllerRule
-      extends AbstractAstFlexRule
+public class FatControllerRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      return file.getClassName().endsWith(
-                  "Controller.as" );
+      return file.getClassName().endsWith( "Controller.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode )
+   protected void findViolationsFromPackageNode( final PackageNode rootNode )
    {
       if ( rootNode.getClassNode() != null )
       {
-         final int commandsCount = computeCommandsCountInImport( rootNode
-               .getImports() );
+         final int commandsCount = computeCommandsCountInImport( rootNode.getImports() );
          final int methodsCount = computeMethodsCount( rootNode );
 
          if ( methodsCount > 0
                && commandsCount
                      / methodsCount > 5 )
          {
-            addViolation(
-                  rootNode.getClassNode().getInternalNode(), rootNode
-                        .getInternalNode().getChild(
-                              rootNode.getInternalNode().children.size() - 1 ) );
+            addViolation( rootNode.getClassNode().getInternalNode(),
+                          rootNode.getInternalNode().getChild( rootNode.getInternalNode().children.size() - 1 ) );
          }
       }
    }
@@ -78,8 +71,7 @@ public class FatControllerRule
       return ViolationPriority.WARNING;
    }
 
-   private int computeCommandsCountInImport(
-         final List< Node > imports )
+   private int computeCommandsCountInImport( final List< Node > imports )
    {
       int commandImport = 0;
 
@@ -96,8 +88,7 @@ public class FatControllerRule
       return commandImport;
    }
 
-   private int computeMethodsCount(
-         final PackageNode rootNode )
+   private int computeMethodsCount( final PackageNode rootNode )
    {
       return rootNode.getClassNode().getFunctions().size();
    }

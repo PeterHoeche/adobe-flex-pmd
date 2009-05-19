@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class NestedContainerRuleTest
-      extends AbstractRegExpBasedRuleTest
+public class NestedContainerRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -53,7 +52,7 @@ public class NestedContainerRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
    }
@@ -61,20 +60,28 @@ public class NestedContainerRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.NestedComponent.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 41, 41 ) } );
+      assertViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 41, 41 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "<mx:VBox", "<Box", "<Canvas", "<VBox", "<mx:HBox", "<Accordion",
-            "<Form", "<FormItem", "<LayoutContainer", "<Panel", "<ViewStack" };
+      { "<mx:VBox",
+                  "<Box",
+                  "<Canvas",
+                  "<VBox",
+                  "<mx:HBox",
+                  "<Accordion",
+                  "<Form",
+                  "<FormItem",
+                  "<LayoutContainer",
+                  "<Panel",
+                  "<ViewStack" };
    }
 
    @Override
@@ -87,6 +94,9 @@ public class NestedContainerRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "<Label", "<Image", "<mx:Image", "<Label" };
+      { "<Label",
+                  "<Image",
+                  "<mx:Image",
+                  "<Label" };
    }
 }

@@ -34,11 +34,11 @@ public final class StackTraceUtils
 {
    /**
     * Pretty print the first two lines of the stacktrace of the given exception
+    * 
     * @param exception Exception to print
     * @return The first two lines of the stacktrace
     */
-   public static String print(
-         final Exception exception )
+   public static String print( final Exception exception )
    {
       final StringBuffer buffer = new StringBuffer();
 

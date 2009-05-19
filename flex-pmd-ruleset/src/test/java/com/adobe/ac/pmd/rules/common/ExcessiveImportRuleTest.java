@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ExcessiveImportRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class ExcessiveImportRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -52,18 +51,19 @@ public class ExcessiveImportRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
-            { new ViolationPosition( 0, 0 ) } );
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 0, 0 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "   import lalal.lalla;", "import lala;" };
+      { "   import lalal.lalla;",
+                  "import lala;" };
    }
 
    @Override
@@ -76,6 +76,8 @@ public class ExcessiveImportRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "   function lala() : void", "var lala : Number", "important" };
+      { "   function lala() : void",
+                  "var lala : Number",
+                  "important" };
    }
 }

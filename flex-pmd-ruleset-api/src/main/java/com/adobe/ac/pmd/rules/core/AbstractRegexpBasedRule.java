@@ -40,11 +40,9 @@ import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.PackageNode;
 
-public abstract class AbstractRegexpBasedRule
-      extends AbstractFlexRule
+public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 {
-   final public boolean doesCurrentLineMacthes(
-         final String line )
+   final public boolean doesCurrentLineMacthes( final String line )
    {
       final Matcher matcher = getMatcher( line );
 
@@ -56,35 +54,32 @@ public abstract class AbstractRegexpBasedRule
     * @seecom.adobe.ac.pmd.rules.core.IisConcernedByTheGivenFile#
     * isConcernedByTheGivenFile(com.adobe.ac.pmd.files.AbstractFlexFile)
     */
-   public abstract boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file );
+   public abstract boolean isConcernedByTheGivenFile( final AbstractFlexFile file );
 
    @Override
-   final public List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   final public List< Violation > processFileBody( final PackageNode rootNode,
+                                                   final AbstractFlexFile file,
+                                                   final Map< String, AbstractFlexFile > files )
    {
       final List< Violation > violations = new ArrayList< Violation >();
 
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
-         final String line = file.getLines().get(
-               i );
+         final String line = file.getLines().get( i );
 
          if ( doesCurrentLineMacthes( line )
-               && isViolationDetectedOnThisMatchingLine(
-                     line, file ) )
+               && isViolationDetectedOnThisMatchingLine( line,
+                                                         file ) )
          {
-            addViolation(
-                  violations, file, new ViolationPosition( i + 1, i + 1, 0,
-                        line.length() ) );
+            addViolation( violations,
+                          file,
+                          new ViolationPosition( i + 1, i + 1, 0, line.length() ) );
          }
       }
       return violations;
    }
 
-   final protected Matcher getMatcher(
-         final String line )
+   final protected Matcher getMatcher( final String line )
    {
       final Pattern pattern = Pattern.compile( getRegexp() );
       final Matcher matcher = pattern.matcher( line );
@@ -94,6 +89,6 @@ public abstract class AbstractRegexpBasedRule
 
    protected abstract String getRegexp();
 
-   protected abstract boolean isViolationDetectedOnThisMatchingLine(
-         final String line, final AbstractFlexFile file );
+   protected abstract boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                     final AbstractFlexFile file );
 }

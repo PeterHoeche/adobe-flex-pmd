@@ -33,8 +33,7 @@ package com.adobe.ac.pmd.rules.mxml;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class MoreThanTwoEntryPointsInMxmlRuleTest
-      extends AbstractMoreThanEntryPointInMxmlRuleTest
+public class MoreThanTwoEntryPointsInMxmlRuleTest extends AbstractMoreThanEntryPointInMxmlRuleTest
 {
    @Override
    protected AbstractFlexRule getRule()

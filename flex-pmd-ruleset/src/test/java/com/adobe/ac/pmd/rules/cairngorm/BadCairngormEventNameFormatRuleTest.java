@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class BadCairngormEventNameFormatRuleTest
-      extends AbstractAstFlexRuleTest
+public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
 
@@ -55,7 +54,7 @@ public class BadCairngormEventNameFormatRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -63,18 +62,16 @@ public class BadCairngormEventNameFormatRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
       final ViolationPosition[] positions =
       { new ViolationPosition( 38, 38 ) };
 
-      assertViolations(
-            "cairngorm.events.UncorrectConstructorEvent.as",
-            positions );
+      assertViolations( "cairngorm.events.UncorrectConstructorEvent.as",
+                        positions );
 
-      assertViolations(
-            "cairngorm.events.UncorrectConstantEvent.as",
-            positions );
+      assertViolations( "cairngorm.events.UncorrectConstantEvent.as",
+                        positions );
    }
 
    @Override

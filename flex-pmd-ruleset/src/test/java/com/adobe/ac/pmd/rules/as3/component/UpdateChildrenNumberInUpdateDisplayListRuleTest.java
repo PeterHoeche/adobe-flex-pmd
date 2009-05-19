@@ -40,13 +40,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UpdateChildrenNumberInUpdateDisplayListRuleTest
-      extends AbstractAstFlexRuleTest
+public class UpdateChildrenNumberInUpdateDisplayListRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
    }
@@ -54,7 +53,7 @@ public class UpdateChildrenNumberInUpdateDisplayListRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
    }
@@ -62,13 +61,14 @@ public class UpdateChildrenNumberInUpdateDisplayListRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "BadComponent.as", new ViolationPosition[]
-            { new ViolationPosition( 42, 42 ), new ViolationPosition( 43, 43 ),
-                  new ViolationPosition( 44, 44 ),
-                  new ViolationPosition( 45, 45 ) } );
+      assertViolations( "BadComponent.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 42, 42 ),
+                                    new ViolationPosition( 43, 43 ),
+                                    new ViolationPosition( 44, 44 ),
+                                    new ViolationPosition( 45, 45 ) } );
    }
 
    @Override

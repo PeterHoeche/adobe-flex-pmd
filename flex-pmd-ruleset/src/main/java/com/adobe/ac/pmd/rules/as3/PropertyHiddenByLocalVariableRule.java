@@ -39,12 +39,10 @@ import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class PropertyHiddenByLocalVariableRule
-      extends AbstractAstFlexRule
+public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       final List< FieldNode > variables = classNode.getVariables();
 
@@ -56,8 +54,7 @@ public class PropertyHiddenByLocalVariableRule
             {
                continue;
             }
-            final Set< String > localVariables = function.getLocalVariables()
-                  .keySet();
+            final Set< String > localVariables = function.getLocalVariables().keySet();
 
             for ( final String localVariable : localVariables )
             {
@@ -65,11 +62,8 @@ public class PropertyHiddenByLocalVariableRule
                {
                   if ( localVariable.compareTo( field.getName() ) == 0 )
                   {
-                     addViolation(
-                           function.getLocalVariables().get(
-                                 localVariable ), function.getLocalVariables()
-                                 .get(
-                                       localVariable ) );
+                     addViolation( function.getLocalVariables().get( localVariable ),
+                                   function.getLocalVariables().get( localVariable ) );
                   }
                }
             }

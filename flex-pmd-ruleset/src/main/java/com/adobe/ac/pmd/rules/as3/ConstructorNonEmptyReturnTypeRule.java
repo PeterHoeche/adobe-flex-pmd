@@ -30,30 +30,25 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class ConstructorNonEmptyReturnTypeRule
-      extends AbstractAstFlexRule
+public class ConstructorNonEmptyReturnTypeRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       if ( classNode.getConstructor() != null
             && classNode.getConstructor().getReturnType() != null
-            && !"".equals( classNode.getConstructor().getReturnType()
-                  .toString() ) )
+            && !"".equals( classNode.getConstructor().getReturnType().toString() ) )
       {
          final Node constructor = classNode.getConstructor().getInternalNode();
 
-         addViolation(
-               constructor, constructor.children.get( constructor.children
-                     .size() - 1 ) );
+         addViolation( constructor,
+                       constructor.children.get( constructor.children.size() - 1 ) );
       }
    }
 

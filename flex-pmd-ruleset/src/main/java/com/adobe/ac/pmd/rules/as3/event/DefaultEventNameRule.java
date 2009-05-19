@@ -30,39 +30,31 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DefaultEventNameRule
-      extends AbstractAstFlexRule
+public class DefaultEventNameRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      return file.getClassName().endsWith(
-            "Event.as" );
+      return file.getClassName().endsWith( "Event.as" );
    }
 
    @Override
-   protected void findViolationsFromConstructor(
-         final FunctionNode constructor )
+   protected void findViolationsFromConstructor( final FunctionNode constructor )
    {
       // FIXME Uncomment this expression
       if ( constructor != null
             && constructor.getParameters().size() > 0
-            && constructor.getParameters().get(
-                  0 ).getType().toString().compareTo(
-                  "String" ) == 0 ) // && constructor.getParameters().get(
+            && constructor.getParameters().get( 0 ).getType().toString().compareTo( "String" ) == 0 ) // &&
+                                                                                                      // constructor.getParameters().get(
       // 0 ).getInitializationExpression() != null )
       {
-         addViolation(
-               constructor.getParameters().get(
-                     0 ).getInternalNode(), constructor.getParameters().get(
-                     0 ).getInternalNode() );
+         addViolation( constructor.getParameters().get( 0 ).getInternalNode(),
+                       constructor.getParameters().get( 0 ).getInternalNode() );
       }
    }
 

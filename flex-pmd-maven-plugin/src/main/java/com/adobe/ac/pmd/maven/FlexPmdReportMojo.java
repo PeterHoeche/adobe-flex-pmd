@@ -46,12 +46,11 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
  * @goal report
  * @phase site
  */
-public class FlexPmdReportMojo
-extends AbstractFlexPmdMojo
+public class FlexPmdReportMojo extends AbstractFlexPmdMojo
 {
    /**
     * Specifies the location of the source files to be used.
-    *
+    * 
     * @parameter default-value="false"
     * @required
     * @readonly
@@ -59,33 +58,32 @@ extends AbstractFlexPmdMojo
    private boolean aggregate;
 
    @Override
-   protected void executeReport(
-                                final Locale locale ) throws MavenReportException
-                                {
+   protected void executeReport( final Locale locale ) throws MavenReportException
+   {
       LOGGER.info( "FlexPmdReportMojo starts" );
 
       try
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
-         new FlexPmdXmlEngine().executeReport(
-               sourceDirectory, outputDirectory, ruleSet, pmd );
+         new FlexPmdXmlEngine().executeReport( sourceDirectory,
+                                               outputDirectory,
+                                               ruleSet,
+                                               pmd );
 
-         new FlexPmdHtmlEngine( getSink(), getBundle( locale ), aggregate,
-               getProject() )
-         .executeReport(
-               sourceDirectory, new File( outputDirectory
-                     + "/site" ), ruleSet, pmd );
+         new FlexPmdHtmlEngine( getSink(), getBundle( locale ), aggregate, getProject() ).executeReport( sourceDirectory,
+                                                                                                         new File( outputDirectory
+                                                                                                               + "/site" ),
+                                                                                                         ruleSet,
+                                                                                                         pmd );
       }
       catch ( final PMDException e )
       {
-         throw new MavenReportException(
-               "An error has been thrown while executing the PMD report", e );
+         throw new MavenReportException( "An error has been thrown while executing the PMD report", e );
       }
       catch ( final FileNotFoundException e )
       {
-         throw new MavenReportException( "The Ruleset url has not been found",
-               e );
+         throw new MavenReportException( "The Ruleset url has not been found", e );
       }
-                                }
+   }
 }

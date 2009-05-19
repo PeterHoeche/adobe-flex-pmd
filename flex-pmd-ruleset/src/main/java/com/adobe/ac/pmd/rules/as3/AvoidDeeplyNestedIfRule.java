@@ -40,8 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class AvoidDeeplyNestedIfRule
-extends AbstractAstFlexRule implements IThresholdedRule
+public class AvoidDeeplyNestedIfRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int ifLevel = 0;
 
@@ -78,8 +77,7 @@ extends AbstractAstFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected void visitFunctionBody(
-                                    final Node node )
+   protected void visitFunctionBody( final Node node )
    {
       ifLevel = 0;
 
@@ -87,8 +85,7 @@ extends AbstractAstFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected void visitIf(
-                          final Node ast )
+   protected void visitIf( final Node ast )
    {
       ifLevel++;
 
@@ -96,7 +93,8 @@ extends AbstractAstFlexRule implements IThresholdedRule
 
       if ( ifLevel > getThreshold() )
       {
-         addViolation( ast, ast );
+         addViolation( ast,
+                       ast );
       }
 
       ifLevel--;

@@ -44,8 +44,7 @@ import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class OverLongLineRule
-extends AbstractFlexRule implements IThresholdedRule
+public class OverLongLineRule extends AbstractFlexRule implements IThresholdedRule
 {
    private int currentLine;
 
@@ -69,40 +68,36 @@ extends AbstractFlexRule implements IThresholdedRule
       return MAXIMUM;
    }
 
-   public boolean isConcernedByTheGivenFile(
-                                            final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
 
-
    @Override
-   final public List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
-         {
+   final public List< Violation > processFileBody( final PackageNode rootNode,
+                                                   final AbstractFlexFile file,
+                                                   final Map< String, AbstractFlexFile > files )
+   {
       final List< Violation > violations = new ArrayList< Violation >();
 
       if ( isConcernedByTheGivenFile( file ) )
       {
          for ( int i = 0; i < file.getLines().size(); i++ )
          {
-            final String line = file.getLines().get(
-                  i );
+            final String line = file.getLines().get( i );
 
-            if ( !line.trim().startsWith(
-            "import" )
-            && line.length() >= getThreshold() )
+            if ( !line.trim().startsWith( "import" )
+                  && line.length() >= getThreshold() )
             {
                currentLine = line.length();
-               addViolation(
-                     violations, file, new ViolationPosition( i + 1, i + 1, 0,
-                           line.length() ) );
+               addViolation( violations,
+                             file,
+                             new ViolationPosition( i + 1, i + 1, 0, line.length() ) );
             }
          }
       }
       return violations;
-         }
+   }
 
    @Override
    protected ViolationPriority getDefaultPriority()

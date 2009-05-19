@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class EmptyCatchStatementRuleTest
-      extends AbstractAstFlexRuleTest
+public class EmptyCatchStatementRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
@@ -54,7 +53,7 @@ public class EmptyCatchStatementRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
    }
@@ -62,11 +61,11 @@ public class EmptyCatchStatementRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
-            { new ViolationPosition( 57, 57 ) } );
+      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 57, 57 ) } );
    }
 
    @Override

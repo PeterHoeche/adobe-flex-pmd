@@ -42,8 +42,7 @@ import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
-public class FlexPmdAntTask
-      extends Task
+public class FlexPmdAntTask extends Task
 {
    private File outputDirectory;
    private File ruleSet;
@@ -64,8 +63,10 @@ public class FlexPmdAntTask
          {
             throw new PMDException( "unspecified outputDirectory" );
          }
-         engine.executeReport(
-               sourceDirectory, outputDirectory, ruleSet, new FlexPmdViolations() );
+         engine.executeReport( sourceDirectory,
+                               outputDirectory,
+                               ruleSet,
+                               new FlexPmdViolations() );
       }
       catch ( final PMDException e )
       {
@@ -77,20 +78,17 @@ public class FlexPmdAntTask
       }
    }
 
-   public void setOutputDirectory(
-         final File outputDirectoryToBeSet )
+   public void setOutputDirectory( final File outputDirectoryToBeSet )
    {
       outputDirectory = outputDirectoryToBeSet;
    }
 
-   public void setRuleSet(
-         final File ruleSetToBeSet )
+   public void setRuleSet( final File ruleSetToBeSet )
    {
       ruleSet = ruleSetToBeSet;
    }
 
-   public void setSourceDirectory(
-         final File sourceDirectoryToBeSet )
+   public void setSourceDirectory( final File sourceDirectoryToBeSet )
    {
       sourceDirectory = sourceDirectoryToBeSet;
    }

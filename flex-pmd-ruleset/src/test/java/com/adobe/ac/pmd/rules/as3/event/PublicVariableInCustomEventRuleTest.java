@@ -40,14 +40,13 @@ import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class PublicVariableInCustomEventRuleTest
-      extends AbstractRegExpBasedRuleTest
+public class PublicVariableInCustomEventRuleTest extends AbstractRegExpBasedRuleTest
 {
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
@@ -55,7 +54,7 @@ public class PublicVariableInCustomEventRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -63,12 +62,11 @@ public class PublicVariableInCustomEventRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 35, 35 ) } );
+      assertViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override
@@ -88,6 +86,7 @@ public class PublicVariableInCustomEventRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "private var _lala : int", "lala()" };
+      { "private var _lala : int",
+                  "lala()" };
    }
 }

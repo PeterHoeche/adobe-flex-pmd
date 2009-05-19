@@ -32,22 +32,20 @@ package com.adobe.ac.pmd.files;
 
 import java.io.File;
 
-public class As3File
-      extends AbstractFlexFile
+public class As3File extends AbstractFlexFile
 {
 
-   public As3File(
-         final File file, final File rootDirectory )
+   public As3File( final File file,
+                   final File rootDirectory )
    {
       super( file, rootDirectory );
    }
 
    @Override
-   public boolean doesCurrentLineContainOneLineComment(
-         final String line )
+   public boolean doesCurrentLineContainOneLineComment( final String line )
    {
-      return doesCurrentLineContain(
-            line, "//" );
+      return doesCurrentLineContain( line,
+                                     "//" );
    }
 
    @Override

@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
@@ -40,54 +39,42 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class BadCairngormEventNameFormatRule
-      extends AbstractAstFlexRule
+public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      return file.getClassName().endsWith(
-                  "Event.as" );
+      return file.getClassName().endsWith( "Event.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode packageNode )
+   protected void findViolationsFromPackageNode( final PackageNode packageNode )
    {
       super.findViolationsFromPackageNode( packageNode );
 
       if ( packageNode != null
-            && packageNode.getClassNode() != null
-            && packageNode.getClassNode().getExtensionName() != null
-            && packageNode.getClassNode().getExtensionName().contains(
-                  "Cairngorm" )
-            && packageNode.getClassNode().getExtensionName().contains(
-                  "Event" ) )
+            && packageNode.getClassNode() != null && packageNode.getClassNode().getExtensionName() != null
+            && packageNode.getClassNode().getExtensionName().contains( "Cairngorm" )
+            && packageNode.getClassNode().getExtensionName().contains( "Event" ) )
       {
          String eventName = "";
 
-         for ( final FieldNode constantNode : packageNode.getClassNode()
-               .getConstants() )
+         for ( final FieldNode constantNode : packageNode.getClassNode().getConstants() )
          {
-            if ( constantNode.getName().startsWith(
-                  "EVENT" ) )
+            if ( constantNode.getName().startsWith( "EVENT" ) )
             {
-               eventName = extractEventNameFromConstant( constantNode
-                     .getInitializationExpression().getInternalNode() );
+               eventName = extractEventNameFromConstant( constantNode.getInitializationExpression().getInternalNode() );
             }
          }
          if ( eventName.compareTo( "" ) == 0
                && packageNode.getClassNode().getConstructor() != null )
          {
-            eventName = extractEventNameFromConstructor( packageNode
-                  .getClassNode().getConstructor() );
+            eventName = extractEventNameFromConstructor( packageNode.getClassNode().getConstructor() );
          }
          if ( !eventName.contains( "." ) )
          {
-            addViolation(
-                  packageNode.getClassNode().getInternalNode(), packageNode
-                        .getClassNode().getInternalNode() );
+            addViolation( packageNode.getClassNode().getInternalNode(),
+                          packageNode.getClassNode().getInternalNode() );
          }
       }
    }
@@ -98,14 +85,12 @@ public class BadCairngormEventNameFormatRule
       return ViolationPriority.WARNING;
    }
 
-   private String extractEventNameFromConstant(
-         final Node initExpressionNode )
+   private String extractEventNameFromConstant( final Node initExpressionNode )
    {
       return initExpressionNode.children.get( 0 ).stringValue;
    }
 
-   private String extractEventNameFromConstructor(
-         final FunctionNode constructor )
+   private String extractEventNameFromConstructor( final FunctionNode constructor )
    {
       String eventName = "";
       final Node superCall = constructor.getSuperCall();

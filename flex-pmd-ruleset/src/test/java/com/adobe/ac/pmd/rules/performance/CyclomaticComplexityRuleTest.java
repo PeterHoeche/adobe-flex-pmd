@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class CyclomaticComplexityRuleTest
-      extends AbstractAstFlexRuleTest
+public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
    }
@@ -53,7 +52,7 @@ public class CyclomaticComplexityRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
    }
@@ -61,11 +60,11 @@ public class CyclomaticComplexityRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "RadonDataGrid.as", new ViolationPosition[]
-            { new ViolationPosition( 157, 157 ) } );
+      assertViolations( "RadonDataGrid.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 157, 157 ) } );
    }
 
    @Override

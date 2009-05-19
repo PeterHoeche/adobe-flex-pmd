@@ -40,8 +40,7 @@ import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooLongBindingExpressionRule
-extends AbstractRegexpBasedRule implements IThresholdedRule
+public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implements IThresholdedRule
 {
    private int currentCount;
 
@@ -66,14 +65,13 @@ extends AbstractRegexpBasedRule implements IThresholdedRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile(
-                                            final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return file.isMxml();
    }
 
-   private int countChar(
-                         final String input, final char charToSearch )
+   private int countChar( final String input,
+                          final char charToSearch )
    {
       int charCount = 0;
 
@@ -101,17 +99,17 @@ extends AbstractRegexpBasedRule implements IThresholdedRule
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine(
-                                                           final String line, final AbstractFlexFile file )
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                            final AbstractFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 
       if ( matcher.matches() )
       {
-         currentCount = countChar(
-               matcher.group( 1 ), '.' );
+         currentCount = countChar( matcher.group( 1 ),
+                                   '.' );
          return matcher.matches()
-         && currentCount > getThreshold();
+               && currentCount > getThreshold();
       }
       return false;
    }

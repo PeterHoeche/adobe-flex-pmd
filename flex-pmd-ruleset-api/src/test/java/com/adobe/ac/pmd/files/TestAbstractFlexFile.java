@@ -43,15 +43,15 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 
-public class TestAbstractFlexFile
-      extends FlexPmdTestBase
+public class TestAbstractFlexFile extends FlexPmdTestBase
 {
-   private As3File as3;
+   private As3File  as3;
    private MxmlFile mainMxml;
    private MxmlFile mxml;
 
    @Before
-   public void init() throws FileNotFoundException, URISyntaxException
+   public void init() throws FileNotFoundException,
+                     URISyntaxException
    {
       as3 = ( As3File ) testFiles.get( "AbstractRowData.as" );
       mainMxml = ( MxmlFile ) testFiles.get( "Main.mxml" );
@@ -61,117 +61,126 @@ public class TestAbstractFlexFile
    @Test
    public void testCompareTo()
    {
-      assertTrue(
-            "", as3.compareTo( mxml ) < 0 );
-      assertTrue(
-            "", mxml.compareTo( as3 ) > 0 );
-      assertEquals(
-            "", as3.compareTo( as3 ), 0 );
+      assertTrue( "",
+                  as3.compareTo( mxml ) < 0 );
+      assertTrue( "",
+                  mxml.compareTo( as3 ) > 0 );
+      assertEquals( "",
+                    as3.compareTo( as3 ),
+                    0 );
    }
 
    @Test
    public void testDoesCurrentLineContainCommentClosingTag()
    {
-      assertTrue(
-            "", as3.doesCurrentLineContainCommentClosingTag( "*/" ) );
-      assertTrue(
-            "", mxml.doesCurrentLineContainCommentClosingTag( "-->" ) );
-      assertFalse(
-            "", mxml.doesCurrentLineContainCommentClosingTag( "*/" ) );
-      assertFalse(
-            "", as3.doesCurrentLineContainCommentClosingTag( "-->" ) );
+      assertTrue( "",
+                  as3.doesCurrentLineContainCommentClosingTag( "*/" ) );
+      assertTrue( "",
+                  mxml.doesCurrentLineContainCommentClosingTag( "-->" ) );
+      assertFalse( "",
+                   mxml.doesCurrentLineContainCommentClosingTag( "*/" ) );
+      assertFalse( "",
+                   as3.doesCurrentLineContainCommentClosingTag( "-->" ) );
    }
 
    @Test
    public void testDoesCurrentLineContainCommentOpeningTag()
    {
-      assertTrue(
-            "", as3.doesCurrentLineContainCommentOpeningTag( "/*" ) );
-      assertTrue(
-            "", mxml.doesCurrentLineContainCommentOpeningTag( "<!--" ) );
-      assertFalse(
-            "", mxml.doesCurrentLineContainCommentOpeningTag( "<--" ) );
-      assertFalse(
-            "", as3.doesCurrentLineContainCommentOpeningTag( "**" ) );
+      assertTrue( "",
+                  as3.doesCurrentLineContainCommentOpeningTag( "/*" ) );
+      assertTrue( "",
+                  mxml.doesCurrentLineContainCommentOpeningTag( "<!--" ) );
+      assertFalse( "",
+                   mxml.doesCurrentLineContainCommentOpeningTag( "<--" ) );
+      assertFalse( "",
+                   as3.doesCurrentLineContainCommentOpeningTag( "**" ) );
    }
 
    @Test
    public void testDoesCurrentLineContainOneLineComment()
    {
-      assertTrue(
-            "", as3.doesCurrentLineContainOneLineComment( "//" ) );
-      assertFalse(
-            "", mxml.doesCurrentLineContainOneLineComment( "<!-- -->" ) );
-      assertFalse(
-            "", mxml.doesCurrentLineContainOneLineComment( "<--" ) );
-      assertFalse(
-            "", as3.doesCurrentLineContainOneLineComment( "**" ) );
+      assertTrue( "",
+                  as3.doesCurrentLineContainOneLineComment( "//" ) );
+      assertFalse( "",
+                   mxml.doesCurrentLineContainOneLineComment( "<!-- -->" ) );
+      assertFalse( "",
+                   mxml.doesCurrentLineContainOneLineComment( "<--" ) );
+      assertFalse( "",
+                   as3.doesCurrentLineContainOneLineComment( "**" ) );
    }
 
    @Test
    public void testGetClassName()
    {
-      assertEquals(
-            "", "AbstractRowData.as", as3.getClassName() );
-      assertEquals(
-            "", "IterationsList.mxml", mxml.getClassName() );
+      assertEquals( "",
+                    "AbstractRowData.as",
+                    as3.getClassName() );
+      assertEquals( "",
+                    "IterationsList.mxml",
+                    mxml.getClassName() );
    }
 
    @Test
    public void testGetFilePath()
    {
-      assertNotNull(
-            "", as3.getFilePath() );
-      assertNotNull(
-            "", mxml.getFilePath() );
-      assertNotNull(
-            "", mainMxml.getFilePath() );
+      assertNotNull( "",
+                     as3.getFilePath() );
+      assertNotNull( "",
+                     mxml.getFilePath() );
+      assertNotNull( "",
+                     mainMxml.getFilePath() );
    }
 
    @Test
    public void testGetLines()
    {
-      assertEquals(
-            "", 141, as3.getLines().size() );
-      assertEquals(
-            "", 100, mxml.getLines().size() );
+      assertEquals( "",
+                    141,
+                    as3.getLines().size() );
+      assertEquals( "",
+                    100,
+                    mxml.getLines().size() );
    }
 
    @Test
    public void testGetPackageName()
    {
-      assertEquals(
-            "", "", as3.getPackageName() );
-      assertEquals(
-            "", "com.adobe.ac.ncss.mxml", mxml.getPackageName() );
+      assertEquals( "",
+                    "",
+                    as3.getPackageName() );
+      assertEquals( "",
+                    "com.adobe.ac.ncss.mxml",
+                    mxml.getPackageName() );
    }
 
    @Test
    public void testGetPath()
    {
-      assertEquals(
-            "", "AbstractRowData.as", as3.getFullyQualifiedName() );
-      assertEquals(
-            "", "com.adobe.ac.ncss.mxml.IterationsList.mxml", mxml.getFullyQualifiedName() );
+      assertEquals( "",
+                    "AbstractRowData.as",
+                    as3.getFullyQualifiedName() );
+      assertEquals( "",
+                    "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                    mxml.getFullyQualifiedName() );
    }
 
    @Test
    public void testIsMainApplication()
    {
-      assertFalse(
-            "", as3.isMainApplication() );
-      assertFalse(
-            "", mxml.isMainApplication() );
-      assertTrue(
-            "", mainMxml.isMainApplication() );
+      assertFalse( "",
+                   as3.isMainApplication() );
+      assertFalse( "",
+                   mxml.isMainApplication() );
+      assertTrue( "",
+                  mainMxml.isMainApplication() );
    }
 
    @Test
    public void testIsMxml()
    {
-      assertFalse(
-            "", as3.isMxml() );
-      assertTrue(
-            "", mxml.isMxml() );
+      assertFalse( "",
+                   as3.isMxml() );
+      assertTrue( "",
+                  mxml.isMxml() );
    }
 }

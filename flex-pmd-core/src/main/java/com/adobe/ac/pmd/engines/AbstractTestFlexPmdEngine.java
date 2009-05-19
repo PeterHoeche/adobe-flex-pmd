@@ -43,47 +43,47 @@ import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
 
-public abstract class AbstractTestFlexPmdEngine
-extends TestCase
+public abstract class AbstractTestFlexPmdEngine extends TestCase
 {
    static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
-   protected int violationsFound = 0;
+   protected int                 violationsFound      = 0;
 
-   public AbstractTestFlexPmdEngine(
-                                    final String name )
+   public AbstractTestFlexPmdEngine( final String name )
    {
       super( name );
    }
 
    @Test
-   public void testExecuteReport() throws PMDException, SAXException,
-   URISyntaxException, IOException
+   public void testExecuteReport() throws PMDException,
+                                  SAXException,
+                                  URISyntaxException,
+                                  IOException
    {
       final AbstractFlexPmdEngine engine = getFlexPmdEngine();
-      final File sourceDirectory = new File( getClass().getResource(
-      "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource(
-      "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
+      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
+      final URL ruleSetUrl = getClass().getResource( "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl );
+      assertNotNull( "RuleSet has not been found",
+                     ruleSetUrl );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI() );
+      assertNotNull( "RuleSet has not been found",
+                     ruleSetUrl.toURI() );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI().getPath() );
+      assertNotNull( "RuleSet has not been found",
+                     ruleSetUrl.toURI().getPath() );
 
       final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
       final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
-      violationsFound = engine.executeReport(
-            sourceDirectory, outputDirectory, ruleSetFile,
-            new FlexPmdViolations() );
+      violationsFound = engine.executeReport( sourceDirectory,
+                                              outputDirectory,
+                                              ruleSetFile,
+                                              new FlexPmdViolations() );
 
-      assertEquals(
-            "Number of violations found is not correct", 203, violationsFound );
+      assertEquals( "Number of violations found is not correct",
+                    203,
+                    violationsFound );
    }
 
    protected abstract AbstractFlexPmdEngine getFlexPmdEngine();

@@ -37,13 +37,12 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 
-public abstract class AbstractCommonRegExpBasedRuleTest
-      extends AbstractRegExpBasedRuleTest
+public abstract class AbstractCommonRegExpBasedRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
    }
 }

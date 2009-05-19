@@ -39,6 +39,5 @@ public interface IMetaDataListHolder
     */
    List< MetaDataNode > getMetaDataList();
 
-   void setMetaDataList(
-         final List< MetaDataNode > metaDataList );
+   void setMetaDataList( final List< MetaDataNode > metaDataList );
 }

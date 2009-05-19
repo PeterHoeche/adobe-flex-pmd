@@ -39,8 +39,7 @@ import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class WarningRule
-      extends AbstractFlexRule
+public class WarningRule extends AbstractFlexRule
 {
    @Override
    public String getMessage()
@@ -48,8 +47,7 @@ public class WarningRule
       return "warning message";
    }
 
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
@@ -61,9 +59,9 @@ public class WarningRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
    {
       return new ArrayList< Violation >();
    }

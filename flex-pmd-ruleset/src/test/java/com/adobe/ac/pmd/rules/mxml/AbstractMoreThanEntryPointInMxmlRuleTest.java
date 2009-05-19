@@ -38,20 +38,19 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.common.AbstractCommonFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public abstract class AbstractMoreThanEntryPointInMxmlRuleTest
-      extends AbstractCommonFlexRuleTest
+public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
    }
 
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
    }
@@ -59,15 +58,13 @@ public abstract class AbstractMoreThanEntryPointInMxmlRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
-            iterationsList2Violations() );
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                        iterationsList2Violations() );
 
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-            iterationsListViolations() );
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                        iterationsListViolations() );
    }
 
    abstract protected ViolationPosition[] iterationsList2Violations();

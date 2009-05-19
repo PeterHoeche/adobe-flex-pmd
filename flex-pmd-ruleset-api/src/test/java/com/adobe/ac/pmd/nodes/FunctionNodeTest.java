@@ -44,8 +44,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import de.bokelberg.flex.parser.AS3Parser;
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
-public class FunctionNodeTest
-extends FlexPmdTestBase
+public class FunctionNodeTest extends FlexPmdTestBase
 {
    private FunctionNode constructor;
    private FunctionNode drawHighlightIndicator;
@@ -56,91 +55,80 @@ extends FlexPmdTestBase
    private FunctionNode placeSortArrow;
 
    @Before
-   public void setup() throws IOException, TokenException
+   public void setup() throws IOException,
+                      TokenException
    {
       final AS3Parser parser = new AS3Parser();
-      final ClassNode radonDataGridClassNode = new PackageNode( parser
-            .buildAst( testFiles.get(
-                  "RadonDataGrid.as" ).getFilePath() ) ).getClassNode();
+      final ClassNode radonDataGridClassNode = new PackageNode( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
+                                                                                          .getFilePath() ) ).getClassNode();
 
-      constructor = radonDataGridClassNode.getFunctions().get(
-            0 );
-      drawHighlightIndicator = radonDataGridClassNode.getFunctions().get(
-            1 );
-      drawSelectionIndicator = radonDataGridClassNode.getFunctions().get(
-            2 );
-      drawRowBackground = radonDataGridClassNode.getFunctions().get(
-            3 );
-      placeSortArrow = radonDataGridClassNode.getFunctions().get(
-            4 );
-      isTrueGetter = radonDataGridClassNode.getFunctions().get(
-            5 );
-      isTrueSetter = radonDataGridClassNode.getFunctions().get(
-            6 );
+      constructor = radonDataGridClassNode.getFunctions().get( 0 );
+      drawHighlightIndicator = radonDataGridClassNode.getFunctions().get( 1 );
+      drawSelectionIndicator = radonDataGridClassNode.getFunctions().get( 2 );
+      drawRowBackground = radonDataGridClassNode.getFunctions().get( 3 );
+      placeSortArrow = radonDataGridClassNode.getFunctions().get( 4 );
+      isTrueGetter = radonDataGridClassNode.getFunctions().get( 5 );
+      isTrueSetter = radonDataGridClassNode.getFunctions().get( 6 );
    }
 
    @Test
    public void testGetCyclomaticComplexity()
    {
-      assertEquals(
-            2, constructor.getCyclomaticComplexity() );
-      assertEquals(
-            1, drawHighlightIndicator.getCyclomaticComplexity() );
-      assertEquals(
-            1, drawSelectionIndicator.getCyclomaticComplexity() );
-      assertEquals(
-            4, drawRowBackground.getCyclomaticComplexity() );
-      assertEquals(
-            13, placeSortArrow.getCyclomaticComplexity() );
+      assertEquals( 2,
+                    constructor.getCyclomaticComplexity() );
+      assertEquals( 1,
+                    drawHighlightIndicator.getCyclomaticComplexity() );
+      assertEquals( 1,
+                    drawSelectionIndicator.getCyclomaticComplexity() );
+      assertEquals( 4,
+                    drawRowBackground.getCyclomaticComplexity() );
+      assertEquals( 13,
+                    placeSortArrow.getCyclomaticComplexity() );
    }
 
    @Test
    public void testGetName()
    {
-      assertEquals(
-            "RadonDataGrid", constructor.getName() );
-      assertEquals(
-            "drawHighlightIndicator", drawHighlightIndicator.getName() );
-      assertEquals(
-            "drawSelectionIndicator", drawSelectionIndicator.getName() );
-      assertEquals(
-            "drawRowBackground", drawRowBackground.getName() );
-      assertEquals(
-            "placeSortArrow", placeSortArrow.getName() );
+      assertEquals( "RadonDataGrid",
+                    constructor.getName() );
+      assertEquals( "drawHighlightIndicator",
+                    drawHighlightIndicator.getName() );
+      assertEquals( "drawSelectionIndicator",
+                    drawSelectionIndicator.getName() );
+      assertEquals( "drawRowBackground",
+                    drawRowBackground.getName() );
+      assertEquals( "placeSortArrow",
+                    placeSortArrow.getName() );
    }
 
    @Test
    public void testGetParameters()
    {
-      assertEquals(
-            0, constructor.getParameters().size() );
-      assertEquals(
-            7, drawHighlightIndicator.getParameters().size() );
-      assertEquals(
-            7, drawSelectionIndicator.getParameters().size() );
-      assertEquals(
-            6, drawRowBackground.getParameters().size() );
-      assertEquals(
-            0, placeSortArrow.getParameters().size() );
+      assertEquals( 0,
+                    constructor.getParameters().size() );
+      assertEquals( 7,
+                    drawHighlightIndicator.getParameters().size() );
+      assertEquals( 7,
+                    drawSelectionIndicator.getParameters().size() );
+      assertEquals( 6,
+                    drawRowBackground.getParameters().size() );
+      assertEquals( 0,
+                    placeSortArrow.getParameters().size() );
    }
 
    @Test
    public void testGetReturnType()
    {
-      assertEquals(
-            "", constructor.getReturnType().getInternalNode().stringValue );
-      assertEquals(
-            "void",
-            drawHighlightIndicator.getReturnType().getInternalNode().stringValue );
-      assertEquals(
-            "void",
-            drawSelectionIndicator.getReturnType().getInternalNode().stringValue );
-      assertEquals(
-            "void",
-            drawRowBackground.getReturnType().getInternalNode().stringValue );
-      assertEquals(
-            "void",
-            placeSortArrow.getReturnType().getInternalNode().stringValue );
+      assertEquals( "",
+                    constructor.getReturnType().getInternalNode().stringValue );
+      assertEquals( "void",
+                    drawHighlightIndicator.getReturnType().getInternalNode().stringValue );
+      assertEquals( "void",
+                    drawSelectionIndicator.getReturnType().getInternalNode().stringValue );
+      assertEquals( "void",
+                    drawRowBackground.getReturnType().getInternalNode().stringValue );
+      assertEquals( "void",
+                    placeSortArrow.getReturnType().getInternalNode().stringValue );
    }
 
    @Test
@@ -164,13 +152,13 @@ extends FlexPmdTestBase
    @Test
    public void testLocalVariables()
    {
-      assertEquals(
-            0, constructor.getLocalVariables().size() );
-      assertEquals(
-            2, drawHighlightIndicator.getLocalVariables().size() );
-      assertEquals(
-            13, drawSelectionIndicator.getLocalVariables().size() );
-      assertEquals(
-            5, drawRowBackground.getLocalVariables().size() );
+      assertEquals( 0,
+                    constructor.getLocalVariables().size() );
+      assertEquals( 2,
+                    drawHighlightIndicator.getLocalVariables().size() );
+      assertEquals( 13,
+                    drawSelectionIndicator.getLocalVariables().size() );
+      assertEquals( 5,
+                    drawRowBackground.getLocalVariables().size() );
    }
 }

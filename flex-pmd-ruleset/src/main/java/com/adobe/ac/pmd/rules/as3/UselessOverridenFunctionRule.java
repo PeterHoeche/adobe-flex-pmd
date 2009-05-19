@@ -38,23 +38,19 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.KeyWords;
 
-public class UselessOverridenFunctionRule
-      extends AbstractAstFlexRule
+public class UselessOverridenFunctionRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromFunctionsList(
-         final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
    {
       for ( final FunctionNode function : functions )
       {
          if ( function.getContentBlock() != null
-               && function.getContentBlock().numChildren() == 1
-               && function.isOverriden()
+               && function.getContentBlock().numChildren() == 1 && function.isOverriden()
                && function.findPrimaryStatementFromName( KeyWords.SUPER ) != null )
          {
-            addViolation(
-                  function.getInternalNode(), function.getContentBlock()
-                        .getLastChild() );
+            addViolation( function.getInternalNode(),
+                          function.getContentBlock().getLastChild() );
          }
       }
    }

@@ -47,8 +47,7 @@ import com.martiansoftware.jsap.JSAPResult;
 
 final public class FlexPMD
 {
-   private static final Logger LOGGER = Logger.getLogger( FlexPMD.class
-         .getName() );
+   private static final Logger LOGGER                            = Logger.getLogger( FlexPMD.class.getName() );
 
    private static final String SOURCE_DIRECTORY_OPTION_LONG_NAME = "sourceDirectory";
 
@@ -59,55 +58,48 @@ final public class FlexPMD
     * @throws FileNotFoundException
     * @throws Exception
     */
-   public static void main(
-         final String[] args ) throws JSAPException, FileNotFoundException,
-         PMDException
+   public static void main( final String[] args ) throws JSAPException,
+                                                 FileNotFoundException,
+                                                 PMDException
    {
       LOGGER.setLevel( Level.WARNING );
       final JSAP jsap = new JSAP();
-      final JSAPResult config = parseCommandLineArguments(
-            args, jsap );
+      final JSAPResult config = parseCommandLineArguments( args,
+                                                           jsap );
       if ( config.success() )
       {
-         new FlexPmdXmlEngine()
-               .executeReport(
-                     new File( config
-                           .getString( SOURCE_DIRECTORY_OPTION_LONG_NAME ) ),
-                     new File(
-                           config
-                                 .getString( FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME ) ),
-                     new File(
-                           config
-                                 .getString( FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME ) ),
-                     new FlexPmdViolations() );
+         new FlexPmdXmlEngine().executeReport( new File( config.getString( SOURCE_DIRECTORY_OPTION_LONG_NAME ) ),
+                                               new File( config.getString( FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME ) ),
+                                               new File( config.getString( FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME ) ),
+                                               new FlexPmdViolations() );
       }
       else
       {
-         LOGGER.log(
-               Level.SEVERE, "Usage: java "
-                     + FlexPMD.class.getName() + " " + jsap.getUsage() );
+         LOGGER.log( Level.SEVERE,
+                     "Usage: java "
+                           + FlexPMD.class.getName() + " " + jsap.getUsage() );
       }
       LOGGER.info( "FlexPMD terminated" );
 
       System.exit( 0 );
    }
 
-   private static JSAPResult parseCommandLineArguments(
-         final String[] args, final JSAP jsap ) throws JSAPException
+   private static JSAPResult parseCommandLineArguments( final String[] args,
+                                                        final JSAP jsap ) throws JSAPException
    {
 
-      FlexPMDCommandLineUtils.registerParameter(
-            jsap, SOURCE_DIRECTORY_OPTION_LONG_NAME,
-            SOURCE_DIRECTORY_OPTION_LONG_NAME.charAt( 0 ), true );
-      FlexPMDCommandLineUtils.registerParameter(
-            jsap,
-            FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME,
-            FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME
-                  .charAt( 0 ), true );
-      FlexPMDCommandLineUtils.registerParameter(
-            jsap, FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME,
-            FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME.charAt( 0 ),
-            true );
+      FlexPMDCommandLineUtils.registerParameter( jsap,
+                                                 SOURCE_DIRECTORY_OPTION_LONG_NAME,
+                                                 SOURCE_DIRECTORY_OPTION_LONG_NAME.charAt( 0 ),
+                                                 true );
+      FlexPMDCommandLineUtils.registerParameter( jsap,
+                                                 FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME,
+                                                 FlexPMDCommandLineConstants.OUTPUT_DIRECTORY_OPTION_LONG_NAME.charAt( 0 ),
+                                                 true );
+      FlexPMDCommandLineUtils.registerParameter( jsap,
+                                                 FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME,
+                                                 FlexPMDCommandLineConstants.RULE_SET_OPTION_LONG_NAME.charAt( 0 ),
+                                                 true );
 
       return jsap.parse( args );
    }

@@ -37,7 +37,7 @@ import com.adobe.ac.ncss.utils.FileUtils;
 
 /**
  * Abstract class representing a Flex File (either MXML or AS)
- *
+ * 
  * @author xagnetti
  */
 public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
@@ -47,19 +47,19 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
     * @param search
     * @return true if the search string is contained in the given line
     */
-   protected static final boolean doesCurrentLineContain(
-         final String line, final String search )
+   protected static final boolean doesCurrentLineContain( final String line,
+                                                          final String search )
    {
       return line.contains( search );
    }
 
-   private final String className;
-   private final File file;
+   private final String         className;
+   private final File           file;
    private final List< String > lines;
-   private String packageName;
+   private String               packageName;
 
-   public AbstractFlexFile(
-         final File underlyingFile, final File rootDirectory )
+   public AbstractFlexFile( final File underlyingFile,
+                            final File rootDirectory )
    {
       final String filePath = underlyingFile.getPath();
       final String rootPath = rootDirectory.getPath();
@@ -67,59 +67,54 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
       file = underlyingFile;
       lines = FileUtils.readFile( underlyingFile );
       className = underlyingFile.getName();
-      packageName = filePath.replace(
-            className, "" ).replace(
-            rootPath, "" ).replace(
-            System.getProperty( "file.separator" ), "." );
+      packageName = filePath.replace( className,
+                                      "" ).replace( rootPath,
+                                                    "" ).replace( System.getProperty( "file.separator" ),
+                                                                  "." );
 
       if ( packageName.endsWith( "." ) )
       {
-         packageName = packageName.substring(
-               0, packageName.length() - 1 );
+         packageName = packageName.substring( 0,
+                                              packageName.length() - 1 );
       }
       if ( packageName.length() > 0
             && packageName.charAt( 0 ) == '.' )
       {
-         packageName = packageName.substring(
-               1, packageName.length() );
+         packageName = packageName.substring( 1,
+                                              packageName.length() );
       }
    }
 
-   public final int compareTo(
-         final AbstractFlexFile otherViolation )
+   public final int compareTo( final AbstractFlexFile otherViolation )
    {
-      return getFileName().compareTo(
-            otherViolation.getFileName() );
+      return getFileName().compareTo( otherViolation.getFileName() );
    }
 
    /**
     * @param line
     * @return true if the given line contains a comment closing tag
     */
-   public final boolean doesCurrentLineContainCommentClosingTag(
-         final String line )
+   public final boolean doesCurrentLineContainCommentClosingTag( final String line )
    {
-      return doesCurrentLineContain(
-            line, getCommentClosingTag() );
+      return doesCurrentLineContain( line,
+                                     getCommentClosingTag() );
    }
 
    /**
     * @param line
     * @return true if the given line contains a comment opening tag
     */
-   public final boolean doesCurrentLineContainCommentOpeningTag(
-         final String line )
+   public final boolean doesCurrentLineContainCommentOpeningTag( final String line )
    {
-      return doesCurrentLineContain(
-            line, getCommentOpeningTag() );
+      return doesCurrentLineContain( line,
+                                     getCommentOpeningTag() );
    }
 
    /**
     * @param line
     * @return true if the given line contain a one line comment
     */
-   public abstract boolean doesCurrentLineContainOneLineComment(
-         final String line );
+   public abstract boolean doesCurrentLineContainOneLineComment( final String line );
 
    public final String getClassName()
    {
@@ -154,7 +149,8 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
 
    public final String getFullyQualifiedName()
    {
-      return ( packageName.compareTo( "" ) == 0 ? "" : packageName + "." )
+      return ( packageName.compareTo( "" ) == 0 ? "" : packageName
+            + "." )
             + className;
    }
 

@@ -30,34 +30,28 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EventMissingCloneFunctionRule
-      extends AbstractAstFlexRule
+public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      return file.getClassName().endsWith(
-                  "Event.as" );
+      return file.getClassName().endsWith( "Event.as" );
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-         final PackageNode rootNode )
+   protected void findViolationsFromPackageNode( final PackageNode rootNode )
    {
       boolean cloneFound = false;
 
       if ( rootNode.getClassNode().getFunctions() != null )
       {
-         for ( final FunctionNode functionNode : rootNode.getClassNode()
-               .getFunctions() )
+         for ( final FunctionNode functionNode : rootNode.getClassNode().getFunctions() )
          {
             if ( "clone".equals( functionNode.getName() ) )
             {
@@ -66,8 +60,8 @@ public class EventMissingCloneFunctionRule
          }
          if ( !cloneFound )
          {
-            addViolation(
-                  rootNode.getInternalNode(), rootNode.getInternalNode() );
+            addViolation( rootNode.getInternalNode(),
+                          rootNode.getInternalNode() );
          }
       }
    }

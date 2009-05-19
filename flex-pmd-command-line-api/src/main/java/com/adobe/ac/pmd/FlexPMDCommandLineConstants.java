@@ -33,8 +33,8 @@ package com.adobe.ac.pmd;
 public final class FlexPMDCommandLineConstants
 {
    public static final String OUTPUT_DIRECTORY_OPTION_LONG_NAME = "outputDirectory";
-   public static final String RULE_SET_OPTION_LONG_NAME = "ruleSet";
-   
+   public static final String RULE_SET_OPTION_LONG_NAME         = "ruleSet";
+
    private FlexPMDCommandLineConstants()
    {
    }

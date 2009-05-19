@@ -40,13 +40,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UnboundTypeInMetadataRuleTest
-      extends AbstractAstFlexRuleTest
+public class UnboundTypeInMetadataRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
    }
@@ -54,7 +53,7 @@ public class UnboundTypeInMetadataRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -62,11 +61,11 @@ public class UnboundTypeInMetadataRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "UnboundMetadata.as", new ViolationPosition[]
-            { new ViolationPosition( 39, 39 ) } );
+      assertViolations( "UnboundMetadata.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 39, 39 ) } );
    }
 
    @Override

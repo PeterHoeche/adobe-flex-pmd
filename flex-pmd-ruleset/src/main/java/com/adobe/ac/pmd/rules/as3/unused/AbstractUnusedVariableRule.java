@@ -38,13 +38,11 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
 import de.bokelberg.flex.parser.Node;
 
-public abstract class AbstractUnusedVariableRule< E extends VariableNode >
-      extends AbstractAstFlexRule
+public abstract class AbstractUnusedVariableRule< E extends VariableNode > extends AbstractAstFlexRule
 {
    protected Map< E, Boolean > variablesUsed;
 
-   protected void markVariableAsUsed(
-         final Node ast )
+   protected void markVariableAsUsed( final Node ast )
    {
       if ( ast.numChildren() == 0 )
       {
@@ -53,13 +51,11 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode >
             final Boolean visited = variablesUsed.get( variable );
 
             if ( !visited
-                  && variable.getName() != null
-                  && ast.stringValue != null
-                  && variable.getName().compareTo(
-                        ast.stringValue ) == 0 )
+                  && variable.getName() != null && ast.stringValue != null
+                  && variable.getName().compareTo( ast.stringValue ) == 0 )
             {
-               variablesUsed.put(
-                     variable, true );
+               variablesUsed.put( variable,
+                                  true );
             }
          }
       }
@@ -73,29 +69,28 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode >
    }
 
    @Override
-   protected void visitFunction(
-         final Node ast, final String type )
+   protected void visitFunction( final Node ast,
+                                 final String type )
    {
       variablesUsed = new HashMap< E, Boolean >();
 
-      super.visitFunction(
-            ast, type );
+      super.visitFunction( ast,
+                           type );
       for ( final E parameter : variablesUsed.keySet() )
       {
          final Boolean visited = variablesUsed.get( parameter );
 
          if ( !visited )
          {
-            addViolation(
-                  parameter.getInternalNode(), parameter.getInternalNode(),
-                  parameter.getName() );
+            addViolation( parameter.getInternalNode(),
+                          parameter.getInternalNode(),
+                          parameter.getName() );
          }
       }
    }
 
    @Override
-   protected void visitStatement(
-         final Node ast )
+   protected void visitStatement( final Node ast )
    {
       super.visitStatement( ast );
 

@@ -44,15 +44,15 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.files.FileSetUtils;
 
 /**
- * Internal utility which finds out the test resources, and map them to their qualified names.
- *
+ * Internal utility which finds out the test resources, and map them to their
+ * qualified names.
+ * 
  * @author xagnetti
  */
 final class TestResourcesManager
 {
    private static TestResourcesManager instance = null;
-   private static final Logger LOGGER = Logger
-         .getLogger( TestResourcesManager.class.getName() );
+   private static final Logger         LOGGER   = Logger.getLogger( TestResourcesManager.class.getName() );
 
    public static TestResourcesManager getInstance()
    {
@@ -69,8 +69,7 @@ final class TestResourcesManager
    {
       try
       {
-         final URL resource = this.getClass().getResource(
-               "/test" );
+         final URL resource = this.getClass().getResource( "/test" );
 
          if ( resource == null )
          {

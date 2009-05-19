@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class FatControllerRuleTest
-      extends AbstractAstFlexRuleTest
+public class FatControllerRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "cairngorm.LightController.as" );
 
@@ -55,7 +54,7 @@ public class FatControllerRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -63,11 +62,11 @@ public class FatControllerRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "cairngorm.FatController.as", new ViolationPosition[]
-            { new ViolationPosition( 95, 196 ) } );
+      assertViolations( "cairngorm.FatController.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 95, 196 ) } );
    }
 
    @Override

@@ -42,11 +42,9 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class CopyrightMissingRule
-      extends AbstractFlexRule
+public class CopyrightMissingRule extends AbstractFlexRule
 {
-   public boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
    }
@@ -58,27 +56,23 @@ public class CopyrightMissingRule
    }
 
    @Override
-   protected List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files )
+   protected List< Violation > processFileBody( final PackageNode rootNode,
+                                                final AbstractFlexFile file,
+                                                final Map< String, AbstractFlexFile > files )
    {
       final List< Violation > violations = new ArrayList< Violation >();
       final String commentOpeningTag = file.getCommentOpeningTag();
       final boolean hasMxmlCopyright = file instanceof MxmlFile
-            && file.getLines().size() > 1 && file.getLines().get(
-                  1 ).contains(
-                  commentOpeningTag );
-      final String firstLine = file.getLines().get(
-            0 );
-      final boolean isFirstLineContainCopyright = firstLine
-            .startsWith(
-            commentOpeningTag );
+            && file.getLines().size() > 1 && file.getLines().get( 1 ).contains( commentOpeningTag );
+      final String firstLine = file.getLines().get( 0 );
+      final boolean isFirstLineContainCopyright = firstLine.startsWith( commentOpeningTag );
 
       if ( !isFirstLineContainCopyright
             && !hasMxmlCopyright )
       {
-         addViolation(
-               violations, file, new ViolationPosition( 0, 0 ) );
+         addViolation( violations,
+                       file,
+                       new ViolationPosition( 0, 0 ) );
       }
 
       return violations;

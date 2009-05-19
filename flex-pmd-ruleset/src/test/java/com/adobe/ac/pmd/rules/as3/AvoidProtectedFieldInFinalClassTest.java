@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class AvoidProtectedFieldInFinalClassTest
-      extends AbstractAstFlexRuleTest
+public class AvoidProtectedFieldInFinalClassTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
       assertEmptyViolations( "BadComponent.as" );
@@ -55,7 +54,7 @@ public class AvoidProtectedFieldInFinalClassTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -63,12 +62,12 @@ public class AvoidProtectedFieldInFinalClassTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as",
-            new ViolationPosition[]
-            { new ViolationPosition( 43, 43 ), new ViolationPosition( 89, 89 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 43, 43 ),
+                                    new ViolationPosition( 89, 89 ) } );
    }
 
    @Override

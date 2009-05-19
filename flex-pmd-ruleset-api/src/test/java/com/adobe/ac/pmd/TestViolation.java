@@ -41,96 +41,90 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TestViolation
-      extends FlexPmdTestBase
+public class TestViolation extends FlexPmdTestBase
 {
-   private static final int BEGINNING_COLUMN = 0;
-   private static final int BEGINNING_LINE = 1;
-   private static final int ENDING_COLUMN = 20;
-   private static final int ENDING_LINE = 10;
-   private static final AbstractFlexRule INFO_RULE = new EmptyRule();
-   private static final String RULE_SET_NAME = "RuleSetName";
-   private static final AbstractFlexRule WARNING_RULE = new WarningRule();
+   private static final int              BEGINNING_COLUMN = 0;
+   private static final int              BEGINNING_LINE   = 1;
+   private static final int              ENDING_COLUMN    = 20;
+   private static final int              ENDING_LINE      = 10;
+   private static final AbstractFlexRule INFO_RULE        = new EmptyRule();
+   private static final String           RULE_SET_NAME    = "RuleSetName";
+   private static final AbstractFlexRule WARNING_RULE     = new WarningRule();
 
    @Test
    public void testCompareTo()
    {
       final Violation infoViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ), INFO_RULE, null );
       final Violation infoViolation2 = new Violation( new ViolationPosition( 11, 20, 30, 30 ), INFO_RULE, null );
-      final Violation warningViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ),
-            WARNING_RULE, null );
-      final Violation warningViolation2 = new Violation( new ViolationPosition( 10, 20, 30, 30 ),
-            WARNING_RULE, null );
+      final Violation warningViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ), WARNING_RULE, null );
+      final Violation warningViolation2 = new Violation( new ViolationPosition( 10, 20, 30, 30 ), WARNING_RULE, null );
 
-      assertEquals(
-            "", -1, infoViolation.compareTo( infoViolation2 ) );
-      assertEquals(
-            "", -1, warningViolation.compareTo( infoViolation ) );
-      assertEquals(
-            "", 0, warningViolation.compareTo( warningViolation2 ) );
-      assertEquals(
-            "", 1, infoViolation2.compareTo( infoViolation ) );
-      assertEquals(
-            "", 1, infoViolation.compareTo( warningViolation ) );
+      assertEquals( "",
+                    -1,
+                    infoViolation.compareTo( infoViolation2 ) );
+      assertEquals( "",
+                    -1,
+                    warningViolation.compareTo( infoViolation ) );
+      assertEquals( "",
+                    0,
+                    warningViolation.compareTo( warningViolation2 ) );
+      assertEquals( "",
+                    1,
+                    infoViolation2.compareTo( infoViolation ) );
+      assertEquals( "",
+                    1,
+                    infoViolation.compareTo( warningViolation ) );
    }
 
    @Test
    public void testToXmlString() throws FileNotFoundException,
-         URISyntaxException
+                                URISyntaxException
    {
-      final Violation infoViolation = new Violation( new ViolationPosition(
-            BEGINNING_LINE, ENDING_LINE, BEGINNING_COLUMN, ENDING_COLUMN ),
-            INFO_RULE, null );
+      final Violation infoViolation = new Violation( new ViolationPosition( BEGINNING_LINE,
+                                                                            ENDING_LINE,
+                                                                            BEGINNING_COLUMN,
+                                                                            ENDING_COLUMN ), INFO_RULE, null );
 
       final AbstractFlexFile file = testFiles.get( "AbstractRowData.as" );
 
-      assertEquals(
-            "As3 file at a root level", "      <violation beginline=\""
-                  + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE
-                  + "\" begincolumn=\"" + BEGINNING_COLUMN + "\" endcolumn=\""
-                  + ENDING_COLUMN + "\" rule=\"" + INFO_RULE.getRuleName()
-                  + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
-                  + file.getPackageName() + "\" class=\"" + file.getClassName()
-                  + "\" externalInfoUrl=\"\" " + "priority=\""
-                  + INFO_RULE.getPriority() + "\">" + "emptyMessage"
-                  + "</violation>" + infoViolation.getNewLine(), infoViolation
-                  .toXmlString(
-                        file, RULE_SET_NAME ) );
+      assertEquals( "As3 file at a root level",
+                    "      <violation beginline=\""
+                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\"" + BEGINNING_COLUMN
+                          + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\"" + INFO_RULE.getRuleName()
+                          + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\"" + file.getPackageName() + "\" class=\""
+                          + file.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\"" + INFO_RULE.getPriority()
+                          + "\">" + "emptyMessage" + "</violation>" + infoViolation.getNewLine(),
+                    infoViolation.toXmlString( file,
+                                               RULE_SET_NAME ) );
 
-      final AbstractFlexFile fileWithPackage = testFiles
-            .get( "com.adobe.ac.AbstractRowData.as" );
-      final Violation warningViolation = new Violation( new ViolationPosition(
-            BEGINNING_LINE, ENDING_LINE, BEGINNING_COLUMN, ENDING_COLUMN ),
-            WARNING_RULE, null );
+      final AbstractFlexFile fileWithPackage = testFiles.get( "com.adobe.ac.AbstractRowData.as" );
+      final Violation warningViolation = new Violation( new ViolationPosition( BEGINNING_LINE,
+                                                                               ENDING_LINE,
+                                                                               BEGINNING_COLUMN,
+                                                                               ENDING_COLUMN ), WARNING_RULE, null );
 
-      assertEquals(
-            "As3 File at a not-root level", "      <violation beginline=\""
-                  + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE
-                  + "\" begincolumn=\"" + BEGINNING_COLUMN + "\" endcolumn=\""
-                  + ENDING_COLUMN + "\" rule=\"" + WARNING_RULE.getRuleName()
-                  + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
-                  + fileWithPackage.getPackageName() + "\" class=\""
-                  + file.getClassName() + "\" externalInfoUrl=\"\" "
-                  + "priority=\"" + WARNING_RULE.getPriority() + "\">"
-                  + "warning message" + "</violation>"
-                  + warningViolation.getNewLine(), warningViolation
-                  .toXmlString(
-                        fileWithPackage, RULE_SET_NAME ) );
+      assertEquals( "As3 File at a not-root level",
+                    "      <violation beginline=\""
+                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\"" + BEGINNING_COLUMN
+                          + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\"" + WARNING_RULE.getRuleName()
+                          + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\"" + fileWithPackage.getPackageName()
+                          + "\" class=\"" + file.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\""
+                          + WARNING_RULE.getPriority() + "\">" + "warning message" + "</violation>"
+                          + warningViolation.getNewLine(),
+                    warningViolation.toXmlString( fileWithPackage,
+                                                  RULE_SET_NAME ) );
 
-      final AbstractFlexFile mxml = testFiles
-            .get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      final AbstractFlexFile mxml = testFiles.get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
 
-      assertEquals(
-            "Mxml File at a not-root level", "      <violation beginline=\""
-                  + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE
-                  + "\" begincolumn=\"" + BEGINNING_COLUMN + "\" endcolumn=\""
-                  + ENDING_COLUMN + "\" rule=\"" + WARNING_RULE.getRuleName()
-                  + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
-                  + mxml.getPackageName() + "\" class=\"" + mxml.getClassName()
-                  + "\" externalInfoUrl=\"\" " + "priority=\""
-                  + WARNING_RULE.getPriority() + "\">" + "warning message"
-                  + "</violation>" + warningViolation.getNewLine(),
-            warningViolation.toXmlString(
-                  mxml, RULE_SET_NAME ) );
+      assertEquals( "Mxml File at a not-root level",
+                    "      <violation beginline=\""
+                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\"" + BEGINNING_COLUMN
+                          + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\"" + WARNING_RULE.getRuleName()
+                          + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\"" + mxml.getPackageName() + "\" class=\""
+                          + mxml.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\""
+                          + WARNING_RULE.getPriority() + "\">" + "warning message" + "</violation>"
+                          + warningViolation.getNewLine(),
+                    warningViolation.toXmlString( mxml,
+                                                  RULE_SET_NAME ) );
    }
 }

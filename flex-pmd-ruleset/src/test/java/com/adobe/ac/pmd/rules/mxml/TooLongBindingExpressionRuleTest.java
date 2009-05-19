@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooLongBindingExpressionRuleTest
-      extends AbstractRegExpBasedRuleTest
+public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -53,7 +52,7 @@ public class TooLongBindingExpressionRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -61,12 +60,11 @@ public class TooLongBindingExpressionRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 54, 54 ) } );
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 54, 54 ) } );
    }
 
    @Override
@@ -74,8 +72,8 @@ public class TooLongBindingExpressionRuleTest
    {
       return new String[]
       { " text=\"{ vfrfr.frfr.frf.lala }\"/>",
-            " text=\"{ vfrfr().frfr.frf.lala }\"/>",
-            " text=\"{vfrfr().frfr.frf.lala}\"/>" };
+                  " text=\"{ vfrfr().frfr.frf.lala }\"/>",
+                  " text=\"{vfrfr().frfr.frf.lala}\"/>" };
    }
 
    @Override
@@ -88,6 +86,7 @@ public class TooLongBindingExpressionRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { " text=\"\"/>", "lala()" };
+      { " text=\"\"/>",
+                  "lala()" };
    }
 }

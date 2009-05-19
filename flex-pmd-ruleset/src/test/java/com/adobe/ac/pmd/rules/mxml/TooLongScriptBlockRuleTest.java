@@ -39,8 +39,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooLongScriptBlockRuleTest
-      extends AbstractFlexRuleTest
+public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
 {
    @Override
    public AbstractFlexRule getRule()
@@ -50,18 +49,18 @@ public class TooLongScriptBlockRuleTest
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
 
       assertEmptyViolations( "MainWithModelLocator.mxml" );
-}
+   }
 
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -69,11 +68,10 @@ public class TooLongScriptBlockRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 39, 91 ) } );
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 39, 91 ) } );
    }
 }

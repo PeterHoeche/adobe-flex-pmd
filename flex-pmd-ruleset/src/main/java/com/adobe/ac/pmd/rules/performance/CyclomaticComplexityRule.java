@@ -41,8 +41,7 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class CyclomaticComplexityRule
-extends AbstractAstFlexRule implements IThresholdedRule
+public class CyclomaticComplexityRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private FunctionNode currentFunction;
 
@@ -60,36 +59,33 @@ extends AbstractAstFlexRule implements IThresholdedRule
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
+
    public String getThresholdName()
    {
       return MAXIMUM;
    }
 
    @Override
-   protected void findViolationsFromClassNode(
-                                              final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       if ( classNode.getFunctions() != null )
       {
-         for ( final FunctionNode function : classNode
-               .getFunctions() )
+         for ( final FunctionNode function : classNode.getFunctions() )
          {
             currentFunction = function;
             if ( function.getCyclomaticComplexity() > getThreshold() )
             {
-               addViolation(
-                     function.getInternalNode(), function.getInternalNode() );
+               addViolation( function.getInternalNode(),
+                             function.getInternalNode() );
             }
          }
       }
    }
 
    @Override
-   protected void findViolationsFromPackageNode(
-                                                final PackageNode packageNode )
+   protected void findViolationsFromPackageNode( final PackageNode packageNode )
    {
-      super.findViolationsFromPackageNode(
-            packageNode );
+      super.findViolationsFromPackageNode( packageNode );
 
    }
 

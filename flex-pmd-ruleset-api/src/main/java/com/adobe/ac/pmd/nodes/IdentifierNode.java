@@ -32,11 +32,9 @@ package com.adobe.ac.pmd.nodes;
 
 import de.bokelberg.flex.parser.Node;
 
-public class IdentifierNode
-      extends AbstractNode
+public class IdentifierNode extends AbstractNode
 {
-   public IdentifierNode(
-         final Node node )
+   public IdentifierNode( final Node node )
    {
       super( node );
    }

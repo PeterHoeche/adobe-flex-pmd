@@ -40,13 +40,12 @@ import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.performance.DynamicFiltersUsedInPopup;
 
-public class DynamicFiltersUsedInPopupTest
-      extends AbstractRegExpBasedRuleTest
+public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
    }
@@ -54,7 +53,7 @@ public class DynamicFiltersUsedInPopupTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
@@ -62,23 +61,25 @@ public class DynamicFiltersUsedInPopupTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "filters.MyPopup.as", new ViolationPosition[]
-            { new ViolationPosition( 37, 37 ) } );
+      assertViolations( "filters.MyPopup.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 37, 37 ) } );
 
-      assertViolations(
-            "filters.MyPopup.mxml",
-            new ViolationPosition[]
-            { new ViolationPosition( 41, 41 ), new ViolationPosition( 44, 44 ) } );
+      assertViolations( "filters.MyPopup.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 41, 41 ),
+                                    new ViolationPosition( 44, 44 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       final String[] lines =
-      { "new DropShadowFilter", "new GlowFilter", "mx:DropShadowFilter" };
+      { "new DropShadowFilter",
+                  "new GlowFilter",
+                  "mx:DropShadowFilter" };
       return lines;
    }
 
@@ -92,7 +93,8 @@ public class DynamicFiltersUsedInPopupTest
    protected String[] getUnmatchableLines()
    {
       final String[] lines =
-      { ".filterFunction", "DropShadowfilter(" };
+      { ".filterFunction",
+                  "DropShadowfilter(" };
       return lines;
    }
 }

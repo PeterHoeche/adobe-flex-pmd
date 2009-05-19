@@ -40,8 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class TooLongSwitchCaseRule
-extends AbstractAstFlexRule implements IThresholdedRule
+public class TooLongSwitchCaseRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int length;
 
@@ -78,18 +77,17 @@ extends AbstractAstFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected void visitSwitchCase(
-                                  final Node caseBlock )
+   protected void visitSwitchCase( final Node caseBlock )
    {
       if ( caseBlock != null
             && caseBlock.getChild( caseBlock.numChildren() - 1 ) != null )
       {
          length = caseBlock.getChild( caseBlock.numChildren() - 1 ).line
-         - caseBlock.line;
+               - caseBlock.line;
          if ( length > getThreshold() )
          {
-            addViolation(
-                  caseBlock, caseBlock.getChild( caseBlock.numChildren() - 1 ) );
+            addViolation( caseBlock,
+                          caseBlock.getChild( caseBlock.numChildren() - 1 ) );
 
          }
       }

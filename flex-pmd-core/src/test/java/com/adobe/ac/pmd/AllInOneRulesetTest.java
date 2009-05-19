@@ -42,38 +42,37 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 import junit.framework.TestCase;
 
-public class AllInOneRulesetTest
-      extends TestCase
+public class AllInOneRulesetTest extends TestCase
 {
    static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
    public void testLoadRuleSet() throws URISyntaxException,
-         FileNotFoundException, PMDException
+                                FileNotFoundException,
+                                PMDException
    {
       final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine();
-      final File sourceDirectory = new File( getClass().getResource(
-            "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource(
-            "/allInOneRuleset.xml" );
+      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
+      final URL ruleSetUrl = getClass().getResource( "/allInOneRuleset.xml" );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl );
+      assertNotNull( "RuleSet has not been found",
+                     ruleSetUrl );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI() );
+      assertNotNull( "RuleSet has not been found",
+                     ruleSetUrl.toURI() );
 
-      assertNotNull(
-            "RuleSet has not been found", ruleSetUrl.toURI().getPath() );
+      assertNotNull( "RuleSet has not been found",
+                     ruleSetUrl.toURI().getPath() );
 
       final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
       final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
-      engine.executeReport(
-            sourceDirectory, outputDirectory, ruleSetFile,
-            new FlexPmdViolations() );
+      engine.executeReport( sourceDirectory,
+                            outputDirectory,
+                            ruleSetFile,
+                            new FlexPmdViolations() );
 
-      assertEquals(
-            "Number of rules found is not correct", 47, engine
-                  .getRuleSet().size() );
+      assertEquals( "Number of rules found is not correct",
+                    47,
+                    engine.getRuleSet().size() );
    }
 }

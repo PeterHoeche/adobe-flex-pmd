@@ -44,19 +44,19 @@ import org.xml.sax.SAXException;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngine;
 
-public class FlexPmdHtmlEngineTest
-      extends AbstractTestFlexPmdEngine
+public class FlexPmdHtmlEngineTest extends AbstractTestFlexPmdEngine
 {
-   public FlexPmdHtmlEngineTest(
-         final String name )
+   public FlexPmdHtmlEngineTest( final String name )
    {
       super( name );
    }
 
    @Test
    @Override
-   public void testExecuteReport() throws PMDException, SAXException,
-         URISyntaxException, IOException
+   public void testExecuteReport() throws PMDException,
+                                  SAXException,
+                                  URISyntaxException,
+                                  IOException
    {
       // super.testExecuteReport();
       //
@@ -83,8 +83,7 @@ public class FlexPmdHtmlEngineTest
          final Sink sink = new SinkFactory().getSink( OUTPUT_DIRECTORY_URL
                + FlexPmdHtmlEngine.PMD_HTML );
 
-         return new FlexPmdHtmlEngine( sink, ResourceBundle
-               .getBundle( "flexPmd" ), false, null );
+         return new FlexPmdHtmlEngine( sink, ResourceBundle.getBundle( "flexPmd" ), false, null );
       }
       catch ( final Exception exception )
       {

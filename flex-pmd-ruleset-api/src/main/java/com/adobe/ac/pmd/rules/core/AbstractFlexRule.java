@@ -51,8 +51,7 @@ import com.adobe.ac.pmd.nodes.PackageNode;
  * 
  * @author xagnetti
  */
-public abstract class AbstractFlexRule
-      extends CommonAbstractRule implements IIsConcernedByTheGivenFile
+public abstract class AbstractFlexRule extends CommonAbstractRule implements IIsConcernedByTheGivenFile
 {
    protected static final String MAXIMUM = "maximum";
    protected static final String MINIMUM = "minimum";
@@ -67,8 +66,8 @@ public abstract class AbstractFlexRule
    /**
     * not used in FlexPMD
     */
-   final public void apply(
-         final List< ? > astCompilationUnits, final RuleContext ctx )
+   final public void apply( final List< ? > astCompilationUnits,
+                            final RuleContext ctx )
    {
    }
 
@@ -79,16 +78,15 @@ public abstract class AbstractFlexRule
    final public String getRuleName()
    {
       final String qualifiedClassName = this.getClass().getName();
-      final String className = qualifiedClassName.substring( qualifiedClassName
-            .lastIndexOf( '.' ) + 1 );
+      final String className = qualifiedClassName.substring( qualifiedClassName.lastIndexOf( '.' ) + 1 );
 
-      return className.replace(
-            "Rule", "" );
+      return className.replace( "Rule",
+                                "" );
    }
 
-   final public List< Violation > processFile(
-         final AbstractFlexFile file, final PackageNode rootNode,
-         final Map< String, AbstractFlexFile > files )
+   final public List< Violation > processFile( final AbstractFlexFile file,
+                                               final PackageNode rootNode,
+                                               final Map< String, AbstractFlexFile > files )
    {
       List< Violation > violations = new ArrayList< Violation >();
 
@@ -96,43 +94,53 @@ public abstract class AbstractFlexRule
       {
          onFileProcessingStarting();
 
-         violations = processFileBody(
-               rootNode, file, files );
+         violations = processFileBody( rootNode,
+                                       file,
+                                       files );
 
-         onFileProcessingEnded(
-               rootNode, file, violations );
+         onFileProcessingEnded( rootNode,
+                                file,
+                                violations );
       }
 
       return violations;
    }
 
-   final protected void addViolation(
-         final List< Violation > violations, final AbstractFlexFile file,
-         final ViolationPosition position )
+   private void setDefaultPriority()
    {
-      final Violation violation = new Violation( position, this, file );
+      setPriority( Integer.valueOf( getDefaultPriority().toString() ) );
+   }
 
+   protected void addThresoldValues( final Violation violation )
+   {
       if ( this instanceof IThresholdedRule )
       {
          final IThresholdedRule thresholdeRule = ( IThresholdedRule ) this;
 
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule
-               .getThreshold() ) );
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValue() ),
+                                                1 );
       }
+   }
+
+   final protected void addViolation( final List< Violation > violations,
+                                      final AbstractFlexFile file,
+                                      final ViolationPosition position )
+   {
+      final Violation violation = new Violation( position, this, file );
+
+      addThresoldValues( violation );
       violations.add( violation );
    }
 
    protected abstract ViolationPriority getDefaultPriority();
 
-   final protected Map< String, PropertyDescriptor > getRuleProperties(
-         final IThresholdedRule rule )
+   final protected Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
    {
       final Map< String, PropertyDescriptor > properties = new HashMap< String, PropertyDescriptor >();
 
-      properties.put(
-            rule.getThresholdName(), new IntegerProperty( rule
-                  .getThresholdName(), "", rule.getDefaultThreshold(),
-                  properties.size() ) );
+      properties.put( rule.getThresholdName(),
+                      new IntegerProperty( rule.getThresholdName(), "", rule.getDefaultThreshold(), properties.size() ) );
 
       return properties;
    }
@@ -145,9 +153,9 @@ public abstract class AbstractFlexRule
     * @param file
     * @param violations
     */
-   protected void onFileProcessingEnded(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final List< Violation > violations )
+   protected void onFileProcessingEnded( final PackageNode rootNode,
+                                         final AbstractFlexFile file,
+                                         final List< Violation > violations )
    {
    }
 
@@ -159,12 +167,7 @@ public abstract class AbstractFlexRule
    {
    }
 
-   protected abstract List< Violation > processFileBody(
-         final PackageNode rootNode, final AbstractFlexFile file,
-         final Map< String, AbstractFlexFile > files );
-
-   private void setDefaultPriority()
-   {
-      setPriority( Integer.valueOf( getDefaultPriority().toString() ) );
-   }
+   protected abstract List< Violation > processFileBody( final PackageNode rootNode,
+                                                         final AbstractFlexFile file,
+                                                         final Map< String, AbstractFlexFile > files );
 }

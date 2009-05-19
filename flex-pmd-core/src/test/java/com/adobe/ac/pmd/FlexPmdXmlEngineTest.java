@@ -50,21 +50,21 @@ import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
-public class FlexPmdXmlEngineTest
-      extends AbstractTestFlexPmdEngine
+public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
 {
    private static final String OUTPUT_DIRECTORY_URL = "target/report/";
 
-   public FlexPmdXmlEngineTest(
-         final String name )
+   public FlexPmdXmlEngineTest( final String name )
    {
       super( name );
    }
 
    @Test
    @Override
-   public void testExecuteReport() throws PMDException, SAXException,
-         URISyntaxException, IOException
+   public void testExecuteReport() throws PMDException,
+                                  SAXException,
+                                  URISyntaxException,
+                                  IOException
    {
       super.testExecuteReport();
 
@@ -77,13 +77,12 @@ public class FlexPmdXmlEngineTest
       // "XML report is not identical", readString( outXmlReportReference ),
       // readString( outXmlReport ) );
 
-      final SchemaFactory factory = SchemaFactory
-            .newInstance( "http://www.w3.org/2001/XMLSchema" );
+      final SchemaFactory factory = SchemaFactory.newInstance( "http://www.w3.org/2001/XMLSchema" );
 
-      final URL schemaResource = getClass().getResource(
-            "/pmd.xsd" );
+      final URL schemaResource = getClass().getResource( "/pmd.xsd" );
 
-      assertNotNull( "pmd.xsd is not loaded", schemaResource );
+      assertNotNull( "pmd.xsd is not loaded",
+                     schemaResource );
 
       final Schema schema = factory.newSchema( schemaResource );
 

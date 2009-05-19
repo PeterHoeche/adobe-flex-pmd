@@ -61,14 +61,11 @@ import de.bokelberg.flex.parser.exceptions.TokenException;
  */
 public final class FileSetUtils
 {
-   public static final Logger LOGGER = Logger.getLogger( FileSetUtils.class
-         .getName() );
+   public static final Logger              LOGGER   = Logger.getLogger( FileSetUtils.class.getName() );
 
-   private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors
-         .newFixedThreadPool( 5 );
+   private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
 
-   public static Map< String, PackageNode > computeAsts(
-         final Map< String, AbstractFlexFile > files ) throws PMDException
+   public static Map< String, PackageNode > computeAsts( final Map< String, AbstractFlexFile > files ) throws PMDException
    {
       final Map< String, PackageNode > asts = new HashMap< String, PackageNode >();
 
@@ -82,43 +79,41 @@ public final class FileSetUtils
             {
                final Node node = buildThreadedAst( file );
 
-               asts.put(
-                     file.getFullyQualifiedName(), new PackageNode( node ) );
+               asts.put( file.getFullyQualifiedName(),
+                         new PackageNode( node ) );
             }
             catch ( final InterruptedException e )
             {
-               logErrorWhileBuildingAst(
-                     file, e );
+               logErrorWhileBuildingAst( file,
+                                         e );
             }
             catch ( final ExecutionException e )
             {
-               logErrorWhileBuildingAst(
-                     file, e );
+               logErrorWhileBuildingAst( file,
+                                         e );
             }
             catch ( final NullPointerException e )
             {
-               logErrorWhileBuildingAst(
-                     file, e );
+               logErrorWhileBuildingAst( file,
+                                         e );
             }
          }
       }
       return asts;
    }
 
-   public static Map< String, AbstractFlexFile > computeFilesList(
-         final File sourceDirectory ) throws PMDException
+   public static Map< String, AbstractFlexFile > computeFilesList( final File sourceDirectory ) throws PMDException
    {
       final Map< String, AbstractFlexFile > files = new HashMap< String, AbstractFlexFile >();
       final FlexFilter flexFilter = new FlexFilter();
-      final Collection< File > foundFiles = getFlexFiles(
-            sourceDirectory, flexFilter );
+      final Collection< File > foundFiles = getFlexFiles( sourceDirectory,
+                                                          flexFilter );
 
       for ( final File sourceFile : foundFiles )
       {
          AbstractFlexFile file;
 
-         if ( sourceFile.getName().endsWith(
-               ".as" ) )
+         if ( sourceFile.getName().endsWith( ".as" ) )
          {
             file = new As3File( sourceFile, sourceDirectory );
          }
@@ -126,15 +121,14 @@ public final class FileSetUtils
          {
             file = new MxmlFile( sourceFile, sourceDirectory );
          }
-         files.put(
-               file.getFullyQualifiedName(), file );
+         files.put( file.getFullyQualifiedName(),
+                    file );
       }
 
       return files;
    }
 
-   private static Node buildAst(
-         final AbstractFlexFile file ) throws PMDException
+   private static Node buildAst( final AbstractFlexFile file ) throws PMDException
    {
       final AS3Parser parser = new AS3Parser();
       Node rootNode = null;
@@ -152,18 +146,16 @@ public final class FileSetUtils
          }
          catch ( final TokenException e )
          {
-            throw new PMDException(
-                  "TokenException thrown while building AST on "
-                        + file.getFullyQualifiedName() + " with message: "
-                        + e.getMessage(), e );
+            throw new PMDException( "TokenException thrown while building AST on "
+                  + file.getFullyQualifiedName() + " with message: " + e.getMessage(), e );
          }
       }
       return rootNode;
    }
 
-   private static Node buildThreadedAst(
-         final AbstractFlexFile file ) throws PMDException,
-         InterruptedException, ExecutionException
+   private static Node buildThreadedAst( final AbstractFlexFile file ) throws PMDException,
+                                                                      InterruptedException,
+                                                                      ExecutionException
    {
       final List< Callable< Object >> toRun = new ArrayList< Callable< Object >>();
       toRun.add( new Callable< Object >()
@@ -174,41 +166,38 @@ public final class FileSetUtils
             return buildAst( file );
          }
       } );
-      final List< Future< Object >> futures = EXECUTOR.invokeAll(
-            toRun, 400, TimeUnit.SECONDS );
+      final List< Future< Object >> futures = EXECUTOR.invokeAll( toRun,
+                                                                  400,
+                                                                  TimeUnit.SECONDS );
       // Find out what happened when the service was
       // called.
 
-      return ( Node ) futures.get(
-            0 ).get();
+      return ( Node ) futures.get( 0 ).get();
    }
 
-   private static Collection< File > getFlexFiles(
-         final File sourceDirectory, final FlexFilter flexFilter )
-         throws PMDException
+   private static Collection< File > getFlexFiles( final File sourceDirectory,
+                                                   final FlexFilter flexFilter ) throws PMDException
    {
       if ( sourceDirectory == null )
       {
          throw new PMDException( "sourceDirectory is empty", null );
       }
-      final Collection< File > foundFiles = FileUtils.listFiles(
-            sourceDirectory, flexFilter, true );
+      final Collection< File > foundFiles = FileUtils.listFiles( sourceDirectory,
+                                                                 flexFilter,
+                                                                 true );
       if ( foundFiles.isEmpty() )
       {
-         throw new PMDException(
-               "sourceDirectory does not contain any Flex sources "
-                     + "(Specify the source directory in relative (not absolute))",
-               null );
+         throw new PMDException( "sourceDirectory does not contain any Flex sources "
+               + "(Specify the source directory in relative (not absolute))", null );
       }
       return foundFiles;
    }
 
-   private static void logErrorWhileBuildingAst(
-         final AbstractFlexFile file, final Exception exception )
+   private static void logErrorWhileBuildingAst( final AbstractFlexFile file,
+                                                 final Exception exception )
    {
       LOGGER.warning( "while building AST on "
-            + file.getFullyQualifiedName() + ", an error occured: "
-            + exception.getMessage() );
+            + file.getFullyQualifiedName() + ", an error occured: " + exception.getMessage() );
    }
 
    private FileSetUtils()

@@ -41,13 +41,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class WronglyOrderedClassElementRuleTest
-      extends AbstractAstFlexRuleTest
+public class WronglyOrderedClassElementRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
 
@@ -61,7 +60,7 @@ public class WronglyOrderedClassElementRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
@@ -69,39 +68,37 @@ public class WronglyOrderedClassElementRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "AbstractRowData.as", new ViolationPosition[]
-            { new ViolationPosition( 44, 44 ), new ViolationPosition( 45, 45 ),
-                  new ViolationPosition( 46, 46 ),
-                  new ViolationPosition( 47, 47 ),
-                  new ViolationPosition( 43, 43 ),
-                  new ViolationPosition( 89, 89 ) } );
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 44, 44 ),
+                                    new ViolationPosition( 45, 45 ),
+                                    new ViolationPosition( 46, 46 ),
+                                    new ViolationPosition( 47, 47 ),
+                                    new ViolationPosition( 43, 43 ),
+                                    new ViolationPosition( 89, 89 ) } );
 
-      assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
-            { new ViolationPosition( 43, 43 ) } );
+      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 43, 43 ) } );
 
-      assertViolations(
-            "cairngorm.LightController.as", new ViolationPosition[]
-            { new ViolationPosition( 116, 116 ),
-                  new ViolationPosition( 135, 135 ) } );
+      assertViolations( "cairngorm.LightController.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 116, 116 ),
+                                    new ViolationPosition( 135, 135 ) } );
 
-      assertViolations(
-            "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
-            { new ViolationPosition( 38, 38 ) } );
+      assertViolations( "com.adobe.ac.ncss.ArrayVO.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 38, 38 ) } );
 
       // FIXME uncomment this assertion
 
       // assertViolations(
       // "com.adobe.ac.ncss.TestResult.as", expectedPositions5 );
       //
-      assertFalse(
-            "rule message token are still in", processFile(
-            "com.adobe.ac.ncss.TestResult.as" ).get(
-            0 ).getRuleMessage().contains(
-            "{0}" ) );
+      assertFalse( "rule message token are still in",
+                   processFile( "com.adobe.ac.ncss.TestResult.as" ).get( 0 ).getRuleMessage().contains( "{0}" ) );
    }
 
    @Override

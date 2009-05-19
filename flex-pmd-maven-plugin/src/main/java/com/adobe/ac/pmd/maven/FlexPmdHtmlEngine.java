@@ -51,19 +51,19 @@ import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 
-public class FlexPmdHtmlEngine
-      extends AbstractFlexPmdEngine
+public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 {
-   public static final String PMD_HTML = "flexPmd.html";
+   public static final String   PMD_HTML = "flexPmd.html";
 
-   final private boolean aggregate;
+   final private boolean        aggregate;
    final private ResourceBundle bundle;
-   final private MavenProject project;
-   final private Sink sink;
+   final private MavenProject   project;
+   final private Sink           sink;
 
-   public FlexPmdHtmlEngine(
-         final Sink sinkToBeSet, final ResourceBundle bundleToBeSet,
-         final boolean aggregateToBeSet, final MavenProject projectToBeSet )
+   public FlexPmdHtmlEngine( final Sink sinkToBeSet,
+                             final ResourceBundle bundleToBeSet,
+                             final boolean aggregateToBeSet,
+                             final MavenProject projectToBeSet )
    {
       super();
 
@@ -80,21 +80,18 @@ public class FlexPmdHtmlEngine
    }
 
    @Override
-   protected void writeReport(
-         final FlexPmdViolations pmd, final File outputDirectory )
-         throws PMDException
+   protected void writeReport( final FlexPmdViolations pmd,
+                               final File outputDirectory ) throws PMDException
    {
-      writeReport(
-            outputDirectory, computeReport( pmd ) );
+      writeReport( outputDirectory,
+                   computeReport( pmd ) );
    }
 
-   private Report computeReport(
-         final FlexPmdViolations pmd )
+   private Report computeReport( final FlexPmdViolations pmd )
    {
       final Report report = new Report();
       final RuleContext ruleContext = new RuleContext();
-      final PmdReportListener reportSink = new PmdReportListener( sink, bundle,
-            aggregate );
+      final PmdReportListener reportSink = new PmdReportListener( sink, bundle, aggregate );
 
       report.addListener( reportSink );
       ruleContext.setReport( report );
@@ -104,12 +101,10 @@ public class FlexPmdHtmlEngine
       for ( final AbstractFlexFile file : pmd.getViolations().keySet() )
       {
          final File javaFile = new File( file.getFilePath() );
-         final List< Violation > violations = pmd.getViolations().get(
-               file );
+         final List< Violation > violations = pmd.getViolations().get( file );
 
-         reportSink.beginFile(
-               javaFile,
-               new PmdFileInfo( project, javaFile.getParentFile(), "" ) );
+         reportSink.beginFile( javaFile,
+                               new PmdFileInfo( project, javaFile.getParentFile(), "" ) );
          ruleContext.setSourceCodeFilename( javaFile.getAbsolutePath() );
 
          for ( final Violation violation : violations )
@@ -125,16 +120,16 @@ public class FlexPmdHtmlEngine
       return report;
    }
 
-   private void writeReport(
-         final File outputDirectory, final Report report ) throws PMDException
+   private void writeReport( final File outputDirectory,
+                             final Report report ) throws PMDException
    {
       final HTMLRenderer renderer = new HTMLRenderer( "", "" );
 
       try
       {
-         renderer.render(
-               new FileWriter( new File( outputDirectory.getAbsolutePath()
-                     + "/" + PMD_HTML ) ), report );
+         renderer.render( new FileWriter( new File( outputDirectory.getAbsolutePath()
+                                + "/" + PMD_HTML ) ),
+                          report );
          renderer.getWriter().flush();
          renderer.getWriter().close();
       }

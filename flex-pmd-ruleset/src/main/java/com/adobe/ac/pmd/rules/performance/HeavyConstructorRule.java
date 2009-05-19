@@ -34,16 +34,15 @@ import com.adobe.ac.pmd.nodes.FunctionNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class HeavyConstructorRule
-extends AbstractAstFlexRule
+public class HeavyConstructorRule extends AbstractAstFlexRule
 {
    @Override
    protected void findViolationsFromConstructor( final FunctionNode constructor )
    {
       if ( constructor.getCyclomaticComplexity() > 1 )
       {
-         addViolation(
-               constructor.getInternalNode(), constructor.getInternalNode() );
+         addViolation( constructor.getInternalNode(),
+                       constructor.getInternalNode() );
       }
    }
 

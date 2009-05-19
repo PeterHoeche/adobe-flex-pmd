@@ -43,8 +43,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.XpathFlexRule;
 
-public class TestXpathFlexRule
-      extends AbstractAstFlexRuleTest
+public class TestXpathFlexRule extends AbstractAstFlexRuleTest
 {
    private AbstractFlexRule rule;
 
@@ -56,18 +55,18 @@ public class TestXpathFlexRule
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
-      assertEquals(
-            VIOLATIONS_NUMBER_IS_NOT_CORRECT, 0, processFile(
-                  "com.adobe.ac.AbstractRowData.as" ).size() );
+      assertEquals( VIOLATIONS_NUMBER_IS_NOT_CORRECT,
+                    0,
+                    processFile( "com.adobe.ac.AbstractRowData.as" ).size() );
    }
 
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
    }
@@ -75,7 +74,7 @@ public class TestXpathFlexRule
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
       final XpathFlexRule xpathRule = ( XpathFlexRule ) getRule();
 
@@ -84,8 +83,8 @@ public class TestXpathFlexRule
       final ViolationPosition[] expectedPositions =
       { new ViolationPosition( 105, 107 ) };
 
-      assertViolations(
-            "AbstractRowData.as", expectedPositions );
+      assertViolations( "AbstractRowData.as",
+                        expectedPositions );
    }
 
    @Override

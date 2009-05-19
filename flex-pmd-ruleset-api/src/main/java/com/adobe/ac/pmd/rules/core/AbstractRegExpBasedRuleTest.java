@@ -35,8 +35,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public abstract class AbstractRegExpBasedRuleTest
-      extends AbstractFlexRuleTest
+public abstract class AbstractRegExpBasedRuleTest extends AbstractFlexRuleTest
 {
    @Test
    public void testDoesCurrentLineMacthCorrectLine()
@@ -47,10 +46,9 @@ public abstract class AbstractRegExpBasedRuleTest
       {
          final String correctLine = getMatchableLines()[ i ];
 
-         assertTrue(
-               "This line (\""
-                     + correctLine + "\") should be matched", rule
-                     .doesCurrentLineMacthes( correctLine ) );
+         assertTrue( "This line (\""
+                           + correctLine + "\") should be matched",
+                     rule.doesCurrentLineMacthes( correctLine ) );
       }
    }
 
@@ -63,10 +61,9 @@ public abstract class AbstractRegExpBasedRuleTest
       {
          final String incorrectLine = getUnmatchableLines()[ i ];
 
-         assertFalse(
-               "This line  (\""
-                     + incorrectLine + "\") should not be matched", rule
-                     .doesCurrentLineMacthes( incorrectLine ) );
+         assertFalse( "This line  (\""
+                            + incorrectLine + "\") should not be matched",
+                      rule.doesCurrentLineMacthes( incorrectLine ) );
       }
    }
 

@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class HeavyConstructorRuleTest
-      extends AbstractAstFlexRuleTest
+public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "AbstractRowData.as" );
       assertEmptyViolations( "DefaultNameEvent.as" );
@@ -55,7 +54,7 @@ public class HeavyConstructorRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "Main.mxml" );
    }
@@ -63,14 +62,14 @@ public class HeavyConstructorRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "Looping.as", new ViolationPosition[]
-            { new ViolationPosition( 40, 40 ) } );
-      assertViolations(
-            "RadonDataGrid.as", new ViolationPosition[]
-            { new ViolationPosition( 54, 54 ) } );
+      assertViolations( "Looping.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 40, 40 ) } );
+      assertViolations( "RadonDataGrid.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 54, 54 ) } );
    }
 
    @Override

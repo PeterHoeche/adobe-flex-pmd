@@ -38,13 +38,12 @@ import org.junit.Test;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class AlertShowRuleTest
-      extends AbstractCommonRegExpBasedRuleTest
+public class AlertShowRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
@@ -52,19 +51,21 @@ public class AlertShowRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
-            { new ViolationPosition( 48, 48 ) } );
+      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 48, 48 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { " Alert.show(", " Alert.show( ", " Alert.show( \"something\" );",
-            " Alert.show(\"something\");" };
+      { " Alert.show(",
+                  " Alert.show( ",
+                  " Alert.show( \"something\" );",
+                  " Alert.show(\"something\");" };
    }
 
    @Override
@@ -77,7 +78,10 @@ public class AlertShowRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "var i : Number", "Alert.sho( ", "lert.show( \"something\" );",
-            "Alrt.show(\"something\");", "ScoyoAlert.show(" };
+      { "var i : Number",
+                  "Alert.sho( ",
+                  "lert.show( \"something\" );",
+                  "Alrt.show(\"something\");",
+                  "ScoyoAlert.show(" };
    }
 }

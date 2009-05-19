@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class ExplicitStaticAccessFromStaticMethodRuleTest
-      extends AbstractAstFlexRuleTest
+public class ExplicitStaticAccessFromStaticMethodRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
 
@@ -55,7 +54,7 @@ public class ExplicitStaticAccessFromStaticMethodRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
@@ -63,16 +62,17 @@ public class ExplicitStaticAccessFromStaticMethodRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "cairngorm.NonBindableModelLocator.as", new ViolationPosition[]
-            { new ViolationPosition( 52, 52 ) } );
+      assertViolations( "cairngorm.NonBindableModelLocator.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 52, 52 ) } );
 
-      assertViolations(
-            "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
-            { new ViolationPosition( 44, 44 ), new ViolationPosition( 49, 49 ),
-                  new ViolationPosition( 55, 55 ) } );
+      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 44, 44 ),
+                                    new ViolationPosition( 49, 49 ),
+                                    new ViolationPosition( 55, 55 ) } );
    }
 
    @Override

@@ -41,8 +41,8 @@ import de.bokelberg.flex.parser.Node;
 
 final public class ModifierUtils
 {
-   public static void computeModifierList(
-         final IModifiersHolder modifiable, final Node child )
+   public static void computeModifierList( final IModifiersHolder modifiable,
+                                           final Node child )
    {
       modifiable.setModifiers( new ArrayList< Modifier >() );
 
@@ -52,56 +52,54 @@ final public class ModifierUtils
          {
             final Modifier modifier = buildModifier( modifierNode.stringValue );
 
-            modifiable.getModifiers().add(
-                  modifier );
+            modifiable.getModifiers().add( modifier );
          }
       }
    }
 
-   public static boolean isFinal(
-         final ClassNode classNode )
+   public static boolean isFinal( final ClassNode classNode )
    {
-      return isModiferPresent( classNode, Modifier.FINAL );
+      return isModiferPresent( classNode,
+                               Modifier.FINAL );
    }
 
-   public static boolean isInternal(
-         final IModifiersHolder modifierHolder )
+   public static boolean isInternal( final IModifiersHolder modifierHolder )
    {
-      return isModiferPresent( modifierHolder, Modifier.INTERNAL );
+      return isModiferPresent( modifierHolder,
+                               Modifier.INTERNAL );
    }
 
-   public static boolean isOverriden(
-         final IModifiersHolder modifierHolder )
+   public static boolean isOverriden( final IModifiersHolder modifierHolder )
    {
-      return isModiferPresent(
-            modifierHolder, Modifier.OVERRIDE );
+      return isModiferPresent( modifierHolder,
+                               Modifier.OVERRIDE );
    }
 
-   public static boolean isPrivate(
-         final IModifiersHolder modifierHolder )
+   public static boolean isPrivate( final IModifiersHolder modifierHolder )
    {
-      return isModiferPresent( modifierHolder, Modifier.PRIVATE );
+      return isModiferPresent( modifierHolder,
+                               Modifier.PRIVATE );
    }
 
-   public static boolean isProtected(
-         final IModifiersHolder modifierHolder )
+   public static boolean isProtected( final IModifiersHolder modifierHolder )
    {
-      return isModiferPresent( modifierHolder, Modifier.PROTECTED );
+      return isModiferPresent( modifierHolder,
+                               Modifier.PROTECTED );
    }
 
-   public static boolean isPublic(
-         final IModifiersHolder modifierHolder )
+   public static boolean isPublic( final IModifiersHolder modifierHolder )
    {
-      return isModiferPresent( modifierHolder, Modifier.PUBLIC );
+      return isModiferPresent( modifierHolder,
+                               Modifier.PUBLIC );
    }
 
    public static boolean isStatic( final IModifiersHolder modifierHolder )
    {
-      return isModiferPresent( modifierHolder, Modifier.STATIC );
+      return isModiferPresent( modifierHolder,
+                               Modifier.STATIC );
    }
 
-   private static Modifier buildModifier(
-         final String name )
+   private static Modifier buildModifier( final String name )
    {
       Modifier modifier = null;
       if ( KeyWords.PUBLIC.equals( name ) )
@@ -139,7 +137,8 @@ final public class ModifierUtils
       return modifier;
    }
 
-   private static boolean isModiferPresent( final IModifiersHolder modifierHolder, final Modifier modifierToFind )
+   private static boolean isModiferPresent( final IModifiersHolder modifierHolder,
+                                            final Modifier modifierToFind )
    {
       boolean isModifierPresent = false;
 

@@ -45,36 +45,33 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
  * @goal check
  * @phase verify
  */
-public class FlexPmdMojo
-      extends AbstractFlexPmdMojo
+public class FlexPmdMojo extends AbstractFlexPmdMojo
 {
-   public void setOutputDirectory(
-         final File outputDirectoryToSet )
+   public void setOutputDirectory( final File outputDirectoryToSet )
    {
       outputDirectory = outputDirectoryToSet;
    }
 
    @Override
-   protected void executeReport(
-         final Locale locale ) throws MavenReportException
+   protected void executeReport( final Locale locale ) throws MavenReportException
    {
       LOGGER.info( "FlexPmdMojo starts" );
       try
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
-         new FlexPmdXmlEngine().executeReport(
-               sourceDirectory, outputDirectory, ruleSet, pmd  );
+         new FlexPmdXmlEngine().executeReport( sourceDirectory,
+                                               outputDirectory,
+                                               ruleSet,
+                                               pmd );
       }
       catch ( final PMDException e )
       {
-         throw new MavenReportException(
-               "An error has been thrown while executing the PMD report", e );
+         throw new MavenReportException( "An error has been thrown while executing the PMD report", e );
       }
       catch ( final FileNotFoundException e )
       {
-         throw new MavenReportException( "The Ruleset url has not been found",
-               e );
+         throw new MavenReportException( "The Ruleset url has not been found", e );
       }
    }
 }

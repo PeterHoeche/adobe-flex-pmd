@@ -39,13 +39,12 @@ import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class StyleBlockInMxmlRuleTest
-      extends AbstractRegExpBasedRuleTest
+public class StyleBlockInMxmlRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
-         throws FileNotFoundException, URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
    {
       assertEmptyViolations( "MainWithModelLocator.mxml" );
    }
@@ -53,7 +52,7 @@ public class StyleBlockInMxmlRuleTest
    @Override
    @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
-         URISyntaxException
+                                             URISyntaxException
    {
       assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
    }
@@ -61,18 +60,21 @@ public class StyleBlockInMxmlRuleTest
    @Override
    @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
-         URISyntaxException
+                                          URISyntaxException
    {
-      assertViolations(
-            "Main.mxml", new ViolationPosition[]
-            { new ViolationPosition( 50, 50 ) } );
+      assertViolations( "Main.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 50, 50 ) } );
    }
 
    @Override
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "<mx:Style>", "  <mx:Style>   ", "<mx:Style>   ", "  <mx:Style>"};
+      { "<mx:Style>",
+                  "  <mx:Style>   ",
+                  "<mx:Style>   ",
+                  "  <mx:Style>" };
    }
 
    @Override
@@ -85,8 +87,17 @@ public class StyleBlockInMxmlRuleTest
    protected String[] getUnmatchableLines()
    {
       return new String[]
-      { "<mx:VBox", "<Box", "<Canvas", "<VBox", "<mx:HBox", "<Accordion",
-            "<Form", "<FormItem", "<LayoutContainer", "<Panel", "<ViewStack",
-            "<mx:Style/>"};
+      { "<mx:VBox",
+                  "<Box",
+                  "<Canvas",
+                  "<VBox",
+                  "<mx:HBox",
+                  "<Accordion",
+                  "<Form",
+                  "<FormItem",
+                  "<LayoutContainer",
+                  "<Panel",
+                  "<ViewStack",
+                  "<mx:Style/>" };
    }
 }

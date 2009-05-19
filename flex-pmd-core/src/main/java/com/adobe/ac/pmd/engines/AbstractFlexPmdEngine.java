@@ -45,8 +45,7 @@ import com.adobe.ac.pmd.Violation;
 
 public abstract class AbstractFlexPmdEngine
 {
-   private static final Logger LOGGER = Logger
-         .getLogger( AbstractFlexPmdEngine.class.getName() );
+   private static final Logger LOGGER = Logger.getLogger( AbstractFlexPmdEngine.class.getName() );
 
    public static String getNewLine()
    {
@@ -54,14 +53,14 @@ public abstract class AbstractFlexPmdEngine
    }
 
    private RuleSet ruleSet;
-   
-   public final int executeReport(
-         final File sourceDirectory, final File outputDirectory,
-         final File ruleSetFile, final FlexPmdViolations flexPmdViolations )
-         throws PMDException, FileNotFoundException
+
+   public final int executeReport( final File sourceDirectory,
+                                   final File outputDirectory,
+                                   final File ruleSetFile,
+                                   final FlexPmdViolations flexPmdViolations ) throws PMDException,
+                                                                              FileNotFoundException
    {
-      ruleSet = new RuleSetFactory()
-            .createRuleSet( new FileInputStream( ruleSetFile ) );
+      ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( ruleSetFile ) );
       long startTime;
       int foundViolations = 0;
       long ellapsedTime = 0;
@@ -75,15 +74,14 @@ public abstract class AbstractFlexPmdEngine
       if ( !flexPmdViolations.hasViolationsBeenComputed() )
       {
          startTime = System.currentTimeMillis();
-         flexPmdViolations.computeViolations(
-               sourceDirectory, ruleSet );
+         flexPmdViolations.computeViolations( sourceDirectory,
+                                              ruleSet );
          ellapsedTime = System.currentTimeMillis()
                - startTime;
          LOGGER.info( "It took "
                + ellapsedTime + "ms to compute violations" );
       }
-      for ( final List< Violation > violations : flexPmdViolations
-            .getViolations().values() )
+      for ( final List< Violation > violations : flexPmdViolations.getViolations().values() )
       {
          foundViolations += violations.size();
       }
@@ -91,8 +89,8 @@ public abstract class AbstractFlexPmdEngine
             + foundViolations );
 
       startTime = System.currentTimeMillis();
-      writeReport(
-            flexPmdViolations, outputDirectory );
+      writeReport( flexPmdViolations,
+                   outputDirectory );
       ellapsedTime = System.currentTimeMillis()
             - startTime;
 
@@ -107,9 +105,8 @@ public abstract class AbstractFlexPmdEngine
       return ruleSet;
    }
 
-   protected abstract void writeReport(
-         final FlexPmdViolations pmd, final File outputDirectory )
-         throws PMDException;
-   
+   protected abstract void writeReport( final FlexPmdViolations pmd,
+                                        final File outputDirectory ) throws PMDException;
+
    protected abstract String getReportType();
 }

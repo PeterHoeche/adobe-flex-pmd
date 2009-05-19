@@ -34,6 +34,5 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 
 public interface IIsConcernedByTheGivenFile
 {
-   boolean isConcernedByTheGivenFile(
-         final AbstractFlexFile file );
+   boolean isConcernedByTheGivenFile( final AbstractFlexFile file );
 }

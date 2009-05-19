@@ -40,8 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 import de.bokelberg.flex.parser.Node;
 
-public class TooLongFunctionRule
-extends AbstractAstFlexRule implements IThresholdedRule
+public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int functionLength;
 
@@ -78,11 +77,11 @@ extends AbstractAstFlexRule implements IThresholdedRule
    }
 
    @Override
-   protected void visitFunction(
-                                final Node functionNode, final String type )
+   protected void visitFunction( final Node functionNode,
+                                 final String type )
    {
-      super.visitFunction(
-            functionNode, type );
+      super.visitFunction( functionNode,
+                           type );
 
       final Node block = functionNode.getLastChild();
 
@@ -93,11 +92,11 @@ extends AbstractAstFlexRule implements IThresholdedRule
          final int lastLine = block.getLastChild().line;
 
          functionLength = lastLine
-         - beginningLine;
+               - beginningLine;
          if ( functionLength > getThreshold() )
          {
-            addViolation(
-                  functionNode, block.getLastChild() );
+            addViolation( functionNode,
+                          block.getLastChild() );
          }
       }
    }

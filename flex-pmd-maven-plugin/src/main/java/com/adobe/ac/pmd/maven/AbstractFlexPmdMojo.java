@@ -39,32 +39,29 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
 
-public abstract class AbstractFlexPmdMojo
-      extends AbstractMavenReport
+public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
 {
-   protected static final Logger LOGGER = Logger.getLogger( AbstractFlexPmdMojo.class.getName() );
+   protected static final Logger LOGGER      = Logger.getLogger( AbstractFlexPmdMojo.class.getName() );
 
-   private static final String OUTPUT_NAME = "flexpmd";
+   private static final String   OUTPUT_NAME = "flexpmd";
 
-   protected static ResourceBundle getBundle(
-         final Locale locale )
+   protected static ResourceBundle getBundle( final Locale locale )
    {
-      return ResourceBundle
-            .getBundle(
-                  "flexPmd", locale, FlexPmdReportMojo.class
-                        .getClassLoader() );
+      return ResourceBundle.getBundle( "flexPmd",
+                                       locale,
+                                       FlexPmdReportMojo.class.getClassLoader() );
    }
 
    /**
     * Location of the file.
-    *
+    * 
     * @parameter expression="${project.build.directory}"
     * @required
     */
-   protected File outputDirectory;
+   protected File       outputDirectory;
    /**
     * Location of the file.
-    *
+    * 
     * @parameter
     * @required
     */
@@ -72,12 +69,12 @@ public abstract class AbstractFlexPmdMojo
 
    /**
     * Specifies the location of the source files to be used.
-    *
+    * 
     * @parameter expression="${project.build.sourceDirectory}"
     * @required
     * @readonly
     */
-   protected File sourceDirectory;
+   protected File       sourceDirectory;
    /**
     * @parameter expression="${project}"
     * @required
@@ -85,27 +82,21 @@ public abstract class AbstractFlexPmdMojo
     */
    private MavenProject project;
    /**
-    * @parameter
+    * @parameter 
     *            expression="${component.org.codehaus.doxia.site.renderer.SiteRenderer}"
     * @required
     * @readonly
     */
    private SiteRenderer siteRenderer;
 
-   public String getDescription(
-         final Locale locale )
+   public String getDescription( final Locale locale )
    {
-      return getBundle(
-            locale ).getString(
-            "report.flexPmd.description" );
+      return getBundle( locale ).getString( "report.flexPmd.description" );
    }
 
-   public String getName(
-         final Locale locale )
+   public String getName( final Locale locale )
    {
-      return getBundle(
-            locale ).getString(
-            "report.flexPmd.name" );
+      return getBundle( locale ).getString( "report.flexPmd.name" );
    }
 
    public String getOutputName()

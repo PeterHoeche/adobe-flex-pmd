@@ -42,12 +42,10 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndStaticityComparator;
 
-public class WronglyOrderedClassElementRule
-      extends AbstractAstFlexRule
+public class WronglyOrderedClassElementRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode(
-         final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       final List< FieldNode > constants = new ArrayList< FieldNode >();
       final List< FieldNode > variables = new ArrayList< FieldNode >();
@@ -57,12 +55,12 @@ public class WronglyOrderedClassElementRule
       variables.addAll( classNode.getVariables() );
       functions.addAll( classNode.getFunctions() );
 
-      Collections.sort(
-            constants, new ModifierHolderByVisibilityAndStaticityComparator() );
-      Collections.sort(
-            variables, new ModifierHolderByVisibilityAndStaticityComparator() );
-      Collections.sort(
-            functions, new ModifierHolderByVisibilityAndStaticityComparator() );
+      Collections.sort( constants,
+                        new ModifierHolderByVisibilityAndStaticityComparator() );
+      Collections.sort( variables,
+                        new ModifierHolderByVisibilityAndStaticityComparator() );
+      Collections.sort( functions,
+                        new ModifierHolderByVisibilityAndStaticityComparator() );
 
       addViolationIfListNotOrderedByLine( constants );
       addViolationIfListNotOrderedByLine( variables );
@@ -75,8 +73,7 @@ public class WronglyOrderedClassElementRule
       return ViolationPriority.WARNING;
    }
 
-   private void addViolationIfListNotOrderedByLine(
-         final List< ? extends AbstractNode > list )
+   private void addViolationIfListNotOrderedByLine( final List< ? extends AbstractNode > list )
    {
       int previousFieldLine = 0;
       for ( final AbstractNode node : list )
@@ -87,9 +84,9 @@ public class WronglyOrderedClassElementRule
          }
          else
          {
-            addViolation(
-                  node.getInternalNode(), node.getInternalNode(), node
-                        .getInternalNode().toString() );
+            addViolation( node.getInternalNode(),
+                          node.getInternalNode(),
+                          node.getInternalNode().toString() );
          }
       }
    }

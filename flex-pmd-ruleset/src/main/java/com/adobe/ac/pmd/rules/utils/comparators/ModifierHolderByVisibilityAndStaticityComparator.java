@@ -36,28 +36,25 @@ import java.util.Comparator;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 
-public class ModifierHolderByVisibilityAndStaticityComparator implements
-      Comparator< IModifiersHolder >, Serializable
+public class ModifierHolderByVisibilityAndStaticityComparator implements Comparator< IModifiersHolder >, Serializable
 {
    private static final long serialVersionUID = 355164117728770224L;
 
-   public int compare(
-         final IModifiersHolder firstModifierHolder,
-         final IModifiersHolder secondModifierHolder )
+   public int compare( final IModifiersHolder firstModifierHolder,
+                       final IModifiersHolder secondModifierHolder )
    {
       int diff = getStaticityWeight( secondModifierHolder )
             - getStaticityWeight( firstModifierHolder );
 
       if ( diff == 0 )
       {
-         diff = new ModifierHolderByVisibilityComparator().compare(
-               firstModifierHolder, secondModifierHolder );
+         diff = new ModifierHolderByVisibilityComparator().compare( firstModifierHolder,
+                                                                    secondModifierHolder );
       }
       return diff;
    }
 
-   private int getStaticityWeight(
-         final IModifiersHolder field )
+   private int getStaticityWeight( final IModifiersHolder field )
    {
       return ModifierUtils.isStatic( field ) ? 1 : 0;
    }
