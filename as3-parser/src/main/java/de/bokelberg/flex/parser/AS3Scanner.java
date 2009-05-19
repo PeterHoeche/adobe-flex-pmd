@@ -153,6 +153,13 @@ public class AS3Scanner
                                        { "::" },
                                        2 );
       }
+      if ( currentCharacter == '*' )
+      {
+         return scanCharacterSequence( currentCharacter,
+                                       new String[]
+                                       {},
+                                       1 );
+      }
       if ( currentCharacter == '+' )
       {
          return scanCharacterSequence( currentCharacter,
