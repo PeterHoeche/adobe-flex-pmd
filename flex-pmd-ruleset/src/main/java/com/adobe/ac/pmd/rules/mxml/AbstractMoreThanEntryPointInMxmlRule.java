@@ -61,9 +61,10 @@ public abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexR
       {
          addViolation( violations,
                        file,
-                       new ViolationPosition( lastPublicVarLine, lastPublicVarLine, 0, file.getLines()
-                                                                                           .get( lastPublicVarLine - 1 )
-                                                                                           .length() ) );
+                       new ViolationPosition( lastPublicVarLine,
+                                              lastPublicVarLine,
+                                              0,
+                                              file.getLines().get( lastPublicVarLine - 1 ).length() ) );
       }
    }
 

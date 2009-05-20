@@ -55,9 +55,15 @@ public class TestViolation extends FlexPmdTestBase
    public void testCompareTo()
    {
       final Violation infoViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ), INFO_RULE, null );
-      final Violation infoViolation2 = new Violation( new ViolationPosition( 11, 20, 30, 30 ), INFO_RULE, null );
-      final Violation warningViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ), WARNING_RULE, null );
-      final Violation warningViolation2 = new Violation( new ViolationPosition( 10, 20, 30, 30 ), WARNING_RULE, null );
+      final Violation infoViolation2 = new Violation( new ViolationPosition( 11, 20, 30, 30 ),
+                                                      INFO_RULE,
+                                                      null );
+      final Violation warningViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ),
+                                                        WARNING_RULE,
+                                                        null );
+      final Violation warningViolation2 = new Violation( new ViolationPosition( 10, 20, 30, 30 ),
+                                                         WARNING_RULE,
+                                                         null );
 
       assertEquals( "",
                     -1,
@@ -89,11 +95,12 @@ public class TestViolation extends FlexPmdTestBase
 
       assertEquals( "As3 file at a root level",
                     "      <violation beginline=\""
-                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\"" + BEGINNING_COLUMN
-                          + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\"" + INFO_RULE.getRuleName()
-                          + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\"" + file.getPackageName() + "\" class=\""
-                          + file.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\"" + INFO_RULE.getPriority()
-                          + "\">" + "emptyMessage" + "</violation>" + infoViolation.getNewLine(),
+                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\""
+                          + BEGINNING_COLUMN + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\""
+                          + INFO_RULE.getRuleName() + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
+                          + file.getPackageName() + "\" class=\"" + file.getClassName()
+                          + "\" externalInfoUrl=\"\" " + "priority=\"" + INFO_RULE.getPriority() + "\">"
+                          + "emptyMessage" + "</violation>" + infoViolation.getNewLine(),
                     infoViolation.toXmlString( file,
                                                RULE_SET_NAME ) );
 
@@ -101,16 +108,18 @@ public class TestViolation extends FlexPmdTestBase
       final Violation warningViolation = new Violation( new ViolationPosition( BEGINNING_LINE,
                                                                                ENDING_LINE,
                                                                                BEGINNING_COLUMN,
-                                                                               ENDING_COLUMN ), WARNING_RULE, null );
+                                                                               ENDING_COLUMN ),
+                                                        WARNING_RULE,
+                                                        null );
 
       assertEquals( "As3 File at a not-root level",
                     "      <violation beginline=\""
-                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\"" + BEGINNING_COLUMN
-                          + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\"" + WARNING_RULE.getRuleName()
-                          + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\"" + fileWithPackage.getPackageName()
-                          + "\" class=\"" + file.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\""
-                          + WARNING_RULE.getPriority() + "\">" + "warning message" + "</violation>"
-                          + warningViolation.getNewLine(),
+                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\""
+                          + BEGINNING_COLUMN + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\""
+                          + WARNING_RULE.getRuleName() + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
+                          + fileWithPackage.getPackageName() + "\" class=\"" + file.getClassName()
+                          + "\" externalInfoUrl=\"\" " + "priority=\"" + WARNING_RULE.getPriority() + "\">"
+                          + "warning message" + "</violation>" + warningViolation.getNewLine(),
                     warningViolation.toXmlString( fileWithPackage,
                                                   RULE_SET_NAME ) );
 
@@ -118,12 +127,12 @@ public class TestViolation extends FlexPmdTestBase
 
       assertEquals( "Mxml File at a not-root level",
                     "      <violation beginline=\""
-                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\"" + BEGINNING_COLUMN
-                          + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\"" + WARNING_RULE.getRuleName()
-                          + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\"" + mxml.getPackageName() + "\" class=\""
-                          + mxml.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\""
-                          + WARNING_RULE.getPriority() + "\">" + "warning message" + "</violation>"
-                          + warningViolation.getNewLine(),
+                          + BEGINNING_LINE + "\" endline=\"" + ENDING_LINE + "\" begincolumn=\""
+                          + BEGINNING_COLUMN + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\""
+                          + WARNING_RULE.getRuleName() + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
+                          + mxml.getPackageName() + "\" class=\"" + mxml.getClassName()
+                          + "\" externalInfoUrl=\"\" " + "priority=\"" + WARNING_RULE.getPriority() + "\">"
+                          + "warning message" + "</violation>" + warningViolation.getNewLine(),
                     warningViolation.toXmlString( mxml,
                                                   RULE_SET_NAME ) );
    }

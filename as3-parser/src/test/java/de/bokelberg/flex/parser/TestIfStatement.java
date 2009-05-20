@@ -80,7 +80,8 @@ public class TestIfStatement extends TestCase
                              + "column=\"23\">0</primary></arguments><array line=\"1\" column=\"26\"><primary line=\"1\" "
                              + "column=\"28\">xField</primary></array></call><op line=\"1\" column=\"37\">&gt;</op><primary "
                              + "line=\"1\" column=\"39\">targetXFieldValue</primary>"
-                             + "</relation></dot></condition><block line=\"1\" " + "column=\"59\"></block></if>" );
+                             + "</relation></dot></condition><block line=\"1\" "
+                             + "column=\"59\"></block></if>" );
    }
 
    @Test

@@ -43,7 +43,7 @@ import de.bokelberg.flex.parser.Node;
  * Node representing a class. It contains different lists (constants, variables,
  * functions, implementations, ...), but also a reference to its constructor (if
  * any), the extension name (if any), and its name.
- *
+ * 
  * @author xagnetti
  */
 public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable

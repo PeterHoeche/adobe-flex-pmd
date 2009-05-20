@@ -51,7 +51,8 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    protected void findViolationsFromClassNode( final ClassNode classNode )
    {
       if ( classNode.getExtensionName() != null
-            && classNode.getExtensionName().contains( "Cairngorm" ) && classNode.getExtensionName().contains( "Event" ) )
+            && classNode.getExtensionName().contains( "Cairngorm" )
+            && classNode.getExtensionName().contains( "Event" ) )
       {
          String eventName = "";
 
@@ -59,7 +60,8 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
          {
             if ( constantNode.getName().startsWith( "EVENT" ) )
             {
-               eventName = extractEventNameFromConstant( constantNode.getInitializationExpression().getInternalNode() );
+               eventName = extractEventNameFromConstant( constantNode.getInitializationExpression()
+                                                                     .getInternalNode() );
             }
          }
          if ( eventName.compareTo( "" ) == 0

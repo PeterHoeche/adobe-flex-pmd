@@ -66,11 +66,13 @@ public class TestClass extends TestCase
       assertPackageContent( "",
                             "public final class Title{ }",
                             "<content line=\"2\" column=\"1\">"
-                                  + "<class line=\"2\" column=\"20\">" + "<name line=\"2\" column=\"20\">Title</name>"
+                                  + "<class line=\"2\" column=\"20\">"
+                                  + "<name line=\"2\" column=\"20\">Title</name>"
                                   + "<mod-list line=\"2\" column=\"25\">"
                                   + "<mod line=\"2\" column=\"25\">public</mod>"
                                   + "<mod line=\"2\" column=\"25\">final</mod>" + "</mod-list>"
-                                  + "<content line=\"2\" column=\"27\">" + "</content>" + "</class>" + "</content>" );
+                                  + "<content line=\"2\" column=\"27\">" + "</content>" + "</class>"
+                                  + "</content>" );
    }
 
    @Test

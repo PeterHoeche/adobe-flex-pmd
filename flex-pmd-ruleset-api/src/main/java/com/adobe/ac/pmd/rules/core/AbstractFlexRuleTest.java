@@ -46,7 +46,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    /**
     * Test case which contains non-violating files but which are concerned by
     * the given rule
-    *
+    * 
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -56,7 +56,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
    /**
     * Test case which contains non-concerned files by the given rule
-    *
+    * 
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -66,7 +66,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
    /**
     * Test case which contains violating files
-    *
+    * 
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */

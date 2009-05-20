@@ -152,7 +152,9 @@ public class XpathFlexRule extends AbstractFlexRule
       final Violation violation = new Violation( new ViolationPosition( getLineValueInNode( beginningNode ),
                                                                         getLineValueInNode( lastChild ),
                                                                         getColumnValueInNode( beginningNode ),
-                                                                        getColumnValueInNode( lastChild ) ), this, file );
+                                                                        getColumnValueInNode( lastChild ) ),
+                                                 this,
+                                                 file );
 
       return violation;
    }

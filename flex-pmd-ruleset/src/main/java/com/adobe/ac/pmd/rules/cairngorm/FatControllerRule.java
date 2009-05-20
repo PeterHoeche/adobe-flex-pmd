@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.rules.cairngorm;
 import java.util.List;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -48,19 +49,22 @@ public class FatControllerRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromPackageNode( final PackageNode rootNode )
+   protected void findViolationsFromPackageNode( final PackageNode packageNode )
    {
-      if ( rootNode.getClassNode() != null )
+      final ClassNode classNode = packageNode.getClassNode();
+
+      if ( classNode != null )
       {
-         final int commandsCount = computeCommandsCountInImport( rootNode.getImports() );
-         final int methodsCount = computeMethodsCount( rootNode );
+         final int commandsCount = computeCommandsCountInImport( packageNode.getImports() );
+         final int methodsCount = classNode.getFunctions().size();
 
          if ( methodsCount > 0
                && commandsCount
                      / methodsCount > 5 )
          {
-            addViolation( rootNode.getClassNode().getInternalNode(),
-                          rootNode.getInternalNode().getChild( rootNode.getInternalNode().children.size() - 1 ) );
+            addViolation( classNode.getInternalNode(),
+                          packageNode.getInternalNode()
+                                     .getChild( packageNode.getInternalNode().children.size() - 1 ) );
          }
       }
    }
@@ -86,10 +90,5 @@ public class FatControllerRule extends AbstractAstFlexRule
          }
       }
       return commandImport;
-   }
-
-   private int computeMethodsCount( final PackageNode rootNode )
-   {
-      return rootNode.getClassNode().getFunctions().size();
    }
 }

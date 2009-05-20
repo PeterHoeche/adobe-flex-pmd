@@ -139,10 +139,11 @@ public class AS3Scanner
          return scanNumberOrDots( currentCharacter );
       }
       if ( currentCharacter == '{'
-            || currentCharacter == '}' || currentCharacter == '(' || currentCharacter == ')' || currentCharacter == '['
-            || currentCharacter == ']'
+            || currentCharacter == '}' || currentCharacter == '(' || currentCharacter == ')'
+            || currentCharacter == '[' || currentCharacter == ']'
             // a number can start with a dot as well, see number || c == '.'
-            || currentCharacter == ';' || currentCharacter == ',' || currentCharacter == '?' || currentCharacter == '~' )
+            || currentCharacter == ';' || currentCharacter == ',' || currentCharacter == '?'
+            || currentCharacter == '~' )
       {
          return scanSingleCharacterToken( currentCharacter );
       }
@@ -269,8 +270,9 @@ public class AS3Scanner
    private boolean isIdentifierCharacter( final char currentCharacter )
    {
       return currentCharacter >= 'A'
-            && currentCharacter <= 'Z' || currentCharacter >= 'a' && currentCharacter <= 'z' || currentCharacter >= '0'
-            && currentCharacter <= '9' || currentCharacter == '_' || currentCharacter == '$';
+            && currentCharacter <= 'Z' || currentCharacter >= 'a' && currentCharacter <= 'z'
+            || currentCharacter >= '0' && currentCharacter <= '9' || currentCharacter == '_'
+            || currentCharacter == '$';
    }
 
    private boolean isProcessingInstruction( final String text )

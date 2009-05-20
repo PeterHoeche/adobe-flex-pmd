@@ -618,8 +618,8 @@ public class AS3Parser
       final Node result = new Node( Node.ASSIGN, tok.line, tok.column, parseConditionalExpression() );
       while ( tokIs( KeyWords.EQUAL )
             || tokIs( KeyWords.PLUS_EQUAL ) || tokIs( KeyWords.MINUS_EQUAL ) || tokIs( KeyWords.TIMES_EQUAL )
-            || tokIs( KeyWords.DIVIDED_EQUAL ) || tokIs( KeyWords.MODULO_EQUAL ) || tokIs( KeyWords.AND_EQUAL )
-            || tokIs( KeyWords.OR_EQUAL ) || tokIs( KeyWords.XOR_EQUAL ) )
+            || tokIs( KeyWords.DIVIDED_EQUAL ) || tokIs( KeyWords.MODULO_EQUAL )
+            || tokIs( KeyWords.AND_EQUAL ) || tokIs( KeyWords.OR_EQUAL ) || tokIs( KeyWords.XOR_EQUAL ) )
       {
          result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
          nextToken();

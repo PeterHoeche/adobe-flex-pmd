@@ -36,7 +36,9 @@ import java.util.Comparator;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 
-public class ModifierHolderByVisibilityAndStaticityComparator implements Comparator< IModifiersHolder >, Serializable
+public class ModifierHolderByVisibilityAndStaticityComparator implements
+                                                             Comparator< IModifiersHolder >,
+                                                             Serializable
 {
    private static final long serialVersionUID = 355164117728770224L;
 

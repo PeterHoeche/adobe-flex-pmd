@@ -44,7 +44,7 @@ import de.bokelberg.flex.parser.Node;
 /**
  * Node representing a Function It contains the function name, its parameters,
  * its return type, its modifiers, its metadata
- *
+ * 
  * @author xagnetti
  */
 public class FunctionNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
@@ -86,7 +86,7 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
 
    /**
     * Finds recursivly a statement in the function body from its name
-    *
+    * 
     * @param primaryName statement name
     * @return corresponding node
     */
@@ -100,7 +100,7 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
 
    /**
     * Finds recursivly a statement in the function body from a list of names
-    *
+    * 
     * @param primaryNames statement name
     * @return corresponding node
     */

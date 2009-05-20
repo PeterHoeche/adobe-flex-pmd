@@ -35,15 +35,19 @@ import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
-
 public class PackageCaseRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode( final PackageNode rootNode )
+   protected void findViolationsFromPackageNode( final PackageNode packageNode )
    {
-      detectViolation( rootNode.getInternalNode(),
-                       rootNode.getName() );
+      if ( containsUpperCharacter( packageNode.getName() ) )
+      {
+         final Violation violation = addViolation( packageNode.getInternalNode(),
+                                                   packageNode.getInternalNode() );
+
+         violation.setEndColumn( packageNode.getName().length()
+               + violation.getBeginColumn() );
+      }
    }
 
    @Override
@@ -68,18 +72,5 @@ public class PackageCaseRule extends AbstractAstFlexRule
          }
       }
       return found;
-   }
-
-   private void detectViolation( final Node packageNode,
-                                 final String packageName )
-   {
-      if ( containsUpperCharacter( packageName ) )
-      {
-         final Violation violation = addViolation( packageNode,
-                                                   packageNode );
-
-         violation.setEndColumn( packageName.length()
-               + violation.getBeginColumn() );
-      }
    }
 }

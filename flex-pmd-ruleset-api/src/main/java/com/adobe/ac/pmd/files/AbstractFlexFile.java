@@ -37,7 +37,7 @@ import com.adobe.ac.ncss.utils.FileUtils;
 
 /**
  * Abstract class representing a Flex File (either MXML or AS)
- *
+ * 
  * @author xagnetti
  */
 public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >

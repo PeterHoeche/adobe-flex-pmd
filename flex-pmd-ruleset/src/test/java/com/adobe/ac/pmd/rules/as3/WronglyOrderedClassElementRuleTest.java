@@ -98,7 +98,9 @@ public class WronglyOrderedClassElementRuleTest extends AbstractAstFlexRuleTest
       // "com.adobe.ac.ncss.TestResult.as", expectedPositions5 );
       //
       assertFalse( "rule message token are still in",
-                   processFile( "com.adobe.ac.ncss.TestResult.as" ).get( 0 ).getRuleMessage().contains( "{0}" ) );
+                   processFile( "com.adobe.ac.ncss.TestResult.as" ).get( 0 )
+                                                                   .getRuleMessage()
+                                                                   .contains( "{0}" ) );
    }
 
    @Override

@@ -52,7 +52,7 @@ import de.bokelberg.flex.parser.Node;
  * detectable in an AS file, which can be converted into an Abstract Synthax
  * Tree. Then you will be able to either use the visitor pattern, or to iterate
  * from the package node, i in order to find your violation(s).
- *
+ * 
  * @author xagnetti
  */
 public abstract class AbstractAstFlexRule extends AbstractFlexRule
@@ -135,7 +135,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    /**
     * Override this method if you need to find violations from the package ( or
     * any subsequent node like class or function)
-    *
+    * 
     * @param packageNode
     */
    protected void findViolationsFromPackageNode( final PackageNode packageNode )
@@ -605,7 +605,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
    /**
     * Overrides it if you need to visit each implementation
-    *
+    * 
     * @param next
     */
    protected void visitImplementsListChildren( final Node next )
@@ -631,7 +631,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
    /**
     * Overrides it if you need to visit a metadata node
-    *
+    * 
     * @param node
     */
    protected void visitMetaData( final Node node )
@@ -640,7 +640,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
    /**
     * Overrides it if you need to visit a modifier
-    *
+    * 
     * @param ast
     */
    protected void visitModifiers( final Node ast )

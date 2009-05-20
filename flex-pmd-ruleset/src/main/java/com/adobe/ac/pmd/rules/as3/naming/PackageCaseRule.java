@@ -40,8 +40,8 @@ public class PackageCaseRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromPackageNode( final PackageNode packageNode )
    {
-      if ( packageNode != null
-            && packageNode.getName() != null && containsUpperCharacter( packageNode.getName() ) )
+      if ( packageNode.getName() != null
+            && containsUpperCharacter( packageNode.getName() ) )
       {
          final Violation violation = addViolation( packageNode.getInternalNode(),
                                                    packageNode.getInternalNode() );

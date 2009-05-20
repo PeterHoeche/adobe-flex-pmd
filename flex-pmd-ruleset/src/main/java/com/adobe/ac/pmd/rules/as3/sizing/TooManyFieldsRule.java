@@ -37,7 +37,6 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -68,9 +67,9 @@ public class TooManyFieldsRule extends AbstractAstFlexRule implements IThreshold
    }
 
    @Override
-   protected void findViolationsFromPackageNode( final PackageNode rootNode )
+   protected void findViolationsFromClassNode( final ClassNode classNodeToBeSet )
    {
-      classNode = rootNode.getClassNode();
+      classNode = classNodeToBeSet;
    }
 
    @Override
