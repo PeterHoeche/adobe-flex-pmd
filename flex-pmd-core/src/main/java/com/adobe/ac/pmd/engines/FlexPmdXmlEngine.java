@@ -61,16 +61,9 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    {
       final File realOutputDirectory = outputDirectory;
 
-      if ( !realOutputDirectory.exists() )
-      {
-         if ( !realOutputDirectory.mkdirs() )
-         {
-            LOGGER.severe( "Unable to create an output folder" );
-         }
-      }
+      makeSureOutputDirectoryExists( realOutputDirectory );
 
       final File pmdReport = new File( realOutputDirectory, PMD_XML );
-      final Date today = new Date();
 
       FileWriter writter = null;
       try
@@ -78,11 +71,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          LOGGER.finest( "Start writting XML report" );
 
          writter = new FileWriter( pmdReport );
-
-         writter.write( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-               + getNewLine() );
-         writter.write( "<pmd version=\"4.2.1\" timestamp=\""
-               + today.toString() + "\">" + getNewLine() );
+         writeReportHeader( writter );
 
          for ( final AbstractFlexFile sourceFile : pmd.getViolations().keySet() )
          {
@@ -104,21 +93,26 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       }
       finally
       {
-         LOGGER.finest( "End writting XML report" );
+         finalizeReport( writter );
+      }
+   }
 
-         if ( writter != null )
+   private void finalizeReport( final FileWriter writter )
+   {
+      LOGGER.finest( "End writting XML report" );
+
+      if ( writter != null )
+      {
+         try
          {
-            try
-            {
-               LOGGER.finest( "Closing the XML writter" );
-               writter.close();
-            }
-            catch ( final IOException e )
-            {
-               LOGGER.warning( Arrays.toString( e.getStackTrace() ) );
-            }
-            LOGGER.finest( "Closed the XML writter" );
+            LOGGER.finest( "Closing the XML writter" );
+            writter.close();
          }
+         catch ( final IOException e )
+         {
+            LOGGER.warning( Arrays.toString( e.getStackTrace() ) );
+         }
+         LOGGER.finest( "Closed the XML writter" );
       }
    }
 
@@ -140,5 +134,24 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          writter.write( "   </file>"
                + getNewLine() );
       }
+   }
+
+   private void makeSureOutputDirectoryExists( final File realOutputDirectory )
+   {
+      if ( !realOutputDirectory.exists() )
+      {
+         if ( !realOutputDirectory.mkdirs() )
+         {
+            LOGGER.severe( "Unable to create an output folder" );
+         }
+      }
+   }
+
+   private void writeReportHeader( final FileWriter writter ) throws IOException
+   {
+      writter.write( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+            + getNewLine() );
+      writter.write( "<pmd version=\"4.2.1\" timestamp=\""
+            + new Date().toString() + "\">" + getNewLine() );
    }
 }

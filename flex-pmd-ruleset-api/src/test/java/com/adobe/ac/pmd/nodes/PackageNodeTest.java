@@ -40,6 +40,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 
 import de.bokelberg.flex.parser.AS3Parser;
+import de.bokelberg.flex.parser.Node;
 import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class PackageNodeTest extends FlexPmdTestBase
@@ -48,8 +49,8 @@ public class PackageNodeTest extends FlexPmdTestBase
    public void testConstructNamespace() throws IOException,
                                        TokenException
    {
-      final PackageNode namespacePackage = new PackageNode( new AS3Parser().buildAst( testFiles.get( "schedule_internal.as" )
-                                                                                               .getFilePath() ) );
+      final Node ast = new AS3Parser().buildAst( testFiles.get( "schedule_internal.as" ).getFilePath() );
+      final PackageNode namespacePackage = new PackageNode( ast );
 
       assertNull( namespacePackage.getClassNode() );
       assertEquals( "flexlib.scheduling.scheduleClasses",
@@ -62,8 +63,8 @@ public class PackageNodeTest extends FlexPmdTestBase
    public void testConstructStyles() throws IOException,
                                     TokenException
    {
-      final PackageNode stylePackage = new PackageNode( new AS3Parser().buildAst( testFiles.get( "SkinStyles.as" )
-                                                                                           .getFilePath() ) );
+      final Node ast = new AS3Parser().buildAst( testFiles.get( "SkinStyles.as" ).getFilePath() );
+      final PackageNode stylePackage = new PackageNode( ast );
 
       assertNull( stylePackage.getClassNode() );
       assertEquals( "",

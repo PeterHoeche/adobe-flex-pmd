@@ -92,25 +92,15 @@ public class AS3Parser
          }
          else if ( tokIs( KeyWords.VAR ) )
          {
-            result.addChild( parseVarList( meta,
-                                           modifiers ) );
-            if ( tokIs( Operators.SEMI_COLUMN ) )
-            {
-               nextToken();
-            }
-            meta.clear();
-            modifiers.clear();
+            parseClassField( result,
+                             modifiers,
+                             meta );
          }
          else if ( tokIs( KeyWords.CONST ) )
          {
-            result.addChild( parseConstList( meta,
-                                             modifiers ) );
-            if ( tokIs( Operators.SEMI_COLUMN ) )
-            {
-               nextToken();
-            }
-            meta.clear();
-            modifiers.clear();
+            parseClassConstant( result,
+                                modifiers,
+                                meta );
          }
          else if ( tokIs( KeyWords.IMPORT ) )
          {
@@ -118,15 +108,13 @@ public class AS3Parser
          }
          else if ( tokIs( KeyWords.FUNCTION ) )
          {
-            result.addChild( parseFunction( meta,
-                                            modifiers ) );
-            meta.clear();
-            modifiers.clear();
+            parseClassFunctions( result,
+                                 modifiers,
+                                 meta );
          }
          else
          {
             modifiers.add( tok );
-            // S ystem.out.println("add mod: " + tok.text + ".");
             nextToken();
          }
       }
@@ -235,15 +223,11 @@ public class AS3Parser
       return result;
    }
 
-   // ------------------------------------------------------------------------
-   // language specific recursive descent parsing
-   // ------------------------------------------------------------------------
-
    Node parsePrimaryExpression() throws TokenException
    {
       Node result = new Node( Node.PRIMARY, tok.line, tok.column );
       result.stringValue = tok.text;
-      // S ystem.out.println("primary " + result );
+
       if ( tokIs( KeyWords.UNDEFINED ) )
       {
          nextToken(); // undefined
@@ -318,8 +302,8 @@ public class AS3Parser
     */
    Node parseStatement() throws TokenException
    {
-
       Node result;
+
       if ( tokIs( KeyWords.FOR ) )
       {
          result = parseFor();
@@ -342,8 +326,7 @@ public class AS3Parser
       }
       else if ( tokIs( KeyWords.TRY ) )
       {
-         nextToken();
-         result = new Node( KeyWords.TRY, tok.line, tok.column, parseBlock() );
+         result = parseTry();
       }
       else if ( tokIs( KeyWords.CATCH ) )
       {
@@ -351,8 +334,7 @@ public class AS3Parser
       }
       else if ( tokIs( KeyWords.FINALLY ) )
       {
-         nextToken();
-         result = new Node( KeyWords.FINALLY, tok.line, tok.column, parseBlock() );
+         result = parseFinally();
       }
       else if ( tokIs( Operators.LEFT_CURLY_BRACKET ) )
       {
@@ -360,50 +342,67 @@ public class AS3Parser
       }
       else if ( tokIs( KeyWords.VAR ) )
       {
-         result = parseVarList( null,
-                                null );
-         skip( Operators.SEMI_COLUMN );
+         result = parseVar();
       }
       else if ( tokIs( KeyWords.CONST ) )
       {
-         result = parseConstList( null,
-                                  null );
-         skip( Operators.SEMI_COLUMN );
+         result = parseConst();
       }
       else if ( tokIs( KeyWords.RETURN ) )
       {
-         /**
-          * TODO How can we decide if return needs an expression? The type of a
-          * method is optional, so we cant really derive it from the context.
-          * Aaah, i know! That is why the expression needs to start on the same
-          * line! So either the next symbol is a semicolon, which means no
-          * expression, or we have something else on the same line, which should
-          * parse as a expression. In Java it is a bit different, because the
-          * semicolon at the end of the line is mandatory.
-          */
-         nextTokenAllowNewLine();
-         if ( tokIs( KeyWords.NEW_LINE )
-               || tokIs( Operators.SEMI_COLUMN ) )
-         {
-            nextToken();
-            result = new Node( KeyWords.RETURN, tok.line, tok.column, "" );
-         }
-         else
-         {
-            result = new Node( KeyWords.RETURN, tok.line, tok.column, parseExpression() );
-            skip( Operators.SEMI_COLUMN );
-         }
+         result = parseReturnStatement();
       }
       else if ( tokIs( Operators.SEMI_COLUMN ) )
       {
-         result = new Node( Node.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
-         nextToken();
+         result = parseEmptyStatement();
       }
       else
       {
          result = parseExpressionList();
          skip( Operators.SEMI_COLUMN );
       }
+      return result;
+   }
+
+   private Node parseConst() throws TokenException
+   {
+      Node result;
+      result = parseConstList( null,
+                               null );
+      skip( Operators.SEMI_COLUMN );
+      return result;
+   }
+
+   private Node parseVar() throws TokenException
+   {
+      Node result;
+      result = parseVarList( null,
+                             null );
+      skip( Operators.SEMI_COLUMN );
+      return result;
+   }
+
+   private Node parseEmptyStatement() throws TokenException
+   {
+      Node result;
+      result = new Node( Node.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
+      nextToken();
+      return result;
+   }
+
+   private Node parseFinally() throws TokenException
+   {
+      Node result;
+      nextToken();
+      result = new Node( KeyWords.FINALLY, tok.line, tok.column, parseBlock() );
+      return result;
+   }
+
+   private Node parseTry() throws TokenException
+   {
+      Node result;
+      nextToken();
+      result = new Node( KeyWords.TRY, tok.line, tok.column, parseBlock() );
       return result;
    }
 
@@ -447,6 +446,10 @@ public class AS3Parser
       }
       return result;
    }
+
+   // ------------------------------------------------------------------------
+   // language specific recursive descent parsing
+   // ------------------------------------------------------------------------
 
    /**
     * Compare the current token to the parameter. If it equals, get the next
@@ -593,6 +596,19 @@ public class AS3Parser
          skip( Operators.COMMA );
       }
       consume( Operators.RIGHT_PARENTHESIS );
+      return result;
+   }
+
+   private Node parseArrayAccessor( final Node e1 ) throws TokenException
+   {
+      final Node result = new Node( Node.ARRAY_ACCESSOR, tok.line, tok.column );
+      result.addChild( e1 );
+      while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+      {
+         nextToken(); // [
+         result.addChild( parseExpression() );
+         consume( Operators.RIGHT_SQUARE_BRACKET );
+      }
       return result;
    }
 
@@ -753,6 +769,44 @@ public class AS3Parser
       return result;
    }
 
+   private void parseClassConstant( final Node result,
+                                    final ArrayList< Token > modifiers,
+                                    final ArrayList< Node > meta ) throws TokenException
+   {
+      result.addChild( parseConstList( meta,
+                                       modifiers ) );
+      if ( tokIs( Operators.SEMI_COLUMN ) )
+      {
+         nextToken();
+      }
+      meta.clear();
+      modifiers.clear();
+   }
+
+   private void parseClassField( final Node result,
+                                 final ArrayList< Token > modifiers,
+                                 final ArrayList< Node > meta ) throws TokenException
+   {
+      result.addChild( parseVarList( meta,
+                                     modifiers ) );
+      if ( tokIs( Operators.SEMI_COLUMN ) )
+      {
+         nextToken();
+      }
+      meta.clear();
+      modifiers.clear();
+   }
+
+   private void parseClassFunctions( final Node result,
+                                     final ArrayList< Token > modifiers,
+                                     final ArrayList< Node > meta ) throws TokenException
+   {
+      result.addChild( parseFunction( meta,
+                                      modifiers ) );
+      meta.clear();
+      modifiers.clear();
+   }
+
    /**
     * tok is (
     * 
@@ -798,6 +852,14 @@ public class AS3Parser
       return result;
    }
 
+   private Node parseDecrement( final Node e1 ) throws TokenException
+   {
+      nextToken();
+      final Node result = new Node( Node.POST_DEC, tok.line, tok.column );
+      result.addChild( e1 );
+      return result;
+   }
+
    /**
     * tok is do
     * 
@@ -809,6 +871,30 @@ public class AS3Parser
       final Node result = new Node( KeyWords.DO, tok.line, tok.column, parseStatement() );
       consume( KeyWords.WHILE );
       result.addChild( parseCondition() );
+      return result;
+   }
+
+   private Node parseDot( final Node e1 ) throws TokenException
+   {
+      nextToken();
+      if ( tokIs( Operators.LEFT_PARENTHESIS ) )
+      {
+         nextToken();
+         final Node result = new Node( Node.E4X_FILTER, tok.line, tok.column );
+         result.addChild( e1 );
+         result.addChild( parseExpression() );
+         consume( Operators.RIGHT_PARENTHESIS );
+         return result;
+      }
+      else if ( tokIs( "*" ) )
+      {
+         final Node result = new Node( Node.E4X_STAR, tok.line, tok.column );
+         result.addChild( e1 );
+         return result;
+      }
+      final Node result = new Node( Node.DOT, tok.line, tok.column );
+      result.addChild( e1 );
+      result.addChild( parseExpression() );
       return result;
    }
 
@@ -927,6 +1013,17 @@ public class AS3Parser
       return result;
    }
 
+   private Node parseForIn( final Node result ) throws TokenException
+   {
+      nextToken();
+      result.addChild( Node.IN,
+                       tok.line,
+                       tok.column,
+                       parseExpression() );
+      result.id = KeyWords.FORIN;
+      return result;
+   }
+
    /**
     * tok is function
     * 
@@ -946,6 +1043,22 @@ public class AS3Parser
       result.addChild( signature[ 2 ] );
       result.addChild( signature[ 3 ] );
       result.addChild( parseBlock() );
+      return result;
+   }
+
+   private Node parseFunctionCall( final Node e1 ) throws TokenException
+   {
+      final Node result = new Node( Node.CALL, tok.line, tok.column );
+      result.addChild( e1 );
+      while ( tokIs( Operators.LEFT_PARENTHESIS ) )
+      {
+         result.addChild( parseArgumentList() );
+      }
+      while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+      {
+         result.addChild( parseArrayLiteral() );
+      }
+
       return result;
    }
 
@@ -1042,6 +1155,14 @@ public class AS3Parser
          nextToken(); // part of name
       }
       return result.toString();
+   }
+
+   private Node parseIncrement( final Node e1 ) throws TokenException
+   {
+      nextToken();
+      final Node result = new Node( Node.POST_INC, tok.line, tok.column );
+      result.addChild( e1 );
+      return result;
    }
 
    /**
@@ -1364,6 +1485,33 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
+   private Node parseReturnStatement() throws TokenException
+   {
+      Node result;
+      /**
+       * TODO How can we decide if return needs an expression? The type of a
+       * method is optional, so we cant really derive it from the context. Aaah,
+       * i know! That is why the expression needs to start on the same line! So
+       * either the next symbol is a semicolon, which means no expression, or we
+       * have something else on the same line, which should parse as a
+       * expression. In Java it is a bit different, because the semicolon at the
+       * end of the line is mandatory.
+       */
+      nextTokenAllowNewLine();
+      if ( tokIs( KeyWords.NEW_LINE )
+            || tokIs( Operators.SEMI_COLUMN ) )
+      {
+         nextToken();
+         result = new Node( KeyWords.RETURN, tok.line, tok.column, "" );
+      }
+      else
+      {
+         result = new Node( KeyWords.RETURN, tok.line, tok.column, parseExpression() );
+         skip( Operators.SEMI_COLUMN );
+      }
+      return result;
+   }
+
    private Node parseShiftExpression() throws TokenException
    {
       final Node result = new Node( Node.SHIFT, tok.line, tok.column, parseAdditiveExpression() );
@@ -1461,11 +1609,7 @@ public class AS3Parser
       consume( Operators.LEFT_PARENTHESIS );
 
       final Node result = new Node( KeyWords.FOR, tok.line, tok.column );
-      if ( tokIs( Operators.SEMI_COLUMN ) )
-      {
-         // no init, do nothing
-      }
-      else
+      if ( !tokIs( Operators.SEMI_COLUMN ) )
       {
          if ( tokIs( KeyWords.VAR ) )
          {
@@ -1484,22 +1628,11 @@ public class AS3Parser
          }
          if ( tokIs( Node.IN ) )
          {
-            // omg, we have a for-in situation here
-            nextToken();
-            result.addChild( Node.IN,
-                             tok.line,
-                             tok.column,
-                             parseExpression() );
-            result.id = KeyWords.FORIN;
-            return result;
+            return parseForIn( result );
          }
       }
       consume( Operators.SEMI_COLUMN );
-      if ( tokIs( Operators.SEMI_COLUMN ) )
-      {
-         // no condition, do nothing
-      }
-      else
+      if ( !tokIs( Operators.SEMI_COLUMN ) )
       {
          result.addChild( Node.COND,
                           tok.line,
@@ -1507,11 +1640,7 @@ public class AS3Parser
                           parseExpression() );
       }
       consume( Operators.SEMI_COLUMN );
-      if ( tokIs( Operators.RIGHT_PARENTHESIS ) )
-      {
-         // no iter, do nothing
-      }
-      else
+      if ( !tokIs( Operators.RIGHT_PARENTHESIS ) )
       {
          result.addChild( Node.ITER,
                           tok.line,
@@ -1564,81 +1693,23 @@ public class AS3Parser
 
       if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
       {
-         final Node result = new Node( Node.ARRAY_ACCESSOR, tok.line, tok.column );
-         result.addChild( e1 );
-         while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-         {
-            nextToken(); // [
-            result.addChild( parseExpression() );
-            consume( Operators.RIGHT_SQUARE_BRACKET );
-         }
-         e1 = result;
+         e1 = parseArrayAccessor( e1 );
       }
       else if ( tokIs( Operators.LEFT_PARENTHESIS ) )
       {
-         final Node result = new Node( Node.CALL, tok.line, tok.column );
-         result.addChild( e1 );
-         while ( tokIs( Operators.LEFT_PARENTHESIS ) )
-         {
-            result.addChild( parseArgumentList() );
-         }
-         while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-         {
-            result.addChild( parseArrayLiteral() );
-         }
-
-         e1 = result;
-      }
-      else
-      {
-         /*
-          * TODO a few e4x things need to be implemented as well (
-          * poi=propOrIdent[root_0, retval.start] -> $poi | E4X_DESC
-          * qualifiedIdentifier -> ^(E4X_DESC $postfixExpression
-          * qualifiedIdentifier) | d=DOT e4xAttributeIdentifier ->
-          * ^(PROPERTY_OR_IDENTIFIER[$d] $postfixExpression
-          * e4xAttributeIdentifier)
-          */
+         e1 = parseFunctionCall( e1 );
       }
       if ( tokIs( Operators.INCREMENT ) )
       {
-         nextToken();
-         final Node result = new Node( Node.POST_INC, tok.line, tok.column );
-         result.addChild( e1 );
-         e1 = result;
+         e1 = parseIncrement( e1 );
       }
       else if ( tokIs( Operators.DECREMENT ) )
       {
-         nextToken();
-         final Node result = new Node( Node.POST_DEC, tok.line, tok.column );
-         result.addChild( e1 );
-         e1 = result;
+         e1 = parseDecrement( e1 );
       }
       else if ( tokIs( Operators.DOT ) )
       {
-         nextToken();
-         if ( tokIs( Operators.LEFT_PARENTHESIS ) )
-         {
-            nextToken();
-            final Node result = new Node( Node.E4X_FILTER, tok.line, tok.column );
-            result.addChild( e1 );
-            result.addChild( parseExpression() );
-            e1 = result;
-            consume( Operators.RIGHT_PARENTHESIS );
-         }
-         else if ( tokIs( "*" ) )
-         {
-            final Node result = new Node( Node.E4X_STAR, tok.line, tok.column );
-            result.addChild( e1 );
-            e1 = result;
-         }
-         else
-         {
-            final Node result = new Node( Node.DOT, tok.line, tok.column );
-            result.addChild( e1 );
-            result.addChild( parseExpression() );
-            e1 = result;
-         }
+         e1 = parseDot( e1 );
       }
       return e1;
    }

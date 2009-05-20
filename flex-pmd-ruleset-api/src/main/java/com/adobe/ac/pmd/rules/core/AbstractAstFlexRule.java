@@ -249,6 +249,17 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
+   protected void visitArrayAccessor( final Node ast )
+   {
+      final Iterator< Node > iterator = ast.children.iterator();
+      visitExpression( iterator.next() );
+      do
+      {
+         visitExpression( iterator.next() );
+      }
+      while ( iterator.hasNext() );
+   }
+
    protected void visitBitwiseAndExpression( final Node ast )
    {
       if ( ast != null )
@@ -824,70 +835,71 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
    protected void visitStatement( final Node ast )
    {
-      if ( ast != null )
+      if ( ast == null )
       {
-         if ( ast.is( KeyWords.FOR ) )
-         {
-            visitFor( ast );
-         }
-         else if ( ast.is( KeyWords.FORIN ) )
-         {
-            visitForIn( ast );
-         }
-         else if ( ast.is( KeyWords.FOREACH ) )
-         {
-            visitForEach( ast );
-         }
-         else if ( ast.is( KeyWords.IF ) )
-         {
-            visitIf( ast );
-         }
-         else if ( ast.is( KeyWords.SWITCH ) )
-         {
-            visitSwitch( ast );
-         }
-         else if ( ast.is( KeyWords.DO ) )
-         {
-            visitDo( ast );
-         }
-         else if ( ast.is( KeyWords.WHILE ) )
-         {
-            visitWhile( ast );
-         }
-         else if ( ast.is( KeyWords.TRY ) )
-         {
-            visitTry( ast );
-         }
-         else if ( ast.is( KeyWords.CATCH ) )
-         {
-            visitCatch( ast );
-         }
-         else if ( ast.is( KeyWords.FINALLY ) )
-         {
-            visitFinally( ast );
-         }
-         else if ( ast.is( "{" ) )
-         {
-            visitBlock( ast );
-         }
-         else if ( ast.is( KeyWords.VAR ) )
-         {
-            visitVarOrConstList( ast,
-                                 KeyWords.VAR );
-         }
-         else if ( ast.is( KeyWords.CONST ) )
-         {
-            visitVarOrConstList( ast,
-                                 KeyWords.CONST );
-         }
-         else if ( ast.is( KeyWords.RETURN ) )
-         {
-            visitReturn( ast );
-         }
-         else if ( !ast.is( Node.STMT_EMPTY ) )
-         {
-            visitExpressionList( ast );
-         }
+         return;
+      }
+      if ( ast.is( KeyWords.FOR ) )
+      {
+         visitFor( ast );
+      }
+      else if ( ast.is( KeyWords.FORIN ) )
+      {
+         visitForIn( ast );
+      }
+      else if ( ast.is( KeyWords.FOREACH ) )
+      {
+         visitForEach( ast );
+      }
+      else if ( ast.is( KeyWords.IF ) )
+      {
+         visitIf( ast );
+      }
+      else if ( ast.is( KeyWords.SWITCH ) )
+      {
+         visitSwitch( ast );
+      }
+      else if ( ast.is( KeyWords.DO ) )
+      {
+         visitDo( ast );
+      }
+      else if ( ast.is( KeyWords.WHILE ) )
+      {
+         visitWhile( ast );
+      }
+      else if ( ast.is( KeyWords.TRY ) )
+      {
+         visitTry( ast );
+      }
+      else if ( ast.is( KeyWords.CATCH ) )
+      {
+         visitCatch( ast );
+      }
+      else if ( ast.is( KeyWords.FINALLY ) )
+      {
+         visitFinally( ast );
+      }
+      else if ( ast.is( "{" ) )
+      {
+         visitBlock( ast );
+      }
+      else if ( ast.is( KeyWords.VAR ) )
+      {
+         visitVarOrConstList( ast,
+                              KeyWords.VAR );
+      }
+      else if ( ast.is( KeyWords.CONST ) )
+      {
+         visitVarOrConstList( ast,
+                              KeyWords.CONST );
+      }
+      else if ( ast.is( KeyWords.RETURN ) )
+      {
+         visitReturn( ast );
+      }
+      else if ( !ast.is( Node.STMT_EMPTY ) )
+      {
+         visitExpressionList( ast );
       }
    }
 
@@ -1006,14 +1018,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          if ( ast.is( Node.ARRAY_ACCESSOR ) )
          {
-            final Iterator< Node > iterator = ast.children.iterator();
-            visitExpression( iterator.next() );
-            do
-            {
-               visitExpression( iterator.next() );
-            }
-            while ( iterator.hasNext() );
-
+            visitArrayAccessor( ast );
          }
          else if ( ast.is( Node.DOT ) )
          {
