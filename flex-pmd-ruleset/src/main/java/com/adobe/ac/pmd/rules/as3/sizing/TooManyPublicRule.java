@@ -34,9 +34,9 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -111,7 +111,7 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
    {
       if ( classNode.getAttributes() != null )
       {
-         for ( final IVariable variable : classNode.getAttributes() )
+         for ( final IAttribute variable : classNode.getAttributes() )
          {
             if ( variable.isPublic() )
             {

@@ -38,7 +38,7 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.impl.PackageNode;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -80,7 +80,7 @@ public class TooLongScriptBlockRule extends AbstractFlexRule implements IThresho
    }
 
    @Override
-   protected List< Violation > processFileBody( final PackageNode rootNode,
+   protected List< Violation > processFileBody( final IPackage rootNode,
                                                 final AbstractFlexFile file,
                                                 final Map< String, AbstractFlexFile > files )
    {

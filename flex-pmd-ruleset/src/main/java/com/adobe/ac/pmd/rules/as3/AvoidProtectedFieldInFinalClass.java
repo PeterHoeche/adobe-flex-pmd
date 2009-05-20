@@ -35,7 +35,6 @@ import java.util.List;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -63,7 +62,7 @@ public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
    {
       if ( atributes != null )
       {
-         for ( final IVariable field : atributes )
+         for ( final IAttribute field : atributes )
          {
             if ( field.isProtected()
                   && isClassFinal )

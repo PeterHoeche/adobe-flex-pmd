@@ -30,21 +30,24 @@
  */
 package com.adobe.ac.pmd.nodes.utils;
 
-import de.bokelberg.flex.parser.KeyWords;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
+
 import de.bokelberg.flex.parser.Node;
 
 final public class ClassUtils
 {
-   public static Node getClassExtension( final Node classNode )
+   public static IParserNode getClassExtension( final Node classNode )
    {
-      Node content = null;
+      IParserNode content = null;
 
       if ( classNode != null
-            && classNode.children != null )
+            && classNode.getChildren() != null )
       {
-         for ( final Node child : classNode.children )
+         for ( final IParserNode child : classNode.getChildren() )
          {
-            if ( KeyWords.EXTENDS.equals( child.id ) )
+            if ( KeyWords.EXTENDS.equals( child.getId() ) )
             {
                content = child;
                break;
@@ -54,18 +57,18 @@ final public class ClassUtils
       return content;
    }
 
-   public static String getClassNameFromClassNode( final Node classNode )
+   public static String getClassNameFromClassNode( final IParserNode classNode )
    {
-      return classNode.getChild( 0 ).stringValue;
+      return classNode.getChild( 0 ).getStringValue();
    }
 
-   public static Node getTypeFromFieldDeclaration( final Node fieldNode )
+   public static IParserNode getTypeFromFieldDeclaration( final IParserNode fieldNode )
    {
-      Node typeNode = null;
+      IParserNode typeNode = null;
 
-      for ( final Node node : fieldNode.children )
+      for ( final IParserNode node : fieldNode.getChildren() )
       {
-         if ( node.is( Node.NAME_TYPE_INIT )
+         if ( node.is( NodeKind.NAME_TYPE_INIT )
                && node.numChildren() > 1 )
          {
             typeNode = node.getChild( 1 );

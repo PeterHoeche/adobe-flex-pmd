@@ -30,13 +30,13 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.impl.VariableNode;
+import com.adobe.ac.pmd.nodes.IVariable;
+import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
-public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< VariableNode >
+public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< IVariable >
 {
    private boolean isInFunction;
 

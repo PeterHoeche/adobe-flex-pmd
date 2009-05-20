@@ -32,21 +32,21 @@ package com.adobe.ac.pmd.nodes.utils;
 
 import java.util.ArrayList;
 
+import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.MetaDataNode;
-
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
 
 final public class MetaDataUtils
 {
    public static void computeMetaDataList( final IMetaDataListHolder metaDataHolder,
-                                           final Node child )
+                                           final IParserNode child )
    {
-      metaDataHolder.setMetaDataList( new ArrayList< MetaDataNode >() );
+      metaDataHolder.setMetaDataList( new ArrayList< IMetaData >() );
 
-      if ( child.children != null )
+      if ( child.getChildren() != null )
       {
-         for ( final Node metadataNode : child.children )
+         for ( final IParserNode metadataNode : child.getChildren() )
          {
             metaDataHolder.getMetaDataList().add( new MetaDataNode( metadataNode ) );
          }

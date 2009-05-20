@@ -50,11 +50,14 @@ import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.ncss.filters.FlexFilter;
 import com.adobe.ac.ncss.utils.FileUtils;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.parser.IAS3Parser;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;
 import de.bokelberg.flex.parser.Node;
-import de.bokelberg.flex.parser.exceptions.TokenException;
 
 /**
  * @author xagnetti
@@ -62,12 +65,11 @@ import de.bokelberg.flex.parser.exceptions.TokenException;
 public final class FileSetUtils
 {
    public static final Logger              LOGGER   = Logger.getLogger( FileSetUtils.class.getName() );
-
    private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
 
-   public static Map< String, PackageNode > computeAsts( final Map< String, AbstractFlexFile > files ) throws PMDException
+   public static Map< String, IPackage > computeAsts( final Map< String, AbstractFlexFile > files ) throws PMDException
    {
-      final Map< String, PackageNode > asts = new HashMap< String, PackageNode >();
+      final Map< String, IPackage > asts = new HashMap< String, IPackage >();
 
       for ( final Entry< String, AbstractFlexFile > fileEntry : files.entrySet() )
       {
@@ -128,10 +130,10 @@ public final class FileSetUtils
       return files;
    }
 
-   private static Node buildAst( final AbstractFlexFile file ) throws PMDException
+   private static IParserNode buildAst( final AbstractFlexFile file ) throws PMDException
    {
-      final AS3Parser parser = new AS3Parser();
-      Node rootNode = null;
+      final IAS3Parser parser = new AS3Parser();
+      IParserNode rootNode = null;
 
       if ( !file.isMxml() )
       {

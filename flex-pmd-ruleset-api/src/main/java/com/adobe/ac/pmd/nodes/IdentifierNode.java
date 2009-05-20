@@ -30,11 +30,11 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
 
 public class IdentifierNode extends AbstractNode
 {
-   public IdentifierNode( final Node node )
+   public IdentifierNode( final IParserNode node )
    {
       super( node );
    }
@@ -42,7 +42,7 @@ public class IdentifierNode extends AbstractNode
    @Override
    public String toString()
    {
-      return internalNode.stringValue;
+      return internalNode.getStringValue();
    }
 
    @Override

@@ -34,7 +34,6 @@ import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -46,7 +45,7 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromAttributesList( final List< IAttribute > variables )
    {
-      for ( final IVariable variable : variables )
+      for ( final IAttribute variable : variables )
       {
          if ( ARRAY_TYPE.equals( variable.getType().toString() )
                && !doesMetaDataContainArrayElementType( variable.getMetaDataList() ) )

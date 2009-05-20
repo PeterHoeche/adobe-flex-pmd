@@ -32,26 +32,26 @@ package com.adobe.ac.pmd.nodes;
 
 import java.util.logging.Logger;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
 
 /**
  * FlexPmdNode which wraps the parser node into a concrete type
  * 
  * @author xagnetti
  */
-public abstract class AbstractNode
+public abstract class AbstractNode implements INode
 {
    protected final static Logger LOGGER = Logger.getLogger( "Node" );
-   protected final Node          internalNode;
+   protected final IParserNode   internalNode;
 
-   protected AbstractNode( final Node node )
+   protected AbstractNode( final IParserNode node )
    {
       internalNode = node;
 
       compute();
    }
 
-   public Node getInternalNode()
+   public IParserNode getInternalNode()
    {
       return internalNode;
    }

@@ -30,11 +30,11 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class FieldNode extends VariableNode
+public class FieldNode extends VariableNode implements IField
 {
-   public FieldNode( final Node rootNode )
+   public FieldNode( final IParserNode rootNode )
    {
       super( rootNode );
    }

@@ -42,7 +42,7 @@ import net.sourceforge.pmd.properties.IntegerProperty;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.IPackage;
 
 /**
  * Abstract FlexPMD rule. Extends this class if you want to find violations at a
@@ -85,7 +85,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IIs
    }
 
    final public List< Violation > processFile( final AbstractFlexFile file,
-                                               final PackageNode rootNode,
+                                               final IPackage rootNode,
                                                final Map< String, AbstractFlexFile > files )
    {
       List< Violation > violations = new ArrayList< Violation >();
@@ -139,7 +139,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IIs
     * @param file
     * @param violations
     */
-   protected void onFileProcessingEnded( final PackageNode rootNode,
+   protected void onFileProcessingEnded( final IPackage rootNode,
                                          final AbstractFlexFile file,
                                          final List< Violation > violations )
    {
@@ -170,7 +170,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IIs
       }
    }
 
-   protected abstract List< Violation > processFileBody( final PackageNode rootNode,
+   protected abstract List< Violation > processFileBody( final IPackage rootNode,
                                                          final AbstractFlexFile file,
                                                          final Map< String, AbstractFlexFile > files );
 

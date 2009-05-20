@@ -56,11 +56,11 @@ import org.xml.sax.SAXException;
 import com.adobe.ac.pmd.StackTraceUtils;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.exceptions.UnspecifiedXPath;
 
 import de.bokelberg.flex.parser.ASTToXMLConverter;
-import de.bokelberg.flex.parser.Node;
 
 public class XpathFlexRule extends AbstractFlexRule
 {
@@ -85,7 +85,7 @@ public class XpathFlexRule extends AbstractFlexRule
    }
 
    @Override
-   protected List< Violation > processFileBody( final PackageNode rootNode,
+   protected List< Violation > processFileBody( final IPackage rootNode,
                                                 final AbstractFlexFile file,
                                                 final Map< String, AbstractFlexFile > files )
    {
@@ -159,9 +159,9 @@ public class XpathFlexRule extends AbstractFlexRule
       return violation;
    }
 
-   private Document createASTXmlDocument( final Node rootNode ) throws ParserConfigurationException,
-                                                               SAXException,
-                                                               IOException
+   private Document createASTXmlDocument( final IParserNode rootNode ) throws ParserConfigurationException,
+                                                                      SAXException,
+                                                                      IOException
    {
       final String astXml = new ASTToXMLConverter().convert( rootNode );
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

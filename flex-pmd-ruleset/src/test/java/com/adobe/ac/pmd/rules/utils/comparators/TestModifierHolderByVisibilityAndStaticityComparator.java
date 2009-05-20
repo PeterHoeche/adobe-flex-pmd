@@ -38,7 +38,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.nodes.EModifier;
+import com.adobe.ac.pmd.nodes.Modifier;
 
 public class TestModifierHolderByVisibilityAndStaticityComparator
 {
@@ -49,28 +49,28 @@ public class TestModifierHolderByVisibilityAndStaticityComparator
 
       fields.add( create( "publicStatic",
                           true,
-                          EModifier.PUBLIC ) );
+                          Modifier.PUBLIC ) );
       fields.add( create( "internalStatic",
                           true,
-                          EModifier.INTERNAL ) );
+                          Modifier.INTERNAL ) );
       fields.add( create( "protectedStatic",
                           true,
-                          EModifier.PROTECTED ) );
+                          Modifier.PROTECTED ) );
       fields.add( create( "privateStatic",
                           true,
-                          EModifier.PRIVATE ) );
+                          Modifier.PRIVATE ) );
       fields.add( create( "public",
                           false,
-                          EModifier.PUBLIC ) );
+                          Modifier.PUBLIC ) );
       fields.add( create( "internal",
                           false,
-                          EModifier.INTERNAL ) );
+                          Modifier.INTERNAL ) );
       fields.add( create( "protected",
                           false,
-                          EModifier.PROTECTED ) );
+                          Modifier.PROTECTED ) );
       fields.add( create( "private",
                           false,
-                          EModifier.PRIVATE ) );
+                          Modifier.PRIVATE ) );
 
       shuffleSortAndAssert( fields );
       shuffleSortAndAssert( fields );
@@ -79,13 +79,13 @@ public class TestModifierHolderByVisibilityAndStaticityComparator
 
    private ModifierHolder create( final String name,
                                   final boolean isStatic,
-                                  final EModifier modifier )
+                                  final Modifier modifier )
    {
       final ModifierHolder holder = new ModifierHolder( name );
 
       if ( isStatic )
       {
-         holder.addModifier( EModifier.STATIC );
+         holder.addModifier( Modifier.STATIC );
       }
       holder.addModifier( modifier );
       return holder;

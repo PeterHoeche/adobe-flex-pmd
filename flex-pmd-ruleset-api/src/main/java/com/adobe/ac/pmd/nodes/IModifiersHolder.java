@@ -36,6 +36,8 @@ public interface IModifiersHolder
 {
    List< Modifier > getModifiers();
 
+   boolean isPrivate();
+
    boolean isProtected();
 
    boolean isPublic();

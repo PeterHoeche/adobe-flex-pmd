@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.IPackage;
 
 public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 {
@@ -57,7 +57,7 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    public abstract boolean isConcernedByTheGivenFile( final AbstractFlexFile file );
 
    @Override
-   final public List< Violation > processFileBody( final PackageNode rootNode,
+   final public List< Violation > processFileBody( final IPackage rootNode,
                                                    final AbstractFlexFile file,
                                                    final Map< String, AbstractFlexFile > files )
    {

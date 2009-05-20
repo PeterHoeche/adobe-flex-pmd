@@ -28,53 +28,11 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.common;
+package com.adobe.ac.pmd.nodes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.MxmlFile;
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class CopyrightMissingRule extends AbstractFlexRule
+public interface INode
 {
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
-   {
-      return true;
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.WARNING;
-   }
-
-   @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
-   {
-      final List< Violation > violations = new ArrayList< Violation >();
-      final String commentOpeningTag = file.getCommentOpeningTag();
-      final boolean hasMxmlCopyright = file instanceof MxmlFile
-            && file.getLines().size() > 1 && file.getLines().get( 1 ).contains( commentOpeningTag );
-      final String firstLine = file.getLines().get( 0 );
-      final boolean isFirstLineContainCopyright = firstLine.startsWith( commentOpeningTag );
-
-      if ( !isFirstLineContainCopyright
-            && !hasMxmlCopyright )
-      {
-         addViolation( violations,
-                       file,
-                       new ViolationPosition( 0, 0 ) );
-      }
-
-      return violations;
-   }
+   IParserNode getInternalNode();
 }

@@ -35,8 +35,8 @@ import java.util.List;
 
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
-
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * Node representing a variable (var i : int = 0) It contains the variable name,
@@ -45,25 +45,29 @@ import de.bokelberg.flex.parser.Node;
  * 
  * @author xagnetti
  */
-public class VariableNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
+public class VariableNode extends AbstractNode implements IVariable
 {
    private FieldInitializationNode initializationExpression;
-   private List< MetaDataNode >    metaDataList;
+   private List< IMetaData >       metaDataList;
    private List< Modifier >        modifiers;
    private IdentifierNode          name;
    private IdentifierNode          type;
 
-   public VariableNode( final Node rootNode )
+   public VariableNode( final IParserNode rootNode )
    {
       super( rootNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IVariable#getInitializationExpression()
+    */
    public FieldInitializationNode getInitializationExpression()
    {
       return initializationExpression;
    }
 
-   public List< MetaDataNode > getMetaDataList()
+   public List< IMetaData > getMetaDataList()
    {
       return metaDataList;
    }
@@ -78,9 +82,18 @@ public class VariableNode extends AbstractNode implements IModifiersHolder, IMet
       return name.toString();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IVariable#getType()
+    */
    public IdentifierNode getType()
    {
       return type;
+   }
+
+   public boolean isPrivate()
+   {
+      return ModifierUtils.isPrivate( this );
    }
 
    public boolean isProtected()
@@ -93,7 +106,7 @@ public class VariableNode extends AbstractNode implements IModifiersHolder, IMet
       return ModifierUtils.isPublic( this );
    }
 
-   public void setMetaDataList( final List< MetaDataNode > metaDataListToBeSet )
+   public void setMetaDataList( final List< IMetaData > metaDataListToBeSet )
    {
       metaDataList = metaDataListToBeSet;
    }
@@ -106,57 +119,52 @@ public class VariableNode extends AbstractNode implements IModifiersHolder, IMet
    @Override
    protected void compute()
    {
-      metaDataList = new ArrayList< MetaDataNode >();
+      metaDataList = new ArrayList< IMetaData >();
 
-      if ( internalNode.is( Node.NAME_TYPE_INIT ) )
+      if ( internalNode.is( NodeKind.NAME_TYPE_INIT ) )
       {
          computeNameTypeInit( internalNode );
       }
       else
       {
-         if ( internalNode.children != null )
+         if ( internalNode.getChildren() != null )
          {
-            for ( final Node child : internalNode.children )
+            for ( final IParserNode child : internalNode.getChildren() )
             {
-               if ( child.is( Node.NAME_TYPE_INIT ) )
+               if ( child.is( NodeKind.NAME_TYPE_INIT ) )
                {
                   computeNameTypeInit( child );
                }
-               else if ( child.is( Node.MOD_LIST ) )
+               else if ( child.is( NodeKind.MOD_LIST ) )
                {
                   ModifierUtils.computeModifierList( this,
                                                      child );
                }
-               else if ( child.is( Node.META_LIST ) )
+               else if ( child.is( NodeKind.META_LIST ) )
                {
                   MetaDataUtils.computeMetaDataList( this,
                                                      child );
-               }
-               else if ( !child.is( Node.REST ) )
-               {
-                  LOGGER.warning( "unknown node type "
-                        + child.id );
                }
             }
          }
       }
    }
 
-   private void computeNameTypeInit( final Node nameTypeInit )
+   private void computeNameTypeInit( final IParserNode nameTypeInit )
    {
-      if ( nameTypeInit.children != null )
+      if ( nameTypeInit.getChildren() != null )
       {
-         for ( final Node child : nameTypeInit.children )
+         for ( final IParserNode child : nameTypeInit.getChildren() )
          {
-            if ( child.is( Node.NAME ) )
+            if ( child.is( NodeKind.NAME ) )
             {
                name = new IdentifierNode( child );
             }
-            else if ( child.is( Node.TYPE ) )
+            else if ( child.is( NodeKind.TYPE ) )
             {
                type = new IdentifierNode( child );
             }
-            else if ( child.is( Node.INIT ) )
+            else if ( child.is( NodeKind.INIT ) )
             {
                initializationExpression = new FieldInitializationNode( child );
             }

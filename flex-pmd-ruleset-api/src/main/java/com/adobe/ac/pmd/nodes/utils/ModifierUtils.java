@@ -35,22 +35,21 @@ import java.util.ArrayList;
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.Modifier;
-
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
 
 final public class ModifierUtils
 {
    public static void computeModifierList( final IModifiersHolder modifiable,
-                                           final Node child )
+                                           final IParserNode child )
    {
       modifiable.setModifiers( new ArrayList< Modifier >() );
 
-      if ( child.children != null )
+      if ( child.getChildren() != null )
       {
-         for ( final Node modifierNode : child.children )
+         for ( final IParserNode modifierNode : child.getChildren() )
          {
-            final Modifier modifier = buildModifier( modifierNode.stringValue );
+            final Modifier modifier = buildModifier( modifierNode.getStringValue() );
 
             modifiable.getModifiers().add( modifier );
          }

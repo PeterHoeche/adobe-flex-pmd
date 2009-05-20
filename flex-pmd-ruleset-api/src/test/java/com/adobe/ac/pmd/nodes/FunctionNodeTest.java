@@ -40,27 +40,27 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;
-import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public class FunctionNodeTest extends FlexPmdTestBase
 {
-   private FunctionNode constructor;
-   private FunctionNode drawHighlightIndicator;
-   private FunctionNode drawRowBackground;
-   private FunctionNode drawSelectionIndicator;
-   private FunctionNode isTrueGetter;
-   private FunctionNode isTrueSetter;
-   private FunctionNode placeSortArrow;
+   private IFunction constructor;
+   private IFunction drawHighlightIndicator;
+   private IFunction drawRowBackground;
+   private IFunction drawSelectionIndicator;
+   private IFunction isTrueGetter;
+   private IFunction isTrueSetter;
+   private IFunction placeSortArrow;
 
    @Before
    public void setup() throws IOException,
                       TokenException
    {
       final AS3Parser parser = new AS3Parser();
-      final ClassNode radonDataGridClassNode = new PackageNode( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
-                                                                                          .getFilePath() ) ).getClassNode();
+      final IClass radonDataGridClassNode = new PackageNode( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
+                                                                                       .getFilePath() ) ).getClassNode();
 
       constructor = radonDataGridClassNode.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGridClassNode.getFunctions().get( 1 );
@@ -120,15 +120,15 @@ public class FunctionNodeTest extends FlexPmdTestBase
    public void testGetReturnType()
    {
       assertEquals( "",
-                    constructor.getReturnType().getInternalNode().stringValue );
+                    constructor.getReturnType().getInternalNode().getStringValue() );
       assertEquals( "void",
-                    drawHighlightIndicator.getReturnType().getInternalNode().stringValue );
+                    drawHighlightIndicator.getReturnType().getInternalNode().getStringValue() );
       assertEquals( "void",
-                    drawSelectionIndicator.getReturnType().getInternalNode().stringValue );
+                    drawSelectionIndicator.getReturnType().getInternalNode().getStringValue() );
       assertEquals( "void",
-                    drawRowBackground.getReturnType().getInternalNode().stringValue );
+                    drawRowBackground.getReturnType().getInternalNode().getStringValue() );
       assertEquals( "void",
-                    placeSortArrow.getReturnType().getInternalNode().stringValue );
+                    placeSortArrow.getReturnType().getInternalNode().getStringValue() );
    }
 
    @Test

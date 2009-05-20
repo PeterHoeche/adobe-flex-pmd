@@ -39,9 +39,9 @@ import java.util.logging.Logger;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;
-import de.bokelberg.flex.parser.exceptions.TokenException;
 
 public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 {

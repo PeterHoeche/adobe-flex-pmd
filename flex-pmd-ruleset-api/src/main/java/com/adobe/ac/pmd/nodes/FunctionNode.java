@@ -37,9 +37,9 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
-
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * Node representing a Function It contains the function name, its parameters,
@@ -47,9 +47,9 @@ import de.bokelberg.flex.parser.Node;
  * 
  * @author xagnetti
  */
-public class FunctionNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
+public class FunctionNode extends AbstractNode implements IFunction
 {
-   public static int countNodeFromType( final Node rootNode,
+   public static int countNodeFromType( final IParserNode rootNode,
                                         final String type )
    {
       int count = 0;
@@ -60,7 +60,7 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       }
       if ( rootNode.numChildren() > 0 )
       {
-         for ( final Node child : rootNode.children )
+         for ( final IParserNode child : rootNode.getChildren() )
          {
             count += countNodeFromType( child,
                                         type );
@@ -69,63 +69,75 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       return count;
    }
 
-   private Node                 contentBlock;
-   private int                  cyclomaticComplexity;
-   private Map< String, Node >  localVariables;
-   private List< MetaDataNode > metaDataList;
-   private List< Modifier >     modifiers;
-   private IdentifierNode       name;
+   private IParserNode                contentBlock;
+   private int                        cyclomaticComplexity;
+   private Map< String, IParserNode > localVariables;
+   private List< IMetaData >          metaDataList;
+   private List< Modifier >           modifiers;
+   private IdentifierNode             name;
 
-   private List< FormalNode >   parameters;
-   private IdentifierNode       returnType;
+   private List< FormalNode >         parameters;
+   private IdentifierNode             returnType;
 
-   public FunctionNode( final Node node )
+   public FunctionNode( final IParserNode node )
    {
       super( node );
    }
 
-   /**
-    * Finds recursivly a statement in the function body from its name
-    * 
-    * @param primaryName statement name
-    * @return corresponding node
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementFromName(java.lang
+    * .String)
     */
-   public Node findPrimaryStatementFromName( final String primaryName )
+   public IParserNode findPrimaryStatementFromName( final String primaryName )
    {
       final String[] names =
       { primaryName };
       return getPrimaryStatementFromName( names,
-                                          getContentBlock() );
+                                          getBody() );
    }
 
-   /**
-    * Finds recursivly a statement in the function body from a list of names
-    * 
-    * @param primaryNames statement name
-    * @return corresponding node
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementFromName(java.lang
+    * .String[])
     */
-   public Node findPrimaryStatementFromName( final String[] primaryNames )
+   public IParserNode findPrimaryStatementFromName( final String[] primaryNames )
    {
       return getPrimaryStatementFromName( primaryNames,
-                                          getContentBlock() );
+                                          getBody() );
    }
 
-   public Node getContentBlock()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getContentBlock()
+    */
+   public IParserNode getBody()
    {
       return contentBlock;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getCyclomaticComplexity()
+    */
    public int getCyclomaticComplexity()
    {
       return cyclomaticComplexity;
    }
 
-   public Map< String, Node > getLocalVariables()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getLocalVariables()
+    */
+   public Map< String, IParserNode > getLocalVariables()
    {
       return localVariables;
    }
 
-   public List< MetaDataNode > getMetaDataList()
+   public List< IMetaData > getMetaDataList()
    {
       return metaDataList;
    }
@@ -140,33 +152,41 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       return name.toString();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getParameters()
+    */
    public List< FormalNode > getParameters()
    {
       return parameters;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getReturnType()
+    */
    public IdentifierNode getReturnType()
    {
       return returnType;
    }
 
-   /**
-    * @return Extracts the super call node (if any) from the function content
-    *         block
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getSuperCall()
     */
-   public Node getSuperCall()
+   public IParserNode getSuperCall()
    {
       if ( contentBlock != null
-            && contentBlock.children != null )
+            && contentBlock.getChildren() != null )
       {
-         for ( final Node childContent : contentBlock.children )
+         for ( final IParserNode childContent : contentBlock.getChildren() )
          {
-            if ( Node.CALL.equals( childContent.id ) )
+            if ( NodeKind.CALL.equals( childContent.getId() ) )
             {
-               for ( final Node childCall : childContent.children )
+               for ( final IParserNode childCall : childContent.getChildren() )
                {
-                  if ( childCall.stringValue != null
-                        && KeyWords.SUPER.equals( childCall.stringValue ) )
+                  if ( childCall.getStringValue() != null
+                        && KeyWords.SUPER.equals( childCall.getStringValue() ) )
                   {
                      return childContent;
                   }
@@ -177,11 +197,19 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       return null;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#isGetter()
+    */
    public boolean isGetter()
    {
       return internalNode.is( KeyWords.GET );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#isOverriden()
+    */
    public boolean isOverriden()
    {
       return ModifierUtils.isOverriden( this );
@@ -202,12 +230,16 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       return ModifierUtils.isPublic( this );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#isSetter()
+    */
    public boolean isSetter()
    {
       return internalNode.is( KeyWords.SET );
    }
 
-   public void setMetaDataList( final List< MetaDataNode > metaDataListToBeSet )
+   public void setMetaDataList( final List< IMetaData > metaDataListToBeSet )
    {
       metaDataList = metaDataListToBeSet;
    }
@@ -221,32 +253,32 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
    protected void compute()
    {
       modifiers = new ArrayList< Modifier >();
-      if ( internalNode.children != null )
+      if ( internalNode.getChildren() != null )
       {
-         for ( final Node node : internalNode.children )
+         for ( final IParserNode node : internalNode.getChildren() )
          {
-            if ( node.is( Node.BLOCK ) )
+            if ( node.is( NodeKind.BLOCK ) )
             {
                computeFunctionContent( node );
             }
-            else if ( node.is( Node.NAME ) )
+            else if ( node.is( NodeKind.NAME ) )
             {
                name = new IdentifierNode( node );
             }
-            else if ( node.is( Node.MOD_LIST ) )
+            else if ( node.is( NodeKind.MOD_LIST ) )
             {
                ModifierUtils.computeModifierList( this,
                                                   node );
             }
-            else if ( node.is( Node.PARAMETER_LIST ) )
+            else if ( node.is( NodeKind.PARAMETER_LIST ) )
             {
                computeParameterList( node );
             }
-            else if ( node.is( Node.TYPE ) )
+            else if ( node.is( NodeKind.TYPE ) )
             {
                returnType = new IdentifierNode( node );
             }
-            else if ( node.is( Node.META_LIST ) )
+            else if ( node.is( NodeKind.META_LIST ) )
             {
                MetaDataUtils.computeMetaDataList( this,
                                                   node );
@@ -254,13 +286,13 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
             else
             {
                LOGGER.warning( "unknow type "
-                     + node.id );
+                     + node.getId() );
             }
          }
       }
    }
 
-   private void computeCyclomaticComplexity( final Node node )
+   private void computeCyclomaticComplexity( final IParserNode node )
    {
       if ( node.is( KeyWords.FOREACH )
             || node.is( KeyWords.FORIN ) || node.is( KeyWords.CASE ) || node.is( KeyWords.DEFAULT ) )
@@ -272,23 +304,23 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       {
          cyclomaticComplexity++;
          cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),
-                                                    Node.AND );
+                                                    NodeKind.AND );
          cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),
-                                                    Node.OR );
+                                                    NodeKind.OR );
       }
 
       if ( node.numChildren() > 0 )
       {
-         for ( final Node child : node.children )
+         for ( final IParserNode child : node.getChildren() )
          {
             computeCyclomaticComplexity( child );
          }
       }
    }
 
-   private void computeFunctionContent( final Node functionBodyNode )
+   private void computeFunctionContent( final IParserNode functionBodyNode )
    {
-      localVariables = new HashMap< String, Node >();
+      localVariables = new HashMap< String, IParserNode >();
       contentBlock = functionBodyNode;
       cyclomaticComplexity = 1;
 
@@ -296,50 +328,50 @@ public class FunctionNode extends AbstractNode implements IModifiersHolder, IMet
       computeVariableList( functionBodyNode );
    }
 
-   private void computeParameterList( final Node node )
+   private void computeParameterList( final IParserNode node )
    {
       parameters = new ArrayList< FormalNode >();
 
-      if ( node.children != null )
+      if ( node.getChildren() != null )
       {
-         for ( final Node parameterNode : node.children )
+         for ( final IParserNode parameterNode : node.getChildren() )
          {
             parameters.add( new FormalNode( parameterNode ) );
          }
       }
    }
 
-   private void computeVariableList( final Node node )
+   private void computeVariableList( final IParserNode node )
    {
-      if ( node.is( Node.VAR_LIST ) )
+      if ( node.is( NodeKind.VAR_LIST ) )
       {
-         localVariables.put( node.getChild( 0 ).getChild( 0 ).stringValue,
+         localVariables.put( node.getChild( 0 ).getChild( 0 ).getStringValue(),
                              node );
       }
       else if ( node.numChildren() > 0 )
       {
-         for ( final Node child : node.children )
+         for ( final IParserNode child : node.getChildren() )
          {
             computeVariableList( child );
          }
       }
    }
 
-   private Node getPrimaryStatementFromName( final String[] names,
-                                             final Node content )
+   private IParserNode getPrimaryStatementFromName( final String[] names,
+                                                    final IParserNode content )
    {
-      Node dispatchNode = null;
+      IParserNode dispatchNode = null;
 
       if ( content != null
-            && content.stringValue != null && isNameInArray( names,
-                                                             content.stringValue ) )
+            && content.getStringValue() != null && isNameInArray( names,
+                                                                  content.getStringValue() ) )
       {
          dispatchNode = content;
       }
       else if ( content != null
             && content.numChildren() > 0 )
       {
-         for ( final Node child : content.children )
+         for ( final IParserNode child : content.getChildren() )
          {
             dispatchNode = getPrimaryStatementFromName( names,
                                                         child );

@@ -30,18 +30,18 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class MetaDataNode extends AbstractNode implements INamable
+public class MetaDataNode extends AbstractNode implements INamable, IMetaData
 {
-   public MetaDataNode( final Node node )
+   public MetaDataNode( final IParserNode node )
    {
       super( node );
    }
 
    public String getName()
    {
-      return internalNode.stringValue;
+      return internalNode.getStringValue();
    }
 
    @Override

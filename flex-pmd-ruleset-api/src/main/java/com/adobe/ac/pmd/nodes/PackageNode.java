@@ -33,8 +33,8 @@ package com.adobe.ac.pmd.nodes;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
 
 /**
  * Node representing a package. It contains the nested class node, the list of
@@ -42,29 +42,41 @@ import de.bokelberg.flex.parser.Node;
  * 
  * @author xagnetti
  */
-public class PackageNode extends AbstractNode implements INamable
+public class PackageNode extends AbstractNode implements IPackage
 {
-   private ClassNode    classNode;
-   private List< Node > imports;
-   private String       name;
+   private IClass              classNode;
+   private List< IParserNode > imports;
+   private String              name;
 
-   public PackageNode( final Node node )
+   public PackageNode( final IParserNode node )
    {
       super( node );
    }
 
-   public ClassNode getClassNode()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getClassNode()
+    */
+   public IClass getClassNode()
    {
       return classNode;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getFullyQualifiedClassName()
+    */
    public String getFullyQualifiedClassName()
    {
       return name
             + "." + classNode.getName();
    }
 
-   public List< Node > getImports()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getImports()
+    */
+   public List< IParserNode > getImports()
    {
       return imports;
    }
@@ -77,13 +89,13 @@ public class PackageNode extends AbstractNode implements INamable
    @Override
    protected void compute()
    {
-      final Node classWrapperNode = getClassNodeFromCompilationUnitNode( internalNode,
-                                                                         3 );
+      final IParserNode classWrapperNode = getClassNodeFromCompilationUnitNode( internalNode,
+                                                                                3 );
 
-      imports = new ArrayList< Node >();
+      imports = new ArrayList< IParserNode >();
       if ( internalNode.getChild( 0 ).numChildren() > 0 )
       {
-         name = internalNode.getChild( 0 ).getChild( 0 ).stringValue;
+         name = internalNode.getChild( 0 ).getChild( 0 ).getStringValue();
       }
       else
       {
@@ -95,9 +107,9 @@ public class PackageNode extends AbstractNode implements INamable
       }
 
       if ( internalNode.getChild( 0 ).numChildren() > 1
-            && internalNode.getChild( 0 ).getChild( 1 ).children != null )
+            && internalNode.getChild( 0 ).getChild( 1 ).getChildren() != null )
       {
-         for ( final Node node : internalNode.getChild( 0 ).getChild( 1 ).children )
+         for ( final IParserNode node : internalNode.getChild( 0 ).getChild( 1 ).getChildren() )
          {
             if ( node.is( KeyWords.IMPORT ) )
             {
@@ -107,23 +119,23 @@ public class PackageNode extends AbstractNode implements INamable
       }
    }
 
-   private Node getClassNodeFromCompilationUnitNode( final Node node,
-                                                     final int depth )
+   private IParserNode getClassNodeFromCompilationUnitNode( final IParserNode node,
+                                                            final int depth )
    {
       if ( depth == 0
-            || node.children == null )
+            || node.getChildren() == null )
       {
          return null;
       }
-      for ( final Node child : node.children )
+      for ( final IParserNode child : node.getChildren() )
       {
          if ( child.is( KeyWords.CLASS )
                || child.is( KeyWords.INTERFACE ) )
          {
             return child;
          }
-         final Node localClassNode = getClassNodeFromCompilationUnitNode( child,
-                                                                          depth - 1 );
+         final IParserNode localClassNode = getClassNodeFromCompilationUnitNode( child,
+                                                                                 depth - 1 );
 
          if ( localClassNode != null )
          {

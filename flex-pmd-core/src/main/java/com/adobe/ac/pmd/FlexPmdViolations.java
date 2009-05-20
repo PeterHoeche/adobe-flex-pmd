@@ -47,7 +47,7 @@ import net.sourceforge.pmd.RuleSet;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.files.FileSetUtils;
-import com.adobe.ac.pmd.nodes.impl.PackageNode;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 
@@ -71,7 +71,7 @@ public class FlexPmdViolations
 
       final Map< String, AbstractFlexRule > rules = computeRulesList( ruleSet );
       final Map< String, AbstractFlexFile > files = FileSetUtils.computeFilesList( sourceDirectory );
-      final Map< String, PackageNode > asts = FileSetUtils.computeAsts( files );
+      final Map< String, IPackage > asts = FileSetUtils.computeAsts( files );
 
       for ( final Entry< String, AbstractFlexRule > ruleEntry : rules.entrySet() )
       {

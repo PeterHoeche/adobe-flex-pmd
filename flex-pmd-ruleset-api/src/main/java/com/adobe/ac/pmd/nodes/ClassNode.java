@@ -35,9 +35,10 @@ import java.util.List;
 
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
-
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
+import com.adobe.ac.pmd.rules.core.IConstant;
 
 /**
  * Node representing a class. It contains different lists (constants, variables,
@@ -46,49 +47,74 @@ import de.bokelberg.flex.parser.Node;
  * 
  * @author xagnetti
  */
-public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDataListHolder, INamable
+public class ClassNode extends AbstractNode implements IClass
 {
-   private List< FieldNode >    constants;
-   private FunctionNode         constructor;
-   private String               extensionName;
-   private List< FunctionNode > functions;
-   private List< Node >         implementations;
-   private List< MetaDataNode > metadata;
-   private List< Modifier >     modifiers;
-   private IdentifierNode       name;
-   private List< FieldNode >    variables;
+   private List< IAttribute >  attributes;
+   private List< IConstant >   constants;
+   private IFunction           constructor;
+   private String              extensionName;
+   private List< IFunction >   functions;
+   private List< IParserNode > implementations;
+   private List< IMetaData >   metadata;
+   private List< Modifier >    modifiers;
+   private IdentifierNode      name;
 
-   public ClassNode( final Node node )
+   public ClassNode( final IParserNode node )
    {
       super( node );
    }
 
-   public List< FieldNode > getConstants()
+   public List< IAttribute > getAttributes()
+   {
+      return attributes;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getConstants()
+    */
+   public List< IConstant > getConstants()
    {
       return constants;
    }
 
-   public FunctionNode getConstructor()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getConstructor()
+    */
+   public IFunction getConstructor()
    {
       return constructor;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getExtensionName()
+    */
    public String getExtensionName()
    {
       return extensionName;
    }
 
-   public List< FunctionNode > getFunctions()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getFunctions()
+    */
+   public List< IFunction > getFunctions()
    {
       return functions;
    }
 
-   public List< Node > getImplementations()
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getImplementations()
+    */
+   public List< IParserNode > getImplementations()
    {
       return implementations;
    }
 
-   public List< MetaDataNode > getMetaDataList()
+   public List< IMetaData > getMetaDataList()
    {
       return metadata;
    }
@@ -107,14 +133,18 @@ public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDa
       return name.toString();
    }
 
-   public List< FieldNode > getVariables()
-   {
-      return variables;
-   }
-
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#isFinal()
+    */
    public boolean isFinal()
    {
       return ModifierUtils.isFinal( this );
+   }
+
+   public boolean isPrivate()
+   {
+      return ModifierUtils.isPrivate( this );
    }
 
    public boolean isProtected()
@@ -127,7 +157,7 @@ public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDa
       return ModifierUtils.isPublic( this );
    }
 
-   public void setMetaDataList( final List< MetaDataNode > metaDataList )
+   public void setMetaDataList( final List< IMetaData > metaDataList )
    {
       metadata = metaDataList;
    }
@@ -141,24 +171,24 @@ public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDa
    protected void compute()
    {
       modifiers = new ArrayList< Modifier >();
-      if ( internalNode.children != null )
+      if ( internalNode.getChildren() != null )
       {
-         for ( final Node node : internalNode.children )
+         for ( final IParserNode node : internalNode.getChildren() )
          {
-            if ( node.is( Node.CONTENT ) )
+            if ( node.is( NodeKind.CONTENT ) )
             {
                computeClassContent( node );
             }
-            else if ( node.is( Node.MOD_LIST ) )
+            else if ( node.is( NodeKind.MOD_LIST ) )
             {
                ModifierUtils.computeModifierList( this,
                                                   node );
             }
-            else if ( node.is( Node.NAME ) )
+            else if ( node.is( NodeKind.NAME ) )
             {
                name = new IdentifierNode( node );
             }
-            else if ( node.is( Node.META_LIST ) )
+            else if ( node.is( NodeKind.META_LIST ) )
             {
                MetaDataUtils.computeMetaDataList( this,
                                                   node );
@@ -167,7 +197,7 @@ public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDa
             detectImplementations( node );
             detectExtensions( node );
          }
-         for ( final FunctionNode function : functions )
+         for ( final IFunction function : functions )
          {
             if ( function.getName().equals( name.toString() ) )
             {
@@ -177,39 +207,39 @@ public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDa
       }
    }
 
-   private void computeClassContent( final Node classContentNode )
+   private void computeClassContent( final IParserNode classContentNode )
    {
-      constants = new ArrayList< FieldNode >();
-      variables = new ArrayList< FieldNode >();
-      functions = new ArrayList< FunctionNode >();
-      if ( classContentNode.children != null )
+      constants = new ArrayList< IConstant >();
+      attributes = new ArrayList< IAttribute >();
+      functions = new ArrayList< IFunction >();
+      if ( classContentNode.getChildren() != null )
       {
-         for ( final Node node : classContentNode.children )
+         for ( final IParserNode node : classContentNode.getChildren() )
          {
             detectFunction( node );
-            detectVariable( node );
+            detectAttribute( node );
             detectConstant( node );
          }
       }
    }
 
-   private void detectConstant( final Node node )
+   private void detectConstant( final IParserNode node )
    {
-      if ( node.is( Node.CONST_LIST ) )
+      if ( node.is( NodeKind.CONST_LIST ) )
       {
-         constants.add( new FieldNode( node ) );
+         constants.add( new ConstantNode( node ) );
       }
    }
 
-   private void detectExtensions( final Node node )
+   private void detectExtensions( final IParserNode node )
    {
       if ( node.is( KeyWords.EXTENDS ) )
       {
-         extensionName = node.stringValue;
+         extensionName = node.getStringValue();
       }
    }
 
-   private void detectFunction( final Node node )
+   private void detectFunction( final IParserNode node )
    {
       if ( node.is( KeyWords.FUNCTION )
             || node.is( KeyWords.GET ) || node.is( KeyWords.SET ) )
@@ -218,19 +248,19 @@ public class ClassNode extends AbstractNode implements IModifiersHolder, IMetaDa
       }
    }
 
-   private void detectImplementations( final Node node )
+   private void detectImplementations( final IParserNode node )
    {
-      if ( node.is( Node.IMPLEMENTS_LIST ) )
+      if ( node.is( NodeKind.IMPLEMENTS_LIST ) )
       {
-         implementations = node.children;
+         implementations = node.getChildren();
       }
    }
 
-   private void detectVariable( final Node node )
+   private void detectAttribute( final IParserNode node )
    {
-      if ( node.is( Node.VAR_LIST ) )
+      if ( node.is( NodeKind.VAR_LIST ) )
       {
-         variables.add( new FieldNode( node ) );
+         attributes.add( new AttributeNode( node ) );
       }
    }
 }

@@ -30,13 +30,13 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.impl.FormalNode;
+import com.adobe.ac.pmd.nodes.FormalNode;
+import com.adobe.ac.pmd.nodes.IFormal;
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
-public class UnusedParameterRule extends AbstractUnusedVariableRule< FormalNode >
+public class UnusedParameterRule extends AbstractUnusedVariableRule< IFormal >
 {
    @Override
    protected ViolationPriority getDefaultPriority()

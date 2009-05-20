@@ -34,11 +34,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IField;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.INode;
-import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndStaticityComparator;
@@ -49,7 +49,7 @@ public class WronglyOrderedClassElementRule extends AbstractAstFlexRule
    protected void findViolationsFromClassNode( final IClass classNode )
    {
       final List< IField > constants = new ArrayList< IField >();
-      final List< IVariable > variables = new ArrayList< IVariable >();
+      final List< IAttribute > variables = new ArrayList< IAttribute >();
       final List< IFunction > functions = new ArrayList< IFunction >();
 
       constants.addAll( classNode.getConstants() );

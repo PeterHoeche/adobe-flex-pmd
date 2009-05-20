@@ -30,12 +30,11 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-import de.bokelberg.flex.parser.Node;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class FieldInitializationNode extends AbstractNode
+public class FieldInitializationNode extends AbstractNode implements IFieldInitialization
 {
-
-   protected FieldInitializationNode( final Node node )
+   protected FieldInitializationNode( final IParserNode node )
    {
       super( node );
    }

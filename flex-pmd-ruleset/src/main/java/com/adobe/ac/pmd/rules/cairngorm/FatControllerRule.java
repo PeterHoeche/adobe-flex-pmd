@@ -33,12 +33,11 @@ package com.adobe.ac.pmd.rules.cairngorm;
 import java.util.List;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.impl.ClassNode;
-import com.adobe.ac.pmd.nodes.impl.PackageNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
 
 public class FatControllerRule extends AbstractAstFlexRule
 {
@@ -49,9 +48,9 @@ public class FatControllerRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromPackageNode( final PackageNode packageNode )
+   protected void findViolationsFromPackageNode( final IPackage packageNode )
    {
-      final ClassNode classNode = packageNode.getClassNode();
+      final IClass classNode = packageNode.getClassNode();
 
       if ( classNode != null )
       {
