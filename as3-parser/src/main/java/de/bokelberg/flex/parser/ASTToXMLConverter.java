@@ -30,6 +30,8 @@
  */
 package de.bokelberg.flex.parser;
 
+import com.adobe.ac.pmd.parser.IParserNode;
+
 public class ASTToXMLConverter implements ASTConverter
 {
    /*
@@ -38,7 +40,7 @@ public class ASTToXMLConverter implements ASTConverter
     * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
     * .Node)
     */
-   public String convert( final Node ast )
+   public String convert( final IParserNode ast )
    {
       final StringBuffer result = new StringBuffer();
       visitNodes( ast,
@@ -75,12 +77,12 @@ public class ASTToXMLConverter implements ASTConverter
       return buffer.toString();
    }
 
-   protected void visitNodes( final Node ast,
+   protected void visitNodes( final IParserNode ast,
                               final StringBuffer result,
                               final int level )
    {
       result.append( "<"
-            + ast.id + " line=\"" + ast.line + "\" column=\"" + ast.column + "\">" );
+            + ast.getId() + " line=\"" + ast.getLine() + "\" column=\"" + ast.getColumn() + "\">" );
 
       final int numChildren = ast.numChildren();
       if ( numChildren > 0 )
@@ -92,11 +94,11 @@ public class ASTToXMLConverter implements ASTConverter
                         level + 1 );
          }
       }
-      else if ( ast.stringValue != null )
+      else if ( ast.getStringValue() != null )
       {
-         result.append( escapeEntities( ast.stringValue ) );
+         result.append( escapeEntities( ast.getStringValue() ) );
       }
       result.append( "</"
-            + ast.id + ">" );
+            + ast.getId() + ">" );
    }
 }

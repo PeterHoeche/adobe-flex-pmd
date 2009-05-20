@@ -33,80 +33,20 @@ package de.bokelberg.flex.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.adobe.ac.pmd.parser.IParserNode;
+
 /**
  * A single node of the ast
  * 
  * @author rbokel
  */
-public class Node
+public class Node implements IParserNode
 {
-   static public final String ADD              = "add";
-   static public final String AND              = "and";
-   static public final String ARGUMENTS        = "arguments";
-   static public final String ARRAY            = "array";
-   static public final String ARRAY_ACCESSOR   = "arr-acc";
-   static public final String ASSIGN           = "assign";
-   static public final String B_AND            = "b-and";
-   static public final String B_NOT            = "b-not";
-   static public final String B_OR             = "b-or";
-   static public final String B_XOR            = "b-xor";
-   static public final String BLOCK            = "block";
-   static public final String CALL             = "call";
-   static public final String CASES            = "cases";
-   static public final String COMPILATION_UNIT = "compilation-unit";
-   static public final String COND             = "cond";
-   static public final String CONDITION        = "condition";
-   static public final String CONDITIONAL      = "conditional";
-   static public final String CONST_LIST       = "const-list";
-   static public final String CONTENT          = "content";
-   static public final String DOT              = "dot";
-   static public final String E4X_ATTR         = "e4x-attr";
-   static public final String E4X_FILTER       = "e4x-filter";
-   static public final String E4X_STAR         = "e4x-star";
-   static public final String ENCAPSULATED     = "encapsulated";
-   static public final String EQUALITY         = "equality";
-   static public final String EXPR_LIST        = "expr-list";
-   static public final String IMPLEMENTS_LIST  = "implements-list";
-   static public final String IN               = "in";
-   static public final String INIT             = "init";
-   static public final String ITER             = "iter";
-   static public final String LAMBDA           = "lambda";
-   static public final String META             = "meta";
-   static public final String META_LIST        = "meta-list";
-   static public final String MINUS            = "minus";
-   static public final String MOD_LIST         = "mod-list";
-   static public final String MODIFIER         = "mod";
-   static public final String MULTIPLICATION   = "mul";
-   static public final String NAME             = "name";
-   static public final String NAME_TYPE_INIT   = "name-type-init";
-   static public final String NOT              = "not";
-   static public final String OBJECT           = "object";
-   static public final String OP               = "op";
-   static public final String OR               = "or";
-   static public final String PARAMETER        = "parameter";
-   static public final String PARAMETER_LIST   = "parameter-list";
-   static public final String PLUS             = "plus";
-   static public final String POST_DEC         = "post-dec";
-   static public final String POST_INC         = "post-inc";
-   static public final String PRE_DEC          = "pre-dec";
-   static public final String PRE_INC          = "pre-inc";
-   static public final String PRIMARY          = "primary";
-   static public final String PROP             = "prop";
-   static public final String RELATION         = "relation";
-   static public final String REST             = "rest";
-   static public final String SHIFT            = "shift";
-   static public final String STAR             = "star";
-   static public final String STMT_EMPTY       = "stmt-empty";
-   static public final String SWITCH_BLOCK     = "switch-block";
-   static public final String TYPE             = "type";
-   static public final String VALUE            = "value";
-   static public final String VAR_LIST         = "var-list";
-
-   public List< Node >        children;
-   public int                 column;
-   public String              id;
-   public int                 line;
-   public String              stringValue;
+   private List< IParserNode > children;
+   private final int           column;
+   private String              id;
+   private final int           line;
+   private String              stringValue;
 
    public Node( final String idToBeSet,
                 final int lineToBeSet,
@@ -120,7 +60,7 @@ public class Node
    public Node( final String idToBeSet,
                 final int lineToBeSet,
                 final int columnToBeSet,
-                final Node childToBeSet )
+                final IParserNode childToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
       addChild( childToBeSet );
@@ -135,7 +75,7 @@ public class Node
       stringValue = valueToBeSet;
    }
 
-   final public void addChild( final Node child )
+   final public void addChild( final IParserNode child )
    {
       if ( child == null )
       {
@@ -144,7 +84,7 @@ public class Node
 
       if ( children == null )
       {
-         children = new ArrayList< Node >();
+         children = new ArrayList< IParserNode >();
       }
       children.add( child );
    }
@@ -152,7 +92,7 @@ public class Node
    public void addChild( final String childId,
                          final int childLine,
                          final int childColumn,
-                         final Node nephew )
+                         final IParserNode nephew )
    {
       addChild( new Node( childId, childLine, childColumn, nephew ) );
    }
@@ -172,7 +112,7 @@ public class Node
          return false;
       }
 
-      for ( final Node node : children )
+      for ( final IParserNode node : getChildren() )
       {
          if ( node.is( tokenTypeToFind ) )
          {
@@ -182,34 +122,85 @@ public class Node
       return false;
    }
 
-   public Node getChild( final int index )
+   /*
+    * (non-Javadoc)
+    * @see de.bokelberg.flex.parser.IParserNode#getChild(int)
+    */
+   public IParserNode getChild( final int index )
    {
-      return children == null
-            || children.size() <= index ? null
-                                       : children.get( index );
+      return getChildren() == null
+            || getChildren().size() <= index ? null
+                                            : getChildren().get( index );
    }
 
-   public Node getLastChild()
+   public List< IParserNode > getChildren()
+   {
+      return children;
+   }
+
+   public int getColumn()
+   {
+      return column;
+   }
+
+   public String getId()
+   {
+      return id;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see de.bokelberg.flex.parser.IParserNode#getLastChild()
+    */
+   public IParserNode getLastChild()
    {
       return getChild( numChildren() - 1 );
    }
 
+   public int getLine()
+   {
+      return line;
+   }
+
+   public String getStringValue()
+   {
+      return stringValue;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see de.bokelberg.flex.parser.IParserNode#is(java.lang.String)
+    */
    public boolean is( final String expectedType )
    {
-      return id == null
-            && expectedType == null || expectedType.equals( id );
+      return getId() == null
+            && expectedType == null || expectedType.equals( getId() );
    }
 
-   public boolean isString( final String value )
+   public boolean isValueEquals( final String value )
    {
-      return stringValue == null
-            && value == null || value.equals( stringValue );
+      return getStringValue() == null
+            && value == null || value.equals( getStringValue() );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see de.bokelberg.flex.parser.IParserNode#numChildren()
+    */
    public int numChildren()
    {
-      return children == null ? 0
-                             : children.size();
+      return getChildren() == null ? 0
+                                  : getChildren().size();
+   }
+
+   public void setId( final String idToBeSet )
+   {
+      id = idToBeSet;
+   }
+
+   public void setStringValue( final String text )
+   {
+      stringValue = text;
    }
 
    @Override
@@ -217,20 +208,20 @@ public class Node
    {
       final StringBuffer buffer = new StringBuffer();
 
-      if ( stringValue == null )
+      if ( getStringValue() == null )
       {
-         buffer.append( id );
+         buffer.append( getId() );
       }
       else
       {
-         buffer.append( stringValue );
+         buffer.append( getStringValue() );
       }
 
       buffer.append( ' ' );
 
-      if ( children != null )
+      if ( getChildren() != null )
       {
-         for ( final Node child : children )
+         for ( final IParserNode child : getChildren() )
          {
             buffer.append( child.toString() );
             buffer.append( ' ' );

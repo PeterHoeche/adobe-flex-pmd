@@ -37,7 +37,9 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import de.bokelberg.flex.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.parser.IAS3Parser;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
+
 
 public class TestAS3Parser extends TestCase
 {
@@ -45,7 +47,7 @@ public class TestAS3Parser extends TestCase
    public void testBuildAst() throws IOException,
                              URISyntaxException
    {
-      final AS3Parser parser = new AS3Parser();
+      final IAS3Parser parser = new AS3Parser();
 
       try
       {

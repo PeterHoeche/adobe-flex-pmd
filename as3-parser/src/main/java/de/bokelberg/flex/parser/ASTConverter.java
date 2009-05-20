@@ -30,7 +30,9 @@
  */
 package de.bokelberg.flex.parser;
 
+import com.adobe.ac.pmd.parser.IParserNode;
+
 public interface ASTConverter
 {
-   abstract String convert( Node ast );
+   abstract String convert( IParserNode ast );
 }

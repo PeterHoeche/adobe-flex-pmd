@@ -35,20 +35,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.adobe.ac.pmd.parser.IAS3Parser;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
+import com.adobe.ac.pmd.parser.Operators;
+import com.adobe.ac.pmd.parser.exceptions.NullTokenException;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.parser.exceptions.UnExpectedTokenException;
+
 import de.bokelberg.flex.parser.AS3Scanner.Token;
-import de.bokelberg.flex.parser.exceptions.NullTokenException;
-import de.bokelberg.flex.parser.exceptions.TokenException;
-import de.bokelberg.flex.parser.exceptions.UnExpectedTokenException;
 import de.bokelberg.util.FileUtil;
 
-public class AS3Parser
+public class AS3Parser implements IAS3Parser
 {
    public AS3Scanner scn;
    private String    fileName;
    private Token     tok;
 
-   public Node buildAst( final String filePath ) throws IOException,
-                                                TokenException
+   /* (non-Javadoc)
+    * @see de.bokelberg.flex.parser.IAS3Parser#buildAst(java.lang.String)
+    */
+   public IParserNode buildAst( final String filePath ) throws IOException,
+                                                       TokenException
    {
       final String[] lines = FileUtil.readStrings( new File( filePath ) );
       setFileName( filePath );
@@ -80,7 +89,7 @@ public class AS3Parser
     */
    Node parseClassContent() throws TokenException
    {
-      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
+      final Node result = new Node( NodeKind.CONTENT, tok.line, tok.column );
       final List< Token > modifiers = new ArrayList< Token >();
       final List< Node > meta = new ArrayList< Node >();
 
@@ -128,7 +137,7 @@ public class AS3Parser
     */
    Node parseCompilationUnit() throws TokenException
    {
-      final Node result = new Node( Node.COMPILATION_UNIT, -1, -1 );
+      final Node result = new Node( NodeKind.COMPILATION_UNIT, -1, -1 );
 
       nextToken();
       if ( tokIs( KeyWords.PACKAGE ) )
@@ -139,7 +148,7 @@ public class AS3Parser
       return result;
    }
 
-   Node parseExpression() throws TokenException
+   IParserNode parseExpression() throws TokenException
    {
       return parseAssignmentExpression();
    }
@@ -151,7 +160,7 @@ public class AS3Parser
     */
    Node parseInterfaceContent() throws TokenException
    {
-      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
+      final Node result = new Node( NodeKind.CONTENT, tok.line, tok.column );
       while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
       {
          if ( tokIs( KeyWords.IMPORT ) )
@@ -181,7 +190,7 @@ public class AS3Parser
     */
    Node parsePackageContent() throws TokenException
    {
-      final Node result = new Node( Node.CONTENT, tok.line, tok.column );
+      final Node result = new Node( NodeKind.CONTENT, tok.line, tok.column );
       final List< Token > modifier = new ArrayList< Token >();
       final List< Node > meta = new ArrayList< Node >();
 
@@ -225,8 +234,8 @@ public class AS3Parser
 
    Node parsePrimaryExpression() throws TokenException
    {
-      Node result = new Node( Node.PRIMARY, tok.line, tok.column );
-      result.stringValue = tok.text;
+      Node result = new Node( NodeKind.PRIMARY, tok.line, tok.column );
+      result.setStringValue( tok.text );
 
       if ( tokIs( KeyWords.UNDEFINED ) )
       {
@@ -300,9 +309,9 @@ public class AS3Parser
     * 
     * @throws TokenException
     */
-   Node parseStatement() throws TokenException
+   IParserNode parseStatement() throws TokenException
    {
-      Node result;
+      IParserNode result;
 
       if ( tokIs( KeyWords.FOR ) )
       {
@@ -370,22 +379,22 @@ public class AS3Parser
       if ( tokIs( Operators.INCREMENT ) )
       {
          nextToken();
-         result = new Node( Node.PRE_INC, tok.line, tok.column, parseUnaryExpression() );
+         result = new Node( NodeKind.PRE_INC, tok.line, tok.column, parseUnaryExpression() );
       }
       else if ( tokIs( Operators.DECREMENT ) )
       {
          nextToken();
-         result = new Node( Node.PRE_DEC, tok.line, tok.column, parseUnaryExpression() );
+         result = new Node( NodeKind.PRE_DEC, tok.line, tok.column, parseUnaryExpression() );
       }
       else if ( tokIs( Operators.MINUS ) )
       {
          nextToken();
-         result = new Node( Node.MINUS, tok.line, tok.column, parseUnaryExpression() );
+         result = new Node( NodeKind.MINUS, tok.line, tok.column, parseUnaryExpression() );
       }
       else if ( tokIs( Operators.PLUS ) )
       {
          nextToken();
-         result = new Node( Node.PLUS, tok.line, tok.column, parseUnaryExpression() );
+         result = new Node( NodeKind.PLUS, tok.line, tok.column, parseUnaryExpression() );
       }
       else
       {
@@ -394,7 +403,7 @@ public class AS3Parser
       return result;
    }
 
-   private Node collectVarListContent( final Node result ) throws TokenException
+   private IParserNode collectVarListContent( final Node result ) throws TokenException
    {
       result.addChild( parseNameTypeInit() );
       while ( tokIs( Operators.COMMA ) )
@@ -416,7 +425,7 @@ public class AS3Parser
    {
       if ( !tokIs( text ) )
       {
-         throw new UnExpectedTokenException( tok, fileName );
+         throw new UnExpectedTokenException( tok.text, tok.line, tok.column, fileName );
       }
       nextToken();
    }
@@ -429,7 +438,7 @@ public class AS3Parser
          return null;
       }
 
-      final Node result = new Node( Node.META_LIST, tok.line, tok.column );
+      final Node result = new Node( NodeKind.META_LIST, tok.line, tok.column );
 
       for ( final Node metadataNode : metadataList )
       {
@@ -445,11 +454,11 @@ public class AS3Parser
          return null;
       }
 
-      final Node result = new Node( Node.MOD_LIST, tok.line, tok.column );
+      final Node result = new Node( NodeKind.MOD_LIST, tok.line, tok.column );
 
       for ( final Token modifierToken : modifierList )
       {
-         result.addChild( Node.MODIFIER,
+         result.addChild( NodeKind.MODIFIER,
                           tok.line,
                           tok.column,
                           modifierToken.text );
@@ -461,14 +470,14 @@ public class AS3Parser
    {
       consume( KeyWords.FUNCTION );
 
-      final Node type = new Node( Node.TYPE, tok.line, tok.column, KeyWords.FUNCTION );
+      final Node type = new Node( NodeKind.TYPE, tok.line, tok.column, KeyWords.FUNCTION );
       if ( tokIs( KeyWords.SET )
             || tokIs( KeyWords.GET ) )
       {
-         type.stringValue = tok.text;
+         type.setStringValue( tok.text );
          nextToken(); // set or get
       }
-      final Node name = new Node( Node.NAME, tok.line, tok.column, tok.text );
+      final Node name = new Node( NodeKind.NAME, tok.line, tok.column, tok.text );
       nextToken(); // name
       final Node params = parseParameterList();
       final Node returnType = parseOptionalType();
@@ -503,7 +512,7 @@ public class AS3Parser
          }
          if ( tok.text == null )
          {
-            throw new UnExpectedTokenException( tok, fileName );
+            throw new UnExpectedTokenException( tok.text, tok.line, tok.column, fileName );
          }
       }
       while ( tok.text.startsWith( "//" )
@@ -514,13 +523,13 @@ public class AS3Parser
    // language specific recursive descent parsing
    // ------------------------------------------------------------------------
 
-   private Node parseAdditiveExpression() throws TokenException
+   private IParserNode parseAdditiveExpression() throws TokenException
    {
-      final Node result = new Node( Node.ADD, tok.line, tok.column, parseMultiplicativeExpression() );
+      final Node result = new Node( NodeKind.ADD, tok.line, tok.column, parseMultiplicativeExpression() );
       while ( tokIs( Operators.PLUS )
             || tokIs( Operators.MINUS ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseMultiplicativeExpression() );
       }
@@ -528,12 +537,12 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
-   private Node parseAndExpression() throws TokenException
+   private IParserNode parseAndExpression() throws TokenException
    {
-      final Node result = new Node( Node.AND, tok.line, tok.column, parseBitwiseOrExpression() );
+      final Node result = new Node( NodeKind.AND, tok.line, tok.column, parseBitwiseOrExpression() );
       while ( tokIs( Operators.AND ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseBitwiseOrExpression() );
       }
@@ -547,7 +556,7 @@ public class AS3Parser
    private Node parseArgumentList() throws TokenException
    {
       consume( Operators.LEFT_PARENTHESIS );
-      final Node result = new Node( Node.ARGUMENTS, tok.line, tok.column );
+      final Node result = new Node( NodeKind.ARGUMENTS, tok.line, tok.column );
       while ( !tokIs( Operators.RIGHT_PARENTHESIS ) )
       {
          result.addChild( parseExpression() );
@@ -559,7 +568,7 @@ public class AS3Parser
 
    private Node parseArrayAccessor( final Node node ) throws TokenException
    {
-      final Node result = new Node( Node.ARRAY_ACCESSOR, tok.line, tok.column );
+      final Node result = new Node( NodeKind.ARRAY_ACCESSOR, tok.line, tok.column );
       result.addChild( node );
       while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
       {
@@ -573,9 +582,9 @@ public class AS3Parser
    /**
     * tok is [
     */
-   private Node parseArrayLiteral() throws TokenException
+   private IParserNode parseArrayLiteral() throws TokenException
    {
-      final Node result = new Node( Node.ARRAY, tok.line, tok.column );
+      final Node result = new Node( NodeKind.ARRAY, tok.line, tok.column );
       consume( Operators.LEFT_SQUARE_BRACKET );
       while ( !tokIs( Operators.RIGHT_SQUARE_BRACKET ) )
       {
@@ -583,19 +592,18 @@ public class AS3Parser
          skip( Operators.COMMA );
       }
       consume( Operators.RIGHT_SQUARE_BRACKET );
-      // S ystem.out.println("arrayliteral " + result );
       return result;
    }
 
-   private Node parseAssignmentExpression() throws TokenException
+   private IParserNode parseAssignmentExpression() throws TokenException
    {
-      final Node result = new Node( Node.ASSIGN, tok.line, tok.column, parseConditionalExpression() );
+      final Node result = new Node( NodeKind.ASSIGN, tok.line, tok.column, parseConditionalExpression() );
       while ( tokIs( KeyWords.EQUAL )
             || tokIs( KeyWords.PLUS_EQUAL ) || tokIs( KeyWords.MINUS_EQUAL ) || tokIs( KeyWords.TIMES_EQUAL )
             || tokIs( KeyWords.DIVIDED_EQUAL ) || tokIs( KeyWords.MODULO_EQUAL )
             || tokIs( KeyWords.AND_EQUAL ) || tokIs( KeyWords.OR_EQUAL ) || tokIs( KeyWords.XOR_EQUAL ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseExpression() );
       }
@@ -603,12 +611,12 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
-   private Node parseBitwiseAndExpression() throws TokenException
+   private IParserNode parseBitwiseAndExpression() throws TokenException
    {
-      final Node result = new Node( Node.B_AND, tok.line, tok.column, parseEqualityExpression() );
+      final Node result = new Node( NodeKind.B_AND, tok.line, tok.column, parseEqualityExpression() );
       while ( tokIs( KeyWords.B_AND ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseEqualityExpression() );
       }
@@ -616,12 +624,12 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
-   private Node parseBitwiseOrExpression() throws TokenException
+   private IParserNode parseBitwiseOrExpression() throws TokenException
    {
-      final Node result = new Node( Node.B_OR, tok.line, tok.column, parseBitwiseXorExpression() );
+      final Node result = new Node( NodeKind.B_OR, tok.line, tok.column, parseBitwiseXorExpression() );
       while ( tokIs( KeyWords.B_OR ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseBitwiseXorExpression() );
       }
@@ -629,12 +637,12 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
-   private Node parseBitwiseXorExpression() throws TokenException
+   private IParserNode parseBitwiseXorExpression() throws TokenException
    {
-      final Node result = new Node( Node.B_XOR, tok.line, tok.column, parseBitwiseAndExpression() );
+      final Node result = new Node( NodeKind.B_XOR, tok.line, tok.column, parseBitwiseAndExpression() );
       while ( tokIs( KeyWords.B_XOR ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseBitwiseAndExpression() );
       }
@@ -651,7 +659,7 @@ public class AS3Parser
    {
       consume( Operators.LEFT_CURLY_BRACKET );
 
-      final Node result = new Node( Node.BLOCK, tok.line, tok.column );
+      final Node result = new Node( NodeKind.BLOCK, tok.line, tok.column );
       while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
       {
          result.addChild( parseStatement() );
@@ -669,7 +677,7 @@ public class AS3Parser
    {
       consume( KeyWords.CATCH );
       consume( Operators.LEFT_PARENTHESIS );
-      final Node result = new Node( KeyWords.CATCH, tok.line, tok.column, new Node( Node.NAME,
+      final Node result = new Node( KeyWords.CATCH, tok.line, tok.column, new Node( NodeKind.NAME,
                                                                                     tok.line,
                                                                                     tok.column,
                                                                                     tok.text ) );
@@ -677,7 +685,7 @@ public class AS3Parser
       if ( tokIs( KeyWords.DOUBLE_COLUMN ) )
       {
          nextToken(); // :
-         result.addChild( new Node( Node.TYPE, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.TYPE, tok.line, tok.column, tok.text ) );
          nextToken(); // type
       }
       consume( Operators.RIGHT_PARENTHESIS );
@@ -698,7 +706,7 @@ public class AS3Parser
       consume( KeyWords.CLASS );
 
       final Node result = new Node( KeyWords.CLASS, tok.line, tok.column );
-      result.addChild( Node.NAME,
+      result.addChild( NodeKind.NAME,
                        tok.line,
                        tok.column,
                        tok.text );
@@ -773,21 +781,23 @@ public class AS3Parser
    private Node parseCondition() throws TokenException
    {
       consume( Operators.LEFT_PARENTHESIS );
-      final Node result = new Node( Node.CONDITION, tok.line, tok.column, parseExpression() );
+      final Node result = new Node( NodeKind.CONDITION, tok.line, tok.column, parseExpression() );
       consume( Operators.RIGHT_PARENTHESIS );
       return result;
    }
 
-   private Node parseConditionalExpression() throws TokenException
+   private IParserNode parseConditionalExpression() throws TokenException
    {
-      Node result = parseOrExpression();
+      final IParserNode result = parseOrExpression();
       if ( tokIs( KeyWords.QUESTION_MARK ) )
       {
-         result = new Node( Node.CONDITIONAL, tok.line, tok.column, result );
+         final Node conditional = new Node( NodeKind.CONDITIONAL, tok.line, tok.column, result );
          nextToken(); // ?
-         result.addChild( parseExpression() );
+         conditional.addChild( parseExpression() );
          nextToken(); // :
-         result.addChild( parseExpression() );
+         conditional.addChild( parseExpression() );
+
+         return conditional;
       }
       return result;
    }
@@ -812,7 +822,7 @@ public class AS3Parser
                                 final List< Token > modifiers ) throws TokenException
    {
       consume( KeyWords.CONST );
-      final Node result = new Node( Node.CONST_LIST, tok.line, tok.column );
+      final Node result = new Node( NodeKind.CONST_LIST, tok.line, tok.column );
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
       collectVarListContent( result );
@@ -822,7 +832,7 @@ public class AS3Parser
    private Node parseDecrement( final Node node ) throws TokenException
    {
       nextToken();
-      final Node result = new Node( Node.POST_DEC, tok.line, tok.column );
+      final Node result = new Node( NodeKind.POST_DEC, tok.line, tok.column );
       result.addChild( node );
       return result;
    }
@@ -847,7 +857,7 @@ public class AS3Parser
       if ( tokIs( Operators.LEFT_PARENTHESIS ) )
       {
          nextToken();
-         final Node result = new Node( Node.E4X_FILTER, tok.line, tok.column );
+         final Node result = new Node( NodeKind.E4X_FILTER, tok.line, tok.column );
          result.addChild( node );
          result.addChild( parseExpression() );
          consume( Operators.RIGHT_PARENTHESIS );
@@ -855,11 +865,11 @@ public class AS3Parser
       }
       else if ( tokIs( "*" ) )
       {
-         final Node result = new Node( Node.E4X_STAR, tok.line, tok.column );
+         final Node result = new Node( NodeKind.E4X_STAR, tok.line, tok.column );
          result.addChild( node );
          return result;
       }
-      final Node result = new Node( Node.DOT, tok.line, tok.column );
+      final Node result = new Node( NodeKind.DOT, tok.line, tok.column );
       result.addChild( node );
       result.addChild( parseExpression() );
       return result;
@@ -869,7 +879,7 @@ public class AS3Parser
    {
       consume( KeyWords.AT );
 
-      final Node result = new Node( Node.E4X_ATTR, tok.line, tok.column );
+      final Node result = new Node( NodeKind.E4X_ATTR, tok.line, tok.column );
       if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
       {
          nextToken();
@@ -879,11 +889,11 @@ public class AS3Parser
       else if ( tokIs( Operators.TIMES ) )
       {
          nextToken();
-         result.addChild( new Node( Node.STAR, tok.line, tok.column ) );
+         result.addChild( new Node( NodeKind.STAR, tok.line, tok.column ) );
       }
       else
       {
-         result.addChild( new Node( Node.NAME, tok.line, tok.column, parseQualifiedName() ) );
+         result.addChild( new Node( NodeKind.NAME, tok.line, tok.column, parseQualifiedName() ) );
       }
       return result;
    }
@@ -891,7 +901,7 @@ public class AS3Parser
    private Node parseEmptyStatement() throws TokenException
    {
       Node result;
-      result = new Node( Node.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
+      result = new Node( NodeKind.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
       nextToken();
       return result;
    }
@@ -899,20 +909,20 @@ public class AS3Parser
    private Node parseEncapsulatedExpression() throws TokenException
    {
       consume( Operators.LEFT_PARENTHESIS );
-      final Node result = new Node( Node.ENCAPSULATED, tok.line, tok.column );
+      final Node result = new Node( NodeKind.ENCAPSULATED, tok.line, tok.column );
       result.addChild( parseExpression() );
       consume( Operators.RIGHT_PARENTHESIS );
       return result;
    }
 
-   private Node parseEqualityExpression() throws TokenException
+   private IParserNode parseEqualityExpression() throws TokenException
    {
-      final Node result = new Node( Node.EQUALITY, tok.line, tok.column, parseRelationalExpression() );
+      final Node result = new Node( NodeKind.EQUALITY, tok.line, tok.column, parseRelationalExpression() );
       while ( tokIs( Operators.EQUAL )
             || tokIs( Operators.STRICTLY_EQUAL ) || tokIs( Operators.NON_EQUAL )
             || tokIs( Operators.NON_STRICTLY_EQUAL ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseRelationalExpression() );
       }
@@ -920,9 +930,9 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
-   private Node parseExpressionList() throws TokenException
+   private IParserNode parseExpressionList() throws TokenException
    {
-      final Node result = new Node( Node.EXPR_LIST, tok.line, tok.column, parseAssignmentExpression() );
+      final Node result = new Node( NodeKind.EXPR_LIST, tok.line, tok.column, parseAssignmentExpression() );
       while ( tokIs( Operators.COMMA ) )
       {
          nextToken();
@@ -979,7 +989,7 @@ public class AS3Parser
       }
       else
       {
-         result.addChild( Node.NAME,
+         result.addChild( NodeKind.NAME,
                           tok.line,
                           tok.column,
                           tok.text ); // TODO: Qualified
@@ -987,7 +997,7 @@ public class AS3Parser
          nextToken();
       }
       nextToken(); // in
-      result.addChild( Node.IN,
+      result.addChild( NodeKind.IN,
                        tok.line,
                        tok.column,
                        parseExpression() );
@@ -999,11 +1009,11 @@ public class AS3Parser
    private Node parseForIn( final Node result ) throws TokenException
    {
       nextToken();
-      result.addChild( Node.IN,
+      result.addChild( NodeKind.IN,
                        tok.line,
                        tok.column,
                        parseExpression() );
-      result.id = KeyWords.FORIN;
+      result.setId( KeyWords.FORIN );
       return result;
    }
 
@@ -1018,7 +1028,7 @@ public class AS3Parser
                                final List< Token > modifiers ) throws TokenException
    {
       final Node[] signature = doParseSignature();
-      final Node result = new Node( signature[ 0 ].stringValue, tok.line, tok.column );
+      final Node result = new Node( signature[ 0 ].getStringValue(), tok.line, tok.column );
 
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
@@ -1031,7 +1041,7 @@ public class AS3Parser
 
    private Node parseFunctionCall( final Node node ) throws TokenException
    {
-      final Node result = new Node( Node.CALL, tok.line, tok.column );
+      final Node result = new Node( NodeKind.CALL, tok.line, tok.column );
       result.addChild( node );
       while ( tokIs( Operators.LEFT_PARENTHESIS ) )
       {
@@ -1054,7 +1064,7 @@ public class AS3Parser
    {
       final Node[] signature = doParseSignature();
       skip( Operators.SEMI_COLUMN );
-      final Node result = new Node( signature[ 0 ].stringValue, tok.line, tok.column );
+      final Node result = new Node( signature[ 0 ].getStringValue(), tok.line, tok.column );
       result.addChild( signature[ 1 ] );
       result.addChild( signature[ 2 ] );
       result.addChild( signature[ 3 ] );
@@ -1089,7 +1099,7 @@ public class AS3Parser
    {
       consume( KeyWords.IMPLEMENTS );
 
-      final Node result = new Node( Node.IMPLEMENTS_LIST, tok.line, tok.column );
+      final Node result = new Node( NodeKind.IMPLEMENTS_LIST, tok.line, tok.column );
       result.addChild( KeyWords.IMPLEMENTS,
                        tok.line,
                        tok.column,
@@ -1143,7 +1153,7 @@ public class AS3Parser
    private Node parseIncrement( final Node node ) throws TokenException
    {
       nextToken();
-      final Node result = new Node( Node.POST_INC, tok.line, tok.column );
+      final Node result = new Node( NodeKind.POST_INC, tok.line, tok.column );
       result.addChild( node );
       return result;
    }
@@ -1161,7 +1171,7 @@ public class AS3Parser
       consume( KeyWords.INTERFACE );
       final Node result = new Node( KeyWords.INTERFACE, tok.line, tok.column );
 
-      result.addChild( Node.NAME,
+      result.addChild( NodeKind.NAME,
                        tok.line,
                        tok.column,
                        tok.text );
@@ -1199,7 +1209,7 @@ public class AS3Parser
    private Node parseLambdaExpression() throws TokenException
    {
       consume( KeyWords.FUNCTION );
-      final Node result = new Node( Node.LAMBDA, tok.line, tok.column );
+      final Node result = new Node( NodeKind.LAMBDA, tok.line, tok.column );
       result.addChild( parseParameterList() );
       result.addChild( parseOptionalType() );
       result.addChild( parseBlock() );
@@ -1227,16 +1237,16 @@ public class AS3Parser
          nextToken();
       }
       skip( Operators.RIGHT_SQUARE_BRACKET );
-      return new Node( Node.META, tok.line, tok.column, buffer.toString() );
+      return new Node( NodeKind.META, tok.line, tok.column, buffer.toString() );
    }
 
-   private Node parseMultiplicativeExpression() throws TokenException
+   private IParserNode parseMultiplicativeExpression() throws TokenException
    {
-      final Node result = new Node( Node.MULTIPLICATION, tok.line, tok.column, parseUnaryExpression() );
+      final Node result = new Node( NodeKind.MULTIPLICATION, tok.line, tok.column, parseUnaryExpression() );
       while ( tokIs( Operators.TIMES )
             || tokIs( Operators.SLASH ) || tokIs( Operators.MODULO ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseUnaryExpression() );
       }
@@ -1253,8 +1263,8 @@ public class AS3Parser
 
    private Node parseNameTypeInit() throws TokenException
    {
-      final Node result = new Node( Node.NAME_TYPE_INIT, tok.line, tok.column );
-      result.addChild( Node.NAME,
+      final Node result = new Node( NodeKind.NAME_TYPE_INIT, tok.line, tok.column );
+      result.addChild( NodeKind.NAME,
                        tok.line,
                        tok.column,
                        tok.text );
@@ -1282,7 +1292,7 @@ public class AS3Parser
     */
    private Node parseObjectLiteral() throws TokenException
    {
-      final Node result = new Node( Node.OBJECT, tok.line, tok.column );
+      final Node result = new Node( NodeKind.OBJECT, tok.line, tok.column );
       consume( Operators.LEFT_CURLY_BRACKET );
       while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
       {
@@ -1298,13 +1308,13 @@ public class AS3Parser
     */
    private Node parseObjectLiteralPropertyDeclaration() throws TokenException
    {
-      final Node result = new Node( Node.PROP, tok.line, tok.column );
-      final Node name = new Node( Node.NAME, tok.line, tok.column );
-      name.stringValue = tok.text;
+      final Node result = new Node( NodeKind.PROP, tok.line, tok.column );
+      final Node name = new Node( NodeKind.NAME, tok.line, tok.column );
+      name.setStringValue( tok.text );
       result.addChild( name );
       nextToken(); // name
       consume( KeyWords.DOUBLE_COLUMN );
-      result.addChild( Node.VALUE,
+      result.addChild( NodeKind.VALUE,
                        tok.line,
                        tok.column,
                        parseExpression() );
@@ -1322,7 +1332,7 @@ public class AS3Parser
       if ( tokIs( KeyWords.EQUAL ) )
       {
          nextToken();
-         result = new Node( Node.INIT, tok.line, tok.column, parseExpression() );
+         result = new Node( NodeKind.INIT, tok.line, tok.column, parseExpression() );
       }
       return result;
    }
@@ -1335,23 +1345,23 @@ public class AS3Parser
     */
    private Node parseOptionalType() throws TokenException
    {
-      final Node result = new Node( Node.TYPE, tok.line, tok.column, "" );
+      final Node result = new Node( NodeKind.TYPE, tok.line, tok.column, "" );
       if ( tokIs( KeyWords.DOUBLE_COLUMN ) )
       {
          nextToken();
-         result.stringValue = tok.text; // TODO: What about qualified names
+         result.setStringValue( tok.text ); // TODO: What about qualified names
          // here?
          nextToken();
       }
       return result;
    }
 
-   private Node parseOrExpression() throws TokenException
+   private IParserNode parseOrExpression() throws TokenException
    {
-      final Node result = new Node( Node.OR, tok.line, tok.column, parseAndExpression() );
+      final Node result = new Node( NodeKind.OR, tok.line, tok.column, parseAndExpression() );
       while ( tokIs( Operators.LOGICAL_OR ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseAndExpression() );
       }
@@ -1376,7 +1386,7 @@ public class AS3Parser
          nameBuffer.append( tok.text );
          nextToken();
       }
-      result.addChild( Node.NAME,
+      result.addChild( NodeKind.NAME,
                        tok.line,
                        tok.column,
                        nameBuffer.toString() );
@@ -1391,11 +1401,11 @@ public class AS3Parser
     */
    private Node parseParameter() throws TokenException
    {
-      final Node result = new Node( Node.PARAMETER, tok.line, tok.column );
+      final Node result = new Node( NodeKind.PARAMETER, tok.line, tok.column );
       if ( tokIs( Operators.REST_PARAMETERS ) )
       {
          nextToken(); // ...
-         final Node rest = new Node( Node.REST, tok.line, tok.column, tok.text );
+         final Node rest = new Node( NodeKind.REST, tok.line, tok.column, tok.text );
          nextToken(); // rest
          result.addChild( rest );
       }
@@ -1415,7 +1425,7 @@ public class AS3Parser
    {
       consume( Operators.LEFT_PARENTHESIS );
 
-      final Node result = new Node( Node.PARAMETER_LIST, tok.line, tok.column );
+      final Node result = new Node( NodeKind.PARAMETER_LIST, tok.line, tok.column );
       while ( !tokIs( Operators.RIGHT_PARENTHESIS ) )
       {
          result.addChild( parseParameter() );
@@ -1454,15 +1464,15 @@ public class AS3Parser
       return buffer.toString();
    }
 
-   private Node parseRelationalExpression() throws TokenException
+   private IParserNode parseRelationalExpression() throws TokenException
    {
-      final Node result = new Node( Node.RELATION, tok.line, tok.column, parseShiftExpression() );
+      final Node result = new Node( NodeKind.RELATION, tok.line, tok.column, parseShiftExpression() );
       while ( tokIs( Operators.INFERIOR )
             || tokIs( Operators.INFERIOR_OR_EQUAL ) || tokIs( Operators.SUPERIOR )
             || tokIs( Operators.SUPERIOR_OR_EQUAL ) || tokIs( KeyWords.IS ) || tokIs( KeyWords.AS )
             || tokIs( KeyWords.INSTANCE_OF ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseShiftExpression() );
       }
@@ -1470,7 +1480,7 @@ public class AS3Parser
                                      : result.getChild( 0 );
    }
 
-   private Node parseReturnStatement() throws TokenException
+   private IParserNode parseReturnStatement() throws TokenException
    {
       Node result;
       /**
@@ -1497,14 +1507,14 @@ public class AS3Parser
       return result;
    }
 
-   private Node parseShiftExpression() throws TokenException
+   private IParserNode parseShiftExpression() throws TokenException
    {
-      final Node result = new Node( Node.SHIFT, tok.line, tok.column, parseAdditiveExpression() );
+      final Node result = new Node( NodeKind.SHIFT, tok.line, tok.column, parseAdditiveExpression() );
       while ( tokIs( Operators.DOUBLE_SHIFT_LEFT )
             || tokIs( Operators.TRIPLE_SHIFT_LEFT ) || tokIs( Operators.DOUBLE_SHIFT_RIGHT )
             || tokIs( Operators.TRIPLE_SHIFT_RIGHT ) )
       {
-         result.addChild( new Node( Node.OP, tok.line, tok.column, tok.text ) );
+         result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
          result.addChild( parseAdditiveExpression() );
       }
@@ -1537,7 +1547,7 @@ public class AS3Parser
     */
    private Node parseSwitchBlock() throws TokenException
    {
-      final Node result = new Node( Node.SWITCH_BLOCK, tok.line, tok.column );
+      final Node result = new Node( NodeKind.SWITCH_BLOCK, tok.line, tok.column );
       while ( !tokIs( KeyWords.CASE )
             && !tokIs( KeyWords.DEFAULT ) && !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
       {
@@ -1553,7 +1563,7 @@ public class AS3Parser
     */
    private Node parseSwitchCases() throws TokenException
    {
-      final Node result = new Node( Node.CASES, tok.line, tok.column );
+      final Node result = new Node( NodeKind.CASES, tok.line, tok.column );
       for ( ;; )
       {
          if ( tokIs( Operators.RIGHT_CURLY_BRACKET ) )
@@ -1598,7 +1608,7 @@ public class AS3Parser
       {
          if ( tokIs( KeyWords.VAR ) )
          {
-            result.addChild( Node.INIT,
+            result.addChild( NodeKind.INIT,
                              tok.line,
                              tok.column,
                              parseVarList( null,
@@ -1606,12 +1616,12 @@ public class AS3Parser
          }
          else
          {
-            result.addChild( Node.INIT,
+            result.addChild( NodeKind.INIT,
                              tok.line,
                              tok.column,
                              parseExpressionList() );
          }
-         if ( tokIs( Node.IN ) )
+         if ( tokIs( NodeKind.IN ) )
          {
             return parseForIn( result );
          }
@@ -1619,7 +1629,7 @@ public class AS3Parser
       consume( Operators.SEMI_COLUMN );
       if ( !tokIs( Operators.SEMI_COLUMN ) )
       {
-         result.addChild( Node.COND,
+         result.addChild( NodeKind.COND,
                           tok.line,
                           tok.column,
                           parseExpression() );
@@ -1627,7 +1637,7 @@ public class AS3Parser
       consume( Operators.SEMI_COLUMN );
       if ( !tokIs( Operators.RIGHT_PARENTHESIS ) )
       {
-         result.addChild( Node.ITER,
+         result.addChild( NodeKind.ITER,
                           tok.line,
                           tok.column,
                           parseExpressionList() );
@@ -1666,12 +1676,12 @@ public class AS3Parser
       else if ( tokIs( "!" ) )
       {
          nextToken();
-         result = new Node( Node.NOT, tok.line, tok.column, parseExpression() );
+         result = new Node( NodeKind.NOT, tok.line, tok.column, parseExpression() );
       }
       else if ( tokIs( "~" ) )
       {
          nextToken();
-         result = new Node( Node.B_NOT, tok.line, tok.column, parseExpression() );
+         result = new Node( NodeKind.B_NOT, tok.line, tok.column, parseExpression() );
       }
       else
       {
@@ -1739,7 +1749,7 @@ public class AS3Parser
                               final List< Token > modifiers ) throws TokenException
    {
       consume( KeyWords.VAR );
-      final Node result = new Node( Node.VAR_LIST, tok.line, tok.column );
+      final Node result = new Node( NodeKind.VAR_LIST, tok.line, tok.column );
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
       collectVarListContent( result );

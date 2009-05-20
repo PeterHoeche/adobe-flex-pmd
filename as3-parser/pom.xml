@@ -13,4 +13,12 @@
 	<version>0.5.4-SNAPSHOT</version>
   </parent>
   
+  <dependencies>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <version>${project.parent.version}</version>
+         <artifactId>${project.artifactId}-api</artifactId>
+      </dependency>
+  </dependencies>
+  
 </project>

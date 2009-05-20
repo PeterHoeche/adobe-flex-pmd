@@ -35,7 +35,8 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bokelberg.flex.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
+
 
 public class TestPrimaryExpression extends TestCase
 {
