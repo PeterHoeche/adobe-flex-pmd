@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
@@ -48,7 +49,7 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return !file.isMxml()
-            && file.getFullyQualifiedName().toLowerCase().contains( MODEL_CLASS_SUFFIX );
+            && file.getFullyQualifiedName().toLowerCase( Locale.ENGLISH ).contains( MODEL_CLASS_SUFFIX );
    }
 
    @Override

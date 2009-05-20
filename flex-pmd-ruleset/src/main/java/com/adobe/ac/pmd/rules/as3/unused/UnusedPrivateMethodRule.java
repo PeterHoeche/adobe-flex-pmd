@@ -42,7 +42,7 @@ import de.bokelberg.flex.parser.Node;
 
 public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
-   private Map< String, FunctionNode > privateFunctions;
+   private Map< String, FunctionNode > privateFunctions = null;
 
    @Override
    protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )

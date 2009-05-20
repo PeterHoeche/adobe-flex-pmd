@@ -43,9 +43,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooManyFunctionRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private ClassNode    classNode;
-   private FunctionNode constructor;
-   private int          functionNb;
+   private ClassNode classNode;
+   private int       functionNb;
 
    public int getActualValue()
    {
@@ -80,7 +79,7 @@ public class TooManyFunctionRule extends AbstractAstFlexRule implements IThresho
       for ( final FunctionNode functionNode : functions )
       {
          if ( !functionNode.isGetter()
-               && !functionNode.isSetter() && functionNode != constructor )
+               && !functionNode.isSetter() && functionNode != classNode.getConstructor() )
          {
             functionNb++;
          }

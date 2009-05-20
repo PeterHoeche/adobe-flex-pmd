@@ -36,14 +36,13 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class CyclomaticComplexityRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private FunctionNode currentFunction;
+   private FunctionNode currentFunction = null;
 
    public int getActualValue()
    {
@@ -80,13 +79,6 @@ public class CyclomaticComplexityRule extends AbstractAstFlexRule implements ITh
             }
          }
       }
-   }
-
-   @Override
-   protected void findViolationsFromPackageNode( final PackageNode packageNode )
-   {
-      super.findViolationsFromPackageNode( packageNode );
-
    }
 
    @Override

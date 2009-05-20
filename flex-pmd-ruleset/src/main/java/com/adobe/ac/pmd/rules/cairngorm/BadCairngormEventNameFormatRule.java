@@ -31,9 +31,9 @@
 package com.adobe.ac.pmd.rules.cairngorm;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.nodes.ClassNode;
 import com.adobe.ac.pmd.nodes.FieldNode;
 import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -48,18 +48,14 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromPackageNode( final PackageNode packageNode )
+   protected void findViolationsFromClassNode( final ClassNode classNode )
    {
-      super.findViolationsFromPackageNode( packageNode );
-
-      if ( packageNode != null
-            && packageNode.getClassNode() != null && packageNode.getClassNode().getExtensionName() != null
-            && packageNode.getClassNode().getExtensionName().contains( "Cairngorm" )
-            && packageNode.getClassNode().getExtensionName().contains( "Event" ) )
+      if ( classNode.getExtensionName() != null
+            && classNode.getExtensionName().contains( "Cairngorm" ) && classNode.getExtensionName().contains( "Event" ) )
       {
          String eventName = "";
 
-         for ( final FieldNode constantNode : packageNode.getClassNode().getConstants() )
+         for ( final FieldNode constantNode : classNode.getConstants() )
          {
             if ( constantNode.getName().startsWith( "EVENT" ) )
             {
@@ -67,14 +63,14 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
             }
          }
          if ( eventName.compareTo( "" ) == 0
-               && packageNode.getClassNode().getConstructor() != null )
+               && classNode.getConstructor() != null )
          {
-            eventName = extractEventNameFromConstructor( packageNode.getClassNode().getConstructor() );
+            eventName = extractEventNameFromConstructor( classNode.getConstructor() );
          }
          if ( !eventName.contains( "." ) )
          {
-            addViolation( packageNode.getClassNode().getInternalNode(),
-                          packageNode.getClassNode().getInternalNode() );
+            addViolation( classNode.getInternalNode(),
+                          classNode.getInternalNode() );
          }
       }
    }

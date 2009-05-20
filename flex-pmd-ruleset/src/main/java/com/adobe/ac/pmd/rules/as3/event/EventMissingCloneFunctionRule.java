@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
 {
-   private ClassNode classNode;
+   private ClassNode classNode = null;
 
    @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -49,9 +49,9 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final ClassNode classNodeToBeSet )
    {
-      this.classNode = classNode;
+      classNode = classNodeToBeSet;
    }
 
    @Override
