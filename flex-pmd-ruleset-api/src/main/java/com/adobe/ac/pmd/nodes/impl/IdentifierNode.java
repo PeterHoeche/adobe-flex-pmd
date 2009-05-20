@@ -28,18 +28,19 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class MetaDataNode extends AbstractNode implements INamable, IMetaData
+public class IdentifierNode extends AbstractNode
 {
-   public MetaDataNode( final IParserNode node )
+   public IdentifierNode( final IParserNode node )
    {
       super( node );
    }
 
-   public String getName()
+   @Override
+   public String toString()
    {
       return internalNode.getStringValue();
    }

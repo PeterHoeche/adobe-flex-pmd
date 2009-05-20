@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
-import com.adobe.ac.pmd.nodes.MetaDataNode;
+import com.adobe.ac.pmd.nodes.impl.MetaDataNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 
 final public class MetaDataUtils

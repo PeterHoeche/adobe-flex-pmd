@@ -38,6 +38,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.nodes.impl.PackageNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
@@ -50,7 +51,7 @@ public class PackageNodeTest extends FlexPmdTestBase
                                        TokenException
    {
       final IParserNode ast = new AS3Parser().buildAst( testFiles.get( "schedule_internal.as" ).getFilePath() );
-      final PackageNode namespacePackage = new PackageNode( ast );
+      final IPackage namespacePackage = new PackageNode( ast );
 
       assertNull( namespacePackage.getClassNode() );
       assertEquals( "flexlib.scheduling.scheduleClasses",

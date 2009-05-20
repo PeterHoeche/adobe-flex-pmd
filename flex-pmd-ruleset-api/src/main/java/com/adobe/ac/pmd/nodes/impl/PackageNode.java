@@ -28,11 +28,13 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 

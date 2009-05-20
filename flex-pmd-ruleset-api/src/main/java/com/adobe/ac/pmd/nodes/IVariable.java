@@ -30,10 +30,11 @@
  */
 package com.adobe.ac.pmd.nodes;
 
+import com.adobe.ac.pmd.nodes.impl.IdentifierNode;
 
 public interface IVariable extends IMetaDataListHolder, INamable, INode
 {
-   FieldInitializationNode getInitializationExpression();
+   IFieldInitialization getInitializationExpression();
 
    IdentifierNode getType();
 }

@@ -28,15 +28,26 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.INamable;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.IConstant;
 
-public class ConstantNode extends FieldNode implements IConstant
+public class MetaDataNode extends AbstractNode implements INamable, IMetaData
 {
-   public ConstantNode( final IParserNode rootNode )
+   public MetaDataNode( final IParserNode node )
    {
-      super( rootNode );
+      super( node );
+   }
+
+   public String getName()
+   {
+      return internalNode.getStringValue();
+   }
+
+   @Override
+   protected void compute()
+   {
    }
 }

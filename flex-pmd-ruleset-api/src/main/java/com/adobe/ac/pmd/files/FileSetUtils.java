@@ -51,7 +51,7 @@ import net.sourceforge.pmd.PMDException;
 import com.adobe.ac.ncss.filters.FlexFilter;
 import com.adobe.ac.ncss.utils.FileUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.impl.PackageNode;
 import com.adobe.ac.pmd.parser.IAS3Parser;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;

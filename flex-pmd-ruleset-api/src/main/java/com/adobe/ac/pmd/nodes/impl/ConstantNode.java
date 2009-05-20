@@ -28,49 +28,15 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
-
-import java.util.logging.Logger;
+package com.adobe.ac.pmd.nodes.impl;
 
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.IConstant;
 
-public abstract class AbstractNode implements INode
+public class ConstantNode extends FieldNode implements IConstant
 {
-   protected final static Logger LOGGER = Logger.getLogger( "Node" );
-
-   protected final IParserNode   internalNode;
-
-   protected AbstractNode( final IParserNode node )
+   public ConstantNode( final IParserNode rootNode )
    {
-      internalNode = node;
-
-      compute();
-   }
-
-   public IParserNode getInternalNode()
-   {
-      return internalNode;
-   }
-
-   protected abstract void compute();
-
-   protected int countNodeFromType( final IParserNode rootNode,
-                                    final String type )
-   {
-      int count = 0;
-
-      if ( rootNode.is( type ) )
-      {
-         count++;
-      }
-      if ( rootNode.numChildren() > 0 )
-      {
-         for ( final IParserNode child : rootNode.getChildren() )
-         {
-            count += countNodeFromType( child,
-                                        type );
-         }
-      }
-      return count;
+      super( rootNode );
    }
 }

@@ -28,11 +28,15 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.adobe.ac.pmd.nodes.IFieldInitialization;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IVariable;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
@@ -46,11 +50,11 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 public class VariableNode extends AbstractNode implements IVariable
 {
-   private FieldInitializationNode initializationExpression;
-   private List< IMetaData >       metaDataList;
-   private List< Modifier >        modifiers;
-   private IdentifierNode          name;
-   private IdentifierNode          type;
+   private IFieldInitialization initializationExpression;
+   private List< IMetaData >    metaDataList;
+   private List< Modifier >     modifiers;
+   private IdentifierNode       name;
+   private IdentifierNode       type;
 
    public VariableNode( final IParserNode rootNode )
    {
@@ -61,7 +65,7 @@ public class VariableNode extends AbstractNode implements IVariable
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IVariable#getInitializationExpression()
     */
-   public FieldInitializationNode getInitializationExpression()
+   public IFieldInitialization getInitializationExpression()
    {
       return initializationExpression;
    }

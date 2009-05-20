@@ -40,6 +40,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.nodes.impl.PackageNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;

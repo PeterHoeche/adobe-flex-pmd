@@ -28,13 +28,17 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.adobe.ac.pmd.nodes.IFormal;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -50,7 +54,7 @@ public class FunctionNode extends AbstractNode implements IFunction
    private List< Modifier >           modifiers;
    private IdentifierNode             name;
 
-   private List< FormalNode >      parameters;
+   private List< IFormal >            parameters;
    private IdentifierNode             returnType;
 
    public FunctionNode( final IParserNode node )
@@ -130,7 +134,7 @@ public class FunctionNode extends AbstractNode implements IFunction
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#getParameters()
     */
-   public List< FormalNode > getParameters()
+   public List< IFormal > getParameters()
    {
       return parameters;
    }
@@ -304,7 +308,7 @@ public class FunctionNode extends AbstractNode implements IFunction
 
    private void computeParameterList( final IParserNode node )
    {
-      parameters = new ArrayList< FormalNode >();
+      parameters = new ArrayList< IFormal >();
 
       if ( node.getChildren() != null )
       {

@@ -28,21 +28,16 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
+import com.adobe.ac.pmd.nodes.IFieldInitialization;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class IdentifierNode extends AbstractNode
+public class FieldInitializationNode extends AbstractNode implements IFieldInitialization
 {
-   public IdentifierNode( final IParserNode node )
+   protected FieldInitializationNode( final IParserNode node )
    {
       super( node );
-   }
-
-   @Override
-   public String toString()
-   {
-      return internalNode.getStringValue();
    }
 
    @Override

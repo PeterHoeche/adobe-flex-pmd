@@ -28,48 +28,15 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
+import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
 
-public class FieldNode extends VariableNode implements IField
+public class AttributeNode extends FieldNode implements IAttribute
 {
-   public FieldNode( final IParserNode rootNode )
+   public AttributeNode( final IParserNode rootNode )
    {
       super( rootNode );
-   }
-
-   public boolean isPrivate()
-   {
-      return ModifierUtils.isPrivate( this );
-   }
-
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
-   }
-
-   public boolean isPublic()
-   {
-      return ModifierUtils.isPublic( this );
-   }
-
-   @Override
-   protected void compute()
-   {
-      super.compute();
-      if ( internalNode.getChildren() != null )
-      {
-         for ( final IParserNode child : internalNode.getChildren() )
-         {
-            if ( child.is( NodeKind.MOD_LIST ) )
-            {
-               ModifierUtils.computeModifierList( this,
-                                                  child );
-            }
-         }
-      }
    }
 }
