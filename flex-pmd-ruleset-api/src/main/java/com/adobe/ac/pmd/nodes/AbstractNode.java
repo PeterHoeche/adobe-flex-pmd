@@ -34,14 +34,10 @@ import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-/**
- * FlexPmdNode which wraps the parser node into a concrete type
- * 
- * @author xagnetti
- */
 public abstract class AbstractNode implements INode
 {
    protected final static Logger LOGGER = Logger.getLogger( "Node" );
+
    protected final IParserNode   internalNode;
 
    protected AbstractNode( final IParserNode node )
@@ -57,4 +53,24 @@ public abstract class AbstractNode implements INode
    }
 
    protected abstract void compute();
+
+   protected int countNodeFromType( final IParserNode rootNode,
+                                    final String type )
+   {
+      int count = 0;
+
+      if ( rootNode.is( type ) )
+      {
+         count++;
+      }
+      if ( rootNode.numChildren() > 0 )
+      {
+         for ( final IParserNode child : rootNode.getChildren() )
+         {
+            count += countNodeFromType( child,
+                                        type );
+         }
+      }
+      return count;
+   }
 }

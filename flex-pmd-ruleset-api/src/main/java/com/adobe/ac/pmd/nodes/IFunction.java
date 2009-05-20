@@ -35,6 +35,12 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * Node representing a Function It contains the function name, its parameters,
+ * its return type, its modifiers, its metadata
+ * 
+ * @author xagnetti
+ */
 public interface IFunction extends IModifiersHolder, IMetaDataListHolder, INamable, INode
 {
    /**

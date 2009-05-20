@@ -40,13 +40,6 @@ import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.IConstant;
 
-/**
- * Node representing a class. It contains different lists (constants, variables,
- * functions, implementations, ...), but also a reference to its constructor (if
- * any), the extension name (if any), and its name.
- * 
- * @author xagnetti
- */
 public class ClassNode extends AbstractNode implements IClass
 {
    private List< IAttribute >  attributes;
@@ -223,6 +216,14 @@ public class ClassNode extends AbstractNode implements IClass
       }
    }
 
+   private void detectAttribute( final IParserNode node )
+   {
+      if ( node.is( NodeKind.VAR_LIST ) )
+      {
+         attributes.add( new AttributeNode( node ) );
+      }
+   }
+
    private void detectConstant( final IParserNode node )
    {
       if ( node.is( NodeKind.CONST_LIST ) )
@@ -253,14 +254,6 @@ public class ClassNode extends AbstractNode implements IClass
       if ( node.is( NodeKind.IMPLEMENTS_LIST ) )
       {
          implementations = node.getChildren();
-      }
-   }
-
-   private void detectAttribute( final IParserNode node )
-   {
-      if ( node.is( NodeKind.VAR_LIST ) )
-      {
-         attributes.add( new AttributeNode( node ) );
       }
    }
 }

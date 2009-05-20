@@ -36,12 +36,6 @@ import java.util.List;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 
-/**
- * Node representing a package. It contains the nested class node, the list of
- * imports, and the package name.
- * 
- * @author xagnetti
- */
 public class PackageNode extends AbstractNode implements IPackage
 {
    private IClass              classNode;

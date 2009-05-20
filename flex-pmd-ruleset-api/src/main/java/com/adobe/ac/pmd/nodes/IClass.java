@@ -35,6 +35,13 @@ import java.util.List;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.IConstant;
 
+/**
+ * Node representing a class. It contains different lists (constants, variables,
+ * functions, implementations, ...), but also a reference to its constructor (if
+ * any), the extension name (if any), and its name.
+ * 
+ * @author xagnetti
+ */
 public interface IClass extends IModifiersHolder, IMetaDataListHolder, INamable, INode
 {
    List< IAttribute > getAttributes();

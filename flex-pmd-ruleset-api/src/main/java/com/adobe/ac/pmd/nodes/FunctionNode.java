@@ -41,34 +41,8 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 
-/**
- * Node representing a Function It contains the function name, its parameters,
- * its return type, its modifiers, its metadata
- * 
- * @author xagnetti
- */
 public class FunctionNode extends AbstractNode implements IFunction
 {
-   public static int countNodeFromType( final IParserNode rootNode,
-                                        final String type )
-   {
-      int count = 0;
-
-      if ( rootNode.is( type ) )
-      {
-         count++;
-      }
-      if ( rootNode.numChildren() > 0 )
-      {
-         for ( final IParserNode child : rootNode.getChildren() )
-         {
-            count += countNodeFromType( child,
-                                        type );
-         }
-      }
-      return count;
-   }
-
    private IParserNode                contentBlock;
    private int                        cyclomaticComplexity;
    private Map< String, IParserNode > localVariables;
@@ -76,7 +50,7 @@ public class FunctionNode extends AbstractNode implements IFunction
    private List< Modifier >           modifiers;
    private IdentifierNode             name;
 
-   private List< FormalNode >         parameters;
+   private List< FormalNode >      parameters;
    private IdentifierNode             returnType;
 
    public FunctionNode( final IParserNode node )

@@ -33,5 +33,4 @@ package com.adobe.ac.pmd.nodes;
 public enum Modifier
 {
    DYNAMIC, FINAL, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, STATIC
-
 }

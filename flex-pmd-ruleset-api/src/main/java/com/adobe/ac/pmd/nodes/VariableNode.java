@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
@@ -91,21 +90,6 @@ public class VariableNode extends AbstractNode implements IVariable
       return type;
    }
 
-   public boolean isPrivate()
-   {
-      return ModifierUtils.isPrivate( this );
-   }
-
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
-   }
-
-   public boolean isPublic()
-   {
-      return ModifierUtils.isPublic( this );
-   }
-
    public void setMetaDataList( final List< IMetaData > metaDataListToBeSet )
    {
       metaDataList = metaDataListToBeSet;
@@ -134,11 +118,6 @@ public class VariableNode extends AbstractNode implements IVariable
                if ( child.is( NodeKind.NAME_TYPE_INIT ) )
                {
                   computeNameTypeInit( child );
-               }
-               else if ( child.is( NodeKind.MOD_LIST ) )
-               {
-                  ModifierUtils.computeModifierList( this,
-                                                     child );
                }
                else if ( child.is( NodeKind.META_LIST ) )
                {

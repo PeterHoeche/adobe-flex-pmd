@@ -30,13 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.IVariable;
-import com.adobe.ac.pmd.nodes.VariableNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< IVariable >
+public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
 {
    private boolean isInFunction;
 
@@ -74,8 +72,8 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< IVariab
    {
       if ( ast.is( NodeKind.NAME_TYPE_INIT ) )
       {
-         variablesUsed.put( new VariableNode( ast ),
-                            false );
+         variablesUnused.put( ast.getChild( 0 ).getStringValue(),
+                              ast );
          return true;
       }
       return false;

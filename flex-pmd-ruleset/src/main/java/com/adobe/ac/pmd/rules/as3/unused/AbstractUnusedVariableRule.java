@@ -33,59 +33,28 @@ package com.adobe.ac.pmd.rules.as3.unused;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-
-public abstract class AbstractUnusedVariableRule< E extends IVariable > extends AbstractAstFlexRule
+public abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
 {
-   protected Map< E, Boolean > variablesUsed;
-
-   protected void markVariableAsUsed( final IParserNode ast )
-   {
-      if ( ast.numChildren() == 0 )
-      {
-         for ( final E variable : variablesUsed.keySet() )
-         {
-            final Boolean visited = variablesUsed.get( variable );
-
-            if ( !visited
-                  && variable.getName() != null && ast.getStringValue() != null
-                  && variable.getName().compareTo( ast.getStringValue() ) == 0 )
-            {
-               variablesUsed.put( variable,
-                                  true );
-            }
-         }
-      }
-      else
-      {
-         for ( final IParserNode child : ast.getChildren() )
-         {
-            markVariableAsUsed( child );
-         }
-      }
-   }
+   protected Map< String, IParserNode > variablesUnused;
 
    @Override
    protected void visitFunction( final IParserNode ast,
                                  final String type )
    {
-      variablesUsed = new HashMap< E, Boolean >();
+      variablesUnused = new HashMap< String, IParserNode >();
 
       super.visitFunction( ast,
                            type );
-      for ( final E parameter : variablesUsed.keySet() )
+      for ( final String variableName : variablesUnused.keySet() )
       {
-         final Boolean visited = variablesUsed.get( parameter );
+         final IParserNode variable = variablesUnused.get( variableName );
 
-         if ( !visited )
-         {
-            addViolation( parameter.getInternalNode(),
-                          parameter.getInternalNode(),
-                          parameter.getName() );
-         }
+         addViolation( variable,
+                       variable,
+                       variableName );
       }
    }
 
@@ -94,10 +63,28 @@ public abstract class AbstractUnusedVariableRule< E extends IVariable > extends 
    {
       super.visitStatement( ast );
 
-      if ( variablesUsed != null
-            && !variablesUsed.isEmpty() && ast != null )
+      if ( variablesUnused != null
+            && !variablesUnused.isEmpty() && ast != null )
       {
          markVariableAsUsed( ast );
+      }
+   }
+
+   private void markVariableAsUsed( final IParserNode ast )
+   {
+      if ( ast.numChildren() == 0 )
+      {
+         if ( variablesUnused.containsKey( ast.getStringValue() ) )
+         {
+            variablesUnused.remove( ast.getStringValue() );
+         }
+      }
+      else
+      {
+         for ( final IParserNode child : ast.getChildren() )
+         {
+            markVariableAsUsed( child );
+         }
       }
    }
 }

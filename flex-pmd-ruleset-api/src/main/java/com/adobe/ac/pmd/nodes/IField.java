@@ -30,6 +30,6 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-public interface IField extends IVariable
+public interface IField extends IVariable, IModifiersHolder
 {
 }

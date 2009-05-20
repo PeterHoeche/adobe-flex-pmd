@@ -30,13 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.FormalNode;
-import com.adobe.ac.pmd.nodes.IFormal;
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedParameterRule extends AbstractUnusedVariableRule< IFormal >
+public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
    @Override
    protected ViolationPriority getDefaultPriority()
@@ -53,16 +51,20 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule< IFormal >
       {
          for ( final IParserNode parameterNode : ast.getChildren() )
          {
-            final IParserNode parameterType = ClassUtils.getTypeFromFieldDeclaration( parameterNode );
-
-            if ( parameterType != null
-                  && parameterType.getStringValue() != null
-                  && !parameterType.getStringValue().contains( "Event" ) )
+            if ( !isParameterAnEvent( parameterNode ) )
             {
-               variablesUsed.put( new FormalNode( parameterNode ),
-                                  false );
+               variablesUnused.put( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
+                                    parameterNode );
             }
          }
       }
+   }
+
+   private boolean isParameterAnEvent( final IParserNode parameterNode )
+   {
+      final IParserNode parameterType = ClassUtils.getTypeFromFieldDeclaration( parameterNode );
+
+      return parameterType != null
+            && parameterType.getStringValue() != null && parameterType.getStringValue().contains( "Event" );
    }
 }
