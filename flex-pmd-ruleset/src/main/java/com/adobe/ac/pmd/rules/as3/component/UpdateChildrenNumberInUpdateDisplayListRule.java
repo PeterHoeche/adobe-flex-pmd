@@ -32,11 +32,11 @@ package com.adobe.ac.pmd.rules.as3.component;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlexRule
 {
@@ -47,15 +47,15 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
                "removeChildAt"               };
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
-      for ( final FunctionNode function : functions )
+      for ( final IFunction function : functions )
       {
          if ( function.getName().compareTo( "updateDisplayList" ) == 0 )
          {
             for ( final String methodName : METHOD_NAMES )
             {
-               final Node primaryNode = function.findPrimaryStatementFromName( methodName );
+               final IParserNode primaryNode = function.findPrimaryStatementFromName( methodName );
 
                if ( primaryNode != null )
                {

@@ -34,26 +34,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
-import com.adobe.ac.pmd.nodes.Modifier;
+import com.adobe.ac.pmd.nodes.EModifier;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 
 public class ModifierHolder implements IModifiersHolder
 {
-   private final List< Modifier > modifiers;
+   private final List< EModifier > modifiers;
    private final String           name;
 
    public ModifierHolder( final String modifierName )
    {
       name = modifierName;
-      modifiers = new ArrayList< Modifier >();
+      modifiers = new ArrayList< EModifier >();
    }
 
-   public void addModifier( final Modifier modifier )
+   public void addModifier( final EModifier modifier )
    {
       modifiers.add( modifier );
    }
 
-   public List< Modifier > getModifiers()
+   public List< EModifier > getModifiers()
    {
       return modifiers;
    }
@@ -61,6 +61,11 @@ public class ModifierHolder implements IModifiersHolder
    public String getName()
    {
       return name;
+   }
+
+   public boolean isPrivate()
+   {
+      return ModifierUtils.isPrivate( this );
    }
 
    public boolean isProtected()
@@ -73,7 +78,7 @@ public class ModifierHolder implements IModifiersHolder
       return ModifierUtils.isPublic( this );
    }
 
-   public void setModifiers( final List< Modifier > modifiersNotToBeSet )
+   public void setModifiers( final List< EModifier > modifiersNotToBeSet )
    {
       // IGNORED
    }

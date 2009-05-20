@@ -34,10 +34,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.AbstractNode;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IField;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.INode;
+import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndStaticityComparator;
@@ -45,14 +46,14 @@ import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndSta
 public class WronglyOrderedClassElementRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
-      final List< FieldNode > constants = new ArrayList< FieldNode >();
-      final List< FieldNode > variables = new ArrayList< FieldNode >();
-      final List< FunctionNode > functions = new ArrayList< FunctionNode >();
+      final List< IField > constants = new ArrayList< IField >();
+      final List< IVariable > variables = new ArrayList< IVariable >();
+      final List< IFunction > functions = new ArrayList< IFunction >();
 
       constants.addAll( classNode.getConstants() );
-      variables.addAll( classNode.getVariables() );
+      variables.addAll( classNode.getAttributes() );
       functions.addAll( classNode.getFunctions() );
 
       Collections.sort( constants,
@@ -73,14 +74,14 @@ public class WronglyOrderedClassElementRule extends AbstractAstFlexRule
       return ViolationPriority.WARNING;
    }
 
-   private void addViolationIfListNotOrderedByLine( final List< ? extends AbstractNode > list )
+   private void addViolationIfListNotOrderedByLine( final List< ? extends INode > list )
    {
       int previousFieldLine = 0;
-      for ( final AbstractNode node : list )
+      for ( final INode node : list )
       {
-         if ( previousFieldLine < node.getInternalNode().line )
+         if ( previousFieldLine < node.getInternalNode().getLine() )
          {
-            previousFieldLine = node.getInternalNode().line;
+            previousFieldLine = node.getInternalNode().getLine();
          }
          else
          {

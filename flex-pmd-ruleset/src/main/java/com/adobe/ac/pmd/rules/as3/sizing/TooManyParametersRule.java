@@ -34,11 +34,11 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class TooManyParametersRule extends AbstractAstFlexRule implements IThresholdedRule
 {
@@ -78,13 +78,13 @@ public class TooManyParametersRule extends AbstractAstFlexRule implements IThres
    }
 
    @Override
-   protected void visitFunction( final Node ast,
+   protected void visitFunction( final IParserNode ast,
                                  final String type )
    {
       super.visitFunction( ast,
                            type );
 
-      final Node paramList = ast.getChild( 2 );
+      final IParserNode paramList = ast.getChild( 2 );
 
       paramsNb = paramList.numChildren();
 

@@ -32,17 +32,18 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.Modifier;
+import com.adobe.ac.pmd.nodes.IConstant;
+import com.adobe.ac.pmd.nodes.IField;
+import com.adobe.ac.pmd.nodes.EModifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class NonStaticConstantFieldRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromConstantsList( final List< FieldNode > constants )
+   protected void findViolationsFromConstantsList( final List< IConstant > constants )
    {
-      for ( final FieldNode field : constants )
+      for ( final IField field : constants )
       {
          if ( !doesFieldContainStatic( field ) )
          {
@@ -58,13 +59,13 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
       return ViolationPriority.INFO;
    }
 
-   private boolean doesFieldContainStatic( final FieldNode field )
+   private boolean doesFieldContainStatic( final IField field )
    {
       boolean found = false;
 
-      for ( final Modifier modifier : field.getModifiers() )
+      for ( final EModifier modifier : field.getModifiers() )
       {
-         if ( Modifier.STATIC.equals( modifier ) )
+         if ( EModifier.STATIC.equals( modifier ) )
          {
             found = true;
             break;

@@ -34,11 +34,11 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class AvoidDeeplyNestedIfRule extends AbstractAstFlexRule implements IThresholdedRule
 {
@@ -77,7 +77,7 @@ public class AvoidDeeplyNestedIfRule extends AbstractAstFlexRule implements IThr
    }
 
    @Override
-   protected void visitFunctionBody( final Node node )
+   protected void visitFunctionBody( final IParserNode node )
    {
       ifLevel = 0;
 
@@ -85,7 +85,7 @@ public class AvoidDeeplyNestedIfRule extends AbstractAstFlexRule implements IThr
    }
 
    @Override
-   protected void visitIf( final Node ast )
+   protected void visitIf( final IParserNode ast )
    {
       ifLevel++;
 

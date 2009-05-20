@@ -30,19 +30,19 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.MetaDataNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UntypedEventMetadataRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       if ( classNode.getMetaDataList() != null )
       {
-         for ( final MetaDataNode metaData : classNode.getMetaDataList() )
+         for ( final IMetaData metaData : classNode.getMetaDataList() )
          {
             findViolationsInMetaDataNode( metaData );
          }
@@ -55,9 +55,9 @@ public class UntypedEventMetadataRule extends AbstractAstFlexRule
       return ViolationPriority.INFO;
    }
 
-   private void findViolationsInMetaDataNode( final MetaDataNode metaData )
+   private void findViolationsInMetaDataNode( final IMetaData metaData )
    {
-      final String metaDataValue = metaData.getInternalNode().stringValue;
+      final String metaDataValue = metaData.getInternalNode().getStringValue();
 
       if ( metaDataValue.contains( "Event" )
             && !metaDataValue.contains( "type = \"" ) )

@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd.rules.as3.event;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -44,7 +44,7 @@ public class DefaultEventNameRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromConstructor( final FunctionNode constructor )
+   protected void findViolationsFromConstructor( final IFunction constructor )
    {
       // FIXME Uncomment this expression
       if ( constructor != null

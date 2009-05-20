@@ -64,11 +64,11 @@ public class TooFewBrancheInSwitchStatementRuleTest extends AbstractAstFlexRuleT
    {
       assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 53, 54 ) } );
+                        { new ViolationPosition( 53, 53 ) } );
 
       assertViolations( "com.adobe.ac.ncss.NestedSwitch.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 43, 44 ) } );
+                        { new ViolationPosition( 43, 43 ) } );
    }
 
    @Override

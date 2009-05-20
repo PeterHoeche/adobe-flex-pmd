@@ -34,11 +34,11 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class TooLongSwitchCaseRule extends AbstractAstFlexRule implements IThresholdedRule
 {
@@ -77,17 +77,17 @@ public class TooLongSwitchCaseRule extends AbstractAstFlexRule implements IThres
    }
 
    @Override
-   protected void visitSwitchCase( final Node caseBlock )
+   protected void visitSwitchCase( final IParserNode caseBlock )
    {
       if ( caseBlock != null
             && caseBlock.getChild( caseBlock.numChildren() - 1 ) != null )
       {
-         length = caseBlock.getChild( caseBlock.numChildren() - 1 ).line
-               - caseBlock.line;
+         length = caseBlock.getChild( caseBlock.numChildren() - 1 ).getLine()
+               - caseBlock.getLine();
          if ( length > getThreshold() )
          {
             addViolation( caseBlock,
-                          caseBlock.getChild( caseBlock.numChildren() - 1 ) );
+                          caseBlock );
 
          }
       }

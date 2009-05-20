@@ -65,12 +65,12 @@ public class SwitchStmtsShouldHaveDefaultRuleTest extends AbstractAstFlexRuleTes
    {
       assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 53, 58 ),
-                                    new ViolationPosition( 41, 51 ) } );
+                        { new ViolationPosition( 53, 53 ),
+                                    new ViolationPosition( 41, 41 ) } );
 
       assertViolations( "com.adobe.ac.ncss.NestedSwitch.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 43, 48 ) } );
+                        { new ViolationPosition( 43, 43 ) } );
    }
 
    @Override

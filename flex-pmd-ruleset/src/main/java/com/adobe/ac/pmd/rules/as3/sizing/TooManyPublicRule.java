@@ -34,9 +34,9 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.VariableNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -66,7 +66,7 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       super.findViolationsFromClassNode( classNode );
       publicCount = 0;
@@ -92,11 +92,11 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
       return getRuleProperties( this );
    }
 
-   private void detectPublicMethods( final ClassNode classNode )
+   private void detectPublicMethods( final IClass classNode )
    {
       if ( classNode.getFunctions() != null )
       {
-         for ( final FunctionNode function : classNode.getFunctions() )
+         for ( final IFunction function : classNode.getFunctions() )
          {
             if ( function.isPublic()
                   && function != classNode.getConstructor() && !function.isGetter() && !function.isSetter() )
@@ -107,11 +107,11 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
       }
    }
 
-   private void detectPublicVariables( final ClassNode classNode )
+   private void detectPublicVariables( final IClass classNode )
    {
-      if ( classNode.getVariables() != null )
+      if ( classNode.getAttributes() != null )
       {
-         for ( final VariableNode variable : classNode.getVariables() )
+         for ( final IVariable variable : classNode.getAttributes() )
          {
             if ( variable.isPublic() )
             {

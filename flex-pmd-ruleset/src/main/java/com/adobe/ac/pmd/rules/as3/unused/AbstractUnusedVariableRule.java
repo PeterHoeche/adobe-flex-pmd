@@ -33,16 +33,16 @@ package com.adobe.ac.pmd.rules.as3.unused;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.nodes.VariableNode;
+import com.adobe.ac.pmd.nodes.IVariable;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-import de.bokelberg.flex.parser.Node;
 
-public abstract class AbstractUnusedVariableRule< E extends VariableNode > extends AbstractAstFlexRule
+public abstract class AbstractUnusedVariableRule< E extends IVariable > extends AbstractAstFlexRule
 {
    protected Map< E, Boolean > variablesUsed;
 
-   protected void markVariableAsUsed( final Node ast )
+   protected void markVariableAsUsed( final IParserNode ast )
    {
       if ( ast.numChildren() == 0 )
       {
@@ -51,8 +51,8 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode > exten
             final Boolean visited = variablesUsed.get( variable );
 
             if ( !visited
-                  && variable.getName() != null && ast.stringValue != null
-                  && variable.getName().compareTo( ast.stringValue ) == 0 )
+                  && variable.getName() != null && ast.getStringValue() != null
+                  && variable.getName().compareTo( ast.getStringValue() ) == 0 )
             {
                variablesUsed.put( variable,
                                   true );
@@ -61,7 +61,7 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode > exten
       }
       else
       {
-         for ( final Node child : ast.children )
+         for ( final IParserNode child : ast.getChildren() )
          {
             markVariableAsUsed( child );
          }
@@ -69,7 +69,7 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode > exten
    }
 
    @Override
-   protected void visitFunction( final Node ast,
+   protected void visitFunction( final IParserNode ast,
                                  final String type )
    {
       variablesUsed = new HashMap< E, Boolean >();
@@ -90,7 +90,7 @@ public abstract class AbstractUnusedVariableRule< E extends VariableNode > exten
    }
 
    @Override
-   protected void visitStatement( final Node ast )
+   protected void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
 

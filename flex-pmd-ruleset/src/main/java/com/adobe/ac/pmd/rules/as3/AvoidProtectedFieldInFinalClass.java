@@ -32,21 +32,22 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       final boolean isClassFinal = classNode.isFinal();
 
-      findProtectedFields( classNode.getVariables(),
-                           isClassFinal );
+      findProtectedAttributes( classNode.getAttributes(),
+                               isClassFinal );
       findProtectedMethods( classNode.getFunctions(),
                             isClassFinal );
    }
@@ -57,12 +58,12 @@ public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
       return ViolationPriority.INFO;
    }
 
-   private void findProtectedFields( final List< FieldNode > variables,
-                                     final boolean isClassFinal )
+   private void findProtectedAttributes( final List< IAttribute > atributes,
+                                         final boolean isClassFinal )
    {
-      if ( variables != null )
+      if ( atributes != null )
       {
-         for ( final FieldNode field : variables )
+         for ( final IVariable field : atributes )
          {
             if ( field.isProtected()
                   && isClassFinal )
@@ -74,12 +75,12 @@ public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
       }
    }
 
-   private void findProtectedMethods( final List< FunctionNode > functions,
+   private void findProtectedMethods( final List< IFunction > functions,
                                       final boolean isClassFinal )
    {
       if ( functions != null )
       {
-         for ( final FunctionNode function : functions )
+         for ( final IFunction function : functions )
          {
             if ( function.isProtected()
                   && !function.isOverriden() && isClassFinal )

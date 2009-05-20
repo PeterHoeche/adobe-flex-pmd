@@ -31,10 +31,10 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class UseOfObjectTypeRule extends AbstractAstFlexRule
 {
@@ -45,7 +45,7 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitFunctionReturnType( final Node node )
+   protected void visitFunctionReturnType( final IParserNode node )
    {
       super.visitFunctionReturnType( node );
 
@@ -53,7 +53,7 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitVarOrConstList( final Node ast,
+   protected void visitVarOrConstList( final IParserNode ast,
                                        final String varOrConst )
    {
       super.visitVarOrConstList( ast,
@@ -65,19 +65,19 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
       }
    }
 
-   private void detectObjectInTypeNode( final Node type )
+   private void detectObjectInTypeNode( final IParserNode type )
    {
-      if ( type.stringValue != null
-            && type.stringValue.equals( "Object" ) )
+      if ( type.getStringValue() != null
+            && type.getStringValue().equals( "Object" ) )
       {
          addViolation( type,
                        type );
       }
    }
 
-   private void detectObjectInVariableDefinition( final Node ast )
+   private void detectObjectInVariableDefinition( final IParserNode ast )
    {
-      final Node type = ClassUtils.getTypeFromFieldDeclaration( ast );
+      final IParserNode type = ClassUtils.getTypeFromFieldDeclaration( ast );
 
       if ( type != null )
       {

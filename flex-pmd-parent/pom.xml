@@ -109,6 +109,7 @@
 
 	<modules>
 		<module>../as3-parser</module>
+		<module>../as3-parser-api</module>
 		<module>../flex-pmd-test-resources</module>
 		<module>../flex-pmd-ruleset</module>
 		<module>../flex-pmd-ruleset-api</module>

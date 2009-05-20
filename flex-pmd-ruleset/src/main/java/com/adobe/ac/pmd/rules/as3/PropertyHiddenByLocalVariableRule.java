@@ -33,22 +33,23 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.List;
 import java.util.Set;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
-      final List< FieldNode > variables = classNode.getVariables();
+      final List< IAttribute > variables = classNode.getAttributes();
 
       if ( classNode.getFunctions() != null )
       {
-         for ( final FunctionNode function : classNode.getFunctions() )
+         for ( final IFunction function : classNode.getFunctions() )
          {
             if ( function.getLocalVariables() == null )
             {
@@ -58,7 +59,7 @@ public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
 
             for ( final String localVariable : localVariables )
             {
-               for ( final FieldNode field : variables )
+               for ( final IVariable field : variables )
                {
                   if ( localVariable.compareTo( field.getName() ) == 0 )
                   {

@@ -31,13 +31,13 @@
 package com.adobe.ac.pmd.rules.cairngorm;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FieldNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IField;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 {
@@ -48,7 +48,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       if ( classNode.getExtensionName() != null
             && classNode.getExtensionName().contains( "Cairngorm" )
@@ -56,7 +56,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
       {
          String eventName = "";
 
-         for ( final FieldNode constantNode : classNode.getConstants() )
+         for ( final IField constantNode : classNode.getConstants() )
          {
             if ( constantNode.getName().startsWith( "EVENT" ) )
             {
@@ -83,19 +83,19 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
       return ViolationPriority.WARNING;
    }
 
-   private String extractEventNameFromConstant( final Node initExpressionNode )
+   private String extractEventNameFromConstant( final IParserNode initExpressionNode )
    {
-      return initExpressionNode.children.get( 0 ).stringValue;
+      return initExpressionNode.getChildren().get( 0 ).getStringValue();
    }
 
-   private String extractEventNameFromConstructor( final FunctionNode constructor )
+   private String extractEventNameFromConstructor( final IFunction constructor )
    {
       String eventName = "";
-      final Node superCall = constructor.getSuperCall();
+      final IParserNode superCall = constructor.getSuperCall();
 
       if ( superCall != null )
       {
-         eventName = superCall.children.get( 1 ).children.get( 0 ).stringValue;
+         eventName = superCall.getChildren().get( 1 ).getChildren().get( 0 ).getStringValue();
       }
       return eventName;
    }

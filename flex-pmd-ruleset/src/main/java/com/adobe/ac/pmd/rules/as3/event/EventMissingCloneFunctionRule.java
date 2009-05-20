@@ -33,14 +33,14 @@ package com.adobe.ac.pmd.rules.as3.event;
 import java.util.List;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
 {
-   private ClassNode classNode = null;
+   private IClass classNode = null;
 
    @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -49,17 +49,17 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNodeToBeSet )
+   protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
    {
       classNode = classNodeToBeSet;
    }
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
       boolean cloneFound = false;
 
-      for ( final FunctionNode functionNode : functions )
+      for ( final IFunction functionNode : functions )
       {
          if ( "clone".equals( functionNode.getName() ) )
          {

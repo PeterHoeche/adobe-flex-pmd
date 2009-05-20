@@ -30,10 +30,10 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class EmptyIfStmtRule extends AbstractAstFlexRule
 {
@@ -44,11 +44,11 @@ public class EmptyIfStmtRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitIf( final Node ast )
+   protected void visitIf( final IParserNode ast )
    {
       super.visitIf( ast );
 
-      final Node block = ast.children.get( 1 );
+      final IParserNode block = ast.getChildren().get( 1 );
 
       if ( theIfBlockIsEmpty( block ) )
       {
@@ -57,9 +57,9 @@ public class EmptyIfStmtRule extends AbstractAstFlexRule
       }
    }
 
-   private boolean theIfBlockIsEmpty( final Node block )
+   private boolean theIfBlockIsEmpty( final IParserNode block )
    {
-      return "block".equals( block.id )
-            && ( block.children == null || block.children.size() == 0 );
+      return "block".equals( block.getId() )
+            && ( block.getChildren() == null || block.getChildren().size() == 0 );
    }
 }

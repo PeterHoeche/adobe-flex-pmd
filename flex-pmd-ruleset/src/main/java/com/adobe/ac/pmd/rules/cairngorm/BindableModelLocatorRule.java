@@ -33,8 +33,8 @@ package com.adobe.ac.pmd.rules.cairngorm;
 import java.util.List;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.MetaDataNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -48,13 +48,13 @@ public class BindableModelLocatorRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
-      final List< MetaDataNode > metaDatas = classNode.getMetaDataList();
+      final List< IMetaData > metaDatas = classNode.getMetaDataList();
 
       if ( metaDatas != null )
       {
-         for ( final MetaDataNode metaDataNode : metaDatas )
+         for ( final IMetaData metaDataNode : metaDatas )
          {
             if ( metaDataNode.getName().equalsIgnoreCase( "bindable" ) )
             {

@@ -30,11 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
 
 public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
 {
@@ -47,7 +47,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitFor( final Node ast )
+   protected void visitFor( final IParserNode ast )
    {
       loopLevel++;
       super.visitFor( ast );
@@ -55,7 +55,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitForEach( final Node ast )
+   protected void visitForEach( final IParserNode ast )
    {
       loopLevel++;
       super.visitForEach( ast );
@@ -63,7 +63,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitStatement( final Node ast )
+   protected void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
 
@@ -76,23 +76,23 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitWhile( final Node ast )
+   protected void visitWhile( final IParserNode ast )
    {
       loopLevel++;
       super.visitWhile( ast );
       loopLevel--;
    }
 
-   private void searchNewNode( final Node ast )
+   private void searchNewNode( final IParserNode ast )
    {
       if ( ast.numChildren() > 0 )
       {
-         for ( final Node child : ast.children )
+         for ( final IParserNode child : ast.getChildren() )
          {
             searchNewNode( child );
          }
       }
-      if ( ast.id != null
+      if ( ast.getId() != null
             && ast.is( KeyWords.NEW ) && loopLevel != 0 )
       {
          addViolation( ast,

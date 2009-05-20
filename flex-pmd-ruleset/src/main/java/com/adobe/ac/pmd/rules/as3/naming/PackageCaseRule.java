@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd.rules.as3.naming;
 
 import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.impl.PackageNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 

@@ -30,11 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.FormalNode;
+import com.adobe.ac.pmd.nodes.impl.FormalNode;
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class UnusedParameterRule extends AbstractUnusedVariableRule< FormalNode >
 {
@@ -45,18 +45,19 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule< FormalNode 
    }
 
    @Override
-   protected void visitParameters( final Node ast )
+   protected void visitParameters( final IParserNode ast )
    {
       super.visitParameters( ast );
 
-      if ( ast.children != null )
+      if ( ast.getChildren() != null )
       {
-         for ( final Node parameterNode : ast.children )
+         for ( final IParserNode parameterNode : ast.getChildren() )
          {
-            final Node parameterType = ClassUtils.getTypeFromFieldDeclaration( parameterNode );
+            final IParserNode parameterType = ClassUtils.getTypeFromFieldDeclaration( parameterNode );
 
             if ( parameterType != null
-                  && parameterType.stringValue != null && !parameterType.stringValue.contains( "Event" ) )
+                  && parameterType.getStringValue() != null
+                  && !parameterType.getStringValue().contains( "Event" ) )
             {
                variablesUsed.put( new FormalNode( parameterNode ),
                                   false );

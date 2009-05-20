@@ -34,11 +34,11 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule implements IThresholdedRule
 {
@@ -77,7 +77,7 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
    }
 
    @Override
-   protected void visitSwitch( final Node ast )
+   protected void visitSwitch( final IParserNode ast )
    {
       switchCases = 0;
       super.visitSwitch( ast );
@@ -85,12 +85,12 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
       if ( switchCases < getThreshold() )
       {
          addViolation( ast,
-                       ast.getChild( ast.numChildren() - 1 ) );
+                       ast );
       }
    }
 
    @Override
-   protected void visitSwitchCase( final Node child )
+   protected void visitSwitchCase( final IParserNode child )
    {
       super.visitSwitchCase( child );
       switchCases++;

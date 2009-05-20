@@ -33,19 +33,19 @@ package com.adobe.ac.pmd.rules.as3.event;
 import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.MetaDataNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       if ( classNode.getMetaDataList() != null )
       {
-         for ( final MetaDataNode metaData : classNode.getMetaDataList() )
+         for ( final IMetaData metaData : classNode.getMetaDataList() )
          {
             findViolationsInMetaDataNode( metaData,
                                           getFilesInSourcePath() );
@@ -59,10 +59,10 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
       return ViolationPriority.WARNING;
    }
 
-   private void findViolationsInMetaDataNode( final MetaDataNode metaData,
+   private void findViolationsInMetaDataNode( final IMetaData metaData,
                                               final Map< String, AbstractFlexFile > files )
    {
-      final String metaDataValue = metaData.getInternalNode().stringValue;
+      final String metaDataValue = metaData.getInternalNode().getStringValue();
       final int startIndex = metaDataValue.indexOf( "type = \"" );
 
       if ( startIndex > -1 )

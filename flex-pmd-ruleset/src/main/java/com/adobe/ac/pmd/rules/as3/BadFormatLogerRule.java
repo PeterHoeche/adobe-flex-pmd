@@ -30,20 +30,22 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FieldInitializationNode;
-import com.adobe.ac.pmd.nodes.FieldNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IField;
+import com.adobe.ac.pmd.nodes.IFieldInitialization;
+import com.adobe.ac.pmd.nodes.IVariable;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class BadFormatLogerRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
-      for ( final FieldNode field : classNode.getVariables() )
+      for ( final IVariable field : classNode.getAttributes() )
       {
          if ( field.getType().toString().compareTo( "ILogger" ) == 0 )
          {
@@ -52,7 +54,7 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
                           "A logger should be constant" );
          }
       }
-      for ( final FieldNode field : classNode.getConstants() )
+      for ( final IField field : classNode.getConstants() )
       {
          if ( field.getType().toString().compareTo( "ILogger" ) == 0 )
          {
@@ -83,30 +85,30 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
       return ViolationPriority.INFO;
    }
 
-   private void lookupStringMethodArguments( final FieldInitializationNode initializationExpression,
+   private void lookupStringMethodArguments( final IFieldInitialization initializationExpression,
                                              final String fullyQualifiedClassName )
    {
       visitNode( initializationExpression.getInternalNode(),
                  fullyQualifiedClassName );
    }
 
-   private void visitNode( final Node internalNode,
+   private void visitNode( final IParserNode internalNode,
                            final String fullyQualifiedClassName )
    {
       if ( internalNode.numChildren() > 0 )
       {
-         for ( final Node child : internalNode.children )
+         for ( final IParserNode child : internalNode.getChildren() )
          {
             visitNode( child,
                        fullyQualifiedClassName );
          }
       }
-      if ( internalNode.is( Node.ARGUMENTS ) )
+      if ( internalNode.is( NodeKind.ARGUMENTS ) )
       {
-         for ( final Node argumentNode : internalNode.children )
+         for ( final IParserNode argumentNode : internalNode.getChildren() )
          {
-            if ( argumentNode.stringValue != null
-                  && argumentNode.stringValue.compareTo( "\""
+            if ( argumentNode.getStringValue() != null
+                  && argumentNode.getStringValue().compareTo( "\""
                         + fullyQualifiedClassName + "\"" ) != 0 )
             {
                addViolation( internalNode,

@@ -35,16 +35,16 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooManyFunctionRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private ClassNode classNode;
-   private int       functionNb;
+   private IClass classNode;
+   private int    functionNb;
 
    public int getActualValue()
    {
@@ -67,16 +67,16 @@ public class TooManyFunctionRule extends AbstractAstFlexRule implements IThresho
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNodeToSet )
+   protected void findViolationsFromClassNode( final IClass classNodeToSet )
    {
       functionNb = 0;
       classNode = classNodeToSet;
    }
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
-      for ( final FunctionNode functionNode : functions )
+      for ( final IFunction functionNode : functions )
       {
          if ( !functionNode.isGetter()
                && !functionNode.isSetter() && functionNode != classNode.getConstructor() )

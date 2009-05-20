@@ -32,25 +32,26 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
-import com.adobe.ac.pmd.nodes.VariableNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IVariable;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class UseGenericTypeRule extends AbstractAstFlexRule
 {
    private static final String STAR = "*";
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       findViolationInVariableLists( classNode.getConstants() );
-      findViolationInVariableLists( classNode.getVariables() );
+      findViolationInVariableLists( classNode.getAttributes() );
 
-      for ( final FunctionNode function : classNode.getFunctions() )
+      for ( final IFunction function : classNode.getFunctions() )
       {
          findViolationInVariableLists( function.getParameters() );
 
@@ -66,23 +67,23 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitStatement( final Node ast )
+   protected void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
 
       if ( ast != null
-            && ast.is( Node.VAR_LIST ) )
+            && ast.is( NodeKind.VAR_LIST ) )
       {
-         for ( final Node variable : ast.children )
+         for ( final IParserNode variable : ast.getChildren() )
          {
-            if ( variable.is( Node.NAME_TYPE_INIT ) )
+            if ( variable.is( NodeKind.NAME_TYPE_INIT ) )
             {
-               for ( final Node variableChild : variable.children )
+               for ( final IParserNode variableChild : variable.getChildren() )
                {
-                  if ( variableChild.is( Node.TYPE ) )
+                  if ( variableChild.is( NodeKind.TYPE ) )
                   {
                      tryToAddViolation( variable,
-                                        variableChild.stringValue );
+                                        variableChild.getStringValue() );
                   }
                }
             }
@@ -90,9 +91,9 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
       }
    }
 
-   private < E extends VariableNode > void findViolationInVariableLists( final List< E > variables )
+   private < E extends IVariable > void findViolationInVariableLists( final List< E > variables )
    {
-      for ( final VariableNode variable : variables )
+      for ( final IVariable variable : variables )
       {
          if ( variable.getType() != null )
          {
@@ -102,7 +103,7 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
       }
    }
 
-   private void tryToAddViolation( final Node node,
+   private void tryToAddViolation( final IParserNode node,
                                    final String typeName )
    {
       if ( typeName.compareTo( STAR ) == 0 )

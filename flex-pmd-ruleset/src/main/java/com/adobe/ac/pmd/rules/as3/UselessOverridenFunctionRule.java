@@ -32,25 +32,25 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.KeyWords;
 
 public class UselessOverridenFunctionRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
-      for ( final FunctionNode function : functions )
+      for ( final IFunction function : functions )
       {
-         if ( function.getContentBlock() != null
-               && function.getContentBlock().numChildren() == 1 && function.isOverriden()
+         if ( function.getBody() != null
+               && function.getBody().numChildren() == 1 && function.isOverriden()
                && function.findPrimaryStatementFromName( KeyWords.SUPER ) != null )
          {
             addViolation( function.getInternalNode(),
-                          function.getContentBlock().getLastChild() );
+                          function.getBody().getLastChild() );
          }
       }
    }

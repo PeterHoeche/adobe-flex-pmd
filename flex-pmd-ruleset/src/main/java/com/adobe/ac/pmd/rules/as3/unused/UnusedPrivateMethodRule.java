@@ -34,24 +34,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
-   private Map< String, FunctionNode > privateFunctions = null;
+   private Map< String, IFunction > privateFunctions = null;
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< FunctionNode > functions )
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
       super.findViolationsFromFunctionsList( functions );
 
-      privateFunctions = new HashMap< String, FunctionNode >();
+      privateFunctions = new HashMap< String, IFunction >();
 
-      for ( final FunctionNode function : functions )
+      for ( final IFunction function : functions )
       {
          if ( function.isPrivate() )
          {
@@ -60,14 +60,14 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
          }
       }
 
-      for ( final FunctionNode function : functions )
+      for ( final IFunction function : functions )
       {
-         findUnusedFunction( function.getContentBlock() );
+         findUnusedFunction( function.getBody() );
       }
 
       for ( final String functionName : privateFunctions.keySet() )
       {
-         final FunctionNode function = privateFunctions.get( functionName );
+         final IFunction function = privateFunctions.get( functionName );
 
          addViolation( function.getInternalNode(),
                        function.getInternalNode().getLastChild(),
@@ -81,23 +81,23 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       return ViolationPriority.WARNING;
    }
 
-   private void findUnusedFunction( final Node body )
+   private void findUnusedFunction( final IParserNode body )
    {
-      if ( body.stringValue != null
+      if ( body.getStringValue() != null
             && !privateFunctions.isEmpty() )
       {
          for ( final String functionName : privateFunctions.keySet() )
          {
-            if ( body.stringValue.compareTo( functionName ) == 0 )
+            if ( body.getStringValue().compareTo( functionName ) == 0 )
             {
                privateFunctions.remove( functionName );
                break;
             }
          }
       }
-      if ( body.children != null )
+      if ( body.getChildren() != null )
       {
-         for ( final Node child : body.children )
+         for ( final IParserNode child : body.getChildren() )
          {
             findUnusedFunction( child );
          }

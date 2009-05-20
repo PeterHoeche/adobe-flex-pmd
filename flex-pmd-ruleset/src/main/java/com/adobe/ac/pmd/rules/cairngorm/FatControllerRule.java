@@ -33,12 +33,12 @@ package com.adobe.ac.pmd.rules.cairngorm;
 import java.util.List;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.impl.ClassNode;
+import com.adobe.ac.pmd.nodes.impl.PackageNode;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class FatControllerRule extends AbstractAstFlexRule
 {
@@ -63,8 +63,9 @@ public class FatControllerRule extends AbstractAstFlexRule
                      / methodsCount > 5 )
          {
             addViolation( classNode.getInternalNode(),
-                          packageNode.getInternalNode()
-                                     .getChild( packageNode.getInternalNode().children.size() - 1 ) );
+                          packageNode.getInternalNode().getChild( packageNode.getInternalNode()
+                                                                             .getChildren()
+                                                                             .size() - 1 ) );
          }
       }
    }
@@ -75,15 +76,15 @@ public class FatControllerRule extends AbstractAstFlexRule
       return ViolationPriority.WARNING;
    }
 
-   private int computeCommandsCountInImport( final List< Node > imports )
+   private int computeCommandsCountInImport( final List< IParserNode > imports )
    {
       int commandImport = 0;
 
       if ( imports != null )
       {
-         for ( final Node importNode : imports )
+         for ( final IParserNode importNode : imports )
          {
-            if ( importNode.stringValue.endsWith( "Command" ) )
+            if ( importNode.getStringValue().endsWith( "Command" ) )
             {
                commandImport++;
             }

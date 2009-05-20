@@ -34,15 +34,15 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class CyclomaticComplexityRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private FunctionNode currentFunction = null;
+   private IFunction currentFunction = null;
 
    public int getActualValue()
    {
@@ -65,11 +65,11 @@ public class CyclomaticComplexityRule extends AbstractAstFlexRule implements ITh
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNode )
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
       if ( classNode.getFunctions() != null )
       {
-         for ( final FunctionNode function : classNode.getFunctions() )
+         for ( final IFunction function : classNode.getFunctions() )
          {
             currentFunction = function;
             if ( function.getCyclomaticComplexity() > getThreshold() )

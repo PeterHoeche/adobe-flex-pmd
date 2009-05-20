@@ -30,10 +30,10 @@
  */
 package com.adobe.ac.pmd.rules.as3.switchrules;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class NestedSwitchRule extends AbstractAstFlexRule
 {
@@ -46,13 +46,13 @@ public class NestedSwitchRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitSwitch( final Node ast )
+   protected void visitSwitch( final IParserNode ast )
    {
       switchLevel++;
       if ( switchLevel > 1 )
       {
          addViolation( ast,
-                       ast.getChild( ast.numChildren() - 1 ) );
+                       ast );
       }
       super.visitSwitch( ast );
 

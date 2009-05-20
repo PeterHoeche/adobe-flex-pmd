@@ -35,16 +35,16 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.nodes.ClassNode;
-import com.adobe.ac.pmd.nodes.FieldNode;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooManyFieldsRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private ClassNode classNode   = null;
-   private int       variablesNb = 0;
+   private IClass classNode   = null;
+   private int    variablesNb = 0;
 
    public int getActualValue()
    {
@@ -67,13 +67,13 @@ public class TooManyFieldsRule extends AbstractAstFlexRule implements IThreshold
    }
 
    @Override
-   protected void findViolationsFromClassNode( final ClassNode classNodeToBeSet )
+   protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
    {
       classNode = classNodeToBeSet;
    }
 
    @Override
-   protected void findViolationsFromVariablesList( final List< FieldNode > variables )
+   protected void findViolationsFromAttributesList( final List< IAttribute > variables )
    {
       variablesNb = variables.size();
 

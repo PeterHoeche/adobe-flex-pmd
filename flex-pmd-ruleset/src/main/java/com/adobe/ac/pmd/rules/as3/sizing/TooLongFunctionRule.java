@@ -34,11 +34,12 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresholdedRule
 {
@@ -77,23 +78,23 @@ public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresho
    }
 
    @Override
-   protected void visitFunction( final Node functionNode,
+   protected void visitFunction( final IParserNode functionNode,
                                  final String type )
    {
       super.visitFunction( functionNode,
                            type );
 
-      final Node block = functionNode.getLastChild();
+      final IParserNode block = functionNode.getLastChild();
 
       if ( block != null
-            && block.children != null )
+            && block.getChildren() != null )
       {
-         final int beginningLine = block.line;
-         final int lastLine = block.getLastChild().line;
+         final int beginningLine = block.getLine();
+         final int lastLine = block.getLastChild().getLine();
 
          functionLength = lastLine
                - beginningLine;
-         final Node nameNode = extractName( functionNode );
+         final IParserNode nameNode = extractName( functionNode );
          if ( functionLength > getThreshold() )
          {
             addViolation( nameNode,
@@ -102,13 +103,13 @@ public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresho
       }
    }
 
-   private Node extractName( final Node functionNode )
+   private IParserNode extractName( final IParserNode functionNode )
    {
-      if ( functionNode.children != null )
+      if ( functionNode.getChildren() != null )
       {
-         for ( final Node child : functionNode.children )
+         for ( final IParserNode child : functionNode.getChildren() )
          {
-            if ( child.is( Node.NAME ) )
+            if ( child.is( NodeKind.NAME ) )
             {
                return child;
             }

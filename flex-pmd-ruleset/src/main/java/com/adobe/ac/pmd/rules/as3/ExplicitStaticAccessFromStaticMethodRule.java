@@ -31,11 +31,12 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.KeyWords;
-import de.bokelberg.flex.parser.Node;
 
 public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRule
 {
@@ -49,7 +50,7 @@ public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRul
    }
 
    @Override
-   protected void visitClass( final Node ast )
+   protected void visitClass( final IParserNode ast )
    {
       className = ClassUtils.getClassNameFromClassNode( ast );
 
@@ -57,7 +58,7 @@ public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRul
    }
 
    @Override
-   protected void visitExpression( final Node statement )
+   protected void visitExpression( final IParserNode statement )
    {
       if ( statement != null
             && className != null )
@@ -70,19 +71,19 @@ public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRul
       isInNewExpression = false;
    }
 
-   private void detectArgument( final Node statement )
+   private void detectArgument( final IParserNode statement )
    {
-      if ( statement.children != null
-            && statement.is( Node.ARGUMENTS ) )
+      if ( statement.getChildren() != null
+            && statement.is( NodeKind.ARGUMENTS ) )
       {
-         for ( final Node child : statement.children )
+         for ( final IParserNode child : statement.getChildren() )
          {
             visitExpression( child );
          }
       }
    }
 
-   private void detectNewOperator( final Node statement )
+   private void detectNewOperator( final IParserNode statement )
    {
       if ( statement.is( KeyWords.NEW ) )
       {
@@ -90,12 +91,12 @@ public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRul
       }
    }
 
-   private void detectViolation( final Node statement )
+   private void detectViolation( final IParserNode statement )
    {
 
       if ( !isInNewExpression
-            && statement.stringValue != null && !statement.stringValue.equals( "" )
-            && statement.stringValue.equals( className ) )
+            && statement.getStringValue() != null && !statement.getStringValue().equals( "" )
+            && statement.getStringValue().equals( className ) )
       {
          addViolation( statement,
                        statement );

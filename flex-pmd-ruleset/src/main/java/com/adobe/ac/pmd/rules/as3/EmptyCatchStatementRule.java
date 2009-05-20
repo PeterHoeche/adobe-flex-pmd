@@ -30,10 +30,10 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class EmptyCatchStatementRule extends AbstractAstFlexRule
 {
@@ -44,7 +44,7 @@ public class EmptyCatchStatementRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitCatch( final Node ast )
+   protected void visitCatch( final IParserNode ast )
    {
       super.visitCatch( ast );
 

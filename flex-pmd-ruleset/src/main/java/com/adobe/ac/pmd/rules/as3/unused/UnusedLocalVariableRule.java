@@ -30,10 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.VariableNode;
+import com.adobe.ac.pmd.nodes.impl.VariableNode;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< VariableNode >
 {
@@ -46,7 +47,7 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< Variabl
    }
 
    @Override
-   protected void visitFunction( final Node ast,
+   protected void visitFunction( final IParserNode ast,
                                  final String type )
    {
       isInFunction = true;
@@ -56,22 +57,22 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule< Variabl
    }
 
    @Override
-   protected void visitStatement( final Node ast )
+   protected void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
       if ( isInFunction
-            && ast != null && !tryToAddVariableNode( ast ) && ast.is( Node.VAR_LIST ) )
+            && ast != null && !tryToAddVariableNode( ast ) && ast.is( NodeKind.VAR_LIST ) )
       {
-         for ( final Node child : ast.children )
+         for ( final IParserNode child : ast.getChildren() )
          {
             tryToAddVariableNode( child );
          }
       }
    }
 
-   private boolean tryToAddVariableNode( final Node ast )
+   private boolean tryToAddVariableNode( final IParserNode ast )
    {
-      if ( ast.is( Node.NAME_TYPE_INIT ) )
+      if ( ast.is( NodeKind.NAME_TYPE_INIT ) )
       {
          variablesUsed.put( new VariableNode( ast ),
                             false );

@@ -69,7 +69,7 @@ public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTe
    {
       assertViolations( "com.adobe.ac.ncss.VoidConstructor.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 38, 39 ) } );
+                        { new ViolationPosition( 38, 38 ) } );
    }
 
    @Override

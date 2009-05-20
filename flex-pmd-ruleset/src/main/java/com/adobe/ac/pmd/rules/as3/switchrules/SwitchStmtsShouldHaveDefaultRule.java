@@ -30,10 +30,10 @@
  */
 package com.adobe.ac.pmd.rules.as3.switchrules;
 
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import de.bokelberg.flex.parser.Node;
 
 public class SwitchStmtsShouldHaveDefaultRule extends AbstractAstFlexRule
 {
@@ -46,21 +46,21 @@ public class SwitchStmtsShouldHaveDefaultRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitSwitch( final Node ast )
+   protected void visitSwitch( final IParserNode ast )
    {
       super.visitSwitch( ast );
 
       if ( !defaultStatementFound )
       {
-         final Node switchBody = ast.getChild( 1 );
+         ast.getChild( 1 );
 
          addViolation( ast,
-                       switchBody.getChild( switchBody.numChildren() - 1 ) );
+                       ast );
       }
    }
 
    @Override
-   protected void visitSwitchDefaultCase( final Node child )
+   protected void visitSwitchDefaultCase( final IParserNode child )
    {
       super.visitSwitchDefaultCase( child );
 

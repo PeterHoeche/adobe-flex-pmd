@@ -30,14 +30,14 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.nodes.FunctionNode;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class HeavyConstructorRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromConstructor( final FunctionNode constructor )
+   protected void findViolationsFromConstructor( final IFunction constructor )
    {
       if ( constructor.getCyclomaticComplexity() > 1 )
       {

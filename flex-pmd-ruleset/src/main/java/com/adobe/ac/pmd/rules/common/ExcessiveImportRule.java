@@ -37,7 +37,7 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.PackageNode;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -95,7 +95,7 @@ public class ExcessiveImportRule extends AbstractRegexpBasedRule implements IThr
    }
 
    @Override
-   protected void onFileProcessingEnded( final PackageNode rootNode,
+   protected void onFileProcessingEnded( final IPackage rootNode,
                                          final AbstractFlexFile file,
                                          final List< Violation > violations )
    {
