@@ -34,11 +34,9 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 
-import de.bokelberg.flex.parser.Node;
-
 final public class ClassUtils
 {
-   public static IParserNode getClassExtension( final Node classNode )
+   public static IParserNode getClassExtension( final IParserNode classNode )
    {
       IParserNode content = null;
 

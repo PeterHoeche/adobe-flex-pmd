@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
-import com.adobe.ac.pmd.nodes.impl.MetaDataNode;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IParserNode;
 
 final public class MetaDataUtils
@@ -48,7 +48,7 @@ final public class MetaDataUtils
       {
          for ( final IParserNode metadataNode : child.getChildren() )
          {
-            metaDataHolder.getMetaDataList().add( new MetaDataNode( metadataNode ) );
+            metaDataHolder.getMetaDataList().add( NodeFactory.createMetaData( metadataNode ) );
          }
       }
    }

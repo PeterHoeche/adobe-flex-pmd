@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.IConstant;
 
-public class ConstantNode extends FieldNode implements IConstant
+class ConstantNode extends FieldNode implements IConstant
 {
    public ConstantNode( final IParserNode rootNode )
    {

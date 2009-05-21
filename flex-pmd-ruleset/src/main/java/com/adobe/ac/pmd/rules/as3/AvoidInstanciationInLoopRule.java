@@ -31,10 +31,9 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
 
 public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
 {
@@ -68,8 +67,8 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
       super.visitStatement( ast );
 
       if ( ast != null
-            && !ast.is( KeyWords.WHILE ) && !ast.is( KeyWords.FOR ) && !ast.is( KeyWords.FOREACH )
-            && !ast.is( KeyWords.FOR ) )
+            && !ast.is( NodeKind.WHILE ) && !ast.is( NodeKind.FOR ) && !ast.is( NodeKind.FOREACH )
+            && !ast.is( NodeKind.FOR ) )
       {
          searchNewNode( ast );
       }
@@ -93,7 +92,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
          }
       }
       if ( ast.getId() != null
-            && ast.is( KeyWords.NEW ) && loopLevel != 0 )
+            && ast.is( NodeKind.NEW ) && loopLevel != 0 )
       {
          addViolation( ast,
                        ast );

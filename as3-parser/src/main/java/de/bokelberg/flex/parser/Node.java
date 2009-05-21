@@ -34,21 +34,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * A single node of the ast
  * 
  * @author rbokel
  */
-public class Node implements IParserNode
+class Node implements IParserNode
 {
    private List< IParserNode > children;
    private final int           column;
-   private String              id;
+   private NodeKind            id;
    private final int           line;
    private String              stringValue;
 
-   public Node( final String idToBeSet,
+   public Node( final NodeKind idToBeSet,
                 final int lineToBeSet,
                 final int columnToBeSet )
    {
@@ -57,7 +58,7 @@ public class Node implements IParserNode
       column = columnToBeSet;
    }
 
-   public Node( final String idToBeSet,
+   public Node( final NodeKind idToBeSet,
                 final int lineToBeSet,
                 final int columnToBeSet,
                 final IParserNode childToBeSet )
@@ -66,7 +67,7 @@ public class Node implements IParserNode
       addChild( childToBeSet );
    }
 
-   public Node( final String idToBeSet,
+   public Node( final NodeKind idToBeSet,
                 final int lineToBeSet,
                 final int columnToBeSet,
                 final String valueToBeSet )
@@ -89,7 +90,7 @@ public class Node implements IParserNode
       children.add( child );
    }
 
-   public void addChild( final String childId,
+   public void addChild( final NodeKind childId,
                          final int childLine,
                          final int childColumn,
                          final IParserNode nephew )
@@ -97,7 +98,7 @@ public class Node implements IParserNode
       addChild( new Node( childId, childLine, childColumn, nephew ) );
    }
 
-   public void addChild( final String childId,
+   public void addChild( final NodeKind childId,
                          final int childLine,
                          final int childColumn,
                          final String value )
@@ -105,7 +106,7 @@ public class Node implements IParserNode
       addChild( new Node( childId, childLine, childColumn, value ) );
    }
 
-   public boolean findChildFromTokenType( final String tokenTypeToFind )
+   public boolean findChildFromTokenType( final NodeKind tokenTypeToFind )
    {
       if ( numChildren() == 0 )
       {
@@ -143,7 +144,7 @@ public class Node implements IParserNode
       return column;
    }
 
-   public String getId()
+   public NodeKind getId()
    {
       return id;
    }
@@ -171,7 +172,7 @@ public class Node implements IParserNode
     * (non-Javadoc)
     * @see de.bokelberg.flex.parser.IParserNode#is(java.lang.String)
     */
-   public boolean is( final String expectedType )
+   public boolean is( final NodeKind expectedType )
    {
       return getId() == null
             && expectedType == null || expectedType.equals( getId() );
@@ -193,7 +194,7 @@ public class Node implements IParserNode
                                   : getChildren().size();
    }
 
-   public void setId( final String idToBeSet )
+   public void setId( final NodeKind idToBeSet )
    {
       id = idToBeSet;
    }

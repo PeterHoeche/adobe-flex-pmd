@@ -30,9 +30,10 @@
  */
 package com.adobe.ac.pmd.nodes.impl;
 
+import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class IdentifierNode extends AbstractNode
+class IdentifierNode extends AbstractNode implements IIdentifierNode
 {
    public IdentifierNode( final IParserNode node )
    {

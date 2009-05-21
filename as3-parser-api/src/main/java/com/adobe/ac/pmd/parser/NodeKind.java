@@ -30,71 +30,110 @@
  */
 package com.adobe.ac.pmd.parser;
 
-public final class NodeKind
+public enum NodeKind
 {
-   static public final String ADD              = "add";
-   static public final String AND              = "and";
-   static public final String ARGUMENTS        = "arguments";
-   static public final String ARRAY            = "array";
-   static public final String ARRAY_ACCESSOR   = "arr-acc";
-   static public final String ASSIGN           = "assign";
-   static public final String B_AND            = "b-and";
-   static public final String B_NOT            = "b-not";
-   static public final String B_OR             = "b-or";
-   static public final String B_XOR            = "b-xor";
-   static public final String BLOCK            = "block";
-   static public final String CALL             = "call";
-   static public final String CASES            = "cases";
-   static public final String COMPILATION_UNIT = "compilation-unit";
-   static public final String COND             = "cond";
-   static public final String CONDITION        = "condition";
-   static public final String CONDITIONAL      = "conditional";
-   static public final String CONST_LIST       = "const-list";
-   static public final String CONTENT          = "content";
-   static public final String DOT              = "dot";
-   static public final String E4X_ATTR         = "e4x-attr";
-   static public final String E4X_FILTER       = "e4x-filter";
-   static public final String E4X_STAR         = "e4x-star";
-   static public final String ENCAPSULATED     = "encapsulated";
-   static public final String EQUALITY         = "equality";
-   static public final String EXPR_LIST        = "expr-list";
-   static public final String IMPLEMENTS_LIST  = "implements-list";
-   static public final String IN               = "in";
-   static public final String INIT             = "init";
-   static public final String ITER             = "iter";
-   static public final String LAMBDA           = "lambda";
-   static public final String META             = "meta";
-   static public final String META_LIST        = "meta-list";
-   static public final String MINUS            = "minus";
-   static public final String MOD_LIST         = "mod-list";
-   static public final String MODIFIER         = "mod";
-   static public final String MULTIPLICATION   = "mul";
-   static public final String NAME             = "name";
-   static public final String NAME_TYPE_INIT   = "name-type-init";
-   static public final String NOT              = "not";
-   static public final String OBJECT           = "object";
-   static public final String OP               = "op";
-   static public final String OR               = "or";
-   static public final String PARAMETER        = "parameter";
-   static public final String PARAMETER_LIST   = "parameter-list";
-   static public final String PLUS             = "plus";
-   static public final String POST_DEC         = "post-dec";
-   static public final String POST_INC         = "post-inc";
-   static public final String PRE_DEC          = "pre-dec";
-   static public final String PRE_INC          = "pre-inc";
-   static public final String PRIMARY          = "primary";
-   static public final String PROP             = "prop";
-   static public final String RELATION         = "relation";
-   static public final String REST             = "rest";
-   static public final String SHIFT            = "shift";
-   static public final String STAR             = "star";
-   static public final String STMT_EMPTY       = "stmt-empty";
-   static public final String SWITCH_BLOCK     = "switch-block";
-   static public final String TYPE             = "type";
-   static public final String VALUE            = "value";
-   static public final String VAR_LIST         = "var-list";
+   ADD("add"),
+   AND("and"),
+   ARGUMENTS("arguments"),
+   ARRAY("array"),
+   ARRAY_ACCESSOR("arr-acc"),
+   ASSIGN("assign"),
+   B_AND("b-and"),
+   B_NOT("b-not"),
+   B_OR("b-or"),
+   B_XOR("b-xor"),
+   BLOCK("block"),
+   CALL("call"),
+   CASE("case"),
+   CASES("cases"),
+   CATCH("catch"),
+   CLASS("class"),
+   COMPILATION_UNIT("compilation-unit"),
+   COND("cond"),
+   CONDITION("condition"),
+   CONDITIONAL("conditional"),
+   CONST("const"),
+   CONST_LIST("const-list"),
+   CONTENT("content"),
+   DEFAULT("default"),
+   DELETE("delete"),
+   DO("do"),
+   DOT("dot"),
+   E4X_ATTR("e4x-attr"),
+   E4X_FILTER("e4x-filter"),
+   E4X_STAR("e4x-star"),
+   ENCAPSULATED("encapsulated"),
+   EQUALITY("equality"),
+   EXPR_LIST("expr-list"),
+   EXTENDS("extends"),
+   FINALLY("finally"),
+   FOR("for"),
+   FOREACH("foreach"),
+   FORIN("forin"),
+   FUNCTION("function"),
+   GET("get"),
+   IF("if"),
+   IMPLEMENTS("implements"),
+   IMPLEMENTS_LIST("implements-list"),
+   IMPORT("import"),
+   IN("in"),
+   INIT("init"),
+   INTERFACE("interface"),
+   ITER("iter"),
+   LAMBDA("lambda"),
+   LEFT_CURLY_BRACKET("{"),
+   META("meta"),
+   META_LIST("meta-list"),
+   MINUS("minus"),
+   MOD_LIST("mod-list"),
+   MODIFIER("mod"),
+   MULTIPLICATION("mul"),
+   NAME("name"),
+   NAME_TYPE_INIT("name-type-init"),
+   NEW("new"),
+   NOT("not"),
+   OBJECT("object"),
+   OP("op"),
+   OR("or"),
+   PACKAGE("package"),
+   PARAMETER("parameter"),
+   PARAMETER_LIST("parameter-list"),
+   PLUS("plus"),
+   POST_DEC("post-dec"),
+   POST_INC("post-inc"),
+   PRE_DEC("pre-dec"),
+   PRE_INC("pre-inc"),
+   PRIMARY("primary"),
+   PROP("prop"),
+   RELATION("relation"),
+   REST("rest"),
+   RETURN("return"),
+   SET("set"),
+   SHIFT("shift"),
+   STAR("star"),
+   STMT_EMPTY("stmt-empty"),
+   SWITCH("switch"),
+   SWITCH_BLOCK("switch-block"),
+   TRY("try"),
+   TYPE("type"),
+   TYPEOF("typeof"),
+   USE("use"),
+   VALUE("value"),
+   VAR("var"),
+   VAR_LIST("var-list"),
+   VOID("void"),
+   WHILE("while");
 
-   private NodeKind()
+   private String _name;
+
+   NodeKind( final String name )
    {
+      _name = name;
+   }
+
+   @Override
+   public String toString()
+   {
+      return _name;
    }
 }

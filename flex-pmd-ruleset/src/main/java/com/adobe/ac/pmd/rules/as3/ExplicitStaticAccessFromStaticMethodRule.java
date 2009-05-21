@@ -32,11 +32,9 @@ package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
 
 public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRule
 {
@@ -85,7 +83,7 @@ public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRul
 
    private void detectNewOperator( final IParserNode statement )
    {
-      if ( statement.is( KeyWords.NEW ) )
+      if ( statement.is( NodeKind.NEW ) )
       {
          isInNewExpression = true;
       }

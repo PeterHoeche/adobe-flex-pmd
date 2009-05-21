@@ -66,7 +66,8 @@ public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
    {
       assertViolations( "AbstractRowData.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 105, 107 ) } );
+                        { new ViolationPosition( 105, 107 ),
+                                    new ViolationPosition( 112, 112 ) } );
    }
 
    @Override

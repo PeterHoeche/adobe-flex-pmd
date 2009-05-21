@@ -34,8 +34,9 @@ import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 
-public abstract class AbstractNode implements INode
+abstract class AbstractNode implements INode
 {
    protected final static Logger LOGGER = Logger.getLogger( "Node" );
 
@@ -56,7 +57,7 @@ public abstract class AbstractNode implements INode
    protected abstract void compute();
 
    protected int countNodeFromType( final IParserNode rootNode,
-                                    final String type )
+                                    final NodeKind type )
    {
       int count = 0;
 

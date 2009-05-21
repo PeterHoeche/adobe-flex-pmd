@@ -44,7 +44,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * 
  * @author rbokel
  */
-public class AS3Scanner
+class AS3Scanner
 {
 
    static public class Token

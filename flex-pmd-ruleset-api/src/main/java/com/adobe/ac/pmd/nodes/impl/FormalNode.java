@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.nodes.IFormal;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class FormalNode extends VariableNode implements IFormal
+class FormalNode extends VariableNode implements IFormal
 {
    public FormalNode( final IParserNode node )
    {

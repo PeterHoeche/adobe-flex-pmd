@@ -40,7 +40,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.nodes.impl.PackageNode;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;
@@ -60,8 +60,9 @@ public class FunctionNodeTest extends FlexPmdTestBase
                       TokenException
    {
       final AS3Parser parser = new AS3Parser();
-      final IClass radonDataGridClassNode = new PackageNode( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
-                                                                                       .getFilePath() ) ).getClassNode();
+      final IClass radonDataGridClassNode = NodeFactory.createPackage( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
+                                                                                                 .getFilePath() ) )
+                                                       .getClassNode();
 
       constructor = radonDataGridClassNode.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGridClassNode.getFunctions().get( 1 );

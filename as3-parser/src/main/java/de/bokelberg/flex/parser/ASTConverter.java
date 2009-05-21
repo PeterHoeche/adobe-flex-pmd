@@ -32,7 +32,7 @@ package de.bokelberg.flex.parser;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public interface ASTConverter
+interface ASTConverter
 {
-   abstract String convert( IParserNode ast );
+   String convert( IParserNode ast );
 }

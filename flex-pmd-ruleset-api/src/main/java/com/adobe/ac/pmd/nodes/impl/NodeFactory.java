@@ -31,22 +31,22 @@
 package com.adobe.ac.pmd.nodes.impl;
 
 import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-class MetaDataNode extends AbstractNode implements IMetaData
+public final class NodeFactory
 {
-   public MetaDataNode( final IParserNode node )
+   public static IMetaData createMetaData( final IParserNode metadataNode )
    {
-      super( node );
+      return new MetaDataNode( metadataNode );
    }
 
-   public String getName()
+   public static IPackage createPackage( final IParserNode packageNode )
    {
-      return internalNode.getStringValue();
+      return new PackageNode( packageNode );
    }
 
-   @Override
-   protected void compute()
+   private NodeFactory()
    {
    }
 }

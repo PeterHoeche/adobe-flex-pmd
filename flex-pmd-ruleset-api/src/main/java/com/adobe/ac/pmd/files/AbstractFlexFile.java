@@ -58,8 +58,8 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    private final List< String > lines;
    private String               packageName;
 
-   public AbstractFlexFile( final File underlyingFile,
-                            final File rootDirectory )
+   protected AbstractFlexFile( final File underlyingFile,
+                               final File rootDirectory )
    {
       final String filePath = underlyingFile.getPath();
       final String rootPath = rootDirectory.getPath();

@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IFieldInitialization;
+import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.nodes.Modifier;
@@ -89,7 +90,7 @@ public class VariableNode extends AbstractNode implements IVariable
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IVariable#getType()
     */
-   public IdentifierNode getType()
+   public IIdentifierNode getType()
    {
       return type;
    }

@@ -37,6 +37,7 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.nodes.IFormal;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
@@ -45,7 +46,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 
-public class FunctionNode extends AbstractNode implements IFunction
+class FunctionNode extends AbstractNode implements IFunction
 {
    private IParserNode                contentBlock;
    private int                        cyclomaticComplexity;
@@ -55,7 +56,7 @@ public class FunctionNode extends AbstractNode implements IFunction
    private IdentifierNode             name;
 
    private List< IFormal >            parameters;
-   private IdentifierNode             returnType;
+   private IIdentifierNode            returnType;
 
    public FunctionNode( final IParserNode node )
    {
@@ -143,7 +144,7 @@ public class FunctionNode extends AbstractNode implements IFunction
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#getReturnType()
     */
-   public IdentifierNode getReturnType()
+   public IIdentifierNode getReturnType()
    {
       return returnType;
    }
@@ -181,7 +182,7 @@ public class FunctionNode extends AbstractNode implements IFunction
     */
    public boolean isGetter()
    {
-      return internalNode.is( KeyWords.GET );
+      return internalNode.is( NodeKind.GET );
    }
 
    /*
@@ -214,7 +215,7 @@ public class FunctionNode extends AbstractNode implements IFunction
     */
    public boolean isSetter()
    {
-      return internalNode.is( KeyWords.SET );
+      return internalNode.is( NodeKind.SET );
    }
 
    public void setMetaDataList( final List< IMetaData > metaDataListToBeSet )
@@ -272,13 +273,13 @@ public class FunctionNode extends AbstractNode implements IFunction
 
    private void computeCyclomaticComplexity( final IParserNode node )
    {
-      if ( node.is( KeyWords.FOREACH )
-            || node.is( KeyWords.FORIN ) || node.is( KeyWords.CASE ) || node.is( KeyWords.DEFAULT ) )
+      if ( node.is( NodeKind.FOREACH )
+            || node.is( NodeKind.FORIN ) || node.is( NodeKind.CASE ) || node.is( NodeKind.DEFAULT ) )
       {
          cyclomaticComplexity++;
       }
-      else if ( node.is( KeyWords.IF )
-            || node.is( KeyWords.WHILE ) || node.is( KeyWords.FOR ) )
+      else if ( node.is( NodeKind.IF )
+            || node.is( NodeKind.WHILE ) || node.is( NodeKind.FOR ) )
       {
          cyclomaticComplexity++;
          cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),

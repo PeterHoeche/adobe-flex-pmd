@@ -57,8 +57,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 public abstract class AbstractAstFlexRule extends AbstractFlexRule
 {
-   private static final Logger             LOGGER   = Logger.getLogger( AbstractAstFlexRule.class.getName() );
-   private static final String             MOD_LIST = "mod-list";
+   private static final Logger             LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
    private AbstractFlexFile                currentFile;
    private Map< String, AbstractFlexFile > filesInSourcePath;
    private final List< Violation >         violations;
@@ -359,7 +358,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          IParserNode content = null;
          for ( final IParserNode node : ast.getChildren() )
          {
-            if ( node.is( MOD_LIST ) )
+            if ( node.is( NodeKind.MOD_LIST ) )
             {
                modifiers = node;
             }
@@ -397,17 +396,17 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
                visitVarOrConstList( node,
                                     KeyWords.CONST );
             }
-            else if ( node.is( KeyWords.FUNCTION ) )
+            else if ( node.is( NodeKind.FUNCTION ) )
             {
                visitFunction( node,
                               "" );
             }
-            else if ( node.is( KeyWords.SET ) )
+            else if ( node.is( NodeKind.SET ) )
             {
                visitFunction( node,
                               "set " );
             }
-            else if ( node.is( KeyWords.GET ) )
+            else if ( node.is( NodeKind.GET ) )
             {
                visitFunction( node,
                               "get " );
@@ -422,7 +421,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          for ( final IParserNode node : ast.getChildren() )
          {
-            if ( node.is( "package" ) )
+            if ( node.is( NodeKind.PACKAGE ) )
             {
                if ( node.numChildren() >= 2 )
                {
@@ -567,7 +566,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
             visitMetaData( node );
             node = iterator.next();
          }
-         if ( node.is( MOD_LIST ) )
+         if ( node.is( NodeKind.MOD_LIST ) )
          {
             visitModifiers( node );
             node = iterator.next();
@@ -634,7 +633,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          IParserNode modifiers = null;
          for ( final IParserNode node : ast.getChildren() )
          {
-            if ( node.is( MOD_LIST ) )
+            if ( node.is( NodeKind.MOD_LIST ) )
             {
                modifiers = node;
             }
@@ -717,11 +716,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          for ( final IParserNode node : ast.getChildren() )
          {
-            if ( node.is( KeyWords.CLASS ) )
+            if ( node.is( NodeKind.CLASS ) )
             {
                visitClass( node );
             }
-            else if ( node.is( KeyWords.INTERFACE ) )
+            else if ( node.is( NodeKind.INTERFACE ) )
             {
                visitInterface( node );
             }
@@ -763,7 +762,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
                visitExpression( node.getChild( 1 ) );
             }
          }
-         else if ( ast.is( KeyWords.NEW ) )
+         else if ( ast.is( NodeKind.NEW ) )
          {
             visitExpression( ast.getChild( 0 ) );
             visitExpressionList( ast.getChild( 1 ) );
@@ -819,7 +818,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    {
       if ( ast != null )
       {
-         if ( ast.is( "shift" ) )
+         if ( ast.is( NodeKind.SHIFT ) )
          {
             final Iterator< IParserNode > iterator = ast.getChildren().iterator();
             final IParserNode node = iterator.next();
@@ -843,61 +842,61 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          return;
       }
-      if ( ast.is( KeyWords.FOR ) )
+      if ( ast.is( NodeKind.FOR ) )
       {
          visitFor( ast );
       }
-      else if ( ast.is( KeyWords.FORIN ) )
+      else if ( ast.is( NodeKind.FORIN ) )
       {
          visitForIn( ast );
       }
-      else if ( ast.is( KeyWords.FOREACH ) )
+      else if ( ast.is( NodeKind.FOREACH ) )
       {
          visitForEach( ast );
       }
-      else if ( ast.is( KeyWords.IF ) )
+      else if ( ast.is( NodeKind.IF ) )
       {
          visitIf( ast );
       }
-      else if ( ast.is( KeyWords.SWITCH ) )
+      else if ( ast.is( NodeKind.SWITCH ) )
       {
          visitSwitch( ast );
       }
-      else if ( ast.is( KeyWords.DO ) )
+      else if ( ast.is( NodeKind.DO ) )
       {
          visitDo( ast );
       }
-      else if ( ast.is( KeyWords.WHILE ) )
+      else if ( ast.is( NodeKind.WHILE ) )
       {
          visitWhile( ast );
       }
-      else if ( ast.is( KeyWords.TRY ) )
+      else if ( ast.is( NodeKind.TRY ) )
       {
          visitTry( ast );
       }
-      else if ( ast.is( KeyWords.CATCH ) )
+      else if ( ast.is( NodeKind.CATCH ) )
       {
          visitCatch( ast );
       }
-      else if ( ast.is( KeyWords.FINALLY ) )
+      else if ( ast.is( NodeKind.FINALLY ) )
       {
          visitFinally( ast );
       }
-      else if ( ast.is( "{" ) )
+      else if ( ast.is( NodeKind.LEFT_CURLY_BRACKET ) )
       {
          visitBlock( ast );
       }
-      else if ( ast.is( KeyWords.VAR ) )
+      else if ( ast.is( NodeKind.VAR ) )
       {
          visitVarOrConstList( ast,
                               KeyWords.VAR );
       }
-      else if ( ast.is( KeyWords.CONST ) )
+      else if ( ast.is( NodeKind.CONST ) )
       {
          visitVarOrConstList( ast,
                               KeyWords.CONST );
       }
-      else if ( ast.is( KeyWords.RETURN ) )
+      else if ( ast.is( NodeKind.RETURN ) )
       {
          visitReturn( ast );
       }
@@ -925,7 +924,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
                {
                   final IParserNode node = caseIterator.next();
                   final IParserNode child = node.getChild( 0 );
-                  if ( child.is( KeyWords.DEFAULT ) )
+                  if ( child.is( NodeKind.DEFAULT ) )
                   {
                      visitSwitchDefaultCase( node.getChild( 1 ) );
                   }
@@ -989,15 +988,15 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    {
       if ( ast != null )
       {
-         if ( ast.is( KeyWords.DELETE ) )
+         if ( ast.is( NodeKind.DELETE ) )
          {
             visitExpression( ast.getChild( 0 ) );
          }
-         else if ( ast.is( KeyWords.VOID ) )
+         else if ( ast.is( NodeKind.VOID ) )
          {
             visitExpression( ast.getChild( 0 ) );
          }
-         else if ( ast.is( KeyWords.TYPEOF ) )
+         else if ( ast.is( NodeKind.TYPEOF ) )
          {
             visitExpression( ast.getChild( 0 ) );
          }
@@ -1075,7 +1074,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
             visitMetaData( node );
             node = iterator.next();
          }
-         if ( node.is( MOD_LIST ) )
+         if ( node.is( NodeKind.MOD_LIST ) )
          {
             visitModifiers( node );
             node = iterator.next();

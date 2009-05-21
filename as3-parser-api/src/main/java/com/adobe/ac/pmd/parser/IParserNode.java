@@ -40,7 +40,7 @@ public interface IParserNode
 
    int getColumn();
 
-   String getId();
+   NodeKind getId();
 
    IParserNode getLastChild();
 
@@ -48,7 +48,7 @@ public interface IParserNode
 
    String getStringValue();
 
-   boolean is( final String expectedType );
+   boolean is( final NodeKind expectedType );
 
    int numChildren();
 }

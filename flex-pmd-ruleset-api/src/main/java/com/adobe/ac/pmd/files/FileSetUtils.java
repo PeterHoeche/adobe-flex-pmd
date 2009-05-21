@@ -51,13 +51,12 @@ import net.sourceforge.pmd.PMDException;
 import com.adobe.ac.ncss.filters.FlexFilter;
 import com.adobe.ac.ncss.utils.FileUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.impl.PackageNode;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IAS3Parser;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;
-import de.bokelberg.flex.parser.Node;
 
 /**
  * @author xagnetti
@@ -79,10 +78,10 @@ public final class FileSetUtils
          {
             try
             {
-               final Node node = buildThreadedAst( file );
+               final IParserNode node = buildThreadedAst( file );
 
                asts.put( file.getFullyQualifiedName(),
-                         new PackageNode( node ) );
+                         NodeFactory.createPackage( node ) );
             }
             catch ( final InterruptedException e )
             {
@@ -155,9 +154,9 @@ public final class FileSetUtils
       return rootNode;
    }
 
-   private static Node buildThreadedAst( final AbstractFlexFile file ) throws PMDException,
-                                                                      InterruptedException,
-                                                                      ExecutionException
+   private static IParserNode buildThreadedAst( final AbstractFlexFile file ) throws PMDException,
+                                                                             InterruptedException,
+                                                                             ExecutionException
    {
       final List< Callable< Object >> toRun = new ArrayList< Callable< Object >>();
       toRun.add( new Callable< Object >()
@@ -174,7 +173,7 @@ public final class FileSetUtils
       // Find out what happened when the service was
       // called.
 
-      return ( Node ) futures.get( 0 ).get();
+      return ( IParserNode ) futures.get( 0 ).get();
    }
 
    private static Collection< File > getFlexFiles( final File sourceDirectory,

@@ -33,7 +33,6 @@ package com.adobe.ac.pmd.nodes;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.nodes.impl.IdentifierNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 
 /**
@@ -68,7 +67,7 @@ public interface IFunction extends IModifiersHolder, IMetaDataListHolder, INamab
 
    List< IFormal > getParameters();
 
-   IdentifierNode getReturnType();
+   IIdentifierNode getReturnType();
 
    /**
     * @return Extracts the super call node (if any) from the function content

@@ -41,11 +41,10 @@ import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.IConstant;
 
-public class ClassNode extends AbstractNode implements IClass
+class ClassNode extends AbstractNode implements IClass
 {
    private List< IAttribute >  attributes;
    private List< IConstant >   constants;
@@ -239,7 +238,7 @@ public class ClassNode extends AbstractNode implements IClass
 
    private void detectExtensions( final IParserNode node )
    {
-      if ( node.is( KeyWords.EXTENDS ) )
+      if ( node.is( NodeKind.EXTENDS ) )
       {
          extensionName = node.getStringValue();
       }
@@ -247,8 +246,8 @@ public class ClassNode extends AbstractNode implements IClass
 
    private void detectFunction( final IParserNode node )
    {
-      if ( node.is( KeyWords.FUNCTION )
-            || node.is( KeyWords.GET ) || node.is( KeyWords.SET ) )
+      if ( node.is( NodeKind.FUNCTION )
+            || node.is( NodeKind.GET ) || node.is( NodeKind.SET ) )
       {
          functions.add( new FunctionNode( node ) );
       }

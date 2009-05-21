@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
-public class FieldNode extends VariableNode implements IField
+class FieldNode extends VariableNode implements IField
 {
    public FieldNode( final IParserNode rootNode )
    {

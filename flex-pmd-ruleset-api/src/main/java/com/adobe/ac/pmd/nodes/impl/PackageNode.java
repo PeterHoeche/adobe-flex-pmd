@@ -36,9 +36,9 @@ import java.util.List;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.NodeKind;
 
-public class PackageNode extends AbstractNode implements IPackage
+class PackageNode extends AbstractNode implements IPackage
 {
    private IClass              classNode;
    private List< IParserNode > imports;
@@ -107,7 +107,7 @@ public class PackageNode extends AbstractNode implements IPackage
       {
          for ( final IParserNode node : internalNode.getChild( 0 ).getChild( 1 ).getChildren() )
          {
-            if ( node.is( KeyWords.IMPORT ) )
+            if ( node.is( NodeKind.IMPORT ) )
             {
                imports.add( node );
             }
@@ -125,8 +125,8 @@ public class PackageNode extends AbstractNode implements IPackage
       }
       for ( final IParserNode child : node.getChildren() )
       {
-         if ( child.is( KeyWords.CLASS )
-               || child.is( KeyWords.INTERFACE ) )
+         if ( child.is( NodeKind.CLASS )
+               || child.is( NodeKind.INTERFACE ) )
          {
             return child;
          }

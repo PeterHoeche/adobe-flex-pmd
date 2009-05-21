@@ -28,25 +28,9 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.nodes;
 
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.parser.IParserNode;
-
-class MetaDataNode extends AbstractNode implements IMetaData
+public interface IIdentifierNode extends INode
 {
-   public MetaDataNode( final IParserNode node )
-   {
-      super( node );
-   }
 
-   public String getName()
-   {
-      return internalNode.getStringValue();
-   }
-
-   @Override
-   protected void compute()
-   {
-   }
 }

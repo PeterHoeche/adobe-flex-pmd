@@ -49,16 +49,10 @@ public class EmptyIfStmtRule extends AbstractAstFlexRule
 
       final IParserNode block = ast.getChildren().get( 1 );
 
-      if ( theIfBlockIsEmpty( block ) )
+      if ( block.numChildren() == 0 )
       {
          addViolation( ast,
                        block );
       }
-   }
-
-   private boolean theIfBlockIsEmpty( final IParserNode block )
-   {
-      return "block".equals( block.getId() )
-            && ( block.getChildren() == null || block.getChildren().size() == 0 );
    }
 }

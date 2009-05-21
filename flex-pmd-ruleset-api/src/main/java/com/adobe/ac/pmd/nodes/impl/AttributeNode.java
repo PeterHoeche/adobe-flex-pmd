@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class AttributeNode extends FieldNode implements IAttribute
+class AttributeNode extends FieldNode implements IAttribute
 {
    public AttributeNode( final IParserNode rootNode )
    {
