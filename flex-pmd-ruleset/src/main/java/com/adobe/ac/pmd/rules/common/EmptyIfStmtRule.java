@@ -47,7 +47,7 @@ public class EmptyIfStmtRule extends AbstractAstFlexRule
    {
       super.visitIf( ast );
 
-      final IParserNode block = ast.getChildren().get( 1 );
+      final IParserNode block = ast.getChild( 1 );
 
       if ( block.numChildren() == 0 )
       {

@@ -87,7 +87,7 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
 
    public final int compareTo( final AbstractFlexFile otherViolation )
    {
-      return getFileName().compareTo( otherViolation.getFileName() );
+      return getFilename().compareTo( otherViolation.getFilename() );
    }
 
    /**
@@ -134,7 +134,7 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    /**
     * @return java.io.File name
     */
-   public final String getFileName()
+   public final String getFilename()
    {
       return file.getName();
    }

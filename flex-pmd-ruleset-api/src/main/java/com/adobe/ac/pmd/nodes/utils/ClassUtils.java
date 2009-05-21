@@ -31,7 +31,6 @@
 package com.adobe.ac.pmd.nodes.utils;
 
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 
 final public class ClassUtils
@@ -45,7 +44,7 @@ final public class ClassUtils
       {
          for ( final IParserNode child : classNode.getChildren() )
          {
-            if ( KeyWords.EXTENDS.equals( child.getId() ) )
+            if ( NodeKind.EXTENDS.equals( child.getId() ) )
             {
                content = child;
                break;
