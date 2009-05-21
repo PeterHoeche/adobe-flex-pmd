@@ -124,16 +124,16 @@ public enum NodeKind
    VOID("void"),
    WHILE("while");
 
-   private String _name;
+   private String name;
 
-   NodeKind( final String name )
+   NodeKind( final String nameToBeSet )
    {
-      _name = name;
+      name = nameToBeSet;
    }
 
    @Override
    public String toString()
    {
-      return _name;
+      return name;
    }
 }
