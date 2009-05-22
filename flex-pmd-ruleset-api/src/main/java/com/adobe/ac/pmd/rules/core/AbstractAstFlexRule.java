@@ -71,7 +71,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      return !file.isMxml();
+      return true;
    }
 
    /**
@@ -1063,7 +1063,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    }
 
    protected void visitVarOrConstList( final IParserNode ast,
-                                       final String varOrConst )
+                                       final KeyWords varOrConst )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -1106,7 +1106,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    private void visitNameTypeInit( final IParserNode ast )
    {
       if ( ast != null
-            && ast.getChildren() != null )
+            && ast.numChildren() != 0 )
       {
          final Iterator< IParserNode > iterator = ast.getChildren().iterator();
          IParserNode node;

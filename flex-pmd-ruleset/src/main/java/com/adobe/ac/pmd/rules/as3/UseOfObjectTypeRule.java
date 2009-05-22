@@ -32,9 +32,9 @@ package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
 
 public class UseOfObjectTypeRule extends AbstractAstFlexRule
 {
@@ -54,12 +54,12 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
 
    @Override
    protected void visitVarOrConstList( final IParserNode ast,
-                                       final String varOrConst )
+                                       final KeyWords varOrConst )
    {
       super.visitVarOrConstList( ast,
                                  varOrConst );
 
-      if ( "var".equals( varOrConst ) )
+      if ( KeyWords.VAR.equals( varOrConst ) )
       {
          detectObjectInVariableDefinition( ast );
       }

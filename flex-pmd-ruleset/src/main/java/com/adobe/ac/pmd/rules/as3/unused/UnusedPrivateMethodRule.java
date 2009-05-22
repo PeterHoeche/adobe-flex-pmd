@@ -34,11 +34,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.adobe.ac.pmd.files.As3File;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
 
 public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
@@ -69,9 +69,15 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       {
          final IFunction function = privateFunctions.get( functionName );
 
-         addViolation( function.getInternalNode(),
-                       function.getInternalNode().getLastChild(),
-                       functionName );
+         if ( getCurrentFile() instanceof As3File
+               || !getCurrentFile().contains( functionName,
+                                              new int[]
+                                              { function.getInternalNode().getLine() } ) )
+         {
+            addViolation( function.getInternalNode(),
+                          function.getInternalNode().getLastChild(),
+                          functionName );
+         }
       }
    }
 
@@ -95,7 +101,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
             }
          }
       }
-      if ( body.getChildren() != null )
+      if ( body.numChildren() != 0 )
       {
          for ( final IParserNode child : body.getChildren() )
          {

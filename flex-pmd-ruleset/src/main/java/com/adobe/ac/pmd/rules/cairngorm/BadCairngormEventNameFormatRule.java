@@ -38,7 +38,6 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 {
    @Override
@@ -85,7 +84,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 
    private String extractEventNameFromConstant( final IParserNode initExpressionNode )
    {
-      return initExpressionNode.getChildren().get( 0 ).getStringValue();
+      return initExpressionNode.getChild( 0 ).getStringValue();
    }
 
    private String extractEventNameFromConstructor( final IFunction constructor )
@@ -95,7 +94,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 
       if ( superCall != null )
       {
-         eventName = superCall.getChildren().get( 1 ).getChildren().get( 0 ).getStringValue();
+         eventName = superCall.getChild( 1 ).getChild( 0 ).getStringValue();
       }
       return eventName;
    }

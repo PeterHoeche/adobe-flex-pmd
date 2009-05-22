@@ -53,10 +53,10 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
       return line.contains( search );
    }
 
-   private final String         className;
-   private final File           file;
-   private final List< String > lines;
-   private String               packageName;
+   protected final List< String > lines;
+   private final String           className;
+   private final File             file;
+   private String                 packageName;
 
    protected AbstractFlexFile( final File underlyingFile,
                                final File rootDirectory )
@@ -88,6 +88,28 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    public final int compareTo( final AbstractFlexFile otherViolation )
    {
       return getFilename().compareTo( otherViolation.getFilename() );
+   }
+
+   public boolean contains( final String functionName,
+                            final int[] ignoredLines )
+   {
+      int lineIndex = 0;
+
+      for ( final String line : lines )
+      {
+         if ( line.contains( functionName ) )
+         {
+            for ( final int ignoredLine : ignoredLines )
+            {
+               if ( lineIndex != ignoredLine )
+               {
+                  return true;
+               }
+            }
+         }
+         lineIndex++;
+      }
+      return false;
    }
 
    /**

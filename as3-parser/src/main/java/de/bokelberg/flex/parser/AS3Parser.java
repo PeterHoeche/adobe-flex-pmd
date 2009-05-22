@@ -61,10 +61,15 @@ public class AS3Parser implements IAS3Parser
                                                        TokenException
    {
       final String[] lines = FileUtil.readStrings( new File( filePath ) );
-      setFileName( filePath );
-      scn = new AS3Scanner();
-      scn.setLines( lines );
-      return parseCompilationUnit();
+      return parseLines( filePath,
+                         lines );
+   }
+
+   public IParserNode buildAst( final String filePath,
+                                final String[] lines ) throws TokenException
+   {
+      return parseLines( filePath,
+                         lines );
    }
 
    /**
@@ -262,19 +267,19 @@ public class AS3Parser implements IAS3Parser
       {
          result.addChild( parseEncapsulatedExpression() );
       }
-      else if ( tok.text.startsWith( Operators.DOUBLE_QUOTE ) )
+      else if ( tok.text.startsWith( Operators.DOUBLE_QUOTE.toString() ) )
       {
          nextToken(); // string
       }
-      else if ( tok.text.startsWith( Operators.SIMPLE_QUOTE ) )
+      else if ( tok.text.startsWith( Operators.SIMPLE_QUOTE.toString() ) )
       {
          nextToken(); // string
       }
-      else if ( tok.text.startsWith( Operators.SLASH ) )
+      else if ( tok.text.startsWith( Operators.SLASH.toString() ) )
       {
          nextToken(); // regexp
       }
-      else if ( tok.text.startsWith( Operators.INFERIOR ) )
+      else if ( tok.text.startsWith( Operators.INFERIOR.toString() ) )
       {
          nextToken(); // xml literal
       }
@@ -294,7 +299,7 @@ public class AS3Parser implements IAS3Parser
       {
          nextToken();
       }
-      else if ( tokIs( KeyWords.AT ) )
+      else if ( tokIs( Operators.AT ) )
       {
          result.addChild( parseE4XAttributeIdentifier() );
       }
@@ -415,6 +420,16 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   private void consume( final KeyWords keyword ) throws TokenException
+   {
+      consume( keyword.toString() );
+   }
+
+   private void consume( final Operators operator ) throws TokenException
+   {
+      consume( operator.toString() );
+   }
+
    /**
     * Compare the current token to the parameter. If it equals, get the next
     * token. If not, throw a runtime exception.
@@ -471,7 +486,7 @@ public class AS3Parser implements IAS3Parser
    {
       consume( KeyWords.FUNCTION );
 
-      final Node type = new Node( NodeKind.TYPE, tok.line, tok.column, KeyWords.FUNCTION );
+      final Node type = new Node( NodeKind.TYPE, tok.line, tok.column, KeyWords.FUNCTION.toString() );
       if ( tokIs( KeyWords.SET )
             || tokIs( KeyWords.GET ) )
       {
@@ -619,10 +634,10 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseAssignmentExpression() throws TokenException
    {
       final Node result = new Node( NodeKind.ASSIGN, tok.line, tok.column, parseConditionalExpression() );
-      while ( tokIs( KeyWords.EQUAL )
-            || tokIs( KeyWords.PLUS_EQUAL ) || tokIs( KeyWords.MINUS_EQUAL ) || tokIs( KeyWords.TIMES_EQUAL )
-            || tokIs( KeyWords.DIVIDED_EQUAL ) || tokIs( KeyWords.MODULO_EQUAL )
-            || tokIs( KeyWords.AND_EQUAL ) || tokIs( KeyWords.OR_EQUAL ) || tokIs( KeyWords.XOR_EQUAL ) )
+      while ( tokIs( Operators.EQUAL )
+            || tokIs( Operators.PLUS_EQUAL ) || tokIs( Operators.MINUS_EQUAL ) || tokIs( Operators.TIMES_EQUAL )
+            || tokIs( Operators.DIVIDED_EQUAL ) || tokIs( Operators.MODULO_EQUAL )
+            || tokIs( Operators.AND_EQUAL ) || tokIs( Operators.OR_EQUAL ) || tokIs( Operators.XOR_EQUAL ) )
       {
          result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
@@ -635,7 +650,7 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseBitwiseAndExpression() throws TokenException
    {
       final Node result = new Node( NodeKind.B_AND, tok.line, tok.column, parseEqualityExpression() );
-      while ( tokIs( KeyWords.B_AND ) )
+      while ( tokIs( Operators.B_AND ) )
       {
          result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
@@ -648,7 +663,7 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseBitwiseOrExpression() throws TokenException
    {
       final Node result = new Node( NodeKind.B_OR, tok.line, tok.column, parseBitwiseXorExpression() );
-      while ( tokIs( KeyWords.B_OR ) )
+      while ( tokIs( Operators.B_OR ) )
       {
          result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
@@ -661,7 +676,7 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseBitwiseXorExpression() throws TokenException
    {
       final Node result = new Node( NodeKind.B_XOR, tok.line, tok.column, parseBitwiseAndExpression() );
-      while ( tokIs( KeyWords.B_XOR ) )
+      while ( tokIs( Operators.B_XOR ) )
       {
          result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
@@ -703,7 +718,7 @@ public class AS3Parser implements IAS3Parser
                                                                                     tok.column,
                                                                                     tok.text ) );
       nextToken(); // name
-      if ( tokIs( KeyWords.DOUBLE_COLUMN ) )
+      if ( tokIs( Operators.COLUMN ) )
       {
          nextToken(); // :
          result.addChild( new Node( NodeKind.TYPE, tok.line, tok.column, tok.text ) );
@@ -810,7 +825,7 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseConditionalExpression() throws TokenException
    {
       final IParserNode result = parseOrExpression();
-      if ( tokIs( KeyWords.QUESTION_MARK ) )
+      if ( tokIs( Operators.QUESTION_MARK ) )
       {
          final Node conditional = new Node( NodeKind.CONDITIONAL, tok.line, tok.column, result );
          nextToken(); // ?
@@ -898,7 +913,7 @@ public class AS3Parser implements IAS3Parser
 
    private Node parseE4XAttributeIdentifier() throws TokenException
    {
-      consume( KeyWords.AT );
+      consume( Operators.AT );
 
       final Node result = new Node( NodeKind.E4X_ATTR, tok.line, tok.column );
       if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
@@ -922,7 +937,7 @@ public class AS3Parser implements IAS3Parser
    private Node parseEmptyStatement() throws TokenException
    {
       Node result;
-      result = new Node( NodeKind.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN );
+      result = new Node( NodeKind.STMT_EMPTY, tok.line, tok.column, Operators.SEMI_COLUMN.toString() );
       nextToken();
       return result;
    }
@@ -939,7 +954,7 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseEqualityExpression() throws TokenException
    {
       final Node result = new Node( NodeKind.EQUALITY, tok.line, tok.column, parseRelationalExpression() );
-      while ( tokIs( Operators.EQUAL )
+      while ( tokIs( Operators.DOUBLE_EQUAL )
             || tokIs( Operators.STRICTLY_EQUAL ) || tokIs( Operators.NON_EQUAL )
             || tokIs( Operators.NON_STRICTLY_EQUAL ) )
       {
@@ -1243,6 +1258,15 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   private IParserNode parseLines( final String filePath,
+                                   final String[] lines ) throws TokenException
+   {
+      setFileName( filePath );
+      scn = new AS3Scanner();
+      scn.setLines( lines );
+      return parseCompilationUnit();
+   }
+
    /**
     * tok is [ [id] [id ("test")] [id (name="test",type="a.b.c.Event")] exit
     * token is the first token after ]
@@ -1340,7 +1364,7 @@ public class AS3Parser implements IAS3Parser
       name.setStringValue( tok.text );
       result.addChild( name );
       nextToken(); // name
-      consume( KeyWords.DOUBLE_COLUMN );
+      consume( Operators.COLUMN );
       result.addChild( NodeKind.VALUE,
                        tok.line,
                        tok.column,
@@ -1356,7 +1380,7 @@ public class AS3Parser implements IAS3Parser
    private Node parseOptionalInit() throws TokenException
    {
       Node result = null;
-      if ( tokIs( KeyWords.EQUAL ) )
+      if ( tokIs( Operators.EQUAL ) )
       {
          nextToken();
          result = new Node( NodeKind.INIT, tok.line, tok.column, parseExpression() );
@@ -1373,7 +1397,7 @@ public class AS3Parser implements IAS3Parser
    private Node parseOptionalType() throws TokenException
    {
       final Node result = new Node( NodeKind.TYPE, tok.line, tok.column, "" );
-      if ( tokIs( KeyWords.DOUBLE_COLUMN ) )
+      if ( tokIs( Operators.COLUMN ) )
       {
          nextToken();
          result.setStringValue( tok.text ); // TODO: What about qualified names
@@ -1601,18 +1625,21 @@ public class AS3Parser implements IAS3Parser
          {
             nextToken(); // case
             final Node caseNode = new Node( NodeKind.CASE, tok.line, tok.column, parseExpression() );
-            consume( KeyWords.DOUBLE_COLUMN );
+            consume( Operators.COLUMN );
             caseNode.addChild( parseSwitchBlock() );
             result.addChild( caseNode );
          }
          else if ( tokIs( KeyWords.DEFAULT ) )
          {
             nextToken(); // default
-            consume( KeyWords.DOUBLE_COLUMN );
-            final Node caseNode = new Node( NodeKind.CASE, tok.line, tok.column, new Node( NodeKind.DEFAULT,
-                                                                                           tok.line,
-                                                                                           tok.column,
-                                                                                           KeyWords.DEFAULT ) );
+            consume( Operators.COLUMN );
+            final Node caseNode = new Node( NodeKind.CASE,
+                                            tok.line,
+                                            tok.column,
+                                            new Node( NodeKind.DEFAULT,
+                                                      tok.line,
+                                                      tok.column,
+                                                      KeyWords.DEFAULT.toString() ) );
             caseNode.addChild( parseSwitchBlock() );
             result.addChild( caseNode );
          }
@@ -1802,6 +1829,11 @@ public class AS3Parser implements IAS3Parser
       fileName = fileNameToParse;
    }
 
+   private void skip( final Operators operator ) throws TokenException
+   {
+      skip( operator.toString() );
+   }
+
    /**
     * Skip the current token, if it equals to the parameter
     * 
@@ -1814,6 +1846,16 @@ public class AS3Parser implements IAS3Parser
       {
          nextToken();
       }
+   }
+
+   private boolean tokIs( final KeyWords keyword )
+   {
+      return tok.text.equals( keyword.toString() );
+   }
+
+   private boolean tokIs( final Operators operator )
+   {
+      return tok.text.equals( operator.toString() );
    }
 
    /**

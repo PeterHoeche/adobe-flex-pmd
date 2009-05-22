@@ -71,7 +71,7 @@ public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRul
 
    private void detectArgument( final IParserNode statement )
    {
-      if ( statement.getChildren() != null
+      if ( statement.numChildren() != 0
             && statement.is( NodeKind.ARGUMENTS ) )
       {
          for ( final IParserNode child : statement.getChildren() )

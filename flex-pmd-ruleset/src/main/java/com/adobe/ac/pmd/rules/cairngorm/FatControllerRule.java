@@ -62,9 +62,7 @@ public class FatControllerRule extends AbstractAstFlexRule
                      / methodsCount > 5 )
          {
             addViolation( classNode.getInternalNode(),
-                          packageNode.getInternalNode().getChild( packageNode.getInternalNode()
-                                                                             .getChildren()
-                                                                             .size() - 1 ) );
+                          packageNode.getInternalNode().getLastChild() );
          }
       }
    }

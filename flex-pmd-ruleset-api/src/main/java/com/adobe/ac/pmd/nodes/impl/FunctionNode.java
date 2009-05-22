@@ -156,7 +156,7 @@ class FunctionNode extends AbstractNode implements IFunction
    public IParserNode getSuperCall()
    {
       if ( contentBlock != null
-            && contentBlock.getChildren() != null )
+            && contentBlock.numChildren() != 0 )
       {
          for ( final IParserNode childContent : contentBlock.getChildren() )
          {
@@ -232,7 +232,7 @@ class FunctionNode extends AbstractNode implements IFunction
    protected void compute()
    {
       modifiers = new ArrayList< Modifier >();
-      if ( internalNode.getChildren() != null )
+      if ( internalNode.numChildren() != 0 )
       {
          for ( final IParserNode node : internalNode.getChildren() )
          {
@@ -311,7 +311,7 @@ class FunctionNode extends AbstractNode implements IFunction
    {
       parameters = new ArrayList< IFormal >();
 
-      if ( node.getChildren() != null )
+      if ( node.numChildren() != 0 )
       {
          for ( final IParserNode parameterNode : node.getChildren() )
          {
@@ -348,7 +348,7 @@ class FunctionNode extends AbstractNode implements IFunction
          dispatchNode = content;
       }
       else if ( content != null
-            && content.numChildren() > 0 )
+            && content.numChildren() != 0 )
       {
          for ( final IParserNode child : content.getChildren() )
          {

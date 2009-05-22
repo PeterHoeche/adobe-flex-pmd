@@ -49,6 +49,8 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
 
       assertEmptyViolations( "com.adobe.cairngorm.work.SequenceWorkFlow.as" );
+
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
@@ -56,7 +58,6 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
                                              URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override

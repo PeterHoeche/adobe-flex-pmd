@@ -31,6 +31,8 @@
 package com.adobe.ac.pmd.files;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MxmlFile extends AbstractFlexFile
 {
@@ -59,6 +61,54 @@ public class MxmlFile extends AbstractFlexFile
    public String getCommentOpeningTag()
    {
       return "<!--";
+   }
+
+   public String[] getScriptBlock()
+   {
+      int i = 0;
+      int startLine = 0;
+      int endLine = 0;
+
+      for ( final String line : lines )
+      {
+         if ( line.contains( "Script>" ) )
+         {
+            if ( line.contains( "</" ) )
+            {
+               endLine = i - 2;
+               break;
+            }
+            else if ( line.contains( "<" ) )
+            {
+               startLine = i + 2;
+            }
+         }
+         i++;
+      }
+
+      List< String > scriptLines;
+
+      if ( startLine != 0
+            && endLine != 0 && startLine != endLine )
+      {
+         scriptLines = new ArrayList< String >( lines );
+         scriptLines = scriptLines.subList( startLine,
+                                            endLine );
+      }
+      else
+      {
+         scriptLines = new ArrayList< String >();
+      }
+
+      scriptLines.add( 0,
+                       "package "
+                             + getPackageName() + "{" );
+      scriptLines.add( 1,
+                       "class "
+                             + getClassName().split( "\\." )[ 0 ] + "{" );
+      scriptLines.add( "}}" );
+
+      return scriptLines.toArray( new String[ scriptLines.size() ] );
    }
 
    @Override

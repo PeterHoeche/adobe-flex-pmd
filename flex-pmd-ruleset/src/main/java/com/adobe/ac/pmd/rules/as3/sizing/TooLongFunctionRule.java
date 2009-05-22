@@ -40,7 +40,6 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int functionLength;
@@ -87,7 +86,7 @@ public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresho
       final IParserNode block = functionNode.getLastChild();
 
       if ( block != null
-            && block.getChildren() != null )
+            && block.numChildren() != 0 )
       {
          final int beginningLine = block.getLine();
          final int lastLine = block.getLastChild().getLine();
@@ -105,7 +104,7 @@ public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresho
 
    private IParserNode extractName( final IParserNode functionNode )
    {
-      if ( functionNode.getChildren() != null )
+      if ( functionNode.numChildren() != 0 )
       {
          for ( final IParserNode child : functionNode.getChildren() )
          {

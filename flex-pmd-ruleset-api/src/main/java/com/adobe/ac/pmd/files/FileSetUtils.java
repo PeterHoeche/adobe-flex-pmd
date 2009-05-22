@@ -74,30 +74,27 @@ public final class FileSetUtils
       {
          final AbstractFlexFile file = fileEntry.getValue();
 
-         if ( !file.isMxml() )
+         try
          {
-            try
-            {
-               final IParserNode node = buildThreadedAst( file );
+            final IParserNode node = buildThreadedAst( file );
 
-               asts.put( file.getFullyQualifiedName(),
-                         NodeFactory.createPackage( node ) );
-            }
-            catch ( final InterruptedException e )
-            {
-               logErrorWhileBuildingAst( file,
-                                         e );
-            }
-            catch ( final ExecutionException e )
-            {
-               logErrorWhileBuildingAst( file,
-                                         e );
-            }
-            catch ( final NullPointerException e )
-            {
-               logErrorWhileBuildingAst( file,
-                                         e );
-            }
+            asts.put( file.getFullyQualifiedName(),
+                      NodeFactory.createPackage( node ) );
+         }
+         catch ( final InterruptedException e )
+         {
+            logErrorWhileBuildingAst( file,
+                                      e );
+         }
+         catch ( final ExecutionException e )
+         {
+            logErrorWhileBuildingAst( file,
+                                      e );
+         }
+         catch ( final NullPointerException e )
+         {
+            logErrorWhileBuildingAst( file,
+                                      e );
          }
       }
       return asts;
@@ -134,22 +131,27 @@ public final class FileSetUtils
       final IAS3Parser parser = new AS3Parser();
       IParserNode rootNode = null;
 
-      if ( !file.isMxml() )
+      try
       {
-         try
+         if ( !file.isMxml() )
          {
             rootNode = parser.buildAst( file.getFilePath() );
          }
-         catch ( final IOException e )
+         else
          {
-            throw new PMDException( "While building AST: Cannot read "
-                  + file.getFullyQualifiedName(), e );
+            rootNode = parser.buildAst( file.getFilePath(),
+                                        ( ( MxmlFile ) file ).getScriptBlock() );
          }
-         catch ( final TokenException e )
-         {
-            throw new PMDException( "TokenException thrown while building AST on "
-                  + file.getFullyQualifiedName() + " with message: " + e.getMessage(), e );
-         }
+      }
+      catch ( final IOException e )
+      {
+         throw new PMDException( "While building AST: Cannot read "
+               + file.getFullyQualifiedName(), e );
+      }
+      catch ( final TokenException e )
+      {
+         throw new PMDException( "TokenException thrown while building AST on "
+               + file.getFullyQualifiedName() + " with message: " + e.getMessage(), e );
       }
       return rootNode;
    }

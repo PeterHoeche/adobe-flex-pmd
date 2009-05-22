@@ -87,11 +87,13 @@ class PackageNode extends AbstractNode implements IPackage
    {
       final IParserNode classWrapperNode = getClassNodeFromCompilationUnitNode( internalNode,
                                                                                 3 );
+      final IParserNode firstChild = internalNode.getChild( 0 );
 
       imports = new ArrayList< IParserNode >();
-      if ( internalNode.getChild( 0 ).numChildren() > 0 )
+
+      if ( firstChild.numChildren() > 0 )
       {
-         name = internalNode.getChild( 0 ).getChild( 0 ).getStringValue();
+         name = firstChild.getChild( 0 ).getStringValue();
       }
       else
       {
@@ -102,10 +104,12 @@ class PackageNode extends AbstractNode implements IPackage
          classNode = new ClassNode( classWrapperNode );
       }
 
-      if ( internalNode.getChild( 0 ).numChildren() > 1
-            && internalNode.getChild( 0 ).getChild( 1 ).getChildren() != null )
+      if ( firstChild.numChildren() > 1
+            && firstChild.getChild( 1 ).numChildren() != 0 )
       {
-         for ( final IParserNode node : internalNode.getChild( 0 ).getChild( 1 ).getChildren() )
+         final List< IParserNode > children = firstChild.getChild( 1 ).getChildren();
+
+         for ( final IParserNode node : children )
          {
             if ( node.is( NodeKind.IMPORT ) )
             {
@@ -119,7 +123,7 @@ class PackageNode extends AbstractNode implements IPackage
                                                             final int depth )
    {
       if ( depth == 0
-            || node.getChildren() == null )
+            || node.numChildren() == 0 )
       {
          return null;
       }

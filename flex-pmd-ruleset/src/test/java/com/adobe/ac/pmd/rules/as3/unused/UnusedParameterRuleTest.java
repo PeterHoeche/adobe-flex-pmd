@@ -54,7 +54,6 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
                                              URISyntaxException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
@@ -73,6 +72,10 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
                         new ViolationPosition[]
                         { new ViolationPosition( 58, 58 ),
                                     new ViolationPosition( 67, 67 ) } );
+
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 46, 46 ) } );
    }
 
    @Override

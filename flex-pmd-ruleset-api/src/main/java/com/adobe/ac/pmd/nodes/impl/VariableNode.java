@@ -116,7 +116,7 @@ public class VariableNode extends AbstractNode implements IVariable
       }
       else
       {
-         if ( internalNode.getChildren() != null )
+         if ( internalNode.numChildren() != 0 )
          {
             for ( final IParserNode child : internalNode.getChildren() )
             {
@@ -136,7 +136,7 @@ public class VariableNode extends AbstractNode implements IVariable
 
    private void computeNameTypeInit( final IParserNode nameTypeInit )
    {
-      if ( nameTypeInit.getChildren() != null )
+      if ( nameTypeInit.numChildren() != 0 )
       {
          for ( final IParserNode child : nameTypeInit.getChildren() )
          {

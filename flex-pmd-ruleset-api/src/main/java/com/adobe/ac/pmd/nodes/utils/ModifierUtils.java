@@ -45,7 +45,7 @@ final public class ModifierUtils
    {
       modifiable.setModifiers( new ArrayList< Modifier >() );
 
-      if ( child.getChildren() != null )
+      if ( child.numChildren() != 0 )
       {
          for ( final IParserNode modifierNode : child.getChildren() )
          {

@@ -37,7 +37,6 @@ import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class UselessOverridenFunctionRule extends AbstractAstFlexRule
 {
    @Override
@@ -47,7 +46,7 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
       {
          if ( function.getBody() != null
                && function.getBody().numChildren() == 1 && function.isOverriden()
-               && function.findPrimaryStatementFromName( KeyWords.SUPER ) != null )
+               && function.findPrimaryStatementFromName( KeyWords.SUPER.toString() ) != null )
          {
             addViolation( function.getInternalNode(),
                           function.getBody().getLastChild() );

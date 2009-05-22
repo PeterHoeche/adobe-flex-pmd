@@ -168,7 +168,7 @@ class ClassNode extends AbstractNode implements IClass
    protected void compute()
    {
       modifiers = new ArrayList< Modifier >();
-      if ( internalNode.getChildren() != null )
+      if ( internalNode.numChildren() != 0 )
       {
          for ( final IParserNode node : internalNode.getChildren() )
          {
@@ -209,7 +209,7 @@ class ClassNode extends AbstractNode implements IClass
       constants = new ArrayList< IConstant >();
       attributes = new ArrayList< IAttribute >();
       functions = new ArrayList< IFunction >();
-      if ( classContentNode.getChildren() != null )
+      if ( classContentNode.numChildren() != 0 )
       {
          for ( final IParserNode node : classContentNode.getChildren() )
          {

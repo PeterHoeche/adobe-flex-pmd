@@ -47,7 +47,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    {
       super.visitParameters( ast );
 
-      if ( ast.getChildren() != null )
+      if ( ast.numChildren() != 0 )
       {
          for ( final IParserNode parameterNode : ast.getChildren() )
          {

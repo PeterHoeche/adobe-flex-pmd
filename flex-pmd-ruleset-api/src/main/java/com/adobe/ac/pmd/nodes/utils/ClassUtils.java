@@ -40,7 +40,7 @@ final public class ClassUtils
       IParserNode content = null;
 
       if ( classNode != null
-            && classNode.getChildren() != null )
+            && classNode.numChildren() != 0 )
       {
          for ( final IParserNode child : classNode.getChildren() )
          {

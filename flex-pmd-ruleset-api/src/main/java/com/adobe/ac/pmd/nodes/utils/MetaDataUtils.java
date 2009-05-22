@@ -44,7 +44,7 @@ final public class MetaDataUtils
    {
       metaDataHolder.setMetaDataList( new ArrayList< IMetaData >() );
 
-      if ( child.getChildren() != null )
+      if ( child.numChildren() != 0 )
       {
          for ( final IParserNode metadataNode : child.getChildren() )
          {

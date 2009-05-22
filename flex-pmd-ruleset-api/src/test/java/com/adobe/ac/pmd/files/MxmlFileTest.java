@@ -28,49 +28,50 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.files;
 
-import com.adobe.ac.pmd.nodes.IField;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
+import static org.junit.Assert.assertEquals;
 
-class FieldNode extends VariableNode implements IField
+import org.junit.Before;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.FlexPmdTestBase;
+
+public class MxmlFileTest extends FlexPmdTestBase
 {
-   public FieldNode( final IParserNode rootNode )
+   private MxmlFile iterationsList;
+   private MxmlFile nestedComponent;
+
+   @Before
+   public void setUp()
    {
-      super( rootNode );
+      iterationsList = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      nestedComponent = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
 
-   public boolean isPrivate()
+   @Test
+   public void testGetScriptBlock()
    {
-      return ModifierUtils.isPrivate( this );
-   }
+      final String[] scriptBlock1 = iterationsList.getScriptBlock();
 
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
-   }
+      assertEquals( "package com.adobe.ac.ncss.mxml{",
+                    scriptBlock1[ 0 ] );
+      assertEquals( "class IterationsList{",
+                    scriptBlock1[ 1 ] );
+      assertEquals( "         import com.adobe.ac.anthology.model.object.IterationModelLocator;",
+                    scriptBlock1[ 2 ] );
+      assertEquals( "}}",
+                    scriptBlock1[ scriptBlock1.length - 1 ] );
 
-   public boolean isPublic()
-   {
-      return ModifierUtils.isPublic( this );
-   }
+      final String[] scriptBlock2 = nestedComponent.getScriptBlock();
 
-   @Override
-   protected void compute()
-   {
-      super.compute();
-      if ( internalNode.numChildren() != 0 )
-      {
-         for ( final IParserNode child : internalNode.getChildren() )
-         {
-            if ( child.is( NodeKind.MOD_LIST ) )
-            {
-               ModifierUtils.computeModifierList( this,
-                                                  child );
-            }
-         }
-      }
+      assertEquals( "package com.adobe.ac.ncss.mxml{",
+                    scriptBlock2[ 0 ] );
+      assertEquals( "class NestedComponent{",
+                    scriptBlock2[ 1 ] );
+      assertEquals( "}}",
+                    scriptBlock2[ 2 ] );
+      assertEquals( "}}",
+                    scriptBlock2[ scriptBlock2.length - 1 ] );
    }
 }

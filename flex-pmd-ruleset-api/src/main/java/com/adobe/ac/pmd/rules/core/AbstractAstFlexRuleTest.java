@@ -38,6 +38,8 @@ import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.As3File;
+import com.adobe.ac.pmd.files.MxmlFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
@@ -57,20 +59,26 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 
       IPackage rootNode = null;
 
-      if ( !file.isMxml() )
+      try
       {
-         try
+         if ( file instanceof As3File )
          {
             rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
          }
-         catch ( final IOException e )
+         else
          {
-            LOGGER.warning( e.getMessage() );
+            rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
+                                                                   ( ( MxmlFile ) file ).getScriptBlock() ) );
+
          }
-         catch ( final TokenException e )
-         {
-            LOGGER.warning( e.getMessage() );
-         }
+      }
+      catch ( final IOException e )
+      {
+         LOGGER.warning( e.getMessage() );
+      }
+      catch ( final TokenException e )
+      {
+         LOGGER.warning( e.getMessage() );
       }
 
       return getRule().processFile( file,
