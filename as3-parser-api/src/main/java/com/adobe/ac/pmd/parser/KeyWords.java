@@ -30,74 +30,68 @@
  */
 package com.adobe.ac.pmd.parser;
 
-public final class KeyWords
+public enum KeyWords
 {
-   public static final String AND_EQUAL     = "&=";
-   public static final String AS            = "as";
-   public static final String AT            = "@";
-   public static final String B_AND         = "&";
-   public static final String B_OR          = "|";
-   public static final String B_XOR         = "^";
-   public static final String CASE          = "case";
-   public static final String CATCH         = "catch";
-   public static final String CLASS         = "class";
-   public static final String CONST         = "const";
-   public static final String DEFAULT       = "default";
-   public static final String DELETE        = "delete";
-   public static final String DIVIDED_EQUAL = "/=";
-   public static final String DO            = "do";
-   public static final String DOUBLE_COLUMN = ":";
-   public static final String DYNAMIC       = "dynamic";
-   public static final String EACH          = "each";
-   public static final String ELSE          = "else";
-   public static final String EOF           = "__END__";
-   public static final String EQUAL         = "=";
-   public static final String EXTENDS       = "extends";
-   public static final String FALSE         = "false";
-   public static final String FINAL         = "final";
-   public static final String FINALLY       = "finally";
-   public static final String FOR           = "for";
-   public static final String FOREACH       = "foreach";
-   public static final String FORIN         = "forin";
-   public static final String FUNCTION      = "function";
-   public static final String GET           = "get";
-   public static final String IF            = "if";
-   public static final String IMPLEMENTS    = "implements";
-   public static final String IMPORT        = "import";
-   public static final String INSTANCE_OF   = "instanceOf";
-   public static final String INTERFACE     = "interface";
-   public static final String INTERNAL      = "internal";
-   public static final String IS            = "is";
-   public static final String MINUS_EQUAL   = "-=";
-   public static final String MODULO_EQUAL  = "%=";
-   public static final String NEW           = "new";
-   public static final String NEW_LINE      = "\n";
-   public static final String NULL          = "null";
-   public static final String OR_EQUAL      = "|=";
-   public static final String OVERRIDE      = "override";
-   public static final String PACKAGE       = "package";
-   public static final String PLUS_EQUAL    = "+=";
-   public static final String PRIVATE       = "private";
-   public static final String PROTECTED     = "protected";
-   public static final String PUBLIC        = "public";
-   public static final String QUESTION_MARK = "?";
-   public static final String RETURN        = "return";
-   public static final String SET           = "set";
-   public static final String STATIC        = "static";
-   public static final String SUPER         = "super";
-   public static final String SWITCH        = "switch";
-   public static final String TIMES_EQUAL   = "*=";
-   public static final String TRUE          = "true";
-   public static final String TRY           = "try";
-   public static final String TYPEOF        = "typeof";
-   public static final String UNDEFINED     = "undefined";
-   public static final String USE           = "use";
-   public static final String VAR           = "var";
-   public static final String VOID          = "void";
-   public static final String WHILE         = "while";
-   public static final String XOR_EQUAL     = "^=";
+   AS("as"),
+   CASE("case"),
+   CATCH("catch"),
+   CLASS("class"),
+   CONST("const"),
+   DEFAULT("default"),
+   DELETE("delete"),
+   DO("do"),
+   DYNAMIC("dynamic"),
+   EACH("each"),
+   ELSE("else"),
+   EOF("__END__"),
+   EXTENDS("extends"),
+   FALSE("false"),
+   FINAL("final"),
+   FINALLY("finally"),
+   FOR("for"),
+   FOREACH("foreach"),
+   FORIN("forin"),
+   FUNCTION("function"),
+   GET("get"),
+   IF("if"),
+   IMPLEMENTS("implements"),
+   IMPORT("import"),
+   INSTANCE_OF("instanceOf"),
+   INTERFACE("interface"),
+   INTERNAL("internal"),
+   IS("is"),
+   NEW("new"),
+   NEW_LINE("\n"),
+   NULL("null"),
+   OVERRIDE("override"),
+   PACKAGE("package"),
+   PRIVATE("private"),
+   PROTECTED("protected"),
+   PUBLIC("public"),
+   RETURN("return"),
+   SET("set"),
+   STATIC("static"),
+   SUPER("super"),
+   SWITCH("switch"),
+   TRUE("true"),
+   TRY("try"),
+   TYPEOF("typeof"),
+   UNDEFINED("undefined"),
+   USE("use"),
+   VAR("var"),
+   VOID("void"),
+   WHILE("while");
 
-   private KeyWords()
+   private String name;
+
+   private KeyWords( final String name )
    {
+      this.name = name;
+   }
+
+   @Override
+   public String toString()
+   {
+      return name;
    }
 }

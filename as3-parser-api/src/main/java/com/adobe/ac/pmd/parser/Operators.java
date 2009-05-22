@@ -30,44 +30,68 @@
  */
 package com.adobe.ac.pmd.parser;
 
-public final class Operators
+public enum Operators
 {
-   static public final String AND                  = "&&";
-   static public final String COMMA                = ",";
-   static public final String DECREMENT            = "--";
-   static public final String DOT                  = ".";
-   static public final String DOUBLE_COLUMN        = "::";
-   static public final String DOUBLE_QUOTE         = "\"";
-   static public final String DOUBLE_SHIFT_LEFT    = "<<";
-   static public final String DOUBLE_SHIFT_RIGHT   = ">>";
-   static public final String EQUAL                = "==";
-   static public final String INCREMENT            = "++";
-   static public final String INFERIOR             = "<";
-   static public final String INFERIOR_OR_EQUAL    = "<=";
-   static public final String LEFT_CURLY_BRACKET   = "{";
-   static public final String LEFT_PARENTHESIS     = "(";
-   static public final String LEFT_SQUARE_BRACKET  = "[";
-   static public final String LOGICAL_OR           = "||";
-   static public final String MINUS                = "-";
-   static public final String MODULO               = "%";
-   static public final String NON_EQUAL            = "!=";
-   static public final String NON_STRICTLY_EQUAL   = "!==";
-   static public final String PLUS                 = "+";
-   static public final String REST_PARAMETERS      = "...";
-   static public final String RIGHT_CURLY_BRACKET  = "}";
-   static public final String RIGHT_PARENTHESIS    = ")";
-   static public final String RIGHT_SQUARE_BRACKET = "]";
-   static public final String SEMI_COLUMN          = ";";
-   static public final String SIMPLE_QUOTE         = "'";
-   static public final String SLASH                = "/";
-   static public final String STRICTLY_EQUAL       = "===";
-   static public final String SUPERIOR             = ">";
-   static public final String SUPERIOR_OR_EQUAL    = ">=";
-   static public final String TIMES                = "*";
-   static public final String TRIPLE_SHIFT_LEFT    = "<<<";
-   static public final String TRIPLE_SHIFT_RIGHT   = ">>>";
+   AND("&&"),
+   AND_EQUAL("&="),
+   AT("@"),
+   B_AND("&"),
+   B_OR("|"),
+   B_XOR("^"),
+   COLUMN(":"),
+   COMMA(","),
+   DECREMENT("--"),
+   DIVIDED_EQUAL("/="),
+   DOT("."),
+   DOUBLE_COLUMN("::"),
+   DOUBLE_EQUAL("=="),
+   DOUBLE_QUOTE("\""),
+   DOUBLE_SHIFT_LEFT("<<"),
+   DOUBLE_SHIFT_RIGHT(">>"),
+   EQUAL("="),
+   INCREMENT("++"),
+   INFERIOR("<"),
+   INFERIOR_OR_EQUAL("<="),
+   LEFT_CURLY_BRACKET("{"),
+   LEFT_PARENTHESIS("("),
+   LEFT_SQUARE_BRACKET("["),
+   LOGICAL_OR("||"),
+   MINUS("-"),
+   MINUS_EQUAL("-="),
+   MODULO("%"),
+   MODULO_EQUAL("%="),
+   NON_EQUAL("!="),
+   NON_STRICTLY_EQUAL("!=="),
+   OR_EQUAL("|="),
+   PLUS("+"),
+   PLUS_EQUAL("+="),
+   QUESTION_MARK("?"),
+   REST_PARAMETERS("..."),
+   RIGHT_CURLY_BRACKET("}"),
+   RIGHT_PARENTHESIS(")"),
+   RIGHT_SQUARE_BRACKET("]"),
+   SEMI_COLUMN(";"),
+   SIMPLE_QUOTE("'"),
+   SLASH("/"),
+   STRICTLY_EQUAL("==="),
+   SUPERIOR(">"),
+   SUPERIOR_OR_EQUAL(">="),
+   TIMES("*"),
+   TIMES_EQUAL("*="),
+   TRIPLE_SHIFT_LEFT("<<<"),
+   TRIPLE_SHIFT_RIGHT(">>>"),
+   XOR_EQUAL("^=");
 
-   private Operators()
+   private String symbol;
+
+   private Operators( final String symbol )
    {
+      this.symbol = symbol;
+   }
+
+   @Override
+   public String toString()
+   {
+      return symbol;
    }
 }
