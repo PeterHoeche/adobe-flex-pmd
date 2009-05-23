@@ -28,66 +28,65 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.mxml;
 
-import junit.framework.TestCase;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import com.adobe.ac.pmd.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TestReturnStatement extends TestCase
+public class StaticMethodInMxmlRuleTest extends AbstractRegExpBasedRuleTest
 {
-
-   private AS3Parser  asp;
-   private AS3Scanner scn;
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
+                                                         URISyntaxException
+   {
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+   }
 
    @Override
-   @Before
-   public void setUp()
+   public void testProcessNonConcernedFiles() throws FileNotFoundException,
+                                             URISyntaxException
    {
-      asp = new AS3Parser();
-      scn = new AS3Scanner();
-      asp.scn = scn;
+      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
 
-   @Test
-   public void testEmptyReturn() throws TokenException
+   @Override
+   public void testProcessViolatingFiles() throws FileNotFoundException,
+                                          URISyntaxException
    {
-      assertStatement( "1",
-                       "return",
-                       "<return line=\"2\" column=\"1\"></return>" );
-
-      assertStatement( "2",
-                       "return;",
-                       "<return line=\"2\" column=\"1\"></return>" );
+      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 48, 48 ) } );
    }
 
-   @Test
-   public void testReturnArrayLiteral() throws TokenException
+   @Override
+   protected String[] getMatchableLines()
    {
-      assertStatement( "1",
-                       "return []",
-                       "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                             + "<array line=\"1\" column=\"8\"></array></primary></return>" );
-      assertStatement( "2",
-                       "return [];",
-                       "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                             + "<array line=\"1\" column=\"8\"></array></primary></return>" );
+      return new String[]
+      { " static function lala() : void",
+                  "static function",
+                  "function static ",
+                  "static const",
+                  "const static " };
    }
 
-   private void assertStatement( final String message,
-                                 final String input,
-                                 final String expected ) throws TokenException
+   @Override
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
    {
-      scn.setLines( new String[]
-      { input,
-                  "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals( message,
-                    expected,
-                    result );
+      return new StaticMethodInMxmlRule();
+   }
+
+   @Override
+   protected String[] getUnmatchableLines()
+   {
+      return new String[]
+      { "var staticVar",
+                  "function staticInitialisation" };
    }
 }

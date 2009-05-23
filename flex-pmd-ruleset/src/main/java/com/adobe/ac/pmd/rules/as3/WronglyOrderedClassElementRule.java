@@ -87,7 +87,7 @@ public class WronglyOrderedClassElementRule extends AbstractAstFlexRule
          {
             addViolation( node.getInternalNode(),
                           node.getInternalNode(),
-                          node.getInternalNode().toString() );
+                          node.getInternalNode().getId().toString() );
          }
       }
    }

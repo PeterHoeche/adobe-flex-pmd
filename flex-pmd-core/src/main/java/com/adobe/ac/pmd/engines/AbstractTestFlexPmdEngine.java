@@ -82,7 +82,7 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
                                               new FlexPmdViolations() );
 
       assertEquals( "Number of violations found is not correct",
-                    257,
+                    143,
                     violationsFound );
    }
 

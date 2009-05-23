@@ -37,7 +37,6 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-
 public class TestPackageContent extends TestCase
 {
    private AS3Parser  asp;

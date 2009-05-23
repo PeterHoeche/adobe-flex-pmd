@@ -45,7 +45,7 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
       for ( final IFunction function : functions )
       {
          if ( function.getBody() != null
-               && function.getBody().numChildren() == 1 && function.isOverriden()
+               && function.isOverriden() && function.getBody().numChildren() == 1
                && function.findPrimaryStatementFromName( KeyWords.SUPER.toString() ) != null )
          {
             addViolation( function.getInternalNode(),

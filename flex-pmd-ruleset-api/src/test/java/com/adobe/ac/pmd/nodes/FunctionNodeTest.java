@@ -32,6 +32,8 @@ package com.adobe.ac.pmd.nodes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -54,6 +56,13 @@ public class FunctionNodeTest extends FlexPmdTestBase
    private IFunction isTrueGetter;
    private IFunction isTrueSetter;
    private IFunction placeSortArrow;
+
+   @Test
+   public void modifiers()
+   {
+      assertEquals( Modifier.PUBLIC,
+                    constructor.getModifiers().get( 0 ) );
+   }
 
    @Before
    public void setup() throws IOException,
@@ -162,5 +171,14 @@ public class FunctionNodeTest extends FlexPmdTestBase
                     drawSelectionIndicator.getLocalVariables().size() );
       assertEquals( 5,
                     drawRowBackground.getLocalVariables().size() );
+   }
+
+   @Test
+   public void testSuperCall()
+   {
+      assertNotNull( constructor.getSuperCall() );
+      assertNotNull( drawHighlightIndicator.getSuperCall() );
+      assertNotNull( placeSortArrow.getSuperCall() );
+      assertNull( drawRowBackground.getSuperCall() );
    }
 }

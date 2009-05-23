@@ -36,7 +36,6 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
 
 final public class ModifierUtils
 {
@@ -49,7 +48,7 @@ final public class ModifierUtils
       {
          for ( final IParserNode modifierNode : child.getChildren() )
          {
-            final Modifier modifier = buildModifier( modifierNode.getStringValue() );
+            final Modifier modifier = Modifier.create( modifierNode.getStringValue() );
 
             modifiable.getModifiers().add( modifier );
          }
@@ -96,44 +95,6 @@ final public class ModifierUtils
    {
       return isModiferPresent( modifierHolder,
                                Modifier.STATIC );
-   }
-
-   private static Modifier buildModifier( final String name )
-   {
-      Modifier modifier = null;
-      if ( KeyWords.PUBLIC.equals( name ) )
-      {
-         modifier = Modifier.PUBLIC;
-      }
-      else if ( KeyWords.PRIVATE.equals( name ) )
-      {
-         modifier = Modifier.PRIVATE;
-      }
-      else if ( KeyWords.PROTECTED.equals( name ) )
-      {
-         modifier = Modifier.PROTECTED;
-      }
-      else if ( KeyWords.INTERNAL.equals( name ) )
-      {
-         modifier = Modifier.INTERNAL;
-      }
-      else if ( KeyWords.DYNAMIC.equals( name ) )
-      {
-         modifier = Modifier.DYNAMIC;
-      }
-      else if ( KeyWords.OVERRIDE.equals( name ) )
-      {
-         modifier = Modifier.OVERRIDE;
-      }
-      else if ( KeyWords.STATIC.equals( name ) )
-      {
-         modifier = Modifier.STATIC;
-      }
-      else if ( KeyWords.FINAL.equals( name ) )
-      {
-         modifier = Modifier.FINAL;
-      }
-      return modifier;
    }
 
    private static boolean isModiferPresent( final IModifiersHolder modifierHolder,

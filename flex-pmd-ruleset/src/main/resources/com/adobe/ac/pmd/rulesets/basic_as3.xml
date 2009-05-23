@@ -31,270 +31,45 @@
        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<ruleset name="Basic As3 Rules"
+<ruleset name="Basic MXML Rules"
     xmlns="http://pmd.sf.net/ruleset/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
   <description>
-      The Basic As3 Ruleset contains a collection of good practices which everyone should follow.
+      The Basic MXML Ruleset contains a collection of good practices which everyone should follow.
   </description>
-    <rule class="com.adobe.ac.pmd.rules.as3.DynamicClassRule" message="A class must not be dynamic">
-      <description>When using dynamic classes, you cannot control how the developer will use your classe. It makes refactoring really difficult.</description>
-      <priority>1</priority>
-      <example>
-   dynamic public class DynamicObject // VIOLATION
-   {
-   }
-      </example>
-    </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.event.EventMissingCloneFunctionRule" message="The clone event must be overiden in a custom event">
-      <description>Why do you need to override clone? Well, the clone method creates a copy of your event (or object - whatever object has the clone event; this isn't limited to Event objects). The default clone method inherited by the Event class or whatever class your custom class extends, will return an event object of the type of that class, not your custom event subclass. In the situations where a clone is needed, it is needed to be of the same type of your class, not the class it extends.</description>
-      <priority>1</priority>
-      <example>
-   public class FirstCustomEvent   // VIOLATION - clone method is missing
-   {
-      public var lala : String;
-      
-      public function FirstCustomEvent()
-      {         
-      }
-   }
-      </example>    
-    </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule" message="No public variables should be inside a custom event">
-      <description>In order to improve encapsulation in your custom event, it is better not to have public variable in your event. Prefer having read-only attributes, set by the event constructor.</description>
-      <priority>3</priority>
-      <example>
-   public class FirstCustomEvent   
-   {
-      public var lala : String; // VIOLATION
-      
-      public function FirstCustomEvent()
-      {         
-      }
-   }      </example>
-    </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.ConstructorNonEmptyReturnTypeRule" message="A constructor should not have a return type">
-      <description>Even if this is syntaxically correct, there should not be a return type for a constructor.</description>
-      <priority>3</priority>
-      <example>
-   public class VoidConstructor   
-   {
-      public function VoidConstructor() : void
-      {         
-      }      
-   }
-      </example>
-    </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStmtsShouldHaveDefaultRule" message="A switch statement does not contain a default statement">
-      <description>Switch statements should have a default label in order to detect corner cases.</description>
-      <priority>1</priority>
-      <example>
-   public class Foo 
-   {
-      public funciton bar() : void 
-      {
-         var  x : int = 2;
-         switch (x) 
-         {
-            case 2: var j : int = 8;
-         }
-      }
-   }     
-      </example>
-    </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStmtsShouldHaveDefaultRule" message="A switch statement should have minimum {0} case statements">
-      <description>Switch statements should have more case statements, or consider refactring it to a if statement.</description>
-      <priority>3</priority>
-      <example>
-   public class Foo 
-   {
-      public funciton bar() : void 
-      {
-         var  x : int = 2;
-         switch (x) 
-         {
-            case 2: var j : int = 8;
-         }
-      }
-   }     
-      </example>
-    </rule>
-    <rule class="com.adobe.ac.pmd.rules.as3.ExplicitStaticAccessFromStaticMethodRule" message="Static function or fields should not be called prefixed with its nested class">
-      <description>When defining a static field, or function, you don't have to specify the nesting class name when using this field. The class name is implicit. It improves readibility when not specifying the class name.</description>
+
+    <rule class="com.adobe.ac.pmd.rules.mxml.MoreThanOneEntryPointInMxmlRule" message="There are more than 1 public variable in this MXML component">
       <priority>5</priority>
-      <example>
-   public class Foo extends Proxy
-   {
-      public static const NAME:String = "myString";
-      private static var integer:Number = 3;
-      
-      public function Foo()
-      {
-         super( Foo.NAME ); // VIOLATION
-      }
-      
-      public static function bar() : void 
-      {
-         Foo.bar2( "FR_fr" ); // VIOLATION
-      }
-
-      internal static function bar2( locale : String ):Number 
-      {
-         return Foo.integer;// VIOLATION
-      }
-   }      
-      </example>
     </rule>
-
-   <rule class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule" message="Do not use Object class">
-      <description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
-      <priority>1</priority>
-      <example>
-   public class Foo
-   {
-      public var bar : Object; // VIOLATION      
-   }
-      </example>
-   </rule>
-   
-   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule" message="Switch must not be nested">
-      <description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when siwtch statements are nested.</description>
+    <rule class="com.adobe.ac.pmd.rules.mxml.MoreThanTwoEntryPointsInMxmlRule" message="There are more than 2 public variables in this MXML component">
       <priority>3</priority>
-      <example>
-      public function foo( a : Number, b : Number ) : void
-      {
-          switch( a )
-          {
-             case 1:
-                break;
-             case 2:                   
-                switch ( b ) 
-                {
-                  case 3 :
-                     break;
-                  case 4 :
-                     break;
-                }
-                break;                     
-          }
-      }
-      </example>
-   </rule>
-   
-   <rule class="com.adobe.ac.pmd.rules.as3.ArrayFieldWithNoArrayElementTypeRule" message="ArrayElementType metadata is not specified for an array-type field">
-      <description>
-      </description>
+    </rule>
+    <rule class="com.adobe.ac.pmd.rules.mxml.TooLongBindingExpressionRule" message="This binding expression is too long ({0} dots maximum, but {1} actually)">
+      <description>A Binding expression is executed as soon as one of the bindable attributes changed. If a binding expression contains too many expression, there could be some performance issue.</description>
       <priority>3</priority>
-      <example>
-   public class ArrayVO {
-      public var items:Array; //VIOLATION
-
-      [ArrayElementType("model.vo.MenuItemVO")]
-      public var menuItems : Array;
-   }      
-      </example>
-   </rule>
-
-   <rule class="com.adobe.ac.pmd.rules.as3.NonStaticConstantFieldRule" message="A constant field should be static">
-      <description>
-      </description>
-      <priority>1</priority>
-      <example>
-   public class MyObject {
-      public static const MY_STATIC_CONSTANT : String = "myStaticConstant";
-      public const MY_NON_STATIC_CONSTANT : String = "myStaticConstant"; // VIOLATION
-   }     
-      </example>
-   </rule>      
-   <rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedParameterRule" message="Some parameters of this function are not used ({0})">
-      <description>
-      </description>
-      <priority>1</priority>
-      <example>
-      public function foo( param1 : Number, param2 : Number, param3 : Number, param4 : Number, param5 : Number ) : void // 4 violations
-      {
-         var i : int = param1;
-      }
-      </example>
-   </rule>      
-   <rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedLocalVariableRule" message="You should delete this unused variable ({0})">
-      <description>
-      </description>
-      <priority>3</priority>
-      <example>
-      public function foo() : void
-      {
-         var i : int = 0;// 1 violation
-      }
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedPrivateMethodRule" message="This private method ({0}) does not seem to be used">
-      <description>
-      </description>
-      <priority>3</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule" message="There are too few branches in this switch statement ({0} minimum, but {1} actual)">
-      <description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
-      <priority>5</priority>
       <properties>
-         <property name="minimum">
+         <property name="maximum">
             <value>3</value>
          </property>
       </properties>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.BadFormatLogerRule" message="The loger is not correctly formatted">
-      <description></description>
-      <priority>5</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoopRule" message="Instanciating a variable in a loop can be expensive">
-      <description></description>
+    </rule>
+    <rule class="com.adobe.ac.pmd.rules.mxml.TooLongScriptBlockRule" message="This script block is too long ({0} maximum, but {1} actually)">
       <priority>3</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModelRule" message="A view component should not be referenced in a model class">
-      <description></description>
+      <properties>
+         <property name="maximum">
+            <value>50</value>
+         </property>
+      </properties>
+    </rule>
+    <rule class="com.adobe.ac.pmd.rules.mxml.NestedContainerRule" message="This container is too deeply nested.">
+      <description>Nested containers can decrease application overall performance especially if they are in item renderers.</description>
       <priority>3</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.UseGenericTypeRule" message="Use strongly typed objects instead of *">
-      <description></description>
-      <priority>1</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.event.ConstructorDispatchingEventRule" message="An event is dispatched in a constructor">
-      <description>This is pointless, since event listeners cannot be attached to an object before it has been constructed, so nothing can ever hear the event</description>
-      <priority>1</priority>
-      <example>
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.UselessOverridenFunctionRule" message="This method is empty. This should be removed">
-      <description>This function is not needed.</description>
-      <priority>3</priority>
-      <example>
-      override protected function createChildren() : void
-      {
-         super.createChildren();
-      }
-      </example>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.EmptyCatchStatementRule" message="This catch statement is empty">
-      <priority>3</priority>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.PropertyHiddenByLocalVariableRule" message="A class property is hidden by this local variable">
-      <priority>3</priority>
-   </rule>
-   <rule class="com.adobe.ac.pmd.rules.as3.AvoidProtectedFieldInFinalClass" message="Protected accessors are useless in a final class. Make them private.">
-      <priority>3</priority>
-   </rule>
+    </rule>
+	<rule class="com.adobe.ac.pmd.rules.mxml.StaticMethodInMxmlRule" message="Avoid having static functions in MXML components">
+		<description>MXML components are supposed to be used as views, whereas static functions are supposed to be used as factories, or utilities.</description>
+		<priority>3</priority>
+	</rule>
 </ruleset>

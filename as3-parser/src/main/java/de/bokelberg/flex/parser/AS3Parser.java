@@ -49,9 +49,10 @@ import de.bokelberg.util.FileUtil;
 
 public class AS3Parser implements IAS3Parser
 {
-   public AS3Scanner scn;
-   private String    fileName;
-   private Token     tok;
+   private static final String NEW_LINE = "\n";
+   public AS3Scanner           scn;
+   private String              fileName;
+   private Token               tok;
 
    /*
     * (non-Javadoc)
@@ -84,7 +85,7 @@ public class AS3Parser implements IAS3Parser
       {
          nextTokenAllowNewLine();
       }
-      while ( tok.text.equals( KeyWords.NEW_LINE ) );
+      while ( tok.text.equals( NEW_LINE ) );
       // S ystem.out.println("tok:" + tok.text + ".");
    }
 
@@ -635,9 +636,10 @@ public class AS3Parser implements IAS3Parser
    {
       final Node result = new Node( NodeKind.ASSIGN, tok.line, tok.column, parseConditionalExpression() );
       while ( tokIs( Operators.EQUAL )
-            || tokIs( Operators.PLUS_EQUAL ) || tokIs( Operators.MINUS_EQUAL ) || tokIs( Operators.TIMES_EQUAL )
-            || tokIs( Operators.DIVIDED_EQUAL ) || tokIs( Operators.MODULO_EQUAL )
-            || tokIs( Operators.AND_EQUAL ) || tokIs( Operators.OR_EQUAL ) || tokIs( Operators.XOR_EQUAL ) )
+            || tokIs( Operators.PLUS_EQUAL ) || tokIs( Operators.MINUS_EQUAL )
+            || tokIs( Operators.TIMES_EQUAL ) || tokIs( Operators.DIVIDED_EQUAL )
+            || tokIs( Operators.MODULO_EQUAL ) || tokIs( Operators.AND_EQUAL ) || tokIs( Operators.OR_EQUAL )
+            || tokIs( Operators.XOR_EQUAL ) )
       {
          result.addChild( new Node( NodeKind.OP, tok.line, tok.column, tok.text ) );
          nextToken();
@@ -1544,7 +1546,7 @@ public class AS3Parser implements IAS3Parser
        * end of the line is mandatory.
        */
       nextTokenAllowNewLine();
-      if ( tokIs( KeyWords.NEW_LINE )
+      if ( tokIs( NEW_LINE )
             || tokIs( Operators.SEMI_COLUMN ) )
       {
          nextToken();

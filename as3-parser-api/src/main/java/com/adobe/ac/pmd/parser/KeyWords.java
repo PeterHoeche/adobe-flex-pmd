@@ -61,7 +61,6 @@ public enum KeyWords
    INTERNAL("internal"),
    IS("is"),
    NEW("new"),
-   NEW_LINE("\n"),
    NULL("null"),
    OVERRIDE("override"),
    PACKAGE("package"),

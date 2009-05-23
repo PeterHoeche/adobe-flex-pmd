@@ -28,50 +28,36 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.rules.mxml;
 
-import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public enum Modifier
+public class StaticMethodInMxmlRule extends AbstractRegexpBasedRule
 {
-   DYNAMIC, FINAL, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, STATIC;
-
-   public static Modifier create( final String name )
+   @Override
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
-      Modifier modifier = null;
-      if ( KeyWords.PUBLIC.toString().equals( name ) )
-      {
-         modifier = Modifier.PUBLIC;
-      }
-      else if ( KeyWords.PRIVATE.toString().equals( name ) )
-      {
-         modifier = Modifier.PRIVATE;
-      }
-      else if ( KeyWords.PROTECTED.toString().equals( name ) )
-      {
-         modifier = Modifier.PROTECTED;
-      }
-      else if ( KeyWords.INTERNAL.toString().equals( name ) )
-      {
-         modifier = Modifier.INTERNAL;
-      }
-      else if ( KeyWords.DYNAMIC.toString().equals( name ) )
-      {
-         modifier = Modifier.DYNAMIC;
-      }
-      else if ( KeyWords.OVERRIDE.toString().equals( name ) )
-      {
-         modifier = Modifier.OVERRIDE;
-      }
-      else if ( KeyWords.STATIC.toString().equals( name ) )
-      {
-         modifier = Modifier.STATIC;
-      }
-      else if ( KeyWords.FINAL.toString().equals( name ) )
-      {
-         modifier = Modifier.FINAL;
-      }
-      return modifier;
+      return file.isMxml();
+   }
 
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.INFO;
+   }
+
+   @Override
+   protected String getRegexp()
+   {
+      return ".*static .*";
+   }
+
+   @Override
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                            final AbstractFlexFile file )
+   {
+      return line.contains( "function " );
    }
 }

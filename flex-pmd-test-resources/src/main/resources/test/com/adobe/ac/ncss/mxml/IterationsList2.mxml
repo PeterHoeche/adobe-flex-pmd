@@ -45,7 +45,7 @@
          public var lala : int = 1;
 
          private var _selectedIteration : Iteration;
-         
+         public static function myInit() : void {}
       ]]>
    </mx:Script>
    
