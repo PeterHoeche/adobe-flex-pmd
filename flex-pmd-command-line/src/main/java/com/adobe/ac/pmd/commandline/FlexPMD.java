@@ -37,8 +37,8 @@ import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.pmd.FlexPMDCommandLineConstants;
-import com.adobe.ac.pmd.FlexPMDCommandLineUtils;
+import com.adobe.ac.pmd.CommandLineOptions;
+import com.adobe.ac.pmd.CommandLineUtils;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.martiansoftware.jsap.JSAP;
@@ -66,9 +66,9 @@ final public class FlexPMD
                                                            jsap );
       if ( config.success() )
       {
-         new FlexPmdXmlEngine().executeReport( new File( config.getString( FlexPMDCommandLineConstants.SOURCE_DIRECTORY ) ),
-                                               new File( config.getString( FlexPMDCommandLineConstants.OUTPUT ) ),
-                                               new File( config.getString( FlexPMDCommandLineConstants.RULE_SET ) ),
+         new FlexPmdXmlEngine().executeReport( new File( config.getString( CommandLineOptions.SOURCE_DIRECTORY ) ),
+                                               new File( config.getString( CommandLineOptions.OUTPUT ) ),
+                                               new File( config.getString( CommandLineOptions.RULE_SET ) ),
                                                new FlexPmdViolations() );
       }
       else
@@ -85,19 +85,18 @@ final public class FlexPMD
    private static JSAPResult parseCommandLineArguments( final String[] args,
                                                         final JSAP jsap ) throws JSAPException
    {
-
-      FlexPMDCommandLineUtils.registerParameter( jsap,
-                                                 FlexPMDCommandLineConstants.SOURCE_DIRECTORY,
-                                                 FlexPMDCommandLineConstants.SOURCE_DIRECTORY.charAt( 0 ),
-                                                 true );
-      FlexPMDCommandLineUtils.registerParameter( jsap,
-                                                 FlexPMDCommandLineConstants.OUTPUT,
-                                                 FlexPMDCommandLineConstants.OUTPUT.charAt( 0 ),
-                                                 true );
-      FlexPMDCommandLineUtils.registerParameter( jsap,
-                                                 FlexPMDCommandLineConstants.RULE_SET,
-                                                 FlexPMDCommandLineConstants.RULE_SET.charAt( 0 ),
-                                                 true );
+      CommandLineUtils.registerParameter( jsap,
+                                          CommandLineOptions.SOURCE_DIRECTORY,
+                                          CommandLineOptions.SOURCE_DIRECTORY.charAt( 0 ),
+                                          true );
+      CommandLineUtils.registerParameter( jsap,
+                                          CommandLineOptions.OUTPUT,
+                                          CommandLineOptions.OUTPUT.charAt( 0 ),
+                                          true );
+      CommandLineUtils.registerParameter( jsap,
+                                          CommandLineOptions.RULE_SET,
+                                          CommandLineOptions.RULE_SET.charAt( 0 ),
+                                          true );
 
       return jsap.parse( args );
    }
