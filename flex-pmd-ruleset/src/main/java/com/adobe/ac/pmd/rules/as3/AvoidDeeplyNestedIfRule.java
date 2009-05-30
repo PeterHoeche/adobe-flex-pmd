@@ -39,7 +39,6 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class AvoidDeeplyNestedIfRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    private int ifLevel = 0;

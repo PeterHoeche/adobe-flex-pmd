@@ -39,7 +39,6 @@ import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class BadFormatLogerRule extends AbstractAstFlexRule
 {
    @Override

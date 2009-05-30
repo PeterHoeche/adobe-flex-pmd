@@ -46,7 +46,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    /**
     * Test case which contains non-violating files but which are concerned by
     * the given rule
-    * 
+    *
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -56,7 +56,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
    /**
     * Test case which contains non-concerned files by the given rule
-    * 
+    *
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -66,7 +66,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
    /**
     * Test case which contains violating files
-    * 
+    *
     * @throws FileNotFoundException
     * @throws URISyntaxException
     */
@@ -98,11 +98,11 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
             final Violation violation = violations.get( i );
             final ViolationPosition expectedPosition = expectedPositions[ i ];
 
-            assertEquals( BEGIN_LINE_IS_NOT_CORRECT
+            assertEquals( BEGIN_LINE_NOT_CORRECT
                                 + " at " + i + "th violation",
                           expectedPosition.getBeginLine(),
                           violation.getBeginLine() );
-            assertEquals( END_LINE_IS_NOT_CORRECT
+            assertEquals( END_LINE_NOT_CORRECT
                                 + " at " + i + "th violation",
                           expectedPosition.getEndLine(),
                           violation.getEndLine() );

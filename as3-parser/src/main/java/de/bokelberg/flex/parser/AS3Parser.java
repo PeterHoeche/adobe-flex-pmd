@@ -220,6 +220,7 @@ public class AS3Parser implements IAS3Parser
          {
             result.addChild( parseClass( meta,
                                          modifier ) );
+
             modifier.clear();
             meta.clear();
          }
@@ -244,11 +245,7 @@ public class AS3Parser implements IAS3Parser
       Node result = new Node( NodeKind.PRIMARY, tok.line, tok.column );
       result.setStringValue( tok.text );
 
-      if ( tokIs( KeyWords.UNDEFINED ) )
-      {
-         nextToken(); // undefined
-      }
-      else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+      if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
       {
          result.addChild( parseArrayLiteral() );
       }
@@ -268,41 +265,18 @@ public class AS3Parser implements IAS3Parser
       {
          result.addChild( parseEncapsulatedExpression() );
       }
-      else if ( tok.text.startsWith( Operators.DOUBLE_QUOTE.toString() ) )
-      {
-         nextToken(); // string
-      }
-      else if ( tok.text.startsWith( Operators.SIMPLE_QUOTE.toString() ) )
-      {
-         nextToken(); // string
-      }
-      else if ( tok.text.startsWith( Operators.SLASH.toString() ) )
-      {
-         nextToken(); // regexp
-      }
-      else if ( tok.text.startsWith( Operators.INFERIOR.toString() ) )
-      {
-         nextToken(); // xml literal
-      }
-      else if ( tokIs( KeyWords.TRUE ) )
-      {
-         nextToken(); // true
-      }
-      else if ( tokIs( KeyWords.FALSE ) )
-      {
-         nextToken(); // false
-      }
-      else if ( tokIs( KeyWords.NULL ) )
-      {
-         nextToken(); // null
-      }
-      else if ( tok.isNum )
-      {
-         nextToken();
-      }
       else if ( tokIs( Operators.AT ) )
       {
          result.addChild( parseE4XAttributeIdentifier() );
+      }
+      else if ( tok.isNum
+            || tokIs( KeyWords.TRUE ) || tokIs( KeyWords.FALSE ) || tokIs( KeyWords.NULL )
+            || tok.text.startsWith( Operators.DOUBLE_QUOTE.toString() )
+            || tok.text.startsWith( Operators.SIMPLE_QUOTE.toString() )
+            || tok.text.startsWith( Operators.SLASH.toString() )
+            || tok.text.startsWith( Operators.INFERIOR.toString() ) || tokIs( KeyWords.UNDEFINED ) )
+      {
+         nextToken();
       }
       else
       {

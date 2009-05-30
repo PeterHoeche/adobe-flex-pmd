@@ -83,9 +83,9 @@ public enum KeyWords
 
    private String name;
 
-   private KeyWords( final String name )
+   private KeyWords( final String nameToBeSet )
    {
-      this.name = name;
+      name = nameToBeSet;
    }
 
    @Override

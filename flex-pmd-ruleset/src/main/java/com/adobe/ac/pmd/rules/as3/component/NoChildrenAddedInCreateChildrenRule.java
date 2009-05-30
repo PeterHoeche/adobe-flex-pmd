@@ -37,7 +37,6 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class NoChildrenAddedInCreateChildrenRule extends AbstractAstFlexRule
 {
    private static final String   CREATE_CHILDREN = "createChildren";

@@ -43,8 +43,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooManyFieldsRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private IClass classNode   = null;
    private int    attributesNb = 0;
+   private IClass classNode    = null;
 
    public int getActualValue()
    {
@@ -67,12 +67,6 @@ public class TooManyFieldsRule extends AbstractAstFlexRule implements IThreshold
    }
 
    @Override
-   protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
-   {
-      classNode = classNodeToBeSet;
-   }
-
-   @Override
    protected void findViolationsFromAttributesList( final List< IAttribute > attributes )
    {
       attributesNb = attributes.size();
@@ -82,6 +76,12 @@ public class TooManyFieldsRule extends AbstractAstFlexRule implements IThreshold
          addViolation( classNode.getInternalNode(),
                        classNode.getInternalNode() );
       }
+   }
+
+   @Override
+   protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
+   {
+      classNode = classNodeToBeSet;
    }
 
    @Override

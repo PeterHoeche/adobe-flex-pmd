@@ -84,9 +84,9 @@ public enum Operators
 
    private String symbol;
 
-   private Operators( final String symbol )
+   private Operators( final String symbolToBeSet )
    {
-      this.symbol = symbol;
+      symbol = symbolToBeSet;
    }
 
    @Override

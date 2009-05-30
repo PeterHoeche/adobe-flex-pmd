@@ -35,7 +35,6 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-
 public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
 {
    @Override

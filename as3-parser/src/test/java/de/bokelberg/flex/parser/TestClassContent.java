@@ -37,7 +37,6 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-
 public class TestClassContent extends TestCase
 {
 
@@ -58,19 +57,33 @@ public class TestClassContent extends TestCase
    {
       assertClassContent( "1",
                           "const a",
-                          "<const-list line=\"2\" column=\"7\"><mod-list line=\"2\" column=\"7\"></mod-list><name-type-init line=\"2\" column=\"7\"><name line=\"2\" column=\"7\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></const-list>" );
+                          "<const-list line=\"2\" column=\"7\"><mod-list line=\"2\" column=\"7\">"
+                                + "</mod-list><name-type-init line=\"2\" column=\"7\"><name line=\"2\" column=\"7\">a"
+                                + "</name><type line=\"3\" column=\"1\"></type></name-type-init></const-list>" );
 
       assertClassContent( "2",
                           "public const a",
-                          "<const-list line=\"2\" column=\"14\"><mod-list line=\"2\" column=\"14\"><mod line=\"2\" column=\"14\">public</mod></mod-list><name-type-init line=\"2\" column=\"14\"><name line=\"2\" column=\"14\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></const-list>" );
+                          "<const-list line=\"2\" column=\"14\"><mod-list line=\"2\" column=\"14\">"
+                                + "<mod line=\"2\" column=\"14\">public</mod></mod-list><name-type-init line=\"2\" "
+                                + "column=\"14\"><name line=\"2\" column=\"14\">a</name><type line=\"3\" column=\"1\">"
+                                + "</type></name-type-init></const-list>" );
 
       assertClassContent( "3",
                           "public static const a : int = 0",
-                          "<const-list line=\"2\" column=\"21\"><mod-list line=\"2\" column=\"21\"><mod line=\"2\" column=\"21\">public</mod><mod line=\"2\" column=\"21\">static</mod></mod-list><name-type-init line=\"2\" column=\"21\"><name line=\"2\" column=\"21\">a</name><type line=\"2\" column=\"23\">int</type><init line=\"2\" column=\"31\"><primary line=\"2\" column=\"31\">0</primary></init></name-type-init></const-list>" );
+                          "<const-list line=\"2\" column=\"21\"><mod-list line=\"2\" column=\"21\">"
+                                + "<mod line=\"2\" column=\"21\">public</mod><mod line=\"2\" column=\"21\">"
+                                + "static</mod></mod-list><name-type-init line=\"2\" column=\"21\"><name "
+                                + "line=\"2\" column=\"21\">a</name><type line=\"2\" column=\"23\">int</type>"
+                                + "<init line=\"2\" column=\"31\"><primary line=\"2\" column=\"31\">0</primary>"
+                                + "</init></name-type-init></const-list>" );
 
       assertClassContent( "4",
                           "[Bindable] const a",
-                          "<const-list line=\"2\" column=\"18\"><meta-list line=\"2\" column=\"18\"><meta line=\"2\" column=\"12\">Bindable</meta></meta-list><mod-list line=\"2\" column=\"18\"></mod-list><name-type-init line=\"2\" column=\"18\"><name line=\"2\" column=\"18\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></const-list>" );
+                          "<const-list line=\"2\" column=\"18\"><meta-list line=\"2\" column=\"18\">"
+                                + "<meta line=\"2\" column=\"12\">Bindable</meta></meta-list><mod-list line=\"2\" "
+                                + "column=\"18\"></mod-list><name-type-init line=\"2\" column=\"18\">"
+                                + "<name line=\"2\" column=\"18\">a</name><type line=\"3\" column=\"1\">"
+                                + "</type></name-type-init></const-list>" );
    }
 
    @Test
@@ -81,7 +94,8 @@ public class TestClassContent extends TestCase
                           "<import line=\"2\" column=\"8\">a.b.c</import>" );
       assertClassContent( "2",
                           "import a.b.c import x.y.z",
-                          "<import line=\"2\" column=\"8\">a.b.c</import><import line=\"2\" column=\"21\">x.y.z</import>" );
+                          "<import line=\"2\" column=\"8\">a.b.c</import>"
+                                + "<import line=\"2\" column=\"21\">x.y.z</import>" );
    }
 
    @Test
@@ -89,19 +103,39 @@ public class TestClassContent extends TestCase
    {
       assertClassContent( "1",
                           "function a(){}",
-                          "<function line=\"2\" column=\"13\"><mod-list line=\"2\" column=\"13\"></mod-list><name line=\"2\" column=\"10\">a</name><parameter-list line=\"2\" column=\"12\"></parameter-list><type line=\"2\" column=\"13\"></type><block line=\"2\" column=\"14\"></block></function>" );
+                          "<function line=\"2\" column=\"13\"><mod-list line=\"2\" column=\"13\">"
+                                + "</mod-list><name line=\"2\" column=\"10\">a</name><parameter-list line=\"2\" "
+                                + "column=\"12\"></parameter-list><type line=\"2\" column=\"13\"></type><block "
+                                + "line=\"2\" column=\"14\"></block></function>" );
 
       assertClassContent( "2",
                           "function set a( value : int ) : void {}",
-                          "<set line=\"2\" column=\"38\"><mod-list line=\"2\" column=\"38\"></mod-list><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" column=\"17\"><parameter line=\"2\" column=\"17\"><name-type-init line=\"2\" column=\"17\"><name line=\"2\" column=\"17\">value</name><type line=\"2\" column=\"23\">int</type></name-type-init></parameter></parameter-list><type line=\"2\" column=\"31\">void</type><block line=\"2\" column=\"39\"></block></set>" );
+                          "<set line=\"2\" column=\"38\"><mod-list line=\"2\" column=\"38\">"
+                                + "</mod-list><name line=\"2\" column=\"14\">a</name>"
+                                + "<parameter-list line=\"2\" column=\"17\"><parameter line=\"2\" column=\"17\">"
+                                + "<name-type-init line=\"2\" column=\"17\"><name line=\"2\" column=\"17\">value"
+                                + "</name><type line=\"2\" column=\"23\">int</type></name-type-init></parameter>"
+                                + "</parameter-list><type line=\"2\" column=\"31\">void</type><block line=\"2\" "
+                                + "column=\"39\"></block></set>" );
 
       assertClassContent( "3",
                           "function get a() : int {}",
-                          "<get line=\"2\" column=\"24\"><mod-list line=\"2\" column=\"24\"></mod-list><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" column=\"16\"></parameter-list><type line=\"2\" column=\"18\">int</type><block line=\"2\" column=\"25\"></block></get>" );
+                          "<get line=\"2\" column=\"24\"><mod-list line=\"2\" column=\"24\">"
+                                + "</mod-list><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" "
+                                + "column=\"16\"></parameter-list><type line=\"2\" column=\"18\">int"
+                                + "</type><block line=\"2\" column=\"25\"></block></get>" );
 
       assertClassContent( "function with default parameter",
                           "public function newLine ( height:*='' ):void{}",
-                          "<function line=\"2\" column=\"45\"><mod-list line=\"2\" column=\"45\"><mod line=\"2\" column=\"45\">public</mod></mod-list><name line=\"2\" column=\"17\">newLine</name><parameter-list line=\"2\" column=\"27\"><parameter line=\"2\" column=\"27\"><name-type-init line=\"2\" column=\"27\"><name line=\"2\" column=\"27\">height</name><type line=\"2\" column=\"33\">*</type><init line=\"2\" column=\"36\"><primary line=\"2\" column=\"36\">''</primary></init></name-type-init></parameter></parameter-list><type line=\"2\" column=\"40\">void</type><block line=\"2\" column=\"46\"></block></function>" );
+                          "<function line=\"2\" column=\"45\"><mod-list line=\"2\" column=\"45\"><mod line=\"2\" "
+                                + "column=\"45\">public</mod></mod-list><name line=\"2\" column=\"17\">newLine"
+                                + "</name><parameter-list line=\"2\" column=\"27\"><parameter line=\"2\" "
+                                + "column=\"27\"><name-type-init line=\"2\" column=\"27\"><name line=\"2\" "
+                                + "column=\"27\">height</name><type line=\"2\" column=\"33\">*</type>"
+                                + "<init line=\"2\" column=\"36\"><primary line=\"2\" column=\"36\">''"
+                                + "</primary></init></name-type-init></parameter></parameter-list>"
+                                + "<type line=\"2\" column=\"40\">void</type><block line=\"2\" column=\"46\">"
+                                + "</block></function>" );
    }
 
    @Test
@@ -109,19 +143,34 @@ public class TestClassContent extends TestCase
    {
       assertClassContent( "1",
                           "var a",
-                          "<var-list line=\"2\" column=\"5\"><mod-list line=\"2\" column=\"5\"></mod-list><name-type-init line=\"2\" column=\"5\"><name line=\"2\" column=\"5\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></var-list>" );
+                          "<var-list line=\"2\" column=\"5\"><mod-list line=\"2\" column=\"5\">"
+                                + "</mod-list><name-type-init line=\"2\" column=\"5\"><name line=\"2\" column=\"5\">a"
+                                + "</name><type line=\"3\" column=\"1\"></type></name-type-init></var-list>" );
 
       assertClassContent( "2",
                           "public var a",
-                          "<var-list line=\"2\" column=\"12\"><mod-list line=\"2\" column=\"12\"><mod line=\"2\" column=\"12\">public</mod></mod-list><name-type-init line=\"2\" column=\"12\"><name line=\"2\" column=\"12\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></var-list>" );
+                          "<var-list line=\"2\" column=\"12\"><mod-list line=\"2\" column=\"12\">"
+                                + "<mod line=\"2\" column=\"12\">public</mod></mod-list><name-type-init line=\"2\" "
+                                + "column=\"12\"><name line=\"2\" column=\"12\">a</name><type line=\"3\" "
+                                + "column=\"1\"></type></name-type-init></var-list>" );
 
       assertClassContent( "3",
                           "public static var a : int = 0",
-                          "<var-list line=\"2\" column=\"19\"><mod-list line=\"2\" column=\"19\"><mod line=\"2\" column=\"19\">public</mod><mod line=\"2\" column=\"19\">static</mod></mod-list><name-type-init line=\"2\" column=\"19\"><name line=\"2\" column=\"19\">a</name><type line=\"2\" column=\"21\">int</type><init line=\"2\" column=\"29\"><primary line=\"2\" column=\"29\">0</primary></init></name-type-init></var-list>" );
+                          "<var-list line=\"2\" column=\"19\"><mod-list line=\"2\" column=\"19\">"
+                                + "<mod line=\"2\" column=\"19\">public</mod><mod line=\"2\" column=\"19\">"
+                                + "static</mod></mod-list><name-type-init line=\"2\" column=\"19\">"
+                                + "<name line=\"2\" column=\"19\">a</name><type line=\"2\" column=\"21\">int</type>"
+                                + "<init line=\"2\" column=\"29\"><primary line=\"2\" column=\"29\">0</primary>"
+                                + "</init></name-type-init></var-list>" );
 
       assertClassContent( "4",
                           "[Bindable] var a",
-                          "<var-list line=\"2\" column=\"16\"><meta-list line=\"2\" column=\"16\"><meta line=\"2\" column=\"12\">Bindable</meta></meta-list><mod-list line=\"2\" column=\"16\"></mod-list><name-type-init line=\"2\" column=\"16\"><name line=\"2\" column=\"16\">a</name><type line=\"3\" column=\"1\"></type></name-type-init></var-list>" );
+                          "<var-list line=\"2\" column=\"16\"><meta-list line=\"2\" column=\"16\">"
+                                + "<meta line=\"2\" column=\"12\">Bindable</meta></meta-list>"
+                                + "<mod-list line=\"2\" column=\"16\"></mod-list>"
+                                + "<name-type-init line=\"2\" column=\"16\">"
+                                + "<name line=\"2\" column=\"16\">a</name><type line=\"3\" column=\"1\">"
+                                + "</type></name-type-init></var-list>" );
    }
 
    private void assertClassContent( final String message,

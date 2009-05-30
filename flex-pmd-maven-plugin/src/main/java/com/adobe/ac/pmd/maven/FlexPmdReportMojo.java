@@ -71,11 +71,16 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
                                                ruleSet,
                                                pmd );
 
-         new FlexPmdHtmlEngine( getSink(), getBundle( locale ), aggregate, getProject() ).executeReport( sourceDirectory,
-                                                                                                         new File( outputDirectory
-                                                                                                               + "/site" ),
-                                                                                                         ruleSet,
-                                                                                                         pmd );
+         final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
+                                                                            getBundle( locale ),
+                                                                            aggregate,
+                                                                            getProject() );
+
+         flexPmdHtmlEngine.executeReport( sourceDirectory,
+                                          new File( outputDirectory
+                                                + "/site" ),
+                                          ruleSet,
+                                          pmd );
       }
       catch ( final PMDException e )
       {

@@ -40,7 +40,6 @@ import org.junit.Test;
 import com.adobe.ac.pmd.parser.IAS3Parser;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-
 public class TestAS3Parser extends TestCase
 {
    @Test

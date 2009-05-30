@@ -58,7 +58,7 @@ public class TestXpathFlexRule extends AbstractAstFlexRuleTest
    public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
                                                          URISyntaxException
    {
-      assertEquals( VIOLATIONS_NUMBER_IS_NOT_CORRECT,
+      assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
                     0,
                     processFile( "com.adobe.ac.AbstractRowData.as" ).size() );
    }

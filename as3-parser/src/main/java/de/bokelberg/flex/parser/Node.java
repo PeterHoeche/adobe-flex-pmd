@@ -38,14 +38,14 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * A single node of the ast
- * 
+ *
  * @author rbokel
  */
 class Node implements IParserNode
 {
    private List< IParserNode > children;
    private final int           column;
-   private NodeKind            id;
+   private NodeKind            nodeId;
    private final int           line;
    private String              stringValue;
 
@@ -53,7 +53,7 @@ class Node implements IParserNode
                 final int lineToBeSet,
                 final int columnToBeSet )
    {
-      id = idToBeSet;
+      nodeId = idToBeSet;
       line = lineToBeSet;
       column = columnToBeSet;
    }
@@ -146,7 +146,7 @@ class Node implements IParserNode
 
    public NodeKind getId()
    {
-      return id;
+      return nodeId;
    }
 
    /*
@@ -196,7 +196,7 @@ class Node implements IParserNode
 
    public void setId( final NodeKind idToBeSet )
    {
-      id = idToBeSet;
+      nodeId = idToBeSet;
    }
 
    public void setStringValue( final String text )

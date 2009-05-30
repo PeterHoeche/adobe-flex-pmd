@@ -37,7 +37,6 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-
 public class TestPrimaryExpression extends TestCase
 {
    private AS3Parser  asp;
@@ -135,7 +134,8 @@ public class TestPrimaryExpression extends TestCase
                   "__END__" } );
       asp.nextToken();
       final String result = new ASTToXMLConverter().convert( asp.parsePrimaryExpression() );
-      assertEquals( "<primary line=\"1\" column=\"1\">"
+      assertEquals( "unexpected",
+                    "<primary line=\"1\" column=\"1\">"
                           + expected + "</primary>",
                     result );
    }

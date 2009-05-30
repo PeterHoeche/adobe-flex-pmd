@@ -38,14 +38,14 @@ import com.adobe.ac.pmd.parser.IParserNode;
 /**
  * Node representing a Function It contains the function name, its parameters,
  * its return type, its modifiers, its metadata
- * 
+ *
  * @author xagnetti
  */
 public interface IFunction extends IModifiersHolder, IMetaDataListHolder, INamable, INode
 {
    /**
     * Finds recursivly a statement in the function body from its name
-    * 
+    *
     * @param primaryName statement name
     * @return corresponding node
     */
@@ -53,7 +53,7 @@ public interface IFunction extends IModifiersHolder, IMetaDataListHolder, INamab
 
    /**
     * Finds recursivly a statement in the function body from a list of names
-    * 
+    *
     * @param primaryNames statement name
     * @return corresponding node
     */

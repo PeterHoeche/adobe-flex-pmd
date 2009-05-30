@@ -37,7 +37,6 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-
 public class TestExpression extends TestCase
 {
    private AS3Parser  asp;
@@ -57,7 +56,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5+6",
-                        "<add line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">+</op><primary line=\"1\" column=\"3\">6</primary></add>" );
+                        "<add line=\"1\" column=\"1\"><primary line=\"1\" "
+                              + "column=\"1\">5</primary><op line=\"1\" "
+                              + "column=\"2\">+</op><primary line=\"1\" column=\"3\">6</primary></add>" );
    }
 
    @Test
@@ -65,7 +66,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5&&6",
-                        "<and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&&</op><primary line=\"1\" column=\"4\">6</primary></and>" );
+                        "<and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary>"
+                              + "<op line=\"1\" column=\"2\">&&</op>"
+                              + "<primary line=\"1\" column=\"4\">6</primary></and>" );
    }
 
    @Test
@@ -73,7 +76,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "x+=6",
-                        "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">x</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" column=\"4\">6</primary></assign>" );
+                        "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">x"
+                              + "</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" "
+                              + "column=\"4\">6</primary></assign>" );
    }
 
    @Test
@@ -81,7 +86,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5&6",
-                        "<b-and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&</op><primary line=\"1\" column=\"3\">6</primary></b-and>" );
+                        "<b-and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">&</op><primary line=\"1\" "
+                              + "column=\"3\">6</primary></b-and>" );
    }
 
    @Test
@@ -89,7 +96,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5|6",
-                        "<b-or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">|</op><primary line=\"1\" column=\"3\">6</primary></b-or>" );
+                        "<b-or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">|</op><primary line=\"1\" "
+                              + "column=\"3\">6</primary></b-or>" );
    }
 
    @Test
@@ -97,7 +106,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5^6",
-                        "<b-xor line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">^</op><primary line=\"1\" column=\"3\">6</primary></b-xor>" );
+                        "<b-xor line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">^</op><primary line=\"1\" "
+                              + "column=\"3\">6</primary></b-xor>" );
    }
 
    @Test
@@ -105,7 +116,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "true?5:6",
-                        "<conditional line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">true</primary><primary line=\"1\" column=\"6\">5</primary><primary line=\"1\" column=\"8\">6</primary></conditional>" );
+                        "<conditional line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">"
+                              + "true</primary><primary line=\"1\" column=\"6\">5"
+                              + "</primary><primary line=\"1\" column=\"8\">6" + "</primary></conditional>" );
    }
 
    @Test
@@ -113,7 +126,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5!==6",
-                        "<equality line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">!==</op><primary line=\"1\" column=\"5\">6</primary></equality>" );
+                        "<equality line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">!==</op><primary line=\"1\" "
+                              + "column=\"5\">6</primary></equality>" );
    }
 
    @Test
@@ -121,7 +136,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5/6",
-                        "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" column=\"3\">6</primary></mul>" );
+                        "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" "
+                              + "column=\"3\">6</primary></mul>" );
    }
 
    @Test
@@ -129,7 +146,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5||6",
-                        "<or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">||</op><primary line=\"1\" column=\"4\">6</primary></or>" );
+                        "<or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">||</op><primary line=\"1\" "
+                              + "column=\"4\">6</primary></or>" );
    }
 
    @Test
@@ -137,7 +156,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5<=6",
-                        "<relation line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;=</op><primary line=\"1\" column=\"4\">6</primary></relation>" );
+                        "<relation line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">&lt;=</op><primary line=\"1\" "
+                              + "column=\"4\">6</primary></relation>" );
    }
 
    @Test
@@ -145,7 +166,9 @@ public class TestExpression extends TestCase
    {
       assertExpression( "1",
                         "5<<6",
-                        "<shift line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">&lt;&lt;</op><primary line=\"1\" column=\"4\">6</primary></shift>" );
+                        "<shift line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
+                              + "</primary><op line=\"1\" column=\"2\">&lt;&lt;</op><primary line=\"1\" "
+                              + "column=\"4\">6</primary></shift>" );
    }
 
    private void assertExpression( final String message,

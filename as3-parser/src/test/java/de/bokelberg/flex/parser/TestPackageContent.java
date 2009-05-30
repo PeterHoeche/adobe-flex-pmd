@@ -58,7 +58,8 @@ public class TestPackageContent extends TestCase
                             "public class A { }",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\">"
                                   + "<name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\">"
-                                  + "<mod line=\"2\" column=\"16\">public</mod></mod-list><content line=\"2\" column=\"18\">"
+                                  + "<mod line=\"2\" column=\"16\">public</mod>"
+                                  + "</mod-list><content line=\"2\" column=\"18\">"
                                   + "</content></class></content>" );
    }
 
@@ -69,8 +70,10 @@ public class TestPackageContent extends TestCase
                             "[Bindable(name=\"abc\", value=\"123\")] public class A { }",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"50\">"
                                   + "<name line=\"2\" column=\"50\">A</name><meta-list line=\"2\" column=\"52\">"
-                                  + "<meta line=\"2\" column=\"37\">Bindable ( name = \"abc\" , value = \"123\" )</meta>"
-                                  + "</meta-list><mod-list line=\"2\" column=\"52\"><mod line=\"2\" column=\"52\">public"
+                                  + "<meta line=\"2\" column=\"37\""
+                                  + ">Bindable ( name = \"abc\" , value = \"123\" )</meta>"
+                                  + "</meta-list><mod-list line=\"2\" column=\"52\">"
+                                  + "<mod line=\"2\" column=\"52\">public"
                                   + "</mod></mod-list><content line=\"2\" column=\"54\"></content></class></content>" );
    }
 
@@ -91,7 +94,8 @@ public class TestPackageContent extends TestCase
    {
       assertPackageContent( "1",
                             "import a.b.c;",
-                            "<content line=\"2\" column=\"1\"><import line=\"2\" column=\"8\">a.b.c</import></content>" );
+                            "<content line=\"2\" column=\"1\"><import line=\"2\" "
+                                  + "column=\"8\">a.b.c</import></content>" );
 
       assertPackageContent( "2",
                             "import a.b.c import x.y.z",
@@ -106,7 +110,8 @@ public class TestPackageContent extends TestCase
                             "public interface A { }",
                             "<content line=\"2\" column=\"1\"><interface line=\"2\" column=\"18\">"
                                   + "<name line=\"2\" column=\"18\">A</name><mod-list line=\"2\" column=\"20\">"
-                                  + "<mod line=\"2\" column=\"20\">public</mod></mod-list><content line=\"2\" column=\"22\">"
+                                  + "<mod line=\"2\" column=\"20\">public</mod>"
+                                  + "</mod-list><content line=\"2\" column=\"22\">"
                                   + "</content></interface></content>" );
    }
 
@@ -115,7 +120,8 @@ public class TestPackageContent extends TestCase
    {
       assertPackageContent( "1",
                             "use myNamespace",
-                            "<content line=\"2\" column=\"1\"><use line=\"2\" column=\"5\">myNamespace</use></content>" );
+                            "<content line=\"2\" column=\"1\"><use line=\"2\" column=\"5\""
+                                  + ">myNamespace</use></content>" );
    }
 
    private void assertPackageContent( final String message,

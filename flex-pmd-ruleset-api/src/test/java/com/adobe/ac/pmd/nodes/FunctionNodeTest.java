@@ -69,17 +69,17 @@ public class FunctionNodeTest extends FlexPmdTestBase
                       TokenException
    {
       final AS3Parser parser = new AS3Parser();
-      final IClass radonDataGridClassNode = NodeFactory.createPackage( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
+      final IClass radonDataGrid = NodeFactory.createPackage( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
                                                                                                  .getFilePath() ) )
                                                        .getClassNode();
 
-      constructor = radonDataGridClassNode.getFunctions().get( 0 );
-      drawHighlightIndicator = radonDataGridClassNode.getFunctions().get( 1 );
-      drawSelectionIndicator = radonDataGridClassNode.getFunctions().get( 2 );
-      drawRowBackground = radonDataGridClassNode.getFunctions().get( 3 );
-      placeSortArrow = radonDataGridClassNode.getFunctions().get( 4 );
-      isTrueGetter = radonDataGridClassNode.getFunctions().get( 5 );
-      isTrueSetter = radonDataGridClassNode.getFunctions().get( 6 );
+      constructor = radonDataGrid.getFunctions().get( 0 );
+      drawHighlightIndicator = radonDataGrid.getFunctions().get( 1 );
+      drawSelectionIndicator = radonDataGrid.getFunctions().get( 2 );
+      drawRowBackground = radonDataGrid.getFunctions().get( 3 );
+      placeSortArrow = radonDataGrid.getFunctions().get( 4 );
+      isTrueGetter = radonDataGrid.getFunctions().get( 5 );
+      isTrueSetter = radonDataGrid.getFunctions().get( 6 );
    }
 
    @Test

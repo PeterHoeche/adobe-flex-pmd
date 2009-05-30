@@ -54,9 +54,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 public class FlexPmdViolations
 {
    public static final Logger                                     LOGGER       = Logger.getLogger( FlexPmdViolations.class.getName() );
-
    private boolean                                                beenComputed = false;
-
    private final SortedMap< AbstractFlexFile, List< Violation > > violations;
 
    public FlexPmdViolations()
@@ -82,9 +80,10 @@ public class FlexPmdViolations
          for ( final Entry< String, AbstractFlexFile > fileEntry : files.entrySet() )
          {
             final AbstractFlexFile file = fileEntry.getValue();
+            final IPackage ast = rule instanceof AbstractAstFlexRule ? asts.get( file.getFullyQualifiedName() )
+                                                                    : null;
             final List< Violation > foundViolations = rule.processFile( file,
-                                                                        rule instanceof AbstractAstFlexRule ? asts.get( file.getFullyQualifiedName() )
-                                                                                                           : null,
+                                                                        ast,
                                                                         files );
 
             if ( violations.containsKey( file ) )

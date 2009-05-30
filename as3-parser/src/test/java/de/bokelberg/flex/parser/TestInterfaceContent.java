@@ -60,7 +60,8 @@ public class TestInterfaceContent extends TestCase
 
       assertInterfaceContent( "2",
                               "import a.b.c import x.y.z",
-                              "<import line=\"2\" column=\"8\">a.b.c</import><import line=\"2\" column=\"21\">x.y.z</import>" );
+                              "<import line=\"2\" column=\"8\">a.b.c</import>"
+                                    + "<import line=\"2\" column=\"21\">x.y.z</import>" );
    }
 
    @Test
@@ -68,15 +69,28 @@ public class TestInterfaceContent extends TestCase
    {
       assertInterfaceContent( "1",
                               "function a()",
-                              "<function line=\"3\" column=\"1\"><name line=\"2\" column=\"10\">a</name><parameter-list line=\"2\" column=\"12\"></parameter-list><type line=\"3\" column=\"1\"></type></function>" );
+                              "<function line=\"3\" column=\"1\">"
+                                    + "<name line=\"2\" column=\"10\">a</name>"
+                                    + "<parameter-list line=\"2\" column=\"12\">"
+                                    + "</parameter-list><type line=\"3\" column=\"1\">"
+                                    + "</type></function>" );
 
       assertInterfaceContent( "2",
                               "function set a( value : int ) : void",
-                              "<set line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" column=\"17\"><parameter line=\"2\" column=\"17\"><name-type-init line=\"2\" column=\"17\"><name line=\"2\" column=\"17\">value</name><type line=\"2\" column=\"23\">int</type></name-type-init></parameter></parameter-list><type line=\"2\" column=\"31\">void</type></set>" );
+                              "<set line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a"
+                                    + "</name><parameter-list line=\"2\" column=\"17\">"
+                                    + "<parameter line=\"2\" column=\"17\">"
+                                    + "<name-type-init line=\"2\" column=\"17\">"
+                                    + "<name line=\"2\" column=\"17\">value</name>"
+                                    + "<type line=\"2\" column=\"23\">int</type>"
+                                    + "</name-type-init></parameter></parameter-list>"
+                                    + "<type line=\"2\" column=\"31\">void</type></set>" );
 
       assertInterfaceContent( "3",
                               "function get a() : int",
-                              "<get line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" column=\"16\"></parameter-list><type line=\"2\" column=\"18\">int</type></get>" );
+                              "<get line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a"
+                                    + "</name><parameter-list line=\"2\" column=\"16\">"
+                                    + "</parameter-list><type line=\"2\" column=\"18\">int" + "</type></get>" );
    }
 
    private void assertInterfaceContent( final String message,

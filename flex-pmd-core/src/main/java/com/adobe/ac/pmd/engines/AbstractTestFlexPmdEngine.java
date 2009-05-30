@@ -61,7 +61,12 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
                                   IOException
    {
       final AbstractFlexPmdEngine engine = getFlexPmdEngine();
-      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
+      final URL sourceDirectoryResource = getClass().getResource( "/test" );
+
+      assertNotNull( "Source directory is not found as a resource",
+                     sourceDirectoryResource );
+
+      final File sourceDirectory = new File( sourceDirectoryResource.toURI().getPath() );
       final URL ruleSetUrl = getClass().getResource( "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
 
       assertNotNull( "RuleSet has not been found",
@@ -82,7 +87,7 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
                                               new FlexPmdViolations() );
 
       assertEquals( "Number of violations found is not correct",
-                    143,
+                    257,
                     violationsFound );
    }
 

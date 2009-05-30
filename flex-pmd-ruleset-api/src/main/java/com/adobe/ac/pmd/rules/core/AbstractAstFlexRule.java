@@ -854,14 +854,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          visitForEach( ast );
       }
-      else if ( ast.is( NodeKind.IF ) )
-      {
-         visitIf( ast );
-      }
-      else if ( ast.is( NodeKind.SWITCH ) )
-      {
-         visitSwitch( ast );
-      }
       else if ( ast.is( NodeKind.DO ) )
       {
          visitDo( ast );
@@ -869,6 +861,14 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       else if ( ast.is( NodeKind.WHILE ) )
       {
          visitWhile( ast );
+      }
+      else if ( ast.is( NodeKind.IF ) )
+      {
+         visitIf( ast );
+      }
+      else if ( ast.is( NodeKind.SWITCH ) )
+      {
+         visitSwitch( ast );
       }
       else if ( ast.is( NodeKind.TRY ) )
       {

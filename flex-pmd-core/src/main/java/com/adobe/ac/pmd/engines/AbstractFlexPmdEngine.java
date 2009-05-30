@@ -65,6 +65,9 @@ public abstract class AbstractFlexPmdEngine
       int foundViolations = 0;
       long ellapsedTime = 0;
 
+      LOGGER.info( "Ruleset: "
+            + ruleSetFile.getAbsolutePath() );
+
       LOGGER.info( "Rules number in the ruleSet: "
             + ruleSet.getRules().size() );
 
