@@ -39,8 +39,6 @@ package com.adobe.ac.pmd.model
       public static const WARNING : ViolationPriority = new ViolationPriority( 3, "Warning" );
       public static const INFO : ViolationPriority = new ViolationPriority( 5, "Info" );
 
-      private static const INITIALIZED : String = "initialized";
-
       private var _level : int;
       private var _name : String;
 
@@ -48,7 +46,6 @@ package com.adobe.ac.pmd.model
       {
          _level = level;
          _name = name;
-         dispatchEvent( new Event( INITIALIZED ) );
       }
 
       public static function create( level : int ) : ViolationPriority
@@ -71,7 +68,7 @@ package com.adobe.ac.pmd.model
          return[ ERROR, WARNING, INFO ];
       }
 
-      [Bindable( "initialized" )]
+      [Bindable( "unused" )]
       public function get level() : int
       {
          return _level;

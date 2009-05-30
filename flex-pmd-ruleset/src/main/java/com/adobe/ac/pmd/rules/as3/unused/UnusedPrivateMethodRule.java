@@ -89,23 +89,26 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 
    private void findUnusedFunction( final IParserNode body )
    {
-      if ( body.getStringValue() != null
-            && !privateFunctions.isEmpty() )
+      if ( body != null )
       {
-         for ( final String functionName : privateFunctions.keySet() )
+         if ( body.getStringValue() != null
+               && !privateFunctions.isEmpty() )
          {
-            if ( body.getStringValue().compareTo( functionName ) == 0 )
+            for ( final String functionName : privateFunctions.keySet() )
             {
-               privateFunctions.remove( functionName );
-               break;
+               if ( body.getStringValue().compareTo( functionName ) == 0 )
+               {
+                  privateFunctions.remove( functionName );
+                  break;
+               }
             }
          }
-      }
-      if ( body.numChildren() != 0 )
-      {
-         for ( final IParserNode child : body.getChildren() )
+         if ( body.numChildren() != 0 )
          {
-            findUnusedFunction( child );
+            for ( final IParserNode child : body.getChildren() )
+            {
+               findUnusedFunction( child );
+            }
          }
       }
    }
