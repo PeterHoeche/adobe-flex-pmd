@@ -30,13 +30,24 @@
  */
 package com.adobe.ac.pmd;
 
-public final class FlexPMDCommandLineConstants
-{
-   public static final String OUTPUT           = "outputDirectory";
-   public static final String RULE_SET         = "ruleSet";
-   public static final String SOURCE_DIRECTORY = "sourceDirectory";
+import com.martiansoftware.jsap.FlaggedOption;
+import com.martiansoftware.jsap.JSAP;
+import com.martiansoftware.jsap.JSAPException;
 
-   private FlexPMDCommandLineConstants()
+public final class CommandLineUtils
+{
+   public static void registerParameter( final JSAP jsap,
+                                         final String optionName,
+                                         final char shortName,
+                                         final boolean required ) throws JSAPException
+   {
+      jsap.registerParameter( new FlaggedOption( optionName ).setStringParser( JSAP.STRING_PARSER )
+                                                             .setRequired( required )
+                                                             .setShortFlag( shortName )
+                                                             .setLongFlag( optionName ) );
+   }
+
+   private CommandLineUtils()
    {
    }
 }
