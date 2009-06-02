@@ -77,12 +77,6 @@ public class MxmlFile extends AbstractFlexFile
       return mainApplication;
    }
 
-   @Override
-   public boolean isMxml()
-   {
-      return true;
-   }
-
    private void computeIfIsMainApplication()
    {
       for ( final String line : getLines() )

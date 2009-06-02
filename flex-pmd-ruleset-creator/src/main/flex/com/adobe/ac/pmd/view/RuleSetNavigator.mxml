@@ -73,7 +73,7 @@
 
                 if ( isFirstRulesetReceived )
                 {
-                    selectFirstRule( event.ruleset );
+                    selectFirstRule();
                     isFirstRulesetReceived = false;
                 }
             }
@@ -82,11 +82,11 @@
             {
                 if ( event.kind == CollectionEventKind.REMOVE )
                 {
-                    selectFirstRule( model.rootRuleset.rulesets.getItemAt( 0 ) as Ruleset );
+                    selectFirstRule();
                 }
             }
 
-            private function selectFirstRule( ruleset : Ruleset ) : void
+            private function selectFirstRule() : void
             {
                 dg.selectedIndex = 1;
                 onChange();

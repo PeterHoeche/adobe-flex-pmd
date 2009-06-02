@@ -73,14 +73,14 @@ public final class FileSetUtils
 
       try
       {
-         if ( !file.isMxml() )
-         {
-            rootNode = parser.buildAst( file.getFilePath() );
-         }
-         else
+         if ( file instanceof MxmlFile )
          {
             rootNode = parser.buildAst( file.getFilePath(),
                                         ( ( MxmlFile ) file ).getScriptBlock() );
+         }
+         else
+         {
+            rootNode = parser.buildAst( file.getFilePath() );
          }
       }
       catch ( final IOException e )

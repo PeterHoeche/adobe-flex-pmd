@@ -65,10 +65,4 @@ public class As3File extends AbstractFlexFile
    {
       return false;
    }
-
-   @Override
-   public boolean isMxml()
-   {
-      return false;
-   }
 }
