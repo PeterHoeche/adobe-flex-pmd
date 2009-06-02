@@ -39,12 +39,12 @@ import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class WarningRule extends AbstractFlexRule
+class WarningRule extends AbstractFlexRule
 {
    @Override
    public String getMessage()
    {
-      return "warning message";
+      return "warning message.";
    }
 
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )

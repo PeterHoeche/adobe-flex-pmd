@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EmptyRule extends AbstractFlexRule implements IThresholdedRule
+class EmptyRule extends AbstractFlexRule implements IThresholdedRule
 {
    public int getActualValue()
    {

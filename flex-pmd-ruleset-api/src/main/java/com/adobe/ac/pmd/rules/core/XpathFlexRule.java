@@ -97,16 +97,20 @@ public class XpathFlexRule extends AbstractFlexRule
          {
             final Document doc = createASTXmlDocument( rootNode.getInternalNode() );
             final XPathExpression xpathExpression = getXPathExpression();
-            final NodeList violationsNode = ( NodeList ) xpathExpression.evaluate( doc,
-                                                                                   XPathConstants.NODESET );
 
-            for ( int i = 0; i < violationsNode.getLength(); i++ )
+            if ( xpathExpression != null )
             {
-               final org.w3c.dom.Node beginningNode = violationsNode.item( i );
-               final Violation violation = computeViolation( beginningNode,
-                                                             file );
+               final NodeList violationsNode = ( NodeList ) xpathExpression.evaluate( doc,
+                                                                                      XPathConstants.NODESET );
 
-               violations.add( violation );
+               for ( int i = 0; i < violationsNode.getLength(); i++ )
+               {
+                  final org.w3c.dom.Node beginningNode = violationsNode.item( i );
+                  final Violation violation = computeViolation( beginningNode,
+                                                                file );
+
+                  violations.add( violation );
+               }
             }
          }
       }
@@ -200,6 +204,7 @@ public class XpathFlexRule extends AbstractFlexRule
          throw new UnspecifiedXPath( e );
       }
 
-      return factory.newXPath().compile( xPathExpressionString );
+      return xPathExpressionString != "" ? factory.newXPath().compile( xPathExpressionString )
+                                        : null;
    }
 }

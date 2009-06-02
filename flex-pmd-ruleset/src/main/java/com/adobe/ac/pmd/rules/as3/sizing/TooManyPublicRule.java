@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
+import java.util.List;
 import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
@@ -43,7 +44,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class TooManyPublicRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private int publicCount;
+   private IFunction constructor;
+   private int       publicCount;
 
    public int getActualValue()
    {
@@ -66,17 +68,42 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
    }
 
    @Override
+   protected void findViolationsFromAttributesList( final List< IAttribute > variables )
+   {
+      for ( final IAttribute variable : variables )
+      {
+         if ( variable.isPublic() )
+         {
+            publicCount++;
+         }
+      }
+   }
+
+   @Override
    protected void findViolationsFromClassNode( final IClass classNode )
    {
-      super.findViolationsFromClassNode( classNode );
       publicCount = 0;
+      constructor = classNode.getConstructor();
 
-      detectPublicMethods( classNode );
-      detectPublicVariables( classNode );
+      super.findViolationsFromClassNode( classNode );
+
       if ( publicCount > getThreshold() )
       {
          addViolation( classNode.getInternalNode(),
                        classNode.getInternalNode() );
+      }
+   }
+
+   @Override
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   {
+      for ( final IFunction function : functions )
+      {
+         if ( function.isPublic()
+               && function != constructor && !function.isGetter() && !function.isSetter() )
+         {
+            publicCount++;
+         }
       }
    }
 
@@ -90,34 +117,5 @@ public class TooManyPublicRule extends AbstractAstFlexRule implements IThreshold
    protected Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
-   }
-
-   private void detectPublicMethods( final IClass classNode )
-   {
-      if ( classNode.getFunctions() != null )
-      {
-         for ( final IFunction function : classNode.getFunctions() )
-         {
-            if ( function.isPublic()
-                  && function != classNode.getConstructor() && !function.isGetter() && !function.isSetter() )
-            {
-               publicCount++;
-            }
-         }
-      }
-   }
-
-   private void detectPublicVariables( final IClass classNode )
-   {
-      if ( classNode.getAttributes() != null )
-      {
-         for ( final IAttribute variable : classNode.getAttributes() )
-         {
-            if ( variable.isPublic() )
-            {
-               publicCount++;
-            }
-         }
-      }
    }
 }

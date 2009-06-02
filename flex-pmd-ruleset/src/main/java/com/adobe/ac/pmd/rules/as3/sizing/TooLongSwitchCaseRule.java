@@ -78,16 +78,14 @@ public class TooLongSwitchCaseRule extends AbstractAstFlexRule implements IThres
    @Override
    protected void visitSwitchCase( final IParserNode caseBlock )
    {
-      if ( caseBlock != null
-            && caseBlock.getChild( caseBlock.numChildren() - 1 ) != null )
+      if ( caseBlock.getLastChild() != null )
       {
-         length = caseBlock.getChild( caseBlock.numChildren() - 1 ).getLine()
+         length = caseBlock.getLastChild().getLine()
                - caseBlock.getLine();
          if ( length > getThreshold() )
          {
             addViolation( caseBlock,
                           caseBlock );
-
          }
       }
    }

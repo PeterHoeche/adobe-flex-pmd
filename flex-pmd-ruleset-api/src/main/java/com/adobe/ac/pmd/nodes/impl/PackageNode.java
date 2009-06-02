@@ -91,7 +91,8 @@ class PackageNode extends AbstractNode implements IPackage
 
       imports = new ArrayList< IParserNode >();
 
-      if ( firstChild.numChildren() > 0 )
+      if ( firstChild.numChildren() > 0
+            && firstChild.getChild( 0 ).getStringValue() != null )
       {
          name = firstChild.getChild( 0 ).getStringValue();
       }

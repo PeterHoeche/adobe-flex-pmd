@@ -54,6 +54,12 @@ public class TestViolation extends FlexPmdTestBase
    private AbstractFlexFile              abstractRowData;
    private AbstractFlexFile              abstractRowDataWithPackage;
    private AbstractFlexFile              iterationsListMxml;
+   private final ViolationPosition       position;
+
+   public TestViolation()
+   {
+      position = new ViolationPosition( 10, 20, 30, 30 );
+   }
 
    @Before
    public void setUp()
@@ -66,16 +72,12 @@ public class TestViolation extends FlexPmdTestBase
    @Test
    public void testCompareTo()
    {
-      final Violation infoViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ), INFO_RULE, null );
+      final Violation infoViolation = new Violation( position, INFO_RULE, null );
       final Violation infoViolation2 = new Violation( new ViolationPosition( 11, 20, 30, 30 ),
                                                       INFO_RULE,
                                                       null );
-      final Violation warningViolation = new Violation( new ViolationPosition( 10, 20, 30, 30 ),
-                                                        WARNING_RULE,
-                                                        null );
-      final Violation warningViolation2 = new Violation( new ViolationPosition( 10, 20, 30, 30 ),
-                                                         WARNING_RULE,
-                                                         null );
+      final Violation warningViolation = new Violation( position, WARNING_RULE, null );
+      final Violation warningViolation2 = new Violation( position, WARNING_RULE, null );
 
       assertEquals( "",
                     -1,
@@ -92,6 +94,51 @@ public class TestViolation extends FlexPmdTestBase
       assertEquals( "",
                     1,
                     infoViolation.compareTo( warningViolation ) );
+   }
+
+   @Test
+   public void testGetClassName()
+   {
+      assertEquals( "",
+                    new Violation( position, INFO_RULE, null ).getClassName() );
+   }
+
+   @Test
+   public void testGetDescription()
+   {
+      assertEquals( "emptyMessage",
+                    new Violation( position, INFO_RULE, null ).getDescription() );
+   }
+
+   @Test
+   public void testGetEndColumn()
+   {
+      assertEquals( 30,
+                    new Violation( position, INFO_RULE, null ).getEndColumn() );
+   }
+
+   @Test
+   public void testGetPackageName()
+   {
+      assertEquals( "",
+                    new Violation( position, INFO_RULE, abstractRowData ).getPackageName() );
+   }
+
+   @Test
+   public void testGetRuleMessage()
+   {
+      assertEquals( "emptyMessage",
+                    new Violation( position, INFO_RULE, null ).getRuleMessage() );
+
+      assertEquals( "warning message",
+                    new Violation( position, WARNING_RULE, null ).getRuleMessage() );
+   }
+
+   @Test
+   public void testGetVariableName()
+   {
+      assertEquals( "",
+                    new Violation( position, INFO_RULE, null ).getVariableName() );
    }
 
    @Test

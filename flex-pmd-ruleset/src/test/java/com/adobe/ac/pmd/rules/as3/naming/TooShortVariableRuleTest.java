@@ -61,7 +61,8 @@ public class TooShortVariableRuleTest extends AbstractCommonRegExpBasedRuleTest
       { "  var toto : int = 0;",
                   "  var i : int = 0;",
                   "var ii : int = 0;",
-                  "var iii : int = 0;" };
+                  "var iii : int = 0;",
+                  "for ( var i : int = 0; i < 10; i++ ){}" };
    }
 
    @Override

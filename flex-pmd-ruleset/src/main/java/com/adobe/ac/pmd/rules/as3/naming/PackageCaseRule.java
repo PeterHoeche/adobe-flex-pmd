@@ -40,8 +40,7 @@ public class PackageCaseRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromPackageNode( final IPackage packageNode )
    {
-      if ( packageNode.getName() != null
-            && containsUpperCharacter( packageNode.getName() ) )
+      if ( containsUpperCharacter( packageNode.getName() ) )
       {
          final Violation violation = addViolation( packageNode.getInternalNode(),
                                                    packageNode.getInternalNode() );
@@ -64,8 +63,9 @@ public class PackageCaseRule extends AbstractAstFlexRule
       for ( int i = 0; i < packageName.length(); i++ )
       {
          final char currentChar = packageName.charAt( i );
-         if ( currentChar != '.'
-               && currentChar >= 'A' && currentChar <= 'Z' )
+
+         if ( currentChar >= 'A'
+               && currentChar <= 'Z' )
          {
             found = true;
 

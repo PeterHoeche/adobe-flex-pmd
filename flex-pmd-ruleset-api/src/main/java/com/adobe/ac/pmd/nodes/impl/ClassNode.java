@@ -196,7 +196,7 @@ class ClassNode extends AbstractNode implements IClass
          }
          for ( final IFunction function : functions )
          {
-            if ( function.getName().equals( name.toString() ) )
+            if ( name.toString().equals( function.getName() ) )
             {
                constructor = function;
             }

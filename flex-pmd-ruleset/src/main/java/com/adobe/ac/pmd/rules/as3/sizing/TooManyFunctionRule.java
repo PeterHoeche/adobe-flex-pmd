@@ -71,6 +71,8 @@ public class TooManyFunctionRule extends AbstractAstFlexRule implements IThresho
    {
       functionNb = 0;
       classNode = classNodeToSet;
+
+      super.findViolationsFromClassNode( classNodeToSet );
    }
 
    @Override

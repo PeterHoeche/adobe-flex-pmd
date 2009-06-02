@@ -141,7 +141,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
    public String getRuleMessage()
    {
       return ruleMessage.endsWith( "." ) ? ruleMessage.substring( 0,
-                                                                  ruleMessage.length() - 2 )
+                                                                  ruleMessage.length() - 1 )
                                         : ruleMessage;
    }
 
@@ -181,7 +181,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
 
       if ( rule != null )
       {
-         final StringBuffer message = new StringBuffer( ruleMessage );
+         final StringBuffer message = new StringBuffer( getRuleMessage() );
 
          formatter.format( "      <violation beginline=\"%d\" "
                                  + "endline=\"%d\" begincolumn=\"%d\" " + "endcolumn=\"%d\" rule=\"%s\" "

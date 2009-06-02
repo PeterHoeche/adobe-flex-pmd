@@ -82,6 +82,7 @@ public class TooManyFieldsRule extends AbstractAstFlexRule implements IThreshold
    protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
    {
       classNode = classNodeToBeSet;
+      super.findViolationsFromClassNode( classNodeToBeSet );
    }
 
    @Override

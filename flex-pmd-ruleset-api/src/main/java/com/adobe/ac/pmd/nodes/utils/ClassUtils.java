@@ -35,25 +35,6 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 final public class ClassUtils
 {
-   public static IParserNode getClassExtension( final IParserNode classNode )
-   {
-      IParserNode content = null;
-
-      if ( classNode != null
-            && classNode.numChildren() != 0 )
-      {
-         for ( final IParserNode child : classNode.getChildren() )
-         {
-            if ( NodeKind.EXTENDS.equals( child.getId() ) )
-            {
-               content = child;
-               break;
-            }
-         }
-      }
-      return content;
-   }
-
    public static String getClassNameFromClassNode( final IParserNode classNode )
    {
       return classNode.getChild( 0 ).getStringValue();

@@ -134,6 +134,22 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
    protected void findViolationsFromClassNode( final IClass classNode )
    {
+      if ( classNode.getAttributes() != null )
+      {
+         findViolationsFromAttributesList( classNode.getAttributes() );
+      }
+      if ( classNode.getConstants() != null )
+      {
+         findViolationsFromConstantsList( classNode.getConstants() );
+      }
+      if ( classNode.getFunctions() != null )
+      {
+         findViolationsFromFunctionsList( classNode.getFunctions() );
+      }
+      if ( classNode.getConstructor() != null )
+      {
+         findViolationsFromConstructor( classNode.getConstructor() );
+      }
    }
 
    protected void findViolationsFromConstantsList( final List< IConstant > constants )
@@ -186,23 +202,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
             if ( classNode != null )
             {
                findViolationsFromClassNode( classNode );
-
-               if ( classNode.getAttributes() != null )
-               {
-                  findViolationsFromAttributesList( classNode.getAttributes() );
-               }
-               if ( classNode.getConstants() != null )
-               {
-                  findViolationsFromConstantsList( classNode.getConstants() );
-               }
-               if ( classNode.getFunctions() != null )
-               {
-                  findViolationsFromFunctionsList( classNode.getFunctions() );
-               }
-               if ( classNode.getConstructor() != null )
-               {
-                  findViolationsFromConstructor( classNode.getConstructor() );
-               }
             }
          }
       }
