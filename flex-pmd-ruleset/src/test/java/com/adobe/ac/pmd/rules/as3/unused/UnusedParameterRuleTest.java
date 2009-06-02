@@ -75,7 +75,7 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
 
       assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                         new ViolationPosition[]
-                        { new ViolationPosition( 46, 46 ) } );
+                        { new ViolationPosition( 84, 84 ) } );
    }
 
    @Override

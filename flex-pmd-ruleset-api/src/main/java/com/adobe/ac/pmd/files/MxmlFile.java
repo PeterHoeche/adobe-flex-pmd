@@ -75,7 +75,7 @@ public class MxmlFile extends AbstractFlexFile
          {
             if ( line.contains( "</" ) )
             {
-               endLine = i - 2;
+               endLine = i - 1;
                break;
             }
             else if ( line.contains( "<" ) )
@@ -86,27 +86,29 @@ public class MxmlFile extends AbstractFlexFile
          i++;
       }
 
-      List< String > scriptLines;
+      final List< String > scriptLines = new ArrayList< String >();
 
-      if ( startLine != 0
-            && endLine != 0 && startLine != endLine )
+      for ( int j = 0; j < startLine; j++ )
       {
-         scriptLines = new ArrayList< String >( lines );
-         scriptLines = scriptLines.subList( startLine,
-                                            endLine );
+         scriptLines.add( "" );
       }
-      else
+      scriptLines.addAll( new ArrayList< String >( lines ).subList( startLine,
+                                                                    endLine ) );
+      for ( int j = endLine; j < lines.size(); j++ )
       {
-         scriptLines = new ArrayList< String >();
+         scriptLines.add( "" );
       }
+      final String firstLine = "package "
+            + getPackageName() + "{";
+      final String secondLine = "class "
+            + getClassName().split( "\\." )[ 0 ] + "{";
 
-      scriptLines.add( 0,
-                       "package "
-                             + getPackageName() + "{" );
-      scriptLines.add( 1,
-                       "class "
-                             + getClassName().split( "\\." )[ 0 ] + "{" );
-      scriptLines.add( "}}" );
+      scriptLines.set( 0,
+                       firstLine );
+      scriptLines.set( 1,
+                       secondLine );
+      scriptLines.set( scriptLines.size() - 1,
+                       "}}" );
 
       return scriptLines.toArray( new String[ scriptLines.size() ] );
    }

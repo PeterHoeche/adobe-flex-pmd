@@ -35,11 +35,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 
 import net.sourceforge.pmd.PMDException;
 
@@ -70,12 +67,6 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
 
       final File outXmlReport = new File( OUTPUT_DIRECTORY_URL
             + FlexPmdXmlEngine.PMD_XML );
-      // final File outXmlReportReference = new File( getClass().getResource(
-      // "/pmd.xml" ).toURI().getPath() );
-
-      // assertEquals(
-      // "XML report is not identical", readString( outXmlReportReference ),
-      // readString( outXmlReport ) );
 
       final SchemaFactory factory = SchemaFactory.newInstance( "http://www.w3.org/2001/XMLSchema" );
 
@@ -84,21 +75,7 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
       assertNotNull( "pmd.xsd is not loaded",
                      schemaResource );
 
-      final Schema schema = factory.newSchema( schemaResource );
-
-      final Validator validator = schema.newValidator();
-
-      final Source source = new StreamSource( outXmlReport );
-
-      try
-      {
-         validator.validate( source );
-      }
-      catch ( final Exception ex )
-      {
-         fail( FlexPmdXmlEngine.PMD_XML
-               + " is not valid: " + ex.getMessage() );
-      }
+      factory.newSchema( schemaResource ).newValidator().validate( new StreamSource( outXmlReport ) );
    }
 
    @Override

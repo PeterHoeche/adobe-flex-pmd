@@ -66,10 +66,10 @@ public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
    {
       assertViolations( "Looping.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 40, 40 ) } );
+                        { new ViolationPosition( 39, 39 ) } );
       assertViolations( "RadonDataGrid.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 54, 54 ) } );
+                        { new ViolationPosition( 53, 53 ) } );
    }
 
    @Override

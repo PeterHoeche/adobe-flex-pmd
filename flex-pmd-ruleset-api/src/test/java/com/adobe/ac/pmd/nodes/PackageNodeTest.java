@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.nodes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class PackageNodeTest extends FlexPmdTestBase
       final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "DeleteButtonRenderer.mxml" ) );
       final IPackage stylePackage = NodeFactory.createPackage( ast );
 
-      assertNull( stylePackage.getClassNode() );
+      assertNotNull( stylePackage.getClassNode() );
       assertEquals( "",
                     stylePackage.getName() );
       assertEquals( 0,

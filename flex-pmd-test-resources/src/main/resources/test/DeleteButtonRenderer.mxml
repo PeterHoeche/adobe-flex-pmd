@@ -42,12 +42,65 @@
     >
 
     <mx:Metadata>
-      [Event(name="ruleRemoved", type="flash.events.Event")]
-   </mx:Metadata>
+       [Event(name="ruleRemoved", type="flash.events.Event")]
+    </mx:Metadata>
 
     <mx:Script>
         <![CDATA[
+            import com.adobe.ac.pmd.model.Rule;
+
+            import mx.controls.AdvancedDataGrid;
+            import mx.controls.listClasses.ListBase;
+            import mx.events.FlexEvent;
+            import mx.events.ListEvent;
+
             public static const RULE_REMOVED : String = "ruleRemoved";
+
+            [Bindable]
+            private var rule : Rule;
+
+            private var grid : AdvancedDataGrid;
+
+            override public function set data( value : Object ) : void
+            {
+                super.data = value;
+
+                rule = value as Rule;
+
+                if ( grid )
+                {
+                    changeVisibility();
+                }
+            }
+
+            override protected function commitProperties() : void
+            {
+                super.commitProperties();
+
+                grid = AdvancedDataGrid( owner );
+                visible = false;
+                grid.addEventListener( ListEvent.CHANGE, onChange );
+            }
+
+            private function changeVisibility() : void
+            {
+                visible = grid.isItemSelected( data ) && rule != null;
+            }
+
+            private function onChange( event : ListEvent ) : void
+            {
+                changeVisibility();
+            }
+
+            private function onClick() : void
+            {
+                if ( rule )
+                {
+                    rule.remove();
+
+                    dispatchEvent( new Event( RULE_REMOVED, true ) );
+                }
+            }
         ]]>
     </mx:Script>
 
