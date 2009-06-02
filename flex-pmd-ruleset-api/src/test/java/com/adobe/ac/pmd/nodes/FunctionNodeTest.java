@@ -38,14 +38,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import net.sourceforge.pmd.PMDException;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
-
-import de.bokelberg.flex.parser.AS3Parser;
 
 public class FunctionNodeTest extends FlexPmdTestBase
 {
@@ -66,12 +68,11 @@ public class FunctionNodeTest extends FlexPmdTestBase
 
    @Before
    public void setup() throws IOException,
-                      TokenException
+                      TokenException,
+                      PMDException
    {
-      final AS3Parser parser = new AS3Parser();
-      final IClass radonDataGrid = NodeFactory.createPackage( parser.buildAst( testFiles.get( "RadonDataGrid.as" )
-                                                                                                 .getFilePath() ) )
-                                                       .getClassNode();
+      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "RadonDataGrid.as" ) );
+      final IClass radonDataGrid = NodeFactory.createPackage( ast ).getClassNode();
 
       constructor = radonDataGrid.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGrid.getFunctions().get( 1 );

@@ -66,6 +66,36 @@ public final class FileSetUtils
    public static final Logger              LOGGER   = Logger.getLogger( FileSetUtils.class.getName() );
    private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
 
+   public static IParserNode buildAst( final AbstractFlexFile file ) throws PMDException
+   {
+      final IAS3Parser parser = new AS3Parser();
+      IParserNode rootNode = null;
+
+      try
+      {
+         if ( !file.isMxml() )
+         {
+            rootNode = parser.buildAst( file.getFilePath() );
+         }
+         else
+         {
+            rootNode = parser.buildAst( file.getFilePath(),
+                                        ( ( MxmlFile ) file ).getScriptBlock() );
+         }
+      }
+      catch ( final IOException e )
+      {
+         throw new PMDException( "While building AST: Cannot read "
+               + file.getFullyQualifiedName(), e );
+      }
+      catch ( final TokenException e )
+      {
+         throw new PMDException( "TokenException thrown while building AST on "
+               + file.getFullyQualifiedName() + " with message: " + e.getMessage(), e );
+      }
+      return rootNode;
+   }
+
    public static Map< String, IPackage > computeAsts( final Map< String, AbstractFlexFile > files ) throws PMDException
    {
       final Map< String, IPackage > asts = new HashMap< String, IPackage >();
@@ -124,36 +154,6 @@ public final class FileSetUtils
       }
 
       return files;
-   }
-
-   private static IParserNode buildAst( final AbstractFlexFile file ) throws PMDException
-   {
-      final IAS3Parser parser = new AS3Parser();
-      IParserNode rootNode = null;
-
-      try
-      {
-         if ( !file.isMxml() )
-         {
-            rootNode = parser.buildAst( file.getFilePath() );
-         }
-         else
-         {
-            rootNode = parser.buildAst( file.getFilePath(),
-                                        ( ( MxmlFile ) file ).getScriptBlock() );
-         }
-      }
-      catch ( final IOException e )
-      {
-         throw new PMDException( "While building AST: Cannot read "
-               + file.getFullyQualifiedName(), e );
-      }
-      catch ( final TokenException e )
-      {
-         throw new PMDException( "TokenException thrown while building AST on "
-               + file.getFullyQualifiedName() + " with message: " + e.getMessage(), e );
-      }
-      return rootNode;
    }
 
    private static IParserNode buildThreadedAst( final AbstractFlexFile file ) throws PMDException,

@@ -39,6 +39,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class MxmlFileTest extends FlexPmdTestBase
 {
+   private MxmlFile deleteRenderer;
    private MxmlFile iterationsList;
    private MxmlFile nestedComponent;
 
@@ -47,6 +48,7 @@ public class MxmlFileTest extends FlexPmdTestBase
    {
       iterationsList = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
       nestedComponent = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
+      deleteRenderer = ( MxmlFile ) testFiles.get( "DeleteButtonRenderer.mxml" );
    }
 
    @Test
@@ -73,5 +75,16 @@ public class MxmlFileTest extends FlexPmdTestBase
                     scriptBlock2[ 2 ] );
       assertEquals( "}}",
                     scriptBlock2[ scriptBlock2.length - 1 ] );
+
+      final String[] scriptBlock3 = deleteRenderer.getScriptBlock();
+
+      assertEquals( "package {",
+                    scriptBlock3[ 0 ] );
+      assertEquals( "class DeleteButtonRenderer{",
+                    scriptBlock3[ 1 ] );
+      assertEquals( "            import com.adobe.ac.pmd.model.Rule;",
+                    scriptBlock3[ 2 ] );
+      assertEquals( "}}",
+                    scriptBlock3[ scriptBlock3.length - 1 ] );
    }
 }

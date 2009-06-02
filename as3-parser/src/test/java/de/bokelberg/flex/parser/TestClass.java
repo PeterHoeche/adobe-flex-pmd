@@ -75,14 +75,18 @@ public class TestClass extends TestCase
                                   + "<name line=\"2\" column=\"20\">Title</name>"
                                   + "<mod-list line=\"2\" column=\"25\">"
                                   + "<mod line=\"2\" column=\"25\">public</mod>"
-                                  + "<mod line=\"2\" column=\"25\">final</mod>" + "</mod-list>"
-                                  + "<content line=\"2\" column=\"27\">" + "</content>" + "</class>"
+                                  + "<mod line=\"2\" column=\"25\">final</mod></mod-list>"
+                                  + "<content line=\"2\" " + "column=\"27\"></content>" + "</class>"
                                   + "</content>" );
    }
 
    @Test
    public void testFullFeatured() throws TokenException
    {
+      // assertPackageContent( "",
+      // "public class A { public static const RULE_REMOVED : String = \"ruleRemoved\";}",
+      // "" );
+
       assertPackageContent( "1",
                             "public class A extends B implements C,D { } ",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\">"
@@ -119,6 +123,22 @@ public class TestClass extends TestCase
                                   + "<implements-list line=\"2\" column=\"27\"><implements line=\"2\" "
                                   + "column=\"27\">B</implements></implements-list><content line=\"2\" "
                                   + "column=\"31\"></content></class></content>" );
+   }
+
+   @Test
+   public void testImportInsideClass() throws TokenException
+   {
+      assertPackageContent( "",
+                            "public final class Title{ import lala.lala; }",
+                            "<content line=\"2\" column=\"1\">"
+                                  + "<class line=\"2\" column=\"20\">"
+                                  + "<name line=\"2\" column=\"20\">Title</name>"
+                                  + "<mod-list line=\"2\" column=\"25\">"
+                                  + "<mod line=\"2\" column=\"25\">public</mod>"
+                                  + "<mod line=\"2\" column=\"25\">final</mod>" + "</mod-list>"
+                                  + "<content line=\"2\" column=\"27\"><import line=\"2\" "
+                                  + "column=\"34\">lala.lala</import></content>" + "</class>" + "</content>" );
+
    }
 
    private void assertPackageContent( final String message,

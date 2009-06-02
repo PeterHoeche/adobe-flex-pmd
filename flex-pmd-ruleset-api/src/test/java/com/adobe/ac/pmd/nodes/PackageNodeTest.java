@@ -35,22 +35,40 @@ import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
+import net.sourceforge.pmd.PMDException;
+
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-import de.bokelberg.flex.parser.AS3Parser;
-
 public class PackageNodeTest extends FlexPmdTestBase
 {
    @Test
-   public void testConstructNamespace() throws IOException,
-                                       TokenException
+   public void testConstructMxmlFile() throws IOException,
+                                      TokenException,
+                                      PMDException
    {
-      final IParserNode ast = new AS3Parser().buildAst( testFiles.get( "schedule_internal.as" ).getFilePath() );
+      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "DeleteButtonRenderer.mxml" ) );
+      final IPackage stylePackage = NodeFactory.createPackage( ast );
+
+      assertNull( stylePackage.getClassNode() );
+      assertEquals( "",
+                    stylePackage.getName() );
+      assertEquals( 0,
+                    stylePackage.getImports().size() );
+
+   }
+
+   @Test
+   public void testConstructNamespace() throws IOException,
+                                       TokenException,
+                                       PMDException
+   {
+      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "schedule_internal.as" ) );
       final IPackage namespacePackage = NodeFactory.createPackage( ast );
 
       assertNull( namespacePackage.getClassNode() );
@@ -62,9 +80,10 @@ public class PackageNodeTest extends FlexPmdTestBase
 
    @Test
    public void testConstructStyles() throws IOException,
-                                    TokenException
+                                    TokenException,
+                                    PMDException
    {
-      final IParserNode ast = new AS3Parser().buildAst( testFiles.get( "SkinStyles.as" ).getFilePath() );
+      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "SkinStyles.as" ) );
       final IPackage stylePackage = NodeFactory.createPackage( ast );
 
       assertNull( stylePackage.getClassNode() );
