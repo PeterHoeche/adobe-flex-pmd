@@ -36,13 +36,16 @@ import java.util.List;
 
 public class MxmlFile extends AbstractFlexFile
 {
-   private boolean mainApplication = false;
+   private boolean  mainApplication = false;
+   private String[] scriptBlock;
 
    public MxmlFile( final File file,
                     final File rootDirectory )
    {
       super( file, rootDirectory );
+
       computeIfIsMainApplication();
+      extractScriptBlock();
    }
 
    @Override
@@ -65,52 +68,7 @@ public class MxmlFile extends AbstractFlexFile
 
    public String[] getScriptBlock()
    {
-      int i = 0;
-      int startLine = 0;
-      int endLine = 0;
-
-      for ( final String line : lines )
-      {
-         if ( line.contains( "Script>" ) )
-         {
-            if ( line.contains( "</" ) )
-            {
-               endLine = i - 1;
-               break;
-            }
-            else if ( line.contains( "<" ) )
-            {
-               startLine = i + 2;
-            }
-         }
-         i++;
-      }
-
-      final List< String > scriptLines = new ArrayList< String >();
-
-      for ( int j = 0; j < startLine; j++ )
-      {
-         scriptLines.add( "" );
-      }
-      scriptLines.addAll( new ArrayList< String >( lines ).subList( startLine,
-                                                                    endLine ) );
-      for ( int j = endLine; j < lines.size(); j++ )
-      {
-         scriptLines.add( "" );
-      }
-      final String firstLine = "package "
-            + getPackageName() + "{";
-      final String secondLine = "class "
-            + getClassName().split( "\\." )[ 0 ] + "{";
-
-      scriptLines.set( 0,
-                       firstLine );
-      scriptLines.set( 1,
-                       secondLine );
-      scriptLines.set( scriptLines.size() - 1,
-                       "}}" );
-
-      return scriptLines.toArray( new String[ scriptLines.size() ] );
+      return scriptBlock;
    }
 
    @Override
@@ -136,5 +94,62 @@ public class MxmlFile extends AbstractFlexFile
             break;
          }
       }
+   }
+
+   private void copyScriptLinesKeepingOriginalLineIndices( final int startLine,
+                                                           final int endLine )
+   {
+      final List< String > scriptLines = new ArrayList< String >();
+
+      for ( int j = 0; j < startLine; j++ )
+      {
+         scriptLines.add( "" );
+      }
+      scriptLines.addAll( new ArrayList< String >( lines ).subList( startLine,
+                                                                    endLine ) );
+      for ( int j = endLine; j < lines.size(); j++ )
+      {
+         scriptLines.add( "" );
+      }
+      final String firstLine = "package "
+            + getPackageName() + "{";
+      final String secondLine = "class "
+            + getClassName().split( "\\." )[ 0 ] + "{";
+
+      scriptLines.set( 0,
+                       firstLine );
+      scriptLines.set( 1,
+                       secondLine );
+      scriptLines.set( scriptLines.size() - 1,
+                       "}}" );
+
+      scriptBlock = scriptLines.toArray( new String[ scriptLines.size() ] );
+   }
+
+   private void extractScriptBlock()
+   {
+      int i = 0;
+      int startLine = 0;
+      int endLine = 0;
+
+      for ( final String line : lines )
+      {
+         if ( line.contains( "Script>" ) )
+         {
+            if ( line.contains( "</" ) )
+            {
+               endLine = i - 1;
+               break;
+            }
+            else if ( line.contains( "<" ) )
+            {
+               startLine = i + 2;
+            }
+         }
+         i++;
+      }
+
+      copyScriptLinesKeepingOriginalLineIndices( startLine,
+                                                 endLine );
    }
 }
