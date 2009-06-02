@@ -28,34 +28,29 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.nodes.utils;
 
-import java.util.List;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.KeyWords;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class UselessOverridenFunctionRule extends AbstractAstFlexRule
+public final class FunctionUtils
 {
-   @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   public static IParserNode extractNameNode( final IParserNode functionNode )
    {
-      for ( final IFunction function : functions )
+      if ( functionNode.numChildren() != 0 )
       {
-         if ( function.getBody() != null
-               && function.isOverriden() && function.getBody().numChildren() == 1
-               && function.findPrimaryStatementFromName( KeyWords.SUPER.toString() ) != null )
+         for ( final IParserNode child : functionNode.getChildren() )
          {
-            addViolation( function );
+            if ( child.is( NodeKind.NAME ) )
+            {
+               return child;
+            }
          }
       }
+      return functionNode;
    }
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
+   private FunctionUtils()
    {
-      return ViolationPriority.INFO;
    }
 }

@@ -43,6 +43,7 @@ import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.nodes.utils.FunctionUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
@@ -72,6 +73,14 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
+   }
+
+   protected final void addViolation( final IFunction function )
+   {
+      final IParserNode name = FunctionUtils.extractNameNode( function.getInternalNode() );
+
+      addViolation( name,
+                    name );
    }
 
    /**

@@ -53,7 +53,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 
 public class FlexPmdViolations
 {
-   public static final Logger                                     LOGGER       = Logger.getLogger( FlexPmdViolations.class.getName() );
+   public static final Logger                                     LOGGER       = Logger.getLogger( "FlexPmdViolation" );
    private boolean                                                beenComputed = false;
    private final SortedMap< AbstractFlexFile, List< Violation > > violations;
 

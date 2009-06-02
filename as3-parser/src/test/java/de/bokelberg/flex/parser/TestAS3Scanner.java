@@ -164,24 +164,35 @@ public class TestAS3Scanner extends TestCase
       final String decimalString = "0123456789";
       for ( int i = 0; i < decimalString.length(); i++ )
       {
-         assertTrue( scn.isDecimalChar( decimalString.charAt( i ) ) );
+         assertTrue( "",
+                     scn.isDecimalChar( decimalString.charAt( i ) ) );
       }
-      assertFalse( scn.isDecimalChar( ( char ) 0 ) );
+      assertFalse( "",
+                   scn.isDecimalChar( ( char ) 0 ) );
 
    }
 
    @Test
    public void testIsHex()
    {
-      assertTrue( scn.isHexChar( '0' ) );
-      assertTrue( scn.isHexChar( '9' ) );
-      assertTrue( scn.isHexChar( 'A' ) );
-      assertTrue( scn.isHexChar( 'a' ) );
-      assertTrue( scn.isHexChar( 'F' ) );
-      assertTrue( scn.isHexChar( 'f' ) );
-      assertFalse( scn.isHexChar( ';' ) );
-      assertFalse( scn.isHexChar( ']' ) );
-      assertFalse( scn.isHexChar( ' ' ) );
+      assertTrue( "",
+                  scn.isHexChar( '0' ) );
+      assertTrue( "",
+                  scn.isHexChar( '9' ) );
+      assertTrue( "",
+                  scn.isHexChar( 'A' ) );
+      assertTrue( "",
+                  scn.isHexChar( 'a' ) );
+      assertTrue( "",
+                  scn.isHexChar( 'F' ) );
+      assertTrue( "",
+                  scn.isHexChar( 'f' ) );
+      assertFalse( "",
+                   scn.isHexChar( ';' ) );
+      assertFalse( "",
+                   scn.isHexChar( ']' ) );
+      assertFalse( "",
+                   scn.isHexChar( ' ' ) );
    }
 
    @Test

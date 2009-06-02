@@ -74,8 +74,7 @@ public class CyclomaticComplexityRule extends AbstractAstFlexRule implements ITh
             currentFunction = function;
             if ( function.getCyclomaticComplexity() > getThreshold() )
             {
-               addViolation( function.getInternalNode(),
-                             function.getInternalNode() );
+               addViolation( function );
             }
          }
       }

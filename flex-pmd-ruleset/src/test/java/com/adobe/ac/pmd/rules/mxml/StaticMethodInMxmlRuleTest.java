@@ -50,6 +50,7 @@ public class StaticMethodInMxmlRuleTest extends AbstractRegExpBasedRuleTest
    }
 
    @Override
+   @Test
    public void testProcessNonConcernedFiles() throws FileNotFoundException,
                                              URISyntaxException
    {
@@ -57,6 +58,7 @@ public class StaticMethodInMxmlRuleTest extends AbstractRegExpBasedRuleTest
    }
 
    @Override
+   @Test
    public void testProcessViolatingFiles() throws FileNotFoundException,
                                           URISyntaxException
    {

@@ -64,7 +64,7 @@ public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
    {
       assertViolations( "RadonDataGrid.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 157, 157 ) } );
+                        { new ViolationPosition( 156, 156 ) } );
    }
 
    @Override

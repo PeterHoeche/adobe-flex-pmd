@@ -67,10 +67,10 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
    {
       assertViolations( "com.adobe.ac.ncss.BigModel.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 95, 96 ),
-                                    new ViolationPosition( 87, 88 ),
-                                    new ViolationPosition( 99, 100 ),
-                                    new ViolationPosition( 91, 92 ) } );
+                        { new ViolationPosition( 94, 94 ),
+                                    new ViolationPosition( 86, 86 ),
+                                    new ViolationPosition( 98, 98 ),
+                                    new ViolationPosition( 90, 90 ) } );
    }
 
    @Override

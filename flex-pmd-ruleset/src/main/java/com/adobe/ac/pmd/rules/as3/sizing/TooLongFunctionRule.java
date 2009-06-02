@@ -34,8 +34,8 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
+import com.adobe.ac.pmd.nodes.utils.FunctionUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -93,27 +93,13 @@ public class TooLongFunctionRule extends AbstractAstFlexRule implements IThresho
 
          functionLength = lastLine
                - beginningLine;
-         final IParserNode nameNode = extractName( functionNode );
          if ( functionLength > getThreshold() )
          {
+            final IParserNode nameNode = FunctionUtils.extractNameNode( functionNode );
+
             addViolation( nameNode,
                           nameNode );
          }
       }
-   }
-
-   private IParserNode extractName( final IParserNode functionNode )
-   {
-      if ( functionNode.numChildren() != 0 )
-      {
-         for ( final IParserNode child : functionNode.getChildren() )
-         {
-            if ( child.is( NodeKind.NAME ) )
-            {
-               return child;
-            }
-         }
-      }
-      return functionNode;
    }
 }

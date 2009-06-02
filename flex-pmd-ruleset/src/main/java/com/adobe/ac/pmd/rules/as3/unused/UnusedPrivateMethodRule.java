@@ -74,9 +74,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
                                               new int[]
                                               { function.getInternalNode().getLine() } ) )
          {
-            addViolation( function.getInternalNode(),
-                          function.getInternalNode().getLastChild(),
-                          functionName );
+            addViolation( function );
          }
       }
    }

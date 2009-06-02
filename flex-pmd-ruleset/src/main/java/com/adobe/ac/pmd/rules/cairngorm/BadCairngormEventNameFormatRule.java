@@ -68,7 +68,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
          {
             eventName = extractEventNameFromConstructor( classNode.getConstructor() );
          }
-         if ( eventName.equals( "" )
+         if ( "".equals( eventName )
                || !eventName.contains( "." ) )
          {
             addViolation( classNode.getInternalNode(),

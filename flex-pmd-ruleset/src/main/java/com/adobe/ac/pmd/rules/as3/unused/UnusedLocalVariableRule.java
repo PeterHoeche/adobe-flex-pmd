@@ -70,12 +70,14 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
 
    private boolean tryToAddVariableNode( final IParserNode ast )
    {
+      boolean result = false;
+
       if ( ast.is( NodeKind.NAME_TYPE_INIT ) )
       {
          variablesUnused.put( ast.getChild( 0 ).getStringValue(),
                               ast );
-         return true;
+         result = true;
       }
-      return false;
+      return result;
    }
 }
