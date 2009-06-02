@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -42,8 +39,7 @@ public class CopyrightMissingRuleTest extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "Main.mxml" );
       assertEmptyViolations( "AbstractRowData.as" );
@@ -51,8 +47,7 @@ public class CopyrightMissingRuleTest extends AbstractCommonFlexRuleTest
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "Simple.as",
                         new ViolationPosition[]

@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.component;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -43,26 +41,22 @@ public class AddChildNotInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "GoodComponent.as" );
-
       assertEmptyViolations( "AbstractRowData.as" );
    }
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "BadComponent.as",
                         new ViolationPosition[]

@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -43,28 +41,23 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends Abst
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-
       assertEmptyViolations( "cairngorm.NonBindableModelLocator.as" );
-
       assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "MainWithModelLocator.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "AbstractRowData.as",
                         new ViolationPosition[]

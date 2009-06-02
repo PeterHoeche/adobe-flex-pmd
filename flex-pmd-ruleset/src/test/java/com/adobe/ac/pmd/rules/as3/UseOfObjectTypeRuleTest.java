@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -43,24 +40,21 @@ public class UseOfObjectTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Test
    @Override
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
    }
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "AbstractRowData.as",
                         new ViolationPosition[]

@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
@@ -42,21 +39,18 @@ public class CallLaterDirectlyRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "Looping.as" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "Main.mxml",
                         new ViolationPosition[]
                         { new ViolationPosition( 36, 36 ) } );
-
       assertViolations( "GenericType.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 41, 41 ) } );

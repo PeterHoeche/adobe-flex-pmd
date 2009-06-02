@@ -32,9 +32,6 @@ package com.adobe.ac.pmd;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,8 +52,7 @@ public class TestXpathFlexRule extends AbstractAstFlexRuleTest
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
                     0,
@@ -65,16 +61,14 @@ public class TestXpathFlexRule extends AbstractAstFlexRuleTest
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "Main.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       final XpathFlexRule xpathRule = ( XpathFlexRule ) getRule();
 

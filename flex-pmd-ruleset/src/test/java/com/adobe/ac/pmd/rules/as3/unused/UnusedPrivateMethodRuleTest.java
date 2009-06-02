@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -43,8 +40,7 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
 
@@ -55,15 +51,13 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "com.adobe.ac.ncss.BigModel.as",
                         new ViolationPosition[]

@@ -31,10 +31,8 @@
 package de.bokelberg.util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -53,18 +51,6 @@ public final class FileUtil
       inReader.close();
       return result.toArray( new String[]
       {} );
-   }
-
-   public static void writeStrings( final String[] strings,
-                                    final File actualOutputFile ) throws IOException
-   {
-      final BufferedWriter out = new BufferedWriter( new FileWriter( actualOutputFile ) );
-      for ( final String string : strings )
-      {
-         out.write( string );
-         out.newLine();
-      }
-      out.close();
    }
 
    private FileUtil()

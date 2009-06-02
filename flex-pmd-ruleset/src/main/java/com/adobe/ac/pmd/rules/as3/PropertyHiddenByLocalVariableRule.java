@@ -51,10 +51,6 @@ public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
       {
          for ( final IFunction function : classNode.getFunctions() )
          {
-            if ( function.getLocalVariables() == null )
-            {
-               continue;
-            }
             final Set< String > localVariables = function.getLocalVariables().keySet();
 
             for ( final String localVariable : localVariables )

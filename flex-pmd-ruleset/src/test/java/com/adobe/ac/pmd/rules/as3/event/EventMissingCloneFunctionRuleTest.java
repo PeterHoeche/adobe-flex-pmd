@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -44,8 +41,7 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
 
@@ -54,16 +50,14 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       final ViolationPosition[] expectedPositions = new ViolationPosition[]
       { new ViolationPosition( 33, 33 ) };

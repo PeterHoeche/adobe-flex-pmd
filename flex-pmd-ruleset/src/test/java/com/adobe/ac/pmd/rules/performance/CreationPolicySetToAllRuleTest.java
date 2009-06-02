@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
@@ -43,16 +40,14 @@ public class CreationPolicySetToAllRuleTest extends AbstractCommonRegExpBasedRul
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "MainWithModelLocator.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "Main.mxml",
                         new ViolationPosition[]

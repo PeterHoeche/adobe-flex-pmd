@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
@@ -42,32 +39,22 @@ public class ImportFromSamePackageRuleTest extends AbstractCommonRegExpBasedRule
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-
       assertEmptyViolations( "AbstractRowData.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.ConfigProxy.as" );
-
       assertEmptyViolations( "cairngorm.FatController.as" );
-
       assertEmptyViolations( "Sorted.as" );
-
       assertEmptyViolations( "cairngorm.LightController.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.ArrayVO.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
                         new ViolationPosition[]

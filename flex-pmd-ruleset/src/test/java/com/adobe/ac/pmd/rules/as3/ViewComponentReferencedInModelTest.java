@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -43,8 +40,7 @@ public class ViewComponentReferencedInModelTest extends AbstractRegExpBasedRuleT
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "cairngorm.BindableModelLocator.as" );
 
@@ -57,16 +53,14 @@ public class ViewComponentReferencedInModelTest extends AbstractRegExpBasedRuleT
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
                         new ViolationPosition[]

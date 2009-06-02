@@ -38,15 +38,15 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * A single node of the ast
- *
+ * 
  * @author rbokel
  */
 class Node implements IParserNode
 {
    private List< IParserNode > children;
    private final int           column;
-   private NodeKind            nodeId;
    private final int           line;
+   private NodeKind            nodeId;
    private String              stringValue;
 
    public Node( final NodeKind idToBeSet,
@@ -104,23 +104,6 @@ class Node implements IParserNode
                          final String value )
    {
       addChild( new Node( childId, childLine, childColumn, value ) );
-   }
-
-   public boolean findChildFromTokenType( final NodeKind tokenTypeToFind )
-   {
-      if ( numChildren() == 0 )
-      {
-         return false;
-      }
-
-      for ( final IParserNode node : getChildren() )
-      {
-         if ( node.is( tokenTypeToFind ) )
-         {
-            return true;
-         }
-      }
-      return false;
    }
 
    /*

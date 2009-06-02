@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.naming;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
@@ -43,16 +40,14 @@ public class TooShortVariableRuleTest extends AbstractCommonRegExpBasedRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "GenericType.as" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                         new ViolationPosition[]

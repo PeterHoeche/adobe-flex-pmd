@@ -30,11 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.core;
 
-import java.io.FileNotFoundException;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
@@ -48,11 +48,8 @@ import de.bokelberg.flex.parser.AS3Parser;
 
 public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 {
-   private static final Logger LOGGER = Logger.getLogger( AbstractAstFlexRuleTest.class.getName() );
-
    @Override
-   protected List< Violation > processFile( final String resourcePath ) throws FileNotFoundException,
-                                                                       URISyntaxException
+   protected List< Violation > processFile( final String resourcePath )
    {
       final AS3Parser parser = new AS3Parser();
       final AbstractFlexFile file = testFiles.get( resourcePath );
@@ -69,20 +66,20 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
          {
             rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
                                                                    ( ( MxmlFile ) file ).getScriptBlock() ) );
-
          }
+         return getRule().processFile( file,
+                                       rootNode,
+                                       testFiles );
       }
       catch ( final IOException e )
       {
-         LOGGER.warning( e.getMessage() );
+         fail( "file ("
+               + file.getFilePath() + ") not found" );
       }
       catch ( final TokenException e )
       {
-         LOGGER.warning( e.getMessage() );
+         fail( e.getMessage() );
       }
-
-      return getRule().processFile( file,
-                                    rootNode,
-                                    testFiles );
+      return new ArrayList< Violation >();
    }
 }

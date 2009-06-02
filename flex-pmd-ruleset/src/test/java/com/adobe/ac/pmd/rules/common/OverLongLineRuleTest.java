@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -42,22 +39,17 @@ public class OverLongLineRuleTest extends AbstractCommonFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.ConfigProxy.as" );
-
       assertEmptyViolations( "cairngorm.FatController.as" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "AbstractRowData.as",
                         new ViolationPosition[]

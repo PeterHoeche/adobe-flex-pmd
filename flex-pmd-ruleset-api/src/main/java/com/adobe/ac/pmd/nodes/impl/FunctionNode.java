@@ -48,7 +48,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class FunctionNode extends AbstractNode implements IFunction
 {
-   private IParserNode                contentBlock;
+   private IParserNode                body;
    private int                        cyclomaticComplexity;
    private Map< String, IParserNode > localVariables;
    private List< IMetaData >          metaDataList;
@@ -95,7 +95,7 @@ class FunctionNode extends AbstractNode implements IFunction
     */
    public IParserNode getBody()
    {
-      return contentBlock;
+      return body;
    }
 
    /*
@@ -155,10 +155,10 @@ class FunctionNode extends AbstractNode implements IFunction
     */
    public IParserNode getSuperCall()
    {
-      if ( contentBlock != null
-            && contentBlock.numChildren() != 0 )
+      if ( body != null
+            && body.numChildren() != 0 )
       {
-         for ( final IParserNode childContent : contentBlock.getChildren() )
+         for ( final IParserNode childContent : body.getChildren() )
          {
             if ( NodeKind.CALL.equals( childContent.getId() )
                   || NodeKind.DOT.equals( childContent.getId() ) )
@@ -301,7 +301,7 @@ class FunctionNode extends AbstractNode implements IFunction
    private void computeFunctionContent( final IParserNode functionBodyNode )
    {
       localVariables = new HashMap< String, IParserNode >();
-      contentBlock = functionBodyNode;
+      body = functionBodyNode;
       cyclomaticComplexity = 1;
 
       computeCyclomaticComplexity( functionBodyNode );

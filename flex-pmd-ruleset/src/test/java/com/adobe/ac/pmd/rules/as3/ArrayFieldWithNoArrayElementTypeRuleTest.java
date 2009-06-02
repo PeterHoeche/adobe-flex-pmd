@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -43,24 +41,21 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRul
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "cairngorm.BindableModelLocator.as" );
    }
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "com.adobe.ac.ncss.ArrayVO.as",
                         new ViolationPosition[]

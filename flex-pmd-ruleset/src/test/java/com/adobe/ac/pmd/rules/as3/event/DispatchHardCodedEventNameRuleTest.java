@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.common.AbstractCommonRegExpBasedRuleTest;
@@ -43,16 +40,14 @@ public class DispatchHardCodedEventNameRuleTest extends AbstractCommonRegExpBase
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "AbstractRowData.as",
                         new ViolationPosition[]

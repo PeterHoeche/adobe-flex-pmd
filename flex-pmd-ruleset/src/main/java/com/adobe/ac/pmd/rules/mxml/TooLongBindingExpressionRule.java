@@ -88,14 +88,11 @@ public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implem
    {
       final Matcher matcher = getMatcher( line );
 
-      if ( matcher.matches() )
-      {
-         currentCount = countChar( matcher.group( 1 ),
-                                   '.' );
-         return matcher.matches()
-               && currentCount > getThreshold();
-      }
-      return false;
+      matcher.matches();
+      currentCount = countChar( matcher.group( 1 ),
+                                '.' );
+      return matcher.matches()
+            && currentCount > getThreshold();
    }
 
    @Override

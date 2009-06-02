@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -44,28 +42,23 @@ public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTe
 
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
    }
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       assertViolations( "com.adobe.ac.ncss.VoidConstructor.as",
                         new ViolationPosition[]

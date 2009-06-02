@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -43,33 +41,28 @@ public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles() throws FileNotFoundException,
-                                                         URISyntaxException
+   public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
-
       assertEmptyViolations( "cairngorm.events.CorrectConstructorEvent.as" );
    }
 
    @Override
    @Test
-   public void testProcessNonConcernedFiles() throws FileNotFoundException,
-                                             URISyntaxException
+   public void testProcessNonConcernedFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
    @Test
-   public void testProcessViolatingFiles() throws FileNotFoundException,
-                                          URISyntaxException
+   public void testProcessViolatingFiles()
    {
       final ViolationPosition[] positions =
       { new ViolationPosition( 38, 38 ) };
 
       assertViolations( "cairngorm.events.UncorrectConstructorEvent.as",
                         positions );
-
       assertViolations( "cairngorm.events.UncorrectConstantEvent.as",
                         positions );
    }
