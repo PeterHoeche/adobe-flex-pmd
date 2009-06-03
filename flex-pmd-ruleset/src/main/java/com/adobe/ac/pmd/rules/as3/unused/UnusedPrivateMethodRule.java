@@ -68,11 +68,12 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       for ( final String functionName : privateFunctions.keySet() )
       {
          final IFunction function = privateFunctions.get( functionName );
+         final int[] ignoredLines = new int[]
+         { function.getInternalNode().getLine() };
 
          if ( getCurrentFile() instanceof As3File
                || !getCurrentFile().contains( functionName,
-                                              new int[]
-                                              { function.getInternalNode().getLine() } ) )
+                                              ignoredLines ) )
          {
             addViolation( function );
          }

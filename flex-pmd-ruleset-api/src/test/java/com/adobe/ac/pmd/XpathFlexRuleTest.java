@@ -28,11 +28,62 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core;
+package com.adobe.ac.pmd;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import static org.junit.Assert.assertEquals;
 
-public interface IIsConcernedByTheGivenFile
+import org.junit.Before;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.XpathFlexRule;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+
+public class XpathFlexRuleTest extends AbstractAstFlexRuleTest
 {
-   boolean isConcernedByTheGivenFile( final AbstractFlexFile file );
+   private AbstractFlexRule rule;
+
+   @Before
+   public void setUp()
+   {
+      rule = new XpathFlexRule();
+   }
+
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+   {
+      assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
+                    0,
+                    processFile( "com.adobe.ac.AbstractRowData.as" ).size() );
+   }
+
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles()
+   {
+      assertEmptyViolations( "Main.mxml" );
+   }
+
+   @Override
+   @Test
+   public void testProcessViolatingFiles()
+   {
+      final XpathFlexRule xpathRule = ( XpathFlexRule ) getRule();
+
+      xpathRule.setXPathExpression( "//if[block[count(*) = 0]]" );
+
+      final ViolationPosition[] expectedPositions =
+      { new ViolationPosition( 105, 107 ) };
+
+      assertViolations( "AbstractRowData.as",
+                        expectedPositions );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return rule;
+   }
 }

@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.rules.common;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
 public abstract class AbstractCommonFlexRuleTest extends AbstractFlexRuleTest
 {

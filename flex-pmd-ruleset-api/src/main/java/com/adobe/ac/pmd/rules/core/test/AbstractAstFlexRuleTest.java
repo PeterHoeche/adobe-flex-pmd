@@ -28,66 +28,58 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.core.test;
 
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.As3File;
+import com.adobe.ac.pmd.files.MxmlFile;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class AvoidProtectedFieldInFinalClass extends AbstractAstFlexRule
+import de.bokelberg.flex.parser.AS3Parser;
+
+public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected List< Violation > processFile( final String resourcePath )
    {
-      final boolean isClassFinal = classNode.isFinal();
+      final AS3Parser parser = new AS3Parser();
+      final AbstractFlexFile file = testFiles.get( resourcePath );
 
-      findProtectedAttributes( classNode.getAttributes(),
-                               isClassFinal );
-      findProtectedMethods( classNode.getFunctions(),
-                            isClassFinal );
-   }
+      IPackage rootNode = null;
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.INFO;
-   }
-
-   private void findProtectedAttributes( final List< IAttribute > atributes,
-                                         final boolean isClassFinal )
-   {
-      if ( atributes != null )
+      try
       {
-         for ( final IAttribute field : atributes )
+         if ( file instanceof As3File )
          {
-            if ( field.isProtected()
-                  && isClassFinal )
-            {
-               addViolation( field.getInternalNode(),
-                             field.getInternalNode() );
-            }
+            rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
          }
+         else
+         {
+            rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
+                                                                   ( ( MxmlFile ) file ).getScriptBlock() ) );
+         }
+         return getRule().processFile( file,
+                                       rootNode,
+                                       testFiles );
       }
-   }
-
-   private void findProtectedMethods( final List< IFunction > functions,
-                                      final boolean isClassFinal )
-   {
-      if ( functions != null )
+      catch ( final IOException e )
       {
-         for ( final IFunction function : functions )
-         {
-            if ( function.isProtected()
-                  && !function.isOverriden() && isClassFinal )
-            {
-               addViolation( function.getInternalNode(),
-                             function.getInternalNode() );
-            }
-         }
+         fail( "file ("
+               + file.getFilePath() + ") not found" );
       }
+      catch ( final TokenException e )
+      {
+         fail( e.getMessage() );
+      }
+      return new ArrayList< Violation >();
    }
 }

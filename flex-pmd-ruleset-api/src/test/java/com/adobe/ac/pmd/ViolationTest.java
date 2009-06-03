@@ -42,7 +42,7 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TestViolation extends FlexPmdTestBase
+public class ViolationTest extends FlexPmdTestBase
 {
    private static final int              BEGINNING_COLUMN = 0;
    private static final int              BEGINNING_LINE   = 1;
@@ -56,7 +56,7 @@ public class TestViolation extends FlexPmdTestBase
    private AbstractFlexFile              iterationsListMxml;
    private final ViolationPosition       position;
 
-   public TestViolation()
+   public ViolationTest()
    {
       position = new ViolationPosition( 10, 20, 30, 30 );
    }

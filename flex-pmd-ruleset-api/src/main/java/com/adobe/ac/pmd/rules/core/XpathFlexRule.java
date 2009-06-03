@@ -58,7 +58,6 @@ import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.exceptions.UnspecifiedXPath;
 
 import de.bokelberg.flex.parser.ASTToXMLConverter;
 
@@ -67,6 +66,7 @@ public class XpathFlexRule extends AbstractFlexRule
    private static final Logger LOGGER              = Logger.getLogger( XpathFlexRule.class.getName() );
    private static final String XPATH_PROPERTY_NAME = "xpath";
 
+   @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;
@@ -113,10 +113,6 @@ public class XpathFlexRule extends AbstractFlexRule
                }
             }
          }
-      }
-      catch ( final UnspecifiedXPath e )
-      {
-         LOGGER.warning( StackTraceUtils.print( e ) );
       }
       catch ( final XPathExpressionException e )
       {
@@ -189,21 +185,13 @@ public class XpathFlexRule extends AbstractFlexRule
       return beginningLine;
    }
 
-   private XPathExpression getXPathExpression() throws UnspecifiedXPath,
-                                               XPathExpressionException
+   private XPathExpression getXPathExpression() throws XPathExpressionException
    {
       String xPathExpressionString;
       final XPathFactory factory = XPathFactory.newInstance();
-      try
-      {
-         final PropertyDescriptor propertyDescriptor = propertyDescriptorFor( XPATH_PROPERTY_NAME );
-         xPathExpressionString = getStringProperty( propertyDescriptor );
-      }
-      catch ( final IllegalArgumentException e )
-      {
-         throw new UnspecifiedXPath( e );
-      }
+      final PropertyDescriptor propertyDescriptor = propertyDescriptorFor( XPATH_PROPERTY_NAME );
 
+      xPathExpressionString = getStringProperty( propertyDescriptor );
       return xPathExpressionString != "" ? factory.newXPath().compile( xPathExpressionString )
                                         : null;
    }

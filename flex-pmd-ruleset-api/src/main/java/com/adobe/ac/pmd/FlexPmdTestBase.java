@@ -50,7 +50,7 @@ public class FlexPmdTestBase
    /**
     * Test files placeholder. The key is the qualified file name
     */
-   protected final Map< String, AbstractFlexFile > testFiles                     = TestResourcesManager.getInstance()
+   protected final Map< String, AbstractFlexFile > testFiles                     = ResourcesManagerTest.getInstance()
                                                                                                        .getTestFiles();
 
    protected FlexPmdTestBase()

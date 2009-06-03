@@ -28,14 +28,28 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.exceptions;
+package com.adobe.ac.pmd.rules.core;
 
-public class UnspecifiedXPath extends Exception
+import java.util.Map;
+
+import net.sourceforge.pmd.PropertyDescriptor;
+
+public abstract class AbstractMaximizedRegexpBasedRule extends AbstractRegexpBasedRule implements
+                                                                                      IThresholdedRule
 {
-   private static final long serialVersionUID = 1L;
-
-   public UnspecifiedXPath( final Exception exception )
+   public int getThreshold()
    {
-      super( "No xpath property has been specified", exception );
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MAXIMUM;
+   }
+
+   @Override
+   protected Map< String, PropertyDescriptor > propertiesByName()
+   {
+      return getRuleProperties( this );
    }
 }

@@ -30,17 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 
-import net.sourceforge.pmd.PropertyDescriptor;
-
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implements IThresholdedRule
+public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRule implements
+                                                                                          IThresholdedRule
 {
    private int currentCount;
 
@@ -52,16 +50,6 @@ public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implem
    public int getDefaultThreshold()
    {
       return 2;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
    }
 
    @Override
@@ -93,12 +81,6 @@ public class TooLongBindingExpressionRule extends AbstractRegexpBasedRule implem
                                 '.' );
       return matcher.matches()
             && currentCount > getThreshold();
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 
    private int countChar( final String input,

@@ -49,23 +49,23 @@ import com.adobe.ac.pmd.files.FileSetUtils;
  *
  * @author xagnetti
  */
-final class TestResourcesManager
+final class ResourcesManagerTest
 {
-   private static TestResourcesManager instance = null;
-   private static final Logger         LOGGER   = Logger.getLogger( TestResourcesManager.class.getName() );
+   private static ResourcesManagerTest instance = null;
+   private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
-   public static TestResourcesManager getInstance()
+   public static ResourcesManagerTest getInstance()
    {
       if ( instance == null )
       {
-         instance = new TestResourcesManager();
+         instance = new ResourcesManagerTest();
       }
       return instance;
    }
 
    private Map< String, AbstractFlexFile > testFiles = new HashMap< String, AbstractFlexFile >();
 
-   private TestResourcesManager()
+   private ResourcesManagerTest()
    {
       try
       {

@@ -33,8 +33,8 @@ package com.adobe.ac.pmd.rules.mxml;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
 public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
 {

@@ -30,72 +30,64 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import java.util.Map;
+import java.util.List;
 
-import net.sourceforge.pmd.PropertyDescriptor;
-
-import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class AvoidDeeplyNestedIfRule extends AbstractAstFlexRule implements IThresholdedRule
+public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
 {
-   private int ifLevel = 0;
-
-   public int getActualValue()
+   @Override
+   protected void findViolationsFromClassNode( final IClass classNode )
    {
-      return ifLevel;
-   }
+      final boolean isClassFinal = classNode.isFinal();
 
-   public int getDefaultThreshold()
-   {
-      return 2;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
+      findProtectedAttributes( classNode.getAttributes(),
+                               isClassFinal );
+      findProtectedMethods( classNode.getFunctions(),
+                            isClassFinal );
    }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.INFO;
    }
 
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
+   private void findProtectedAttributes( final List< IAttribute > atributes,
+                                         final boolean isClassFinal )
    {
-      return getRuleProperties( this );
-   }
-
-   @Override
-   protected void visitFunctionBody( final IParserNode node )
-   {
-      ifLevel = 0;
-
-      super.visitFunctionBody( node );
-   }
-
-   @Override
-   protected void visitIf( final IParserNode ast )
-   {
-      ifLevel++;
-
-      super.visitIf( ast );
-
-      if ( ifLevel > getThreshold() )
+      if ( atributes != null )
       {
-         addViolation( ast,
-                       ast );
+         for ( final IAttribute field : atributes )
+         {
+            if ( field.isProtected()
+                  && isClassFinal )
+            {
+               addViolation( field.getInternalNode(),
+                             field.getInternalNode() );
+            }
+         }
       }
+   }
 
-      ifLevel--;
+   private void findProtectedMethods( final List< IFunction > functions,
+                                      final boolean isClassFinal )
+   {
+      if ( functions != null )
+      {
+         for ( final IFunction function : functions )
+         {
+            if ( function.isProtected()
+                  && !function.isOverriden() && isClassFinal )
+            {
+               addViolation( function.getInternalNode(),
+                             function.getInternalNode() );
+            }
+         }
+      }
    }
 }

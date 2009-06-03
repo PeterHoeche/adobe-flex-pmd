@@ -33,7 +33,6 @@ package com.adobe.ac.pmd.nodes;
 import java.util.List;
 
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.IConstant;
 
 /**
  * Node representing a class. It contains different lists (constants, variables,

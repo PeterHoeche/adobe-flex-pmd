@@ -30,16 +30,12 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
-import java.util.Map;
-
-import net.sourceforge.pmd.PropertyDescriptor;
-
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooManyParametersRule extends AbstractAstFlexRule implements IThresholdedRule
+public class TooManyParametersRule extends AbstractMaximizedAstFlexRule implements IThresholdedRule
 {
 
    private int paramsNb;
@@ -54,26 +50,10 @@ public class TooManyParametersRule extends AbstractAstFlexRule implements IThres
       return 4;
    }
 
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
-   }
-
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 
    @Override

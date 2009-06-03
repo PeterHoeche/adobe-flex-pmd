@@ -31,19 +31,16 @@
 package com.adobe.ac.pmd.rules.common;
 
 import java.util.List;
-import java.util.Map;
-
-import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ExcessiveImportRule extends AbstractRegexpBasedRule implements IThresholdedRule
+public class ExcessiveImportRule extends AbstractMaximizedRegexpBasedRule implements IThresholdedRule
 {
    private int importNumber;
 
@@ -55,16 +52,6 @@ public class ExcessiveImportRule extends AbstractRegexpBasedRule implements IThr
    public int getDefaultThreshold()
    {
       return 15;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
    }
 
    @Override
@@ -111,11 +98,5 @@ public class ExcessiveImportRule extends AbstractRegexpBasedRule implements IThr
    protected void onFileProcessingStarting()
    {
       importNumber = 0;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }

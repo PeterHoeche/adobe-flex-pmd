@@ -40,7 +40,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.nodes.Modifier;
 
-public class TestModifierHolderByVisibilityAndStaticityComparator
+public class ModifierHolderByVisibilityAndStaticityComparatorTest
 {
    @Test
    public void testCompare()

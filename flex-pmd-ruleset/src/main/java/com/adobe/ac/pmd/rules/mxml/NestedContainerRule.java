@@ -30,16 +30,12 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.Map;
-
-import net.sourceforge.pmd.PropertyDescriptor;
-
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class NestedContainerRule extends AbstractRegexpBasedRule implements IThresholdedRule
+public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule implements IThresholdedRule
 {
    private int     currentLevel   = 0;
    private boolean violationFound = false;
@@ -52,16 +48,6 @@ public class NestedContainerRule extends AbstractRegexpBasedRule implements IThr
    public int getDefaultThreshold()
    {
       return 2;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
    }
 
    @Override
@@ -87,7 +73,8 @@ public class NestedContainerRule extends AbstractRegexpBasedRule implements IThr
                                                             final AbstractFlexFile file )
    {
       boolean result = false;
-      if ( doesLineContainEndTag( line ) )
+
+      if ( line.contains( "</" ) )
       {
          currentLevel--;
       }
@@ -103,16 +90,5 @@ public class NestedContainerRule extends AbstractRegexpBasedRule implements IThr
          result = true;
       }
       return result;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
-   }
-
-   private boolean doesLineContainEndTag( final String line )
-   {
-      return line.contains( "</" );
    }
 }

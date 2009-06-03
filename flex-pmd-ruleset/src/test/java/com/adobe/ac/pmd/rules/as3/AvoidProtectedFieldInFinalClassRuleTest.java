@@ -28,10 +28,46 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core;
+package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.nodes.IField;
 
-public interface IConstant extends IField
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+
+public class AvoidProtectedFieldInFinalClassRuleTest extends AbstractAstFlexRuleTest
 {
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+   {
+      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
+      assertEmptyViolations( "BadComponent.as" );
+      assertEmptyViolations( "Looping.as" );
+   }
+
+   @Override
+   @Test
+   public void testProcessNonConcernedFiles()
+   {
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+   }
+
+   @Override
+   @Test
+   public void testProcessViolatingFiles()
+   {
+      assertViolations( "AbstractRowData.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 43, 43 ),
+                                    new ViolationPosition( 89, 89 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new AvoidProtectedFieldInFinalClassRule();
+   }
 }

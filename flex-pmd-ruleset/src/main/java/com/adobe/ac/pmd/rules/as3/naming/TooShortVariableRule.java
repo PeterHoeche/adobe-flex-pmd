@@ -87,15 +87,16 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
                                                             final AbstractFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
+      boolean result = false;
 
       if ( !line.contains( "for " )
             && matcher.matches() )
       {
          length = matcher.group( 1 ).trim().length();
 
-         return length < getThreshold();
+         result = length < getThreshold();
       }
-      return false;
+      return result;
    }
 
    @Override

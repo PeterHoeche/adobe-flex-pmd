@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.rules.common;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
 public abstract class AbstractCommonRegExpBasedRuleTest extends AbstractRegExpBasedRuleTest
 {

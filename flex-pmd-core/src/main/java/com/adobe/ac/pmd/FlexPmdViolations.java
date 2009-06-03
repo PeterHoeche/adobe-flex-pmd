@@ -99,7 +99,7 @@ public class FlexPmdViolations
       }
       for ( final Entry< String, AbstractFlexFile > entry : files.entrySet() )
       {
-         sortViolations( entry.getValue() );
+         Collections.sort( violations.get( entry.getValue() ) );
       }
    }
 
@@ -123,23 +123,12 @@ public class FlexPmdViolations
          {
             rule = ( ( RuleReference ) rule ).getRule();
          }
-         if ( rule instanceof AbstractFlexRule )
-         {
-            final AbstractFlexRule flexRule = ( AbstractFlexRule ) rule;
+         final AbstractFlexRule flexRule = ( AbstractFlexRule ) rule;
 
-            rules.put( flexRule.getRuleName(),
-                       flexRule );
-         }
+         rules.put( flexRule.getRuleName(),
+                    flexRule );
       }
 
       return rules;
-   }
-
-   private void sortViolations( final AbstractFlexFile file )
-   {
-      if ( violations.get( file ) != null )
-      {
-         Collections.sort( violations.get( file ) );
-      }
    }
 }

@@ -28,46 +28,27 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.core;
 
+import java.util.Map;
 
-import org.junit.Test;
+import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class AvoidProtectedFieldInFinalClassTest extends AbstractAstFlexRuleTest
+public abstract class AbstractMaximizedAstFlexRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
+   public int getThreshold()
    {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "BadComponent.as" );
-      assertEmptyViolations( "Looping.as" );
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+   }
+
+   public String getThresholdName()
+   {
+      return MAXIMUM;
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles()
+   protected Map< String, PropertyDescriptor > propertiesByName()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 43, 43 ),
-                                    new ViolationPosition( 89, 89 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new AvoidProtectedFieldInFinalClass();
+      return getRuleProperties( this );
    }
 }

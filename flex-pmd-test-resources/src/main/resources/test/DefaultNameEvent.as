@@ -35,7 +35,7 @@ package
 		public static const DAY_CHANGE : String = "dayChange";
 		public static const DELAYED_MIDNIGHT_REFRESH : String = "delayedMidnightRefresh";
 		
-		public function DefaultNameEvent( type : String )
+		public function DefaultNameEvent( type : String = "" )
 		{
 			super( type );
 		}

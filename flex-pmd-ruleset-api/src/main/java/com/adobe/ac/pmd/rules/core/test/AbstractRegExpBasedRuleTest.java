@@ -28,14 +28,57 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core;
+package com.adobe.ac.pmd.rules.core.test;
 
-import java.util.Map;
-import java.util.Set;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public interface IRuleSet
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+
+public abstract class AbstractRegExpBasedRuleTest extends AbstractFlexRuleTest
 {
-   Map< String, AbstractFlexRule > getRuleSet();
+   @Test
+   public void testDoesCurrentLineMacthCorrectLine()
+   {
+      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
 
-   Set< String > getRulesName();
+      for ( int i = 0; i < getMatchableLines().length; i++ )
+      {
+         final String correctLine = getMatchableLines()[ i ];
+
+         assertTrue( "This line (\""
+                           + correctLine + "\") should be matched",
+                     rule.doesCurrentLineMacthes( correctLine ) );
+      }
+   }
+
+   @Test
+   public void testDoesCurrentLineMacthIncorrectLine()
+   {
+      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
+
+      for ( int i = 0; i < getUnmatchableLines().length; i++ )
+      {
+         final String incorrectLine = getUnmatchableLines()[ i ];
+
+         assertFalse( "This line  (\""
+                            + incorrectLine + "\") should not be matched",
+                      rule.doesCurrentLineMacthes( incorrectLine ) );
+      }
+   }
+
+   protected abstract String[] getMatchableLines();
+
+   protected abstract AbstractRegexpBasedRule getRegexpBasedRule();
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return getRegexpBasedRule();
+   }
+
+   protected abstract String[] getUnmatchableLines();
 }

@@ -32,9 +32,9 @@ package com.adobe.ac.pmd.rules.performance;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
 public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
 {

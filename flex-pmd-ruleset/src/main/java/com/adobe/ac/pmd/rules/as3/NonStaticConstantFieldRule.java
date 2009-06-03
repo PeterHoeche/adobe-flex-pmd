@@ -32,10 +32,10 @@ package com.adobe.ac.pmd.rules.as3;
 
 import java.util.List;
 
+import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IField;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IConstant;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class NonStaticConstantFieldRule extends AbstractAstFlexRule

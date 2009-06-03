@@ -34,17 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.sourceforge.pmd.PropertyDescriptor;
-
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TooLongScriptBlockRule extends AbstractFlexRule implements IThresholdedRule
+public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule implements IThresholdedRule
 {
    private int linesInScriptBlock;
 
@@ -56,16 +54,6 @@ public class TooLongScriptBlockRule extends AbstractFlexRule implements IThresho
    public int getDefaultThreshold()
    {
       return 50;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
    }
 
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -122,11 +110,5 @@ public class TooLongScriptBlockRule extends AbstractFlexRule implements IThresho
          }
       }
       return violations;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }

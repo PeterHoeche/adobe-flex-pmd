@@ -30,178 +30,184 @@
  */
 package com.adobe.radon.core.controls
 {
-	import flash.display.GradientType;
-	import flash.display.Graphics;
-	import flash.display.InterpolationMethod;
-	import flash.display.Shape;
-	import flash.display.SpreadMethod;
-	import flash.display.Sprite;
-	import flash.geom.Matrix;
+    import flash.display.GradientType;
+    import flash.display.Graphics;
+    import flash.display.InterpolationMethod;
+    import flash.display.Shape;
+    import flash.display.SpreadMethod;
+    import flash.display.Sprite;
+    import flash.geom.Matrix;
 
-	import mx.controls.DataGrid;
-	import mx.controls.dataGridClasses.DataGridColumn;
-	import mx.controls.listClasses.IListItemRenderer;
-	import mx.controls.listClasses.ListBaseContentHolder;
-	import mx.core.FlexShape;
-	import mx.core.mx_internal;
-	import mx.events.DataGridEvent;
+    import mx.controls.DataGrid;
+    import mx.controls.dataGridClasses.DataGridColumn;
+    import mx.controls.listClasses.IListItemRenderer;
+    import mx.controls.listClasses.ListBaseContentHolder;
+    import mx.core.FlexShape;
+    import mx.core.mx_internal;
+    import mx.events.DataGridEvent;
 
-	use namespace mx_internal;
+    use namespace mx_internal;
 
-	public class RadonDataGrid extends DataGrid
-	{
-		public function RadonDataGrid()
-		{
-			super();
+    public class RadonDataGrid extends DataGrid
+    {
+        public function RadonDataGrid()
+        {
+            super();
 
-			headerClass=RadonDataGridHeader;
+            headerClass = RadonDataGridHeader;
 
-			rowHeight=34;
-			draggableColumns=false;
-			resizableColumns=false;
-			
-			if ( true )
-			{
-			}   
-		}
+            rowHeight = 34;
+            draggableColumns = false;
+            resizableColumns = false;
 
-		override protected function drawHighlightIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
-		{
-			super.drawSelectionIndicator(indicator, x, y, width, height, color, itemRenderer);
-			var realWidth:Number=unscaledWidth - viewMetrics.left - viewMetrics.right;
+            if ( true )
+            {
+            }
+        }
 
-			var g:Graphics=Sprite(indicator).graphics;
-			g.clear();
-			g.beginFill(0xFFFFFF, 0.15);
-			g.drawRect(0, 0, realWidth, height);
-			g.endFill();
+        override protected function drawHighlightIndicator( indicator : Sprite, x : Number, y : Number, width : Number, height : Number,
+            color : uint, itemRenderer : IListItemRenderer ) : void
+        {
+            super.drawSelectionIndicator( indicator, x, y, width, height, color, itemRenderer );
+            var realWidth : Number = unscaledWidth - viewMetrics.left - viewMetrics.right;
 
-			indicator.x=x;
-			indicator.y=y;
-		}
+            var g : Graphics = Sprite( indicator ).graphics;
+            g.clear();
+            g.beginFill( 0xFFFFFF, 0.15 );
+            g.drawRect( 0, 0, realWidth, height );
+            g.endFill();
 
-		override protected function drawSelectionIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
-		{
-			super.drawSelectionIndicator(indicator, x, y, width, height, color, itemRenderer);
-			var realWidth:Number=unscaledWidth - viewMetrics.left - viewMetrics.right;
+            indicator.x = x;
+            indicator.y = y;
+        }
 
-			var type:String=GradientType.LINEAR;
-			var colors:Array=[0x2bc9f6, 0x0086ad];
-			var alphas:Array=[1, 1];
-			var ratios:Array=[0, 190];
-			var spreadMethod:String=SpreadMethod.PAD;
-			var interp:String=InterpolationMethod.RGB;
-			var focalPtRatio:Number=0;
+        override protected function drawSelectionIndicator( indicator : Sprite, x : Number, y : Number, width : Number, height : Number,
+            color : uint, itemRenderer : IListItemRenderer ) : void
+        {
+            super.drawSelectionIndicator( indicator, x, y, width, height, color, itemRenderer );
+            var realWidth : Number = unscaledWidth - viewMetrics.left - viewMetrics.right;
 
-			var matrix:Matrix=new Matrix();
-			var boxRotation:Number=Math.PI / 2; // 90˚
-			var tx:Number=0;
-			var ty:Number=0;
+            var type : String = GradientType.LINEAR;
+            var colors : Array = [ 0x2bc9f6, 0x0086ad ];
+            var alphas : Array = [ 1, 1 ];
+            var ratios : Array = [ 0, 190 ];
+            var spreadMethod : String = SpreadMethod.PAD;
+            var interp : String = InterpolationMethod.RGB;
+            var focalPtRatio : Number = 0;
 
-			var g:Graphics=Sprite(indicator).graphics;
-			g.clear();
+            var matrix : Matrix = new Matrix();
+            var boxRotation : Number = Math.PI / 2; // 90˚
+            var tx : Number = 0;
+            var ty : Number = 0;
 
-			matrix.createGradientBox(realWidth, height, boxRotation, tx, ty);
-			g.beginGradientFill(type, colors, alphas, ratios, matrix, spreadMethod, interp, focalPtRatio);
+            var g : Graphics = Sprite( indicator ).graphics;
+            g.clear();
 
-			//g.beginFill(color);
-			g.drawRect(0, 0, realWidth, height);
-			g.endFill();
+            matrix.createGradientBox( realWidth, height, boxRotation, tx, ty );
+            g.beginGradientFill( type, colors, alphas, ratios, matrix, spreadMethod, interp, focalPtRatio );
 
-			indicator.x=x;
-			indicator.y=y;
-		}
+            //g.beginFill(color);
+            g.drawRect( 0, 0, realWidth, height );
+            g.endFill();
 
-		override protected function drawRowBackground(s:Sprite, rowIndex:int, y:Number, height:Number, color:uint, dataIndex:int):void
-		{
-			var contentHolder:ListBaseContentHolder=ListBaseContentHolder(s.parent);
+            indicator.x = x;
+            indicator.y = y;
+        }
 
-			var background:Shape;
-			if (rowIndex < s.numChildren)
-			{
-				background=Shape(s.getChildAt(rowIndex));
-			}
-			else
-			{
-				background=new FlexShape();
-				background.name="background";
-				s.addChild(background);
-			}
+        override protected function drawRowBackground( s : Sprite, rowIndex : int, y : Number, height : Number, color : uint,
+            dataIndex : int ) : void
+        {
+            var contentHolder : ListBaseContentHolder = ListBaseContentHolder( s.parent );
 
-			background.y=y;
+            var background : Shape;
 
-			// Height is usually as tall is the items in the row, but not if
-			// it would extend below the bottom of listContent
-			var height:Number=Math.min(height, contentHolder.height - y);
+            if ( rowIndex < s.numChildren )
+            {
+                background = Shape( s.getChildAt( rowIndex ) );
+            }
+            else
+            {
+                background = new FlexShape();
+                background.name = "background";
+                s.addChild( background );
+            }
 
-			var g:Graphics=background.graphics;
-			g.clear();
+            background.y = y;
 
-			var backgroundAlpha:Number=getStyle("backgroundAlpha");
+            // Height is usually as tall is the items in the row, but not if
+            // it would extend below the bottom of listContent
+            var height : Number = Math.min( height, contentHolder.height - y );
 
-			if (color == 0x000000)
-			{
-				backgroundAlpha=0;
-			}
-			else if (color == 0xFFFFFF)
-			{
-				backgroundAlpha=0.04;
-			}
+            var g : Graphics = background.graphics;
+            g.clear();
 
-			g.beginFill(color, backgroundAlpha);
-			g.drawRect(0, 0, contentHolder.width, height);
-			g.endFill();
-		}
-		
-		override protected function placeSortArrow():void
-		{
-			super.placeSortArrow();
+            var backgroundAlpha : Number = getStyle( "backgroundAlpha" );
 
-			var sortedColumn:DataGridColumn=columns[sortIndex];
+            if ( color == 0x000000 )
+            {
+                backgroundAlpha = 0;
+            }
+            else if ( color == 0xFFFFFF )
+            {
+                backgroundAlpha = 0.04;
+            }
 
-			for each (var dgcolumn:Object in columns)
-			{
-				if (dgcolumn == sortedColumn)
-				{
-					dgcolumn.setStyle("headerStyleName", "radonDataGridSelectedHeader");
-				}
-				else
-				{
-					dgcolumn.setStyle("headerStyleName", "radonDataGridHeader");
-				}
-				switch (10)
-				{
-					case 1:
-						break;
-					case 2:
-						break;
-               case 3:
-                  break;
-               case 4:
-                  break;
-               default:
-                  for ( var i : int = 0; i < 10; i++ )
-                  {
-                     if ( true && false )
-                     {
-                     }
-                     if ( false )
-                     {
-                     }
-                  }
-                  break;
-				}
-			}
-		}
+            g.beginFill( color, backgroundAlpha );
+            g.drawRect( 0, 0, contentHolder.width, height );
+            g.endFill();
+        }
 
-		private function get isTrue() : Boolean
-		{
-			return _isTrue;
-		}
-		
-		private function set isTrue( value : Boolean ) : void
-		{
-			_isTrue = value;
-		}
-	}
+        override protected function placeSortArrow() : void
+        {
+            super.placeSortArrow();
+
+            var sortedColumn : DataGridColumn = columns[ sortIndex ];
+
+            for each ( var dgcolumn : Object in columns )
+            {
+                if ( dgcolumn == sortedColumn )
+                {
+                    dgcolumn.setStyle( "headerStyleName", "radonDataGridSelectedHeader" );
+                }
+                else
+                {
+                    dgcolumn.setStyle( "headerStyleName", "radonDataGridHeader" );
+                }
+
+                switch ( 10 )
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        for ( var i : int = 0; i < 10; i++ )
+                        {
+                            if ( true && false )
+                            {
+                            }
+
+                            if ( false )
+                            {
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        private function get isTrue() : Boolean
+        {
+            return _isTrue;
+        }
+
+        private function set isTrue( value : Boolean ) : void
+        {
+            _isTrue = value;
+        }
+    }
 }

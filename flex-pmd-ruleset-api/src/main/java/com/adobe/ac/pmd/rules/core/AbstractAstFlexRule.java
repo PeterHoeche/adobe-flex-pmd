@@ -41,6 +41,7 @@ import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.utils.FunctionUtils;

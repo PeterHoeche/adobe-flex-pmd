@@ -34,17 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.sourceforge.pmd.PropertyDescriptor;
-
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class OverLongLineRule extends AbstractFlexRule implements IThresholdedRule
+public class OverLongLineRule extends AbstractMaximizedFlexRule implements IThresholdedRule
 {
    private int currentLine;
 
@@ -56,16 +54,6 @@ public class OverLongLineRule extends AbstractFlexRule implements IThresholdedRu
    public int getDefaultThreshold()
    {
       return 120;
-   }
-
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
    }
 
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -90,9 +78,11 @@ public class OverLongLineRule extends AbstractFlexRule implements IThresholdedRu
                   && line.length() >= getThreshold() )
             {
                currentLine = line.length();
+               final ViolationPosition position = new ViolationPosition( i + 1, i + 1, 0, line.length() );
+
                addViolation( violations,
                              file,
-                             new ViolationPosition( i + 1, i + 1, 0, line.length() ) );
+                             position );
             }
          }
       }
@@ -103,11 +93,5 @@ public class OverLongLineRule extends AbstractFlexRule implements IThresholdedRu
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }

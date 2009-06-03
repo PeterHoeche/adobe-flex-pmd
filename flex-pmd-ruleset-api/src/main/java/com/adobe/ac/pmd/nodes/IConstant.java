@@ -28,45 +28,9 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.nodes;
 
-import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-
-public class AvoidDeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
+public interface IConstant extends IField
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-      assertEmptyViolations( "Looping.as" );
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "Main.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      // FIXME uncomment this assertion.
-
-      // assertViolations(
-      // "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
-      // { new ViolationPosition( 0, 0 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new AvoidDeeplyNestedIfRule();
-   }
 }

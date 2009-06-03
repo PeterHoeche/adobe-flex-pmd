@@ -35,6 +35,7 @@ import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
@@ -42,7 +43,6 @@ import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
-import com.adobe.ac.pmd.rules.core.IConstant;
 
 class ClassNode extends AbstractNode implements IClass
 {

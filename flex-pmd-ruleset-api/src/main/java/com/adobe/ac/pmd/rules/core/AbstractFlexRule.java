@@ -48,10 +48,10 @@ import com.adobe.ac.pmd.nodes.IPackage;
  * Abstract FlexPMD rule. Extends this class if you want to find violations at a
  * very low level. Otherwise extends AbstractAstFlexRule, or
  * AbstractRegexpBasedRule.
- *
+ * 
  * @author xagnetti
  */
-public abstract class AbstractFlexRule extends CommonAbstractRule implements IIsConcernedByTheGivenFile
+public abstract class AbstractFlexRule extends CommonAbstractRule
 {
    protected static final String MAXIMUM = "maximum";
    protected static final String MINIMUM = "minimum";
@@ -131,10 +131,12 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IIs
       return properties;
    }
 
+   protected abstract boolean isConcernedByTheGivenFile( AbstractFlexFile file );
+
    /**
     * Overrides this function if you need to compute anything after the file has
     * been processed.
-    *
+    * 
     * @param rootNode
     * @param file
     * @param violations

@@ -28,62 +28,65 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.rules.as3;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.XpathFlexRule;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class TestXpathFlexRule extends AbstractAstFlexRuleTest
+public class ViewComponentReferencedInModelRuleTest extends AbstractRegExpBasedRuleTest
 {
-   private AbstractFlexRule rule;
-
-   @Before
-   public void setUp()
-   {
-      rule = new XpathFlexRule();
-   }
-
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
-      assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
-                    0,
-                    processFile( "com.adobe.ac.AbstractRowData.as" ).size() );
+      assertEmptyViolations( "cairngorm.BindableModelLocator.as" );
+      assertEmptyViolations( "cairngorm.events.CorrectConstructorEvent.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
+      assertEmptyViolations( "cairngorm.NonBindableModelLocator.as" );
    }
 
    @Override
    @Test
    public void testProcessNonConcernedFiles()
    {
-      assertEmptyViolations( "Main.mxml" );
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Override
    @Test
    public void testProcessViolatingFiles()
    {
-      final XpathFlexRule xpathRule = ( XpathFlexRule ) getRule();
-
-      xpathRule.setXPathExpression( "//if[block[count(*) = 0]]" );
-
-      final ViolationPosition[] expectedPositions =
-      { new ViolationPosition( 105, 107 ) };
-
-      assertViolations( "AbstractRowData.as",
-                        expectedPositions );
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 35, 35 ) } );
    }
 
    @Override
-   protected AbstractFlexRule getRule()
+   protected String[] getMatchableLines()
    {
-      return rule;
+      return new String[]
+      { "import lala.view.MyObject;",
+                  "import MyObject   ",
+                  "   import lala.view.MyObject" };
+   }
+
+   @Override
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   {
+      return new ViewComponentReferencedInModelRule();
+   }
+
+   @Override
+   protected String[] getUnmatchableLines()
+   {
+      return new String[]
+      { "mport lala.view.MyObject",
+                  " text=\"{ vfrfr().frfr.frf.lala }\"/>",
+                  " text=\"{vfrfr().frfr.frf.lala}\"/>",
+                  "public dynamic class DynamicObject {",
+                  "dynamic public class DynamicObject" };
    }
 }

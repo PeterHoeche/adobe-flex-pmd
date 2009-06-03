@@ -30,52 +30,25 @@
  */
 package com.adobe.ac.pmd.rules.core;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.Map;
 
-import org.junit.Test;
+import net.sourceforge.pmd.PropertyDescriptor;
 
-public abstract class AbstractRegExpBasedRuleTest extends AbstractFlexRuleTest
+public abstract class AbstractMaximizedFlexRule extends AbstractFlexRule implements IThresholdedRule
 {
-   @Test
-   public void testDoesCurrentLineMacthCorrectLine()
+   public int getThreshold()
    {
-      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
-
-      for ( int i = 0; i < getMatchableLines().length; i++ )
-      {
-         final String correctLine = getMatchableLines()[ i ];
-
-         assertTrue( "This line (\""
-                           + correctLine + "\") should be matched",
-                     rule.doesCurrentLineMacthes( correctLine ) );
-      }
+      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
-   @Test
-   public void testDoesCurrentLineMacthIncorrectLine()
+   public String getThresholdName()
    {
-      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
-
-      for ( int i = 0; i < getUnmatchableLines().length; i++ )
-      {
-         final String incorrectLine = getUnmatchableLines()[ i ];
-
-         assertFalse( "This line  (\""
-                            + incorrectLine + "\") should not be matched",
-                      rule.doesCurrentLineMacthes( incorrectLine ) );
-      }
+      return MAXIMUM;
    }
-
-   protected abstract String[] getMatchableLines();
-
-   protected abstract AbstractRegexpBasedRule getRegexpBasedRule();
 
    @Override
-   protected AbstractFlexRule getRule()
+   protected Map< String, PropertyDescriptor > propertiesByName()
    {
-      return getRegexpBasedRule();
+      return getRuleProperties( this );
    }
-
-   protected abstract String[] getUnmatchableLines();
 }

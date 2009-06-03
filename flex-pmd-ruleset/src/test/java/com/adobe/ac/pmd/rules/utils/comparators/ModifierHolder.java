@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 
-public class ModifierHolder implements IModifiersHolder
+class ModifierHolder implements IModifiersHolder
 {
    private final List< Modifier > modifiers;
    private final String           name;

@@ -30,17 +30,14 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.Map;
+import java.util.List;
 
-import net.sourceforge.pmd.PropertyDescriptor;
-
-import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractMaximizedAstFlexRule;
 import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class CyclomaticComplexityRule extends AbstractAstFlexRule implements IThresholdedRule
+public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule implements IThresholdedRule
 {
    private IFunction currentFunction = null;
 
@@ -54,28 +51,15 @@ public class CyclomaticComplexityRule extends AbstractAstFlexRule implements ITh
       return 10;
    }
 
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   public String getThresholdName()
-   {
-      return MAXIMUM;
-   }
-
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
-      if ( classNode.getFunctions() != null )
+      for ( final IFunction function : functions )
       {
-         for ( final IFunction function : classNode.getFunctions() )
+         currentFunction = function;
+         if ( function.getCyclomaticComplexity() > getThreshold() )
          {
-            currentFunction = function;
-            if ( function.getCyclomaticComplexity() > getThreshold() )
-            {
-               addViolation( function );
-            }
+            addViolation( function );
          }
       }
    }
@@ -84,11 +68,5 @@ public class CyclomaticComplexityRule extends AbstractAstFlexRule implements ITh
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
-   }
-
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }
