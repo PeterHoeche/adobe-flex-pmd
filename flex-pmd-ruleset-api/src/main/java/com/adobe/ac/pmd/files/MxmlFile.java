@@ -122,7 +122,7 @@ public class MxmlFile extends AbstractFlexFile
 
    private void extractScriptBlock()
    {
-      int i = 0;
+      int currentLineIndex = 0;
       int startLine = 0;
       int endLine = 0;
 
@@ -132,15 +132,15 @@ public class MxmlFile extends AbstractFlexFile
          {
             if ( line.contains( "</" ) )
             {
-               endLine = i - 1;
+               endLine = currentLineIndex - 1;
                break;
             }
             else if ( line.contains( "<" ) )
             {
-               startLine = i + 2;
+               startLine = currentLineIndex + 2;
             }
          }
-         i++;
+         currentLineIndex++;
       }
 
       copyScriptLinesKeepingOriginalLineIndices( startLine,

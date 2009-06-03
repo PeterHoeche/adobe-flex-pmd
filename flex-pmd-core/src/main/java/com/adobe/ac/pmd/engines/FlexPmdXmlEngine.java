@@ -138,12 +138,10 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 
    private void makeSureOutputDirectoryExists( final File realOutputDirectory )
    {
-      if ( !realOutputDirectory.exists() )
+      if ( !realOutputDirectory.exists()
+            && !realOutputDirectory.mkdirs() )
       {
-         if ( !realOutputDirectory.mkdirs() )
-         {
-            LOGGER.severe( "Unable to create an output folder" );
-         }
+         LOGGER.severe( "Unable to create an output folder" );
       }
    }
 

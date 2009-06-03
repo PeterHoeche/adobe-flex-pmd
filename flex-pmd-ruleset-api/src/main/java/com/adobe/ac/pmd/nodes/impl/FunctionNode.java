@@ -165,8 +165,7 @@ class FunctionNode extends AbstractNode implements IFunction
             {
                for ( final IParserNode childCall : childContent.getChildren() )
                {
-                  if ( childCall.getStringValue() != null
-                        && KeyWords.SUPER.toString().equals( childCall.getStringValue() ) )
+                  if ( KeyWords.SUPER.toString().equals( childCall.getStringValue() ) )
                   {
                      return childContent;
                   }
