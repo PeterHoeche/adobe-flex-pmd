@@ -106,7 +106,6 @@
 <rule ref="rulesets/basic.xml/AvoidUsingHardCodedIP"/>
 <rule ref="rulesets/basic.xml/CheckResultSet"/>
 <rule ref="rulesets/basic.xml/AvoidMultipleUnaryOperators"/>
-<rule ref="rulesets/basic.xml/EmptyInitializer"/>
 <rule ref="rulesets/braces.xml/IfStmtsMustUseBraces"/>
 <rule ref="rulesets/braces.xml/WhileLoopsMustUseBraces"/>
 <rule ref="rulesets/braces.xml/IfElseStmtsMustUseBraces"/>
