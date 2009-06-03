@@ -34,21 +34,15 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class NoChildrenAddedInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
+public class NoChildrenAddedInCreateChildrenRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "GoodComponent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "Main.mxml" );
    }
 
@@ -59,7 +53,6 @@ public class NoChildrenAddedInCreateChildrenRuleTest extends AbstractAstFlexRule
       assertViolations( "BadComponent.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 49, 52 ) } );
-
       assertViolations( "AbstractRowData.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 137, 138 ) } );

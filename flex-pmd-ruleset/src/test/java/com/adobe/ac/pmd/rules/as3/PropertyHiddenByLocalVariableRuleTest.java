@@ -34,9 +34,9 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class PropertyHiddenByLocalVariableRuleTest extends AbstractAstFlexRuleTest
+public class PropertyHiddenByLocalVariableRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
@@ -44,12 +44,6 @@ public class PropertyHiddenByLocalVariableRuleTest extends AbstractAstFlexRuleTe
    {
       assertEmptyViolations( "GoodComponent.as" );
       assertEmptyViolations( "RadonDataGrid.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "Main.mxml" );
    }
 

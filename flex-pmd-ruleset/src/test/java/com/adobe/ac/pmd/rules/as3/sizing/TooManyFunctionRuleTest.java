@@ -34,25 +34,17 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class TooManyFunctionRuleTest extends AbstractAstFlexRuleTest
+public class TooManyFunctionRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-
       assertEmptyViolations( "AbstractRowData.as" );
-
       assertEmptyViolations( "WorkEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

@@ -34,22 +34,15 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class SwitchStmtsShouldHaveDefaultRuleTest extends AbstractAstFlexRuleTest
+public class SwitchStmtsShouldHaveDefaultRuleTest extends AbstractCommonAstFlexRuleTest
 {
-
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
@@ -61,7 +54,6 @@ public class SwitchStmtsShouldHaveDefaultRuleTest extends AbstractAstFlexRuleTes
                         new ViolationPosition[]
                         { new ViolationPosition( 53, 53 ),
                                     new ViolationPosition( 41, 41 ) } );
-
       assertViolations( "com.adobe.ac.ncss.NestedSwitch.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 43, 43 ) } );

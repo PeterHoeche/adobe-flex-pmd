@@ -30,27 +30,21 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
+public class BadCairngormEventNameFormatRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
+      assertEmptyViolations( "AbstractRowData.as" );
       assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
       assertEmptyViolations( "cairngorm.events.CorrectConstructorEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

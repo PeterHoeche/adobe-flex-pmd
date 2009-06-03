@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -44,13 +43,14 @@ public class FatControllerRuleTest extends AbstractAstFlexRuleTest
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "cairngorm.LightController.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
    }
 
    @Override
    @Test
    public void testProcessNonConcernedFiles()
    {
+      assertEmptyViolations( "AbstractRowData.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

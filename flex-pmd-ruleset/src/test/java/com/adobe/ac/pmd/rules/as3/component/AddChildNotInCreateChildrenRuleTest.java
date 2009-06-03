@@ -30,14 +30,13 @@
  */
 package com.adobe.ac.pmd.rules.as3.component;
 
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class AddChildNotInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
+public class AddChildNotInCreateChildrenRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
@@ -45,12 +44,6 @@ public class AddChildNotInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
    {
       assertEmptyViolations( "GoodComponent.as" );
       assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "Main.mxml" );
    }
 

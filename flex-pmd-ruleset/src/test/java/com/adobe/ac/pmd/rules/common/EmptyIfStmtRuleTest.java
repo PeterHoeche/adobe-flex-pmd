@@ -34,9 +34,9 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
+public class EmptyIfStmtRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
@@ -44,12 +44,6 @@ public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.LongSwitch.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

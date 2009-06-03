@@ -32,8 +32,8 @@ package com.adobe.ac.pmd.rules.mxml;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.common.AbstractCommonFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonFlexRuleTest;
 
 public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractCommonFlexRuleTest
 {

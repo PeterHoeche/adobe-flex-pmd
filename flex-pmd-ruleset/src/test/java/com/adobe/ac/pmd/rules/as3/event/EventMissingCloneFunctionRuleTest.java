@@ -38,13 +38,10 @@ import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
 public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
 {
-
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
    }
 
@@ -52,6 +49,7 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
    @Test
    public void testProcessNonConcernedFiles()
    {
+      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml" );
    }
 
@@ -64,7 +62,6 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
 
       assertViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as",
                         expectedPositions );
-
       assertViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as",
                         expectedPositions );
    }

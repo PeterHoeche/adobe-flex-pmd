@@ -34,6 +34,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
 
 public class ImportFromSamePackageRuleTest extends AbstractCommonRegExpBasedRuleTest
 {

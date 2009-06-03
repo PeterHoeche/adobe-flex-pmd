@@ -30,26 +30,19 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class AvoidInstanciationInLoopRuleTest extends AbstractAstFlexRuleTest
+public class AvoidInstanciationInLoopRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

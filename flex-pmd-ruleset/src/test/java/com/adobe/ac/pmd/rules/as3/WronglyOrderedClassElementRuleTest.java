@@ -34,27 +34,18 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class WronglyOrderedClassElementRuleTest extends AbstractAstFlexRuleTest
+public class WronglyOrderedClassElementRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-
       assertEmptyViolations( "cairngorm.FatController.as" );
-
       assertEmptyViolations( "Sorted.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
 
@@ -70,20 +61,16 @@ public class WronglyOrderedClassElementRuleTest extends AbstractAstFlexRuleTest
                                     new ViolationPosition( 47, 47 ),
                                     new ViolationPosition( 43, 43 ),
                                     new ViolationPosition( 89, 89 ) } );
-
       assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 43, 43 ) } );
-
       assertViolations( "cairngorm.LightController.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 116, 116 ),
                                     new ViolationPosition( 135, 135 ) } );
-
       assertViolations( "com.adobe.ac.ncss.ArrayVO.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 38, 38 ) } );
-
       assertViolations( "com.adobe.ac.ncss.TestResult.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 79, 79 ),

@@ -28,40 +28,15 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.unused;
+package com.adobe.ac.pmd.rules.core.test;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
-
-public class UnusedPrivateMethodRuleTest extends AbstractCommonAstFlexRuleTest
+public abstract class AbstractCommonAstFlexRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    @Test
-   public void testProcessConcernedButNonViolatingFiles()
+   public void testProcessNonConcernedFiles()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-      assertEmptyViolations( "com.adobe.cairngorm.work.SequenceWorkFlow.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 94, 94 ),
-                                    new ViolationPosition( 86, 86 ),
-                                    new ViolationPosition( 98, 98 ),
-                                    new ViolationPosition( 90, 90 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedPrivateMethodRule();
    }
 }

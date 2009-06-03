@@ -34,9 +34,9 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class ExplicitStaticAccessFromStaticMethodRuleTest extends AbstractAstFlexRuleTest
+public class ExplicitStaticAccessFromStaticMethodRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
@@ -44,12 +44,6 @@ public class ExplicitStaticAccessFromStaticMethodRuleTest extends AbstractAstFle
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

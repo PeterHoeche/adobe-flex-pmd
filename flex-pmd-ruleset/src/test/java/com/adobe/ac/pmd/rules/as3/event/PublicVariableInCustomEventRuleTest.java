@@ -50,6 +50,7 @@ public class PublicVariableInCustomEventRuleTest extends AbstractRegExpBasedRule
    @Test
    public void testProcessNonConcernedFiles()
    {
+      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

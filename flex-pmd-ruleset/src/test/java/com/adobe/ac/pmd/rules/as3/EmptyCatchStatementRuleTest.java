@@ -34,9 +34,9 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class EmptyCatchStatementRuleTest extends AbstractAstFlexRuleTest
+public class EmptyCatchStatementRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
@@ -44,12 +44,6 @@ public class EmptyCatchStatementRuleTest extends AbstractAstFlexRuleTest
    {
       assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "Main.mxml" );
    }
 

@@ -34,21 +34,15 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
+public class UnusedParameterRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
       assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
    }
 
    @Override
@@ -61,12 +55,10 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
                                     new ViolationPosition( 62, 62 ),
                                     new ViolationPosition( 62, 62 ),
                                     new ViolationPosition( 62, 62 ) } );
-
       assertViolations( "Sorted.as",
                         new ViolationPosition[]
                         { new ViolationPosition( 58, 58 ),
                                     new ViolationPosition( 67, 67 ) } );
-
       assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                         new ViolationPosition[]
                         { new ViolationPosition( 84, 84 ) } );

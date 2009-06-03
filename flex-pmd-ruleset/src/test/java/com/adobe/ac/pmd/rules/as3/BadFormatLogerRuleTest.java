@@ -30,14 +30,13 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class BadFormatLogerRuleTest extends AbstractAstFlexRuleTest
+public class BadFormatLogerRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
@@ -46,12 +45,6 @@ public class BadFormatLogerRuleTest extends AbstractAstFlexRuleTest
       assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

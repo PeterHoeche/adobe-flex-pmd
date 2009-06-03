@@ -30,14 +30,13 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTest
+public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractCommonAstFlexRuleTest
 {
 
    @Override
@@ -47,12 +46,6 @@ public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTe
       assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 

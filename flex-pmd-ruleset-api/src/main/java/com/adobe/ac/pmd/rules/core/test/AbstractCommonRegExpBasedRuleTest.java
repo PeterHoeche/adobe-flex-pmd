@@ -28,14 +28,12 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.common;
-
+package com.adobe.ac.pmd.rules.core.test;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
-public abstract class AbstractCommonFlexRuleTest extends AbstractFlexRuleTest
+public abstract class AbstractCommonRegExpBasedRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
    @Test

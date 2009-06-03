@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
+import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -37,6 +38,12 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
 {
+   @Override
+   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   {
+      return !file.isMxml();
+   }
+
    @Override
    protected void findViolationsFromConstructor( final IFunction constructor )
    {

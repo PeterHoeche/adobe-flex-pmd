@@ -42,7 +42,6 @@ public class DefaultEventNameRuleTest extends AbstractAstFlexRuleTest
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
       assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
       assertEmptyViolations( "cairngorm.events.CorrectConstructorEvent.as" );
    }
@@ -51,6 +50,7 @@ public class DefaultEventNameRuleTest extends AbstractAstFlexRuleTest
    @Test
    public void testProcessNonConcernedFiles()
    {
+      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
    }
 
