@@ -30,6 +30,6 @@
  */
 package {
   [Bindable]
-  public class BindableModelLocator {
+  protected class BindableModelLocator implements GoodModelLocator {
   }
 }

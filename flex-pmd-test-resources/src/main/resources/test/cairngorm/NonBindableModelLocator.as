@@ -33,10 +33,10 @@ package com.adobe.ac.sample.model
 	import com.adobe.ac.sample.view.common.model.UsersManagementPresentationModel;
 	import com.adobe.cairngorm.model.IModelLocator;
 
-	public class ModelLocator implements IModelLocator
+	private class ModelLocator implements IModelLocator
 	{
 		private static var _instance : ModelLocator;
-		
+		protected var myProtected : int;
 		[Bindable]
 		public var usersManager : UsersManagementPresentationModel;
 		
@@ -52,6 +52,12 @@ package com.adobe.ac.sample.model
 				_instance = new ModelLocator( new SingletonEnforcer() );
 			}
 			return _instance;
+		}
+		
+		[Bindable]
+		public function get height() : int
+		{
+			return 0;
 		}
 	}
 }
