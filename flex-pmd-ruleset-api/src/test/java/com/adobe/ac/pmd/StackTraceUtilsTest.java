@@ -39,9 +39,11 @@ public class StackTraceUtilsTest
    @Test
    public void testPrint()
    {
-      assertEquals( "message at com.adobe.ac.pmd.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:45)\n"
+      final Exception e = new Exception( "message" );
+
+      assertEquals( "message at com.adobe.ac.pmd.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:42)\n"
                           + "sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n"
                           + "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)",
-                    StackTraceUtils.print( new Exception( "message" ) ) );
+                    StackTraceUtils.print( e ) );
    }
 }
