@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -45,7 +45,9 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
-import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
@@ -55,6 +57,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
    private IFunction drawHighlightIndicator;
    private IFunction drawRowBackground;
    private IFunction drawSelectionIndicator;
+   private IFunction getHeight;
    private IFunction isTrueGetter;
    private IFunction isTrueSetter;
    private IFunction placeSortArrow;
@@ -71,8 +74,10 @@ public class FunctionNodeTest extends FlexPmdTestBase
                       TokenException,
                       PMDException
    {
-      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "RadonDataGrid.as" ) );
-      final IClass radonDataGrid = NodeFactory.createPackage( ast ).getClassNode();
+      final IParserNode dataGridAst = FileSetUtils.buildAst( testFiles.get( "RadonDataGrid.as" ) );
+      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IClass radonDataGrid = NodeFactory.createPackage( dataGridAst ).getClassNode();
+      final IClass nonBindableModelLocator = NodeFactory.createPackage( modelLocatorAst ).getClassNode();
 
       constructor = radonDataGrid.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGrid.getFunctions().get( 1 );
@@ -81,6 +86,16 @@ public class FunctionNodeTest extends FlexPmdTestBase
       placeSortArrow = radonDataGrid.getFunctions().get( 4 );
       isTrueGetter = radonDataGrid.getFunctions().get( 5 );
       isTrueSetter = radonDataGrid.getFunctions().get( 6 );
+      getHeight = nonBindableModelLocator.getFunctions().get( 2 );
+   }
+
+   @Test
+   public void testFindPrimaryStatementFromName()
+   {
+      assertNull( constructor.findPrimaryStatementFromName( "" ) );
+      assertNotNull( drawHighlightIndicator.findPrimaryStatementFromName( new String[]
+      { "super",
+                  "" } ) );
    }
 
    @Test
@@ -96,6 +111,15 @@ public class FunctionNodeTest extends FlexPmdTestBase
                     drawRowBackground.getCyclomaticComplexity() );
       assertEquals( 13,
                     placeSortArrow.getCyclomaticComplexity() );
+   }
+
+   @Test
+   public void testGetMetaData()
+   {
+      assertEquals( 1,
+                    getHeight.getMetaDataList().size() );
+      assertEquals( 0,
+                    isTrueGetter.getMetaDataList().size() );
    }
 
    @Test
@@ -175,11 +199,28 @@ public class FunctionNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testOverride()
+   {
+      assertTrue( drawHighlightIndicator.isOverriden() );
+      assertFalse( isTrueGetter.isOverriden() );
+   }
+
+   @Test
    public void testSuperCall()
    {
       assertNotNull( constructor.getSuperCall() );
       assertNotNull( drawHighlightIndicator.getSuperCall() );
       assertNotNull( placeSortArrow.getSuperCall() );
       assertNull( drawRowBackground.getSuperCall() );
+   }
+
+   @Test
+   public void testVisibility()
+   {
+      assertTrue( constructor.isPublic() );
+      assertTrue( drawHighlightIndicator.isProtected() );
+      assertTrue( drawSelectionIndicator.isProtected() );
+      assertTrue( drawRowBackground.isProtected() );
+      assertTrue( isTrueGetter.isPrivate() );
    }
 }

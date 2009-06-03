@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.nodes.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,25 +42,38 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
-import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class PackageNodeTest extends FlexPmdTestBase
 {
+   private final IPackage buttonRenderer;
+   private final IPackage modelLocator;
+   private final IPackage stylePackage;
+
+   public PackageNodeTest() throws PMDException
+   {
+      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "SkinStyles.as" ) );
+      stylePackage = NodeFactory.createPackage( ast );
+
+      final IParserNode buttonRendererAst = FileSetUtils.buildAst( testFiles.get( "DeleteButtonRenderer.mxml" ) );
+      buttonRenderer = NodeFactory.createPackage( buttonRendererAst );
+
+      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      modelLocator = NodeFactory.createPackage( modelLocatorAst );
+   }
+
    @Test
    public void testConstructMxmlFile() throws IOException,
                                       TokenException,
                                       PMDException
    {
-      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "DeleteButtonRenderer.mxml" ) );
-      final IPackage stylePackage = NodeFactory.createPackage( ast );
-
-      assertNotNull( stylePackage.getClassNode() );
+      assertNotNull( buttonRenderer.getClassNode() );
       assertEquals( "",
-                    stylePackage.getName() );
+                    buttonRenderer.getName() );
       assertEquals( 0,
-                    stylePackage.getImports().size() );
+                    buttonRenderer.getImports().size() );
 
    }
 
@@ -80,17 +93,23 @@ public class PackageNodeTest extends FlexPmdTestBase
    }
 
    @Test
-   public void testConstructStyles() throws IOException,
-                                    TokenException,
-                                    PMDException
+   public void testConstructStyles()
    {
-      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "SkinStyles.as" ) );
-      final IPackage stylePackage = NodeFactory.createPackage( ast );
-
       assertNull( stylePackage.getClassNode() );
       assertEquals( "",
                     stylePackage.getName() );
       assertEquals( 0,
                     stylePackage.getImports().size() );
+   }
+
+   @Test
+   public void testFullyQualifiedName()
+   {
+      assertEquals( "",
+                    stylePackage.getFullyQualifiedClassName() );
+      assertEquals( "DeleteButtonRenderer",
+                    buttonRenderer.getFullyQualifiedClassName() );
+      assertEquals( "com.adobe.ac.sample.model.ModelLocator",
+                    modelLocator.getFullyQualifiedClassName() );
    }
 }

@@ -168,6 +168,9 @@ class ClassNode extends AbstractNode implements IClass
    protected void compute()
    {
       modifiers = new ArrayList< Modifier >();
+      implementations = new ArrayList< IParserNode >();
+      metadata = new ArrayList< IMetaData >();
+
       if ( internalNode.numChildren() != 0 )
       {
          for ( final IParserNode node : internalNode.getChildren() )
@@ -190,7 +193,6 @@ class ClassNode extends AbstractNode implements IClass
                MetaDataUtils.computeMetaDataList( this,
                                                   node );
             }
-
             detectImplementations( node );
             detectExtensions( node );
          }

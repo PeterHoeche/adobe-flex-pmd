@@ -28,43 +28,39 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.test;
+package com.adobe.ac.pmd.nodes.impl;
 
-import java.io.IOException;
-import java.util.List;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.As3File;
-import com.adobe.ac.pmd.files.MxmlFile;
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.impl.NodeFactory;
-import com.adobe.ac.pmd.parser.exceptions.TokenException;
+import org.junit.Test;
 
-import de.bokelberg.flex.parser.AS3Parser;
+import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
+public class FieldNodeTest extends FlexPmdTestBase
 {
-   @Override
-   protected List< Violation > processFile( final String resourcePath ) throws IOException,
-                                                                       TokenException
+   @Test
+   public void testVisibility() throws PMDException
    {
-      final AS3Parser parser = new AS3Parser();
-      final AbstractFlexFile file = testFiles.get( resourcePath );
+      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IClass nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
+      final IAttribute first = nonBindableModelLocator.getAttributes().get( 0 );
+      final IAttribute second = nonBindableModelLocator.getAttributes().get( 1 );
+      final IAttribute third = nonBindableModelLocator.getAttributes().get( 2 );
 
-      IPackage rootNode = null;
-
-      if ( file instanceof As3File )
-      {
-         rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
-      }
-      else
-      {
-         rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
-                                                                ( ( MxmlFile ) file ).getScriptBlock() ) );
-      }
-      return getRule().processFile( file,
-                                    rootNode,
-                                    testFiles );
+      assertTrue( first.isPrivate() );
+      assertFalse( first.isPublic() );
+      assertFalse( first.isProtected() );
+      assertTrue( second.isProtected() );
+      assertFalse( second.isPublic() );
+      assertFalse( second.isPrivate() );
+      assertTrue( third.isPublic() );
+      assertFalse( third.isProtected() );
+      assertFalse( third.isPrivate() );
    }
 }

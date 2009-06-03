@@ -28,43 +28,20 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.test;
+package com.adobe.ac.pmd;
 
-import java.io.IOException;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.As3File;
-import com.adobe.ac.pmd.files.MxmlFile;
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.impl.NodeFactory;
-import com.adobe.ac.pmd.parser.exceptions.TokenException;
+import org.junit.Test;
 
-import de.bokelberg.flex.parser.AS3Parser;
-
-public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
+public class StackTraceUtilsTest
 {
-   @Override
-   protected List< Violation > processFile( final String resourcePath ) throws IOException,
-                                                                       TokenException
+   @Test
+   public void testPrint()
    {
-      final AS3Parser parser = new AS3Parser();
-      final AbstractFlexFile file = testFiles.get( resourcePath );
-
-      IPackage rootNode = null;
-
-      if ( file instanceof As3File )
-      {
-         rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
-      }
-      else
-      {
-         rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
-                                                                ( ( MxmlFile ) file ).getScriptBlock() ) );
-      }
-      return getRule().processFile( file,
-                                    rootNode,
-                                    testFiles );
+      assertEquals( "message at com.adobe.ac.pmd.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:45)\n"
+                          + "sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n"
+                          + "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)",
+                    StackTraceUtils.print( new Exception( "message" ) ) );
    }
 }

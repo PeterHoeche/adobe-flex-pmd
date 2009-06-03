@@ -64,8 +64,13 @@ class PackageNode extends AbstractNode implements IPackage
     */
    public String getFullyQualifiedClassName()
    {
-      return name
-            + "." + classNode.getName();
+      if ( !"".equals( name ) )
+      {
+         return name
+               + "." + classNode.getName();
+      }
+      return classNode != null ? classNode.getName()
+                              : "";
    }
 
    /*

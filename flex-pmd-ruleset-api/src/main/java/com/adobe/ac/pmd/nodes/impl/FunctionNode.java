@@ -232,6 +232,8 @@ class FunctionNode extends AbstractNode implements IFunction
    protected void compute()
    {
       modifiers = new ArrayList< Modifier >();
+      metaDataList = new ArrayList< IMetaData >();
+
       if ( internalNode.numChildren() != 0 )
       {
          for ( final IParserNode node : internalNode.getChildren() )
@@ -261,11 +263,6 @@ class FunctionNode extends AbstractNode implements IFunction
             {
                MetaDataUtils.computeMetaDataList( this,
                                                   node );
-            }
-            else
-            {
-               LOGGER.warning( "unknow type "
-                     + node.getId() );
             }
          }
       }
@@ -339,28 +336,28 @@ class FunctionNode extends AbstractNode implements IFunction
    private IParserNode getPrimaryStatementFromName( final String[] names,
                                                     final IParserNode content )
    {
-      IParserNode dispatchNode = null;
+      IParserNode foundNode = null;
 
       if ( content != null
             && content.getStringValue() != null && isNameInArray( names,
                                                                   content.getStringValue() ) )
       {
-         dispatchNode = content;
+         foundNode = content;
       }
       else if ( content != null
             && content.numChildren() != 0 )
       {
          for ( final IParserNode child : content.getChildren() )
          {
-            dispatchNode = getPrimaryStatementFromName( names,
-                                                        child );
-            if ( dispatchNode != null )
+            foundNode = getPrimaryStatementFromName( names,
+                                                     child );
+            if ( foundNode != null )
             {
                break;
             }
          }
       }
-      return dispatchNode;
+      return foundNode;
    }
 
    private boolean isNameInArray( final String[] strings,

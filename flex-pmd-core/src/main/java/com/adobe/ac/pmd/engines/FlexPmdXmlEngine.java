@@ -85,6 +85,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          }
          writter.write( "</pmd>"
                + getNewLine() );
+         writter.close();
       }
       catch ( final IOException e )
       {

@@ -31,10 +31,14 @@
 package com.adobe.ac.pmd;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.XpathFlexRule;
@@ -54,9 +58,20 @@ public class XpathFlexRuleTest extends AbstractAstFlexRuleTest
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
-      assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
-                    0,
-                    processFile( "com.adobe.ac.AbstractRowData.as" ).size() );
+      try
+      {
+         assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
+                       0,
+                       processFile( "com.adobe.ac.AbstractRowData.as" ).size() );
+      }
+      catch ( final IOException e )
+      {
+         fail( e.getMessage() );
+      }
+      catch ( final TokenException e )
+      {
+         fail( e.getMessage() );
+      }
    }
 
    @Override

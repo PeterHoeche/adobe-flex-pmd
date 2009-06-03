@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import static org.junit.Assert.assertFalse;
-
 import org.junit.Test;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -86,15 +84,12 @@ public class WronglyOrderedClassElementRuleTest extends AbstractAstFlexRuleTest
                         new ViolationPosition[]
                         { new ViolationPosition( 38, 38 ) } );
 
-      // FIXME uncomment this assertion
-
-      // assertViolations(
-      // "com.adobe.ac.ncss.TestResult.as", expectedPositions5 );
-      //
-      assertFalse( "rule message token are still in",
-                   processFile( "com.adobe.ac.ncss.TestResult.as" ).get( 0 )
-                                                                   .getRuleMessage()
-                                                                   .contains( "{0}" ) );
+      assertViolations( "com.adobe.ac.ncss.TestResult.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 79, 79 ),
+                                    new ViolationPosition( 102, 102 ),
+                                    new ViolationPosition( 118, 118 ),
+                                    new ViolationPosition( 230, 230 ) } );
    }
 
    @Override

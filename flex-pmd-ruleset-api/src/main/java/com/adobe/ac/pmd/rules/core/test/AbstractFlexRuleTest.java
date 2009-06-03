@@ -31,13 +31,16 @@
 package com.adobe.ac.pmd.rules.core.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
@@ -72,34 +75,46 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    final protected void assertViolations( final String resourcePath,
                                           final ViolationPosition[] expectedPositions )
    {
-      final List< Violation > violations = processFile( resourcePath );
-
-      assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
-                    expectedPositions.length,
-                    violations.size() );
-
-      if ( expectedPositions.length != 0 )
+      try
       {
-         for ( int i = 0; i < expectedPositions.length; i++ )
-         {
-            final Violation violation = violations.get( i );
-            final ViolationPosition expectedPosition = expectedPositions[ i ];
+         final List< Violation > violations = processFile( resourcePath );
 
-            assertEquals( BEGIN_LINE_NOT_CORRECT
-                                + " at " + i + "th violation",
-                          expectedPosition.getBeginLine(),
-                          violation.getBeginLine() );
-            assertEquals( END_LINE_NOT_CORRECT
-                                + " at " + i + "th violation",
-                          expectedPosition.getEndLine(),
-                          violation.getEndLine() );
+         assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
+                       expectedPositions.length,
+                       violations.size() );
+
+         if ( expectedPositions.length != 0 )
+         {
+            for ( int i = 0; i < expectedPositions.length; i++ )
+            {
+               final Violation violation = violations.get( i );
+               final ViolationPosition expectedPosition = expectedPositions[ i ];
+
+               assertEquals( BEGIN_LINE_NOT_CORRECT
+                                   + " at " + i + "th violation",
+                             expectedPosition.getBeginLine(),
+                             violation.getBeginLine() );
+               assertEquals( END_LINE_NOT_CORRECT
+                                   + " at " + i + "th violation",
+                             expectedPosition.getEndLine(),
+                             violation.getEndLine() );
+            }
          }
+      }
+      catch ( final IOException e )
+      {
+         fail( e.getMessage() );
+      }
+      catch ( final TokenException e )
+      {
+         fail( e.getMessage() );
       }
    }
 
    protected abstract AbstractFlexRule getRule();
 
-   protected List< Violation > processFile( final String resourcePath )
+   protected List< Violation > processFile( final String resourcePath ) throws IOException,
+                                                                       TokenException
    {
       return getRule().processFile( testFiles.get( resourcePath ),
                                     null,

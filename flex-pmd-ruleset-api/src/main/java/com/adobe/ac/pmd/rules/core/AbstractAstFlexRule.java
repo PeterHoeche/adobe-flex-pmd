@@ -611,7 +611,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          visitStatement( ast.getChild( 1 ) );
          if ( ast.numChildren() == 2 )
          {
-            visitStatement( ast.getChild( 2 ) );
+            visitExpression( ast.getChild( 2 ) );
          }
       }
    }
