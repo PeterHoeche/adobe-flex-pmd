@@ -123,8 +123,6 @@
 <rule ref="rulesets/controversial.xml/CallSuperInConstructor"/>
 <rule ref="rulesets/controversial.xml/UnnecessaryParentheses"/>
 <rule ref="rulesets/controversial.xml/BooleanInversion"/>
-<rule ref="rulesets/controversial.xml/DataflowAnomalyAnalysis"/>
-<rule ref="rulesets/controversial.xml/AvoidFinalLocalVariable"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingShortType"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingVolatile"/>
 <rule ref="rulesets/controversial.xml/AvoidUsingNativeCode"/>
@@ -172,7 +170,6 @@
 <rule ref="rulesets/strings.xml/StringBufferInstantiationWithChar"/>
 <rule ref="rulesets/strings.xml/UseEqualsToCompareStrings"/>
 <rule ref="rulesets/strings.xml/AvoidStringBufferField"/>
-<rule ref="rulesets/javabeans.xml/BeanMembersShouldSerialize"/>
 <rule ref="rulesets/javabeans.xml/MissingSerialVersionUID"/>
 <rule ref="rulesets/strictexception.xml/AvoidCatchingThrowable"/>
 <rule ref="rulesets/strictexception.xml/SignatureDeclareThrowsException"/>
@@ -199,7 +196,6 @@
 <rule ref="rulesets/j2ee.xml/StaticEJBFieldShouldBeFinal"/>
 <rule ref="rulesets/j2ee.xml/DoNotUseThreads"/>
 <rule ref="rulesets/naming.xml/ShortVariable"/>
-<rule ref="rulesets/naming.xml/LongVariable"/>
 <rule ref="rulesets/naming.xml/ShortMethodName"/>
 <rule ref="rulesets/naming.xml/VariableNamingConventions"/>
 <rule ref="rulesets/naming.xml/MethodNamingConventions"/>

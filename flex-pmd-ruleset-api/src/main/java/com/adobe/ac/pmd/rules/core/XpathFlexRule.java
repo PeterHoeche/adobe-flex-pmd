@@ -187,12 +187,11 @@ public class XpathFlexRule extends AbstractFlexRule
 
    private XPathExpression getXPathExpression() throws XPathExpressionException
    {
-      String xPathExpressionString;
       final XPathFactory factory = XPathFactory.newInstance();
       final PropertyDescriptor propertyDescriptor = propertyDescriptorFor( XPATH_PROPERTY_NAME );
+      final String xPathExpressionString = getStringProperty( propertyDescriptor );
 
-      xPathExpressionString = getStringProperty( propertyDescriptor );
-      return xPathExpressionString != "" ? factory.newXPath().compile( xPathExpressionString )
-                                        : null;
+      return !"".equals( xPathExpressionString ) ? factory.newXPath().compile( xPathExpressionString )
+                                                : null;
    }
 }
