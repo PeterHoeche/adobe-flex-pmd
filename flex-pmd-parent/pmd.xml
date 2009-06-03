@@ -58,7 +58,6 @@
 <rule ref="rulesets/design.xml/PreserveStackTrace"/>
 <rule ref="rulesets/design.xml/UseCollectionIsEmpty"/>
 <rule ref="rulesets/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
-<rule ref="rulesets/design.xml/EmptyMethodInAbstractClassShouldBeAbstract"/>
 <rule ref="rulesets/design.xml/SingularField"/>
 <rule ref="rulesets/design.xml/ReturnEmptyArrayRatherThanNull"/>
 <rule ref="rulesets/design.xml/AbstractClassWithoutAnyMethod"/>
