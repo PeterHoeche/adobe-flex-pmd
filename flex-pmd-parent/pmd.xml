@@ -114,7 +114,6 @@
 <rule ref="rulesets/coupling.xml/ExcessiveImports"/>
 <rule ref="rulesets/coupling.xml/LooseCoupling"/>
 <rule ref="rulesets/controversial.xml/UnnecessaryConstructor"/>
-<rule ref="rulesets/controversial.xml/OnlyOneReturn"/>
 <rule ref="rulesets/controversial.xml/UnusedModifier"/>
 <rule ref="rulesets/controversial.xml/AssignmentInOperand"/>
 <rule ref="rulesets/controversial.xml/AtLeastOneConstructor"/>
