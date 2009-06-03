@@ -183,7 +183,6 @@
 <rule ref="rulesets/strictexception.xml/AvoidRethrowingException"/>
 <rule ref="rulesets/strictexception.xml/DoNotExtendJavaLangError"/>
 <rule ref="rulesets/strictexception.xml/DoNotThrowExceptionInFinally"/>
-<rule ref="rulesets/strictexception.xml/AvoidThrowingNewInstanceOfSameException"/>
 <rule ref="rulesets/finalizers.xml/EmptyFinalizer"/>
 <rule ref="rulesets/finalizers.xml/FinalizeOnlyCallsSuperFinalize"/>
 <rule ref="rulesets/finalizers.xml/FinalizeOverloaded"/>
