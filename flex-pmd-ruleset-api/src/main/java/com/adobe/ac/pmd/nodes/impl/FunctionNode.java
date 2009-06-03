@@ -233,6 +233,8 @@ class FunctionNode extends AbstractNode implements IFunction
    {
       modifiers = new ArrayList< Modifier >();
       metaDataList = new ArrayList< IMetaData >();
+      localVariables = new HashMap< String, IParserNode >();
+      cyclomaticComplexity = 1;
 
       if ( internalNode.numChildren() != 0 )
       {
@@ -296,9 +298,7 @@ class FunctionNode extends AbstractNode implements IFunction
 
    private void computeFunctionContent( final IParserNode functionBodyNode )
    {
-      localVariables = new HashMap< String, IParserNode >();
       body = functionBodyNode;
-      cyclomaticComplexity = 1;
 
       computeCyclomaticComplexity( functionBodyNode );
       computeVariableList( functionBodyNode );

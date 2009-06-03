@@ -51,7 +51,8 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
       {
          for ( final IParserNode parameterNode : ast.getChildren() )
          {
-            if ( !isParameterAnEvent( parameterNode ) )
+            if ( !isParameterAnEvent( parameterNode )
+                  && parameterNode.numChildren() > 0 && parameterNode.getChild( 0 ).numChildren() > 0 )
             {
                variablesUnused.put( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
                                     parameterNode );

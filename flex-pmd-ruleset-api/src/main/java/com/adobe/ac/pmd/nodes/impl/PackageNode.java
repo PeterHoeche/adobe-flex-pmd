@@ -69,8 +69,8 @@ class PackageNode extends AbstractNode implements IPackage
          return name
                + "." + classNode.getName();
       }
-      return classNode != null ? classNode.getName()
-                              : "";
+      return classNode == null ? ""
+                              : classNode.getName();
    }
 
    /*
