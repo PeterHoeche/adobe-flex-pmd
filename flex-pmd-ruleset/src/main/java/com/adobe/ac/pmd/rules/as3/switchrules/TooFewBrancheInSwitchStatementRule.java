@@ -36,8 +36,8 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule implements IThresholdedRule
 {

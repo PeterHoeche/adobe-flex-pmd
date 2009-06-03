@@ -51,9 +51,9 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * Abstract class for AST-based rule Extends this class if your rule is only
- * detectable in an AS file, which can be converted into an Abstract Synthax
- * Tree. Then you will be able to either use the visitor pattern, or to iterate
- * from the package node, i in order to find your violation(s).
+ * detectable in an AS script block, which can be converted into an Abstract
+ * Synthax Tree. Then you will be able to either use the visitor pattern, or to
+ * iterate from the package node, in order to find your violation(s).
  * 
  * @author xagnetti
  */
@@ -71,6 +71,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       violations = new ArrayList< Violation >();
    }
 
+   @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;

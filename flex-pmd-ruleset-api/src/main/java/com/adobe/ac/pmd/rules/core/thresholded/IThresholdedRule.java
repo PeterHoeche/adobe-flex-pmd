@@ -28,28 +28,15 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core;
+package com.adobe.ac.pmd.rules.core.thresholded;
 
-import java.util.Map;
-
-import net.sourceforge.pmd.PropertyDescriptor;
-
-public abstract class AbstractMaximizedRegexpBasedRule extends AbstractRegexpBasedRule implements
-                                                                                      IThresholdedRule
+public interface IThresholdedRule
 {
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
+   int getActualValue();
 
-   public String getThresholdName()
-   {
-      return MAXIMUM;
-   }
+   int getDefaultThreshold();
 
-   @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
-   }
+   int getThreshold();
+
+   String getThresholdName();
 }

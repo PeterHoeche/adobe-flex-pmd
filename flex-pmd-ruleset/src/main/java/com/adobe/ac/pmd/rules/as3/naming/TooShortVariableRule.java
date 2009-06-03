@@ -37,8 +37,8 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class TooShortVariableRule extends AbstractRegexpBasedRule implements IThresholdedRule
 {

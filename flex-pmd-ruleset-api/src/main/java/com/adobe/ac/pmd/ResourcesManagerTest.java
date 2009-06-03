@@ -31,7 +31,6 @@
 package com.adobe.ac.pmd;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
@@ -46,7 +45,7 @@ import com.adobe.ac.pmd.files.FileSetUtils;
 /**
  * Internal utility which finds out the test resources, and map them to their
  * qualified names.
- *
+ * 
  * @author xagnetti
  */
 final class ResourcesManagerTest
@@ -70,12 +69,6 @@ final class ResourcesManagerTest
       try
       {
          final URL resource = this.getClass().getResource( "/test" );
-
-         if ( resource == null )
-         {
-            throw new FileNotFoundException( "test folder is not found" );
-         }
-
          final File root = new File( resource.toURI().getPath() );
 
          testFiles = FileSetUtils.computeFilesList( root );
@@ -85,10 +78,6 @@ final class ResourcesManagerTest
          LOGGER.warning( StackTraceUtils.print( e ) );
       }
       catch ( final URISyntaxException e )
-      {
-         LOGGER.warning( StackTraceUtils.print( e ) );
-      }
-      catch ( final FileNotFoundException e )
       {
          LOGGER.warning( StackTraceUtils.print( e ) );
       }

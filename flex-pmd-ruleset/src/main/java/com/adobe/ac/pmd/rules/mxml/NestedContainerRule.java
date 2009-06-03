@@ -31,11 +31,10 @@
 package com.adobe.ac.pmd.rules.mxml;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
 
-public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule implements IThresholdedRule
+public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
 {
    private int     currentLevel   = 0;
    private boolean violationFound = false;

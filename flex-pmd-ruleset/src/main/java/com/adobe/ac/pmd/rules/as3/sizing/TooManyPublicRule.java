@@ -35,11 +35,10 @@ import java.util.List;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class TooManyPublicRule extends AbstractMaximizedAstFlexRule implements IThresholdedRule
+public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
 {
    private IFunction constructor;
    private int       publicCount;

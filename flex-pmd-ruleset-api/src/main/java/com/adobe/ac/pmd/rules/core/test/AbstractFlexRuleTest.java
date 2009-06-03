@@ -32,7 +32,6 @@ package com.adobe.ac.pmd.rules.core.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.junit.Test;
@@ -47,24 +46,18 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    /**
     * Test case which contains non-violating files but which are concerned by
     * the given rule
-    * 
-    * @throws FileNotFoundException
     */
    @Test
    public abstract void testProcessConcernedButNonViolatingFiles();
 
    /**
     * Test case which contains non-concerned files by the given rule
-    * 
-    * @throws FileNotFoundException
     */
    @Test
    public abstract void testProcessNonConcernedFiles();
 
    /**
     * Test case which contains violating files
-    * 
-    * @throws FileNotFoundException
     */
    @Test
    public abstract void testProcessViolatingFiles();
@@ -81,7 +74,8 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    {
       final List< Violation > violations = processFile( resourcePath );
 
-      assertEquals( expectedPositions.length,
+      assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT,
+                    expectedPositions.length,
                     violations.size() );
 
       if ( expectedPositions.length != 0 )

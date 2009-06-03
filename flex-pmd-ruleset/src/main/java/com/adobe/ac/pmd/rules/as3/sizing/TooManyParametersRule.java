@@ -31,11 +31,10 @@
 package com.adobe.ac.pmd.rules.as3.sizing;
 
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class TooManyParametersRule extends AbstractMaximizedAstFlexRule implements IThresholdedRule
+public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 {
 
    private int paramsNb;

@@ -35,12 +35,11 @@ import java.util.List;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
 
-public class ExcessiveImportRule extends AbstractMaximizedRegexpBasedRule implements IThresholdedRule
+public class ExcessiveImportRule extends AbstractMaximizedRegexpBasedRule
 {
    private int importNumber;
 

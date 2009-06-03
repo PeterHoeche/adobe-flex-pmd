@@ -36,11 +36,10 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
-class EmptyRule extends AbstractFlexRule implements IThresholdedRule
+class EmptyRule extends AbstractMaximizedFlexRule
 {
    public int getActualValue()
    {
@@ -58,16 +57,13 @@ class EmptyRule extends AbstractFlexRule implements IThresholdedRule
       return "emptyMessage";
    }
 
+   @Override
    public int getThreshold()
    {
       return getDefaultThreshold();
    }
 
-   public String getThresholdName()
-   {
-      return "maximum";
-   }
-
+   @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;

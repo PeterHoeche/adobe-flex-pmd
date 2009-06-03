@@ -49,27 +49,12 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromClassNode( final IClass classNode )
    {
-      if ( classNode.getExtensionName() != null
-            && classNode.getExtensionName().contains( "Cairngorm" )
-            && classNode.getExtensionName().contains( "Event" ) )
+      if ( isExtendedClassCairngormEvent( classNode ) )
       {
-         String eventName = "";
+         final String eventName = extractEventName( classNode );
 
-         for ( final IField constantNode : classNode.getConstants() )
-         {
-            if ( constantNode.getName().startsWith( "EVENT" ) )
-            {
-               eventName = extractEventNameFromConstant( constantNode.getInitializationExpression()
-                                                                     .getInternalNode() );
-            }
-         }
-         if ( eventName.compareTo( "" ) == 0
-               && classNode.getConstructor() != null )
-         {
-            eventName = extractEventNameFromConstructor( classNode.getConstructor() );
-         }
-         if ( "".equals( eventName )
-               || !eventName.contains( "." ) )
+         if ( isEventNameNotFound( eventName )
+               || !doesEventNameContainDot( eventName ) )
          {
             addViolation( classNode.getInternalNode(),
                           classNode.getInternalNode() );
@@ -81,6 +66,31 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
+   }
+
+   private boolean doesEventNameContainDot( final String eventName )
+   {
+      return eventName.contains( "." );
+   }
+
+   private String extractEventName( final IClass classNode )
+   {
+      String eventName = "";
+
+      for ( final IField constantNode : classNode.getConstants() )
+      {
+         if ( constantNode.getName().startsWith( "EVENT" ) )
+         {
+            eventName = extractEventNameFromConstant( constantNode.getInitializationExpression()
+                                                                  .getInternalNode() );
+         }
+      }
+      if ( eventName.compareTo( "" ) == 0
+            && classNode.getConstructor() != null )
+      {
+         eventName = extractEventNameFromConstructor( classNode.getConstructor() );
+      }
+      return eventName;
    }
 
    private String extractEventNameFromConstant( final IParserNode initExpressionNode )
@@ -98,5 +108,17 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
          eventName = superCall.getChild( 1 ).getChild( 0 ).getStringValue();
       }
       return eventName;
+   }
+
+   private boolean isEventNameNotFound( final String eventName )
+   {
+      return "".equals( eventName );
+   }
+
+   private boolean isExtendedClassCairngormEvent( final IClass classNode )
+   {
+      return classNode.getExtensionName() != null
+            && classNode.getExtensionName().contains( "Cairngorm" )
+            && classNode.getExtensionName().contains( "Event" );
    }
 }

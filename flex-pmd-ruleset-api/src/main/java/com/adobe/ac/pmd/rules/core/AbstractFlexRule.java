@@ -43,6 +43,7 @@ import net.sourceforge.pmd.properties.IntegerProperty;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 /**
  * Abstract FlexPMD rule. Extends this class if you want to find violations at a

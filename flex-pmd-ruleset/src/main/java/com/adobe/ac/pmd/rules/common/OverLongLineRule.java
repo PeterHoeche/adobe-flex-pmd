@@ -37,12 +37,11 @@ import java.util.Map;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
-public class OverLongLineRule extends AbstractMaximizedFlexRule implements IThresholdedRule
+public class OverLongLineRule extends AbstractMaximizedFlexRule
 {
    private int currentLine;
 
@@ -56,6 +55,7 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule implements IThre
       return 120;
    }
 
+   @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return true;

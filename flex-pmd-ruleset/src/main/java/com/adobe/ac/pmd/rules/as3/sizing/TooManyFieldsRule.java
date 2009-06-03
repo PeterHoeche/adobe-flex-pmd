@@ -34,11 +34,10 @@ import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedAstFlexRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class TooManyFieldsRule extends AbstractMaximizedAstFlexRule implements IThresholdedRule
+public class TooManyFieldsRule extends AbstractMaximizedAstFlexRule
 {
    private int    attributesNb = 0;
    private IClass classNode    = null;

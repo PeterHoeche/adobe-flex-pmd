@@ -33,12 +33,10 @@ package com.adobe.ac.pmd.rules.mxml;
 import java.util.regex.Matcher;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractMaximizedRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.IThresholdedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
 
-public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRule implements
-                                                                                          IThresholdedRule
+public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRule
 {
    private int currentCount;
 
