@@ -33,6 +33,8 @@ package com.adobe.ac.pmd.rules.as3.event;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IMetaData;
@@ -69,10 +71,9 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
 
          if ( startIndex > -1 )
          {
-            final int length = metaDataValue.substring( startIndex + 8 ).indexOf( "\"" );
-            final String type = metaDataValue.substring( startIndex + 8,
-                                                         startIndex
-                                                               + 8 + length );
+            final String type = StringUtils.substringBefore( StringUtils.substringAfter( metaDataValue,
+                                                                                         "type = \"" ),
+                                                             "\"" );
 
             if ( !files.containsKey( type
                   + ".as" ) )

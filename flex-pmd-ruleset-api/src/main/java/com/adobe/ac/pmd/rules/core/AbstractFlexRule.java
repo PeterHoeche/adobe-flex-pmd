@@ -40,6 +40,8 @@ import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.properties.IntegerProperty;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
@@ -79,7 +81,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
    final public String getRuleName()
    {
       final String qualifiedClassName = this.getClass().getName();
-      final String className = qualifiedClassName.substring( qualifiedClassName.lastIndexOf( '.' ) + 1 );
+      final String className = StringUtils.substringAfter( qualifiedClassName,
+                                                           "." );
 
       return className.replace( "Rule",
                                 "" );

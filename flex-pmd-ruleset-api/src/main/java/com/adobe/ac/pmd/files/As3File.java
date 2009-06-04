@@ -34,9 +34,8 @@ import java.io.File;
 
 public class As3File extends AbstractFlexFile
 {
-
-   public As3File( final File file,
-                   final File rootDirectory )
+   protected As3File( final File file,
+                      final File rootDirectory )
    {
       super( file, rootDirectory );
    }
@@ -62,6 +61,12 @@ public class As3File extends AbstractFlexFile
 
    @Override
    public boolean isMainApplication()
+   {
+      return false;
+   }
+
+   @Override
+   public boolean isMxml()
    {
       return false;
    }

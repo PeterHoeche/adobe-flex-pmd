@@ -59,7 +59,7 @@ class FunctionNode extends AbstractNode implements IFunction
    private List< IParameter >               parameters;
    private IIdentifierNode                  returnType;
 
-   public FunctionNode( final IParserNode node )
+   protected FunctionNode( final IParserNode node )
    {
       super( node );
    }

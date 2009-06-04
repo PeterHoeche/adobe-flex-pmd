@@ -197,7 +197,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          if ( packageNode != null )
          {
-            visitNodes( packageNode.getInternalNode() );
+            visitCompilationUnit( packageNode.getInternalNode() );
             findViolationsFromPackageNode( packageNode );
             final IClass classNode = packageNode.getClassNode();
 
@@ -218,138 +218,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       return copy;
    }
 
-   protected void visitAdditiveExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.ADD ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitMultiplicativeExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitMultiplicativeExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitMultiplicativeExpression( ast );
-         }
-      }
-   }
-
-   protected void visitAndExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.AND ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitBitwiseOrExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitBitwiseOrExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitBitwiseOrExpression( ast );
-         }
-      }
-   }
-
-   protected void visitArrayAccessor( final IParserNode ast )
-   {
-      final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-      visitExpression( iterator.next() );
-      do
-      {
-         visitExpression( iterator.next() );
-      }
-      while ( iterator.hasNext() );
-   }
-
-   protected void visitBitwiseAndExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.B_AND ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitEqualityExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitEqualityExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitEqualityExpression( ast );
-         }
-      }
-   }
-
-   protected void visitBitwiseOrExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.B_OR ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitBitwiseXorExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitBitwiseXorExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitBitwiseXorExpression( ast );
-         }
-      }
-   }
-
-   protected void visitBitwiseXorExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.B_OR ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitBitwiseAndExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitBitwiseAndExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitBitwiseAndExpression( ast );
-         }
-      }
-   }
-
-   protected void visitBlock( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            visitStatement( node );
-         }
-      }
-   }
-
    protected void visitCatch( final IParserNode ast )
    {
       if ( isNodeNavigable( ast ) )
@@ -363,111 +231,18 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    {
       if ( isNodeNavigable( ast ) )
       {
-         IParserNode modifiers = null;
-         IParserNode implement = null;
          IParserNode content = null;
          for ( final IParserNode node : ast.getChildren() )
          {
             if ( node.is( NodeKind.MOD_LIST ) )
             {
-               modifiers = node;
-            }
-            else if ( node.is( NodeKind.IMPLEMENTS_LIST ) )
-            {
-               implement = node;
             }
             else if ( node.is( NodeKind.CONTENT ) )
             {
                content = node;
             }
          }
-         visitModifiers( modifiers );
-         if ( implement != null )
-         {
-            visitImplementsList( implement );
-         }
          visitClassContent( content );
-      }
-   }
-
-   protected void visitClassContent( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            if ( node.is( NodeKind.VAR_LIST ) )
-            {
-               visitVarOrConstList( node,
-                                    KeyWords.VAR );
-            }
-            else if ( node.is( NodeKind.CONST_LIST ) )
-            {
-               visitVarOrConstList( node,
-                                    KeyWords.CONST );
-            }
-            else if ( node.is( NodeKind.FUNCTION ) )
-            {
-               visitFunction( node,
-                              "" );
-            }
-            else if ( node.is( NodeKind.SET ) )
-            {
-               visitFunction( node,
-                              "set " );
-            }
-            else if ( node.is( NodeKind.GET ) )
-            {
-               visitFunction( node,
-                              "get " );
-            }
-         }
-      }
-   }
-
-   protected void visitCompilationUnit( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            if ( node.is( NodeKind.PACKAGE ) )
-            {
-               if ( node.numChildren() >= 2 )
-               {
-                  visitPackageContent( node.getChild( 1 ) );
-               }
-            }
-            else
-            {
-               if ( node.numChildren() > 0 )
-               {
-                  visitPackageContent( node );
-               }
-            }
-         }
-      }
-   }
-
-   protected void visitConditionalExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.CONDITIONAL ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitOrExpression( node );
-            while ( iterator.hasNext() )
-            {
-               visitExpression( iterator.next() );
-               visitExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitOrExpression( ast );
-         }
       }
    }
 
@@ -480,59 +255,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
-   protected void visitEqualityExpression( final IParserNode ast )
+   protected void visitElse( final IParserNode ast )
    {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.EQUALITY ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitRelationalExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitRelationalExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitRelationalExpression( ast );
-         }
-      }
-   }
-
-   protected void visitExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.ASSIGN ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitConditionalExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitConditionalExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitConditionalExpression( ast );
-         }
-      }
-   }
-
-   protected void visitExpressionList( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            visitExpression( node );
-         }
-      }
+      visitBlock( ast.getChild( 2 ) );
    }
 
    protected void visitFinally( final IParserNode ast )
@@ -573,12 +298,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
 
          if ( node.is( NodeKind.META_LIST ) )
          {
-            visitMetaData( node );
             node = iterator.next();
          }
          if ( node.is( NodeKind.MOD_LIST ) )
          {
-            visitModifiers( node );
             node = iterator.next();
          }
          node = iterator.next();
@@ -593,11 +316,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
-   protected void visitFunctionBody( final IParserNode node )
-   {
-      visitBlock( node );
-   }
-
    protected void visitFunctionReturnType( final IParserNode node )
    {
       visitBlock( node );
@@ -608,134 +326,27 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       if ( isNodeNavigable( ast ) )
       {
          visitExpression( ast.getChild( 0 ) );
-         visitStatement( ast.getChild( 1 ) );
-         if ( ast.numChildren() == 2 )
+         visitThen( ast );
+         if ( ast.numChildren() == 3 )
          {
-            visitExpression( ast.getChild( 2 ) );
+            visitElse( ast );
          }
       }
-   }
-
-   protected void visitImplementsList( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            visitImplementsListChildren( node );
-         }
-      }
-   }
-
-   /**
-    * Overrides it if you need to visit each implementation
-    * 
-    * @param next
-    */
-   protected void visitImplementsListChildren( final IParserNode next )
-   {
    }
 
    protected void visitInterface( final IParserNode ast )
    {
-      if ( isNodeNavigable( ast ) )
+   }
+
+   protected void visitMethodCall( final IParserNode ast )
+   {
+      final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+      visitExpression( iterator.next() );
+      do
       {
-         IParserNode modifiers = null;
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            if ( node.is( NodeKind.MOD_LIST ) )
-            {
-               modifiers = node;
-            }
-         }
-
-         visitModifiers( modifiers );
+         visitExpressionList( iterator.next() );
       }
-   }
-
-   /**
-    * Overrides it if you need to visit a metadata node
-    * 
-    * @param node
-    */
-   protected void visitMetaData( final IParserNode node )
-   {
-   }
-
-   /**
-    * Overrides it if you need to visit a modifier
-    * 
-    * @param ast
-    */
-   protected void visitModifiers( final IParserNode ast )
-   {
-   }
-
-   protected void visitMultiplicativeExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.MULTIPLICATION ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitUnaryExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitUnaryExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitUnaryExpression( ast );
-         }
-      }
-   }
-
-   protected void visitNodes( final IParserNode ast )
-   {
-      visitCompilationUnit( ast );
-   }
-
-   protected void visitOrExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.OR ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitAndExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitAndExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitAndExpression( ast );
-         }
-      }
-   }
-
-   protected void visitPackageContent( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            if ( node.is( NodeKind.CLASS ) )
-            {
-               visitClass( node );
-            }
-            else if ( node.is( NodeKind.INTERFACE ) )
-            {
-               visitInterface( node );
-            }
-         }
-      }
+      while ( iterator.hasNext() );
    }
 
    protected void visitParameters( final IParserNode ast )
@@ -750,98 +361,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
             {
                visitNameTypeInit( node );
             }
-         }
-      }
-   }
-
-   protected void visitPrimaryExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.numChildren() != 0
-               && ast.is( NodeKind.ARRAY ) )
-         {
-            visitExpressionList( ast );
-         }
-         else if ( ast.is( NodeKind.OBJECT ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            while ( iterator.hasNext() )
-            {
-               final IParserNode node = iterator.next();
-               visitExpression( node.getChild( 1 ) );
-            }
-         }
-         else if ( ast.is( NodeKind.NEW ) )
-         {
-            visitExpression( ast.getChild( 0 ) );
-            visitExpressionList( ast.getChild( 1 ) );
-         }
-         else if ( ast.is( NodeKind.ENCAPSULATED ) )
-         {
-            visitExpression( ast.getChild( 0 ) );
-         }
-         else if ( ast.is( NodeKind.E4X_ATTR ) )
-         {
-            final IParserNode node = ast.getChild( 0 );
-
-            if ( !node.is( NodeKind.NAME )
-                  && !node.is( NodeKind.STAR ) )
-            {
-               visitExpression( node );
-            }
-         }
-      }
-   }
-
-   protected void visitRelationalExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.RELATION ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitShiftExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitShiftExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitShiftExpression( ast );
-         }
-      }
-   }
-
-   protected void visitReturn( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
-   }
-
-   protected void visitShiftExpression( final IParserNode ast )
-   {
-      if ( ast != null )
-      {
-         if ( ast.is( NodeKind.SHIFT ) )
-         {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            final IParserNode node = iterator.next();
-            visitAdditiveExpression( node );
-            while ( iterator.hasNext() )
-            {
-               iterator.next();
-               visitAdditiveExpression( iterator.next() );
-            }
-         }
-         else
-         {
-            visitAdditiveExpression( ast );
          }
       }
    }
@@ -959,6 +478,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       visitBlock( child );
    }
 
+   protected void visitThen( final IParserNode ast )
+   {
+      visitBlock( ast.getChild( 1 ) );
+   }
+
    protected void visitTry( final IParserNode ast )
    {
       if ( isNodeNavigable( ast ) )
@@ -967,7 +491,497 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
-   protected void visitUnaryExpression( final IParserNode ast )
+   protected void visitVarOrConstList( final IParserNode ast,
+                                       final KeyWords varOrConst )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+         IParserNode node = iterator.next();
+         if ( node.is( NodeKind.META_LIST ) )
+         {
+            node = iterator.next();
+         }
+         if ( node.is( NodeKind.MOD_LIST ) )
+         {
+            node = iterator.next();
+         }
+         while ( node != null )
+         {
+            visitNameTypeInit( node );
+            node = iterator.hasNext() ? iterator.next()
+                                     : null;
+         }
+      }
+   }
+
+   protected void visitWhile( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         visitExpression( ast.getChild( 0 ) );
+         visitBlock( ast.getChild( 1 ) );
+      }
+   }
+
+   private boolean isNodeNavigable( final IParserNode node )
+   {
+      return node != null
+            && node.numChildren() != 0;
+   }
+
+   private void visitAdditiveExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.ADD ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitMultiplicativeExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitMultiplicativeExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitMultiplicativeExpression( ast );
+         }
+      }
+   }
+
+   private void visitAndExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.AND ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitBitwiseOrExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitBitwiseOrExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitBitwiseOrExpression( ast );
+         }
+      }
+   }
+
+   private void visitArrayAccessor( final IParserNode ast )
+   {
+      final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+      visitExpression( iterator.next() );
+      do
+      {
+         visitExpression( iterator.next() );
+      }
+      while ( iterator.hasNext() );
+   }
+
+   private void visitBitwiseAndExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.B_AND ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitEqualityExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitEqualityExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitEqualityExpression( ast );
+         }
+      }
+   }
+
+   private void visitBitwiseOrExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.B_OR ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitBitwiseXorExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitBitwiseXorExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitBitwiseXorExpression( ast );
+         }
+      }
+   }
+
+   private void visitBitwiseXorExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.B_OR ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitBitwiseAndExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitBitwiseAndExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitBitwiseAndExpression( ast );
+         }
+      }
+   }
+
+   private void visitBlock( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            visitStatement( node );
+         }
+      }
+   }
+
+   private void visitClassContent( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            if ( node.is( NodeKind.VAR_LIST ) )
+            {
+               visitVarOrConstList( node,
+                                    KeyWords.VAR );
+            }
+            else if ( node.is( NodeKind.CONST_LIST ) )
+            {
+               visitVarOrConstList( node,
+                                    KeyWords.CONST );
+            }
+            else if ( node.is( NodeKind.FUNCTION ) )
+            {
+               visitFunction( node,
+                              "" );
+            }
+            else if ( node.is( NodeKind.SET ) )
+            {
+               visitFunction( node,
+                              "set " );
+            }
+            else if ( node.is( NodeKind.GET ) )
+            {
+               visitFunction( node,
+                              "get " );
+            }
+         }
+      }
+   }
+
+   private void visitCompilationUnit( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            if ( node.is( NodeKind.PACKAGE ) )
+            {
+               if ( node.numChildren() >= 2 )
+               {
+                  visitPackageContent( node.getChild( 1 ) );
+               }
+            }
+            else
+            {
+               if ( node.numChildren() > 0 )
+               {
+                  visitPackageContent( node );
+               }
+            }
+         }
+      }
+   }
+
+   private void visitConditionalExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.CONDITIONAL ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitOrExpression( node );
+            while ( iterator.hasNext() )
+            {
+               visitExpression( iterator.next() );
+               visitExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitOrExpression( ast );
+         }
+      }
+   }
+
+   private void visitEqualityExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.EQUALITY ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitRelationalExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitRelationalExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitRelationalExpression( ast );
+         }
+      }
+   }
+
+   private void visitExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.ASSIGN ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitConditionalExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitConditionalExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitConditionalExpression( ast );
+         }
+      }
+   }
+
+   private void visitExpressionList( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            visitExpression( node );
+         }
+      }
+   }
+
+   private void visitFunctionBody( final IParserNode node )
+   {
+      visitBlock( node );
+   }
+
+   private void visitMultiplicativeExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.MULTIPLICATION ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitUnaryExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitUnaryExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitUnaryExpression( ast );
+         }
+      }
+   }
+
+   private void visitNameTypeInit( final IParserNode ast )
+   {
+      if ( ast != null
+            && ast.numChildren() != 0 )
+      {
+         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+         IParserNode node;
+
+         iterator.next();
+         if ( iterator.hasNext() )
+         {
+            node = iterator.next();
+         }
+         if ( iterator.hasNext() )
+         {
+            node = iterator.next();
+            if ( node.is( NodeKind.INIT ) )
+            {
+               visitExpression( node );
+            }
+         }
+      }
+   }
+
+   private void visitOrExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.OR ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitAndExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitAndExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitAndExpression( ast );
+         }
+      }
+   }
+
+   private void visitPackageContent( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            if ( node.is( NodeKind.CLASS ) )
+            {
+               visitClass( node );
+            }
+            else if ( node.is( NodeKind.INTERFACE ) )
+            {
+               visitInterface( node );
+            }
+         }
+      }
+   }
+
+   private void visitPrimaryExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.numChildren() != 0
+               && ast.is( NodeKind.ARRAY ) )
+         {
+            visitExpressionList( ast );
+         }
+         else if ( ast.is( NodeKind.OBJECT ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            while ( iterator.hasNext() )
+            {
+               final IParserNode node = iterator.next();
+               visitExpression( node.getChild( 1 ) );
+            }
+         }
+         else if ( ast.is( NodeKind.NEW ) )
+         {
+            visitExpression( ast.getChild( 0 ) );
+            visitExpressionList( ast.getChild( 1 ) );
+         }
+         else if ( ast.is( NodeKind.ENCAPSULATED ) )
+         {
+            visitExpression( ast.getChild( 0 ) );
+         }
+         else if ( ast.is( NodeKind.E4X_ATTR ) )
+         {
+            final IParserNode node = ast.getChild( 0 );
+
+            if ( !node.is( NodeKind.NAME )
+                  && !node.is( NodeKind.STAR ) )
+            {
+               visitExpression( node );
+            }
+         }
+      }
+   }
+
+   private void visitRelationalExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.RELATION ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitShiftExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitShiftExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitShiftExpression( ast );
+         }
+      }
+   }
+
+   private void visitReturn( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         visitExpression( ast.getChild( 0 ) );
+      }
+   }
+
+   private void visitShiftExpression( final IParserNode ast )
+   {
+      if ( ast != null )
+      {
+         if ( ast.is( NodeKind.SHIFT ) )
+         {
+            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+            final IParserNode node = iterator.next();
+            visitAdditiveExpression( node );
+            while ( iterator.hasNext() )
+            {
+               iterator.next();
+               visitAdditiveExpression( iterator.next() );
+            }
+         }
+         else
+         {
+            visitAdditiveExpression( ast );
+         }
+      }
+   }
+
+   private void visitUnaryExpression( final IParserNode ast )
    {
       if ( ast != null )
       {
@@ -994,7 +1008,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
-   protected void visitUnaryExpressionNotPlusMinus( final IParserNode ast )
+   private void visitUnaryExpressionNotPlusMinus( final IParserNode ast )
    {
       if ( ast != null )
       {
@@ -1025,7 +1039,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
-   protected void visitUnaryPostfixExpression( final IParserNode ast )
+   private void visitUnaryPostfixExpression( final IParserNode ast )
    {
       if ( ast != null )
       {
@@ -1040,13 +1054,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          }
          else if ( ast.is( NodeKind.CALL ) )
          {
-            final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-            visitExpression( iterator.next() );
-            do
-            {
-               visitExpressionList( iterator.next() );
-            }
-            while ( iterator.hasNext() );
+            visitMethodCall( ast );
          }
          else if ( ast.is( NodeKind.POST_INC ) )
          {
@@ -1068,71 +1076,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          else
          {
             visitPrimaryExpression( ast );
-         }
-      }
-   }
-
-   protected void visitVarOrConstList( final IParserNode ast,
-                                       final KeyWords varOrConst )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-         IParserNode node = iterator.next();
-         if ( node.is( NodeKind.META_LIST ) )
-         {
-            visitMetaData( node );
-            node = iterator.next();
-         }
-         if ( node.is( NodeKind.MOD_LIST ) )
-         {
-            visitModifiers( node );
-            node = iterator.next();
-         }
-         while ( node != null )
-         {
-            visitNameTypeInit( node );
-            node = iterator.hasNext() ? iterator.next()
-                                     : null;
-         }
-      }
-   }
-
-   protected void visitWhile( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-         visitBlock( ast.getChild( 1 ) );
-      }
-   }
-
-   final private boolean isNodeNavigable( final IParserNode node )
-   {
-      return node != null
-            && node.numChildren() != 0;
-   }
-
-   private void visitNameTypeInit( final IParserNode ast )
-   {
-      if ( ast != null
-            && ast.numChildren() != 0 )
-      {
-         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-         IParserNode node;
-
-         iterator.next();
-         if ( iterator.hasNext() )
-         {
-            node = iterator.next();
-         }
-         if ( iterator.hasNext() )
-         {
-            node = iterator.next();
-            if ( node.is( NodeKind.INIT ) )
-            {
-               visitExpression( node );
-            }
          }
       }
    }

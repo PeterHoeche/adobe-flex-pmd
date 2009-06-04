@@ -192,11 +192,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
-		        <groupId>org.sonatype.flexmojos</groupId>
-		        <artifactId>flexmojos-maven-plugin</artifactId>
-		        <version>${flex-mojos-plugin.version}</version>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
@@ -277,21 +277,21 @@
 					<reportsDirectory>surefire-reports</reportsDirectory>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
-			   <groupId>com.adobe.ac</groupId>
-            <artifactId>flex-pmd-maven-plugin</artifactId>
-            <version>${flex-pmd-maven-plugin.version}</version>
-            <configuration>
-               <ruleSet>allflex.xml</ruleSet>
-            </configuration>
+				<groupId>com.adobe.ac</groupId>
+				<artifactId>flex-pmd-maven-plugin</artifactId>
+				<version>${flex-pmd-maven-plugin.version}</version>
+				<configuration>
+					<ruleSet>allflex.xml</ruleSet>
+				</configuration>
 			</plugin>
-			
+
 			<plugin>
-			   <groupId>com.adobe.ac</groupId>
-            <artifactId>as3Ncss-maven-plugin</artifactId>
-            <version>${as3Ncss-maven-plugin.version}</version>
-			</plugin>			
+				<groupId>com.adobe.ac</groupId>
+				<artifactId>as3Ncss-maven-plugin</artifactId>
+				<version>${as3Ncss-maven-plugin.version}</version>
+			</plugin>
 
 		</plugins>
 	</reporting>

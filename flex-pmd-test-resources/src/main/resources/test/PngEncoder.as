@@ -511,6 +511,21 @@ package org.alivepdf.encoding
 			if ( end0pos == 0) {
 				writeBits(EOB);
 				return DC;
+				if ( true )
+				{
+					if ( false )
+					{
+						if ( false )
+						{
+						}
+					}
+					else
+					{
+						if ( true )
+						{
+						}	
+					}
+				}
 			}
 			var i:int = 1;
 			while ( i <= end0pos ) {

@@ -30,74 +30,72 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class ExplicitStaticAccessFromStaticMethodRule extends AbstractAstFlexRule
+public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
 {
-   private String  className;
-   private boolean isInNewExpression = false;
+   private int ifLevel = 0;
+
+   public int getActualValue()
+   {
+      return ifLevel;
+   }
+
+   public int getDefaultThreshold()
+   {
+      return 2;
+   }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitClass( final IParserNode ast )
+   protected void visitElse( final IParserNode ast )
    {
-      className = ClassUtils.getClassNameFromClassNode( ast );
+      beforeVisitingIfBlock();
 
-      super.visitClass( ast );
+      super.visitElse( ast );
+
+      afterVisitingIfBlock( ast );
    }
 
    @Override
-   protected void visitExpression( final IParserNode statement )
+   protected void visitFunction( final IParserNode ast,
+                                 final String type )
    {
-      if ( statement != null
-            && className != null )
-      {
-         detectArgument( statement );
-         detectViolation( statement );
-         detectNewOperator( statement );
-      }
-      super.visitExpression( statement );
-      isInNewExpression = false;
+      ifLevel = 0;
+
+      super.visitFunction( ast,
+                           type );
    }
 
-   private void detectArgument( final IParserNode statement )
+   @Override
+   protected void visitThen( final IParserNode ast )
    {
-      if ( statement.numChildren() != 0
-            && statement.is( NodeKind.ARGUMENTS ) )
-      {
-         for ( final IParserNode child : statement.getChildren() )
-         {
-            visitExpression( child );
-         }
-      }
+      beforeVisitingIfBlock();
+
+      super.visitThen( ast );
+
+      afterVisitingIfBlock( ast );
    }
 
-   private void detectNewOperator( final IParserNode statement )
+   private void afterVisitingIfBlock( final IParserNode ast )
    {
-      if ( statement.is( NodeKind.NEW ) )
+      ifLevel--;
+      if ( ifLevel >= getThreshold() )
       {
-         isInNewExpression = true;
+         addViolation( ast,
+                       ast );
       }
    }
 
-   private void detectViolation( final IParserNode statement )
+   private void beforeVisitingIfBlock()
    {
-
-      if ( !isInNewExpression
-            && statement.getStringValue() != null && !statement.getStringValue().equals( "" )
-            && statement.getStringValue().equals( className ) )
-      {
-         addViolation( statement,
-                       statement );
-      }
+      ifLevel++;
    }
 }

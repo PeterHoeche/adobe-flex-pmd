@@ -32,6 +32,7 @@
 		<cobertura.version>2.2</cobertura.version>
 		<junit.version>4.0</junit.version>
 		<as3-plugin-utils.version>1.1</as3-plugin-utils.version>
+		<commons-lang.version>2.4</commons-lang.version>
 		<as3-parser.version>1.3-SNAPSHOT</as3-parser.version>
 		<findbugs.version>RELEASE</findbugs.version>
 		<checkstyle.version>2.2</checkstyle.version>

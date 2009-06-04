@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 class FormalNode extends VariableNode implements IParameter
 {
-   public FormalNode( final IParserNode node )
+   protected FormalNode( final IParserNode node )
    {
       super( node );
    }

@@ -54,7 +54,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
  * 
  * @author xagnetti
  */
-public class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
+class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 {
    private IFieldInitialization             initializationExpression;
    private Map< String, List< IMetaData > > metaDataList;
@@ -62,7 +62,7 @@ public class VariableNode extends AbstractNode implements IVariable, IModifiersH
    private IdentifierNode                   name;
    private IdentifierNode                   type;
 
-   public VariableNode( final IParserNode rootNode )
+   protected VariableNode( final IParserNode rootNode )
    {
       super( rootNode );
    }

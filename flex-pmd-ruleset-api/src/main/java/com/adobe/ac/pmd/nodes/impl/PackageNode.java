@@ -44,7 +44,7 @@ class PackageNode extends AbstractNode implements IPackage
    private List< IParserNode > imports;
    private String              name;
 
-   public PackageNode( final IParserNode node )
+   protected PackageNode( final IParserNode node )
    {
       super( node );
    }

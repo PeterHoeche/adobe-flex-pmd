@@ -38,7 +38,7 @@ class MetaDataNode extends AbstractNode implements IMetaData
    private String name;
    private String parameter;
 
-   public MetaDataNode( final IParserNode node )
+   protected MetaDataNode( final IParserNode node )
    {
       super( node );
    }

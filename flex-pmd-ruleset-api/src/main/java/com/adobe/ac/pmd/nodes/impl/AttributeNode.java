@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 class AttributeNode extends FieldNode implements IAttribute
 {
-   public AttributeNode( final IParserNode rootNode )
+   protected AttributeNode( final IParserNode rootNode )
    {
       super( rootNode );
    }

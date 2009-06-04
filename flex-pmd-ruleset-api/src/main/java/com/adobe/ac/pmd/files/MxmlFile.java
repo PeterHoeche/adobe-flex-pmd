@@ -39,8 +39,8 @@ public class MxmlFile extends AbstractFlexFile
    private boolean  mainApplication = false;
    private String[] scriptBlock;
 
-   public MxmlFile( final File file,
-                    final File rootDirectory )
+   protected MxmlFile( final File file,
+                       final File rootDirectory )
    {
       super( file, rootDirectory );
 
@@ -75,6 +75,12 @@ public class MxmlFile extends AbstractFlexFile
    public boolean isMainApplication()
    {
       return mainApplication;
+   }
+
+   @Override
+   public boolean isMxml()
+   {
+      return true;
    }
 
    private void computeIfIsMainApplication()

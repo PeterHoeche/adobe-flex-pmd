@@ -36,35 +36,32 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class ExplicitStaticAccessFromStaticMethodRuleTest extends AbstractCommonAstFlexRuleTest
+public class DeeplyNestedIfRuleTest extends AbstractCommonAstFlexRuleTest
 {
    @Override
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      assertEmptyViolations( "RadonDataGrid.as" );
+      assertEmptyViolations( "SkinStyles.as" );
+      assertEmptyViolations( "AbstractRowData.as" );
    }
 
    @Override
    @Test
    public void testProcessViolatingFiles()
    {
-      assertViolations( "cairngorm.NonBindableModelLocator.as",
+      assertViolations( "PngEncoder.as",
                         new ViolationPosition[]
-                        { new ViolationPosition( 52, 52 ) } );
-
-      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 44, 44 ),
-                                    new ViolationPosition( 49, 49 ),
-                                    new ViolationPosition( 55, 55 ) } );
+                        { new ViolationPosition( 518, 518 ),
+                                    new ViolationPosition( 516, 516 ),
+                                    new ViolationPosition( 524, 524 ),
+                                    new ViolationPosition( 516, 516 ) } );
    }
 
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new ExplicitStaticAccessFromStaticMethodRule();
+      return new DeeplyNestedIfRule();
    }
 }

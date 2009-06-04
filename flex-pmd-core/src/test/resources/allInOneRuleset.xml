@@ -137,34 +137,6 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.ExplicitStaticAccessFromStaticMethodRule"
-		message="Static function or fields should not be called prefixed with its nested class">
-		<description>When defining a static field, or function, you don't have to specify the nesting class name when using this field. The class name is implicit. It improves readibility when not specifying the class name.</description>
-		<priority>5</priority>
-		<example><![CDATA[
-public class Foo extends Proxy
-   {
-      public static const NAME:String = "myString";
-      private static var integer:Number = 3;
-      
-      public function Foo()
-      {
-         super( Foo.NAME ); // VIOLATION
-      }
-      
-      public static function bar() : void 
-      {
-         Foo.bar2( "FR_fr" ); // VIOLATION
-      }
-
-      internal static function bar2( locale : String ):Number 
-      {
-         return Foo.integer;// VIOLATION
-      }
-   }
-           ]]></example>
-	</rule>
 	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule"
 		message="Do not use Object class.">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>

@@ -193,8 +193,5 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    /**
     * @return true if the file is a MXML file
     */
-   public final boolean isMxml()
-   {
-      return this instanceof MxmlFile;
-   }
+   public abstract boolean isMxml();
 }

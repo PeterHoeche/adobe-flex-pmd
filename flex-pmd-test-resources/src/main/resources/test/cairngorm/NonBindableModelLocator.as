@@ -49,6 +49,7 @@ package com.adobe.ac.sample.model
 		{
 			if ( _instance == null )
 			{
+				foo();
 				_instance = new ModelLocator( new SingletonEnforcer() );
 			}
 			return _instance;

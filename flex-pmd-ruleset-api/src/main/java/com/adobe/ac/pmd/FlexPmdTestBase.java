@@ -41,9 +41,7 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
  */
 public class FlexPmdTestBase
 {
-   protected static final String                   BEGIN_COLUMN_NOT_CORRECT      = "Begin column is not correct";
    protected static final String                   BEGIN_LINE_NOT_CORRECT        = "Begining line is not correct";
-   protected static final String                   END_COLUMN_NOT_CORRECT        = "End column is not correct";
    protected static final String                   END_LINE_NOT_CORRECT          = "Ending line is not correct";
    protected static final String                   VIOLATIONS_NUMBER_NOT_CORRECT = "Violations number is not correct";
 

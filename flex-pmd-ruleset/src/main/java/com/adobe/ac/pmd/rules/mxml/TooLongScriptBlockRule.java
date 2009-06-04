@@ -76,9 +76,9 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
       final List< Violation > violations = new ArrayList< Violation >();
       linesInScriptBlock = lineInitialValue;
 
-      for ( int i = 0; i < file.getLines().size(); i++ )
+      for ( int lineIndex = 0; lineIndex < file.getLines().size(); lineIndex++ )
       {
-         final String line = file.getLines().get( i );
+         final String line = file.getLines().get( lineIndex );
 
          if ( linesInScriptBlock == lineInitialValue
                && line.contains( "Script>" ) )
@@ -93,12 +93,12 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
                {
                   if ( linesInScriptBlock > getThreshold() )
                   {
-                     final int beginningScriptLine = i
+                     final int beginningScriptLine = lineIndex
                            - linesInScriptBlock;
 
                      addViolation( violations,
                                    file,
-                                   new ViolationPosition( beginningScriptLine, i ) );
+                                   new ViolationPosition( beginningScriptLine, lineIndex ) );
                   }
                   linesInScriptBlock = lineInitialValue;
                }

@@ -17,9 +17,14 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.adobe.ac</groupId>
 			<artifactId>as3-plugin-utils</artifactId>
-			<version>1.1</version>
+			<version>${as3-plugin-utils.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>pmd</groupId>

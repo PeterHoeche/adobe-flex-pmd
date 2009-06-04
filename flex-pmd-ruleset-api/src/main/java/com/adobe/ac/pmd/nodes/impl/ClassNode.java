@@ -60,7 +60,7 @@ class ClassNode extends AbstractNode implements IClass
    private Set< Modifier >                  modifiers;
    private IdentifierNode                   name;
 
-   public ClassNode( final IParserNode node )
+   protected ClassNode( final IParserNode node )
    {
       super( node );
    }
