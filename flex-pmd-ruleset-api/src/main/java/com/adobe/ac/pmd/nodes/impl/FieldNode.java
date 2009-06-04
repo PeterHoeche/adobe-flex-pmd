@@ -35,9 +35,14 @@ import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
+/**
+ * Base class for AttributeNode and for ConstantNode
+ * 
+ * @author xagnetti
+ */
 class FieldNode extends VariableNode implements IField
 {
-   public FieldNode( final IParserNode rootNode )
+   protected FieldNode( final IParserNode rootNode )
    {
       super( rootNode );
    }
@@ -57,10 +62,16 @@ class FieldNode extends VariableNode implements IField
       return ModifierUtils.isPublic( this );
    }
 
+   public boolean isStatic()
+   {
+      return ModifierUtils.isStatic( this );
+   }
+
    @Override
    protected void compute()
    {
       super.compute();
+
       if ( internalNode.numChildren() != 0 )
       {
          for ( final IParserNode child : internalNode.getChildren() )

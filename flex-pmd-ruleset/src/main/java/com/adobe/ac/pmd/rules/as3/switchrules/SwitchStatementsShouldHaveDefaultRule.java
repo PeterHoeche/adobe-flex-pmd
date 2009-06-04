@@ -28,15 +28,41 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
-import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-class FormalNode extends VariableNode implements IParameter
+public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
 {
-   public FormalNode( final IParserNode node )
+   private boolean defaultStatementFound = false;
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-      super( node );
+      return ViolationPriority.ERROR;
+   }
+
+   @Override
+   protected void visitSwitch( final IParserNode ast )
+   {
+      super.visitSwitch( ast );
+
+      if ( !defaultStatementFound )
+      {
+         ast.getChild( 1 );
+
+         addViolation( ast,
+                       ast );
+      }
+   }
+
+   @Override
+   protected void visitSwitchDefaultCase( final IParserNode child )
+   {
+      super.visitSwitchDefaultCase( child );
+
+      defaultStatementFound = true;
    }
 }

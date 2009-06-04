@@ -38,26 +38,26 @@ import com.adobe.ac.pmd.parser.IParserNode;
 /**
  * Node representing a Function It contains the function name, its parameters,
  * its return type, its modifiers, its metadata
- *
+ * 
  * @author xagnetti
  */
-public interface IFunction extends IModifiersHolder, IMetaDataListHolder, INamable, INode
+public interface IFunction extends IVisible, IMetaDataListHolder, INamable, INode
 {
    /**
     * Finds recursivly a statement in the function body from its name
-    *
+    * 
     * @param primaryName statement name
     * @return corresponding node
     */
-   IParserNode findPrimaryStatementFromName( final String primaryName );
+   IParserNode findPrimaryStatementInBody( final String primaryName );
 
    /**
     * Finds recursivly a statement in the function body from a list of names
-    *
+    * 
     * @param primaryNames statement name
     * @return corresponding node
     */
-   IParserNode findPrimaryStatementFromName( final String[] primaryNames );
+   IParserNode findPrimaryStatementInBody( final String[] primaryNames );
 
    IParserNode getBody();
 
@@ -65,7 +65,7 @@ public interface IFunction extends IModifiersHolder, IMetaDataListHolder, INamab
 
    Map< String, IParserNode > getLocalVariables();
 
-   List< IFormal > getParameters();
+   List< IParameter > getParameters();
 
    IIdentifierNode getReturnType();
 

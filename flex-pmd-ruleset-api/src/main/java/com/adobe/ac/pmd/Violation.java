@@ -53,6 +53,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
                      final AbstractFlexFile violatedFile )
    {
       super();
+
       beginLine = position.getBeginLine();
       endLine = position.getEndLine();
       beginColumn = position.getBeginColumn();

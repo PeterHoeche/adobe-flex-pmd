@@ -45,7 +45,7 @@ public class ModifierHolderByVisibilityAndStaticityComparatorTest
    @Test
    public void testCompare()
    {
-      final List< ModifierHolder > fields = new ArrayList< ModifierHolder >();
+      final List< VisibleMock > fields = new ArrayList< VisibleMock >();
 
       fields.add( create( "publicStatic",
                           true,
@@ -77,21 +77,21 @@ public class ModifierHolderByVisibilityAndStaticityComparatorTest
       shuffleSortAndAssert( fields );
    }
 
-   private ModifierHolder create( final String name,
-                                  final boolean isStatic,
-                                  final Modifier modifier )
+   private VisibleMock create( final String name,
+                               final boolean isStatic,
+                               final Modifier modifier )
    {
-      final ModifierHolder holder = new ModifierHolder( name );
+      final VisibleMock holder = new VisibleMock( name );
 
       if ( isStatic )
       {
-         holder.addModifier( Modifier.STATIC );
+         holder.add( Modifier.STATIC );
       }
-      holder.addModifier( modifier );
+      holder.add( modifier );
       return holder;
    }
 
-   private void shuffleSortAndAssert( final List< ModifierHolder > fields )
+   private void shuffleSortAndAssert( final List< VisibleMock > fields )
    {
       Collections.shuffle( fields );
       Collections.sort( fields,

@@ -41,7 +41,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * convert a actionscript to a stream of tokens
- *
+ * 
  * @author rbokel
  */
 class AS3Scanner
@@ -89,16 +89,15 @@ class AS3Scanner
       }
    }
 
-   private int      column;
-   private int      line;
-
-   private String[] lines = null;
-
-   public boolean isDecimalChar( final char currentCharacter )
+   public static boolean isDecimalChar( final char currentCharacter )
    {
       return currentCharacter >= '0'
             && currentCharacter <= '9';
    }
+
+   private int      column;
+   private int      line;
+   private String[] lines = null;
 
    public Token nextToken()
    {
@@ -340,7 +339,7 @@ class AS3Scanner
 
    /**
     * find the longest matching sequence
-    *
+    * 
     * @param currentCharacter
     * @param possibleMatches
     * @param maxLength
@@ -375,7 +374,7 @@ class AS3Scanner
    /**
     * Something started with a slash This might be a comment, a regexp or a
     * operator
-    *
+    * 
     * @param currentCharacter
     * @return
     */
@@ -422,7 +421,7 @@ class AS3Scanner
 
    /**
     * c is either a dot or a number
-    *
+    * 
     * @return
     */
    private Token scanDecimal( final char currentCharacter )
@@ -467,7 +466,7 @@ class AS3Scanner
 
    /**
     * The first dot has been scanned Are the next chars dots as well?
-    *
+    * 
     * @return
     */
    private Token scanDots()
@@ -489,7 +488,7 @@ class AS3Scanner
 
    /**
     * we have seen the 0x prefix
-    *
+    * 
     * @return
     */
    private Token scanHex()
@@ -516,7 +515,7 @@ class AS3Scanner
 
    /**
     * the current char is the first slash plus we know, that a * is following
-    *
+    * 
     * @return
     */
    private Token scanMultiLineComment()
@@ -541,7 +540,7 @@ class AS3Scanner
 
    /**
     * Something started with a number or a dot.
-    *
+    * 
     * @param characterToBeScanned
     * @return
     */
@@ -591,7 +590,7 @@ class AS3Scanner
    /**
     * the current char is the first slash plus we know, that another slash is
     * following
-    *
+    * 
     * @return
     */
    private Token scanSingleLineComment()
@@ -604,7 +603,7 @@ class AS3Scanner
    /**
     * Something started with a quote or double quote consume characters until
     * the quote/double quote shows up again and is not escaped
-    *
+    * 
     * @param startingCharacter
     * @return
     */
@@ -673,7 +672,7 @@ class AS3Scanner
 
    /**
     * Try to parse a XML document
-    *
+    * 
     * @return
     */
    private Token scanXML()
@@ -739,7 +738,7 @@ class AS3Scanner
 
    /**
     * Something started with a lower sign <
-    *
+    * 
     * @param startingCharacterc
     * @return
     */

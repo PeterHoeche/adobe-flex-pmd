@@ -28,15 +28,47 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
-import com.adobe.ac.pmd.nodes.IParameter;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-class FormalNode extends VariableNode implements IParameter
+public class IdenticalSwitchCasesRule extends AbstractAstFlexRule
 {
-   public FormalNode( final IParserNode node )
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-      super( node );
+      return ViolationPriority.INFO;
+   }
+
+   @Override
+   protected void visitSwitch( final IParserNode ast )
+   {
+      if ( ast.numChildren() > 0 )
+      {
+         final Map< String, IParserNode > cases = new HashMap< String, IParserNode >();
+
+         for ( final IParserNode caseStatement : ast.getChild( 1 ).getChildren() )
+         {
+            final String label = caseStatement.getChild( 0 ).toString();
+
+            if ( cases.containsKey( label ) )
+            {
+               addViolation( caseStatement,
+                             caseStatement );
+            }
+            else
+            {
+               cases.put( label,
+                          caseStatement );
+            }
+         }
+      }
+
+      super.visitSwitch( ast );
    }
 }

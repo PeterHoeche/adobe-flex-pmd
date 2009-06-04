@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
+import java.util.List;
 import java.util.Map;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
@@ -43,13 +44,12 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromClassNode( final IClass classNode )
    {
-      if ( classNode.getMetaDataList() != null )
+      final List< IMetaData > eventMetaDatas = classNode.getMetaData( "Event" );
+
+      if ( eventMetaDatas != null )
       {
-         for ( final IMetaData metaData : classNode.getMetaDataList() )
-         {
-            findViolationsInMetaDataNode( metaData,
-                                          getFilesInSourcePath() );
-         }
+         findViolationsInMetaDataNode( eventMetaDatas,
+                                       getFilesInSourcePath() );
       }
    }
 
@@ -59,24 +59,27 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
       return ViolationPriority.WARNING;
    }
 
-   private void findViolationsInMetaDataNode( final IMetaData metaData,
+   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas,
                                               final Map< String, AbstractFlexFile > files )
    {
-      final String metaDataValue = metaData.getInternalNode().getStringValue();
-      final int startIndex = metaDataValue.indexOf( "type = \"" );
-
-      if ( startIndex > -1 )
+      for ( final IMetaData metaData : eventMetaDatas )
       {
-         final int length = metaDataValue.substring( startIndex + 8 ).indexOf( "\"" );
-         final String type = metaDataValue.substring( startIndex + 8,
-                                                      startIndex
-                                                            + 8 + length );
+         final String metaDataValue = metaData.getParameter();
+         final int startIndex = metaDataValue.indexOf( "type = \"" );
 
-         if ( !files.containsKey( type
-               + ".as" ) )
+         if ( startIndex > -1 )
          {
-            addViolation( metaData.getInternalNode(),
-                          metaData.getInternalNode() );
+            final int length = metaDataValue.substring( startIndex + 8 ).indexOf( "\"" );
+            final String type = metaDataValue.substring( startIndex + 8,
+                                                         startIndex
+                                                               + 8 + length );
+
+            if ( !files.containsKey( type
+                  + ".as" ) )
+            {
+               addViolation( metaData.getInternalNode(),
+                             metaData.getInternalNode() );
+            }
          }
       }
    }

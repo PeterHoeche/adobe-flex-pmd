@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
+import java.util.List;
+
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -40,12 +42,11 @@ public class UntypedEventMetadataRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromClassNode( final IClass classNode )
    {
-      if ( classNode.getMetaDataList() != null )
+      final List< IMetaData > eventMetaData = classNode.getMetaData( "Event" );
+
+      if ( eventMetaData != null )
       {
-         for ( final IMetaData metaData : classNode.getMetaDataList() )
-         {
-            findViolationsInMetaDataNode( metaData );
-         }
+         findViolationsInMetaDataNode( eventMetaData );
       }
    }
 
@@ -55,15 +56,17 @@ public class UntypedEventMetadataRule extends AbstractAstFlexRule
       return ViolationPriority.INFO;
    }
 
-   private void findViolationsInMetaDataNode( final IMetaData metaData )
+   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas )
    {
-      final String metaDataValue = metaData.getInternalNode().getStringValue();
-
-      if ( metaDataValue.contains( "Event" )
-            && !metaDataValue.contains( "type = \"" ) )
+      for ( final IMetaData metaData : eventMetaDatas )
       {
-         addViolation( metaData.getInternalNode(),
-                       metaData.getInternalNode() );
+         final String metaDataValue = metaData.getInternalNode().getStringValue();
+
+         if ( !metaDataValue.contains( "type = \"" ) )
+         {
+            addViolation( metaData.getInternalNode(),
+                          metaData.getInternalNode() );
+         }
       }
    }
 }

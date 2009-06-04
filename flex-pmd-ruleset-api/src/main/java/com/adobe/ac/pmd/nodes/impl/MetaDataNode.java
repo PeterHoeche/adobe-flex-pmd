@@ -35,6 +35,9 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 class MetaDataNode extends AbstractNode implements IMetaData
 {
+   private String name;
+   private String parameter;
+
    public MetaDataNode( final IParserNode node )
    {
       super( node );
@@ -42,11 +45,24 @@ class MetaDataNode extends AbstractNode implements IMetaData
 
    public String getName()
    {
-      return internalNode.getStringValue();
+      return name;
+   }
+
+   public String getParameter()
+   {
+      return parameter;
    }
 
    @Override
    protected void compute()
    {
+      final String stringValue = internalNode.getStringValue();
+
+      name = stringValue.indexOf( " ( " ) > -1 ? stringValue.substring( 0,
+                                                                        stringValue.indexOf( " ( " ) )
+                                              : stringValue;
+      parameter = stringValue.indexOf( "( " ) > -1 ? stringValue.substring( stringValue.indexOf( "( " ) + 2,
+                                                                            stringValue.lastIndexOf( " )" ) )
+                                                  : "";
    }
 }

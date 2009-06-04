@@ -28,40 +28,50 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.switchrules;
+package com.adobe.ac.pmd.nodes.impl;
+
+import static org.junit.Assert.assertEquals;
+import net.sourceforge.pmd.PMDException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class SwitchStmtsShouldHaveDefaultRuleTest extends AbstractCommonAstFlexRuleTest
+public class MetaDataNodeTest extends FlexPmdTestBase
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
+   private static final String       NAME_DAY_CHANGE_TYPE_DEFAULT_NAME_EVENT = "name = \"dayChange\" ,"
+                                                                                   + " type = \"DefaultNameEvent\"";
+   private final IMetaDataListHolder modelLocator;
+   private final IMetaDataListHolder unboundMetaData;
+
+   public MetaDataNodeTest() throws PMDException
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      super();
+
+      IParserNode ast = FileSetUtils.buildAst( testFiles.get( "cairngorm.BindableModelLocator.as" ) );
+      modelLocator = NodeFactory.createPackage( ast ).getClassNode();
+      ast = FileSetUtils.buildAst( testFiles.get( "UnboundMetadata.as" ) );
+      unboundMetaData = NodeFactory.createPackage( ast ).getClassNode();
    }
 
-   @Override
    @Test
-   public void testProcessViolatingFiles()
+   public void testGetName()
    {
-      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 53, 53 ),
-                                    new ViolationPosition( 41, 41 ) } );
-      assertViolations( "com.adobe.ac.ncss.NestedSwitch.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 43, 43 ) } );
+      assertEquals( "Bindable",
+                    modelLocator.getMetaData( "Bindable" ).get( 0 ).getName() );
+      assertEquals( "Event",
+                    unboundMetaData.getMetaData( "Event" ).get( 0 ).getName() );
    }
 
-   @Override
-   protected AbstractFlexRule getRule()
+   @Test
+   public void testGetParameter()
    {
-      return new SwitchStmtsShouldHaveDefaultRule();
+      assertEquals( "",
+                    modelLocator.getMetaData( "Bindable" ).get( 0 ).getParameter() );
+      assertEquals( NAME_DAY_CHANGE_TYPE_DEFAULT_NAME_EVENT,
+                    unboundMetaData.getMetaData( "Event" ).get( 0 ).getParameter() );
    }
 }

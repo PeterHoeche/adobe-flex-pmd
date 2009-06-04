@@ -28,11 +28,35 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
-import com.adobe.ac.pmd.parser.IParserNode;
+import org.junit.Test;
 
-interface ASTConverter
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+
+public class IdenticalSwitchCasesRuleTest extends AbstractCommonAstFlexRuleTest
 {
-   String convert( IParserNode ast );
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+   {
+      assertEmptyViolations( "com.adobe.ac.ncss.NestedSwitch.as" );
+   }
+
+   @Override
+   @Test
+   public void testProcessViolatingFiles()
+   {
+      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 58, 58 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new IdenticalSwitchCasesRule();
+   }
 }

@@ -90,26 +90,24 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
       return getFilename().compareTo( otherViolation.getFilename() );
    }
 
-   public boolean contains( final String functionName,
-                            final int[] ignoredLines )
+   public boolean contains( final String stringToLookup,
+                            final int lineToBeIgnored )
    {
       int lineIndex = 0;
+      boolean found = false;
 
       for ( final String line : lines )
       {
-         if ( line.contains( functionName ) )
+         if ( doesCurrentLineContain( line,
+                                      stringToLookup )
+               && lineIndex != lineToBeIgnored )
          {
-            for ( final int ignoredLine : ignoredLines )
-            {
-               if ( lineIndex != ignoredLine )
-               {
-                  return true;
-               }
-            }
+            found = true;
+            break;
          }
          lineIndex++;
       }
-      return false;
+      return found;
    }
 
    /**

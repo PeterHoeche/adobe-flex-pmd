@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.nodes.utils;
 
-import java.util.ArrayList;
-
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.Modifier;
@@ -42,15 +40,13 @@ final public class ModifierUtils
    public static void computeModifierList( final IModifiersHolder modifiable,
                                            final IParserNode child )
    {
-      modifiable.setModifiers( new ArrayList< Modifier >() );
-
       if ( child.numChildren() != 0 )
       {
          for ( final IParserNode modifierNode : child.getChildren() )
          {
             final Modifier modifier = Modifier.create( modifierNode.getStringValue() );
 
-            modifiable.getModifiers().add( modifier );
+            modifiable.add( modifier );
          }
       }
    }
@@ -100,17 +96,7 @@ final public class ModifierUtils
    private static boolean isModiferPresent( final IModifiersHolder modifierHolder,
                                             final Modifier modifierToFind )
    {
-      boolean isModifierPresent = false;
-
-      for ( final Modifier modifier : modifierHolder.getModifiers() )
-      {
-         if ( modifier != null
-               && modifier.equals( modifierToFind ) )
-         {
-            isModifierPresent = true;
-         }
-      }
-      return isModifierPresent;
+      return modifierHolder.contains( modifierToFind );
    }
 
    private ModifierUtils()

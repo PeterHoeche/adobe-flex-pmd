@@ -107,11 +107,8 @@ public class ClassNodeTest extends FlexPmdTestBase
    public void testGetMetaDataList()
    {
       assertEquals( 0,
-                    radonDataGrid.getMetaDataList().size() );
-      assertEquals( 1,
-                    modelLocator.getMetaDataList().size() );
-      assertEquals( "Bindable",
-                    modelLocator.getMetaDataList().get( 0 ).getName() );
+                    radonDataGrid.getMetaDataCount() );
+      assertNotNull( modelLocator.getMetaData( "Bindable" ) );
    }
 
    @Test

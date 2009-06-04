@@ -32,13 +32,15 @@ package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import com.adobe.ac.pmd.nodes.IFormal;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
@@ -48,50 +50,65 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class FunctionNode extends AbstractNode implements IFunction
 {
-   private IParserNode                body;
-   private int                        cyclomaticComplexity;
-   private Map< String, IParserNode > localVariables;
-   private List< IMetaData >          metaDataList;
-   private List< Modifier >           modifiers;
-   private IdentifierNode             name;
-
-   private List< IFormal >            parameters;
-   private IIdentifierNode            returnType;
+   private IParserNode                      body;
+   private int                              cyclomaticComplexity;
+   private Map< String, IParserNode >       localVariables;
+   private Map< String, List< IMetaData > > metaDataList;
+   private Set< Modifier >                  modifiers;
+   private IdentifierNode                   name;
+   private List< IParameter >               parameters;
+   private IIdentifierNode                  returnType;
 
    public FunctionNode( final IParserNode node )
    {
       super( node );
    }
 
+   public void add( final IMetaData metaData )
+   {
+      if ( !metaDataList.containsKey( metaData.getName() ) )
+      {
+         metaDataList.put( metaData.getName(),
+                           new ArrayList< IMetaData >() );
+      }
+      metaDataList.get( metaData.getName() ).add( metaData );
+   }
+
+   public void add( final Modifier modifier )
+   {
+      modifiers.add( modifier );
+   }
+
+   public boolean contains( final Modifier modifier )
+   {
+      return modifiers.contains( modifier );
+   }
+
    /*
     * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementFromName(java.lang
+    * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
     * .String)
     */
-   public IParserNode findPrimaryStatementFromName( final String primaryName )
+   public IParserNode findPrimaryStatementInBody( final String primaryName )
    {
       final String[] names =
       { primaryName };
-      return getPrimaryStatementFromName( names,
-                                          getBody() );
+      return getBody().findPrimaryStatementFromNameInChildren( names );
    }
 
    /*
     * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementFromName(java.lang
+    * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
     * .String[])
     */
-   public IParserNode findPrimaryStatementFromName( final String[] primaryNames )
+   public IParserNode findPrimaryStatementInBody( final String[] primaryNames )
    {
-      return getPrimaryStatementFromName( primaryNames,
-                                          getBody() );
+      return getBody().findPrimaryStatementFromNameInChildren( primaryNames );
    }
 
    /*
     * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getContentBlock()
+    * @see com.adobe.ac.pmd.nodes.IFunction#getBody()
     */
    public IParserNode getBody()
    {
@@ -116,14 +133,14 @@ class FunctionNode extends AbstractNode implements IFunction
       return localVariables;
    }
 
-   public List< IMetaData > getMetaDataList()
+   public List< IMetaData > getMetaData( final String metaDataName )
    {
-      return metaDataList;
+      return metaDataList.get( metaDataName );
    }
 
-   public List< Modifier > getModifiers()
+   public int getMetaDataCount()
    {
-      return modifiers;
+      return metaDataList.size();
    }
 
    public String getName()
@@ -135,7 +152,7 @@ class FunctionNode extends AbstractNode implements IFunction
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#getParameters()
     */
-   public List< IFormal > getParameters()
+   public List< IParameter > getParameters()
    {
       return parameters;
    }
@@ -218,23 +235,13 @@ class FunctionNode extends AbstractNode implements IFunction
       return internalNode.is( NodeKind.SET );
    }
 
-   public void setMetaDataList( final List< IMetaData > metaDataListToBeSet )
-   {
-      metaDataList = metaDataListToBeSet;
-   }
-
-   public void setModifiers( final List< Modifier > modifiersToBeSet )
-   {
-      modifiers = modifiersToBeSet;
-   }
-
    @Override
    protected void compute()
    {
-      modifiers = new ArrayList< Modifier >();
-      metaDataList = new ArrayList< IMetaData >();
+      modifiers = new HashSet< Modifier >();
+      metaDataList = new HashMap< String, List< IMetaData > >();
       localVariables = new HashMap< String, IParserNode >();
-      cyclomaticComplexity = 1;
+      parameters = new ArrayList< IParameter >();
 
       if ( internalNode.numChildren() != 0 )
       {
@@ -270,44 +277,21 @@ class FunctionNode extends AbstractNode implements IFunction
       }
    }
 
-   private void computeCyclomaticComplexity( final IParserNode node )
+   private void computeCyclomaticComplexity()
    {
-      if ( node.is( NodeKind.FOREACH )
-            || node.is( NodeKind.FORIN ) || node.is( NodeKind.CASE ) || node.is( NodeKind.DEFAULT ) )
-      {
-         cyclomaticComplexity++;
-      }
-      else if ( node.is( NodeKind.IF )
-            || node.is( NodeKind.WHILE ) || node.is( NodeKind.FOR ) )
-      {
-         cyclomaticComplexity++;
-         cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),
-                                                    NodeKind.AND );
-         cyclomaticComplexity += countNodeFromType( node.getChild( 0 ),
-                                                    NodeKind.OR );
-      }
-
-      if ( node.numChildren() > 0 )
-      {
-         for ( final IParserNode child : node.getChildren() )
-         {
-            computeCyclomaticComplexity( child );
-         }
-      }
+      cyclomaticComplexity = 1 + body.computeCyclomaticComplexity();
    }
 
    private void computeFunctionContent( final IParserNode functionBodyNode )
    {
       body = functionBodyNode;
 
-      computeCyclomaticComplexity( functionBodyNode );
-      computeVariableList( functionBodyNode );
+      computeCyclomaticComplexity();
+      computeVariableList( body );
    }
 
    private void computeParameterList( final IParserNode node )
    {
-      parameters = new ArrayList< IFormal >();
-
       if ( node.numChildren() != 0 )
       {
          for ( final IParserNode parameterNode : node.getChildren() )
@@ -331,45 +315,5 @@ class FunctionNode extends AbstractNode implements IFunction
             computeVariableList( child );
          }
       }
-   }
-
-   private IParserNode getPrimaryStatementFromName( final String[] names,
-                                                    final IParserNode content )
-   {
-      IParserNode foundNode = null;
-
-      if ( content != null
-            && content.getStringValue() != null && isNameInArray( names,
-                                                                  content.getStringValue() ) )
-      {
-         foundNode = content;
-      }
-      else if ( content != null
-            && content.numChildren() != 0 )
-      {
-         for ( final IParserNode child : content.getChildren() )
-         {
-            foundNode = getPrimaryStatementFromName( names,
-                                                     child );
-            if ( foundNode != null )
-            {
-               break;
-            }
-         }
-      }
-      return foundNode;
-   }
-
-   private boolean isNameInArray( final String[] strings,
-                                  final String string )
-   {
-      for ( final String currentName : strings )
-      {
-         if ( currentName.compareTo( string ) == 0 )
-         {
-            return true;
-         }
-      }
-      return false;
    }
 }

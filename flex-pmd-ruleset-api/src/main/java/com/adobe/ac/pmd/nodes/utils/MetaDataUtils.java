@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.nodes.utils;
 
-import java.util.ArrayList;
-
-import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -42,13 +39,11 @@ final public class MetaDataUtils
    public static void computeMetaDataList( final IMetaDataListHolder metaDataHolder,
                                            final IParserNode child )
    {
-      metaDataHolder.setMetaDataList( new ArrayList< IMetaData >() );
-
       if ( child.numChildren() != 0 )
       {
          for ( final IParserNode metadataNode : child.getChildren() )
          {
-            metaDataHolder.getMetaDataList().add( NodeFactory.createMetaData( metadataNode ) );
+            metaDataHolder.add( NodeFactory.createMetaData( metadataNode ) );
          }
       }
    }

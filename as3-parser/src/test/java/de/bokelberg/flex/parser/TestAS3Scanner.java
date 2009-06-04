@@ -165,10 +165,10 @@ public class TestAS3Scanner extends TestCase
       for ( int i = 0; i < decimalString.length(); i++ )
       {
          assertTrue( "",
-                     scn.isDecimalChar( decimalString.charAt( i ) ) );
+                     AS3Scanner.isDecimalChar( decimalString.charAt( i ) ) );
       }
       assertFalse( "",
-                   scn.isDecimalChar( ( char ) 0 ) );
+                   AS3Scanner.isDecimalChar( ( char ) 0 ) );
 
    }
 

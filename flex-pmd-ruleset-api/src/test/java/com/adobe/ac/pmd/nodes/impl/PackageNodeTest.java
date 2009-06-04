@@ -60,7 +60,8 @@ public class PackageNodeTest extends FlexPmdTestBase
       final IParserNode buttonRendererAst = FileSetUtils.buildAst( testFiles.get( "DeleteButtonRenderer.mxml" ) );
       buttonRenderer = NodeFactory.createPackage( buttonRendererAst );
 
-      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm."
+            + "NonBindableModelLocator.as" ) );
       modelLocator = NodeFactory.createPackage( modelLocatorAst );
    }
 

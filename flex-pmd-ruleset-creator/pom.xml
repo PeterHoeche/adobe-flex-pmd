@@ -16,7 +16,7 @@
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
 		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
-		<flex-mojos-plugin.version>2.0M8</flex-mojos-plugin.version>
+		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
 
 		<!-- Dependency versions -->
 
@@ -192,11 +192,11 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			
 			<plugin>
-				<groupId>info.flex-mojos</groupId>
-				<artifactId>flex-compiler-mojo</artifactId>
-				<version>${flex-mojos-plugin.version}</version>
+		        <groupId>org.sonatype.flexmojos</groupId>
+		        <artifactId>flexmojos-maven-plugin</artifactId>
+		        <version>${flex-mojos-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<targetPlayer>${flash-player.version}.0.0</targetPlayer>

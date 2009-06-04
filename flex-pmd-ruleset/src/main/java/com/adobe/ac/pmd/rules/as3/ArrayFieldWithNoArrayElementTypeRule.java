@@ -33,7 +33,6 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -48,7 +47,7 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
       for ( final IAttribute variable : variables )
       {
          if ( ARRAY_TYPE.equals( variable.getType().toString() )
-               && !doesMetaDataContainArrayElementType( variable.getMetaDataList() ) )
+               && variable.getMetaData( ARRAY_ELEMENT_TYPE_BINDING ) == null )
          {
             addViolation( variable.getInternalNode(),
                           variable.getType().getInternalNode() );
@@ -60,20 +59,5 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
-   }
-
-   private boolean doesMetaDataContainArrayElementType( final List< IMetaData > metaDataList )
-   {
-      boolean arrayElementTypeFound = false;
-
-      for ( final IMetaData metaDataNode : metaDataList )
-      {
-         if ( metaDataNode.getName().startsWith( ARRAY_ELEMENT_TYPE_BINDING ) )
-         {
-            arrayElementTypeFound = true;
-            break;
-         }
-      }
-      return arrayElementTypeFound;
    }
 }

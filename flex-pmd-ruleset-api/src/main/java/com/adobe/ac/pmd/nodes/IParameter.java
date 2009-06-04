@@ -28,58 +28,8 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.utils.comparators;
+package com.adobe.ac.pmd.nodes;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.adobe.ac.pmd.nodes.IModifiersHolder;
-import com.adobe.ac.pmd.nodes.Modifier;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
-
-class ModifierHolder implements IModifiersHolder
+public interface IParameter extends IVariable
 {
-   private final List< Modifier > modifiers;
-   private final String           name;
-
-   public ModifierHolder( final String modifierName )
-   {
-      name = modifierName;
-      modifiers = new ArrayList< Modifier >();
-   }
-
-   public void addModifier( final Modifier modifier )
-   {
-      modifiers.add( modifier );
-   }
-
-   public List< Modifier > getModifiers()
-   {
-      return modifiers;
-   }
-
-   public String getName()
-   {
-      return name;
-   }
-
-   public boolean isPrivate()
-   {
-      return ModifierUtils.isPrivate( this );
-   }
-
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
-   }
-
-   public boolean isPublic()
-   {
-      return ModifierUtils.isPublic( this );
-   }
-
-   public void setModifiers( final List< Modifier > modifiersNotToBeSet )
-   {
-      // IGNORED
-   }
 }

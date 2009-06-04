@@ -76,34 +76,74 @@ class Node implements IParserNode
       stringValue = valueToBeSet;
    }
 
-   final public void addChild( final IParserNode child )
+   public int computeCyclomaticComplexity()
    {
-      if ( child == null )
+      int cyclomaticComplexity = 0;
+
+      if ( is( NodeKind.FOREACH )
+            || is( NodeKind.FORIN ) || is( NodeKind.CASE ) || is( NodeKind.DEFAULT ) )
       {
-         return; // skip optional children
+         cyclomaticComplexity++;
+      }
+      else if ( is( NodeKind.IF )
+            || is( NodeKind.WHILE ) || is( NodeKind.FOR ) )
+      {
+         cyclomaticComplexity++;
+         cyclomaticComplexity += getChild( 0 ).countNodeFromType( NodeKind.AND );
+         cyclomaticComplexity += getChild( 0 ).countNodeFromType( NodeKind.OR );
       }
 
-      if ( children == null )
+      if ( numChildren() > 0 )
       {
-         children = new ArrayList< IParserNode >();
+         for ( final IParserNode child : getChildren() )
+         {
+            cyclomaticComplexity += child.computeCyclomaticComplexity();
+         }
       }
-      children.add( child );
+
+      return cyclomaticComplexity;
    }
 
-   public void addChild( final NodeKind childId,
-                         final int childLine,
-                         final int childColumn,
-                         final IParserNode nephew )
+   public int countNodeFromType( final NodeKind type )
    {
-      addChild( new Node( childId, childLine, childColumn, nephew ) );
+      int count = 0;
+
+      if ( is( type ) )
+      {
+         count++;
+      }
+      if ( numChildren() > 0 )
+      {
+         for ( final IParserNode child : getChildren() )
+         {
+            count += child.countNodeFromType( type );
+         }
+      }
+      return count;
    }
 
-   public void addChild( final NodeKind childId,
-                         final int childLine,
-                         final int childColumn,
-                         final String value )
+   public IParserNode findPrimaryStatementFromNameInChildren( final String[] names )
    {
-      addChild( new Node( childId, childLine, childColumn, value ) );
+      IParserNode foundNode = null;
+
+      if ( getStringValue() != null
+            && isNameInArray( names,
+                              getStringValue() ) )
+      {
+         foundNode = this;
+      }
+      else if ( numChildren() != 0 )
+      {
+         for ( final IParserNode child : getChildren() )
+         {
+            foundNode = child.findPrimaryStatementFromNameInChildren( names );
+            if ( foundNode != null )
+            {
+               break;
+            }
+         }
+      }
+      return foundNode;
    }
 
    /*
@@ -161,12 +201,6 @@ class Node implements IParserNode
             && expectedType == null || expectedType.equals( getId() );
    }
 
-   public boolean isValueEquals( final String value )
-   {
-      return getStringValue() == null
-            && value == null || value.equals( getStringValue() );
-   }
-
    /*
     * (non-Javadoc)
     * @see de.bokelberg.flex.parser.IParserNode#numChildren()
@@ -175,16 +209,6 @@ class Node implements IParserNode
    {
       return getChildren() == null ? 0
                                   : getChildren().size();
-   }
-
-   public void setId( final NodeKind idToBeSet )
-   {
-      nodeId = idToBeSet;
-   }
-
-   public void setStringValue( final String text )
-   {
-      stringValue = text;
    }
 
    @Override
@@ -212,5 +236,58 @@ class Node implements IParserNode
          }
       }
       return buffer.toString();
+   }
+
+   void addChild( final IParserNode child )
+   {
+      if ( child == null )
+      {
+         return; // skip optional children
+      }
+
+      if ( children == null )
+      {
+         children = new ArrayList< IParserNode >();
+      }
+      children.add( child );
+   }
+
+   void addChild( final NodeKind childId,
+                  final int childLine,
+                  final int childColumn,
+                  final IParserNode nephew )
+   {
+      addChild( new Node( childId, childLine, childColumn, nephew ) );
+   }
+
+   void addChild( final NodeKind childId,
+                  final int childLine,
+                  final int childColumn,
+                  final String value )
+   {
+      addChild( new Node( childId, childLine, childColumn, value ) );
+   }
+
+   void setId( final NodeKind idToBeSet )
+   {
+      nodeId = idToBeSet;
+   }
+
+   void setStringValue( final String text )
+   {
+      stringValue = text;
+   }
+
+   private boolean isNameInArray( final String[] strings,
+                                  final String string )
+   {
+      for ( final String currentName : strings )
+      {
+         if ( currentName.compareTo( string ) == 0 )
+         {
+            return true;
+         }
+      }
+      return false;
    }
 }

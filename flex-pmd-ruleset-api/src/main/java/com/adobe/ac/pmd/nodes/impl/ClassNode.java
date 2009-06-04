@@ -31,7 +31,11 @@
 package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
@@ -46,19 +50,39 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class ClassNode extends AbstractNode implements IClass
 {
-   private List< IAttribute >  attributes;
-   private List< IConstant >   constants;
-   private IFunction           constructor;
-   private String              extensionName;
-   private List< IFunction >   functions;
-   private List< IParserNode > implementations;
-   private List< IMetaData >   metadata;
-   private List< Modifier >    modifiers;
-   private IdentifierNode      name;
+   private List< IAttribute >               attributes;
+   private List< IConstant >                constants;
+   private IFunction                        constructor;
+   private String                           extensionName;
+   private List< IFunction >                functions;
+   private List< IParserNode >              implementations;
+   private Map< String, List< IMetaData > > metadatas;
+   private Set< Modifier >                  modifiers;
+   private IdentifierNode                   name;
 
    public ClassNode( final IParserNode node )
    {
       super( node );
+   }
+
+   public void add( final IMetaData metaData )
+   {
+      if ( !metadatas.containsKey( metaData.getName() ) )
+      {
+         metadatas.put( metaData.getName(),
+                        new ArrayList< IMetaData >() );
+      }
+      metadatas.get( metaData.getName() ).add( metaData );
+   }
+
+   public void add( final Modifier modifier )
+   {
+      modifiers.add( modifier );
+   }
+
+   public boolean contains( final Modifier modifier )
+   {
+      return modifiers.contains( modifier );
    }
 
    public List< IAttribute > getAttributes()
@@ -111,14 +135,14 @@ class ClassNode extends AbstractNode implements IClass
       return implementations;
    }
 
-   public List< IMetaData > getMetaDataList()
+   public List< IMetaData > getMetaData( final String metaDataName )
    {
-      return metadata;
+      return metadatas.get( metaDataName );
    }
 
-   public List< Modifier > getModifiers()
+   public int getMetaDataCount()
    {
-      return modifiers;
+      return metadatas.size();
    }
 
    /*
@@ -154,22 +178,12 @@ class ClassNode extends AbstractNode implements IClass
       return ModifierUtils.isPublic( this );
    }
 
-   public void setMetaDataList( final List< IMetaData > metaDataList )
-   {
-      metadata = metaDataList;
-   }
-
-   public void setModifiers( final List< Modifier > modifiersToBeSet )
-   {
-      modifiers = modifiersToBeSet;
-   }
-
    @Override
    protected void compute()
    {
-      modifiers = new ArrayList< Modifier >();
+      modifiers = new HashSet< Modifier >();
+      metadatas = new HashMap< String, List< IMetaData > >();
       implementations = new ArrayList< IParserNode >();
-      metadata = new ArrayList< IMetaData >();
 
       if ( internalNode.numChildren() != 0 )
       {

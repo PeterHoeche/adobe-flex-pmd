@@ -32,7 +32,7 @@ package de.bokelberg.flex.parser;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class ASTToXMLConverter implements ASTConverter
+public class ASTToXMLConverter
 {
    /*
     * (non-Javadoc)

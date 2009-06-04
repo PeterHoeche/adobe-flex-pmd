@@ -28,15 +28,55 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.rules.utils.comparators;
 
-import com.adobe.ac.pmd.nodes.IParameter;
-import com.adobe.ac.pmd.parser.IParserNode;
+import java.util.HashMap;
+import java.util.Map;
 
-class FormalNode extends VariableNode implements IParameter
+import com.adobe.ac.pmd.nodes.INamable;
+import com.adobe.ac.pmd.nodes.IVisible;
+import com.adobe.ac.pmd.nodes.Modifier;
+import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
+
+class VisibleMock implements IVisible, INamable
 {
-   public FormalNode( final IParserNode node )
+   private final Map< Modifier, Object > modifiers;
+   private final String                  name;
+
+   public VisibleMock( final String modifierName )
    {
-      super( node );
+      name = modifierName;
+      modifiers = new HashMap< Modifier, Object >();
+   }
+
+   public void add( final Modifier modifier )
+   {
+      modifiers.put( modifier,
+                     null );
+   }
+
+   public boolean contains( final Modifier modifier )
+   {
+      return modifiers.containsKey( modifier );
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public boolean isPrivate()
+   {
+      return ModifierUtils.isPrivate( this );
+   }
+
+   public boolean isProtected()
+   {
+      return ModifierUtils.isProtected( this );
+   }
+
+   public boolean isPublic()
+   {
+      return ModifierUtils.isPublic( this );
    }
 }

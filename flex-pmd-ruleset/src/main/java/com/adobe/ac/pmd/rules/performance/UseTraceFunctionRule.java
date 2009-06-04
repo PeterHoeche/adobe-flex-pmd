@@ -28,15 +28,37 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.nodes.IParameter;
+import java.util.List;
+
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-class FormalNode extends VariableNode implements IParameter
+public class UseTraceFunctionRule extends AbstractAstFlexRule
 {
-   public FormalNode( final IParserNode node )
+   @Override
+   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
    {
-      super( node );
+      super.findViolationsFromFunctionsList( functions );
+
+      for ( final IFunction function : functions )
+      {
+         final IParserNode trace = function.findPrimaryStatementInBody( "trace" );
+
+         if ( trace != null )
+         {
+            addViolation( trace,
+                          trace );
+         }
+      }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.INFO;
    }
 }

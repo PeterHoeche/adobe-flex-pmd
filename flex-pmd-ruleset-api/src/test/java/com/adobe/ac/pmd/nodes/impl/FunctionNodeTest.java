@@ -65,8 +65,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
    @Test
    public void modifiers()
    {
-      assertEquals( Modifier.PUBLIC,
-                    constructor.getModifiers().get( 0 ) );
+      assertTrue( constructor.contains( Modifier.PUBLIC ) );
    }
 
    @Before
@@ -75,7 +74,8 @@ public class FunctionNodeTest extends FlexPmdTestBase
                       PMDException
    {
       final IParserNode dataGridAst = FileSetUtils.buildAst( testFiles.get( "RadonDataGrid.as" ) );
-      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm."
+            + "NonBindableModelLocator.as" ) );
       final IClass radonDataGrid = NodeFactory.createPackage( dataGridAst ).getClassNode();
       final IClass nonBindableModelLocator = NodeFactory.createPackage( modelLocatorAst ).getClassNode();
 
@@ -92,8 +92,8 @@ public class FunctionNodeTest extends FlexPmdTestBase
    @Test
    public void testFindPrimaryStatementFromName()
    {
-      assertNull( constructor.findPrimaryStatementFromName( "" ) );
-      assertNotNull( drawHighlightIndicator.findPrimaryStatementFromName( new String[]
+      assertNull( constructor.findPrimaryStatementInBody( "" ) );
+      assertNotNull( drawHighlightIndicator.findPrimaryStatementInBody( new String[]
       { "super",
                   "" } ) );
    }
@@ -117,9 +117,9 @@ public class FunctionNodeTest extends FlexPmdTestBase
    public void testGetMetaData()
    {
       assertEquals( 1,
-                    getHeight.getMetaDataList().size() );
+                    getHeight.getMetaDataCount() );
       assertEquals( 0,
-                    isTrueGetter.getMetaDataList().size() );
+                    isTrueGetter.getMetaDataCount() );
    }
 
    @Test

@@ -34,7 +34,6 @@ import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
 
 abstract class AbstractNode implements INode
 {
@@ -55,24 +54,4 @@ abstract class AbstractNode implements INode
    }
 
    protected abstract void compute();
-
-   protected int countNodeFromType( final IParserNode rootNode,
-                                    final NodeKind type )
-   {
-      int count = 0;
-
-      if ( rootNode.is( type ) )
-      {
-         count++;
-      }
-      if ( rootNode.numChildren() > 0 )
-      {
-         for ( final IParserNode child : rootNode.getChildren() )
-         {
-            count += countNodeFromType( child,
-                                        type );
-         }
-      }
-      return count;
-   }
 }

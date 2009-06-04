@@ -30,17 +30,9 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-import java.util.List;
-
 public interface IModifiersHolder
 {
-   List< Modifier > getModifiers();
+   void add( Modifier modifier );
 
-   boolean isPrivate();
-
-   boolean isProtected();
-
-   boolean isPublic();
-
-   void setModifiers( final List< Modifier > modifiers );
+   boolean contains( Modifier modifier );
 }

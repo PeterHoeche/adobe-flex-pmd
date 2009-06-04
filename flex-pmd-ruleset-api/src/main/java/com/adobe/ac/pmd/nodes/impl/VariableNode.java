@@ -31,11 +31,16 @@
 package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.adobe.ac.pmd.nodes.IFieldInitialization;
 import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
@@ -46,20 +51,40 @@ import com.adobe.ac.pmd.parser.NodeKind;
  * Node representing a variable (var i : int = 0) It contains the variable name,
  * its type name, the list of modifiers, the list of metadata, and the
  * initialization expression (if any).
- *
+ * 
  * @author xagnetti
  */
-public class VariableNode extends AbstractNode implements IVariable
+public class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 {
-   private IFieldInitialization initializationExpression;
-   private List< IMetaData >    metaDataList;
-   private List< Modifier >     modifiers;
-   private IdentifierNode       name;
-   private IdentifierNode       type;
+   private IFieldInitialization             initializationExpression;
+   private Map< String, List< IMetaData > > metaDataList;
+   private Set< Modifier >                  modifiers;
+   private IdentifierNode                   name;
+   private IdentifierNode                   type;
 
    public VariableNode( final IParserNode rootNode )
    {
       super( rootNode );
+   }
+
+   public void add( final IMetaData metaData )
+   {
+      if ( !metaDataList.containsKey( metaData.getName() ) )
+      {
+         metaDataList.put( metaData.getName(),
+                           new ArrayList< IMetaData >() );
+      }
+      metaDataList.get( metaData.getName() ).add( metaData );
+   }
+
+   public void add( final Modifier modifier )
+   {
+      modifiers.add( modifier );
+   }
+
+   public boolean contains( final Modifier modifier )
+   {
+      return modifiers.contains( modifier );
    }
 
    /*
@@ -71,14 +96,14 @@ public class VariableNode extends AbstractNode implements IVariable
       return initializationExpression;
    }
 
-   public List< IMetaData > getMetaDataList()
+   public List< IMetaData > getMetaData( final String metaDataName )
    {
-      return metaDataList;
+      return metaDataList.get( metaDataName );
    }
 
-   public List< Modifier > getModifiers()
+   public int getMetaDataCount()
    {
-      return modifiers;
+      return metaDataList.size();
    }
 
    public String getName()
@@ -95,20 +120,11 @@ public class VariableNode extends AbstractNode implements IVariable
       return type;
    }
 
-   public void setMetaDataList( final List< IMetaData > metaDataListToBeSet )
-   {
-      metaDataList = metaDataListToBeSet;
-   }
-
-   public void setModifiers( final List< Modifier > modifiersToBeSet )
-   {
-      modifiers = modifiersToBeSet;
-   }
-
    @Override
    protected void compute()
    {
-      metaDataList = new ArrayList< IMetaData >();
+      metaDataList = new HashMap< String, List< IMetaData > >();
+      modifiers = new HashSet< Modifier >();
 
       if ( internalNode.is( NodeKind.NAME_TYPE_INIT ) )
       {

@@ -34,10 +34,9 @@ import java.util.List;
 
 public interface IMetaDataListHolder
 {
-   /**
-    * @return the metadata list
-    */
-   List< IMetaData > getMetaDataList();
+   void add( IMetaData metaData );
 
-   void setMetaDataList( final List< IMetaData > metaDataList );
+   List< IMetaData > getMetaData( String metaDataName );
+
+   int getMetaDataCount();
 }

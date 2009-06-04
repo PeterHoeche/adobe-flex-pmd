@@ -33,8 +33,6 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IConstant;
-import com.adobe.ac.pmd.nodes.IField;
-import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -45,7 +43,7 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
    {
       for ( final IConstant field : constants )
       {
-         if ( !doesFieldContainStatic( field ) )
+         if ( !field.isStatic() )
          {
             addViolation( field.getInternalNode(),
                           field.getInternalNode() );
@@ -57,20 +55,5 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
-   }
-
-   private boolean doesFieldContainStatic( final IField field )
-   {
-      boolean found = false;
-
-      for ( final Modifier modifier : field.getModifiers() )
-      {
-         if ( Modifier.STATIC.equals( modifier ) )
-         {
-            found = true;
-            break;
-         }
-      }
-      return found;
    }
 }

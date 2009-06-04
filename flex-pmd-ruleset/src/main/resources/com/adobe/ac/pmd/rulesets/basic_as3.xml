@@ -91,7 +91,7 @@
       </example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStmtsShouldHaveDefaultRule"
+		class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStatementsShouldHaveDefaultRule"
 		message="A switch statement does not contain a default statement">
 		<description>Switch statements should have a default label in order to detect corner cases.</description>
 		<priority>1</priority>
@@ -328,5 +328,9 @@
 	<rule class="com.adobe.ac.pmd.rules.as3.event.DefaultEventNameRule"
 		message="Event name should be set explicitly">
 		<priority>3</priority>
+	</rule>
+	<rule class="com.adobe.ac.pmd.rules.as3.switchrules.IdenticalSwitchCasesRule"
+		message="Two switch cases should not identical">
+		<priority>1</priority>
 	</rule>
 </ruleset>

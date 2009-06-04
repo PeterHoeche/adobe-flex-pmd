@@ -34,6 +34,12 @@ import java.util.List;
 
 public interface IParserNode
 {
+   int computeCyclomaticComplexity();
+
+   int countNodeFromType( final NodeKind type );
+
+   IParserNode findPrimaryStatementFromNameInChildren( final String[] names );
+
    IParserNode getChild( final int index );
 
    List< IParserNode > getChildren();

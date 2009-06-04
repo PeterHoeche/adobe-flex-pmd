@@ -51,7 +51,7 @@ package com.adobe.ac
              case GoogleSearchPanel.LAUNCH_GOOGLE_NEWS_SEARCH:
                 googleResquest.url = "";
                 switch (e.oldState) {
-                  case "" :
+                  case STATE_COMPARE_VIEW :
                      createPlaceHolders();
                      createPlaceHolderLabels();
                   break;

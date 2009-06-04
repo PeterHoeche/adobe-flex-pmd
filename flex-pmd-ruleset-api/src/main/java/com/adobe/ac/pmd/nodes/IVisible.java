@@ -28,15 +28,13 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.nodes;
 
-import com.adobe.ac.pmd.nodes.IParameter;
-import com.adobe.ac.pmd.parser.IParserNode;
-
-class FormalNode extends VariableNode implements IParameter
+public interface IVisible extends IModifiersHolder
 {
-   public FormalNode( final IParserNode node )
-   {
-      super( node );
-   }
+   boolean isPrivate();
+
+   boolean isProtected();
+
+   boolean isPublic();
 }

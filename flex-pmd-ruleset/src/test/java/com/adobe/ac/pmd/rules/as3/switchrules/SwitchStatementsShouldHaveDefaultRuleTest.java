@@ -28,8 +28,40 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.rules.as3.switchrules;
 
-public interface IFormal extends IVariable
+import org.junit.Test;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+
+public class SwitchStatementsShouldHaveDefaultRuleTest extends AbstractCommonAstFlexRuleTest
 {
+   @Override
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
+   {
+      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
+      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+   }
+
+   @Override
+   @Test
+   public void testProcessViolatingFiles()
+   {
+      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 53, 53 ),
+                                    new ViolationPosition( 41, 41 ) } );
+      assertViolations( "com.adobe.ac.ncss.NestedSwitch.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 43, 43 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new SwitchStatementsShouldHaveDefaultRule();
+   }
 }
