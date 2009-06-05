@@ -16,7 +16,7 @@
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
 		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
-		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
+		<flex-mojos-plugin.version>2.0M8</flex-mojos-plugin.version>
 
 		<!-- Dependency versions -->
 
@@ -194,8 +194,8 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.sonatype.flexmojos</groupId>
-				<artifactId>flexmojos-maven-plugin</artifactId>
+				<groupId>info.flex-mojos</groupId>
+				<artifactId>flex-compiler-mojo</artifactId>
 				<version>${flex-mojos-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
@@ -277,21 +277,21 @@
 					<reportsDirectory>surefire-reports</reportsDirectory>
 				</configuration>
 			</plugin>
-
+			
 			<plugin>
-				<groupId>com.adobe.ac</groupId>
-				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${flex-pmd-maven-plugin.version}</version>
-				<configuration>
-					<ruleSet>allflex.xml</ruleSet>
-				</configuration>
+			   <groupId>com.adobe.ac</groupId>
+            <artifactId>flex-pmd-maven-plugin</artifactId>
+            <version>${flex-pmd-maven-plugin.version}</version>
+            <configuration>
+               <ruleSet>allflex.xml</ruleSet>
+            </configuration>
 			</plugin>
-
+			
 			<plugin>
-				<groupId>com.adobe.ac</groupId>
-				<artifactId>as3Ncss-maven-plugin</artifactId>
-				<version>${as3Ncss-maven-plugin.version}</version>
-			</plugin>
+			   <groupId>com.adobe.ac</groupId>
+            <artifactId>as3Ncss-maven-plugin</artifactId>
+            <version>${as3Ncss-maven-plugin.version}</version>
+			</plugin>			
 
 		</plugins>
 	</reporting>
