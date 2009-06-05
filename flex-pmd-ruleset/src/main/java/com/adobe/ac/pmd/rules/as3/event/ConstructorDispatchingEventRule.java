@@ -47,12 +47,10 @@ public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
    @Override
    protected void findViolationsFromConstructor( final IFunction constructor )
    {
-      final IParserNode dispatchNode = constructor.findPrimaryStatementInBody( "dispatchEvent" );
-
-      if ( dispatchNode != null )
+      for ( final IParserNode statement : constructor.findPrimaryStatementsInBody( "dispatchEvent" ) )
       {
-         addViolation( dispatchNode,
-                       dispatchNode );
+         addViolation( statement,
+                       statement );
       }
    }
 

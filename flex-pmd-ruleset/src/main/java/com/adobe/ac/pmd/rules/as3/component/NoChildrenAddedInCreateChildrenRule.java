@@ -33,7 +33,6 @@ package com.adobe.ac.pmd.rules.as3.component;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -53,9 +52,7 @@ public class NoChildrenAddedInCreateChildrenRule extends AbstractAstFlexRule
          {
             for ( final String methodName : METHOD_NAMES )
             {
-               final IParserNode primaryNode = function.findPrimaryStatementInBody( methodName );
-
-               if ( primaryNode != null )
+               if ( function.findPrimaryStatementsInBody( methodName ).size() > 0 )
                {
                   return;
                }

@@ -53,12 +53,13 @@ public class AddChildNotInCreateChildrenRule extends AbstractAstFlexRule
          {
             for ( final String methodName : METHOD_NAMES )
             {
-               final IParserNode primaryNode = function.findPrimaryStatementInBody( methodName );
-
-               if ( primaryNode != null )
+               for ( final IParserNode statement : function.findPrimaryStatementsInBody( methodName ) )
                {
-                  addViolation( primaryNode,
-                                primaryNode );
+                  if ( statement != null )
+                  {
+                     addViolation( statement,
+                                   statement );
+                  }
                }
             }
          }

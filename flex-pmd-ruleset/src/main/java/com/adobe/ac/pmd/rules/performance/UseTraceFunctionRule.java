@@ -46,12 +46,10 @@ public class UseTraceFunctionRule extends AbstractAstFlexRule
 
       for ( final IFunction function : functions )
       {
-         final IParserNode trace = function.findPrimaryStatementInBody( "trace" );
-
-         if ( trace != null )
+         for ( final IParserNode statement : function.findPrimaryStatementsInBody( "trace" ) )
          {
-            addViolation( trace,
-                          trace );
+            addViolation( statement,
+                          statement );
          }
       }
    }

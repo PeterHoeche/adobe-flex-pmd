@@ -87,23 +87,24 @@ class FunctionNode extends AbstractNode implements IFunction
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
-    * .String)
+    * .String[])
     */
-   public IParserNode findPrimaryStatementInBody( final String primaryName )
+   public List< IParserNode > findPrimaryStatementInBody( final String[] primaryNames )
    {
       return body == null ? null
-                         : body.findPrimaryStatementFromNameInChildren( new String[]
-                         { primaryName } );
+                         : body.findPrimaryStatementsFromNameInChildren( primaryNames );
    }
 
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
-    * .String[])
+    * .String)
     */
-   public IParserNode findPrimaryStatementInBody( final String[] primaryNames )
+   public List< IParserNode > findPrimaryStatementsInBody( final String primaryName )
    {
-      return getBody().findPrimaryStatementFromNameInChildren( primaryNames );
+      return body == null ? null
+                         : body.findPrimaryStatementsFromNameInChildren( new String[]
+                         { primaryName } );
    }
 
    /*

@@ -28,45 +28,40 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.component;
+package com.adobe.ac.pmd.rules.performance;
 
-import java.util.List;
+import org.junit.Test;
 
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
 
-public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlexRule
+public class UseTraceFunctionRuleTest extends AbstractCommonAstFlexRuleTest
 {
-   private static final String[] METHOD_NAMES =
-                                              { "addChild",
-               "addChildAt",
-               "removeChild",
-               "removeChildAt"               };
-
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   @Test
+   public void testProcessConcernedButNonViolatingFiles()
    {
-      for ( final IFunction function : functions )
-      {
-         if ( function.getName().compareTo( "updateDisplayList" ) == 0 )
-         {
-            for ( final String methodName : METHOD_NAMES )
-            {
-               for ( final IParserNode statement : function.findPrimaryStatementsInBody( methodName ) )
-               {
-                  addViolation( statement,
-                                statement );
-               }
-            }
-         }
-      }
+      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
+      assertEmptyViolations( "Main.mxml" );
+      assertEmptyViolations( "AbstractRowData.as" );
+      assertEmptyViolations( "DefaultNameEvent.as" );
+      assertEmptyViolations( "GenericType.as" );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   @Test
+   public void testProcessViolatingFiles()
    {
-      return ViolationPriority.ERROR;
+      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
+                        new ViolationPosition[]
+                        { new ViolationPosition( 74, 74 ),
+                                    new ViolationPosition( 75, 75 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UseTraceFunctionRule();
    }
 }

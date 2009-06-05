@@ -1,9 +1,1 @@
 TODO 2 AvoidArrayInstancation
-TODO 3 Multiple assignations on one line
-TODO 3 static methods in mxml functions
-TODO 3 Function returning Array which is actually returning
-TODO 3 UseTraceFunction
-TODO 3 UseIntegersForIterations
-TODO 3 ExplicitCallToSetStyle
-TODO 3 Avoid using Division
-TODO 3 AvoidUsingHitTestPoint

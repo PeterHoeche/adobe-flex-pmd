@@ -122,25 +122,21 @@ class Node implements IParserNode
       return count;
    }
 
-   public IParserNode findPrimaryStatementFromNameInChildren( final String[] names )
+   public List< IParserNode > findPrimaryStatementsFromNameInChildren( final String[] names )
    {
-      IParserNode foundNode = null;
+      final List< IParserNode > foundNode = new ArrayList< IParserNode >();
 
       if ( getStringValue() != null
             && isNameInArray( names,
                               getStringValue() ) )
       {
-         foundNode = this;
+         foundNode.add( this );
       }
       else if ( numChildren() != 0 )
       {
          for ( final IParserNode child : getChildren() )
          {
-            foundNode = child.findPrimaryStatementFromNameInChildren( names );
-            if ( foundNode != null )
-            {
-               break;
-            }
+            foundNode.addAll( child.findPrimaryStatementsFromNameInChildren( names ) );
          }
       }
       return foundNode;

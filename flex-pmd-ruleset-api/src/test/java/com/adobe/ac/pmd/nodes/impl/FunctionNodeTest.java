@@ -92,10 +92,12 @@ public class FunctionNodeTest extends FlexPmdTestBase
    @Test
    public void testFindPrimaryStatementFromName()
    {
-      assertNull( constructor.findPrimaryStatementInBody( "" ) );
-      assertNotNull( drawHighlightIndicator.findPrimaryStatementInBody( new String[]
-      { "super",
-                  "" } ) );
+      assertEquals( 0,
+                    constructor.findPrimaryStatementsInBody( "" ).size() );
+      assertEquals( 1,
+                    drawHighlightIndicator.findPrimaryStatementInBody( new String[]
+                    { "super",
+                                "" } ).size() );
    }
 
    @Test

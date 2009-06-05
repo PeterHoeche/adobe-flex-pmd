@@ -54,6 +54,11 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 
       IPackage rootNode = null;
 
+      if ( file == null )
+      {
+         throw new IOException( resourcePath
+               + " is not found" );
+      }
       if ( file instanceof As3File )
       {
          rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );

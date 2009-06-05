@@ -38,7 +38,7 @@ public interface IParserNode
 
    int countNodeFromType( final NodeKind type );
 
-   IParserNode findPrimaryStatementFromNameInChildren( final String[] names );
+   List< IParserNode > findPrimaryStatementsFromNameInChildren( final String[] names );
 
    IParserNode getChild( final int index );
 
