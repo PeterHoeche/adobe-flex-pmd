@@ -238,7 +238,7 @@ class Node implements IParserNode
       return buffer.toString();
    }
 
-   void addChild( final IParserNode child )
+   final void addChild( final IParserNode child )
    {
       if ( child == null )
       {
