@@ -91,9 +91,9 @@ class FunctionNode extends AbstractNode implements IFunction
     */
    public IParserNode findPrimaryStatementInBody( final String primaryName )
    {
-      final String[] names =
-      { primaryName };
-      return getBody().findPrimaryStatementFromNameInChildren( names );
+      return body == null ? null
+                         : body.findPrimaryStatementFromNameInChildren( new String[]
+                         { primaryName } );
    }
 
    /*
