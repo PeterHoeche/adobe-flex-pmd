@@ -42,6 +42,7 @@ public class UselessOverridenFunctionRuleTest extends AbstractCommonAstFlexRuleT
    @Test
    public void testProcessConcernedButNonViolatingFiles()
    {
+      assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
       assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
       assertEmptyViolations( "Main.mxml" );
    }
