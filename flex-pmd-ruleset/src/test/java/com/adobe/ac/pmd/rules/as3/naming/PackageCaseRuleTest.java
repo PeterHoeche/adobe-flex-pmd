@@ -30,34 +30,36 @@
  */
 package com.adobe.ac.pmd.rules.as3.naming;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class PackageCaseRuleTest extends AbstractCommonAstFlexRuleTest
+public class PackageCaseRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( -1, -1 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new PackageCaseRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                     "schedule_internal.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( -1, -1 ) } ),
+                                           "cairngorm.FatController.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( -1, -1 ) } ),
+                                 "GenericType.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( -1, -1 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( -1, -1 ) } );
    }
 }

@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -39,36 +40,24 @@ import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
+   protected AbstractFlexRule getRule()
    {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.DynamicCustomEvent.as" );
+      return new EventMissingCloneFunctionRule();
    }
 
    @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
       final ViolationPosition[] expectedPositions = new ViolationPosition[]
       { new ViolationPosition( 33, 33 ) };
 
-      assertViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-                        expectedPositions );
-      assertViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as",
-                        expectedPositions );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new EventMissingCloneFunctionRule();
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "com.adobe.ac.ncss.SearchBarEvent.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 35, 35 ) } ),
+                                 "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+                                 expectedPositions ),
+                       "com.adobe.ac.ncss.event.SecondCustomEvent.as",
+                       expectedPositions );
    }
 }

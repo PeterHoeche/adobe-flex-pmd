@@ -44,6 +44,8 @@ package org.alivepdf.encoding
 
 		// Static table initialization
 	
+		internal var DU:Array = new Array(64);
+
 		private var ZigZag:Array = [
 			 0, 1, 5, 6,14,15,27,28,
 			 2, 4, 7,13,16,26,29,42,
@@ -59,86 +61,10 @@ package org.alivepdf.encoding
 		private var UVTable:Array = new Array(64);
 		private var fdtbl_Y:Array = new Array(64);
 		private var fdtbl_UV:Array = new Array(64);
-	
-		private function initQuantTables(sf:int):void
-		{
-			var YQT:Array = [
-				16, 11, 10, 16, 24, 40, 51, 61,
-				12, 12, 14, 19, 26, 58, 60, 55,
-				14, 13, 16, 24, 40, 57, 69, 56,
-				14, 17, 22, 29, 51, 87, 80, 62,
-				18, 22, 37, 56, 68,109,103, 77,
-				24, 35, 55, 64, 81,104,113, 92,
-				49, 64, 78, 87,103,121,120,101,
-				72, 92, 95, 98,112,100,103, 99
-			];
-			for (var i:int = 0; i < 64; i++) {
-				var t:Number = Math.floor((YQT[i]*sf+50)/100);
-				if (t < 1) {
-					t = 1;
-				} else if (t > 255) {
-					t = 255;
-				}
-				YTable[ZigZag[i]] = t;
-			}
-			var UVQT:Array = [
-				17, 18, 24, 47, 99, 99, 99, 99,
-				18, 21, 26, 66, 99, 99, 99, 99,
-				24, 26, 56, 99, 99, 99, 99, 99,
-				47, 66, 99, 99, 99, 99, 99, 99,
-				99, 99, 99, 99, 99, 99, 99, 99,
-				99, 99, 99, 99, 99, 99, 99, 99,
-				99, 99, 99, 99, 99, 99, 99, 99,
-				99, 99, 99, 99, 99, 99, 99, 99
-			];
-			for (var j:int = 0; j < 64; j++) {
-				var u:Number = Math.floor((UVQT[j]*sf+50)/100);
-				if (u < 1) {
-					u = 1;
-				} else if (u > 255) {
-					u = 255;
-				}
-				UVTable[ZigZag[j]] = u;
-			}
-			var aasf:Array = [
-				1.0, 1.387039845, 1.306562965, 1.175875602,
-				1.0, 0.785694958, 0.541196100, 0.275899379
-			];
-			var k:int = 0;
-			for (var row:int = 0; row < 8; row++)
-			{
-				for (var col:int = 0; col < 8; col++)
-				{
-					fdtbl_Y[k]  = (1.0 / (YTable [ZigZag[k]] * aasf[row] * aasf[col] * 8.0));
-					fdtbl_UV[k] = (1.0 / (UVTable[ZigZag[k]] * aasf[row] * aasf[col] * 8.0));
-					k++;
-				}
-			}
-		}
-	
 		private var YDC_HT:Array;
 		private var UVDC_HT:Array;
 		private var YAC_HT:Array;
 		private var UVAC_HT:Array;
-	
-		private function computeHuffmanTbl(nrcodes:Array, std_table:Array):Array
-		{
-			var codevalue:int = 0;
-			var pos_in_table:int = 0;
-			var HT:Array = new Array();
-			for (var k:int=1; k<=16; k++) {
-				for (var j:int=1; j<=nrcodes[k]; j++) {
-					HT[std_table[pos_in_table]] = new BitString();
-					HT[std_table[pos_in_table]].val = codevalue;
-					HT[std_table[pos_in_table]].len = k;
-					pos_in_table++;
-					codevalue++;
-				}
-				codevalue*=2;
-			}
-			return HT;
-		}
-	
 		private var std_dc_luminance_nrcodes:Array = [0,0,1,5,1,1,1,1,1,1,0,0,0,0,0,0,0];
 		private var std_dc_luminance_values:Array = [0,1,2,3,4,5,6,7,8,9,10,11];
 		private var std_ac_luminance_nrcodes:Array = [0,0,2,1,3,3,2,4,3,5,5,4,4,0,0,1,0x7d];
@@ -192,6 +118,150 @@ package org.alivepdf.encoding
 			0xea,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,
 			0xf9,0xfa
 		];
+		private var bitcode:Array = new Array(65535);
+		private var category:Array = new Array(65535);
+		private var byteout:ByteArray;
+		private var bytenew:int = 0;
+		private var bytepos:int = 7;
+		private var YDU:Array = new Array(64);
+		private var UDU:Array = new Array(64);
+		private var VDU:Array = new Array(64);
+	
+		public function JPEGEncoder(quality:Number = 50)
+		{
+			if (quality <= 0) {
+				quality = 1;
+			}
+			if (quality > 100) {
+				quality = 100;
+			}
+			var sff:int = 0;
+			if (quality < 50) {
+				sff = int(5000 / quality);
+			} else {
+				sff = int(200 - quality*2);
+			}
+			// Create tables
+			initHuffmanTbl();
+			initCategoryNumber();
+			initQuantTables(sff);
+		}
+	
+		public function encode(image:BitmapData):ByteArray
+		{
+			// Initialize bit writer
+			byteout = new ByteArray();
+			bytenew=0;
+			bytepos=7;
+	
+			// Add JPEG headers
+			writeWord(0xFFD8); // SOI
+			writeAPP0();
+			writeDQT();
+			writeSOF0(image.width,image.height);
+			writeDHT();
+			writeSOS();
+
+			// Encode 8x8 macroblocks
+			var DCY:Number=0;
+			var DCU:Number=0;
+			var DCV:Number=0;
+			bytenew=0;
+			bytepos=7;
+			for (var ypos:int=0; ypos<image.height; ypos+=8) {
+				for (var xpos:int=0; xpos<image.width; xpos+=8) {
+					RGB2YUV(image, xpos, ypos);
+					DCY = processDU(YDU, fdtbl_Y, DCY, YDC_HT, YAC_HT);
+					DCU = processDU(UDU, fdtbl_UV, DCU, UVDC_HT, UVAC_HT);
+					DCV = processDU(VDU, fdtbl_UV, DCV, UVDC_HT, UVAC_HT);
+				}
+			}
+	
+			// Do the bit alignment of the EOI marker
+			if ( bytepos >= 0 ) {
+				var fillbits:BitString = new BitString();
+				fillbits.len = bytepos+1;
+				fillbits.val = (1<<(bytepos+1))-1;
+				writeBits(fillbits);
+			}
+	
+			writeWord(0xFFD9); //EOI
+			return byteout;
+		}
+
+		private function initQuantTables(sf:int):void
+		{
+			var YQT:Array = [
+				16, 11, 10, 16, 24, 40, 51, 61,
+				12, 12, 14, 19, 26, 58, 60, 55,
+				14, 13, 16, 24, 40, 57, 69, 56,
+				14, 17, 22, 29, 51, 87, 80, 62,
+				18, 22, 37, 56, 68,109,103, 77,
+				24, 35, 55, 64, 81,104,113, 92,
+				49, 64, 78, 87,103,121,120,101,
+				72, 92, 95, 98,112,100,103, 99
+			];
+			for (var i:int = 0; i < 64; i++) {
+				var ttt:Number = Math.floor((YQT[i]*sf+50)/100);
+				if (ttt < 1) {
+					ttt = 1;
+				} else if (ttt > 255) {
+					ttt = 255;
+				}
+				YTable[ZigZag[i]] = ttt;
+			}
+			var UVQT:Array = [
+				17, 18, 24, 47, 99, 99, 99, 99,
+				18, 21, 26, 66, 99, 99, 99, 99,
+				24, 26, 56, 99, 99, 99, 99, 99,
+				47, 66, 99, 99, 99, 99, 99, 99,
+				99, 99, 99, 99, 99, 99, 99, 99,
+				99, 99, 99, 99, 99, 99, 99, 99,
+				99, 99, 99, 99, 99, 99, 99, 99,
+				99, 99, 99, 99, 99, 99, 99, 99
+			];
+			for (var j:int = 0; j < 64; j++) {
+				var uuu:Number = Math.floor((UVQT[j]*sf+50)/100);
+				if (uuu < 1) {
+					uuu = 1;
+				} else if (uuu > 255) {
+					uuu = 255;
+				}
+				UVTable[ZigZag[j]] = uuu;
+			}
+			var aasf:Array = [
+				1.0, 1.387039845, 1.306562965, 1.175875602,
+				1.0, 0.785694958, 0.541196100, 0.275899379
+			];
+			var kkk:int = 0;
+			for (var row:int = 0; row < 8; row++)
+			{
+				for (var col:int = 0; col < 8; col++)
+				{
+					fdtbl_Y[kkk]  = (1.0 / (YTable [ZigZag[kkk]] * aasf[row] * aasf[col] * 8.0));
+					fdtbl_UV[kkk] = (1.0 / (UVTable[ZigZag[kkk]] * aasf[row] * aasf[col] * 8.0));
+					kkk++;
+				}
+			}
+		}
+	
+		private function computeHuffmanTbl(nrcodes:Array, std_table:Array):Array
+		{
+			var codevalue:int = 0;
+			var pos_in_table:int = 0;
+			var HTT:Array = new Array();
+			for (var k:int=1; k<HTT16; k++) {
+				for (var j:int=1; j<=nrcodes[k]; j++) {
+					HTT[std_table[pos_in_table]] = new BitString();
+					HTT[std_table[pos_in_table]].val = codevalue;
+					HTT[std_table[pos_in_table]].len = k;
+					pos_in_table++;
+					codevalue++;
+				}
+				codevalue*=2;
+			}
+			return HTT;
+		}
 	
 		private function initHuffmanTbl():void
 		{
@@ -200,9 +270,6 @@ package org.alivepdf.encoding
 			YAC_HT = computeHuffmanTbl(std_ac_luminance_nrcodes,std_ac_luminance_values);
 			UVAC_HT = computeHuffmanTbl(std_ac_chrominance_nrcodes,std_ac_chrominance_values);
 		}
-	
-		private var bitcode:Array = new Array(65535);
-		private var category:Array = new Array(65535);
 	
 		private function initCategoryNumber():void
 		{
@@ -227,12 +294,6 @@ package org.alivepdf.encoding
 				nrupper <<= 1;
 			}
 		}
-	
-		// IO functions
-	
-		private var byteout:ByteArray;
-		private var bytenew:int = 0;
-		private var bytepos:int = 7;
 	
 		private function writeBits(bs:BitString):void
 		{
@@ -304,18 +365,18 @@ package org.alivepdf.encoding
 				tmp12 = tmp6 + tmp7;
 	
 				/* The rotator is modified from fig 4-8 to avoid extra negations. */
-				var z5:Number = (tmp10 - tmp12) * 0.382683433; /* c6 */
-				var z2:Number = 0.541196100 * tmp10 + z5; /* c2-c6 */
-				var z4:Number = 1.306562965 * tmp12 + z5; /* c2+c6 */
-				var z3:Number = tmp11 * 0.707106781; /* c4 */
+				var zz5:Number = (tmp10 - tmp12) * 0.382683433; /* c6 */
+				var zz2:Number = 0.541196100 * tmp10 + zz5; /* c2-c6 */
+				var zz4:Number = 1.306562965 * tmp12 + zz5; /* c2+c6 */
+				var zz3:Number = tmp11 * 0.707106781; /* c4 */
 	
-				var z11:Number = tmp7 + z3;	/* phase 5 */
-				var z13:Number = tmp7 - z3;
+				var z11:Number = tmp7 + zz3;	/* phase 5 */
+				var z13:Number = tmp7 - zz3;
 	
-				data[dataOff+5] = z13 + z2;	/* phase 6 */
-				data[dataOff+3] = z13 - z2;
-				data[dataOff+1] = z11 + z4;
-				data[dataOff+7] = z11 - z4;
+				data[dataOff+5] = z13 + zz2;	/* phase 6 */
+				data[dataOff+3] = z13 - zz2;
+				data[dataOff+1] = z11 + zz4;
+				data[dataOff+7] = z11 - zz4;
 	
 				dataOff += 8; /* advance pointer to next row */
 			}
@@ -483,7 +544,6 @@ package org.alivepdf.encoding
 		}
 	
 		// Core processing
-		internal var DU:Array = new Array(64);
 	
 		private function processDU(CDU:Array, fdtbl:Array, DC:Number, HTDC:Array, HTAC:Array):Number
 		{
@@ -527,21 +587,21 @@ package org.alivepdf.encoding
 					}
 				}
 			}
-			var i:int = 1;
-			while ( i <= end0pos ) {
-				var startpos:int = i;
-				for (; (DU[i]==0) && (i<=end0pos); i++) {
+			var iii:int = 1;
+			while ( iii <= end0pos ) {
+				var startpos:int = iii;
+				for (; (DU[iii]==0) && (iii<=end0pos); iii++) {
 				}
-				var nrzeroes:int = i-startpos;
+				var nrzeroes:int = iii-startpos;
 				if ( nrzeroes >= 16 ) {
 					for (var nrmarker:int=1; nrmarker <= nrzeroes/16; nrmarker++) {
 						writeBits(M16zeroes);
 					}
 					nrzeroes = int(nrzeroes&0xF);
 				}
-				writeBits(HTAC[nrzeroes*16+category[32767+DU[i]]]);
-				writeBits(bitcode[32767+DU[i]]);
-				i++;
+				writeBits(HTAC[nrzeroes*16+category[32767+DU[iii]]]);
+				writeBits(bitcode[32767+DU[iii]]);
+				iii++;
 			}
 			if ( end0pos != 63 ) {
 				writeBits(EOB);
@@ -549,87 +609,21 @@ package org.alivepdf.encoding
 			return DC;
 		}
 	
-		private var YDU:Array = new Array(64);
-		private var UDU:Array = new Array(64);
-		private var VDU:Array = new Array(64);
-	
 		private function RGB2YUV(img:BitmapData, xpos:int, ypos:int):void
 		{
 			var pos:int=0;
 			for (var y:int=0; y<8; y++) {
 				for (var x:int=0; x<8; x++) {
-					var P:uint = img.getPixel32(xpos+x,ypos+y);
-					var R:Number = Number((P>>16)&0xFF);
-					var G:Number = Number((P>> 8)&0xFF);
-					var B:Number = Number((P    )&0xFF);
-					YDU[pos]=((( 0.29900)*R+( 0.58700)*G+( 0.11400)*B))-128;
-					UDU[pos]=(((-0.16874)*R+(-0.33126)*G+( 0.50000)*B));
-					VDU[pos]=((( 0.50000)*R+(-0.41869)*G+(-0.08131)*B));
+					var PPP:uint = img.getPixel32(xpos+x,ypos+y);
+					var RRR:Number = Number((PPP>>16)&0xFF);
+					var GGG:Number = Number((PPP>> 8)&0xFF);
+					var BBB:Number = Number((PPP    )&0xFF);
+					YDU[pos]=((( 0.29900)*RRR+( 0.58700)*GGG+( 0.11400)*BBB))-128;
+					UDU[pos]=(((-0.16874)*RRR+(-0.33126)*GGG+( 0.50000)*BBB));
+					VDU[pos]=((( 0.50000)*RRR+(-0.41869)*GGG+(-0.08131)*BBB));
 					pos++;
 				}
 			}
-		}
-	
-		public function JPEGEncoder(quality:Number = 50)
-		{
-			if (quality <= 0) {
-				quality = 1;
-			}
-			if (quality > 100) {
-				quality = 100;
-			}
-			var sf:int = 0;
-			if (quality < 50) {
-				sf = int(5000 / quality);
-			} else {
-				sf = int(200 - quality*2);
-			}
-			// Create tables
-			initHuffmanTbl();
-			initCategoryNumber();
-			initQuantTables(sf);
-		}
-	
-		public function encode(image:BitmapData):ByteArray
-		{
-			// Initialize bit writer
-			byteout = new ByteArray();
-			bytenew=0;
-			bytepos=7;
-	
-			// Add JPEG headers
-			writeWord(0xFFD8); // SOI
-			writeAPP0();
-			writeDQT();
-			writeSOF0(image.width,image.height);
-			writeDHT();
-			writeSOS();
-
-			// Encode 8x8 macroblocks
-			var DCY:Number=0;
-			var DCU:Number=0;
-			var DCV:Number=0;
-			bytenew=0;
-			bytepos=7;
-			for (var ypos:int=0; ypos<image.height; ypos+=8) {
-				for (var xpos:int=0; xpos<image.width; xpos+=8) {
-					RGB2YUV(image, xpos, ypos);
-					DCY = processDU(YDU, fdtbl_Y, DCY, YDC_HT, YAC_HT);
-					DCU = processDU(UDU, fdtbl_UV, DCU, UVDC_HT, UVAC_HT);
-					DCV = processDU(VDU, fdtbl_UV, DCV, UVDC_HT, UVAC_HT);
-				}
-			}
-	
-			// Do the bit alignment of the EOI marker
-			if ( bytepos >= 0 ) {
-				var fillbits:BitString = new BitString();
-				fillbits.len = bytepos+1;
-				fillbits.val = (1<<(bytepos+1))-1;
-				writeBits(fillbits);
-			}
-	
-			writeWord(0xFFD9); //EOI
-			return byteout;
 		}
 	}
 }

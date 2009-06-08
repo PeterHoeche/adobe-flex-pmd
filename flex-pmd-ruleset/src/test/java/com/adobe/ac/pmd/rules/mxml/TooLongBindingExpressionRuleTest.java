@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -38,29 +39,6 @@ import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
 public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 54, 54 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -82,5 +60,14 @@ public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTes
       return new String[]
       { " text=\"\"/>",
                   "lala()" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 54, 54 ) } );
    }
 }

@@ -30,34 +30,30 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class CyclomaticComplexityRuleTest extends AbstractCommonAstFlexRuleTest
+public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "AbstractRowData.as" );
-      assertEmptyViolations( "Main.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "RadonDataGrid.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 160, 160 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new CyclomaticComplexityRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "PngEncoder.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 548, 548 ) } ),
+                       "RadonDataGrid.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 160, 160 ) } );
    }
 }

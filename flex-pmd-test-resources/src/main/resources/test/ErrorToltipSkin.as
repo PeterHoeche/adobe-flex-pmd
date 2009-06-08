@@ -165,8 +165,8 @@ package com.adobe.radon.core.skin
 			var shadowColor:uint = getStyle("shadowColor");
 			var shadowAlpha:Number = 0.1;
 
-			var g:Graphics = graphics;
-			g.clear();
+			var graphics:Graphics = graphics;
+			graphics.clear();
 
 			filters = [];
 
@@ -180,8 +180,8 @@ package com.adobe.radon.core.skin
 
 			var matrix:Matrix = new Matrix();
 			var boxRotation:Number = Math.PI/2; // 90Ëš
-			var tx:Number = 0;
-			var ty:Number = 0;
+			var txx:Number = 0;
+			var tyy:Number = 0;
 
 			switch (borderStyle)
 			{
@@ -214,7 +214,7 @@ package com.adobe.radon.core.skin
 				{
 					// border 
 					matrix.createGradientBox(w - 11, h - 2, boxRotation, tx, ty);
-					g.beginGradientFill(
+					graphics.beginGradientFill(
 						type, 
 						colors,
 						alphas,
@@ -228,7 +228,7 @@ package com.adobe.radon.core.skin
 						11, 0, w - 11, h - 2, 0 );
 
 					// left pointer 
-					g.beginGradientFill(
+					graphics.beginGradientFill(
 						type, 
 						colors,
 						alphas,
@@ -238,11 +238,11 @@ package com.adobe.radon.core.skin
 						interp, 
 						focalPtRatio);
 
-					g.moveTo(11, 7);
-					g.lineTo(0, 13);
-					g.lineTo(11, 19);
-					g.moveTo(11, 7);
-					g.endFill();
+					graphics.moveTo(11, 7);
+					graphics.lineTo(0, 13);
+					graphics.lineTo(11, 19);
+					graphics.moveTo(11, 7);
+					graphics.endFill();
 
 					filters = [ new DropShadowFilter(2, 90, 0, 0.4) ];
 					break;
@@ -252,7 +252,7 @@ package com.adobe.radon.core.skin
 				{
 					// border 
 					matrix.createGradientBox(w, h - 13, boxRotation, tx, ty);
-					g.beginGradientFill(
+					graphics.beginGradientFill(
 						type, 
 						colors,
 						alphas,
@@ -266,7 +266,7 @@ package com.adobe.radon.core.skin
 						0, 0, w, h - 13, 0 ); 
 
 					// bottom pointer 
-					g.beginGradientFill(
+					graphics.beginGradientFill(
 						type, 
 						colors,
 						alphas,
@@ -276,11 +276,11 @@ package com.adobe.radon.core.skin
 						interp, 
 						focalPtRatio);
 
-					g.moveTo(9, h - 13);
-					g.lineTo(15, h - 2);
-					g.lineTo(21, h - 13);
-					g.moveTo(9, h - 13);
-					g.endFill();
+					graphics.moveTo(9, h - 13);
+					graphics.lineTo(15, h - 2);
+					graphics.lineTo(21, h - 13);
+					graphics.moveTo(9, h - 13);
+					graphics.endFill();
 
 					filters = [ new DropShadowFilter(2, 90, 0, 0.4) ];
 					break;
@@ -290,7 +290,7 @@ package com.adobe.radon.core.skin
 				{
 					// border 
 					matrix.createGradientBox(w, h - 13, boxRotation, tx, ty);
-					g.beginGradientFill(
+					graphics.beginGradientFill(
 						type, 
 						colors,
 						alphas,
@@ -304,7 +304,7 @@ package com.adobe.radon.core.skin
 						0, 11, w, h - 13, 0 );
 
 					// top pointer 
-					g.beginGradientFill(
+					graphics.beginGradientFill(
 						type, 
 						colors,
 						alphas,
@@ -314,11 +314,11 @@ package com.adobe.radon.core.skin
 						interp, 
 						focalPtRatio);
 
-					g.moveTo(9, 11);
-					g.lineTo(15, 0);
-					g.lineTo(21, 11);
-					g.moveTo(10, 11);
-					g.endFill();
+					graphics.moveTo(9, 11);
+					graphics.lineTo(15, 0);
+					graphics.lineTo(21, 11);
+					graphics.moveTo(10, 11);
+					graphics.endFill();
 
 					filters = [ new DropShadowFilter(2, 90, 0, 0.4) ];
 					break;

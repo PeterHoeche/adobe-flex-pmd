@@ -30,37 +30,27 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractCommonAstFlexRuleTest
+public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTest
 {
-
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.VoidConstructor.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 38, 38 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new ConstructorNonEmptyReturnTypeRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.VoidConstructor.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 38, 38 ) } );
    }
 }

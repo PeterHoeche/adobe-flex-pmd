@@ -30,33 +30,27 @@
  */
 package com.adobe.ac.pmd.rules.as3.switchrules;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class IdenticalSwitchCasesRuleTest extends AbstractCommonAstFlexRuleTest
+public class IdenticalSwitchCasesRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.NestedSwitch.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 58, 58 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new IdenticalSwitchCasesRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.LongSwitch.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 58, 58 ) } );
    }
 }

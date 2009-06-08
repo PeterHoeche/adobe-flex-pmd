@@ -30,38 +30,31 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class UseTraceFunctionRuleTest extends AbstractCommonAstFlexRuleTest
+public class UseTraceFunctionRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "Main.mxml" );
-      assertEmptyViolations( "AbstractRowData.as" );
-      assertEmptyViolations( "DefaultNameEvent.as" );
-      assertEmptyViolations( "GenericType.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 74, 74 ),
-                                    new ViolationPosition( 75, 75 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new UseTraceFunctionRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "Simple.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 1, 1 ) } ),
+                       "com.adobe.ac.ncss.BigImporterModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 74, 74 ),
+                                   new ViolationPosition( 75, 75 ) } );
    }
 }

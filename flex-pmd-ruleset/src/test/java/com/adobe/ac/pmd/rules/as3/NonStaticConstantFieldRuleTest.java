@@ -30,34 +30,43 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class NonStaticConstantFieldRuleTest extends AbstractCommonAstFlexRuleTest
+public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.ArrayVO.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 38, 38 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new NonStaticConstantFieldRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                     "AbstractRowData.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 44, 44 ),
+                                                                 new ViolationPosition( 45, 45 ),
+                                                                 new ViolationPosition( 46, 46 ),
+                                                                 new ViolationPosition( 47, 47 ),
+                                                                 new ViolationPosition( 49, 49 ) } ),
+                                           "Sorted.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 43, 43 ),
+                                                       new ViolationPosition( 44, 44 ),
+                                                       new ViolationPosition( 45, 45 ),
+                                                       new ViolationPosition( 46, 46 ) } ),
+                                 "GenericType.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 36, 36 ) } ),
+                       "com.adobe.ac.ncss.ArrayVO.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 38, 38 ) } );
    }
 }

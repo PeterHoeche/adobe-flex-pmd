@@ -30,40 +30,31 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class BadCairngormEventNameFormatRuleTest extends AbstractCommonAstFlexRuleTest
+public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "AbstractRowData.as" );
-      assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
-      assertEmptyViolations( "cairngorm.events.CorrectConstructorEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      final ViolationPosition[] positions =
-      { new ViolationPosition( 38, 38 ) };
-
-      assertViolations( "cairngorm.events.UncorrectConstructorEvent.as",
-                        positions );
-      assertViolations( "cairngorm.events.UncorrectConstantEvent.as",
-                        positions );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new BadCairngormEventNameFormatRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      final ViolationPosition[] positions =
+      { new ViolationPosition( 38, 38 ) };
+
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "cairngorm.events.UncorrectConstructorEvent.as",
+                                 positions ),
+                       "cairngorm.events.UncorrectConstantEvent.as",
+                       positions );
    }
 }

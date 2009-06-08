@@ -30,58 +30,64 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class WronglyOrderedClassElementRuleTest extends AbstractCommonAstFlexRuleTest
+public class WronglyOrderedClassElementRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-      assertEmptyViolations( "cairngorm.FatController.as" );
-      assertEmptyViolations( "Sorted.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 44, 44 ),
-                                    new ViolationPosition( 45, 45 ),
-                                    new ViolationPosition( 46, 46 ),
-                                    new ViolationPosition( 47, 47 ),
-                                    new ViolationPosition( 43, 43 ),
-                                    new ViolationPosition( 89, 89 ) } );
-      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 43, 43 ) } );
-      assertViolations( "cairngorm.LightController.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 116, 116 ),
-                                    new ViolationPosition( 135, 135 ) } );
-      assertViolations( "com.adobe.ac.ncss.ArrayVO.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 38, 38 ) } );
-      assertViolations( "com.adobe.ac.ncss.TestResult.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 79, 79 ),
-                                    new ViolationPosition( 102, 102 ),
-                                    new ViolationPosition( 118, 118 ),
-                                    new ViolationPosition( 230, 230 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new WronglyOrderedClassElementRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      final Map< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
+
+      addToMap( addToMap( addToMap( violations,
+                                    "cairngorm.NonBindableModelLocator.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 39, 39 ),
+                                                new ViolationPosition( 44, 44 ) } ),
+                          "WorkEvent.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 72, 72 ) } ),
+                "GenericType.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 36, 36 ) } );
+
+      addToMap( addToMap( addToMap( violations,
+                                    "com.adobe.ac.ncss.TestResult.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 79, 79 ),
+                                                new ViolationPosition( 102, 102 ),
+                                                new ViolationPosition( 118, 118 ),
+                                                new ViolationPosition( 230, 230 ) } ),
+                          "com.adobe.ac.ncss.ArrayVO.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 38, 38 ) } ),
+                "cairngorm.LightController.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 116, 116 ),
+                            new ViolationPosition( 135, 135 ) } );
+
+      return addToMap( addToMap( violations,
+                                 "com.adobe.ac.ncss.ConfigProxy.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 43, 43 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 44, 44 ),
+                                   new ViolationPosition( 45, 45 ),
+                                   new ViolationPosition( 46, 46 ),
+                                   new ViolationPosition( 47, 47 ),
+                                   new ViolationPosition( 43, 43 ),
+                                   new ViolationPosition( 89, 89 ) } );
    }
 }

@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -38,29 +39,6 @@ import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
 public class NestedContainerRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 41, 41 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -92,5 +70,14 @@ public class NestedContainerRuleTest extends AbstractRegExpBasedRuleTest
                   "<Image",
                   "<mx:Image",
                   "<Label" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.mxml.NestedComponent.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 41, 41 ) } );
    }
 }

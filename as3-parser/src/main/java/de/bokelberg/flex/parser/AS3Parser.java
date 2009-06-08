@@ -67,10 +67,10 @@ public class AS3Parser implements IAS3Parser
    }
 
    public IParserNode buildAst( final String filePath,
-                                final String[] lines ) throws TokenException
+                                final String[] scriptBlockLines ) throws TokenException
    {
       return parseLines( filePath,
-                         lines );
+                         scriptBlockLines );
    }
 
    /**
@@ -1004,7 +1004,7 @@ public class AS3Parser implements IAS3Parser
          result.addChild( NodeKind.NAME,
                           tok.line,
                           tok.column,
-                          tok.text ); // TODO: Qualified
+                          tok.text );
          // names allowed?
          nextToken();
       }
@@ -1376,8 +1376,7 @@ public class AS3Parser implements IAS3Parser
       if ( tokIs( Operators.COLUMN ) )
       {
          nextToken();
-         result.setStringValue( tok.text ); // TODO: What about qualified names
-         // here?
+         result.setStringValue( tok.text );
          nextToken();
       }
       return result;
@@ -1510,15 +1509,7 @@ public class AS3Parser implements IAS3Parser
    private IParserNode parseReturnStatement() throws TokenException
    {
       Node result;
-      /**
-       * TODO How can we decide if return needs an expression? The type of a
-       * method is optional, so we cant really derive it from the context. Aaah,
-       * i know! That is why the expression needs to start on the same line! So
-       * either the next symbol is a semicolon, which means no expression, or we
-       * have something else on the same line, which should parse as a
-       * expression. In Java it is a bit different, because the semicolon at the
-       * end of the line is mandatory.
-       */
+
       nextTokenAllowNewLine();
       if ( tokIs( NEW_LINE )
             || tokIs( Operators.SEMI_COLUMN ) )
@@ -1747,12 +1738,6 @@ public class AS3Parser implements IAS3Parser
       return node;
    }
 
-   /**
-    * tok is use TODO: we could maintain a table of namespaces and allow the
-    * valid ones only
-    * 
-    * @throws TokenException
-    */
    private Node parseUse() throws TokenException
    {
       consume( KeyWords.USE );

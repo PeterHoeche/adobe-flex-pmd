@@ -30,38 +30,43 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
-public class OverLongLineRuleTest extends AbstractCommonFlexRuleTest
+public class OverLongLineRuleTest extends AbstractFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.ConfigProxy.as" );
-      assertEmptyViolations( "cairngorm.FatController.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 45, 45 ),
-                                    new ViolationPosition( 46, 46 ),
-                                    new ViolationPosition( 48, 48 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new OverLongLineRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                               "SkinStyles.as",
+                                                               new ViolationPosition[]
+                                                               { new ViolationPosition( 82, 82 ) } ),
+                                                     "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 54, 54 ) } ),
+                                           "RadonDataGrid.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 68, 68 ),
+                                                       new ViolationPosition( 84, 84 ),
+                                                       new ViolationPosition( 117, 117 ) } ),
+                                 "Simple.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 1, 1 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 45, 45 ),
+                                   new ViolationPosition( 46, 46 ),
+                                   new ViolationPosition( 48, 48 ) } );
    }
 }

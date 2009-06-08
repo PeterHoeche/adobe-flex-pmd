@@ -30,45 +30,39 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class BadFormatLogerRuleTest extends AbstractCommonAstFlexRuleTest
+public class BadFormatLogerRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.SearchBarEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 43, 43 ),
-                                    new ViolationPosition( 44, 44 ),
-                                    new ViolationPosition( 44, 44 ),
-                                    new ViolationPosition( 45, 45 ),
-                                    new ViolationPosition( 45, 45 ),
-                                    new ViolationPosition( 46, 46 ),
-                                    new ViolationPosition( 46, 46 ),
-                                    new ViolationPosition( 47, 47 ),
-                                    new ViolationPosition( 48, 48 ),
-                                    new ViolationPosition( 49, 49 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new BadFormatLogerRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.cairngorm.work.SequenceWorkFlow.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 49, 49 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 43, 43 ),
+                                   new ViolationPosition( 44, 44 ),
+                                   new ViolationPosition( 44, 44 ),
+                                   new ViolationPosition( 45, 45 ),
+                                   new ViolationPosition( 45, 45 ),
+                                   new ViolationPosition( 46, 46 ),
+                                   new ViolationPosition( 46, 46 ),
+                                   new ViolationPosition( 47, 47 ),
+                                   new ViolationPosition( 48, 48 ),
+                                   new ViolationPosition( 49, 49 ) } );
    }
 }

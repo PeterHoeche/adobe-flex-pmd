@@ -44,7 +44,7 @@ package com.adobe.ac
       public function BigModel()
       {         
          return;
-         var i : lala;
+         var iLala : lala;
       }
 
       public function foo() : void

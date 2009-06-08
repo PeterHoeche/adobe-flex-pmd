@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -45,26 +46,14 @@ public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
    }
 
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      assertEmptyViolations( "Main.mxml" );
-      assertEmptyViolations( "MainWithModelLocator.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 39, 91 ) } );
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "DeleteButtonRenderer.mxml",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 48, 104 ) } ),
+                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 39, 91 ) } );
    }
 }

@@ -30,35 +30,32 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class TooLongSwitchCaseRuleTest extends AbstractCommonAstFlexRuleTest
+public class TooLongSwitchCaseRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 47, 47 ),
-                                    new ViolationPosition( 52, 52 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new TooLongSwitchCaseRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.ac.ncss.NestedSwitch.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 38, 38 ),
+                                             new ViolationPosition( 58, 58 ) } ),
+                       "com.adobe.ac.ncss.LongSwitch.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 47, 47 ),
+                                   new ViolationPosition( 52, 52 ) } );
    }
 }

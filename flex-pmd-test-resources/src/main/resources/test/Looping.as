@@ -43,20 +43,20 @@ package
             new Foo();
             while( true )
             {
-               var o : Object = new Object();
+               new Object();
             }
             for each ( var i : Object in list )
             {
-               var o : Object = new Object();
+               new Object();
             }
          }
-         var i : Objecy = new Object();
+         new Object();
          for each ( var i : Object in list )
          {
             new Foo();
             while( true )
             {
-               var o : Object = new Object();
+               new Object();
             }
             for each ( var i : Object in list )
             {
@@ -68,11 +68,11 @@ package
             new Foo();
             while( true )
             {
-               var o : Object = new Object();
+               new Object();
             }
             for each ( var i : Object in list )
             {
-               var o : Object = new Object();
+               new Object();
             }
          }
       }

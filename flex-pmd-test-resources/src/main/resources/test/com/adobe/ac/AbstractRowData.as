@@ -99,12 +99,12 @@ package flexunit.flexui.data
       
       public function get formattedAssertionsMade() : String
       {
-         var f : NumberFormatter = new NumberFormatter();
+         var formatter : NumberFormatter = new NumberFormatter();
          
-         f.precision = 2;
-         f.rounding = "nearest";
+         formatter.precision = 2;
+         formatter.rounding = "nearest";
          
-         return f.format( assertionsMade );
+         return formatter.format( assertionsMade );
       }
       
       /**

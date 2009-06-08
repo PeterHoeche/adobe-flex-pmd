@@ -30,34 +30,27 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class UntypedEventMetadataRuleTest extends AbstractCommonAstFlexRuleTest
+public class UntypedEventMetadataRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "UnboundMetadata.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 41, 41 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new UntypedEventMetadataRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "UnboundMetadata.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 41, 41 ) } );
    }
 }

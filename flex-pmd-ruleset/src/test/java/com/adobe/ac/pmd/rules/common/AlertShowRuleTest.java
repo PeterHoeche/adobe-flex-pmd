@@ -30,30 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class AlertShowRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.ConfigProxy.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 48, 48 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -79,5 +64,14 @@ public class AlertShowRuleTest extends AbstractCommonRegExpBasedRuleTest
                   "lert.show( \"something\" );",
                   "Alrt.show(\"something\");",
                   "ScoyoAlert.show(" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.ConfigProxy.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 48, 48 ) } );
    }
 }

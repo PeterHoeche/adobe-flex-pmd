@@ -30,34 +30,35 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class TooManyParametersRuleTest extends AbstractCommonAstFlexRuleTest
+public class TooManyParametersRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 62, 62 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new TooManyParametersRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "RadonDataGrid.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 68, 69 ),
+                                                       new ViolationPosition( 84, 85 ),
+                                                       new ViolationPosition( 117, 118 ) } ),
+                                 "PngEncoder.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 548, 548 ) } ),
+                       "com.adobe.ac.ncss.BigImporterModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 62, 62 ) } );
    }
 }

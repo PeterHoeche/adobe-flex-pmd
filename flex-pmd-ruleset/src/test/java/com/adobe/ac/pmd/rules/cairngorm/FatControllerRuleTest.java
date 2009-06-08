@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -39,33 +40,17 @@ import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 public class FatControllerRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "cairngorm.LightController.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "AbstractRowData.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "cairngorm.FatController.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 95, 196 ) } );
-   }
-
-   @Override
    protected AbstractFlexRule getRule()
    {
       return new FatControllerRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "cairngorm.FatController.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 95, 196 ) } );
    }
 }

@@ -30,33 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class CallLaterDirectlyRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class CallLaterDirectlyRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "Looping.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "Main.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 36, 36 ) } );
-      assertViolations( "GenericType.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 41, 41 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -77,5 +59,17 @@ public class CallLaterDirectlyRuleTest extends AbstractCommonRegExpBasedRuleTest
       return new String[]
       { "callLate( myFunction)",
                   " allLater(myFunction)" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "Main.mxml",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 36, 36 ) } ),
+                       "GenericType.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 41, 41 ) } );
    }
 }

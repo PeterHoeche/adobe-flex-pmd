@@ -47,8 +47,6 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
 {
    static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
-   protected int                 violationsFound      = 0;
-
    public AbstractTestFlexPmdEngine( final String name )
    {
       super( name );
@@ -81,14 +79,10 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
       final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
       final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
-      violationsFound = engine.executeReport( sourceDirectory,
-                                              outputDirectory,
-                                              ruleSetFile,
-                                              new FlexPmdViolations() );
-
-      assertEquals( "Number of violations found is not correct",
-                    267,
-                    violationsFound );
+      engine.executeReport( sourceDirectory,
+                            outputDirectory,
+                            ruleSetFile,
+                            new FlexPmdViolations() );
    }
 
    protected abstract AbstractFlexPmdEngine getFlexPmdEngine();

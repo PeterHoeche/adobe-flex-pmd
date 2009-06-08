@@ -30,30 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.as3.naming;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class TooShortVariableRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "GenericType.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 86, 86 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -77,5 +62,21 @@ public class TooShortVariableRuleTest extends AbstractCommonRegExpBasedRuleTest
       return new String[]
       { "function lala() : Number",
                   "lala();" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "PngEncoder.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 47, 47 ),
+                                                       new ViolationPosition( 358, 358 ) } ),
+                                 "Looping.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 63, 63 ) } ),
+                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 86, 86 ) } );
    }
 }

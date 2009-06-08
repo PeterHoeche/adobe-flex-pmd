@@ -40,5 +40,6 @@ public interface IAS3Parser
                                                 TokenException;
 
    IParserNode buildAst( final String filePath,
-                         final String[] lines ) throws TokenException;
+                         final String[] scriptBlockLines ) throws IOException,
+                                                          TokenException;
 }

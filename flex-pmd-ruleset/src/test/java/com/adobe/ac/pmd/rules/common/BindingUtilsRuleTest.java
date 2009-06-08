@@ -30,30 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class BindingUtilsRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class BindingUtilsRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "cairngorm.FatController.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 99, 99 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -77,5 +62,14 @@ public class BindingUtilsRuleTest extends AbstractCommonRegExpBasedRuleTest
                   " var i : int = 0;",
                   ".BindingUtils",
                   " BindingUtilsT" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "cairngorm.FatController.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 99, 99 ) } );
    }
 }

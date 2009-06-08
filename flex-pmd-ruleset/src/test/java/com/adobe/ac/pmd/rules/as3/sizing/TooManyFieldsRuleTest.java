@@ -30,34 +30,36 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class TooManyFieldsRuleTest extends AbstractCommonAstFlexRuleTest
+public class TooManyFieldsRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 35, 35 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new TooManyFieldsRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                     "com.adobe.ac.ncss.TestResult.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 44, 44 ) } ),
+                                           "Sorted.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 37, 37 ) } ),
+                                 "PngEncoder.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 42, 42 ) } ),
+                       "com.adobe.ac.ncss.BigModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 35, 35 ) } );
    }
 }

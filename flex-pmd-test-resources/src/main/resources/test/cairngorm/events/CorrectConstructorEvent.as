@@ -42,7 +42,7 @@ package cairngorm.events
          super( "functionalArea.eventName", model );
       }
       
-      public override CorrectConstructorEvent clone() : Event
+      public override function clone() : Event
       {
          return new EventNameEvent( model );
       }

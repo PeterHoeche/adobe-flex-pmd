@@ -40,13 +40,14 @@ import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
+abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
 {
    private int lastPublicVarLine = 0;
    private int publicVarCount    = 0;
 
    abstract public int getThreshold();
 
+   @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
    {
       return file.isMxml();

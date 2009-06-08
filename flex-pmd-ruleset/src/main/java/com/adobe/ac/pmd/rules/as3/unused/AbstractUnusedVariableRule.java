@@ -36,7 +36,7 @@ import java.util.Map;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-public abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
+abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
 {
    protected Map< String, IParserNode > variablesUnused;
 

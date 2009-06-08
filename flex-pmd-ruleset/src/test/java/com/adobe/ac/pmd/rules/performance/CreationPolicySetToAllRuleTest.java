@@ -30,30 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class CreationPolicySetToAllRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class CreationPolicySetToAllRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "MainWithModelLocator.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "Main.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 37, 37 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -73,5 +58,14 @@ public class CreationPolicySetToAllRuleTest extends AbstractCommonRegExpBasedRul
    {
       return new String[]
       { "creationPolic=" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "Main.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 37, 37 ) } );
    }
 }

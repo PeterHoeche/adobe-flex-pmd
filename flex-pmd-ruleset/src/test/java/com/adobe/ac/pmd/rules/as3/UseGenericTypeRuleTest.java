@@ -30,39 +30,32 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class UseGenericTypeRuleTest extends AbstractCommonAstFlexRuleTest
+public class UseGenericTypeRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "GenericType.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 46, 46 ),
-                                    new ViolationPosition( 36, 36 ),
-                                    new ViolationPosition( 37, 37 ),
-                                    new ViolationPosition( 35, 35 ),
-                                    new ViolationPosition( 39, 39 ),
-                                    new ViolationPosition( 44, 44 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new UseGenericTypeRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "GenericType.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 46, 46 ),
+                                   new ViolationPosition( 36, 36 ),
+                                   new ViolationPosition( 37, 37 ),
+                                   new ViolationPosition( 35, 35 ),
+                                   new ViolationPosition( 39, 39 ),
+                                   new ViolationPosition( 44, 44 ) } );
    }
 }

@@ -30,30 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class ExcessiveImportRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class ExcessiveImportRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 0, 0 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -75,5 +60,20 @@ public class ExcessiveImportRuleTest extends AbstractCommonRegExpBasedRuleTest
       { "   function lala() : void",
                   "var lala : Number",
                   "important" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "cairngorm.LightController.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 0, 0 ) } ),
+                                 "cairngorm.FatController.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 0, 0 ) } ),
+                       "com.adobe.ac.ncss.BigImporterModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 0, 0 ) } );
    }
 }

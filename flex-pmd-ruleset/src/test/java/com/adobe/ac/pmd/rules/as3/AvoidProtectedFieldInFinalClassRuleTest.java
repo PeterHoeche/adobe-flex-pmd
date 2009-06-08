@@ -30,37 +30,28 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class AvoidProtectedFieldInFinalClassRuleTest extends AbstractCommonAstFlexRuleTest
+public class AvoidProtectedFieldInFinalClassRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "BadComponent.as" );
-      assertEmptyViolations( "Looping.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 43, 43 ),
-                                    new ViolationPosition( 89, 89 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new AvoidProtectedFieldInFinalClassRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 43, 43 ),
+                                   new ViolationPosition( 89, 89 ) } );
    }
 }

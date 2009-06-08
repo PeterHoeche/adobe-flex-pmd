@@ -30,43 +30,46 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class UnusedParameterRuleTest extends AbstractCommonAstFlexRuleTest
+public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 62, 62 ),
-                                    new ViolationPosition( 62, 62 ),
-                                    new ViolationPosition( 62, 62 ),
-                                    new ViolationPosition( 62, 62 ) } );
-      assertViolations( "Sorted.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 58, 58 ),
-                                    new ViolationPosition( 67, 67 ) } );
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 84, 84 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new UnusedParameterRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                                         "RadonDataGrid.as",
+                                                                         new ViolationPosition[]
+                                                                         { new ViolationPosition( 118, 118 ) } ),
+                                                               "cairngorm.NonBindableModelLocator.as",
+                                                               new ViolationPosition[]
+                                                               { new ViolationPosition( 43, 43 ) } ),
+                                                     "GenericType.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 44, 44 ) } ),
+                                           "com.adobe.ac.ncss.BigImporterModel.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 62, 62 ),
+                                                       new ViolationPosition( 62, 62 ),
+                                                       new ViolationPosition( 62, 62 ),
+                                                       new ViolationPosition( 62, 62 ) } ),
+                                 "Sorted.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 58, 58 ),
+                                             new ViolationPosition( 67, 67 ) } ),
+                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 84, 84 ) } );
    }
 }

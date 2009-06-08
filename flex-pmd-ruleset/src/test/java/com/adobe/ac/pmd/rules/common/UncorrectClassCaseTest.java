@@ -30,33 +30,33 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
-public class UncorrectClassCaseTest extends AbstractCommonFlexRuleTest
+public class UncorrectClassCaseTest extends AbstractFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.foo.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 1, 34 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new UncorrectClassCase();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "schedule_internal.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 1, 34 ) } ),
+                                 "sprintf.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 1, 358 ) } ),
+                       "com.adobe.ac.foo.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 1, 34 ) } );
    }
 }

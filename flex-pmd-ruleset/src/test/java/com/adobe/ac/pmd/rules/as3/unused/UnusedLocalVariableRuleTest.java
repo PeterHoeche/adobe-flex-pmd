@@ -30,37 +30,54 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class UnusedLocalVariableRuleTest extends AbstractCommonAstFlexRuleTest
+public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 64, 64 ) } );
-      assertViolations( "com.adobe.ac.ncss.BigModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 47, 47 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new UnusedLocalVariableRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
+
+      addToMap( addToMap( addToMap( violations,
+                                    "com.adobe.ac.ncss.BigImporterModel.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 64, 64 ) } ),
+                          "GenericType.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 46, 46 ) } ),
+                "ErrorToltipSkin.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 163, 163 ),
+                            new ViolationPosition( 166, 166 ),
+                            new ViolationPosition( 184, 184 ),
+                            new ViolationPosition( 183, 183 ),
+                            new ViolationPosition( 165, 165 ) } );
+
+      return addToMap( addToMap( addToMap( addToMap( violations,
+                                                     "DeleteButtonRenderer.mxml",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 69, 69 ) } ),
+                                           "com.adobe.ac.ncss.VoidConstructor.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 40, 40 ) } ),
+                                 "RadonDataGrid.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 101, 101 ),
+                                             new ViolationPosition( 100, 100 ) } ),
+                       "com.adobe.ac.ncss.BigModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 47, 47 ) } );
    }
 }

@@ -261,11 +261,6 @@ public function foo() : void
 		<description />
 		<priority>1</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.DeadCodeRule"
-		message="There are some dead code here.">
-		<description>In computer programming, unreachable code, or dead code, is code that exists in the source code of a program but can never be executed.</description>
-		<priority>3</priority>
-	</rule>
 	<rule since="0.1"
 		class="com.adobe.ac.pmd.rules.as3.event.DispatchHardCodedEventNameRule"
 		message="DispatchEvent function must dispatch constant strings">

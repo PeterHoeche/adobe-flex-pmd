@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -39,33 +40,17 @@ import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 public class DefaultEventNameRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
-      assertEmptyViolations( "cairngorm.events.CorrectConstructorEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "DefaultNameEvent.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 38, 38 ) } );
-   }
-
-   @Override
    protected AbstractFlexRule getRule()
    {
       return new DefaultEventNameRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "DefaultNameEvent.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 38, 38 ) } );
    }
 }

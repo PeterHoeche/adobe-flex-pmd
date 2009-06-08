@@ -30,35 +30,22 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
-public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractCommonFlexRuleTest
+public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
-                        iterationsList2Violations() );
-
-      assertViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                        iterationsListViolations() );
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                                 iterationsListViolations() ),
+                       "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                       iterationsList2Violations() );
    }
 
    abstract protected ViolationPosition[] iterationsList2Violations();

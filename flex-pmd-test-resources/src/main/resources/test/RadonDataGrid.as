@@ -71,11 +71,11 @@ package com.adobe.radon.core.controls
             super.drawSelectionIndicator( indicator, x, y, width, height, color, itemRenderer );
             var realWidth : Number = unscaledWidth - viewMetrics.left - viewMetrics.right;
 
-            var g : Graphics = Sprite( indicator ).graphics;
-            g.clear();
-            g.beginFill( 0xFFFFFF, 0.15 );
-            g.drawRect( 0, 0, realWidth, height );
-            g.endFill();
+            var graphics : Graphics = Sprite( indicator ).graphics;
+            graphics.clear();
+            graphics.beginFill( 0xFFFFFF, 0.15 );
+            graphics.drawRect( 0, 0, realWidth, height );
+            graphics.endFill();
 
             indicator.x = x;
             indicator.y = y;
@@ -97,18 +97,18 @@ package com.adobe.radon.core.controls
 
             var matrix : Matrix = new Matrix();
             var boxRotation : Number = Math.PI / 2; // 90˚
-            var tx : Number = 0;
-            var ty : Number = 0;
+            var txx : Number = 0;
+            var tyy : Number = 0;
 
-            var g : Graphics = Sprite( indicator ).graphics;
-            g.clear();
+            var graphics : Graphics = Sprite( indicator ).graphics;
+            graphics.clear();
 
             matrix.createGradientBox( realWidth, height, boxRotation, tx, ty );
-            g.beginGradientFill( type, colors, alphas, ratios, matrix, spreadMethod, interp, focalPtRatio );
+            graphics.beginGradientFill( type, colors, alphas, ratios, matrix, spreadMethod, interp, focalPtRatio );
 
-            //g.beginFill(color);
-            g.drawRect( 0, 0, realWidth, height );
-            g.endFill();
+            //graphics.beginFill(color);
+            graphics.drawRect( 0, 0, realWidth, height );
+            graphics.endFill();
 
             indicator.x = x;
             indicator.y = y;
@@ -138,8 +138,8 @@ package com.adobe.radon.core.controls
             // it would extend below the bottom of listContent
             var height : Number = Math.min( height, contentHolder.height - y );
 
-            var g : Graphics = background.graphics;
-            g.clear();
+            var graphics : Graphics = background.graphics;
+            graphics.clear();
 
             var backgroundAlpha : Number = getStyle( "backgroundAlpha" );
 
@@ -152,9 +152,9 @@ package com.adobe.radon.core.controls
                 backgroundAlpha = 0.04;
             }
 
-            g.beginFill( color, backgroundAlpha );
-            g.drawRect( 0, 0, contentHolder.width, height );
-            g.endFill();
+            graphics.beginFill( color, backgroundAlpha );
+            graphics.drawRect( 0, 0, contentHolder.width, height );
+            graphics.endFill();
         }
 
         override protected function placeSortArrow() : void

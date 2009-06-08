@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -38,34 +39,6 @@ import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
 public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigImporterModel.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "filters.MyPopup.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 37, 37 ) } );
-
-      assertViolations( "filters.MyPopup.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 41, 41 ),
-                                    new ViolationPosition( 44, 44 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -89,5 +62,18 @@ public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
       { ".filterFunction",
                   "DropShadowfilter(" };
       return lines;
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "filters.MyPopup.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 37, 37 ) } ),
+                       "filters.MyPopup.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 41, 41 ),
+                                   new ViolationPosition( 44, 44 ) } );
    }
 }

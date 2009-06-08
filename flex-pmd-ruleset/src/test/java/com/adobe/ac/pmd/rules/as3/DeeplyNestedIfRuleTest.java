@@ -30,38 +30,33 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class DeeplyNestedIfRuleTest extends AbstractCommonAstFlexRuleTest
+public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "RadonDataGrid.as" );
-      assertEmptyViolations( "SkinStyles.as" );
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "PngEncoder.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 518, 518 ),
-                                    new ViolationPosition( 516, 516 ),
-                                    new ViolationPosition( 524, 524 ),
-                                    new ViolationPosition( 516, 516 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new DeeplyNestedIfRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.ac.AbstractRowData.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 59, 59 ) } ),
+                       "PngEncoder.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 578, 578 ),
+                                   new ViolationPosition( 576, 576 ),
+                                   new ViolationPosition( 584, 584 ),
+                                   new ViolationPosition( 576, 576 ) } );
    }
 }

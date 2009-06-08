@@ -30,38 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class ImportFromSamePackageRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class ImportFromSamePackageRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "AbstractRowData.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.ConfigProxy.as" );
-      assertEmptyViolations( "cairngorm.FatController.as" );
-      assertEmptyViolations( "Sorted.as" );
-      assertEmptyViolations( "cairngorm.LightController.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.ArrayVO.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.TestResult.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.BigImporterModel.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 34, 34 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -85,5 +62,14 @@ public class ImportFromSamePackageRuleTest extends AbstractCommonRegExpBasedRule
                   " Alert.show( ",
                   " Alert.show( \"something\" );",
                   " Alert.show(\"something\"); function importData()" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.BigImporterModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 34, 34 ) } );
    }
 }

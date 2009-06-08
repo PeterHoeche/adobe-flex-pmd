@@ -30,30 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
-public class ListenForHardCodedEventNameRuleTest extends AbstractCommonRegExpBasedRuleTest
+public class ListenForHardCodedEventNameRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 108, 108 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -76,5 +61,14 @@ public class ListenForHardCodedEventNameRuleTest extends AbstractCommonRegExpBas
       { "addEventListener( CHANGE, handleChange );",
                   "addEventListener(CHANGE,handleChange);",
                   "addEventListener( CHANGE," };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 108, 108 ) } );
    }
 }

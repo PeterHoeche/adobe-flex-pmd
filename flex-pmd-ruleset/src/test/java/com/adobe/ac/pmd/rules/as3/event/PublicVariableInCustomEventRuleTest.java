@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -38,31 +39,6 @@ import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
 public class PublicVariableInCustomEventRuleTest extends AbstractRegExpBasedRuleTest
 {
-
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.VoidConstructor.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 35, 35 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -82,5 +58,17 @@ public class PublicVariableInCustomEventRuleTest extends AbstractRegExpBasedRule
       return new String[]
       { "private var _lala : int",
                   "lala()" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.ac.ncss.event.DynamicCustomEvent.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 35, 35 ) } ),
+                       "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 35, 35 ) } );
    }
 }

@@ -30,34 +30,49 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class TooLongFunctionRuleTest extends AbstractCommonAstFlexRuleTest
+public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.event.SecondCustomEvent.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "com.adobe.ac.ncss.LongSwitch.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 39, 39 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new TooLongFunctionRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                                         "ErrorToltipSkin.as",
+                                                                         new ViolationPosition[]
+                                                                         { new ViolationPosition( 94, 94 ),
+                                                                                     new ViolationPosition( 156,
+                                                                                                            156 ) } ),
+                                                               "PngEncoder.as",
+                                                               new ViolationPosition[]
+                                                               { new ViolationPosition( 150, 150 ),
+                                                                           new ViolationPosition( 192, 192 ),
+                                                                           new ViolationPosition( 335, 335 ),
+                                                                           new ViolationPosition( 492, 492 ),
+                                                                           new ViolationPosition( 548, 548 ) } ),
+                                                     "RadonDataGrid.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 84, 84 ),
+                                                                 new ViolationPosition( 117, 117 ) } ),
+                                           "cairngorm.FatController.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 97, 97 ) } ),
+                                 "com.adobe.ac.ncss.TestResult.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 227, 227 ) } ),
+                       "com.adobe.ac.ncss.LongSwitch.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 39, 39 ) } );
    }
 }

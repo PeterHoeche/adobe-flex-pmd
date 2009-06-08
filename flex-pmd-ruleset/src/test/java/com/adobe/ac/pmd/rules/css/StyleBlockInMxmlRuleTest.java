@@ -30,7 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.css;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -38,29 +39,6 @@ import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
 
 public class StyleBlockInMxmlRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "MainWithModelLocator.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "cairngorm.events.CorrectConstantEvent.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "Main.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 50, 50 ) } );
-   }
-
    @Override
    protected String[] getMatchableLines()
    {
@@ -93,5 +71,14 @@ public class StyleBlockInMxmlRuleTest extends AbstractRegExpBasedRuleTest
                   "<Panel",
                   "<ViewStack",
                   "<mx:Style/>" };
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "Main.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 50, 50 ) } );
    }
 }

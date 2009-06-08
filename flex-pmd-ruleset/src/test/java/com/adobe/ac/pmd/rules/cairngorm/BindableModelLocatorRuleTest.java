@@ -30,8 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,31 +40,17 @@ import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 public class BindableModelLocatorRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "cairngorm.NonBindableModelLocator.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "cairngorm.BindableModelLocator.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 33, 33 ) } );
-   }
-
-   @Override
    protected AbstractFlexRule getRule()
    {
       return new BindableModelLocatorRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "cairngorm.BindableModelLocator.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 33, 33 ) } );
    }
 }

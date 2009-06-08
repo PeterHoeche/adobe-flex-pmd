@@ -89,7 +89,7 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
       final Matcher matcher = getMatcher( line );
       boolean result = false;
 
-      if ( !line.contains( "for " )
+      if ( !line.contains( "for" )
             && matcher.matches() )
       {
          length = matcher.group( 1 ).trim().length();

@@ -30,8 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,33 +40,23 @@ import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.ncss.BigModel.as" );
-      assertEmptyViolations( "cairngorm.NonBindableModelLocator.as" );
-      assertEmptyViolations( "Main.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessNonConcernedFiles()
-   {
-      assertEmptyViolations( "MainWithModelLocator.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 33, 33 ) } );
-   }
-
-   @Override
    protected AbstractFlexRule getRule()
    {
       return new ReferenceModelLocatorOutsideTheMainApplicationRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "UnboundMetadata.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 33, 33 ) } ),
+                                 "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 41, 41 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 33, 33 ) } );
    }
 }

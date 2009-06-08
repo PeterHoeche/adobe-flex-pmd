@@ -30,36 +30,37 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class EmptyIfStmtRuleTest extends AbstractCommonAstFlexRuleTest
+public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "com.adobe.ac.AbstractRowData.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.LongSwitch.as" );
-      assertEmptyViolations( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "AbstractRowData.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 105, 107 ),
-                                    new ViolationPosition( 112, 112 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new EmptyIfStmtRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "PngEncoder.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 578, 580 ),
+                                                       new ViolationPosition( 584, 586 ) } ),
+                                 "RadonDataGrid.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 63, 65 ),
+                                             new ViolationPosition( 190, 192 ),
+                                             new ViolationPosition( 194, 196 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 105, 107 ),
+                                   new ViolationPosition( 112, 112 ) } );
    }
 }

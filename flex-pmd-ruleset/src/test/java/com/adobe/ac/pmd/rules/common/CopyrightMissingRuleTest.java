@@ -30,37 +30,30 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractCommonFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
-public class CopyrightMissingRuleTest extends AbstractCommonFlexRuleTest
+public class CopyrightMissingRuleTest extends AbstractFlexRuleTest
 {
-   @Override
-   @Test
-   public void testProcessConcernedButNonViolatingFiles()
-   {
-      assertEmptyViolations( "Main.mxml" );
-      assertEmptyViolations( "AbstractRowData.as" );
-   }
-
-   @Override
-   @Test
-   public void testProcessViolatingFiles()
-   {
-      assertViolations( "Simple.as",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 0, 0 ) } );
-      assertViolations( "MainWithNoCopyright.mxml",
-                        new ViolationPosition[]
-                        { new ViolationPosition( 0, 0 ) } );
-   }
-
    @Override
    protected AbstractFlexRule getRule()
    {
       return new CopyrightMissingRule();
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "Simple.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 0, 0 ) } ),
+                       "MainWithNoCopyright.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 0, 0 ) } );
    }
 }
