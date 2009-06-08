@@ -44,7 +44,7 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
 {
    private int length;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return length;
    }

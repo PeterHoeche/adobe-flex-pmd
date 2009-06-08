@@ -33,31 +33,16 @@ package com.adobe.ac.pmd.rules.as3.event;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class PublicVariableInCustomEventRuleTest extends AbstractRegExpBasedRuleTest
+public class PublicVariableInCustomEventRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { "public var lala : int;" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected AbstractFlexRule getRule()
    {
       return new PublicVariableInCustomEventRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "private var _lala : int",
-                  "lala()" };
    }
 
    @Override

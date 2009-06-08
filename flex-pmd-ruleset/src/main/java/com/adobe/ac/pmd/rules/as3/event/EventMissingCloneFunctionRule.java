@@ -49,14 +49,14 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
+   protected void findViolations( final IClass classNodeToBeSet )
    {
       classNode = classNodeToBeSet;
-      super.findViolationsFromClassNode( classNode );
+      super.findViolations( classNode );
    }
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
       boolean cloneFound = false;
 
@@ -69,8 +69,7 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
       }
       if ( !cloneFound )
       {
-         addViolation( classNode.getInternalNode(),
-                       classNode.getInternalNode() );
+         addViolation( classNode );
       }
    }
 

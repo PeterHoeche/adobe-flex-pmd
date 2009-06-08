@@ -80,7 +80,7 @@ class ClassNode extends AbstractNode implements IClass
       modifiers.add( modifier );
    }
 
-   public boolean contains( final Modifier modifier )
+   public boolean is( final Modifier modifier )
    {
       return modifiers.contains( modifier );
    }

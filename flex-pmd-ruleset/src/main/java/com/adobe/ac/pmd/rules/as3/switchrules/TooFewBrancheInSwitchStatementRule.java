@@ -43,7 +43,7 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
 {
    private int switchCases;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return switchCases;
    }
@@ -83,8 +83,7 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
 
       if ( switchCases < getThreshold() )
       {
-         addViolation( ast,
-                       ast );
+         addViolation( ast );
       }
    }
 

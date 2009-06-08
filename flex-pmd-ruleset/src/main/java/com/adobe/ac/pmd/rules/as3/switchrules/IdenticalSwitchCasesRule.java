@@ -48,6 +48,8 @@ public class IdenticalSwitchCasesRule extends AbstractAstFlexRule
    @Override
    protected void visitSwitch( final IParserNode ast )
    {
+      super.visitSwitch( ast );
+
       if ( ast.numChildren() > 0 )
       {
          final Map< String, IParserNode > cases = new HashMap< String, IParserNode >();
@@ -58,8 +60,8 @@ public class IdenticalSwitchCasesRule extends AbstractAstFlexRule
 
             if ( cases.containsKey( label ) )
             {
-               addViolation( caseStatement,
-                             caseStatement );
+               addViolation( caseStatement );
+               break;
             }
             else
             {
@@ -68,7 +70,5 @@ public class IdenticalSwitchCasesRule extends AbstractAstFlexRule
             }
          }
       }
-
-      super.visitSwitch( ast );
    }
 }

@@ -52,6 +52,6 @@ public class AvoidProtectedFieldInFinalClassRuleTest extends AbstractAstFlexRule
                        "AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 43, 43 ),
-                                   new ViolationPosition( 89, 89 ) } );
+                                   new ViolationPosition( 88, 88 ) } );
    }
 }

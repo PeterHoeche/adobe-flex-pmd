@@ -34,5 +34,5 @@ public interface IModifiersHolder
 {
    void add( Modifier modifier );
 
-   boolean contains( Modifier modifier );
+   boolean is( Modifier modifier );
 }

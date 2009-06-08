@@ -43,6 +43,7 @@ import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.utils.FunctionUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -86,25 +87,27 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    }
 
    /**
-    * @param beginningNode
+    * @param violatingNode
     * @param endNode
     * @return the added violation replacing the threshold value in the message
     *         if any.
     */
-   final protected Violation addViolation( final IParserNode beginningNode,
-                                           final IParserNode endNode )
+   protected final Violation addViolation( final INode violatingNode )
    {
-      final Violation violation = new Violation( new ViolationPosition( beginningNode.getLine(),
-                                                                        endNode.getLine(),
-                                                                        beginningNode.getColumn(),
-                                                                        endNode.getColumn() ),
-                                                 this,
-                                                 currentFile );
+      return addViolation( violatingNode.getInternalNode(),
+                           violatingNode.getInternalNode() );
+   }
 
-      prettyPrintMessage( violation );
-      violations.add( violation );
-
-      return violation;
+   /**
+    * @param violatingNode
+    * @param endNode
+    * @return the added violation replacing the threshold value in the message
+    *         if any.
+    */
+   protected final Violation addViolation( final IParserNode violatingNode )
+   {
+      return addViolation( violatingNode,
+                           violatingNode );
    }
 
    /**
@@ -130,39 +133,27 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       return violation;
    }
 
-   protected void findViolationsFromAttributesList( final List< IAttribute > variables )
-   {
-   }
-
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       if ( classNode.getAttributes() != null )
       {
-         findViolationsFromAttributesList( classNode.getAttributes() );
+         findViolationsFromAttributes( classNode.getAttributes() );
       }
       if ( classNode.getConstants() != null )
       {
-         findViolationsFromConstantsList( classNode.getConstants() );
+         findViolationsFromConstants( classNode.getConstants() );
       }
       if ( classNode.getFunctions() != null )
       {
-         findViolationsFromFunctionsList( classNode.getFunctions() );
+         findViolations( classNode.getFunctions() );
       }
       if ( classNode.getConstructor() != null )
       {
-         findViolationsFromConstructor( classNode.getConstructor() );
+         findViolations( classNode.getConstructor() );
       }
    }
 
-   protected void findViolationsFromConstantsList( final List< IConstant > constants )
-   {
-   }
-
-   protected void findViolationsFromConstructor( final IFunction constructor )
-   {
-   }
-
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final IFunction constructor )
    {
    }
 
@@ -172,7 +163,25 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
     * 
     * @param packageNode
     */
-   protected void findViolationsFromPackageNode( final IPackage packageNode )
+   protected void findViolations( final IPackage packageNode )
+   {
+      final IClass classNode = packageNode.getClassNode();
+
+      if ( classNode != null )
+      {
+         findViolations( classNode );
+      }
+   }
+
+   protected void findViolations( final List< IFunction > functions )
+   {
+   }
+
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+   }
+
+   protected void findViolationsFromConstants( final List< IConstant > constants )
    {
    }
 
@@ -198,13 +207,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          if ( packageNode != null )
          {
             visitCompilationUnit( packageNode.getInternalNode() );
-            findViolationsFromPackageNode( packageNode );
-            final IClass classNode = packageNode.getClassNode();
-
-            if ( classNode != null )
-            {
-               findViolationsFromClassNode( classNode );
-            }
+            findViolations( packageNode );
          }
       }
       catch ( final Exception e )
@@ -522,6 +525,22 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          visitExpression( ast.getChild( 0 ) );
          visitBlock( ast.getChild( 1 ) );
       }
+   }
+
+   private Violation addViolation( final IParserNode beginningNode,
+                                   final IParserNode endNode )
+   {
+      final Violation violation = new Violation( new ViolationPosition( beginningNode.getLine(),
+                                                                        endNode.getLine(),
+                                                                        beginningNode.getColumn(),
+                                                                        endNode.getColumn() ),
+                                                 this,
+                                                 currentFile );
+
+      prettyPrintMessage( violation );
+      violations.add( violation );
+
+      return violation;
    }
 
    private boolean isNodeNavigable( final IParserNode node )

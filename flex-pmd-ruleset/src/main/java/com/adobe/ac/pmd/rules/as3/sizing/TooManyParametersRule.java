@@ -39,7 +39,7 @@ public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 
    private int paramsNb;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return paramsNb;
    }
@@ -68,8 +68,7 @@ public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 
       if ( paramsNb > getThreshold() )
       {
-         addViolation( paramList.getChild( 0 ),
-                       paramList.getChild( paramList.numChildren() - 1 ) );
+         addViolation( paramList );
       }
    }
 }

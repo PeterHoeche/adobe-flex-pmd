@@ -43,7 +43,7 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    private IFunction constructor;
    private int       publicCount;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return publicCount;
    }
@@ -54,11 +54,26 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromAttributesList( final List< IAttribute > variables )
+   protected void findViolations( final IClass classNode )
    {
-      for ( final IAttribute variable : variables )
+      publicCount = 0;
+      constructor = classNode.getConstructor();
+
+      super.findViolations( classNode );
+
+      if ( publicCount > getThreshold() )
       {
-         if ( variable.isPublic() )
+         addViolation( classNode );
+      }
+   }
+
+   @Override
+   protected void findViolations( final List< IFunction > functions )
+   {
+      for ( final IFunction function : functions )
+      {
+         if ( function.isPublic()
+               && function != constructor && !function.isGetter() && !function.isSetter() )
          {
             publicCount++;
          }
@@ -66,27 +81,11 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {
-      publicCount = 0;
-      constructor = classNode.getConstructor();
-
-      super.findViolationsFromClassNode( classNode );
-
-      if ( publicCount > getThreshold() )
+      for ( final IAttribute variable : variables )
       {
-         addViolation( classNode.getInternalNode(),
-                       classNode.getInternalNode() );
-      }
-   }
-
-   @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
-   {
-      for ( final IFunction function : functions )
-      {
-         if ( function.isPublic()
-               && function != constructor && !function.isGetter() && !function.isSetter() )
+         if ( variable.isPublic() )
          {
             publicCount++;
          }

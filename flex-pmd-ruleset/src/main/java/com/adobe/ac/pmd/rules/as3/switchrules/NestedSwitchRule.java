@@ -50,8 +50,7 @@ public class NestedSwitchRule extends AbstractAstFlexRule
       switchLevel++;
       if ( switchLevel > 1 )
       {
-         addViolation( ast,
-                       ast );
+         addViolation( ast );
       }
       super.visitSwitch( ast );
 

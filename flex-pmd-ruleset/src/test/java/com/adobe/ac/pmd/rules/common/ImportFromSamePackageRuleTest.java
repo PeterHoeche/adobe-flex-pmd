@@ -33,35 +33,16 @@ package com.adobe.ac.pmd.rules.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class ImportFromSamePackageRuleTest extends AbstractRegExpBasedRuleTest
+public class ImportFromSamePackageRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { " import lala.*;",
-                  "import myClass;",
-                  "import com.adobe.ac.TodoEvent" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected AbstractFlexRule getRule()
    {
       return new ImportFromSamePackageRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { " Alert.show(",
-                  " Alert.show( ",
-                  " Alert.show( \"something\" );",
-                  " Alert.show(\"something\"); function importData()" };
    }
 
    @Override
@@ -70,6 +51,6 @@ public class ImportFromSamePackageRuleTest extends AbstractRegExpBasedRuleTest
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 34, 34 ) } );
+                       { new ViolationPosition( 33, 33 ) } );
    }
 }

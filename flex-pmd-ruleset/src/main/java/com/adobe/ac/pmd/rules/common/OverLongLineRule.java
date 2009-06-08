@@ -45,7 +45,7 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
 {
    private int currentLine;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return currentLine;
    }

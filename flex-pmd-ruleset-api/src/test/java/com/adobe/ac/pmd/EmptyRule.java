@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
 class EmptyRule extends AbstractMaximizedFlexRule
 {
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return 0;
    }

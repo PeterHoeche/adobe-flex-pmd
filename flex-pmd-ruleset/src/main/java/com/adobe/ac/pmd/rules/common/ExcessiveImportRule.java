@@ -30,20 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.util.List;
-
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class ExcessiveImportRule extends AbstractMaximizedRegexpBasedRule
+public class ExcessiveImportRule extends AbstractMaximizedAstFlexRule
 {
    private int importNumber;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return importNumber;
    }
@@ -54,48 +49,19 @@ public class ExcessiveImportRule extends AbstractMaximizedRegexpBasedRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   protected void findViolations( final IPackage packageNode )
    {
-      return true;
+      importNumber = packageNode.getImports().size();
+
+      if ( importNumber > getThreshold() )
+      {
+         addViolation( packageNode );
+      }
    }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
-   }
-
-   @Override
-   protected String getRegexp()
-   {
-      return ".*import .*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
-   {
-      importNumber++;
-
-      return false;
-   }
-
-   @Override
-   protected void onFileProcessingEnded( final IPackage rootNode,
-                                         final AbstractFlexFile file,
-                                         final List< Violation > violations )
-   {
-      if ( importNumber > getThreshold() )
-      {
-         addViolation( violations,
-                       file,
-                       new ViolationPosition( 0, 0 ) );
-      }
-   }
-
-   @Override
-   protected void onFileProcessingStarting()
-   {
-      importNumber = 0;
    }
 }

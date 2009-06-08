@@ -46,7 +46,7 @@ import com.adobe.ac.pmd.rules.utils.comparators.ModifierHolderByVisibilityAndSta
 public class WronglyOrderedClassElementRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       final List< IField > constants = new ArrayList< IField >();
       final List< IAttribute > variables = new ArrayList< IAttribute >();

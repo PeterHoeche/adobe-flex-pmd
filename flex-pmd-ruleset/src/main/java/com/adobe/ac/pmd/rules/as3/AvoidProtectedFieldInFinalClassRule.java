@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       final boolean isClassFinal = classNode.isFinal();
 
@@ -67,8 +67,7 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
             if ( field.isProtected()
                   && isClassFinal )
             {
-               addViolation( field.getInternalNode(),
-                             field.getInternalNode() );
+               addViolation( field );
             }
          }
       }
@@ -84,8 +83,7 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
             if ( function.isProtected()
                   && !function.isOverriden() && isClassFinal )
             {
-               addViolation( function.getInternalNode(),
-                             function.getInternalNode() );
+               addViolation( function );
             }
          }
       }

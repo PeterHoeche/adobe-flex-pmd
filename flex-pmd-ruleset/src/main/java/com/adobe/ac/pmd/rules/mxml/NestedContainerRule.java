@@ -39,7 +39,7 @@ public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
    private int     currentLevel   = 0;
    private boolean violationFound = false;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return currentLevel;
    }

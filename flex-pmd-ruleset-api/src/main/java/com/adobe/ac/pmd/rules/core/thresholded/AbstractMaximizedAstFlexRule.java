@@ -32,9 +32,9 @@ package com.adobe.ac.pmd.rules.core.thresholded;
 
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-
 import net.sourceforge.pmd.PropertyDescriptor;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
 public abstract class AbstractMaximizedAstFlexRule extends AbstractAstFlexRule implements IThresholdedRule
 {

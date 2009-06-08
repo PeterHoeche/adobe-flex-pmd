@@ -42,7 +42,7 @@ public class TooManyFieldsRule extends AbstractMaximizedAstFlexRule
    private int    attributesNb = 0;
    private IClass classNode    = null;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return attributesNb;
    }
@@ -53,22 +53,21 @@ public class TooManyFieldsRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromAttributesList( final List< IAttribute > attributes )
+   protected void findViolations( final IClass classNodeToBeSet )
+   {
+      classNode = classNodeToBeSet;
+      super.findViolations( classNodeToBeSet );
+   }
+
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > attributes )
    {
       attributesNb = attributes.size();
 
       if ( attributesNb > getThreshold() )
       {
-         addViolation( classNode.getInternalNode(),
-                       classNode.getInternalNode() );
+         addViolation( classNode );
       }
-   }
-
-   @Override
-   protected void findViolationsFromClassNode( final IClass classNodeToBeSet )
-   {
-      classNode = classNodeToBeSet;
-      super.findViolationsFromClassNode( classNodeToBeSet );
    }
 
    @Override

@@ -30,11 +30,14 @@
  */
 package com.adobe.ac.pmd.rules.as3.event;
 
+import java.util.List;
+
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class PublicVariableInCustomEventRule extends AbstractRegexpBasedRule
+public class PublicVariableInCustomEventRule extends AbstractAstFlexRule
 {
    @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -43,21 +46,20 @@ public class PublicVariableInCustomEventRule extends AbstractRegexpBasedRule
    }
 
    @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+      for ( final IAttribute attribute : variables )
+      {
+         if ( attribute.isPublic() )
+         {
+            addViolation( attribute );
+         }
+      }
+   }
+
+   @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
-   }
-
-   @Override
-   protected String getRegexp()
-   {
-      return ".*public var.*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
-   {
-      return true;
    }
 }

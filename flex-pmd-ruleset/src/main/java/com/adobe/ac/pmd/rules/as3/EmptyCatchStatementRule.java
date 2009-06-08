@@ -49,8 +49,7 @@ public class EmptyCatchStatementRule extends AbstractAstFlexRule
 
       if ( ast.getChild( 2 ).numChildren() == 0 )
       {
-         addViolation( ast,
-                       ast );
+         addViolation( ast );
       }
    }
 }

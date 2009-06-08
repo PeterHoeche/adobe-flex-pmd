@@ -33,33 +33,16 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class DynamicClassRuleTest extends AbstractRegExpBasedRuleTest
+public class DynamicClassRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { "public dynamic class DynamicObject {",
-                  "dynamic public class DynamicObject" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected AbstractFlexRule getRule()
    {
       return new DynamicClassRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "public class DynamicObject {",
-                  "foo()",
-                  "var i : int;" };
    }
 
    @Override

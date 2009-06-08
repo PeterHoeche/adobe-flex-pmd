@@ -40,7 +40,7 @@ public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRu
 {
    private int currentCount;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return currentCount;
    }

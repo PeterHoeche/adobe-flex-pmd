@@ -43,8 +43,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
 {
+   private static final String QUOTE      = "\"";
+   private static final String TYPE_EQUAL = "type = \"";
+
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       final List< IMetaData > eventMetaDatas = classNode.getMetaData( "Event" );
 
@@ -67,19 +70,18 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
       for ( final IMetaData metaData : eventMetaDatas )
       {
          final String metaDataValue = metaData.getParameter();
-         final int startIndex = metaDataValue.indexOf( "type = \"" );
+         final int startIndex = metaDataValue.indexOf( TYPE_EQUAL );
 
          if ( startIndex > -1 )
          {
             final String type = StringUtils.substringBefore( StringUtils.substringAfter( metaDataValue,
-                                                                                         "type = \"" ),
-                                                             "\"" );
+                                                                                         TYPE_EQUAL ),
+                                                             QUOTE );
 
             if ( !files.containsKey( type
                   + ".as" ) )
             {
-               addViolation( metaData.getInternalNode(),
-                             metaData.getInternalNode() );
+               addViolation( metaData );
             }
          }
       }

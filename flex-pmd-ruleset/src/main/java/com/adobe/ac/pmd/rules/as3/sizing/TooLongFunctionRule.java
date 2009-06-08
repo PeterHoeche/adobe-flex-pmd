@@ -39,7 +39,7 @@ public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
 {
    private int functionLength;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return functionLength;
    }
@@ -76,8 +76,7 @@ public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
          {
             final IParserNode nameNode = FunctionUtils.extractNameNode( functionNode );
 
-            addViolation( nameNode,
-                          nameNode );
+            addViolation( nameNode );
          }
       }
    }

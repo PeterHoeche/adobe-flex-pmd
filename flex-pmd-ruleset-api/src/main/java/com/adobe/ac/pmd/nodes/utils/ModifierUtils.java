@@ -96,7 +96,7 @@ final public class ModifierUtils
    private static boolean isModiferPresent( final IModifiersHolder modifierHolder,
                                             final Modifier modifierToFind )
    {
-      return modifierHolder.contains( modifierToFind );
+      return modifierHolder.is( modifierToFind );
    }
 
    private ModifierUtils()

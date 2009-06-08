@@ -30,52 +30,33 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import java.util.regex.Matcher;
+import org.apache.commons.lang.StringUtils;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ImportFromSamePackageRule extends AbstractRegexpBasedRule
+public class ImportFromSamePackageRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   protected void findViolations( final IPackage packageNode )
    {
-      return true;
+      final String packageName = packageNode.getName();
+
+      for ( final IParserNode importNode : packageNode.getImports() )
+      {
+         if ( StringUtils.substringBeforeLast( importNode.toString(),
+                                               "." ).equals( packageName ) )
+         {
+            addViolation( importNode );
+         }
+      }
    }
 
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
-   }
-
-   @Override
-   protected String getRegexp()
-   {
-      return ".*\\s*import (.+\\.)*.*\\s*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
-   {
-      final Matcher matcher = getMatcher( line );
-
-      boolean isViolation = false;
-      matcher.matches();
-
-      if ( matcher.groupCount() == 1 )
-      {
-         final String group = matcher.group( 1 );
-         if ( group != null )
-         {
-            final String packageName = group.trim();
-
-            isViolation = packageName.equals( file.getPackageName()
-                  + "." );
-         }
-      }
-      return isViolation;
    }
 }

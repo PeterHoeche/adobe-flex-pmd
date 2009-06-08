@@ -55,7 +55,7 @@ class VisibleMock implements IVisible, INamable
                      null );
    }
 
-   public boolean contains( final Modifier modifier )
+   public boolean is( final Modifier modifier )
    {
       return modifiers.containsKey( modifier );
    }

@@ -51,16 +51,16 @@ public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 578, 580 ),
-                                                       new ViolationPosition( 584, 586 ) } ),
+                                           { new ViolationPosition( 578, 578 ),
+                                                       new ViolationPosition( 584, 584 ) } ),
                                  "RadonDataGrid.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 63, 65 ),
-                                             new ViolationPosition( 190, 192 ),
-                                             new ViolationPosition( 194, 196 ) } ),
+                                 { new ViolationPosition( 63, 63 ),
+                                             new ViolationPosition( 190, 190 ),
+                                             new ViolationPosition( 194, 194 ) } ),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 105, 107 ),
+                       { new ViolationPosition( 105, 105 ),
                                    new ViolationPosition( 112, 112 ) } );
    }
 }

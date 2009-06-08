@@ -49,7 +49,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       if ( isExtendedClassCairngormEvent( classNode ) )
       {
@@ -58,8 +58,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
          if ( isEventNameNotFound( eventName )
                || !doesEventNameContainDot( eventName ) )
          {
-            addViolation( classNode.getInternalNode(),
-                          classNode.getInternalNode() );
+            addViolation( classNode );
          }
       }
    }

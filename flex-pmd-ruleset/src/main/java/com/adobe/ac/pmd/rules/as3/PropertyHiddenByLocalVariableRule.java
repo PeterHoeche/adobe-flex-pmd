@@ -43,7 +43,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       final List< IAttribute > variables = classNode.getAttributes();
 
@@ -59,8 +59,7 @@ public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
                {
                   if ( localVariable.equals( field.getName() ) )
                   {
-                     addViolation( function.getLocalVariables().get( localVariable ),
-                                   function.getLocalVariables().get( localVariable ) );
+                     addViolation( function.getLocalVariables().get( localVariable ) );
                   }
                }
             }

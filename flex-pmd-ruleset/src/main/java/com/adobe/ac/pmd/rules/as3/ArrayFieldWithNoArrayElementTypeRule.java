@@ -42,15 +42,14 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    private static final String ARRAY_TYPE                 = "Array";
 
    @Override
-   protected void findViolationsFromAttributesList( final List< IAttribute > variables )
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {
       for ( final IAttribute variable : variables )
       {
          if ( ARRAY_TYPE.equals( variable.getType().toString() )
                && variable.getMetaData( ARRAY_ELEMENT_TYPE_BINDING ) == null )
          {
-            addViolation( variable.getInternalNode(),
-                          variable.getType().getInternalNode() );
+            addViolation( variable );
          }
       }
    }

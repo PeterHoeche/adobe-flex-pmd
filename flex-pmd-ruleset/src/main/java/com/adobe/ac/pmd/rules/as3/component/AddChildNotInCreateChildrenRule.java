@@ -45,7 +45,7 @@ public class AddChildNotInCreateChildrenRule extends AbstractAstFlexRule
                "addChildAt"                     };
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -57,8 +57,7 @@ public class AddChildNotInCreateChildrenRule extends AbstractAstFlexRule
                {
                   if ( statement != null )
                   {
-                     addViolation( statement,
-                                   statement );
+                     addViolation( statement );
                   }
                }
             }

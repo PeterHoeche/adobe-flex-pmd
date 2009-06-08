@@ -33,33 +33,16 @@ package com.adobe.ac.pmd.rules.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class ExcessiveImportRuleTest extends AbstractRegExpBasedRuleTest
+public class ExcessiveImportRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { "   import lalal.lalla;",
-                  "import lala;" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected AbstractFlexRule getRule()
    {
       return new ExcessiveImportRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "   function lala() : void",
-                  "var lala : Number",
-                  "important" };
    }
 
    @Override
@@ -68,12 +51,12 @@ public class ExcessiveImportRuleTest extends AbstractRegExpBasedRuleTest
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                            "cairngorm.LightController.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 0, 0 ) } ),
+                                           { new ViolationPosition( -1, -1 ) } ),
                                  "cairngorm.FatController.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 0, 0 ) } ),
+                                 { new ViolationPosition( -1, -1 ) } ),
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 0, 0 ) } );
+                       { new ViolationPosition( -1, -1 ) } );
    }
 }

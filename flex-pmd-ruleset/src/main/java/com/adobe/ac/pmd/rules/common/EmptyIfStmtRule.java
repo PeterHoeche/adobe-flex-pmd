@@ -51,8 +51,7 @@ public class EmptyIfStmtRule extends AbstractAstFlexRule
 
       if ( block.numChildren() == 0 )
       {
-         addViolation( ast,
-                       block );
+         addViolation( ast );
       }
    }
 }

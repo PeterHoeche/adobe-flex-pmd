@@ -39,14 +39,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class NonStaticConstantFieldRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromConstantsList( final List< IConstant > constants )
+   protected void findViolationsFromConstants( final List< IConstant > constants )
    {
       for ( final IConstant field : constants )
       {
          if ( !field.isStatic() )
          {
-            addViolation( field.getInternalNode(),
-                          field.getInternalNode() );
+            addViolation( field );
          }
       }
    }

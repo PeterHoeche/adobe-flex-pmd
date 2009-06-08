@@ -53,8 +53,7 @@ public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
       {
          ast.getChild( 1 );
 
-         addViolation( ast,
-                       ast );
+         addViolation( ast );
       }
    }
 

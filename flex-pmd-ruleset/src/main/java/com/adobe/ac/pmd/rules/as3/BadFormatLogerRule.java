@@ -42,7 +42,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class BadFormatLogerRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       for ( final IVariable field : classNode.getAttributes() )
       {

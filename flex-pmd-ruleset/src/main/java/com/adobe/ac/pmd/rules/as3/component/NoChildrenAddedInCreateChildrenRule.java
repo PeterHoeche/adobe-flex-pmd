@@ -44,7 +44,7 @@ public class NoChildrenAddedInCreateChildrenRule extends AbstractAstFlexRule
                "addChildAt"                     };
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -57,8 +57,7 @@ public class NoChildrenAddedInCreateChildrenRule extends AbstractAstFlexRule
                   return;
                }
             }
-            addViolation( function.getInternalNode(),
-                          function.getBody().getLastChild() );
+            addViolation( function );
          }
       }
    }

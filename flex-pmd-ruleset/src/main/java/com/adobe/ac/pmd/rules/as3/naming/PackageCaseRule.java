@@ -38,12 +38,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class PackageCaseRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromPackageNode( final IPackage packageNode )
+   protected void findViolations( final IPackage packageNode )
    {
       if ( containsUpperCharacter( packageNode.getName() ) )
       {
-         final Violation violation = addViolation( packageNode.getInternalNode(),
-                                                   packageNode.getInternalNode() );
+         final Violation violation = addViolation( packageNode );
 
          violation.setEndColumn( packageNode.getName().length()
                + violation.getBeginColumn() );

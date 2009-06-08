@@ -94,8 +94,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
       if ( ast.getId() != null
             && ast.is( NodeKind.NEW ) && loopLevel != 0 )
       {
-         addViolation( ast,
-                       ast );
+         addViolation( ast );
       }
    }
 }

@@ -30,11 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
+import java.util.List;
+
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.Modifier;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class StaticMethodInMxmlRule extends AbstractRegexpBasedRule
+public class StaticMethodInMxmlRule extends AbstractAstFlexRule
 {
    @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -43,21 +47,21 @@ public class StaticMethodInMxmlRule extends AbstractRegexpBasedRule
    }
 
    @Override
+   protected void findViolations( final List< IFunction > functions )
+   {
+      for ( final IFunction function : functions )
+      {
+         if ( function.is( Modifier.STATIC ) )
+         {
+            addViolation( function );
+         }
+      }
+   }
+
+   @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }
 
-   @Override
-   protected String getRegexp()
-   {
-      return ".*static .*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
-   {
-      return line.contains( "function " );
-   }
 }

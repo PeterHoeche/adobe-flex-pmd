@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UselessOverridenFunctionRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {

@@ -51,9 +51,9 @@ public class TooManyParametersRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                            "RadonDataGrid.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 68, 69 ),
-                                                       new ViolationPosition( 84, 85 ),
-                                                       new ViolationPosition( 117, 118 ) } ),
+                                           { new ViolationPosition( 68, 68 ),
+                                                       new ViolationPosition( 84, 84 ),
+                                                       new ViolationPosition( 117, 117 ) } ),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 548, 548 ) } ),

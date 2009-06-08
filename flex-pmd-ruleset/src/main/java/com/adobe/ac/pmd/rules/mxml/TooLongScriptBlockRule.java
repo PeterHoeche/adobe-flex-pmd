@@ -45,7 +45,7 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
 {
    private int linesInScriptBlock;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return linesInScriptBlock;
    }

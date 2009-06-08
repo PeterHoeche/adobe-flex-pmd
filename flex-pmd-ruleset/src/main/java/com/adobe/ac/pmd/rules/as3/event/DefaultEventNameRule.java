@@ -44,14 +44,13 @@ public class DefaultEventNameRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromConstructor( final IFunction constructor )
+   protected void findViolations( final IFunction constructor )
    {
       if ( constructor.getParameters().size() > 0
             && constructor.getParameters().get( 0 ).getType().toString().equals( "String" )
             && constructor.getParameters().get( 0 ).getInitializationExpression() != null )
       {
-         addViolation( constructor.getParameters().get( 0 ).getInternalNode(),
-                       constructor.getParameters().get( 0 ).getInternalNode() );
+         addViolation( constructor.getParameters().get( 0 ) );
       }
    }
 

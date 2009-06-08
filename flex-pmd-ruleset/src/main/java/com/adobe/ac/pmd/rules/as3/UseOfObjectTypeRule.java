@@ -70,8 +70,7 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
       if ( type.getStringValue() != null
             && type.getStringValue().equals( "Object" ) )
       {
-         addViolation( type,
-                       type );
+         addViolation( type );
       }
    }
 

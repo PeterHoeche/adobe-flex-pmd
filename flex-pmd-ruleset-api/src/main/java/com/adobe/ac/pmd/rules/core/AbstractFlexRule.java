@@ -166,7 +166,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
          final IThresholdedRule thresholdeRule = ( IThresholdedRule ) this;
 
          violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValue() ),
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValueForTheCurrentViolation() ),
                                                 1 );
       }
       if ( getDescription() != null )

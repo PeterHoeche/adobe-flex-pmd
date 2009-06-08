@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.rules.core.thresholded;
 
 public interface IThresholdedRule
 {
-   int getActualValue();
+   int getActualValueForTheCurrentViolation();
 
    int getDefaultThreshold();
 

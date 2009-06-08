@@ -45,7 +45,7 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
    private static final String STAR = "*";
 
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       findViolationInVariableLists( classNode.getConstants() );
       findViolationInVariableLists( classNode.getAttributes() );
@@ -107,8 +107,7 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
    {
       if ( typeName.equals( STAR ) )
       {
-         addViolation( node,
-                       node );
+         addViolation( node );
       }
    }
 }

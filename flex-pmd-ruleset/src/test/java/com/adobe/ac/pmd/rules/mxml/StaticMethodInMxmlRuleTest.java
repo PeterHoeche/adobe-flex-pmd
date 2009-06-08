@@ -33,35 +33,16 @@ package com.adobe.ac.pmd.rules.mxml;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
-public class StaticMethodInMxmlRuleTest extends AbstractRegExpBasedRuleTest
+public class StaticMethodInMxmlRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { " static function lala() : void",
-                  "static function",
-                  "function static ",
-                  "static const",
-                  "const static " };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected AbstractFlexRule getRule()
    {
       return new StaticMethodInMxmlRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "var staticVar",
-                  "function staticInitialisation" };
    }
 
    @Override

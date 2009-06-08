@@ -45,9 +45,9 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    private Map< String, IFunction > privateFunctions = null;
 
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
-      super.findViolationsFromFunctionsList( functions );
+      super.findViolations( functions );
 
       privateFunctions = new HashMap< String, IFunction >();
 

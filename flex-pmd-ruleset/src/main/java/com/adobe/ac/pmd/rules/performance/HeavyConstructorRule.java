@@ -44,7 +44,7 @@ public class HeavyConstructorRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromConstructor( final IFunction constructor )
+   protected void findViolations( final IFunction constructor )
    {
       if ( constructor.getCyclomaticComplexity() > 1 )
       {

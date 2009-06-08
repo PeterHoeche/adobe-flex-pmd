@@ -38,7 +38,7 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
 {
    private int ifLevel = 0;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return ifLevel;
    }
@@ -89,8 +89,7 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
       ifLevel--;
       if ( ifLevel >= getThreshold() )
       {
-         addViolation( ast,
-                       ast );
+         addViolation( ast );
       }
    }
 

@@ -40,16 +40,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UseTraceFunctionRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromFunctionsList( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
-      super.findViolationsFromFunctionsList( functions );
+      super.findViolations( functions );
 
       for ( final IFunction function : functions )
       {
          for ( final IParserNode statement : function.findPrimaryStatementsInBody( "trace" ) )
          {
-            addViolation( statement,
-                          statement );
+            addViolation( statement );
          }
       }
    }

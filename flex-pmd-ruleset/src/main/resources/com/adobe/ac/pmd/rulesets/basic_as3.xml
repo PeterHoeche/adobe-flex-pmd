@@ -109,25 +109,6 @@
    }     
       </example>
 	</rule>
-	<rule
-		class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStmtsShouldHaveDefaultRule"
-		message="A switch statement should have minimum {0} case statements">
-		<description>Switch statements should have more case statements, or consider refactring it to a if statement.</description>
-		<priority>3</priority>
-		<example>
-   public class Foo 
-   {
-      public funciton bar() : void 
-      {
-         var  x : int = 2;
-         switch (x) 
-         {
-            case 2: var j : int = 8;
-         }
-      }
-   }     
-      </example>
-	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule"
 		message="Do not use Object class">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>

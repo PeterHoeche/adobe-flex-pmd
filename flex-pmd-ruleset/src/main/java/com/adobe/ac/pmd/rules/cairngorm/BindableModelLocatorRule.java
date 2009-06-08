@@ -45,12 +45,11 @@ public class BindableModelLocatorRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromClassNode( final IClass classNode )
+   protected void findViolations( final IClass classNode )
    {
       if ( classNode.getMetaData( "Bindable" ) != null )
       {
-         addViolation( classNode.getInternalNode(),
-                       classNode.getInternalNode() );
+         addViolation( classNode );
       }
    }
 

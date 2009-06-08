@@ -51,6 +51,6 @@ public class FatControllerRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "cairngorm.FatController.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 95, 196 ) } );
+                       { new ViolationPosition( 95, 95 ) } );
    }
 }

@@ -51,9 +51,9 @@ public class NoChildrenAddedInCreateChildrenRuleTest extends AbstractAstFlexRule
       return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                  "AbstractRowData.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 137, 138 ) } ),
+                                 { new ViolationPosition( 136, 136 ) } ),
                        "BadComponent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 49, 52 ) } );
+                       { new ViolationPosition( 48, 48 ) } );
    }
 }

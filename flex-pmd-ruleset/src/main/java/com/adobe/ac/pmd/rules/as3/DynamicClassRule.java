@@ -31,10 +31,12 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.Modifier;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DynamicClassRule extends AbstractRegexpBasedRule
+public class DynamicClassRule extends AbstractAstFlexRule
 {
    @Override
    public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
@@ -43,21 +45,17 @@ public class DynamicClassRule extends AbstractRegexpBasedRule
    }
 
    @Override
+   protected void findViolations( final IClass classNode )
+   {
+      if ( classNode.is( Modifier.DYNAMIC ) )
+      {
+         addViolation( classNode );
+      }
+   }
+
+   @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
-   }
-
-   @Override
-   protected String getRegexp()
-   {
-      return ".*dynamic.*class .*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
-   {
-      return true;
    }
 }

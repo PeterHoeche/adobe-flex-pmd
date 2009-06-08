@@ -65,7 +65,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
    @Test
    public void modifiers()
    {
-      assertTrue( constructor.contains( Modifier.PUBLIC ) );
+      assertTrue( constructor.is( Modifier.PUBLIC ) );
    }
 
    @Before

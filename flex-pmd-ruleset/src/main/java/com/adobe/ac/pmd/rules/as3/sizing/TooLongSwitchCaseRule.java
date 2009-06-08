@@ -38,7 +38,7 @@ public class TooLongSwitchCaseRule extends AbstractMaximizedAstFlexRule
 {
    private int length;
 
-   public int getActualValue()
+   public int getActualValueForTheCurrentViolation()
    {
       return length;
    }
@@ -63,8 +63,7 @@ public class TooLongSwitchCaseRule extends AbstractMaximizedAstFlexRule
                - caseBlock.getLine();
          if ( length > getThreshold() )
          {
-            addViolation( caseBlock,
-                          caseBlock );
+            addViolation( caseBlock );
          }
       }
    }

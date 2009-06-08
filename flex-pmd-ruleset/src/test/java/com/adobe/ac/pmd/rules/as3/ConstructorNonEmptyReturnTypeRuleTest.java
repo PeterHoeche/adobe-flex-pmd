@@ -51,6 +51,6 @@ public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTe
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.VoidConstructor.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 38, 38 ) } );
+                       { new ViolationPosition( 37, 37 ) } );
    }
 }

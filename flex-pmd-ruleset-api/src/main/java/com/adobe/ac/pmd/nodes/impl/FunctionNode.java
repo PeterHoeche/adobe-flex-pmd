@@ -79,7 +79,7 @@ class FunctionNode extends AbstractNode implements IFunction
       modifiers.add( modifier );
    }
 
-   public boolean contains( final Modifier modifier )
+   public boolean is( final Modifier modifier )
    {
       return modifiers.contains( modifier );
    }

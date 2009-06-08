@@ -31,22 +31,18 @@
 package com.adobe.ac.pmd.rules.as3;
 
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class ConstructorNonEmptyReturnTypeRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromConstructor( final IFunction constructor )
+   protected void findViolations( final IFunction constructor )
    {
       if ( constructor.getReturnType() != null
             && !"".equals( constructor.getReturnType().toString() ) )
       {
-         final IParserNode constructorNode = constructor.getInternalNode();
-
-         addViolation( constructorNode,
-                       constructorNode );
+         addViolation( constructor );
       }
    }
 

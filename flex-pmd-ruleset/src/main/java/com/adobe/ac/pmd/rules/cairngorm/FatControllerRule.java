@@ -48,7 +48,7 @@ public class FatControllerRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromPackageNode( final IPackage packageNode )
+   protected void findViolations( final IPackage packageNode )
    {
       final IClass classNode = packageNode.getClassNode();
 
@@ -61,8 +61,7 @@ public class FatControllerRule extends AbstractAstFlexRule
                && commandsCount
                      / methodsCount > 5 )
          {
-            addViolation( classNode.getInternalNode(),
-                          packageNode.getInternalNode().getLastChild() );
+            addViolation( classNode );
          }
       }
    }
