@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -73,9 +74,8 @@ public abstract class AbstractFlexPmdEngine
       }
 
       final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
-      final File realRuleSet = ruleSetFile == null ? new File( getClass().getResource( rulesetURI )
-                                                                         .toURI()
-                                                                         .getPath() )
+      final URL resource = getClass().getResource( rulesetURI );
+      final File realRuleSet = ruleSetFile == null ? new File( resource.toURI().getPath() )
                                                   : ruleSetFile;
 
       ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( realRuleSet ) );
