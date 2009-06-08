@@ -279,9 +279,6 @@
 			   <groupId>com.adobe.ac</groupId>
             <artifactId>flex-pmd-maven-plugin</artifactId>
             <version>${flex-pmd-maven-plugin.version}</version>
-            <configuration>
-               <ruleSet>allflex.xml</ruleSet>
-            </configuration>
 			</plugin>
 			
 			<plugin>
