@@ -73,12 +73,6 @@ public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
    }
 
    @Override
-   protected String getReportType()
-   {
-      return "html";
-   }
-
-   @Override
    protected void writeReport( final FlexPmdViolations pmd,
                                final File outputDirectory ) throws PMDException
    {

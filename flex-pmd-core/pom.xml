@@ -60,6 +60,11 @@
 				<directory>${basedir}/src/test/resources</directory>
 			</testResource>
 		</testResources>
+		<resources>
+			<resource>
+				<directory>${project.build.directory}/test/generated-resources</directory>
+			</resource>
+		</resources>
 
 		<plugins>
 			<plugin>

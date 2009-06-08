@@ -33,6 +33,8 @@ package com.adobe.ac.pmd.files;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.adobe.ac.ncss.utils.FileUtils;
 
 /**
@@ -169,9 +171,9 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
 
    public final String getFullyQualifiedName()
    {
-      return ( packageName.equals( "" ) ? ""
-                                       : packageName
-                                             + "." )
+      return ( StringUtils.isEmpty( packageName ) ? ""
+                                                 : packageName
+                                                       + "." )
             + className;
    }
 

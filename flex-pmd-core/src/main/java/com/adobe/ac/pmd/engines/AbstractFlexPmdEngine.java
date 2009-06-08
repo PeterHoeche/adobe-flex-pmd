@@ -32,15 +32,19 @@ package com.adobe.ac.pmd.engines;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
 import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
+
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.plexus.util.IOUtil;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.Violation;
@@ -49,19 +53,14 @@ public abstract class AbstractFlexPmdEngine
 {
    private static final Logger LOGGER = Logger.getLogger( AbstractFlexPmdEngine.class.getName() );
 
-   public static String getNewLine()
-   {
-      return System.getProperty( "line.separator" );
-   }
-
-   private RuleSet ruleSet;
+   private RuleSet             ruleSet;
 
    public final int executeReport( final File sourceDirectory,
                                    final File outputDirectory,
                                    final File ruleSetFile,
                                    final FlexPmdViolations flexPmdViolations ) throws PMDException,
-                                                                              FileNotFoundException,
-                                                                              URISyntaxException
+                                                                              URISyntaxException,
+                                                                              IOException
    {
 
       if ( sourceDirectory == null )
@@ -73,15 +72,99 @@ public abstract class AbstractFlexPmdEngine
          throw new PMDException( "unspecified outputDirectory" );
       }
 
+      loadRuleset( sourceDirectory,
+                   ruleSetFile );
+      if ( !flexPmdViolations.hasViolationsBeenComputed() )
+      {
+         computeViolations( sourceDirectory,
+                            flexPmdViolations );
+      }
+      writeReport( outputDirectory,
+                   flexPmdViolations );
+
+      return computeViolationNumber( flexPmdViolations );
+   }
+
+   public RuleSet getRuleSet()
+   {
+      return ruleSet;
+   }
+
+   protected abstract void writeReport( final FlexPmdViolations pmd,
+                                        final File outputDirectory ) throws PMDException;
+
+   private int computeViolationNumber( final FlexPmdViolations flexPmdViolations )
+   {
+      int foundViolations = 0;
+      for ( final List< Violation > violations : flexPmdViolations.getViolations().values() )
+      {
+         foundViolations += violations.size();
+      }
+      LOGGER.info( "Violations number found: "
+            + foundViolations );
+      return foundViolations;
+   }
+
+   private void computeViolations( final File sourceDirectory,
+                                   final FlexPmdViolations flexPmdViolations ) throws PMDException
+   {
+      final long startTime = System.currentTimeMillis();
+
+      flexPmdViolations.computeViolations( sourceDirectory,
+                                           ruleSet );
+      final long ellapsedTime = System.currentTimeMillis()
+            - startTime;
+      LOGGER.info( "It took "
+            + ellapsedTime + "ms to compute violations" );
+   }
+
+   private File extractDefaultRuleSet() throws URISyntaxException,
+                                       IOException
+   {
       final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
-      final URL resource = getClass().getResource( rulesetURI );
-      final File realRuleSet = ruleSetFile == null ? new File( resource.toURI().getPath() )
-                                                  : ruleSetFile;
+
+      final InputStream resourceAsStream = getClass().getResourceAsStream( rulesetURI );
+      final File temp = File.createTempFile( "all_flex",
+                                             ".xml" );
+      // Delete temp file when program exits.
+      temp.deleteOnExit();
+      final FileOutputStream writter = new FileOutputStream( temp );
+      IOUtil.copy( resourceAsStream,
+                   writter );
+
+      return temp;
+
+      // LOGGER.info( "resource.toURI() "
+      // + resource.toURI().toString() );
+      // LOGGER.info( "resource.toURI().getPath() "
+      // + resource.getPath() );
+      // LOGGER.info( "resource.toURI().normalize().getPath() "
+      // + resource.getPath() );
+      //
+      // return new File( resource.toURI().normalize().getPath() );
+   }
+
+   private File extractRuleset( final File ruleSetFile ) throws URISyntaxException,
+                                                        IOException
+   {
+      return ruleSetFile == null ? extractDefaultRuleSet()
+                                : ruleSetFile;
+   }
+
+   private String getReportType()
+   {
+      return StringUtils.substringBefore( StringUtils.substringAfter( getClass().getName(),
+                                                                      "FlexPmd" ),
+                                          "Engine" );
+   }
+
+   private void loadRuleset( final File sourceDirectory,
+                             final File ruleSetFile ) throws URISyntaxException,
+                                                     IOException
+   {
+      final File realRuleSet = extractRuleset( ruleSetFile );
 
       ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( realRuleSet ) );
-      long startTime;
-      int foundViolations = 0;
-      long ellapsedTime = 0;
 
       LOGGER.info( "Ruleset: "
             + realRuleSet.getAbsolutePath() );
@@ -91,24 +174,13 @@ public abstract class AbstractFlexPmdEngine
 
       LOGGER.fine( "Search Flex files in "
             + sourceDirectory.getPath() );
+   }
 
-      if ( !flexPmdViolations.hasViolationsBeenComputed() )
-      {
-         startTime = System.currentTimeMillis();
-         flexPmdViolations.computeViolations( sourceDirectory,
-                                              ruleSet );
-         ellapsedTime = System.currentTimeMillis()
-               - startTime;
-         LOGGER.info( "It took "
-               + ellapsedTime + "ms to compute violations" );
-      }
-      for ( final List< Violation > violations : flexPmdViolations.getViolations().values() )
-      {
-         foundViolations += violations.size();
-      }
-      LOGGER.info( "Violations number found: "
-            + foundViolations );
-
+   private void writeReport( final File outputDirectory,
+                             final FlexPmdViolations flexPmdViolations ) throws PMDException
+   {
+      long startTime;
+      long ellapsedTime;
       startTime = System.currentTimeMillis();
       writeReport( flexPmdViolations,
                    outputDirectory );
@@ -117,17 +189,5 @@ public abstract class AbstractFlexPmdEngine
 
       LOGGER.info( "It took "
             + ellapsedTime + "ms to write the " + getReportType() + " report" );
-
-      return foundViolations;
    }
-
-   public RuleSet getRuleSet()
-   {
-      return ruleSet;
-   }
-
-   protected abstract String getReportType();
-
-   protected abstract void writeReport( final FlexPmdViolations pmd,
-                                        final File outputDirectory ) throws PMDException;
 }

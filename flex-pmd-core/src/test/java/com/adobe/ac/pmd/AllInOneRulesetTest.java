@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -46,8 +46,8 @@ public class AllInOneRulesetTest extends TestCase
    static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
    public void testLoadRuleSet() throws URISyntaxException,
-                                FileNotFoundException,
-                                PMDException
+                                PMDException,
+                                IOException
    {
       final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine();
       final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );

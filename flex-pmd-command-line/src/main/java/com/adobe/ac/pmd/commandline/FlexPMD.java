@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd.commandline;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,14 +55,14 @@ final public class FlexPMD
     * @param args
     * @throws JSAPException
     * @throws PMDException
-    * @throws FileNotFoundException
     * @throws URISyntaxException
+    * @throws IOException
     * @throws Exception
     */
    public static void main( final String[] args ) throws JSAPException,
-                                                 FileNotFoundException,
                                                  PMDException,
-                                                 URISyntaxException
+                                                 URISyntaxException,
+                                                 IOException
    {
       LOGGER.setLevel( Level.WARNING );
       startFlexPMD( args );
@@ -93,8 +93,8 @@ final public class FlexPMD
 
    static boolean startFlexPMD( final String[] args ) throws JSAPException,
                                                      PMDException,
-                                                     FileNotFoundException,
-                                                     URISyntaxException
+                                                     URISyntaxException,
+                                                     IOException
    {
       if ( areCommandLineOptionsCorrect( args ) )
       {

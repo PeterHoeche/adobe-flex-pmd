@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.ant;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import net.sourceforge.pmd.PMDException;
@@ -70,6 +71,10 @@ public class FlexPmdAntTask extends Task
          throw new BuildException( e );
       }
       catch ( final URISyntaxException e )
+      {
+         throw new BuildException( e );
+      }
+      catch ( final IOException e )
       {
          throw new BuildException( e );
       }

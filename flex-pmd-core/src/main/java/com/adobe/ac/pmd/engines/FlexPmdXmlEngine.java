@@ -49,12 +49,6 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    private static final Logger LOGGER = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
 
    @Override
-   protected String getReportType()
-   {
-      return "xml";
-   }
-
-   @Override
    protected void writeReport( final FlexPmdViolations pmd,
                                final File outputDirectory ) throws PMDException
    {
@@ -134,6 +128,11 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          writter.write( "   </file>"
                + getNewLine() );
       }
+   }
+
+   private String getNewLine()
+   {
+      return System.getProperty( "line.separator" );
    }
 
    private void makeSureOutputDirectoryExists( final File realOutputDirectory )

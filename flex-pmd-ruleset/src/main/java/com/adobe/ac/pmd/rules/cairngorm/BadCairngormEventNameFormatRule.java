@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IField;
@@ -85,7 +87,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
                                                                   .getInternalNode() );
          }
       }
-      if ( eventName.equals( "" )
+      if ( StringUtils.isEmpty( eventName )
             && classNode.getConstructor() != null )
       {
          eventName = extractEventNameFromConstructor( classNode.getConstructor() );
