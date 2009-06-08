@@ -57,7 +57,7 @@ public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
             {
                for ( final IVariable field : variables )
                {
-                  if ( localVariable.compareTo( field.getName() ) == 0 )
+                  if ( localVariable.equals( field.getName() ) )
                   {
                      addViolation( function.getLocalVariables().get( localVariable ),
                                    function.getLocalVariables().get( localVariable ) );

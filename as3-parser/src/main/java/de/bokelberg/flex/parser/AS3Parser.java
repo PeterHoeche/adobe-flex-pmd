@@ -485,11 +485,11 @@ public class AS3Parser implements IAS3Parser
       {
          if ( node.is( NodeKind.TYPE ) )
          {
-            if ( node.getStringValue().compareTo( "set" ) == 0 )
+            if ( node.getStringValue().equals( "set" ) )
             {
                return NodeKind.SET;
             }
-            if ( node.getStringValue().compareTo( "get" ) == 0 )
+            if ( node.getStringValue().equals( "get" ) )
             {
                return NodeKind.GET;
             }

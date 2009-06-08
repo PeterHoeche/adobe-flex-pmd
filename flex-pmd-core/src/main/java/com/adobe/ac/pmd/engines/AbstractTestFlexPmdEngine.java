@@ -64,6 +64,9 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
       assertNotNull( "Source directory is not found as a resource",
                      sourceDirectoryResource );
 
+      assertNotNull( "Source directory is not found as a resource",
+                     sourceDirectoryResource.toURI() );
+
       final File sourceDirectory = new File( sourceDirectoryResource.toURI().getPath() );
       final URL ruleSetUrl = getClass().getResource( "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
 

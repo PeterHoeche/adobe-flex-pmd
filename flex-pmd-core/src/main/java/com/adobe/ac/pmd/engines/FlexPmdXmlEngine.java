@@ -46,8 +46,7 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 
 public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 {
-   public static final String  PMD_XML = "pmd.xml";
-   private static final Logger LOGGER  = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
+   private static final Logger LOGGER = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
 
    @Override
    protected String getReportType()
@@ -63,7 +62,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 
       makeSureOutputDirectoryExists( realOutputDirectory );
 
-      final File pmdReport = new File( realOutputDirectory, PMD_XML );
+      final File pmdReport = new File( realOutputDirectory, FlexPMDFormat.XML.toString() );
 
       FileWriter writter = null;
       try

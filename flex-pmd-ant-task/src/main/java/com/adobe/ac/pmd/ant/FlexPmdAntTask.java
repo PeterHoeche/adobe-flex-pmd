@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.ant;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 import net.sourceforge.pmd.PMDException;
 
@@ -55,14 +56,6 @@ public class FlexPmdAntTask extends Task
 
       try
       {
-         if ( sourceDirectory == null )
-         {
-            throw new PMDException( "unspecified sourceDirectory" );
-         }
-         if ( outputDirectory == null )
-         {
-            throw new PMDException( "unspecified outputDirectory" );
-         }
          engine.executeReport( sourceDirectory,
                                outputDirectory,
                                ruleSet,
@@ -73,6 +66,10 @@ public class FlexPmdAntTask extends Task
          throw new BuildException( e );
       }
       catch ( final FileNotFoundException e )
+      {
+         throw new BuildException( e );
+      }
+      catch ( final URISyntaxException e )
       {
          throw new BuildException( e );
       }

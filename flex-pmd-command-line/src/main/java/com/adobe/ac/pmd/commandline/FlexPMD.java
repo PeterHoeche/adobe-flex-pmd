@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.commandline;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +48,7 @@ import com.martiansoftware.jsap.JSAPResult;
 
 final public class FlexPMD
 {
+   private static JSAPResult   config;
    private static final Logger LOGGER = Logger.getLogger( FlexPMD.class.getName() );
 
    /**
@@ -54,32 +56,55 @@ final public class FlexPMD
     * @throws JSAPException
     * @throws PMDException
     * @throws FileNotFoundException
+    * @throws URISyntaxException
     * @throws Exception
     */
    public static void main( final String[] args ) throws JSAPException,
                                                  FileNotFoundException,
-                                                 PMDException
+                                                 PMDException,
+                                                 URISyntaxException
    {
       LOGGER.setLevel( Level.WARNING );
+      startFlexPMD( args );
+      LOGGER.info( "FlexPMD terminated" );
+      System.exit( 0 );
+   }
+
+   static boolean areCommandLineOptionsCorrect( final String[] args ) throws JSAPException
+   {
       final JSAP jsap = new JSAP();
-      final JSAPResult config = parseCommandLineArguments( args,
-                                                           jsap );
-      if ( config.success() )
-      {
-         new FlexPmdXmlEngine().executeReport( new File( config.getString( CommandLineOptions.SOURCE_DIRECTORY ) ),
-                                               new File( config.getString( CommandLineOptions.OUTPUT ) ),
-                                               new File( config.getString( CommandLineOptions.RULE_SET ) ),
-                                               new FlexPmdViolations() );
-      }
-      else
+      config = parseCommandLineArguments( args,
+                                          jsap );
+
+      if ( !config.success() )
       {
          LOGGER.log( Level.SEVERE,
                      "Usage: java "
                            + FlexPMD.class.getName() + " " + jsap.getUsage() );
       }
-      LOGGER.info( "FlexPMD terminated" );
 
-      System.exit( 0 );
+      return config.success();
+   }
+
+   static String getParameterValue( final CommandLineOptions option )
+   {
+      return config.getString( option.toString() );
+   }
+
+   static boolean startFlexPMD( final String[] args ) throws JSAPException,
+                                                     PMDException,
+                                                     FileNotFoundException,
+                                                     URISyntaxException
+   {
+      if ( areCommandLineOptionsCorrect( args ) )
+      {
+         new FlexPmdXmlEngine().executeReport( new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) ),
+                                               new File( getParameterValue( CommandLineOptions.OUTPUT ) ),
+                                               new File( getParameterValue( CommandLineOptions.RULE_SET ) ),
+                                               new FlexPmdViolations() );
+      }
+
+      return config.success();
    }
 
    private static JSAPResult parseCommandLineArguments( final String[] args,
@@ -87,16 +112,13 @@ final public class FlexPMD
    {
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.SOURCE_DIRECTORY,
-                                          CommandLineOptions.SOURCE_DIRECTORY.charAt( 0 ),
                                           true );
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.OUTPUT,
-                                          CommandLineOptions.OUTPUT.charAt( 0 ),
                                           true );
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.RULE_SET,
-                                          CommandLineOptions.RULE_SET.charAt( 0 ),
-                                          true );
+                                          false );
 
       return jsap.parse( args );
    }

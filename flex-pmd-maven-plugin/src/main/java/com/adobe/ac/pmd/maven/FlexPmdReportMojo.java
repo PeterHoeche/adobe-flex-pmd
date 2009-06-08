@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.maven;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.Locale;
 
 import net.sourceforge.pmd.PMDException;
@@ -87,6 +88,10 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
          throw new MavenReportException( "An error has been thrown while executing the PMD report", e );
       }
       catch ( final FileNotFoundException e )
+      {
+         throw new MavenReportException( "The Ruleset url has not been found", e );
+      }
+      catch ( final URISyntaxException e )
       {
          throw new MavenReportException( "The Ruleset url has not been found", e );
       }

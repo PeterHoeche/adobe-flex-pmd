@@ -169,9 +169,9 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
 
    public final String getFullyQualifiedName()
    {
-      return ( packageName.compareTo( "" ) == 0 ? ""
-                                               : packageName
-                                                     + "." )
+      return ( packageName.equals( "" ) ? ""
+                                       : packageName
+                                             + "." )
             + className;
    }
 

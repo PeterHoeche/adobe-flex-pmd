@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.engines;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -58,15 +59,32 @@ public abstract class AbstractFlexPmdEngine
                                    final File outputDirectory,
                                    final File ruleSetFile,
                                    final FlexPmdViolations flexPmdViolations ) throws PMDException,
-                                                                              FileNotFoundException
+                                                                              FileNotFoundException,
+                                                                              URISyntaxException
    {
-      ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( ruleSetFile ) );
+
+      if ( sourceDirectory == null )
+      {
+         throw new PMDException( "unspecified sourceDirectory" );
+      }
+      if ( outputDirectory == null )
+      {
+         throw new PMDException( "unspecified outputDirectory" );
+      }
+
+      final String rulesetURI = "com/adobe/ac/pmd/rulesets/all_flex.xml";
+      final File realRuleSet = ruleSetFile == null ? new File( getClass().getResource( rulesetURI )
+                                                                         .toURI()
+                                                                         .getPath() )
+                                                  : ruleSetFile;
+
+      ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( realRuleSet ) );
       long startTime;
       int foundViolations = 0;
       long ellapsedTime = 0;
 
       LOGGER.info( "Ruleset: "
-            + ruleSetFile.getAbsolutePath() );
+            + realRuleSet.getAbsolutePath() );
 
       LOGGER.info( "Rules number in the ruleSet: "
             + ruleSet.getRules().size() );

@@ -49,12 +49,11 @@ import org.codehaus.doxia.sink.Sink;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.Violation;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
+import com.adobe.ac.pmd.engines.FlexPMDFormat;
 import com.adobe.ac.pmd.files.AbstractFlexFile;
 
 public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 {
-   public static final String   PMD_HTML = "flexPmd.html";
-
    final private boolean        aggregate;
    final private ResourceBundle bundle;
    final private MavenProject   project;
@@ -128,7 +127,7 @@ public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
       try
       {
          renderer.render( new FileWriter( new File( outputDirectory.getAbsolutePath()
-                                + "/" + PMD_HTML ) ),
+                                + "/" + FlexPMDFormat.HTML.toString() ) ),
                           report );
          renderer.getWriter().flush();
          renderer.getWriter().close();

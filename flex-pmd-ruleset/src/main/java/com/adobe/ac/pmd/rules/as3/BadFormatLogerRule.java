@@ -46,7 +46,7 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
    {
       for ( final IVariable field : classNode.getAttributes() )
       {
-         if ( field.getType().toString().compareTo( "ILogger" ) == 0 )
+         if ( field.getType().toString().equals( "ILogger" ) )
          {
             addViolation( field.getInternalNode(),
                           field.getInternalNode(),
@@ -55,9 +55,9 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
       }
       for ( final IField field : classNode.getConstants() )
       {
-         if ( field.getType().toString().compareTo( "ILogger" ) == 0 )
+         if ( field.getType().toString().equals( "ILogger" ) )
          {
-            if ( field.getName().compareTo( "LOG" ) != 0 )
+            if ( !field.getName().equals( "LOG" ) )
             {
                addViolation( field.getInternalNode(),
                              field.getInternalNode(),
@@ -107,8 +107,8 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
          for ( final IParserNode argumentNode : internalNode.getChildren() )
          {
             if ( argumentNode.getStringValue() != null
-                  && argumentNode.getStringValue().compareTo( "\""
-                        + fullyQualifiedClassName + "\"" ) != 0 )
+                  && !argumentNode.getStringValue().equals( "\""
+                        + fullyQualifiedClassName + "\"" ) )
             {
                addViolation( internalNode,
                              internalNode,

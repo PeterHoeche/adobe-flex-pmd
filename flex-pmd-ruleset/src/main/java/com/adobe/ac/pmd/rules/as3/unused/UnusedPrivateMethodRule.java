@@ -95,7 +95,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       {
          for ( final String functionName : privateFunctions.keySet() )
          {
-            if ( body.getStringValue().compareTo( functionName ) == 0 )
+            if ( body.getStringValue().equals( functionName ) )
             {
                privateFunctions.remove( functionName );
                break;

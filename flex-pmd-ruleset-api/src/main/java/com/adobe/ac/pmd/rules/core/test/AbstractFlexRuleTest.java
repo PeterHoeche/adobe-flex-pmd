@@ -82,7 +82,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
             }
          }
       }
-      final StringBuffer buffer = new StringBuffer();
+      final StringBuffer buffer = new StringBuffer( 100 );
 
       for ( final String violatedFileName : violatedFiles.keySet() )
       {

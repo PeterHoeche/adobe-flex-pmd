@@ -30,13 +30,20 @@
  */
 package com.adobe.ac.pmd;
 
-public final class CommandLineOptions
+public enum CommandLineOptions
 {
-   public static final String OUTPUT           = "outputDirectory";
-   public static final String RULE_SET         = "ruleSet";
-   public static final String SOURCE_DIRECTORY = "sourceDirectory";
+   OUTPUT("outputDirectory"), RULE_SET("ruleSet"), SOURCE_DIRECTORY("sourceDirectory");
 
-   private CommandLineOptions()
+   private String name;
+
+   private CommandLineOptions( final String nameToBeSet )
    {
+      name = nameToBeSet;
+   }
+
+   @Override
+   public String toString()
+   {
+      return name;
    }
 }

@@ -49,7 +49,7 @@ public class AddChildNotInCreateChildrenRule extends AbstractAstFlexRule
    {
       for ( final IFunction function : functions )
       {
-         if ( function.getName().compareTo( CREATE_CHILDREN ) != 0 )
+         if ( !function.getName().equals( CREATE_CHILDREN ) )
          {
             for ( final String methodName : METHOD_NAMES )
             {

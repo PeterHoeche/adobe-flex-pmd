@@ -37,13 +37,14 @@ import com.martiansoftware.jsap.JSAPException;
 public final class CommandLineUtils
 {
    public static void registerParameter( final JSAP jsap,
-                                         final String optionName,
-                                         final char shortName,
+                                         final CommandLineOptions option,
                                          final boolean required ) throws JSAPException
    {
+      final String optionName = option.toString();
+
       jsap.registerParameter( new FlaggedOption( optionName ).setStringParser( JSAP.STRING_PARSER )
                                                              .setRequired( required )
-                                                             .setShortFlag( shortName )
+                                                             .setShortFlag( optionName.charAt( 0 ) )
                                                              .setLongFlag( optionName ) );
    }
 

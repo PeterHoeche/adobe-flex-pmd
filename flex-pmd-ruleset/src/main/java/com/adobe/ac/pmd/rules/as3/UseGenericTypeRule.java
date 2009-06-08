@@ -105,7 +105,7 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
    private void tryToAddViolation( final IParserNode node,
                                    final String typeName )
    {
-      if ( typeName.compareTo( STAR ) == 0 )
+      if ( typeName.equals( STAR ) )
       {
          addViolation( node,
                        node );

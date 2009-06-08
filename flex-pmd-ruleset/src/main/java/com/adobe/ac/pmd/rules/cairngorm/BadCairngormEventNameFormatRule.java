@@ -85,7 +85,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
                                                                   .getInternalNode() );
          }
       }
-      if ( eventName.compareTo( "" ) == 0
+      if ( eventName.equals( "" )
             && classNode.getConstructor() != null )
       {
          eventName = extractEventNameFromConstructor( classNode.getConstructor() );

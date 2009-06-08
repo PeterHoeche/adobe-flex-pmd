@@ -279,7 +279,7 @@ class Node implements IParserNode
    {
       for ( final String currentName : strings )
       {
-         if ( currentName.compareTo( string ) == 0 )
+         if ( currentName.equals( string ) )
          {
             return true;
          }

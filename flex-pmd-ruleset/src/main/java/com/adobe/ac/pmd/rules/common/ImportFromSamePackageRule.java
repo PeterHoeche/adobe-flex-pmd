@@ -72,8 +72,8 @@ public class ImportFromSamePackageRule extends AbstractRegexpBasedRule
          {
             final String packageName = group.trim();
 
-            isViolation = packageName.compareTo( file.getPackageName()
-                  + "." ) == 0;
+            isViolation = packageName.equals( file.getPackageName()
+                  + "." );
          }
       }
       return isViolation;

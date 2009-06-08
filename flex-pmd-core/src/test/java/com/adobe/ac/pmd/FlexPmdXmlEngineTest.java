@@ -45,6 +45,7 @@ import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngine;
+import com.adobe.ac.pmd.engines.FlexPMDFormat;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
@@ -66,7 +67,7 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
       super.testExecuteReport();
 
       final File outXmlReport = new File( OUTPUT_DIRECTORY_URL
-            + FlexPmdXmlEngine.PMD_XML );
+            + FlexPMDFormat.XML.toString() );
 
       final SchemaFactory factory = SchemaFactory.newInstance( "http://www.w3.org/2001/XMLSchema" );
 
