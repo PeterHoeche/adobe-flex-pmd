@@ -72,7 +72,7 @@ public abstract class AbstractFlexPmdEngine
          throw new PMDException( "unspecified outputDirectory" );
       }
 
-      final String rulesetURI = "com/adobe/ac/pmd/rulesets/all_flex.xml";
+      final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
       final File realRuleSet = ruleSetFile == null ? new File( getClass().getResource( rulesetURI )
                                                                          .toURI()
                                                                          .getPath() )

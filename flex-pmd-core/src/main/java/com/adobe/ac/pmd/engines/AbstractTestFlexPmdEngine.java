@@ -68,23 +68,11 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
                      sourceDirectoryResource.toURI() );
 
       final File sourceDirectory = new File( sourceDirectoryResource.toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource( "/com/adobe/ac/pmd/rulesets/all_flex.xml" );
-
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl );
-
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl.toURI() );
-
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl.toURI().getPath() );
-
       final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
       engine.executeReport( sourceDirectory,
                             outputDirectory,
-                            ruleSetFile,
+                            null,
                             new FlexPmdViolations() );
    }
 
