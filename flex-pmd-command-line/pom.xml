@@ -40,6 +40,11 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
+			<artifactId>${project.parent.artifactId}-files</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
 			<artifactId>${project.parent.artifactId}-ruleset-api</artifactId>
 		</dependency>
 		<dependency>
@@ -82,7 +87,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.2</version>
+				<version>${maven-antrun-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>package-ant-task</id>
@@ -103,6 +108,9 @@
 									todir="${project.build.directory}/release" overwrite="true" />
 								<copy
 									file="${maven.dependency.com.adobe.ac.flex-pmd-ruleset.jar.path}"
+									todir="${project.build.directory}/release" overwrite="true" />
+								<copy
+									file="${maven.dependency.com.adobe.ac.flex-pmd-files.jar.path}"
 									todir="${project.build.directory}/release" overwrite="true" />
 								<copy
 									file="${maven.dependency.com.adobe.ac.flex-pmd-ruleset-api.jar.path}"

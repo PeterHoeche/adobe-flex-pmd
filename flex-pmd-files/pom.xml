@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.adobe.ac</groupId>
   <artifactId>flex-pmd-files</artifactId>
-  <name>Adobe FlexPMD Files</name>
+  <name>Adobe Flex PMD Files</name>
 
 	<dependencies>
 		<dependency>

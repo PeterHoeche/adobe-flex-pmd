@@ -5,7 +5,6 @@
   <artifactId>flex-pmd-test-resources</artifactId>
   <packaging>pom</packaging>
   <name>Adobe Flex PMD RuleSet test resources</name>
-  <version>0.5.6-SNAPSHOT</version>
 
   <parent>
 	<groupId>com.adobe.ac</groupId>

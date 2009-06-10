@@ -16,7 +16,7 @@
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
 		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
-		<flex-mojos-plugin.version>2.0M8</flex-mojos-plugin.version>
+		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
 
 		<!-- Dependency versions -->
 
@@ -39,25 +39,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.adobe.flexunit</groupId>
-			<artifactId>flexunit</artifactId>
-			<version>${flexunit.version}</version>
-			<type>swc</type>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>com.adobe.cairngorm</groupId>
 			<artifactId>event-source</artifactId>
 			<version>${event-source.version}</version>
-			<type>swc</type>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>flexunit.junit</groupId>
-			<artifactId>flexunit-optional</artifactId>
-			<version>${flexunit-optional.version}</version>
 			<type>swc</type>
 			<scope>test</scope>
 		</dependency>
@@ -79,6 +63,27 @@
 
 		<!-- flex sdk dependencies -->
 
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.adobe.flex.framework</groupId>
+                    <artifactId>playerglobal</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>${flash-player.version}-${flex.version}</version>
+<!--            <classifier>${flash-player.version}</classifier>-->
+            <type>swc</type>
+        </dependency>
+        
 		<dependency>
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>flex-framework</artifactId>
@@ -101,17 +106,16 @@
 			<classifier>en_US</classifier>
 		</dependency>
 
-		<!-- end of flex sdk dependencies -->
-
-		<dependency>
-			<groupId>com.adobe.flex.framework</groupId>
-			<artifactId>playerglobal</artifactId>
-			<version>${flash-player.version}-${flex.version}</version>
-			<type>swc</type>
-			<scope>external</scope>
-		</dependency>
-
-	</dependencies>
+<!-- flexmojos Unit testing support -->
+    <dependency>
+      <groupId>org.sonatype.flexmojos</groupId>
+      <artifactId>flexmojos-unittest-support</artifactId>
+      <version>${flex-mojos-plugin.version}</version>
+      <type>swc</type>
+      <scope>test</scope>
+    </dependency>
+    
+    	</dependencies>
 
 	<build>
 		<sourceDirectory>src/main/flex</sourceDirectory>
@@ -193,22 +197,16 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>info.flex-mojos</groupId>
-				<artifactId>flex-compiler-mojo</artifactId>
-				<version>${flex-mojos-plugin.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
-					<includeSources>
-						<param>${project.build.sourceDirectory}</param>
-					</includeSources>
-					<locales>
-						<param>en_US</param>
-					</locales>
-				</configuration>
-			</plugin>
-
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flex-mojos-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <targetPlayer>${flash-player.version}.0.0</targetPlayer>
+                </configuration>
+            </plugin>
+        
 			<plugin>
 				<groupId>com.adobe.ac</groupId>
 				<artifactId>as3Ncss-maven-plugin</artifactId>
@@ -239,32 +237,19 @@
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>flex-mojos-repository</id>
-			<url>http://svn.sonatype.org/flexmojos/repository/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>flex-mojos-repository</id>
-			<url>http://svn.sonatype.org/flexmojos/repository/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
+    <repositories>
+        <repository>
+            <id>flexmojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>flexmojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
 	<reporting>
 		<plugins>
 			<plugin>
