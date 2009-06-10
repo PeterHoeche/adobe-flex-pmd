@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.adobe.ac</groupId>
   <artifactId>flex-pmd-files</artifactId>
-  <name>Adobe FlexPMD files</name>
+  <name>Adobe FlexPMD Files</name>
 
 	<dependencies>
 		<dependency>
@@ -25,7 +25,43 @@
 			<artifactId>pmd</artifactId>
 			<version>${pmd.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
+			<version>${project.version}</version>
+			<classifier>resources</classifier>
+			<type>zip</type>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>${project.build.directory}/test/generated-resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-test-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>com.adobe.ac</includeGroupIds>
+							<includes>**/*.as,**/*.mxml</includes>
+							<outputDirectory>${project.build.directory}/test/generated-resources</outputDirectory>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
