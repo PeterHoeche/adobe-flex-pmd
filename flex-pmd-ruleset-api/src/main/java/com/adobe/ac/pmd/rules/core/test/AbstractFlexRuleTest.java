@@ -69,7 +69,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    {
       final Map< String, List< Violation > > violatedFiles = new HashMap< String, List< Violation > >();
 
-      for ( final String fileName : testFiles.keySet() )
+      for ( final String fileName : getTestFiles().keySet() )
       {
          if ( !getViolatingFiles().containsKey( fileName ) )
          {
@@ -171,8 +171,8 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    protected List< Violation > processFile( final String resourcePath ) throws IOException,
                                                                        TokenException
    {
-      return getRule().processFile( testFiles.get( resourcePath ),
+      return getRule().processFile( getTestFiles().get( resourcePath ),
                                     null,
-                                    testFiles );
+                                    getTestFiles() );
    }
 }

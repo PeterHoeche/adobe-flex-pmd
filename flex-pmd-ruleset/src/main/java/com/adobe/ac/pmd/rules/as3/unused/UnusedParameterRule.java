@@ -54,8 +54,8 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
             if ( !isParameterAnEvent( parameterNode )
                   && parameterNode.numChildren() > 0 && parameterNode.getChild( 0 ).numChildren() > 0 )
             {
-               variablesUnused.put( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
-                                    parameterNode );
+               addVariable( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
+                            parameterNode );
             }
          }
       }

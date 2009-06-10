@@ -50,7 +50,7 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
                                                                        TokenException
    {
       final AS3Parser parser = new AS3Parser();
-      final AbstractFlexFile file = testFiles.get( resourcePath );
+      final AbstractFlexFile file = getTestFiles().get( resourcePath );
 
       IPackage rootNode = null;
 
@@ -70,6 +70,6 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
       }
       return getRule().processFile( file,
                                     rootNode,
-                                    testFiles );
+                                    getTestFiles() );
    }
 }

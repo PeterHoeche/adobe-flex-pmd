@@ -74,8 +74,8 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
 
       if ( ast.is( NodeKind.NAME_TYPE_INIT ) )
       {
-         variablesUnused.put( ast.getChild( 0 ).getStringValue(),
-                              ast );
+         addVariable( ast.getChild( 0 ).getStringValue(),
+                      ast );
          result = true;
       }
       return result;

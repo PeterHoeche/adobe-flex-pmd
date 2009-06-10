@@ -51,9 +51,9 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    {
       super();
 
-      IParserNode ast = FileSetUtils.buildAst( testFiles.get( "cairngorm.BindableModelLocator.as" ) );
+      IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.BindableModelLocator.as" ) );
       modelLocator = NodeFactory.createPackage( ast ).getClassNode();
-      ast = FileSetUtils.buildAst( testFiles.get( "UnboundMetadata.as" ) );
+      ast = FileSetUtils.buildAst( getTestFiles().get( "UnboundMetadata.as" ) );
       unboundMetaData = NodeFactory.createPackage( ast ).getClassNode();
    }
 

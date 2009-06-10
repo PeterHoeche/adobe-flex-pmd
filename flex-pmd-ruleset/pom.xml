@@ -5,11 +5,11 @@
 	<artifactId>flex-pmd-ruleset</artifactId>
 	<packaging>jar</packaging>
 	<name>Adobe Flex PMD RuleSet</name>
-	<version>0.5.4-SNAPSHOT</version>
+	<version>0.5.6-SNAPSHOT</version>
 	<parent>
 		<groupId>com.adobe.ac</groupId>
 		<artifactId>flex-pmd</artifactId>
-		<version>0.5.4-SNAPSHOT</version>
+		<version>0.5.6-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>

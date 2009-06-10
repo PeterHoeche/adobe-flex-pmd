@@ -90,9 +90,9 @@ class PackageNode extends AbstractNode implements IPackage
    @Override
    protected void compute()
    {
-      final IParserNode classWrapperNode = getClassNodeFromCompilationUnitNode( internalNode,
+      final IParserNode classWrapperNode = getClassNodeFromCompilationUnitNode( getInternalNode(),
                                                                                 3 );
-      final IParserNode firstChild = internalNode.getChild( 0 );
+      final IParserNode firstChild = getInternalNode().getChild( 0 );
 
       imports = new ArrayList< IParserNode >();
 

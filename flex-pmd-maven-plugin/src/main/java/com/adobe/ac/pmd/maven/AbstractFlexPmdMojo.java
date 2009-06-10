@@ -58,23 +58,7 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     * @parameter expression="${project.build.directory}"
     * @required
     */
-   protected File       outputDirectory;
-
-   /**
-    * Location of the file.
-    * 
-    * @parameter
-    */
-   protected final File ruleSet = null;
-
-   /**
-    * Specifies the location of the source files to be used.
-    * 
-    * @parameter expression="${project.build.sourceDirectory}"
-    * @required
-    * @readonly
-    */
-   protected File       sourceDirectory;
+   private File         outputDirectory;
 
    /**
     * @parameter expression="${project}"
@@ -84,6 +68,13 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    private MavenProject project;
 
    /**
+    * Location of the file.
+    * 
+    * @parameter
+    */
+   private File         ruleSet;
+
+   /**
     * @parameter 
     *            expression="${component.org.codehaus.doxia.site.renderer.SiteRenderer}"
     * @required
@@ -91,17 +82,26 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     */
    private SiteRenderer siteRenderer;
 
-   public String getDescription( final Locale locale )
+   /**
+    * Specifies the location of the source files to be used.
+    * 
+    * @parameter expression="${project.build.sourceDirectory}"
+    * @required
+    * @readonly
+    */
+   private File         sourceDirectory;
+
+   public final String getDescription( final Locale locale )
    {
       return getBundle( locale ).getString( "report.flexPmd.description" );
    }
 
-   public String getName( final Locale locale )
+   public final String getName( final Locale locale )
    {
       return getBundle( locale ).getString( "report.flexPmd.name" );
    }
 
-   public String getOutputName()
+   public final String getOutputName()
    {
       return OUTPUT_NAME;
    }
@@ -112,15 +112,30 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       return outputDirectory.getAbsolutePath();
    }
 
+   protected final File getOutputDirectoryFile()
+   {
+      return outputDirectory;
+   }
+
    @Override
-   protected MavenProject getProject()
+   protected final MavenProject getProject()
    {
       return project;
    }
 
+   protected final File getRuleSet()
+   {
+      return ruleSet;
+   }
+
    @Override
-   protected SiteRenderer getSiteRenderer()
+   protected final SiteRenderer getSiteRenderer()
    {
       return siteRenderer;
+   }
+
+   protected final File getSourceDirectory()
+   {
+      return sourceDirectory;
    }
 }

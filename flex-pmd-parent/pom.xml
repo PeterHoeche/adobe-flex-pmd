@@ -4,7 +4,7 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>0.5.4-SNAPSHOT</version>
+	<version>0.5.6-SNAPSHOT</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 
@@ -120,6 +120,7 @@
 		<module>../flex-pmd-command-line</module>
 		<module>../flex-pmd-command-line-api</module>
 		<module>../flex-pmd-ruleset-creator</module>
+		<module>../flex-pmd-files</module>
 	</modules>
 
 	<build>

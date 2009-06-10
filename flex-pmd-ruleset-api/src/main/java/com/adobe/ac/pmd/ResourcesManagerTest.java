@@ -40,7 +40,7 @@ import java.util.logging.Logger;
 import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.FileSetUtils;
+import com.adobe.ac.pmd.files.FileUtils;
 
 /**
  * Internal utility which finds out the test resources, and map them to their
@@ -71,7 +71,7 @@ final class ResourcesManagerTest
          final URL resource = this.getClass().getResource( "/test" );
          final File root = new File( resource.toURI().getPath() );
 
-         testFiles = FileSetUtils.computeFilesList( root );
+         testFiles = FileUtils.computeFilesList( root );
       }
       catch ( final PMDException e )
       {

@@ -47,7 +47,7 @@ public class FieldNodeTest extends FlexPmdTestBase
    @Test
    public void testVisibility() throws PMDException
    {
-      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
       final IClass nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
       final IAttribute first = nonBindableModelLocator.getAttributes().get( 0 );
       final IAttribute second = nonBindableModelLocator.getAttributes().get( 1 );

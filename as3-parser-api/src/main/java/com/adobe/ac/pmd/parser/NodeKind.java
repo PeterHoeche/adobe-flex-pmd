@@ -126,7 +126,7 @@ public enum NodeKind
 
    private String name;
 
-   NodeKind( final String nameToBeSet )
+   private NodeKind( final String nameToBeSet )
    {
       name = nameToBeSet;
    }

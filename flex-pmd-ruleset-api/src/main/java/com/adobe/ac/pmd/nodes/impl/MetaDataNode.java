@@ -56,7 +56,7 @@ class MetaDataNode extends AbstractNode implements IMetaData
    @Override
    protected void compute()
    {
-      final String stringValue = internalNode.getStringValue();
+      final String stringValue = getInternalNode().getStringValue();
 
       name = stringValue.indexOf( " ( " ) > -1 ? stringValue.substring( 0,
                                                                         stringValue.indexOf( " ( " ) )

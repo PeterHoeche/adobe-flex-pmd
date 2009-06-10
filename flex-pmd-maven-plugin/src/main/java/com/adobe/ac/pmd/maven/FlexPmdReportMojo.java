@@ -68,9 +68,9 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
-         new FlexPmdXmlEngine().executeReport( sourceDirectory,
-                                               outputDirectory,
-                                               ruleSet,
+         new FlexPmdXmlEngine().executeReport( getSourceDirectory(),
+                                               getOutputDirectoryFile(),
+                                               getRuleSet(),
                                                pmd );
 
          final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
@@ -78,10 +78,10 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
                                                                             aggregate,
                                                                             getProject() );
 
-         flexPmdHtmlEngine.executeReport( sourceDirectory,
-                                          new File( outputDirectory
+         flexPmdHtmlEngine.executeReport( getSourceDirectory(),
+                                          new File( getOutputDirectory()
                                                 + "/site" ),
-                                          ruleSet,
+                                          getRuleSet(),
                                           pmd );
       }
       catch ( final PMDException e )

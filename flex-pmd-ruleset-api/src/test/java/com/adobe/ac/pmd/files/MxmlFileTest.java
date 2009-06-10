@@ -46,9 +46,9 @@ public class MxmlFileTest extends FlexPmdTestBase
    @Before
    public void setUp()
    {
-      iterationsList = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-      nestedComponent = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-      deleteRenderer = ( MxmlFile ) testFiles.get( "DeleteButtonRenderer.mxml" );
+      iterationsList = ( MxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      nestedComponent = ( MxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
+      deleteRenderer = ( MxmlFile ) getTestFiles().get( "DeleteButtonRenderer.mxml" );
    }
 
    @Test

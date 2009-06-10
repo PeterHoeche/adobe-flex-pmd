@@ -30,28 +30,12 @@
  */
 package de.bokelberg.flex.parser;
 
-import junit.framework.TestCase;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestReturnStatement extends TestCase
+public class TestReturnStatement extends AbstractAs3ParserTest
 {
-
-   private AS3Parser  asp;
-   private AS3Scanner scn;
-
-   @Override
-   @Before
-   public void setUp()
-   {
-      asp = new AS3Parser();
-      scn = new AS3Scanner();
-      asp.scn = scn;
-   }
-
    @Test
    public void testEmptyReturn() throws TokenException
    {

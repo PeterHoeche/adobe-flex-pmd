@@ -30,24 +30,12 @@
  */
 package de.bokelberg.flex.parser;
 
-import junit.framework.TestCase;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
-public class TestAS3Scanner extends TestCase
+public class TestAS3Scanner extends AbstractAs3ParserTest
 {
-   private AS3Scanner scn;
-
-   @Override
-   @Before
-   public void setUp()
-   {
-      scn = new AS3Scanner();
-   }
-
    @Test
    public void testAssignments()
    {
@@ -391,7 +379,7 @@ public class TestAS3Scanner extends TestCase
       tokent = scn.nextToken();
       assertEquals( message,
                     text,
-                    tokent.text );
+                    tokent.getText() );
    }
 
    private String join( final String[] lines,

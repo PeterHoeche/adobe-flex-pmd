@@ -43,7 +43,7 @@ class IdentifierNode extends AbstractNode implements IIdentifierNode
    @Override
    public String toString()
    {
-      return internalNode.getStringValue();
+      return getInternalNode().getStringValue();
    }
 
    @Override

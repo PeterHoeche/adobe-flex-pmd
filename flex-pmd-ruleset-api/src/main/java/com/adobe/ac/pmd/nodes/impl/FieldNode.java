@@ -72,9 +72,9 @@ class FieldNode extends VariableNode implements IField
    {
       super.compute();
 
-      if ( internalNode.numChildren() != 0 )
+      if ( getInternalNode().numChildren() != 0 )
       {
-         for ( final IParserNode child : internalNode.getChildren() )
+         for ( final IParserNode child : getInternalNode().getChildren() )
          {
             if ( child.is( NodeKind.MOD_LIST ) )
             {

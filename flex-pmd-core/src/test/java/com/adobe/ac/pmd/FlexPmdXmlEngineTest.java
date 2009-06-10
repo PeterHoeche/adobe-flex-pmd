@@ -32,15 +32,11 @@ package com.adobe.ac.pmd;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
@@ -57,15 +53,15 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
       super( name );
    }
 
-   @Test
    @Override
-   public void testExecuteReport() throws PMDException,
-                                  SAXException,
-                                  URISyntaxException,
-                                  IOException
+   protected AbstractFlexPmdEngine getFlexPmdEngine()
    {
-      super.testExecuteReport();
+      return new FlexPmdXmlEngine();
+   }
 
+   @Override
+   protected void onTestExecuteReportDone()
+   {
       final File outXmlReport = new File( OUTPUT_DIRECTORY_URL
             + FlexPMDFormat.XML.toString() );
 
@@ -76,12 +72,17 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
       assertNotNull( "pmd.xsd is not loaded",
                      schemaResource );
 
-      factory.newSchema( schemaResource ).newValidator().validate( new StreamSource( outXmlReport ) );
-   }
-
-   @Override
-   protected AbstractFlexPmdEngine getFlexPmdEngine()
-   {
-      return new FlexPmdXmlEngine();
+      try
+      {
+         factory.newSchema( schemaResource ).newValidator().validate( new StreamSource( outXmlReport ) );
+      }
+      catch ( final SAXException e )
+      {
+         fail( e.getMessage() );
+      }
+      catch ( final IOException e )
+      {
+         fail( e.getMessage() );
+      }
    }
 }

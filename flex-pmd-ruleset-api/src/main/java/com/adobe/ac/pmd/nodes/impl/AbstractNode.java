@@ -39,7 +39,7 @@ abstract class AbstractNode implements INode
 {
    protected final static Logger LOGGER = Logger.getLogger( "Node" );
 
-   protected final IParserNode   internalNode;
+   private final IParserNode     internalNode;
 
    protected AbstractNode( final IParserNode node )
    {

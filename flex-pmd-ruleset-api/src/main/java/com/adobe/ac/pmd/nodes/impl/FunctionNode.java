@@ -79,11 +79,6 @@ class FunctionNode extends AbstractNode implements IFunction
       modifiers.add( modifier );
    }
 
-   public boolean is( final Modifier modifier )
-   {
-      return modifiers.contains( modifier );
-   }
-
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
@@ -102,7 +97,7 @@ class FunctionNode extends AbstractNode implements IFunction
     */
    public List< IParserNode > findPrimaryStatementsInBody( final String primaryName )
    {
-      return body == null ? null
+      return body == null ? new ArrayList< IParserNode >()
                          : body.findPrimaryStatementsFromNameInChildren( new String[]
                          { primaryName } );
    }
@@ -194,13 +189,18 @@ class FunctionNode extends AbstractNode implements IFunction
       return null;
    }
 
+   public boolean is( final Modifier modifier )
+   {
+      return modifiers.contains( modifier );
+   }
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#isGetter()
     */
    public boolean isGetter()
    {
-      return internalNode.is( NodeKind.GET );
+      return getInternalNode().is( NodeKind.GET );
    }
 
    /*
@@ -233,7 +233,7 @@ class FunctionNode extends AbstractNode implements IFunction
     */
    public boolean isSetter()
    {
-      return internalNode.is( NodeKind.SET );
+      return getInternalNode().is( NodeKind.SET );
    }
 
    @Override
@@ -244,9 +244,9 @@ class FunctionNode extends AbstractNode implements IFunction
       localVariables = new HashMap< String, IParserNode >();
       parameters = new ArrayList< IParameter >();
 
-      if ( internalNode.numChildren() != 0 )
+      if ( getInternalNode().numChildren() != 0 )
       {
-         for ( final IParserNode node : internalNode.getChildren() )
+         for ( final IParserNode node : getInternalNode().getChildren() )
          {
             if ( node.is( NodeKind.BLOCK ) )
             {

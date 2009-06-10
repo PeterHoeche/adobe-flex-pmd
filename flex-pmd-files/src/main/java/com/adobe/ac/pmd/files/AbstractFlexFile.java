@@ -37,7 +37,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import de.bokelberg.util.FileUtil;
 
 /**
  * Abstract class representing a Flex File (either MXML or AS)
@@ -88,7 +87,7 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
       }
 
       lines = new ArrayList< String >();
-      final String[] linesArray = FileUtil.readStrings( underlyingFile );
+      final String[] linesArray = FileUtils.readStrings( underlyingFile );
       for ( final String string : linesArray )
       {
          lines.add( string );

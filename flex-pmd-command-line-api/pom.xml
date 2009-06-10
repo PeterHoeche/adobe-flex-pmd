@@ -2,12 +2,12 @@
   <parent>
     <artifactId>flex-pmd</artifactId>
     <groupId>com.adobe.ac</groupId>
-    <version>0.5.4-SNAPSHOT</version>
+    <version>0.5.6-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.adobe.ac</groupId>
   <artifactId>flex-pmd-command-line-api</artifactId>
-  <version>0.5.4-SNAPSHOT</version>
+  <version>0.5.6-SNAPSHOT</version>
   <name>Adobe Flex PMD Command line API</name>
   
   <dependencies>

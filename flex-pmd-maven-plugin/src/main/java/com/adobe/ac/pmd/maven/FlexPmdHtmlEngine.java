@@ -54,10 +54,10 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
 
 public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 {
-   final private boolean        aggregate;
-   final private ResourceBundle bundle;
-   final private MavenProject   project;
-   final private Sink           sink;
+   private final boolean        aggregate;
+   private final ResourceBundle bundle;
+   private final MavenProject   project;
+   private final Sink           sink;
 
    public FlexPmdHtmlEngine( final Sink sinkToBeSet,
                              final ResourceBundle bundleToBeSet,
@@ -73,8 +73,8 @@ public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
    }
 
    @Override
-   protected void writeReport( final FlexPmdViolations pmd,
-                               final File outputDirectory ) throws PMDException
+   protected final void writeReport( final FlexPmdViolations pmd,
+                                     final File outputDirectory ) throws PMDException
    {
       writeReport( outputDirectory,
                    computeReport( pmd ) );

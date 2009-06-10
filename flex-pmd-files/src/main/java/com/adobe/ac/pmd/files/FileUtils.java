@@ -30,8 +30,11 @@
  */
 package com.adobe.ac.pmd.files;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,6 +93,32 @@ public class FileUtils
                + "(Specify the source directory in relative (not absolute))", null );
       }
       return foundFiles;
+   }
+
+   public static String[] readStrings( final File file ) throws IOException
+   {
+      final ArrayList< String > result = new ArrayList< String >();
+      BufferedReader inReader = null;
+   
+      try
+      {
+         inReader = new BufferedReader( new FileReader( file ) );
+   
+         String line;
+         while ( ( line = inReader.readLine() ) != null )
+         {
+            result.add( line );
+         }
+      }
+      finally
+      {
+         if ( inReader != null )
+         {
+            inReader.close();
+         }
+      }
+      return result.toArray( new String[]
+      {} );
    }
 
 }

@@ -38,7 +38,14 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
 abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
 {
-   protected Map< String, IParserNode > variablesUnused;
+   private Map< String, IParserNode > variablesUnused;
+
+   protected void addVariable( final String variableName,
+                               final IParserNode ast )
+   {
+      variablesUnused.put( variableName,
+                           ast );
+   }
 
    @Override
    protected void visitFunction( final IParserNode ast,

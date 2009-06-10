@@ -41,18 +41,23 @@ import com.adobe.ac.pmd.files.AbstractFlexFile;
  */
 public class FlexPmdTestBase
 {
-   protected static final String                   BEGIN_LINE_NOT_CORRECT        = "Begining line is not correct";
-   protected static final String                   END_LINE_NOT_CORRECT          = "Ending line is not correct";
-   protected static final String                   VIOLATIONS_NUMBER_NOT_CORRECT = "Violations number is not correct";
+   protected static final String                 BEGIN_LINE_NOT_CORRECT        = "Begining line is not correct";
+   protected static final String                 END_LINE_NOT_CORRECT          = "Ending line is not correct";
+   protected static final String                 VIOLATIONS_NUMBER_NOT_CORRECT = "Violations number is not correct";
 
    /**
     * Test files placeholder. The key is the qualified file name
     */
-   protected final Map< String, AbstractFlexFile > testFiles                     = ResourcesManagerTest.getInstance()
-                                                                                                       .getTestFiles();
+   private final Map< String, AbstractFlexFile > testFiles                     = ResourcesManagerTest.getInstance()
+                                                                                                     .getTestFiles();
 
    protected FlexPmdTestBase()
    {
       // Base constructor
+   }
+
+   protected Map< String, AbstractFlexFile > getTestFiles()
+   {
+      return testFiles;
    }
 }

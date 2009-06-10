@@ -54,13 +54,13 @@ public class PackageNodeTest extends FlexPmdTestBase
 
    public PackageNodeTest() throws PMDException
    {
-      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "SkinStyles.as" ) );
+      final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "SkinStyles.as" ) );
       stylePackage = NodeFactory.createPackage( ast );
 
-      final IParserNode buttonRendererAst = FileSetUtils.buildAst( testFiles.get( "DeleteButtonRenderer.mxml" ) );
+      final IParserNode buttonRendererAst = FileSetUtils.buildAst( getTestFiles().get( "DeleteButtonRenderer.mxml" ) );
       buttonRenderer = NodeFactory.createPackage( buttonRendererAst );
 
-      final IParserNode modelLocatorAst = FileSetUtils.buildAst( testFiles.get( "cairngorm."
+      final IParserNode modelLocatorAst = FileSetUtils.buildAst( getTestFiles().get( "cairngorm."
             + "NonBindableModelLocator.as" ) );
       modelLocator = NodeFactory.createPackage( modelLocatorAst );
    }
@@ -83,7 +83,7 @@ public class PackageNodeTest extends FlexPmdTestBase
                                        TokenException,
                                        PMDException
    {
-      final IParserNode ast = FileSetUtils.buildAst( testFiles.get( "schedule_internal.as" ) );
+      final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "schedule_internal.as" ) );
       final IPackage namespacePackage = NodeFactory.createPackage( ast );
 
       assertNull( namespacePackage.getClassNode() );

@@ -45,7 +45,7 @@ import com.adobe.ac.pmd.FlexPmdViolations;
 
 public abstract class AbstractTestFlexPmdEngine extends TestCase
 {
-   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
+   protected static final String OUTPUT_DIRECTORY_URL = "target/report/";
 
    public AbstractTestFlexPmdEngine( final String name )
    {
@@ -53,10 +53,10 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
    }
 
    @Test
-   public void testExecuteReport() throws PMDException,
-                                  SAXException,
-                                  URISyntaxException,
-                                  IOException
+   public final void testExecuteReport() throws PMDException,
+                                        SAXException,
+                                        URISyntaxException,
+                                        IOException
    {
       final AbstractFlexPmdEngine engine = getFlexPmdEngine();
       final URL sourceDirectoryResource = getClass().getResource( "/test" );
@@ -74,7 +74,11 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
                             outputDirectory,
                             null,
                             new FlexPmdViolations() );
+
+      onTestExecuteReportDone();
    }
 
    protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
+
+   protected abstract void onTestExecuteReportDone();
 }

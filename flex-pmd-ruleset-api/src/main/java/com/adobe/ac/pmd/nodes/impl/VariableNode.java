@@ -82,11 +82,6 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       modifiers.add( modifier );
    }
 
-   public boolean is( final Modifier modifier )
-   {
-      return modifiers.contains( modifier );
-   }
-
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IVariable#getInitializationExpression()
@@ -120,21 +115,26 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       return type;
    }
 
+   public boolean is( final Modifier modifier )
+   {
+      return modifiers.contains( modifier );
+   }
+
    @Override
    protected void compute()
    {
       metaDataList = new HashMap< String, List< IMetaData > >();
       modifiers = new HashSet< Modifier >();
 
-      if ( internalNode.is( NodeKind.NAME_TYPE_INIT ) )
+      if ( getInternalNode().is( NodeKind.NAME_TYPE_INIT ) )
       {
-         computeNameTypeInit( internalNode );
+         computeNameTypeInit( getInternalNode() );
       }
       else
       {
-         if ( internalNode.numChildren() != 0 )
+         if ( getInternalNode().numChildren() != 0 )
          {
-            for ( final IParserNode child : internalNode.getChildren() )
+            for ( final IParserNode child : getInternalNode().getChildren() )
             {
                if ( child.is( NodeKind.NAME_TYPE_INIT ) )
                {

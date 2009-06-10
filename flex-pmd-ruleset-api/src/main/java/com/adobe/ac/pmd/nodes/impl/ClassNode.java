@@ -80,11 +80,6 @@ class ClassNode extends AbstractNode implements IClass
       modifiers.add( modifier );
    }
 
-   public boolean is( final Modifier modifier )
-   {
-      return modifiers.contains( modifier );
-   }
-
    public List< IAttribute > getAttributes()
    {
       return attributes;
@@ -154,6 +149,11 @@ class ClassNode extends AbstractNode implements IClass
       return name.toString();
    }
 
+   public boolean is( final Modifier modifier )
+   {
+      return modifiers.contains( modifier );
+   }
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IClass#isFinal()
@@ -185,9 +185,9 @@ class ClassNode extends AbstractNode implements IClass
       metadatas = new HashMap< String, List< IMetaData > >();
       implementations = new ArrayList< IParserNode >();
 
-      if ( internalNode.numChildren() != 0 )
+      if ( getInternalNode().numChildren() != 0 )
       {
-         for ( final IParserNode node : internalNode.getChildren() )
+         for ( final IParserNode node : getInternalNode().getChildren() )
          {
             if ( node.is( NodeKind.CONTENT ) )
             {

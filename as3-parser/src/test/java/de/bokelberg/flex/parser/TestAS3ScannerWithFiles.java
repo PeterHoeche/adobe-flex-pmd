@@ -34,26 +34,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.TestCase;
-
-import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.ac.pmd.files.FileUtils;
+
 import de.bokelberg.flex.parser.AS3Scanner.Token;
-import de.bokelberg.util.FileUtil;
 
-public class TestAS3ScannerWithFiles extends TestCase
+public class TestAS3ScannerWithFiles extends AbstractAs3ParserTest
 {
-
-   private AS3Scanner scn;
-
-   @Override
-   @Before
-   public void setUp()
-   {
-      scn = new AS3Scanner();
-   }
-
    @Test
    public void testSimple() throws IOException,
                            URISyntaxException
@@ -87,7 +75,7 @@ public class TestAS3ScannerWithFiles extends TestCase
                             final String fileName ) throws IOException,
                                                    URISyntaxException
    {
-      final String[] lines = FileUtil.readStrings( new File( getClass().getResource( "/examples/unformatted/" )
+      final String[] lines = FileUtils.readStrings( new File( getClass().getResource( "/examples/unformatted/" )
                                                                        .toURI()
                                                                        .getPath()
             + fileName ) );
@@ -113,6 +101,6 @@ public class TestAS3ScannerWithFiles extends TestCase
       token = scn.nextToken();
       assertEquals( message,
                     text,
-                    token.text );
+                    token.getText() );
    }
 }

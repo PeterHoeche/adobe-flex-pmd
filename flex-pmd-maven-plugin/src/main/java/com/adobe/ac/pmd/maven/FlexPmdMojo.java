@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.maven;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -49,11 +48,6 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
  */
 public class FlexPmdMojo extends AbstractFlexPmdMojo
 {
-   public void setOutputDirectory( final File outputDirectoryToSet )
-   {
-      outputDirectory = outputDirectoryToSet;
-   }
-
    @Override
    protected void executeReport( final Locale locale ) throws MavenReportException
    {
@@ -62,9 +56,9 @@ public class FlexPmdMojo extends AbstractFlexPmdMojo
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
-         new FlexPmdXmlEngine().executeReport( sourceDirectory,
-                                               outputDirectory,
-                                               ruleSet,
+         new FlexPmdXmlEngine().executeReport( getSourceDirectory(),
+                                               getOutputDirectoryFile(),
+                                               getRuleSet(),
                                                pmd );
       }
       catch ( final PMDException e )

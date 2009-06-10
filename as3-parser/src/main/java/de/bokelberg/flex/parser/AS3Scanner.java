@@ -46,25 +46,53 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 class AS3Scanner
 {
-
-   static public class Token
+   public static class Token
    {
-      public int     column;
-      public boolean isNum;
-      public int     line;
-      public String  text;
+      private final int     column;
+      private final boolean isNum;
+      private final int     line;
+      private final String  text;
 
       public Token( final String textContent,
                     final int tokenLine,
                     final int tokenColumn )
       {
+         this( textContent, tokenLine, tokenColumn, false );
+      }
+
+      public Token( final String textContent,
+                    final int tokenLine,
+                    final int tokenColumn,
+                    final boolean isNumToSet )
+      {
          text = textContent;
          line = tokenLine + 1;
          column = tokenColumn + 1;
+         isNum = isNumToSet;
+      }
+
+      public int getColumn()
+      {
+         return column;
+      }
+
+      public int getLine()
+      {
+         return line;
+      }
+
+      public String getText()
+      {
+         return text;
+      }
+
+      public boolean isNum()
+      {
+         return isNum;
       }
    }
 
-   static public class XMLVerifier extends DefaultHandler
+   public static class XMLVerifier extends DefaultHandler
    {
       public boolean verify( final String text )
       {
@@ -458,8 +486,7 @@ class AS3Scanner
             }
          }
       }
-      final Token result = new Token( buffer.toString(), line, column );
-      result.isNum = true;
+      final Token result = new Token( buffer.toString(), line, column, true );
       skipChars( result.text.length() - 1 );
       return result;
    }
@@ -507,8 +534,7 @@ class AS3Scanner
          }
          buffer.append( character );
       }
-      final Token result = new Token( buffer.toString(), line, column );
-      result.isNum = true;
+      final Token result = new Token( buffer.toString(), line, column, true );
       skipChars( result.text.length() - 1 );
       return result;
    }

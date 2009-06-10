@@ -55,8 +55,8 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
       {
          final String eventName = extractEventName( classNode );
 
-         if ( isEventNameNotFound( eventName )
-               || !doesEventNameContainDot( eventName ) )
+         if ( StringUtils.isEmpty( eventName )
+               || !eventName.contains( "." ) )
          {
             addViolation( classNode );
          }
@@ -67,11 +67,6 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
-   }
-
-   private boolean doesEventNameContainDot( final String eventName )
-   {
-      return eventName.contains( "." );
    }
 
    private String extractEventName( final IClass classNode )
@@ -109,11 +104,6 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
          eventName = superCall.getChild( 1 ).getChild( 0 ).getStringValue();
       }
       return eventName;
-   }
-
-   private boolean isEventNameNotFound( final String eventName )
-   {
-      return "".equals( eventName );
    }
 
    private boolean isExtendedClassCairngormEvent( final IClass classNode )

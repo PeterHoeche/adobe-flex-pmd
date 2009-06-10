@@ -59,11 +59,11 @@ public class ClassNodeTest extends FlexPmdTestBase
                       TokenException,
                       PMDException
    {
-      IParserNode ast = FileSetUtils.buildAst( testFiles.get( "RadonDataGrid.as" ) );
+      IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "RadonDataGrid.as" ) );
       radonDataGrid = NodeFactory.createPackage( ast ).getClassNode();
-      ast = FileSetUtils.buildAst( testFiles.get( "cairngorm.BindableModelLocator.as" ) );
+      ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.BindableModelLocator.as" ) );
       modelLocator = NodeFactory.createPackage( ast ).getClassNode();
-      ast = FileSetUtils.buildAst( testFiles.get( "cairngorm.NonBindableModelLocator.as" ) );
+      ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
       nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
    }
 

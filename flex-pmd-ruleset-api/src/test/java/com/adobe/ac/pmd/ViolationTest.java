@@ -64,9 +64,9 @@ public class ViolationTest extends FlexPmdTestBase
    @Before
    public void setUp()
    {
-      abstractRowData = testFiles.get( "AbstractRowData.as" );
-      abstractRowDataWithPackage = testFiles.get( "com.adobe.ac.AbstractRowData.as" );
-      iterationsListMxml = testFiles.get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      abstractRowData = getTestFiles().get( "AbstractRowData.as" );
+      abstractRowDataWithPackage = getTestFiles().get( "com.adobe.ac.AbstractRowData.as" );
+      iterationsListMxml = getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Test

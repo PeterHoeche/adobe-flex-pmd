@@ -53,9 +53,9 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    public void init() throws FileNotFoundException,
                      URISyntaxException
    {
-      as3 = ( As3File ) testFiles.get( "AbstractRowData.as" );
-      mainMxml = ( MxmlFile ) testFiles.get( "Main.mxml" );
-      mxml = ( MxmlFile ) testFiles.get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      as3 = ( As3File ) getTestFiles().get( "AbstractRowData.as" );
+      mainMxml = ( MxmlFile ) getTestFiles().get( "Main.mxml" );
+      mxml = ( MxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Test

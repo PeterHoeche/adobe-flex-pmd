@@ -28,28 +28,22 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package de.bokelberg.flex.parser;
 
-public final class StackTraceUtils
+import junit.framework.TestCase;
+
+import org.junit.Before;
+
+public abstract class AbstractAs3ParserTest extends TestCase
 {
-   /**
-    * Pretty print the first two lines of the stacktrace of the given exception
-    *
-    * @param exception Exception to print
-    * @return The first two lines of the stacktrace
-    */
-   public static String print( final Exception exception )
-   {
-      final StringBuffer buffer = new StringBuffer();
+   protected AS3Parser  asp;
+   protected AS3Scanner scn;
 
-      buffer.append( exception.getMessage()
-            + " at " + exception.getStackTrace()[ 0 ] + "\n" );
-      buffer.append( exception.getStackTrace()[ 1 ]
-            + "\n" + exception.getStackTrace()[ 2 ] );
-      return buffer.toString();
-   }
-
-   private StackTraceUtils()
+   @Override
+   @Before
+   public void setUp()
    {
+      asp = new AS3Parser();
+      scn = asp.getScn();
    }
 }
