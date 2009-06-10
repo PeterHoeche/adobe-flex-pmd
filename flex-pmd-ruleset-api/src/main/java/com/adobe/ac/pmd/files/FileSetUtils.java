@@ -141,16 +141,22 @@ public final class FileSetUtils
       {
          AbstractFlexFile file;
 
-         if ( sourceFile.getName().endsWith( ".as" ) )
+         try
          {
-            file = new As3File( sourceFile, sourceDirectory );
+            if ( sourceFile.getName().endsWith( ".as" ) )
+            {
+               file = new As3File( sourceFile, sourceDirectory );
+            }
+            else
+            {
+               file = new MxmlFile( sourceFile, sourceDirectory );
+            }
+            files.put( file.getFullyQualifiedName(),
+                       file );
          }
-         else
+         catch ( final IOException e )
          {
-            file = new MxmlFile( sourceFile, sourceDirectory );
          }
-         files.put( file.getFullyQualifiedName(),
-                    file );
       }
 
       return files;
