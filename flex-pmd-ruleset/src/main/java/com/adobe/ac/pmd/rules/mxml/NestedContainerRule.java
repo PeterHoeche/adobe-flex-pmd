@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
 
@@ -50,7 +50,7 @@ public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
@@ -69,7 +69,7 @@ public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
+                                                            final IFlexFile file )
    {
       boolean result = false;
 

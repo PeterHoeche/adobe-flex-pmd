@@ -28,20 +28,21 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.files.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MxmlFile extends AbstractFlexFile
+import com.adobe.ac.pmd.files.IMxmlFile;
+
+class MxmlFile extends AbstractFlexFile implements IMxmlFile
 {
    private boolean  mainApplication = false;
    private String[] scriptBlock;
 
    protected MxmlFile( final File file,
-                       final File rootDirectory ) throws IOException
+                       final File rootDirectory )
    {
       super( file, rootDirectory );
 
@@ -50,36 +51,36 @@ public class MxmlFile extends AbstractFlexFile
    }
 
    @Override
-   public boolean doesCurrentLineContainOneLineComment( final String line )
+   public final boolean doesCurrentLineContainOneLineComment( final String line )
    {
       return false;
    }
 
    @Override
-   public String getCommentClosingTag()
+   public final String getCommentClosingTag()
    {
       return "-->";
    }
 
    @Override
-   public String getCommentOpeningTag()
+   public final String getCommentOpeningTag()
    {
       return "<!--";
    }
 
-   public String[] getScriptBlock()
+   public final String[] getScriptBlock()
    {
       return scriptBlock;
    }
 
    @Override
-   public boolean isMainApplication()
+   public final boolean isMainApplication()
    {
       return mainApplication;
    }
 
    @Override
-   public boolean isMxml()
+   public final boolean isMxml()
    {
       return true;
    }
@@ -100,18 +101,8 @@ public class MxmlFile extends AbstractFlexFile
    private void copyScriptLinesKeepingOriginalLineIndices( final int startLine,
                                                            final int endLine )
    {
-      final List< String > scriptLines = new ArrayList< String >();
-
-      for ( int j = 0; j < startLine; j++ )
-      {
-         scriptLines.add( "" );
-      }
-      scriptLines.addAll( new ArrayList< String >( getLines() ).subList( startLine,
-                                                                         endLine ) );
-      for ( int j = endLine; j < getLines().size(); j++ )
-      {
-         scriptLines.add( "" );
-      }
+      final List< String > scriptLines = fillMxmlLine( startLine,
+                                                       endLine );
       final String firstLine = "package "
             + getPackageName() + "{";
       final String secondLine = "class "
@@ -152,5 +143,23 @@ public class MxmlFile extends AbstractFlexFile
 
       copyScriptLinesKeepingOriginalLineIndices( startLine,
                                                  endLine );
+   }
+
+   private List< String > fillMxmlLine( final int startLine,
+                                        final int endLine )
+   {
+      final List< String > scriptLines = new ArrayList< String >();
+
+      for ( int j = 0; j < startLine; j++ )
+      {
+         scriptLines.add( "" );
+      }
+      scriptLines.addAll( new ArrayList< String >( getLines() ).subList( startLine,
+                                                                         endLine ) );
+      for ( int j = endLine; j < getLines().size(); j++ )
+      {
+         scriptLines.add( "" );
+      }
+      return scriptLines;
    }
 }

@@ -47,10 +47,10 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.doxia.sink.Sink;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
-import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPMDFormat;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 
 public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 {
@@ -91,16 +91,16 @@ public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
       reportSink.beginDocument();
       report.start();
 
-      for ( final AbstractFlexFile file : pmd.getViolations().keySet() )
+      for ( final IFlexFile file : pmd.getViolations().keySet() )
       {
          final File javaFile = new File( file.getFilePath() );
-         final List< Violation > violations = pmd.getViolations().get( file );
+         final List< IFlexViolation > violations = pmd.getViolations().get( file );
 
          reportSink.beginFile( javaFile,
                                new PmdFileInfo( project, javaFile.getParentFile(), "" ) );
          ruleContext.setSourceCodeFilename( javaFile.getAbsolutePath() );
 
-         for ( final Violation violation : violations )
+         for ( final IFlexViolation violation : violations )
          {
             reportSink.ruleViolationAdded( violation );
          }

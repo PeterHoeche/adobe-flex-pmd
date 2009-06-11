@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +38,8 @@ import java.net.URISyntaxException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
@@ -51,9 +52,9 @@ public class ViolationTest extends FlexPmdTestBase
    private static final AbstractFlexRule INFO_RULE        = new EmptyRule();
    private static final String           RULE_SET_NAME    = "RuleSetName";
    private static final AbstractFlexRule WARNING_RULE     = new WarningRule();
-   private AbstractFlexFile              abstractRowData;
-   private AbstractFlexFile              abstractRowDataWithPackage;
-   private AbstractFlexFile              iterationsListMxml;
+   private IFlexFile                     abstractRowData;
+   private IFlexFile                     abstractRowDataWithPackage;
+   private IFlexFile                     iterationsListMxml;
    private final ViolationPosition       position;
 
    public ViolationTest()

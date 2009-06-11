@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.files.As3File;
+import com.adobe.ac.pmd.files.IAs3File;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -69,7 +69,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       {
          final IFunction function = privateFunctions.get( functionName );
 
-         if ( getCurrentFile() instanceof As3File
+         if ( getCurrentFile() instanceof IAs3File
                || !getCurrentFile().contains( functionName,
                                               function.getInternalNode().getLine() ) )
          {

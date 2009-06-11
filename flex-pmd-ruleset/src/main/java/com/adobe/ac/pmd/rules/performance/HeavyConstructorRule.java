@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class HeavyConstructorRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return !file.isMxml();
    }

@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.common;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -38,7 +38,7 @@ public class BindingUtilsRule extends AbstractRegexpBasedRule
 {
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -57,7 +57,7 @@ public class BindingUtilsRule extends AbstractRegexpBasedRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
+                                                            final IFlexFile file )
    {
       return true;
    }

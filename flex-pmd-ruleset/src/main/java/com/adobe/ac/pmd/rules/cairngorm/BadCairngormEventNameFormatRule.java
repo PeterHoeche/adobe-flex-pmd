@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.rules.cairngorm;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IField;
 import com.adobe.ac.pmd.nodes.IFunction;
@@ -43,7 +43,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.getClassName().endsWith( "Event.as" );
    }

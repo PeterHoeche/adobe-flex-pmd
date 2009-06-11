@@ -32,14 +32,14 @@ package com.adobe.ac.pmd.rules.performance;
 
 import java.util.Locale;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class CreationPolicySetToAllRule extends AbstractRegexpBasedRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -58,7 +58,7 @@ public class CreationPolicySetToAllRule extends AbstractRegexpBasedRule
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
+                                                            final IFlexFile file )
    {
       return line.toLowerCase( Locale.FRANCE ).contains( "all" ); // Because
       // French

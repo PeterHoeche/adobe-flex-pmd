@@ -42,8 +42,9 @@ import net.sourceforge.pmd.properties.IntegerProperty;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.impl.ViolationFactory;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
@@ -88,11 +89,11 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
                                 "" );
    }
 
-   final public List< Violation > processFile( final AbstractFlexFile file,
-                                               final IPackage rootNode,
-                                               final Map< String, AbstractFlexFile > files )
+   final public List< IFlexViolation > processFile( final IFlexFile file,
+                                                    final IPackage rootNode,
+                                                    final Map< String, IFlexFile > files )
    {
-      List< Violation > violations = new ArrayList< Violation >();
+      List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       if ( isConcernedByTheGivenFile( file ) )
       {
@@ -110,11 +111,13 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
       return violations;
    }
 
-   final protected void addViolation( final List< Violation > violations,
-                                      final AbstractFlexFile file,
+   final protected void addViolation( final List< IFlexViolation > violations,
+                                      final IFlexFile file,
                                       final ViolationPosition position )
    {
-      final Violation violation = new Violation( position, this, file );
+      final IFlexViolation violation = ViolationFactory.create( position,
+                                                                this,
+                                                                file );
 
       prettyPrintMessage( violation );
       violations.add( violation );
@@ -135,7 +138,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
       return properties;
    }
 
-   protected abstract boolean isConcernedByTheGivenFile( AbstractFlexFile file );
+   protected abstract boolean isConcernedByTheGivenFile( IFlexFile file );
 
    /**
     * Overrides this function if you need to compute anything after the file has
@@ -146,8 +149,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
     * @param violations
     */
    protected void onFileProcessingEnded( final IPackage rootNode,
-                                         final AbstractFlexFile file,
-                                         final List< Violation > violations )
+                                         final IFlexFile file,
+                                         final List< IFlexViolation > violations )
    {
    }
 
@@ -159,7 +162,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
    {
    }
 
-   protected void prettyPrintMessage( final Violation violation )
+   protected void prettyPrintMessage( final IFlexViolation violation )
    {
       if ( this instanceof IThresholdedRule )
       {
@@ -176,9 +179,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule
       }
    }
 
-   protected abstract List< Violation > processFileBody( final IPackage rootNode,
-                                                         final AbstractFlexFile file,
-                                                         final Map< String, AbstractFlexFile > files );
+   protected abstract List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                              final IFlexFile file,
+                                                              final Map< String, IFlexFile > files );
 
    private void setDefaultPriority()
    {

@@ -41,14 +41,15 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 {
-   static protected Map< String, ViolationPosition[] > addToMap( final Map< String, ViolationPosition[] > map,
+   protected static Map< String, ViolationPosition[] > addToMap( final Map< String, ViolationPosition[] > map,
                                                                  final String resource,
                                                                  final ViolationPosition[] positions )
    {
@@ -64,40 +65,12 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
     * @throws IOException
     */
    @Test
-   final public void testProcessNonViolatingFiles() throws IOException,
+   public final void testProcessNonViolatingFiles() throws IOException,
                                                    TokenException
    {
-      final Map< String, List< Violation > > violatedFiles = new HashMap< String, List< Violation > >();
+      final Map< String, List< IFlexViolation >> violatedFiles = extractActualViolatedFiles();
+      final StringBuffer buffer = buildMessageName( violatedFiles );
 
-      for ( final String fileName : getTestFiles().keySet() )
-      {
-         if ( !getViolatingFiles().containsKey( fileName ) )
-         {
-            final List< Violation > violations = processFile( fileName );
-
-            if ( !violations.isEmpty() )
-            {
-               violatedFiles.put( fileName,
-                                  violations );
-            }
-         }
-      }
-      final StringBuffer buffer = new StringBuffer( 100 );
-
-      for ( final String violatedFileName : violatedFiles.keySet() )
-      {
-         final List< Violation > violations = violatedFiles.get( violatedFileName );
-
-         buffer.append( violatedFileName
-               + " should not contain any violations " + " (" + violations.size() + " found" );
-
-         if ( violations.size() == 1 )
-         {
-            buffer.append( " at "
-                  + violations.get( 0 ).getBeginLine() + ":" + violations.get( 0 ).getEndLine() );
-         }
-         buffer.append( ")\n" );
-      }
       if ( !violatedFiles.isEmpty() )
       {
          fail( buffer.toString() );
@@ -108,7 +81,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
     * Test case which contains violating files
     */
    @Test
-   final public void testProcessViolatingFiles()
+   public final void testProcessViolatingFiles()
    {
       for ( final String fileName : getViolatingFiles().keySet() )
       {
@@ -117,19 +90,19 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       }
    }
 
-   final protected void assertEmptyViolations( final String resourcePath )
+   protected final void assertEmptyViolations( final String resourcePath )
    {
       assertViolations( resourcePath,
                         new ViolationPosition[]
                         {} );
    }
 
-   final protected void assertViolations( final String resourcePath,
+   protected final void assertViolations( final String resourcePath,
                                           final ViolationPosition[] expectedPositions )
    {
       try
       {
-         final List< Violation > violations = processFile( resourcePath );
+         final List< IFlexViolation > violations = processFile( resourcePath );
 
          assertEquals( VIOLATIONS_NUMBER_NOT_CORRECT
                              + " for " + resourcePath,
@@ -140,7 +113,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          {
             for ( int i = 0; i < expectedPositions.length; i++ )
             {
-               final Violation violation = violations.get( i );
+               final IFlexViolation violation = violations.get( i );
                final ViolationPosition expectedPosition = expectedPositions[ i ];
 
                assertEquals( BEGIN_LINE_NOT_CORRECT
@@ -168,11 +141,53 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
    protected abstract Map< String, ViolationPosition[] > getViolatingFiles();
 
-   protected List< Violation > processFile( final String resourcePath ) throws IOException,
-                                                                       TokenException
+   protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
+                                                                            TokenException
    {
       return getRule().processFile( getTestFiles().get( resourcePath ),
                                     null,
                                     getTestFiles() );
+   }
+
+   private StringBuffer buildMessageName( final Map< String, List< IFlexViolation >> violatedFiles )
+   {
+      final StringBuffer buffer = new StringBuffer( 100 );
+
+      for ( final String violatedFileName : violatedFiles.keySet() )
+      {
+         final List< IFlexViolation > violations = violatedFiles.get( violatedFileName );
+
+         buffer.append( violatedFileName
+               + " should not contain any violations " + " (" + violations.size() + " found" );
+
+         if ( violations.size() == 1 )
+         {
+            buffer.append( " at "
+                  + violations.get( 0 ).getBeginLine() + ":" + violations.get( 0 ).getEndLine() );
+         }
+         buffer.append( ")\n" );
+      }
+      return buffer;
+   }
+
+   private Map< String, List< IFlexViolation >> extractActualViolatedFiles() throws IOException,
+                                                                            TokenException
+   {
+      final Map< String, List< IFlexViolation > > violatedFiles = new HashMap< String, List< IFlexViolation > >();
+
+      for ( final Map.Entry< String, IFlexFile > fileNameEntry : getTestFiles().entrySet() )
+      {
+         if ( !getViolatingFiles().containsKey( fileNameEntry.getKey() ) )
+         {
+            final List< IFlexViolation > violations = processFile( fileNameEntry.getKey() );
+
+            if ( !violations.isEmpty() )
+            {
+               violatedFiles.put( fileNameEntry.getKey(),
+                                  violations );
+            }
+         }
+      }
+      return violatedFiles;
    }
 }

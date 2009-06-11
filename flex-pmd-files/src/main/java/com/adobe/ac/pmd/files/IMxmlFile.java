@@ -30,45 +30,7 @@
  */
 package com.adobe.ac.pmd.files;
 
-import java.io.File;
-import java.io.IOException;
-
-public class As3File extends AbstractFlexFile
+public interface IMxmlFile extends IFlexFile
 {
-   protected As3File( final File file,
-                      final File rootDirectory ) throws IOException
-   {
-      super( file, rootDirectory );
-   }
-
-   @Override
-   public boolean doesCurrentLineContainOneLineComment( final String line )
-   {
-      return doesCurrentLineContain( line,
-                                     "//" );
-   }
-
-   @Override
-   public String getCommentClosingTag()
-   {
-      return "*/";
-   }
-
-   @Override
-   public String getCommentOpeningTag()
-   {
-      return "/*";
-   }
-
-   @Override
-   public boolean isMainApplication()
-   {
-      return false;
-   }
-
-   @Override
-   public boolean isMxml()
-   {
-      return false;
-   }
+   String[] getScriptBlock();
 }

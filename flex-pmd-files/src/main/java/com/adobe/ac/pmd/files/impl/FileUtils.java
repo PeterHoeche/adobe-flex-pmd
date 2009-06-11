@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.files.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,39 +42,72 @@ import java.util.Map;
 import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.ncss.filters.FlexFilter;
+import com.adobe.ac.pmd.files.IFlexFile;
 
-public class FileUtils
+public final class FileUtils
 {
-   public static Map< String, AbstractFlexFile > computeFilesList( final File sourceDirectory ) throws PMDException
+   public static Map< String, IFlexFile > computeFilesList( final File sourceDirectory ) throws PMDException
    {
-      final Map< String, AbstractFlexFile > files = new HashMap< String, AbstractFlexFile >();
+      final Map< String, IFlexFile > files = new HashMap< String, IFlexFile >();
       final FlexFilter flexFilter = new FlexFilter();
       final Collection< File > foundFiles = getFlexFiles( sourceDirectory,
                                                           flexFilter );
 
       for ( final File sourceFile : foundFiles )
       {
-         AbstractFlexFile file;
+         final AbstractFlexFile file = create( sourceFile,
+                                               sourceDirectory );
 
-         try
-         {
-            if ( sourceFile.getName().endsWith( ".as" ) )
-            {
-               file = new As3File( sourceFile, sourceDirectory );
-            }
-            else
-            {
-               file = new MxmlFile( sourceFile, sourceDirectory );
-            }
-            files.put( file.getFullyQualifiedName(),
-                       file );
-         }
-         catch ( final IOException e )
-         {
-         }
+         files.put( file.getFullyQualifiedName(),
+                    file );
       }
 
       return files;
+   }
+
+   public static String[] readStrings( final File file ) throws IOException
+   {
+      final ArrayList< String > result = new ArrayList< String >();
+      BufferedReader inReader = null;
+
+      try
+      {
+         inReader = new BufferedReader( new FileReader( file ) );
+
+         String line = inReader.readLine();
+
+         while ( line != null )
+         {
+            result.add( line );
+            line = inReader.readLine();
+         }
+      }
+      finally
+      {
+         if ( inReader != null )
+         {
+            inReader.close();
+         }
+      }
+      return result.toArray( new String[]
+      {} );
+   }
+
+   private static AbstractFlexFile create( final File sourceFile,
+                                           final File sourceDirectory )
+   {
+      AbstractFlexFile file;
+
+      if ( sourceFile.getName().endsWith( ".as" ) )
+      {
+         file = new As3File( sourceFile, sourceDirectory );
+      }
+      else
+      {
+         file = new MxmlFile( sourceFile, sourceDirectory );
+      }
+
+      return file;
    }
 
    private static Collection< File > getFlexFiles( final File sourceDirectory,
@@ -95,30 +128,7 @@ public class FileUtils
       return foundFiles;
    }
 
-   public static String[] readStrings( final File file ) throws IOException
+   private FileUtils()
    {
-      final ArrayList< String > result = new ArrayList< String >();
-      BufferedReader inReader = null;
-   
-      try
-      {
-         inReader = new BufferedReader( new FileReader( file ) );
-   
-         String line;
-         while ( ( line = inReader.readLine() ) != null )
-         {
-            result.add( line );
-         }
-      }
-      finally
-      {
-         if ( inReader != null )
-         {
-            inReader.close();
-         }
-      }
-      return result.toArray( new String[]
-      {} );
    }
-
 }

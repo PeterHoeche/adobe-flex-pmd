@@ -36,9 +36,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.StackTraceUtils;
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.impl.ViolationFactory;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IConstant;
@@ -60,20 +61,20 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 public abstract class AbstractAstFlexRule extends AbstractFlexRule
 {
-   private static final Logger             LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
-   private AbstractFlexFile                currentFile;
-   private Map< String, AbstractFlexFile > filesInSourcePath;
-   private final List< Violation >         violations;
+   private static final Logger          LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
+   private IFlexFile                    currentFile;
+   private Map< String, IFlexFile >     filesInSourcePath;
+   private final List< IFlexViolation > violations;
 
    public AbstractAstFlexRule()
    {
       super();
 
-      violations = new ArrayList< Violation >();
+      violations = new ArrayList< IFlexViolation >();
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -92,7 +93,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
     * @return the added violation replacing the threshold value in the message
     *         if any.
     */
-   protected final Violation addViolation( final INode violatingNode )
+   protected final IFlexViolation addViolation( final INode violatingNode )
    {
       return addViolation( violatingNode.getInternalNode(),
                            violatingNode.getInternalNode() );
@@ -104,7 +105,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
     * @return the added violation replacing the threshold value in the message
     *         if any.
     */
-   protected final Violation addViolation( final IParserNode violatingNode )
+   protected final IFlexViolation addViolation( final IParserNode violatingNode )
    {
       return addViolation( violatingNode,
                            violatingNode );
@@ -116,16 +117,16 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
     * @param messageToReplace
     * @return the add violation replacing the {0} token by the specified message
     */
-   final protected Violation addViolation( final IParserNode beginningNode,
-                                           final IParserNode endNode,
-                                           final String messageToReplace )
+   protected final IFlexViolation addViolation( final IParserNode beginningNode,
+                                                final IParserNode endNode,
+                                                final String messageToReplace )
    {
-      final Violation violation = new Violation( new ViolationPosition( beginningNode.getLine(),
-                                                                        endNode.getLine(),
-                                                                        beginningNode.getColumn(),
-                                                                        endNode.getColumn() ),
-                                                 this,
-                                                 currentFile );
+      final IFlexViolation violation = ViolationFactory.create( new ViolationPosition( beginningNode.getLine(),
+                                                                                       endNode.getLine(),
+                                                                                       beginningNode.getColumn(),
+                                                                                       endNode.getColumn() ),
+                                                                this,
+                                                                currentFile );
 
       violation.replacePlaceholderInMessage( messageToReplace );
       violations.add( violation );
@@ -185,20 +186,20 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
    {
    }
 
-   protected AbstractFlexFile getCurrentFile()
+   protected final IFlexFile getCurrentFile()
    {
       return currentFile;
    }
 
-   protected Map< String, AbstractFlexFile > getFilesInSourcePath()
+   protected final Map< String, IFlexFile > getFilesInSourcePath()
    {
       return filesInSourcePath;
    }
 
    @Override
-   final protected List< Violation > processFileBody( final IPackage packageNode,
-                                                      final AbstractFlexFile file,
-                                                      final Map< String, AbstractFlexFile > files )
+   protected final List< IFlexViolation > processFileBody( final IPackage packageNode,
+                                                           final IFlexFile file,
+                                                           final Map< String, IFlexFile > files )
    {
       currentFile = file;
       filesInSourcePath = files;
@@ -214,7 +215,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       {
          LOGGER.warning( StackTraceUtils.print( e ) );
       }
-      final List< Violation > copy = new ArrayList< Violation >( violations );
+      final List< IFlexViolation > copy = new ArrayList< IFlexViolation >( violations );
 
       violations.clear();
 
@@ -237,10 +238,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
          IParserNode content = null;
          for ( final IParserNode node : ast.getChildren() )
          {
-            if ( node.is( NodeKind.MOD_LIST ) )
-            {
-            }
-            else if ( node.is( NodeKind.CONTENT ) )
+            if ( node.is( NodeKind.CONTENT ) )
             {
                content = node;
             }
@@ -527,15 +525,15 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       }
    }
 
-   private Violation addViolation( final IParserNode beginningNode,
-                                   final IParserNode endNode )
+   private IFlexViolation addViolation( final IParserNode beginningNode,
+                                        final IParserNode endNode )
    {
-      final Violation violation = new Violation( new ViolationPosition( beginningNode.getLine(),
-                                                                        endNode.getLine(),
-                                                                        beginningNode.getColumn(),
-                                                                        endNode.getColumn() ),
-                                                 this,
-                                                 currentFile );
+      final IFlexViolation violation = ViolationFactory.create( new ViolationPosition( beginningNode.getLine(),
+                                                                                       endNode.getLine(),
+                                                                                       beginningNode.getColumn(),
+                                                                                       endNode.getColumn() ),
+                                                                this,
+                                                                currentFile );
 
       prettyPrintMessage( violation );
       violations.add( violation );

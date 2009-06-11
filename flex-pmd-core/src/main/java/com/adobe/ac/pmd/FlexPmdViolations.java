@@ -45,22 +45,22 @@ import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleReference;
 import net.sourceforge.pmd.RuleSet;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
 import com.adobe.ac.pmd.files.FileSetUtils;
-import com.adobe.ac.pmd.files.FileUtils;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 
 public class FlexPmdViolations
 {
-   public static final Logger                                     LOGGER       = Logger.getLogger( "FlexPmdViolation" );
-   private boolean                                                beenComputed = false;
-   private final SortedMap< AbstractFlexFile, List< Violation > > violations;
+   public static final Logger                                   LOGGER       = Logger.getLogger( "FlexPmdViolation" );
+   private boolean                                              beenComputed = false;
+   private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()
    {
-      violations = new TreeMap< AbstractFlexFile, List< Violation > >( new FlexFileComparator() );
+      violations = new TreeMap< IFlexFile, List< IFlexViolation > >( new FlexFileComparator() );
    }
 
    public void computeViolations( final File sourceDirectory,
@@ -69,7 +69,7 @@ public class FlexPmdViolations
       beenComputed = true;
 
       final Map< String, AbstractFlexRule > rules = computeRulesList( ruleSet );
-      final Map< String, AbstractFlexFile > files = FileUtils.computeFilesList( sourceDirectory );
+      final Map< String, IFlexFile > files = FileUtils.computeFilesList( sourceDirectory );
       final Map< String, IPackage > asts = FileSetUtils.computeAsts( files );
 
       for ( final Entry< String, AbstractFlexRule > ruleEntry : rules.entrySet() )
@@ -78,14 +78,14 @@ public class FlexPmdViolations
 
          LOGGER.fine( "Processing "
                + rule.getRuleName() + "..." );
-         for ( final Entry< String, AbstractFlexFile > fileEntry : files.entrySet() )
+         for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
          {
-            final AbstractFlexFile file = fileEntry.getValue();
+            final IFlexFile file = fileEntry.getValue();
             final IPackage ast = rule instanceof AbstractAstFlexRule ? asts.get( file.getFullyQualifiedName() )
                                                                     : null;
-            final List< Violation > foundViolations = rule.processFile( file,
-                                                                        ast,
-                                                                        files );
+            final List< IFlexViolation > foundViolations = rule.processFile( file,
+                                                                             ast,
+                                                                             files );
 
             if ( violations.containsKey( file ) )
             {
@@ -98,13 +98,13 @@ public class FlexPmdViolations
             }
          }
       }
-      for ( final Entry< String, AbstractFlexFile > entry : files.entrySet() )
+      for ( final Entry< String, IFlexFile > entry : files.entrySet() )
       {
          Collections.sort( violations.get( entry.getValue() ) );
       }
    }
 
-   public Map< AbstractFlexFile, List< Violation >> getViolations()
+   public Map< IFlexFile, List< IFlexViolation >> getViolations()
    {
       return violations;
    }

@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -56,7 +56,7 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
@@ -68,12 +68,12 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
+   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                     final IFlexFile file,
+                                                     final Map< String, IFlexFile > files )
    {
       final int lineInitialValue = -1;
-      final List< Violation > violations = new ArrayList< Violation >();
+      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
       linesInScriptBlock = lineInitialValue;
 
       for ( int lineIndex = 0; lineIndex < file.getLines().size(); lineIndex++ )

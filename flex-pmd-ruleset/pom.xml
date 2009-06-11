@@ -45,7 +45,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>com.adobe.ac</includeGroupIds>
+							<includeGroupIds>${project.groupId}</includeGroupIds>
 							<includes>**/*.as,**/*.mxml</includes>
 							<outputDirectory>${project.build.directory}/test/generated-resources</outputDirectory>
 							<excludeTransitive>true</excludeTransitive>

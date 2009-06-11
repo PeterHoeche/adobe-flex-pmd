@@ -47,7 +47,7 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.util.IOUtil;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
-import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.IFlexViolation;
 
 public abstract class AbstractFlexPmdEngine
 {
@@ -96,7 +96,7 @@ public abstract class AbstractFlexPmdEngine
    private int computeViolationNumber( final FlexPmdViolations flexPmdViolations )
    {
       int foundViolations = 0;
-      for ( final List< Violation > violations : flexPmdViolations.getViolations().values() )
+      for ( final List< IFlexViolation > violations : flexPmdViolations.getViolations().values() )
       {
          foundViolations += violations.size();
       }
@@ -133,15 +133,6 @@ public abstract class AbstractFlexPmdEngine
                    writter );
 
       return temp;
-
-      // LOGGER.info( "resource.toURI() "
-      // + resource.toURI().toString() );
-      // LOGGER.info( "resource.toURI().getPath() "
-      // + resource.getPath() );
-      // LOGGER.info( "resource.toURI().normalize().getPath() "
-      // + resource.getPath() );
-      //
-      // return new File( resource.toURI().normalize().getPath() );
    }
 
    private File extractRuleset( final File ruleSetFile ) throws URISyntaxException,

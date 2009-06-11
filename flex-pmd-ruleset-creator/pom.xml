@@ -188,7 +188,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>com.adobe.ac</includeGroupIds>
+							<includeGroupIds>${project.groupId}</includeGroupIds>
 							<includes>**/*.xml</includes>
 							<outputDirectory>target/rulesets</outputDirectory>
 							<excludeTransitive>true</excludeTransitive>
@@ -208,7 +208,7 @@
             </plugin>
         
 			<plugin>
-				<groupId>com.adobe.ac</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>as3Ncss-maven-plugin</artifactId>
 				<version>${as3Ncss-maven-plugin.version}</version>
 				<executions>
@@ -222,7 +222,7 @@
 			</plugin>
 
 			<plugin>
-				<groupId>com.adobe.ac</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
 				<version>${flex-pmd-maven-plugin.version}</version>
 				<executions>
@@ -261,15 +261,15 @@
 			</plugin>
 			
 			<plugin>
-			   <groupId>com.adobe.ac</groupId>
-            <artifactId>flex-pmd-maven-plugin</artifactId>
-            <version>${flex-pmd-maven-plugin.version}</version>
+			   <groupId>${project.groupId}</groupId>
+	            <artifactId>flex-pmd-maven-plugin</artifactId>
+	            <version>${flex-pmd-maven-plugin.version}</version>
 			</plugin>
 			
 			<plugin>
-			   <groupId>com.adobe.ac</groupId>
-            <artifactId>as3Ncss-maven-plugin</artifactId>
-            <version>${as3Ncss-maven-plugin.version}</version>
+			   <groupId>${project.groupId}</groupId>
+	            <artifactId>as3Ncss-maven-plugin</artifactId>
+	            <version>${as3Ncss-maven-plugin.version}</version>
 			</plugin>			
 
 		</plugins>

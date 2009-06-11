@@ -35,7 +35,7 @@ import java.util.regex.Matcher;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
@@ -65,7 +65,7 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -84,7 +84,7 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
+                                                            final IFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
       boolean result = false;

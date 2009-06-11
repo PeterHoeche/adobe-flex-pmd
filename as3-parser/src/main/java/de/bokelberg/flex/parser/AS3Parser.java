@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adobe.ac.pmd.files.FileUtils;
+import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.parser.IAS3Parser;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;

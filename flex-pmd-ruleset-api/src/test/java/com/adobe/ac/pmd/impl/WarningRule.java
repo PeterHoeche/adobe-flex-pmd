@@ -28,28 +28,30 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.impl;
 
-import java.util.Locale;
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
+class WarningRule extends AbstractFlexRule
 {
-   private static final String ALERT_CLASS_NAME           = "Alert";
-   private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
-   private static final String MODEL_CLASS_SUFFIX         = "model";
-   private static final String MODEL_PACKAGE_NAME         = "model";
-   private static final String VIEW_PACKAGE_NAME          = "view";
+   @Override
+   public String getMessage()
+   {
+      return "warning message.";
+   }
 
    @Override
    public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
-      return !file.isMxml()
-            && file.getFullyQualifiedName().toLowerCase( Locale.ENGLISH ).contains( MODEL_CLASS_SUFFIX );
+      return true;
    }
 
    @Override
@@ -59,22 +61,10 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
    }
 
    @Override
-   protected String getRegexp()
+   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                     final IFlexFile file,
+                                                     final Map< String, IFlexFile > files )
    {
-      return ".*import (.*);?.*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
-   {
-      final Matcher matcher = getMatcher( line );
-
-      matcher.matches();
-      final String importedClass = matcher.group( 1 );
-
-      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME )
-            && !importedClass.contains( ALERT_CLASS_NAME ) || importedClass.contains( VIEW_PACKAGE_NAME )
-            && !importedClass.contains( MODEL_PACKAGE_NAME );
+      return new ArrayList< IFlexViolation >();
    }
 }

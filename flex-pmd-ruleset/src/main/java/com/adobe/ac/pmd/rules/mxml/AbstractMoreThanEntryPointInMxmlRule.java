@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -48,15 +48,15 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
    abstract public int getThreshold();
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
 
    @Override
    protected void onFileProcessingEnded( final IPackage rootNode,
-                                         final AbstractFlexFile file,
-                                         final List< Violation > violations )
+                                         final IFlexFile file,
+                                         final List< IFlexViolation > violations )
    {
       if ( publicVarCount > getThreshold() )
       {
@@ -77,9 +77,9 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
    }
 
    @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
+   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                     final IFlexFile file,
+                                                     final Map< String, IFlexFile > files )
    {
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
@@ -93,6 +93,6 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
          }
       }
 
-      return new ArrayList< Violation >();
+      return new ArrayList< IFlexViolation >();
    }
 }

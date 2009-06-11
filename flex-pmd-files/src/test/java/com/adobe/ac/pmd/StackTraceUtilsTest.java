@@ -36,14 +36,24 @@ import org.junit.Test;
 
 public class StackTraceUtilsTest
 {
+   @SuppressWarnings("serial")
+   private class CustomException extends Exception
+   {
+      public CustomException( final String arg0 )
+      {
+         super( arg0 );
+      }
+   }
+
    @Test
    public void testPrint()
    {
-      final Exception e = new Exception( "message" );
+      final Exception exception = new CustomException( "message" );
 
-      assertEquals( "message at com.adobe.ac.pmd.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:42)\n"
+      assertEquals( "stackTrace is not correct",
+                    "message at com.adobe.ac.pmd.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:51)\n"
                           + "sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n"
                           + "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)",
-                    StackTraceUtils.print( e ) );
+                    StackTraceUtils.print( exception ) );
    }
 }

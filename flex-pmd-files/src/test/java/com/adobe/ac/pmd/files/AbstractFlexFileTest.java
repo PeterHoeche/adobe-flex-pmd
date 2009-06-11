@@ -45,17 +45,18 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class AbstractFlexFileTest extends FlexPmdTestBase
 {
-   private As3File  as3;
-   private MxmlFile mainMxml;
-   private MxmlFile mxml;
+   private IAs3File  as3;
+
+   private IMxmlFile mainMxml;
+   private IMxmlFile mxml;
 
    @Before
    public void init() throws FileNotFoundException,
                      URISyntaxException
    {
-      as3 = ( As3File ) getTestFiles().get( "AbstractRowData.as" );
-      mainMxml = ( MxmlFile ) getTestFiles().get( "Main.mxml" );
-      mxml = ( MxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      as3 = ( IAs3File ) getTestFiles().get( "AbstractRowData.as" );
+      mainMxml = ( IMxmlFile ) getTestFiles().get( "Main.mxml" );
+      mxml = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
    }
 
    @Test

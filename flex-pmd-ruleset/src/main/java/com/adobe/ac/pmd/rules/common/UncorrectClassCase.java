@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -43,7 +43,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UncorrectClassCase extends AbstractFlexRule
 {
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   @Override
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -55,11 +56,11 @@ public class UncorrectClassCase extends AbstractFlexRule
    }
 
    @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
+   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                     final IFlexFile file,
+                                                     final Map< String, IFlexFile > files )
    {
-      final List< Violation > violations = new ArrayList< Violation >();
+      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
       final char firstChar = file.getClassName().charAt( 0 );
 
       if ( firstChar < 'A'

@@ -33,14 +33,13 @@ package com.adobe.ac.pmd;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 
-public class FlexFileComparator implements Comparator< AbstractFlexFile >, Serializable
+@SuppressWarnings("serial")
+public class FlexFileComparator implements Comparator< IFlexFile >, Serializable
 {
-   private static final long serialVersionUID = -9019572731562144129L;
-
-   public int compare( final AbstractFlexFile file1,
-                       final AbstractFlexFile file2 )
+   public int compare( final IFlexFile file1,
+                       final IFlexFile file2 )
    {
       return file1.compareTo( file2 );
    }

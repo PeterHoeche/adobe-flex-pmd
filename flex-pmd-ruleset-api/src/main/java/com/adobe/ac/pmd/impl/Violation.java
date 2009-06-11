@@ -28,32 +28,29 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.impl;
 
 import java.util.Formatter;
 
-import net.sourceforge.pmd.IRuleViolation;
-
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class Violation implements Comparable< Violation >, IRuleViolation
+class Violation implements IFlexViolation
 {
    private final int              beginColumn;
    private final int              beginLine;
    private int                    endColumn;
    private final int              endLine;
-   private final AbstractFlexFile file;
+   private final IFlexFile        file;
    private final AbstractFlexRule rule;
    private String                 ruleMessage = "";
 
    public Violation( final ViolationPosition position,
                      final AbstractFlexRule violatedRule,
-                     final AbstractFlexFile violatedFile )
+                     final IFlexFile violatedFile )
    {
-      super();
-
       beginLine = position.getBeginLine();
       endLine = position.getEndLine();
       beginColumn = position.getBeginColumn();
@@ -68,12 +65,16 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.IFlexViolation#appendToMessage(java.lang.String)
+    */
    public void appendToMessage( final String messageToAppend )
    {
       ruleMessage += messageToAppend;
    }
 
-   public int compareTo( final Violation otherViolation )
+   public int compareTo( final IFlexViolation otherViolation )
    {
       int res;
       final int priorityOrder = getPrioriyOrder( otherViolation );
@@ -139,6 +140,10 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       return rule;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.IFlexViolation#getRuleMessage()
+    */
    public String getRuleMessage()
    {
       return ruleMessage.endsWith( "." ) ? ruleMessage.substring( 0,
@@ -156,12 +161,24 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       return false;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.IFlexViolation#replacePlaceholderInMessage(java.lang.
+    * String)
+    */
    public void replacePlaceholderInMessage( final String replacement )
    {
       replacePlaceholderInMessage( replacement,
                                    0 );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.IFlexViolation#replacePlaceholderInMessage(java.lang.
+    * String, int)
+    */
    public void replacePlaceholderInMessage( final String replacement,
                                             final int index )
    {
@@ -170,12 +187,22 @@ public class Violation implements Comparable< Violation >, IRuleViolation
                                          replacement );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.IFlexViolation#setEndColumn(int)
+    */
    public void setEndColumn( final int column )
    {
       endColumn = column;
    }
 
-   public String toXmlString( final AbstractFlexFile violatedFile,
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.IFlexViolation#toXmlString(com.adobe.ac.pmd.files.IFlexFile
+    * , java.lang.String)
+    */
+   public String toXmlString( final IFlexFile violatedFile,
                               final String ruleSetName )
    {
       final Formatter formatter = new Formatter();
@@ -207,7 +234,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       return System.getProperty( "line.separator" );
    }
 
-   private int getLinePriority( final Violation otherViolation )
+   private int getLinePriority( final IFlexViolation otherViolation )
    {
       int res;
 
@@ -227,7 +254,7 @@ public class Violation implements Comparable< Violation >, IRuleViolation
       return res;
    }
 
-   private int getPrioriyOrder( final Violation otherViolation )
+   private int getPrioriyOrder( final IFlexViolation otherViolation )
    {
       int res;
 

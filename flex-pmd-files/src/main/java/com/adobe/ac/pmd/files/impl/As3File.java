@@ -28,53 +28,70 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.files.impl;
 
-import java.util.Locale;
-import java.util.regex.Matcher;
+import java.io.File;
 
-import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.files.IAs3File;
 
-public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
+class As3File extends AbstractFlexFile implements IAs3File
 {
-   private static final String ALERT_CLASS_NAME           = "Alert";
-   private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
-   private static final String MODEL_CLASS_SUFFIX         = "model";
-   private static final String MODEL_PACKAGE_NAME         = "model";
-   private static final String VIEW_PACKAGE_NAME          = "view";
-
-   @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   protected As3File( final File file,
+                      final File rootDirectory )
    {
-      return !file.isMxml()
-            && file.getFullyQualifiedName().toLowerCase( Locale.ENGLISH ).contains( MODEL_CLASS_SUFFIX );
+      super( file, rootDirectory );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.files.IAs3File#doesCurrentLineContainOneLineComment(java
+    * .lang.String)
+    */
    @Override
-   protected ViolationPriority getDefaultPriority()
+   public final boolean doesCurrentLineContainOneLineComment( final String line )
    {
-      return ViolationPriority.WARNING;
+      return doesCurrentLineContain( line,
+                                     "//" );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IAs3File#getCommentClosingTag()
+    */
    @Override
-   protected String getRegexp()
+   public final String getCommentClosingTag()
    {
-      return ".*import (.*);?.*";
+      return "*/";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IAs3File#getCommentOpeningTag()
+    */
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   public final String getCommentOpeningTag()
    {
-      final Matcher matcher = getMatcher( line );
+      return "/*";
+   }
 
-      matcher.matches();
-      final String importedClass = matcher.group( 1 );
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IAs3File#isMainApplication()
+    */
+   @Override
+   public final boolean isMainApplication()
+   {
+      return false;
+   }
 
-      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME )
-            && !importedClass.contains( ALERT_CLASS_NAME ) || importedClass.contains( VIEW_PACKAGE_NAME )
-            && !importedClass.contains( MODEL_PACKAGE_NAME );
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IAs3File#isMxml()
+    */
+   @Override
+   public final boolean isMxml()
+   {
+      return false;
    }
 }

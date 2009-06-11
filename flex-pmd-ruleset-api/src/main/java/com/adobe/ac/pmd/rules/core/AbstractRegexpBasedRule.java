@@ -36,8 +36,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 
 public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
@@ -54,14 +54,15 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
     * @seecom.adobe.ac.pmd.rules.core.IisConcernedByTheGivenFile#
     * isConcernedByTheGivenFile(com.adobe.ac.pmd.files.AbstractFlexFile)
     */
-   public abstract boolean isConcernedByTheGivenFile( final AbstractFlexFile file );
+   @Override
+   public abstract boolean isConcernedByTheGivenFile( final IFlexFile file );
 
    @Override
-   final public List< Violation > processFileBody( final IPackage rootNode,
-                                                   final AbstractFlexFile file,
-                                                   final Map< String, AbstractFlexFile > files )
+   final public List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                        final IFlexFile file,
+                                                        final Map< String, IFlexFile > files )
    {
-      final List< Violation > violations = new ArrayList< Violation >();
+      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       for ( int i = 0; i < file.getLines().size(); i++ )
       {
@@ -90,5 +91,5 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    protected abstract String getRegexp();
 
    protected abstract boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                                     final AbstractFlexFile file );
+                                                                     final IFlexFile file );
 }

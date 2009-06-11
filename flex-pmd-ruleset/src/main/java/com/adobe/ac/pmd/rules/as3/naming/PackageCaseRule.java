@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.as3.naming;
 
-import com.adobe.ac.pmd.Violation;
+import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -42,7 +42,7 @@ public class PackageCaseRule extends AbstractAstFlexRule
    {
       if ( containsUpperCharacter( packageNode.getName() ) )
       {
-         final Violation violation = addViolation( packageNode );
+         final IFlexViolation violation = addViolation( packageNode );
 
          violation.setEndColumn( packageNode.getName().length()
                + violation.getBeginColumn() );

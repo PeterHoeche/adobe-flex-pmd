@@ -36,7 +36,7 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.files.FileUtils;
+import com.adobe.ac.pmd.files.impl.FileUtils;
 
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 

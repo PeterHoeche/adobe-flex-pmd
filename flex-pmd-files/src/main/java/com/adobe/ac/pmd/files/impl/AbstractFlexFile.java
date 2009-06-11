@@ -28,23 +28,28 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.files.impl;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.adobe.ac.pmd.StackTraceUtils;
+import com.adobe.ac.pmd.files.IFlexFile;
 
 /**
  * Abstract class representing a Flex File (either MXML or AS)
  * 
  * @author xagnetti
  */
-public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
+abstract class AbstractFlexFile implements Comparable< IFlexFile >, IFlexFile
 {
+   private static final Logger LOGGER = Logger.getLogger( AbstractFlexFile.class.getName() );
+
    /**
     * @param line
     * @param search
@@ -62,7 +67,7 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
    private String               packageName;
 
    protected AbstractFlexFile( final File underlyingFile,
-                               final File rootDirectory ) throws IOException
+                               final File rootDirectory )
    {
       final String filePath = underlyingFile.getPath();
       final String rootPath = rootDirectory.getPath();
@@ -73,7 +78,6 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
                                       "" ).replace( rootPath,
                                                     "" ).replace( System.getProperty( "file.separator" ),
                                                                   "." );
-
       if ( packageName.endsWith( "." ) )
       {
          packageName = packageName.substring( 0,
@@ -87,18 +91,35 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
       }
 
       lines = new ArrayList< String >();
-      final String[] linesArray = FileUtils.readStrings( underlyingFile );
-      for ( final String string : linesArray )
+      try
       {
-         lines.add( string );
+         String[] linesArray;
+         linesArray = FileUtils.readStrings( underlyingFile );
+         for ( final String string : linesArray )
+         {
+            lines.add( string );
+         }
+      }
+      catch ( final IOException e )
+      {
+         LOGGER.warning( StackTraceUtils.print( e ) );
       }
    }
 
-   public final int compareTo( final AbstractFlexFile otherViolation )
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.files.IFlexFile#compareTo(com.adobe.ac.pmd.files.
+    * AbstractFlexFile)
+    */
+   public final int compareTo( final IFlexFile otherViolation )
    {
       return getFilename().compareTo( otherViolation.getFilename() );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#contains(java.lang.String, int)
+    */
    public final boolean contains( final String stringToLookup,
                                   final int lineToBeIgnored )
    {
@@ -119,9 +140,11 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
       return found;
    }
 
-   /**
-    * @param line
-    * @return true if the given line contains a comment closing tag
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.files.IFlexFile#doesCurrentLineContainCommentClosingTag
+    * (java.lang.String)
     */
    public final boolean doesCurrentLineContainCommentClosingTag( final String line )
    {
@@ -129,9 +152,11 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
                                      getCommentClosingTag() );
    }
 
-   /**
-    * @param line
-    * @return true if the given line contains a comment opening tag
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.files.IFlexFile#doesCurrentLineContainCommentOpeningTag
+    * (java.lang.String)
     */
    public final boolean doesCurrentLineContainCommentOpeningTag( final String line )
    {
@@ -139,43 +164,57 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
                                      getCommentOpeningTag() );
    }
 
-   /**
-    * @param line
-    * @return true if the given line contain a one line comment
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.files.IFlexFile#doesCurrentLineContainOneLineComment(
+    * java.lang.String)
     */
    public abstract boolean doesCurrentLineContainOneLineComment( final String line );
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getClassName()
+    */
    public final String getClassName()
    {
       return className;
    }
 
-   /**
-    * @return the token for comment closing
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getCommentClosingTag()
     */
    public abstract String getCommentClosingTag();
 
-   /**
-    * @return the token for comment opening
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getCommentOpeningTag()
     */
    public abstract String getCommentOpeningTag();
 
-   /**
-    * @return java.io.File name
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getFilename()
     */
    public final String getFilename()
    {
       return file.getName();
    }
 
-   /**
-    * @return java.io.File absolute path
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getFilePath()
     */
    public final String getFilePath()
    {
       return file.toURI().getPath();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getFullyQualifiedName()
+    */
    public final String getFullyQualifiedName()
    {
       return ( StringUtils.isEmpty( packageName ) ? ""
@@ -184,23 +223,33 @@ public abstract class AbstractFlexFile implements Comparable< AbstractFlexFile >
             + className;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getLines()
+    */
    public final List< String > getLines()
    {
       return lines;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getPackageName()
+    */
    public final String getPackageName()
    {
       return packageName;
    }
 
-   /**
-    * @return true if the file is a main MXML file
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#isMainApplication()
     */
    public abstract boolean isMainApplication();
 
-   /**
-    * @return true if the file is a MXML file
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#isMxml()
     */
    public abstract boolean isMxml();
 }

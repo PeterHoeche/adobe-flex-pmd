@@ -28,26 +28,44 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
-class WarningRule extends AbstractFlexRule
+class EmptyRule extends AbstractMaximizedFlexRule
 {
+   public int getActualValueForTheCurrentViolation()
+   {
+      return 0;
+   }
+
+   public int getDefaultThreshold()
+   {
+      return 10;
+   }
+
    @Override
    public String getMessage()
    {
-      return "warning message.";
+      return "emptyMessage";
    }
 
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   @Override
+   public int getThreshold()
+   {
+      return getDefaultThreshold();
+   }
+
+   @Override
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -55,14 +73,14 @@ class WarningRule extends AbstractFlexRule
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.INFO;
    }
 
    @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
+   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                     final IFlexFile file,
+                                                     final Map< String, IFlexFile > files )
    {
-      return new ArrayList< Violation >();
+      return new ArrayList< IFlexViolation >();
    }
 }

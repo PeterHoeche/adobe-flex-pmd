@@ -28,50 +28,23 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.impl;
 
-import static org.junit.Assert.assertEquals;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.FileSetUtils;
-import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
-import com.adobe.ac.pmd.parser.IParserNode;
-
-public class MetaDataNodeTest extends FlexPmdTestBase
+public final class ViolationFactory
 {
-   private static final String       NAME_DAY_CHANGE_TYPE_DEFAULT_NAME_EVENT = "name = \"dayChange\" ,"
-                                                                                   + " type = \"DefaultNameEvent\"";
-   private final IMetaDataListHolder modelLocator;
-   private final IMetaDataListHolder unboundMetaData;
-
-   public MetaDataNodeTest() throws PMDException
+   public static IFlexViolation create( final ViolationPosition position,
+                                        final AbstractFlexRule violatedRule,
+                                        final IFlexFile violatedFile )
    {
-      super();
-
-      IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.BindableModelLocator.as" ) );
-      modelLocator = NodeFactory.createPackage( ast ).getClassNode();
-      ast = FileSetUtils.buildAst( getTestFiles().get( "UnboundMetadata.as" ) );
-      unboundMetaData = NodeFactory.createPackage( ast ).getClassNode();
+      return new Violation( position, violatedRule, violatedFile );
    }
 
-   @Test
-   public void testGetName()
+   private ViolationFactory()
    {
-      assertEquals( "Bindable",
-                    modelLocator.getMetaData( "Bindable" ).get( 0 ).getName() );
-      assertEquals( "Event",
-                    unboundMetaData.getMetaData( "Event" ).get( 0 ).getName() );
-   }
-
-   @Test
-   public void testGetParameter()
-   {
-      assertEquals( "",
-                    modelLocator.getMetaData( "Bindable" ).get( 0 ).getParameter() );
-      assertEquals( NAME_DAY_CHANGE_TYPE_DEFAULT_NAME_EVENT,
-                    unboundMetaData.getMetaData( "Event" ).get( 0 ).getParameter() );
    }
 }

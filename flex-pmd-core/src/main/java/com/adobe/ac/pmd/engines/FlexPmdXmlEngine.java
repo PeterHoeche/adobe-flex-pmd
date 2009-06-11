@@ -41,8 +41,8 @@ import java.util.logging.Logger;
 import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 
 public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 {
@@ -66,9 +66,9 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          writter = new FileWriter( pmdReport );
          writeReportHeader( writter );
 
-         for ( final AbstractFlexFile sourceFile : pmd.getViolations().keySet() )
+         for ( final IFlexFile sourceFile : pmd.getViolations().keySet() )
          {
-            final Collection< Violation > violations = pmd.getViolations().get( sourceFile );
+            final Collection< IFlexViolation > violations = pmd.getViolations().get( sourceFile );
             final String sourceFilePath = sourceFile.getFilePath();
 
             formatFileFiolation( writter,
@@ -111,8 +111,8 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    }
 
    private void formatFileFiolation( final FileWriter writter,
-                                     final AbstractFlexFile sourceFile,
-                                     final Collection< Violation > violations,
+                                     final IFlexFile sourceFile,
+                                     final Collection< IFlexViolation > violations,
                                      final String sourceFilePath ) throws IOException
    {
       if ( !violations.isEmpty() )
@@ -120,7 +120,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          writter.write( "   <file name=\""
                + sourceFilePath.substring( 1,
                                            sourceFilePath.length() ) + "\">" + getNewLine() );
-         for ( final Violation violation : violations )
+         for ( final IFlexViolation violation : violations )
          {
             writter.write( violation.toXmlString( sourceFile,
                                                   violation.getRule().getRuleSetName() ) );

@@ -28,39 +28,71 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.impl;
+package com.adobe.ac.pmd.files;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import net.sourceforge.pmd.PMDException;
+import java.util.List;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.FileSetUtils;
-import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.parser.IParserNode;
-
-public class FieldNodeTest extends FlexPmdTestBase
+public interface IFlexFile
 {
-   @Test
-   public void testVisibility() throws PMDException
-   {
-      final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
-      final IClass nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
-      final IAttribute first = nonBindableModelLocator.getAttributes().get( 0 );
-      final IAttribute second = nonBindableModelLocator.getAttributes().get( 1 );
-      final IAttribute third = nonBindableModelLocator.getAttributes().get( 2 );
+   int compareTo( final IFlexFile otherViolation );
 
-      assertTrue( first.isPrivate() );
-      assertFalse( first.isPublic() );
-      assertFalse( first.isProtected() );
-      assertTrue( second.isProtected() );
-      assertFalse( second.isPublic() );
-      assertFalse( second.isPrivate() );
-      assertTrue( third.isPublic() );
-      assertFalse( third.isProtected() );
-      assertFalse( third.isPrivate() );
-   }
+   boolean contains( final String stringToLookup,
+                     final int lineToBeIgnored );
+
+   /**
+    * @param line
+    * @return true if the given line contains a comment closing tag
+    */
+   boolean doesCurrentLineContainCommentClosingTag( final String line );
+
+   /**
+    * @param line
+    * @return true if the given line contains a comment opening tag
+    */
+   boolean doesCurrentLineContainCommentOpeningTag( final String line );
+
+   /**
+    * @param line
+    * @return true if the given line contain a one line comment
+    */
+   boolean doesCurrentLineContainOneLineComment( final String line );
+
+   String getClassName();
+
+   /**
+    * @return the token for comment closing
+    */
+   String getCommentClosingTag();
+
+   /**
+    * @return the token for comment opening
+    */
+   String getCommentOpeningTag();
+
+   /**
+    * @return java.io.File name
+    */
+   String getFilename();
+
+   /**
+    * @return java.io.File absolute path
+    */
+   String getFilePath();
+
+   String getFullyQualifiedName();
+
+   List< String > getLines();
+
+   String getPackageName();
+
+   /**
+    * @return true if the file is a main MXML file
+    */
+   boolean isMainApplication();
+
+   /**
+    * @return true if the file is a MXML file
+    */
+   boolean isMxml();
+
 }

@@ -39,16 +39,16 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class MxmlFileTest extends FlexPmdTestBase
 {
-   private MxmlFile deleteRenderer;
-   private MxmlFile iterationsList;
-   private MxmlFile nestedComponent;
+   private IMxmlFile deleteRenderer;
+   private IMxmlFile iterationsList;
+   private IMxmlFile nestedComponent;
 
    @Before
    public void setUp()
    {
-      iterationsList = ( MxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
-      nestedComponent = ( MxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
-      deleteRenderer = ( MxmlFile ) getTestFiles().get( "DeleteButtonRenderer.mxml" );
+      iterationsList = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
+      nestedComponent = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
+      deleteRenderer = ( IMxmlFile ) getTestFiles().get( "DeleteButtonRenderer.mxml" );
    }
 
    @Test
@@ -56,39 +56,53 @@ public class MxmlFileTest extends FlexPmdTestBase
    {
       final String[] scriptBlock1 = iterationsList.getScriptBlock();
 
-      assertEquals( "package com.adobe.ac.ncss.mxml{",
+      assertEquals( "",
+                    "package com.adobe.ac.ncss.mxml{",
                     scriptBlock1[ 0 ] );
-      assertEquals( "class IterationsList{",
+      assertEquals( "",
+                    "class IterationsList{",
                     scriptBlock1[ 1 ] );
-      assertEquals( "         import com.adobe.ac.anthology.model.object.IterationModelLocator;",
+      assertEquals( "",
+                    "         import com.adobe.ac.anthology.model.object.IterationModelLocator;",
                     scriptBlock1[ 40 ] );
-      assertEquals( "}}",
+      assertEquals( "",
+                    "}}",
                     scriptBlock1[ scriptBlock1.length - 1 ] );
-      assertEquals( 100,
+      assertEquals( "",
+                    100,
                     scriptBlock1.length );
 
       final String[] scriptBlock2 = nestedComponent.getScriptBlock();
 
-      assertEquals( "package com.adobe.ac.ncss.mxml{",
+      assertEquals( "",
+                    "package com.adobe.ac.ncss.mxml{",
                     scriptBlock2[ 0 ] );
-      assertEquals( "class NestedComponent{",
+      assertEquals( "",
+                    "class NestedComponent{",
                     scriptBlock2[ 1 ] );
-      assertEquals( 57,
+      assertEquals( "",
+                    57,
                     scriptBlock2.length );
-      assertEquals( "}}",
+      assertEquals( "",
+                    "}}",
                     scriptBlock2[ scriptBlock2.length - 1 ] );
 
       final String[] scriptBlock3 = deleteRenderer.getScriptBlock();
 
-      assertEquals( "package {",
+      assertEquals( "",
+                    "package {",
                     scriptBlock3[ 0 ] );
-      assertEquals( "class DeleteButtonRenderer{",
+      assertEquals( "",
+                    "class DeleteButtonRenderer{",
                     scriptBlock3[ 1 ] );
-      assertEquals( 107,
+      assertEquals( "",
+                    107,
                     scriptBlock3.length );
-      assertEquals( "            import com.adobe.ac.pmd.model.Rule;",
+      assertEquals( "",
+                    "            import com.adobe.ac.pmd.model.Rule;",
                     scriptBlock3[ 49 ] );
-      assertEquals( "}}",
+      assertEquals( "",
+                    "}}",
                     scriptBlock3[ scriptBlock3.length - 1 ] );
    }
 }

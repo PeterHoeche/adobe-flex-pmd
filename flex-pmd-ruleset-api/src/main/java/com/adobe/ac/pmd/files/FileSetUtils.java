@@ -30,10 +30,8 @@
  */
 package com.adobe.ac.pmd.files;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +46,6 @@ import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.ncss.filters.FlexFilter;
-import com.adobe.ac.ncss.utils.FileUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IAS3Parser;
@@ -66,17 +62,17 @@ public final class FileSetUtils
    private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
    private static final Logger             LOGGER   = Logger.getLogger( FileSetUtils.class.getName() );
 
-   public static IParserNode buildAst( final AbstractFlexFile file ) throws PMDException
+   public static IParserNode buildAst( final IFlexFile file ) throws PMDException
    {
       final IAS3Parser parser = new AS3Parser();
       IParserNode rootNode = null;
 
       try
       {
-         if ( file instanceof MxmlFile )
+         if ( file instanceof IMxmlFile )
          {
             rootNode = parser.buildAst( file.getFilePath(),
-                                        ( ( MxmlFile ) file ).getScriptBlock() );
+                                        ( ( IMxmlFile ) file ).getScriptBlock() );
          }
          else
          {
@@ -96,13 +92,13 @@ public final class FileSetUtils
       return rootNode;
    }
 
-   public static Map< String, IPackage > computeAsts( final Map< String, AbstractFlexFile > files ) throws PMDException
+   public static Map< String, IPackage > computeAsts( final Map< String, IFlexFile > files ) throws PMDException
    {
       final Map< String, IPackage > asts = new HashMap< String, IPackage >();
 
-      for ( final Entry< String, AbstractFlexFile > fileEntry : files.entrySet() )
+      for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
       {
-         final AbstractFlexFile file = fileEntry.getValue();
+         final IFlexFile file = fileEntry.getValue();
 
          try
          {
@@ -130,41 +126,9 @@ public final class FileSetUtils
       return asts;
    }
 
-   public static Map< String, AbstractFlexFile > computeFilesList( final File sourceDirectory ) throws PMDException
-   {
-      final Map< String, AbstractFlexFile > files = new HashMap< String, AbstractFlexFile >();
-      final FlexFilter flexFilter = new FlexFilter();
-      final Collection< File > foundFiles = getFlexFiles( sourceDirectory,
-                                                          flexFilter );
-
-      for ( final File sourceFile : foundFiles )
-      {
-         AbstractFlexFile file;
-
-         try
-         {
-            if ( sourceFile.getName().endsWith( ".as" ) )
-            {
-               file = new As3File( sourceFile, sourceDirectory );
-            }
-            else
-            {
-               file = new MxmlFile( sourceFile, sourceDirectory );
-            }
-            files.put( file.getFullyQualifiedName(),
-                       file );
-         }
-         catch ( final IOException e )
-         {
-         }
-      }
-
-      return files;
-   }
-
-   private static IParserNode buildThreadedAst( final AbstractFlexFile file ) throws PMDException,
-                                                                             InterruptedException,
-                                                                             ExecutionException
+   private static IParserNode buildThreadedAst( final IFlexFile file ) throws PMDException,
+                                                                      InterruptedException,
+                                                                      ExecutionException
    {
       final List< Callable< Object >> toRun = new ArrayList< Callable< Object >>();
       toRun.add( new Callable< Object >()
@@ -184,25 +148,7 @@ public final class FileSetUtils
       return ( IParserNode ) futures.get( 0 ).get();
    }
 
-   private static Collection< File > getFlexFiles( final File sourceDirectory,
-                                                   final FlexFilter flexFilter ) throws PMDException
-   {
-      if ( sourceDirectory == null )
-      {
-         throw new PMDException( "sourceDirectory is empty", null );
-      }
-      final Collection< File > foundFiles = FileUtils.listFiles( sourceDirectory,
-                                                                 flexFilter,
-                                                                 true );
-      if ( foundFiles.isEmpty() )
-      {
-         throw new PMDException( "sourceDirectory does not contain any Flex sources "
-               + "(Specify the source directory in relative (not absolute))", null );
-      }
-      return foundFiles;
-   }
-
-   private static void logErrorWhileBuildingAst( final AbstractFlexFile file,
+   private static void logErrorWhileBuildingAst( final IFlexFile file,
                                                  final Exception exception )
    {
       LOGGER.warning( "while building AST on "

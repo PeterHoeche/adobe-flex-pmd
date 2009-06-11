@@ -30,56 +30,25 @@
  */
 package com.adobe.ac.pmd;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import net.sourceforge.pmd.IRuleViolation;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
+import com.adobe.ac.pmd.files.IFlexFile;
 
-class EmptyRule extends AbstractMaximizedFlexRule
+public interface IFlexViolation extends Comparable< IFlexViolation >, IRuleViolation
 {
-   public int getActualValueForTheCurrentViolation()
-   {
-      return 0;
-   }
 
-   public int getDefaultThreshold()
-   {
-      return 10;
-   }
+   void appendToMessage( final String messageToAppend );
 
-   @Override
-   public String getMessage()
-   {
-      return "emptyMessage";
-   }
+   String getRuleMessage();
 
-   @Override
-   public int getThreshold()
-   {
-      return getDefaultThreshold();
-   }
+   void replacePlaceholderInMessage( final String replacement );
 
-   @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
-   {
-      return true;
-   }
+   void replacePlaceholderInMessage( final String replacement,
+                                     final int index );
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.INFO;
-   }
+   void setEndColumn( final int column );
 
-   @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
-   {
-      return new ArrayList< Violation >();
-   }
+   String toXmlString( final IFlexFile violatedFile,
+                       final String ruleSetName );
+
 }

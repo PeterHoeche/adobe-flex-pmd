@@ -35,7 +35,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -65,7 +65,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    }
 
    private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas,
-                                              final Map< String, AbstractFlexFile > files )
+                                              final Map< String, IFlexFile > files )
    {
       for ( final IMetaData metaData : eventMetaDatas )
       {

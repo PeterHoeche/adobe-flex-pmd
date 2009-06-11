@@ -33,14 +33,13 @@ package com.adobe.ac.pmd;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.FileUtils;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.files.impl.FileUtils;
 
 /**
  * Internal utility which finds out the test resources, and map them to their
@@ -57,33 +56,34 @@ final class ResourcesManagerTest
    {
       if ( instance == null )
       {
-         instance = new ResourcesManagerTest();
+         try
+         {
+            instance = new ResourcesManagerTest();
+         }
+         catch ( final URISyntaxException e )
+         {
+            LOGGER.warning( StackTraceUtils.print( e ) );
+         }
+         catch ( final PMDException e )
+         {
+            LOGGER.warning( StackTraceUtils.print( e ) );
+         }
       }
       return instance;
    }
 
-   private Map< String, AbstractFlexFile > testFiles = new HashMap< String, AbstractFlexFile >();
+   private final Map< String, IFlexFile > testFiles;
 
-   private ResourcesManagerTest()
+   private ResourcesManagerTest() throws URISyntaxException,
+                                 PMDException
    {
-      try
-      {
-         final URL resource = this.getClass().getResource( "/test" );
-         final File root = new File( resource.toURI().getPath() );
+      final URL resource = this.getClass().getResource( "/test" );
+      final File root = new File( resource.toURI().getPath() );
 
-         testFiles = FileUtils.computeFilesList( root );
-      }
-      catch ( final PMDException e )
-      {
-         LOGGER.warning( StackTraceUtils.print( e ) );
-      }
-      catch ( final URISyntaxException e )
-      {
-         LOGGER.warning( StackTraceUtils.print( e ) );
-      }
+      testFiles = FileUtils.computeFilesList( root );
    }
 
-   public Map< String, AbstractFlexFile > getTestFiles()
+   public Map< String, IFlexFile > getTestFiles()
    {
       return testFiles;
    }

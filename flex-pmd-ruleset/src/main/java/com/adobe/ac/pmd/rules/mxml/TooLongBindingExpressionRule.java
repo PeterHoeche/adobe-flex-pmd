@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.rules.mxml;
 
 import java.util.regex.Matcher;
 
-import com.adobe.ac.pmd.files.AbstractFlexFile;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
 
@@ -51,7 +51,7 @@ public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRu
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
@@ -70,7 +70,7 @@ public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRu
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final AbstractFlexFile file )
+                                                            final IFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 

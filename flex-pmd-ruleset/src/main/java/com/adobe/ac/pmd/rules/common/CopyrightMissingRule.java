@@ -34,9 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.MxmlFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.files.IMxmlFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -44,7 +44,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class CopyrightMissingRule extends AbstractFlexRule
 {
-   public boolean isConcernedByTheGivenFile( final AbstractFlexFile file )
+   @Override
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
@@ -56,13 +57,13 @@ public class CopyrightMissingRule extends AbstractFlexRule
    }
 
    @Override
-   protected List< Violation > processFileBody( final IPackage rootNode,
-                                                final AbstractFlexFile file,
-                                                final Map< String, AbstractFlexFile > files )
+   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                     final IFlexFile file,
+                                                     final Map< String, IFlexFile > files )
    {
-      final List< Violation > violations = new ArrayList< Violation >();
+      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
       final String commentOpeningTag = file.getCommentOpeningTag();
-      final boolean hasMxmlCopyright = file instanceof MxmlFile
+      final boolean hasMxmlCopyright = file instanceof IMxmlFile
             && file.getLines().size() > 1 && file.getLines().get( 1 ).contains( commentOpeningTag );
       final String firstLine = file.getLines().get( 0 );
       final boolean isFirstLineContainCopyright = firstLine.startsWith( commentOpeningTag );

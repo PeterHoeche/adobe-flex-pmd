@@ -33,10 +33,10 @@ package com.adobe.ac.pmd.rules.core.test;
 import java.io.IOException;
 import java.util.List;
 
-import com.adobe.ac.pmd.Violation;
-import com.adobe.ac.pmd.files.AbstractFlexFile;
-import com.adobe.ac.pmd.files.As3File;
-import com.adobe.ac.pmd.files.MxmlFile;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IAs3File;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.files.IMxmlFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
@@ -46,11 +46,11 @@ import de.bokelberg.flex.parser.AS3Parser;
 public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   protected List< Violation > processFile( final String resourcePath ) throws IOException,
-                                                                       TokenException
+   protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
+                                                                            TokenException
    {
       final AS3Parser parser = new AS3Parser();
-      final AbstractFlexFile file = getTestFiles().get( resourcePath );
+      final IFlexFile file = getTestFiles().get( resourcePath );
 
       IPackage rootNode = null;
 
@@ -59,14 +59,14 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
          throw new IOException( resourcePath
                + " is not found" );
       }
-      if ( file instanceof As3File )
+      if ( file instanceof IAs3File )
       {
          rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
       }
       else
       {
          rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
-                                                                ( ( MxmlFile ) file ).getScriptBlock() ) );
+                                                                ( ( IMxmlFile ) file ).getScriptBlock() ) );
       }
       return getRule().processFile( file,
                                     rootNode,

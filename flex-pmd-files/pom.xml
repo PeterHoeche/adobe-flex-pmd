@@ -16,7 +16,12 @@
 			<version>${commons-lang.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.adobe.ac</groupId>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>as3-plugin-utils</artifactId>
+			<version>${as3-plugin-utils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>as3-plugin-utils</artifactId>
 			<version>${as3-plugin-utils.version}</version>
 		</dependency>
@@ -53,7 +58,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>com.adobe.ac</includeGroupIds>
+							<includeGroupIds>${project.groupId}</includeGroupIds>
 							<includes>**/*.as,**/*.mxml</includes>
 							<outputDirectory>${project.build.directory}/test/generated-resources</outputDirectory>
 							<excludeTransitive>true</excludeTransitive>
