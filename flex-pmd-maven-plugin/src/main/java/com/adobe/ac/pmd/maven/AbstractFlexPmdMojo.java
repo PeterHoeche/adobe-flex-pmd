@@ -91,6 +91,24 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     */
    private File         sourceDirectory;
 
+   public AbstractFlexPmdMojo()
+   {
+      super();
+   }
+
+   public AbstractFlexPmdMojo( final File outputDirectoryToBeSet,
+                               final MavenProject projectToBeSet,
+                               final File ruleSetToBeSet,
+                               final File sourceDirectoryToBeSet )
+   {
+      super();
+
+      outputDirectory = outputDirectoryToBeSet;
+      project = projectToBeSet;
+      ruleSet = ruleSetToBeSet;
+      sourceDirectory = sourceDirectoryToBeSet;
+   }
+
    public final String getDescription( final Locale locale )
    {
       return getBundle( locale ).getString( "report.flexPmd.description" );

@@ -38,6 +38,7 @@ import java.util.Locale;
 
 import net.sourceforge.pmd.PMDException;
 
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.MavenReportException;
 
 import com.adobe.ac.pmd.FlexPmdViolations;
@@ -58,6 +59,19 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
     * @readonly
     */
    private boolean aggregate;
+
+   public FlexPmdReportMojo()
+   {
+      super();
+   }
+
+   public FlexPmdReportMojo( final File outputDirectoryToBeSet,
+                             final MavenProject projectToBeSet,
+                             final File ruleSetToBeSet,
+                             final File sourceDirectoryToBeSet )
+   {
+      super( outputDirectoryToBeSet, projectToBeSet, ruleSetToBeSet, sourceDirectoryToBeSet );
+   }
 
    @Override
    protected void executeReport( final Locale locale ) throws MavenReportException
