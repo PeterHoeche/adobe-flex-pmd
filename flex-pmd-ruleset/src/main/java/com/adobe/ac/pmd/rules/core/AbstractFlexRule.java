@@ -55,7 +55,7 @@ import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
  * 
  * @author xagnetti
  */
-public abstract class AbstractFlexRule extends CommonAbstractRule
+public abstract class AbstractFlexRule extends CommonAbstractRule implements IFlexRule
 {
    protected static final String MAXIMUM = "maximum";
    protected static final String MINIMUM = "minimum";

@@ -28,23 +28,11 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.impl;
+package com.adobe.ac.pmd.rules.core;
 
-import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import net.sourceforge.pmd.Rule;
 
-public final class ViolationFactory
+public interface IFlexRule extends Rule
 {
-   public static IFlexViolation create( final ViolationPosition position,
-                                        final AbstractFlexRule violatedRule,
-                                        final IFlexFile violatedFile )
-   {
-      return new Violation( position, violatedRule, violatedFile );
-   }
-
-   private ViolationFactory()
-   {
-   }
+   String getRuleName();
 }

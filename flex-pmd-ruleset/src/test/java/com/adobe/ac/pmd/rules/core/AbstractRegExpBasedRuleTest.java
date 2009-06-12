@@ -28,35 +28,57 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.performance;
+package com.adobe.ac.pmd.rules.core;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import org.junit.Test;
+
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 
-public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
+public abstract class AbstractRegExpBasedRuleTest extends AbstractFlexRuleTest
 {
+   @Test
+   public void testDoesCurrentLineMacthCorrectLine()
+   {
+      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
+
+      for ( int i = 0; i < getMatchableLines().length; i++ )
+      {
+         final String correctLine = getMatchableLines()[ i ];
+
+         assertTrue( "This line (\""
+                           + correctLine + "\") should be matched",
+                     rule.doesCurrentLineMacthes( correctLine ) );
+      }
+   }
+
+   @Test
+   public void testDoesCurrentLineMacthIncorrectLine()
+   {
+      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
+
+      for ( int i = 0; i < getUnmatchableLines().length; i++ )
+      {
+         final String incorrectLine = getUnmatchableLines()[ i ];
+
+         assertFalse( "This line  (\""
+                            + incorrectLine + "\") should not be matched",
+                      rule.doesCurrentLineMacthes( incorrectLine ) );
+      }
+   }
+
+   protected abstract String[] getMatchableLines();
+
+   protected abstract AbstractRegexpBasedRule getRegexpBasedRule();
+
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new HeavyConstructorRule();
+      return getRegexpBasedRule();
    }
 
-   @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
-   {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "PngEncoder.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 130, 130 ) } ),
-                                 "Looping.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 39, 39 ) } ),
-                       "RadonDataGrid.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 53, 53 ) } );
-   }
+   protected abstract String[] getUnmatchableLines();
 }

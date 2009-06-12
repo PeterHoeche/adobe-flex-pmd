@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.test;
+package com.adobe.ac.pmd.rules.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -90,15 +90,20 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       }
    }
 
-   protected final void assertEmptyViolations( final String resourcePath )
+   protected abstract AbstractFlexRule getRule();
+
+   protected abstract Map< String, ViolationPosition[] > getViolatingFiles();
+
+   protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
+                                                                            TokenException
    {
-      assertViolations( resourcePath,
-                        new ViolationPosition[]
-                        {} );
+      return getRule().processFile( getTestFiles().get( resourcePath ),
+                                    null,
+                                    getTestFiles() );
    }
 
-   protected final void assertViolations( final String resourcePath,
-                                          final ViolationPosition[] expectedPositions )
+   private void assertViolations( final String resourcePath,
+                                  final ViolationPosition[] expectedPositions )
    {
       try
       {
@@ -135,18 +140,6 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       {
          fail( e.getMessage() );
       }
-   }
-
-   protected abstract AbstractFlexRule getRule();
-
-   protected abstract Map< String, ViolationPosition[] > getViolatingFiles();
-
-   protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
-                                                                            TokenException
-   {
-      return getRule().processFile( getTestFiles().get( resourcePath ),
-                                    null,
-                                    getTestFiles() );
    }
 
    private StringBuffer buildMessageName( final Map< String, List< IFlexViolation >> violatedFiles )

@@ -34,21 +34,21 @@ import java.util.Formatter;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.IFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 class Violation implements IFlexViolation
 {
-   private final int              beginColumn;
-   private final int              beginLine;
-   private int                    endColumn;
-   private final int              endLine;
-   private final IFlexFile        file;
-   private final AbstractFlexRule rule;
-   private String                 ruleMessage = "";
+   private final int       beginColumn;
+   private final int       beginLine;
+   private int             endColumn;
+   private final int       endLine;
+   private final IFlexFile file;
+   private final IFlexRule rule;
+   private String          ruleMessage = "";
 
    public Violation( final ViolationPosition position,
-                     final AbstractFlexRule violatedRule,
+                     final IFlexRule violatedRule,
                      final IFlexFile violatedFile )
    {
       beginLine = position.getBeginLine();
@@ -135,7 +135,7 @@ class Violation implements IFlexViolation
       return file.getPackageName();
    }
 
-   public AbstractFlexRule getRule()
+   public IFlexRule getRule()
    {
       return rule;
    }

@@ -34,8 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
 public class CopyrightMissingRuleTest extends AbstractFlexRuleTest
 {

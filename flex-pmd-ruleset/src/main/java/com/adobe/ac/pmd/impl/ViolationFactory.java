@@ -28,48 +28,23 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.test;
-
-import java.io.IOException;
-import java.util.List;
+package com.adobe.ac.pmd.impl;
 
 import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.files.IAs3File;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.files.IMxmlFile;
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.impl.NodeFactory;
-import com.adobe.ac.pmd.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.rules.core.IFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-import de.bokelberg.flex.parser.AS3Parser;
-
-public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
+public final class ViolationFactory
 {
-   @Override
-   protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
-                                                                            TokenException
+   public static IFlexViolation create( final ViolationPosition position,
+                                        final IFlexRule violatedRule,
+                                        final IFlexFile violatedFile )
    {
-      final AS3Parser parser = new AS3Parser();
-      final IFlexFile file = getTestFiles().get( resourcePath );
+      return new Violation( position, violatedRule, violatedFile );
+   }
 
-      IPackage rootNode = null;
-
-      if ( file == null )
-      {
-         throw new IOException( resourcePath
-               + " is not found" );
-      }
-      if ( file instanceof IAs3File )
-      {
-         rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
-      }
-      else
-      {
-         rootNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath(),
-                                                                ( ( IMxmlFile ) file ).getScriptBlock() ) );
-      }
-      return getRule().processFile( file,
-                                    rootNode,
-                                    getTestFiles() );
+   private ViolationFactory()
+   {
    }
 }

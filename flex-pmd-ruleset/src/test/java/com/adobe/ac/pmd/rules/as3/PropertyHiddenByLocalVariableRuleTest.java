@@ -33,9 +33,9 @@ package com.adobe.ac.pmd.rules.as3;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractAstFlexRuleTest;
 
 public class PropertyHiddenByLocalVariableRuleTest extends AbstractAstFlexRuleTest
 {

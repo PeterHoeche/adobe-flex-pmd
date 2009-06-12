@@ -33,8 +33,8 @@ package com.adobe.ac.pmd.rules.mxml;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.test.AbstractFlexRuleTest;
 
 public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractFlexRuleTest
 {
