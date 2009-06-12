@@ -123,7 +123,7 @@ abstract class AbstractFlexFile implements Comparable< IFlexFile >, IFlexFile
    public final boolean contains( final String stringToLookup,
                                   final int lineToBeIgnored )
    {
-      int lineIndex = 0;
+      int lineIndex = 1;
       boolean found = false;
 
       for ( final String line : lines )

@@ -59,7 +59,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
  * 
  * @author xagnetti
  */
-public abstract class AbstractAstFlexRule extends AbstractFlexRule
+public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IFlexAstRule
 {
    private static final Logger          LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
    private IFlexFile                    currentFile;
@@ -73,6 +73,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule
       violations = new ArrayList< IFlexViolation >();
    }
 
+   /* (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.IFlexAstRule#isConcernedByTheGivenFile(com.adobe.ac.pmd.files.IFlexFile)
+    */
    @Override
    public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {

@@ -28,32 +28,11 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.io.File;
+package com.adobe.ac.pmd.rules.core;
 
 import com.adobe.ac.pmd.files.IFlexFile;
 
-public final class FlexFileFactory
+public interface IFlexAstRule extends IFlexRule
 {
-   public static IFlexFile create( final File sourceFile,
-                                   final File sourceDirectory )
-   {
-      IFlexFile file;
-
-      if ( sourceFile.getName().endsWith( ".as" ) )
-      {
-         file = new As3File( sourceFile, sourceDirectory );
-      }
-      else
-      {
-         file = new MxmlFile( sourceFile, sourceDirectory );
-      }
-
-      return file;
-   }
-
-   private FlexFileFactory()
-   {
-   }
+   boolean isConcernedByTheGivenFile( final IFlexFile file );
 }

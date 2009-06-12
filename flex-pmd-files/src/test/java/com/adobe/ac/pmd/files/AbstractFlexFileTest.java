@@ -67,8 +67,22 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
       assertTrue( "",
                   mxml.compareTo( as3 ) > 0 );
       assertEquals( "",
-                    as3.compareTo( as3 ),
-                    0 );
+                    0,
+                    as3.compareTo( as3 ) );
+   }
+
+   @Test
+   public void testContains()
+   {
+      assertTrue( "",
+                  as3.contains( "logger",
+                                0 ) );
+      assertFalse( "",
+                   as3.contains( "loggerr",
+                                 0 ) );
+      assertFalse( "",
+                   as3.contains( "addEventListener",
+                                 108 ) );
    }
 
    @Test

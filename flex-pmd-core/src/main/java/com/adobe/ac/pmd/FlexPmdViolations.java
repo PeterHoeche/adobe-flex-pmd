@@ -49,8 +49,8 @@ import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.IFlexAstRule;
+import com.adobe.ac.pmd.rules.core.IFlexRule;
 
 public class FlexPmdViolations
 {
@@ -68,21 +68,21 @@ public class FlexPmdViolations
    {
       beenComputed = true;
 
-      final Map< String, AbstractFlexRule > rules = computeRulesList( ruleSet );
+      final Map< String, IFlexRule > rules = computeRulesList( ruleSet );
       final Map< String, IFlexFile > files = FileUtils.computeFilesList( sourceDirectory );
       final Map< String, IPackage > asts = FileSetUtils.computeAsts( files );
 
-      for ( final Entry< String, AbstractFlexRule > ruleEntry : rules.entrySet() )
+      for ( final Entry< String, IFlexRule > ruleEntry : rules.entrySet() )
       {
-         final AbstractFlexRule rule = ruleEntry.getValue();
+         final IFlexRule rule = ruleEntry.getValue();
 
          LOGGER.fine( "Processing "
                + rule.getRuleName() + "..." );
          for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
          {
             final IFlexFile file = fileEntry.getValue();
-            final IPackage ast = rule instanceof AbstractAstFlexRule ? asts.get( file.getFullyQualifiedName() )
-                                                                    : null;
+            final IPackage ast = rule instanceof IFlexAstRule ? asts.get( file.getFullyQualifiedName() )
+                                                             : null;
             final List< IFlexViolation > foundViolations = rule.processFile( file,
                                                                              ast,
                                                                              files );
@@ -114,9 +114,9 @@ public class FlexPmdViolations
       return beenComputed;
    }
 
-   private Map< String, AbstractFlexRule > computeRulesList( final RuleSet ruleSet )
+   private Map< String, IFlexRule > computeRulesList( final RuleSet ruleSet )
    {
-      final Map< String, AbstractFlexRule > rules = new HashMap< String, AbstractFlexRule >();
+      final Map< String, IFlexRule > rules = new HashMap< String, IFlexRule >();
 
       for ( Rule rule : ruleSet.getRules() )
       {
@@ -124,7 +124,7 @@ public class FlexPmdViolations
          {
             rule = ( ( RuleReference ) rule ).getRule();
          }
-         final AbstractFlexRule flexRule = ( AbstractFlexRule ) rule;
+         final IFlexRule flexRule = ( IFlexRule ) rule;
 
          rules.put( flexRule.getRuleName(),
                     flexRule );
