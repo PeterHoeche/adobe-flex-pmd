@@ -35,11 +35,6 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 final public class ClassUtils
 {
-   public static String getClassNameFromClassNode( final IParserNode classNode )
-   {
-      return classNode.getChild( 0 ).getStringValue();
-   }
-
    public static IParserNode getTypeFromFieldDeclaration( final IParserNode fieldNode )
    {
       IParserNode typeNode = null;

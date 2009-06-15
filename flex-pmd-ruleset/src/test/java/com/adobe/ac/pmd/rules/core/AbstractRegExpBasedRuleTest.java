@@ -35,9 +35,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-
 public abstract class AbstractRegExpBasedRuleTest extends AbstractFlexRuleTest
 {
    @Test

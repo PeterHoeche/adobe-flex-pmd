@@ -39,6 +39,7 @@ import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.IMxmlFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.parser.IAS3Parser;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 import de.bokelberg.flex.parser.AS3Parser;
@@ -49,7 +50,7 @@ public abstract class AbstractAstFlexRuleTest extends AbstractFlexRuleTest
    protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
                                                                             TokenException
    {
-      final AS3Parser parser = new AS3Parser();
+      final IAS3Parser parser = new AS3Parser();
       final IFlexFile file = getTestFiles().get( resourcePath );
 
       IPackage rootNode = null;

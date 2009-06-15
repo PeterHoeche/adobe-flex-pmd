@@ -41,19 +41,31 @@ import com.adobe.ac.pmd.parser.NodeKind;
  * 
  * @author rbokel
  */
-class Node implements IParserNode
+class Node extends NestedNode implements IParserNode
 {
-   private List< IParserNode > children;
-   private final int           column;
-   private final int           line;
-   private NodeKind            nodeId;
-   private String              stringValue;
+   private static boolean isNameInArray( final String[] strings,
+                                         final String string )
+   {
+      for ( final String currentName : strings )
+      {
+         if ( currentName.equals( string ) )
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   private final int column;
+   private final int line;
+   private String    stringValue;
 
    public Node( final NodeKind idToBeSet,
                 final int lineToBeSet,
                 final int columnToBeSet )
    {
-      nodeId = idToBeSet;
+      super( idToBeSet );
+
       line = lineToBeSet;
       column = columnToBeSet;
    }
@@ -63,8 +75,10 @@ class Node implements IParserNode
                 final int columnToBeSet,
                 final IParserNode childToBeSet )
    {
-      this( idToBeSet, lineToBeSet, columnToBeSet );
-      addChild( childToBeSet );
+      super( idToBeSet, childToBeSet );
+
+      line = lineToBeSet;
+      column = columnToBeSet;
    }
 
    public Node( final NodeKind idToBeSet,
@@ -73,53 +87,8 @@ class Node implements IParserNode
                 final String valueToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
+
       stringValue = valueToBeSet;
-   }
-
-   public int computeCyclomaticComplexity()
-   {
-      int cyclomaticComplexity = 0;
-
-      if ( is( NodeKind.FOREACH )
-            || is( NodeKind.FORIN ) || is( NodeKind.CASE ) || is( NodeKind.DEFAULT ) )
-      {
-         cyclomaticComplexity++;
-      }
-      else if ( is( NodeKind.IF )
-            || is( NodeKind.WHILE ) || is( NodeKind.FOR ) )
-      {
-         cyclomaticComplexity++;
-         cyclomaticComplexity += getChild( 0 ).countNodeFromType( NodeKind.AND );
-         cyclomaticComplexity += getChild( 0 ).countNodeFromType( NodeKind.OR );
-      }
-
-      if ( numChildren() > 0 )
-      {
-         for ( final IParserNode child : getChildren() )
-         {
-            cyclomaticComplexity += child.computeCyclomaticComplexity();
-         }
-      }
-
-      return cyclomaticComplexity;
-   }
-
-   public int countNodeFromType( final NodeKind type )
-   {
-      int count = 0;
-
-      if ( is( type ) )
-      {
-         count++;
-      }
-      if ( numChildren() > 0 )
-      {
-         for ( final IParserNode child : getChildren() )
-         {
-            count += child.countNodeFromType( type );
-         }
-      }
-      return count;
    }
 
    public List< IParserNode > findPrimaryStatementsFromNameInChildren( final String[] names )
@@ -142,39 +111,9 @@ class Node implements IParserNode
       return foundNode;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#getChild(int)
-    */
-   public IParserNode getChild( final int index )
-   {
-      return getChildren() == null
-            || getChildren().size() <= index ? null
-                                            : getChildren().get( index );
-   }
-
-   public List< IParserNode > getChildren()
-   {
-      return children;
-   }
-
    public int getColumn()
    {
       return column;
-   }
-
-   public NodeKind getId()
-   {
-      return nodeId;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#getLastChild()
-    */
-   public IParserNode getLastChild()
-   {
-      return getChild( numChildren() - 1 );
    }
 
    public int getLine()
@@ -185,26 +124,6 @@ class Node implements IParserNode
    public String getStringValue()
    {
       return stringValue;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#is(java.lang.String)
-    */
-   public boolean is( final NodeKind expectedType )
-   {
-      return getId() == null
-            && expectedType == null || expectedType.equals( getId() );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#numChildren()
-    */
-   public int numChildren()
-   {
-      return getChildren() == null ? 0
-                                  : getChildren().size();
    }
 
    @Override
@@ -234,56 +153,8 @@ class Node implements IParserNode
       return buffer.toString();
    }
 
-   final void addChild( final IParserNode child )
-   {
-      if ( child == null )
-      {
-         return; // skip optional children
-      }
-
-      if ( children == null )
-      {
-         children = new ArrayList< IParserNode >();
-      }
-      children.add( child );
-   }
-
-   void addChild( final NodeKind childId,
-                  final int childLine,
-                  final int childColumn,
-                  final IParserNode nephew )
-   {
-      addChild( new Node( childId, childLine, childColumn, nephew ) );
-   }
-
-   void addChild( final NodeKind childId,
-                  final int childLine,
-                  final int childColumn,
-                  final String value )
-   {
-      addChild( new Node( childId, childLine, childColumn, value ) );
-   }
-
-   void setId( final NodeKind idToBeSet )
-   {
-      nodeId = idToBeSet;
-   }
-
-   void setStringValue( final String text )
+   final void setStringValue( final String text )
    {
       stringValue = text;
-   }
-
-   private boolean isNameInArray( final String[] strings,
-                                  final String string )
-   {
-      for ( final String currentName : strings )
-      {
-         if ( currentName.equals( string ) )
-         {
-            return true;
-         }
-      }
-      return false;
    }
 }

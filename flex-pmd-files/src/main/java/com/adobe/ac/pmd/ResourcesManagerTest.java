@@ -73,18 +73,24 @@ final class ResourcesManagerTest
    }
 
    private final Map< String, IFlexFile > testFiles;
+   private final File                     testRootDirectory;
 
    private ResourcesManagerTest() throws URISyntaxException,
                                  PMDException
    {
       final URL resource = this.getClass().getResource( "/test" );
-      final File root = new File( resource.toURI().getPath() );
 
-      testFiles = FileUtils.computeFilesList( root );
+      testRootDirectory = new File( resource.toURI().getPath() );
+      testFiles = FileUtils.computeFilesList( testRootDirectory );
    }
 
    public Map< String, IFlexFile > getTestFiles()
    {
       return testFiles;
+   }
+
+   protected final File getTestRootDirectory()
+   {
+      return testRootDirectory;
    }
 }

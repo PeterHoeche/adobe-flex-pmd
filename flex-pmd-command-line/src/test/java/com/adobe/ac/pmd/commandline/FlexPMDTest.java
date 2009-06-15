@@ -35,6 +35,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import net.sourceforge.pmd.PMDException;
@@ -42,9 +43,10 @@ import net.sourceforge.pmd.PMDException;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.CommandLineOptions;
+import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.martiansoftware.jsap.JSAPException;
 
-public class FlexPMDTest
+public class FlexPMDTest extends FlexPmdTestBase
 {
    @Test
    public void testAreCommandLineOptionsCorrect() throws FileNotFoundException,
@@ -93,5 +95,18 @@ public class FlexPMDTest
                     FlexPMD.getParameterValue( CommandLineOptions.OUTPUT ) );
       assertEquals( "all_flex.xml",
                     FlexPMD.getParameterValue( CommandLineOptions.RULE_SET ) );
+   }
+
+   @Test
+   public void testStartFlexPMD() throws JSAPException,
+                                 PMDException,
+                                 URISyntaxException,
+                                 IOException
+   {
+      FlexPMD.startFlexPMD( new String[]
+      { "-s",
+                  getTestDirectory().getAbsolutePath(),
+                  "-o",
+                  "target" } );
    }
 }

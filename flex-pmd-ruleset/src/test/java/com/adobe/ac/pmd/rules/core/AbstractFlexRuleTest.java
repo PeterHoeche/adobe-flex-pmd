@@ -44,8 +44,6 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 {

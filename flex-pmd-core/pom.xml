@@ -5,24 +5,29 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-core</artifactId>
 	<name>Adobe Flex PMD Core</name>
+	<description />
+	<packaging>jar</packaging>
+
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
 		<version>0.5.6-SNAPSHOT</version>
 	</parent>
-	<description />
-	<packaging>jar</packaging>
+
+	<properties>
+		<doxia-core.version>1.0-alpha-4</doxia-core.version>
+	</properties>
 
 	<dependencies>
 	   <dependency>
 			<groupId>doxia</groupId>
 			<artifactId>doxia-core</artifactId>
-			<version>1.0-alpha-4</version>
+			<version>${doxia-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>as3-plugin-utils</artifactId>
-			<version>1.1</version>
+			<version>${as3-plugin-utils.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>pmd</groupId>

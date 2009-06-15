@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd;
 
+import java.io.File;
 import java.util.Map;
 
 import com.adobe.ac.pmd.files.IFlexFile;
@@ -53,7 +54,11 @@ public class FlexPmdTestBase
 
    protected FlexPmdTestBase()
    {
-      // Base constructor
+   }
+
+   protected final File getTestDirectory()
+   {
+      return ResourcesManagerTest.getInstance().getTestRootDirectory();
    }
 
    protected final Map< String, IFlexFile > getTestFiles()

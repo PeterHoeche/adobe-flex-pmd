@@ -98,9 +98,12 @@ final public class FlexPMD
    {
       if ( areCommandLineOptionsCorrect( args ) )
       {
+         final String rulesetRef = getParameterValue( CommandLineOptions.RULE_SET );
+
          new FlexPmdXmlEngine().executeReport( new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) ),
                                                new File( getParameterValue( CommandLineOptions.OUTPUT ) ),
-                                               new File( getParameterValue( CommandLineOptions.RULE_SET ) ),
+                                               rulesetRef != null ? new File( rulesetRef )
+                                                                 : null,
                                                new FlexPmdViolations() );
       }
 
