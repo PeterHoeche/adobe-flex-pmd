@@ -60,5 +60,7 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
       assertNotNull( mojo.getName( Locale.ENGLISH ) );
 
       mojo.execute();
+
+      new File( "target/pmd.xml" ).delete();
    }
 }
