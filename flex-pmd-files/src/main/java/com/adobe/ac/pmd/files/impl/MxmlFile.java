@@ -110,11 +110,9 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       }
    }
 
-   private void copyScriptLinesKeepingOriginalLineIndices( final int startLine,
-                                                           final int endLine )
+   private void copyScriptLinesKeepingOriginalLineIndices()
    {
-      final List< String > scriptLines = fillMxmlLine( startLine,
-                                                       endLine );
+      final List< String > scriptLines = fillMxmlLine();
       final String firstLine = "package "
             + getPackageName() + "{";
       final String secondLine = "class "
@@ -153,12 +151,10 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
          currentLineIndex++;
       }
 
-      copyScriptLinesKeepingOriginalLineIndices( startLine,
-                                                 endLine );
+      copyScriptLinesKeepingOriginalLineIndices();
    }
 
-   private List< String > fillMxmlLine( final int startLine,
-                                        final int endLine )
+   private List< String > fillMxmlLine()
    {
       final List< String > scriptLines = new ArrayList< String >();
 
