@@ -47,7 +47,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    private static final String TYPE_EQUAL = "type = \"";
 
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       final List< IMetaData > eventMetaDatas = classNode.getMetaData( "Event" );
 
@@ -59,7 +59,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd.nodes.impl;
 
 import com.adobe.ac.pmd.nodes.IField;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
@@ -47,24 +47,14 @@ class FieldNode extends VariableNode implements IField
       super( rootNode );
    }
 
-   public boolean isPrivate()
-   {
-      return ModifierUtils.isPrivate( this );
-   }
-
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
-   }
-
    public boolean isPublic()
    {
-      return ModifierUtils.isPublic( this );
+      return is( Modifier.PUBLIC );
    }
 
    public boolean isStatic()
    {
-      return ModifierUtils.isStatic( this );
+      return is( Modifier.STATIC );
    }
 
    @Override
@@ -78,8 +68,8 @@ class FieldNode extends VariableNode implements IField
          {
             if ( child.is( NodeKind.MOD_LIST ) )
             {
-               ModifierUtils.computeModifierList( this,
-                                                  child );
+               computeModifierList( this,
+                                    child );
             }
          }
       }

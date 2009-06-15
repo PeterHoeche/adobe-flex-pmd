@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UntypedEventMetadataRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       final List< IMetaData > eventMetaData = classNode.getMetaData( "Event" );
 
@@ -51,7 +51,7 @@ public class UntypedEventMetadataRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }

@@ -39,13 +39,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class DynamicClassRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return !file.isMxml();
    }
 
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       if ( classNode.is( Modifier.DYNAMIC ) )
       {
@@ -54,7 +54,7 @@ public class DynamicClassRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

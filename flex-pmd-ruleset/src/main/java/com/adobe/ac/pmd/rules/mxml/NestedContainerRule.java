@@ -39,37 +39,37 @@ public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
    private int     currentLevel   = 0;
    private boolean violationFound = false;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return currentLevel;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 2;
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }
 
    @Override
-   protected String getRegexp()
+   protected final String getRegexp()
    {
       return ".*<(mx:)?(.*Box|Canvas|Accordion|Form|FormItem|LayoutContainer|Panel|Tile|ViewStack).*";
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
       boolean result = false;
 

@@ -37,13 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class EmptyCatchStatementRule extends AbstractAstFlexRule
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitCatch( final IParserNode ast )
+   protected final void visitCatch( final IParserNode ast )
    {
       super.visitCatch( ast );
 

@@ -45,7 +45,7 @@ public class AddChildNotInCreateChildrenRule extends AbstractAstFlexRule
                "addChildAt"                     };
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -66,7 +66,7 @@ public class AddChildNotInCreateChildrenRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

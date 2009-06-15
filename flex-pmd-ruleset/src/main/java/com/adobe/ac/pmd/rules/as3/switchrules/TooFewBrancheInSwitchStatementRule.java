@@ -43,42 +43,43 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
 {
    private int switchCases;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return switchCases;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 3;
    }
 
-   public int getThreshold()
+   public final int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
-   public String getThresholdName()
+   public final String getThresholdName()
    {
       return MINIMUM;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }
 
    @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
+   protected final Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
    }
 
    @Override
-   protected void visitSwitch( final IParserNode ast )
+   protected final void visitSwitch( final IParserNode ast )
    {
       switchCases = 0;
+
       super.visitSwitch( ast );
 
       if ( switchCases < getThreshold() )
@@ -88,9 +89,10 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
    }
 
    @Override
-   protected void visitSwitchCase( final IParserNode child )
+   protected final void visitSwitchCase( final IParserNode child )
    {
       super.visitSwitchCase( child );
+
       switchCases++;
    }
 }

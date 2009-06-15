@@ -46,7 +46,7 @@ import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.JSAPResult;
 
-final public class FlexPMD
+public final class FlexPMD
 {
    private static JSAPResult   config;
    private static final Logger LOGGER = Logger.getLogger( FlexPMD.class.getName() );

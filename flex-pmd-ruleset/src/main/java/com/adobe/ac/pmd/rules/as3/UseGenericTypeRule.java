@@ -45,7 +45,7 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
    private static final String STAR = "*";
 
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       findViolationInVariableLists( classNode.getConstants() );
       findViolationInVariableLists( classNode.getAttributes() );
@@ -60,13 +60,13 @@ public class UseGenericTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }
 
    @Override
-   protected void visitStatement( final IParserNode ast )
+   protected final void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
 

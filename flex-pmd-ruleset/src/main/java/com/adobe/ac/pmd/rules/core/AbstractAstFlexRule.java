@@ -46,7 +46,6 @@ import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.utils.FunctionUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
@@ -66,9 +65,42 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       void visitExpression( final IParserNode ast );
    }
 
-   private static final Logger          LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
+   private static final Logger LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
+
+   protected static IParserNode getNameFromFunctionDeclaration( final IParserNode functionNode )
+   {
+      if ( functionNode.numChildren() != 0 )
+      {
+         for ( final IParserNode child : functionNode.getChildren() )
+         {
+            if ( child.is( NodeKind.NAME ) )
+            {
+               return child;
+            }
+         }
+      }
+      return functionNode;
+   }
+
+   protected static IParserNode getTypeFromFieldDeclaration( final IParserNode fieldNode )
+   {
+      IParserNode typeNode = null;
+
+      for ( final IParserNode node : fieldNode.getChildren() )
+      {
+         if ( node.is( NodeKind.NAME_TYPE_INIT )
+               && node.numChildren() > 1 )
+         {
+            typeNode = node.getChild( 1 );
+            break;
+         }
+      }
+      return typeNode;
+   }
+
    private IFlexFile                    currentFile;
    private Map< String, IFlexFile >     filesInSourcePath;
+
    private final List< IFlexViolation > violations;
 
    public AbstractAstFlexRule()
@@ -78,24 +110,22 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       violations = new ArrayList< IFlexViolation >();
    }
 
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.IFlexAstRule#isConcernedByTheGivenFile(com
-    * .adobe.ac.pmd.files.IFlexFile)
-    */
    @Override
    public boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
 
-   protected final void addViolation( final IFunction function )
+   /**
+    * @param function
+    * @return the added violation positioned on the given function node
+    */
+   protected final IFlexViolation addViolation( final IFunction function )
    {
-      final IParserNode name = FunctionUtils.extractNameNode( function.getInternalNode() );
+      final IParserNode name = getNameFromFunctionDeclaration( function.getInternalNode() );
 
-      addViolation( name,
-                    name );
+      return addViolation( name,
+                           name );
    }
 
    /**
@@ -132,19 +162,36 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                                                 final IParserNode endNode,
                                                 final String messageToReplace )
    {
-      final IFlexViolation violation = ViolationFactory.create( new ViolationPosition( beginningNode.getLine(),
-                                                                                       endNode.getLine(),
-                                                                                       beginningNode.getColumn(),
-                                                                                       endNode.getColumn() ),
+      final IFlexViolation violation = addViolation( new ViolationPosition( beginningNode.getLine(),
+                                                                            endNode.getLine(),
+                                                                            beginningNode.getColumn(),
+                                                                            endNode.getColumn() ) );
+
+      violation.replacePlaceholderInMessage( messageToReplace );
+
+      return violation;
+   }
+
+   /**
+    * @param violationPosition
+    * @return the added violation positioned at the given position
+    */
+   protected final IFlexViolation addViolation( final ViolationPosition violationPosition )
+   {
+      final IFlexViolation violation = ViolationFactory.create( violationPosition,
                                                                 this,
                                                                 currentFile );
 
-      violation.replacePlaceholderInMessage( messageToReplace );
       violations.add( violation );
 
       return violation;
    }
 
+   /**
+    * find the violations list from the given class node
+    * 
+    * @param classNode
+    */
    protected void findViolations( final IClass classNode )
    {
       if ( classNode.getAttributes() != null )
@@ -165,6 +212,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * find the violations list from the given class constructor node
+    * 
+    * @param constructor
+    */
    protected void findViolations( final IFunction constructor )
    {
    }
@@ -185,23 +237,44 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * find the violations list from the given functions list
+    * 
+    * @param functions
+    */
    protected void findViolations( final List< IFunction > functions )
    {
    }
 
+   /**
+    * find the violations list from the given class variables list
+    * 
+    * @param variables
+    */
    protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {
    }
 
+   /**
+    * find the violations list from the given class constants list
+    * 
+    * @param constants
+    */
    protected void findViolationsFromConstants( final List< IConstant > constants )
    {
    }
 
+   /**
+    * @return the current file under investigation
+    */
    protected final IFlexFile getCurrentFile()
    {
       return currentFile;
    }
 
+   /**
+    * @return the list of Flex files in the source path
+    */
    protected final Map< String, IFlexFile > getFilesInSourcePath()
    {
       return filesInSourcePath;
@@ -458,20 +531,17 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
             if ( cases.getChildren() != null )
             {
-               final Iterator< IParserNode > caseIterator = cases.getChildren().iterator();
-
-               while ( caseIterator.hasNext() )
+               for ( final IParserNode caseNode : cases.getChildren() )
                {
-                  final IParserNode node = caseIterator.next();
-                  final IParserNode child = node.getChild( 0 );
+                  final IParserNode child = caseNode.getChild( 0 );
 
                   if ( child.is( NodeKind.DEFAULT ) )
                   {
-                     visitSwitchDefaultCase( node.getChild( 1 ) );
+                     visitSwitchDefaultCase( caseNode.getChild( 1 ) );
                   }
                   else
                   {
-                     visitSwitchCase( node.getChild( 1 ) );
+                     visitSwitchCase( caseNode.getChild( 1 ) );
                      visitExpression( child );
                   }
                }
@@ -817,13 +887,16 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          IParserNode node;
 
          iterator.next();
+
          if ( iterator.hasNext() )
          {
             node = iterator.next();
          }
+
          if ( iterator.hasNext() )
          {
             node = iterator.next();
+
             if ( node.is( NodeKind.INIT ) )
             {
                visitExpression( node );

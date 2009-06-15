@@ -33,10 +33,10 @@ package com.adobe.ac.pmd.rules.mxml;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractFlexRuleTest
+public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    protected Map< String, ViolationPosition[] > getViolatingFiles()

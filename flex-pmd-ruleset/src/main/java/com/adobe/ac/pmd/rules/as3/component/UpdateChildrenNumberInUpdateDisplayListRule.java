@@ -46,7 +46,7 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
                "removeChildAt"               };
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -64,7 +64,7 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

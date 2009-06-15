@@ -38,13 +38,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class HeavyConstructorRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return !file.isMxml();
    }
 
    @Override
-   protected void findViolations( final IFunction constructor )
+   protected final void findViolations( final IFunction constructor )
    {
       if ( constructor.getCyclomaticComplexity() > 1 )
       {
@@ -53,7 +53,7 @@ public class HeavyConstructorRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

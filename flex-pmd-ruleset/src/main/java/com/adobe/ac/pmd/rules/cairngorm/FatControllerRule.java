@@ -42,13 +42,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class FatControllerRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.getClassName().endsWith( "Controller.as" );
    }
 
    @Override
-   protected void findViolations( final IPackage packageNode )
+   protected final void findViolations( final IPackage packageNode )
    {
       final IClass classNode = packageNode.getClassNode();
 
@@ -67,7 +67,7 @@ public class FatControllerRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

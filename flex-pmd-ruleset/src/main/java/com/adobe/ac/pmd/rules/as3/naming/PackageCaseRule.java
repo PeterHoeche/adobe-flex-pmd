@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class PackageCaseRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IPackage packageNode )
+   protected final void findViolations( final IPackage packageNode )
    {
       if ( containsUpperCharacter( packageNode.getName() ) )
       {
@@ -50,7 +50,7 @@ public class PackageCaseRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

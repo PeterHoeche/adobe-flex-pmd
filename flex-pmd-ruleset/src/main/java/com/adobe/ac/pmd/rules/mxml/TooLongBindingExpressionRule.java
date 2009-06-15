@@ -40,37 +40,37 @@ public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRu
 {
    private int currentCount;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return currentCount;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 2;
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected String getRegexp()
+   protected final String getRegexp()
    {
       return ".*=\"\\{([^\\}]*)\\}\".*";
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 

@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -39,13 +38,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UseOfObjectTypeRule extends AbstractAstFlexRule
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }
 
    @Override
-   protected void visitFunctionReturnType( final IParserNode node )
+   protected final void visitFunctionReturnType( final IParserNode node )
    {
       super.visitFunctionReturnType( node );
 
@@ -53,8 +52,8 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitVarOrConstList( final IParserNode ast,
-                                       final KeyWords varOrConst )
+   protected final void visitVarOrConstList( final IParserNode ast,
+                                             final KeyWords varOrConst )
    {
       super.visitVarOrConstList( ast,
                                  varOrConst );
@@ -76,7 +75,7 @@ public class UseOfObjectTypeRule extends AbstractAstFlexRule
 
    private void detectObjectInVariableDefinition( final IParserNode ast )
    {
-      final IParserNode type = ClassUtils.getTypeFromFieldDeclaration( ast );
+      final IParserNode type = getTypeFromFieldDeclaration( ast );
 
       if ( type != null )
       {

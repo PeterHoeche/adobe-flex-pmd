@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class ConstructorNonEmptyReturnTypeRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IFunction constructor )
+   protected final void findViolations( final IFunction constructor )
    {
       if ( constructor.getReturnType() != null
             && !"".equals( constructor.getReturnType().toString() ) )
@@ -47,7 +47,7 @@ public class ConstructorNonEmptyReturnTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

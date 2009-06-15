@@ -32,25 +32,25 @@ package com.adobe.ac.pmd.rules.core.thresholded;
 
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-
 import net.sourceforge.pmd.PropertyDescriptor;
+
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 
 public abstract class AbstractMaximizedRegexpBasedRule extends AbstractRegexpBasedRule implements
                                                                                       IThresholdedRule
 {
-   public int getThreshold()
+   public final int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
-   public String getThresholdName()
+   public final String getThresholdName()
    {
       return MAXIMUM;
    }
 
    @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
+   protected final Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
    }

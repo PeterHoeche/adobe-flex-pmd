@@ -40,13 +40,13 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    private int loopLevel = 0;
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitFor( final IParserNode ast )
+   protected final void visitFor( final IParserNode ast )
    {
       loopLevel++;
       super.visitFor( ast );
@@ -54,7 +54,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitForEach( final IParserNode ast )
+   protected final void visitForEach( final IParserNode ast )
    {
       loopLevel++;
       super.visitForEach( ast );
@@ -62,7 +62,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitStatement( final IParserNode ast )
+   protected final void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
 
@@ -75,7 +75,7 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitWhile( final IParserNode ast )
+   protected final void visitWhile( final IParserNode ast )
    {
       loopLevel++;
       super.visitWhile( ast );

@@ -35,11 +35,12 @@ import java.util.Comparator;
 
 import com.adobe.ac.pmd.files.IFlexFile;
 
-@SuppressWarnings("serial")
 public class FlexFileComparator implements Comparator< IFlexFile >, Serializable
 {
-   public int compare( final IFlexFile file1,
-                       final IFlexFile file2 )
+   private static final long serialVersionUID = -7929554744612318974L;
+
+   public final int compare( final IFlexFile file1,
+                             final IFlexFile file2 )
    {
       return file1.compareTo( file2 );
    }

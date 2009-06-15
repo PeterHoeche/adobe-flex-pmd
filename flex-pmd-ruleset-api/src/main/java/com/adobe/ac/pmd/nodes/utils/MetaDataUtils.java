@@ -34,7 +34,7 @@ import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-final public class MetaDataUtils
+public final class MetaDataUtils
 {
    public static void computeMetaDataList( final IMetaDataListHolder metaDataHolder,
                                            final IParserNode child )

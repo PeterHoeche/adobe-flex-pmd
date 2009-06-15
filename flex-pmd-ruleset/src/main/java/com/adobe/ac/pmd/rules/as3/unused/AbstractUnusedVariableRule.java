@@ -40,8 +40,8 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
 {
    private Map< String, IParserNode > variablesUnused;
 
-   protected void addVariable( final String variableName,
-                               final IParserNode ast )
+   protected final void addVariable( final String variableName,
+                                     final IParserNode ast )
    {
       variablesUnused.put( variableName,
                            ast );

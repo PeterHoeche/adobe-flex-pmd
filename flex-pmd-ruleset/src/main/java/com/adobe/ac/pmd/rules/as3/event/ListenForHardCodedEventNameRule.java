@@ -37,26 +37,26 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class ListenForHardCodedEventNameRule extends AbstractRegexpBasedRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected String getRegexp()
+   protected final String getRegexp()
    {
       return ".*addEventListener *\\( *\".*\".*";
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
       return getMatcher( line ).matches();
    }

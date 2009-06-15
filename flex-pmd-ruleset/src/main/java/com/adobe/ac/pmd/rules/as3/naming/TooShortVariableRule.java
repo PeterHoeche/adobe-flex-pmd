@@ -44,47 +44,47 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
 {
    private int length;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return length;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 3;
    }
 
-   public int getThreshold()
+   public final int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
-   public String getThresholdName()
+   public final String getThresholdName()
    {
       return MINIMUM;
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }
 
    @Override
-   protected String getRegexp()
+   protected final String getRegexp()
    {
       return ".*var (.*):.*";
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
       boolean result = false;
@@ -100,7 +100,7 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
    }
 
    @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
+   protected final Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
    }

@@ -36,7 +36,6 @@ import java.util.Map;
 import com.adobe.ac.pmd.nodes.INamable;
 import com.adobe.ac.pmd.nodes.IVisible;
 import com.adobe.ac.pmd.nodes.Modifier;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 
 class VisibleMock implements IVisible, INamable
 {
@@ -55,28 +54,18 @@ class VisibleMock implements IVisible, INamable
                      null );
    }
 
-   public boolean is( final Modifier modifier )
-   {
-      return modifiers.containsKey( modifier );
-   }
-
    public String getName()
    {
       return name;
    }
 
-   public boolean isPrivate()
+   public boolean is( final Modifier modifier )
    {
-      return ModifierUtils.isPrivate( this );
-   }
-
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
+      return modifiers.containsKey( modifier );
    }
 
    public boolean isPublic()
    {
-      return ModifierUtils.isPublic( this );
+      return is( Modifier.PUBLIC );
    }
 }

@@ -32,24 +32,9 @@ package de.bokelberg.flex.parser;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public class ASTToXMLConverter
+public final class ASTToXMLConverter
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
-    * .Node)
-    */
-   public String convert( final IParserNode ast )
-   {
-      final StringBuffer result = new StringBuffer();
-      visitNodes( ast,
-                  result,
-                  0 );
-      return result.toString();
-   }
-
-   protected String escapeEntities( final String stringToEscape )
+   private static String escapeEntities( final String stringToEscape )
    {
       if ( stringToEscape == null )
       {
@@ -57,6 +42,7 @@ public class ASTToXMLConverter
       }
 
       final StringBuffer buffer = new StringBuffer();
+
       for ( int i = 0; i < stringToEscape.length(); i++ )
       {
          final char currentCharacter = stringToEscape.charAt( i );
@@ -77,9 +63,9 @@ public class ASTToXMLConverter
       return buffer.toString();
    }
 
-   protected void visitNodes( final IParserNode ast,
-                              final StringBuffer result,
-                              final int level )
+   private static void visitNodes( final IParserNode ast,
+                                   final StringBuffer result,
+                                   final int level )
    {
       result.append( "<"
             + ast.getId() + " line=\"" + ast.getLine() + "\" column=\"" + ast.getColumn() + "\">" );
@@ -100,5 +86,20 @@ public class ASTToXMLConverter
       }
       result.append( "</"
             + ast.getId() + ">" );
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see
+    * de.bokelberg.flex.parser.AstConverter#convert(de.bokelberg.flex.parser
+    * .Node)
+    */
+   public String convert( final IParserNode ast )
+   {
+      final StringBuffer result = new StringBuffer();
+      visitNodes( ast,
+                  result,
+                  0 );
+      return result.toString();
    }
 }

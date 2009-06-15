@@ -64,7 +64,7 @@ public class FlexPmdMojo extends AbstractFlexPmdMojo
    }
 
    @Override
-   protected void executeReport( final Locale locale ) throws MavenReportException
+   protected final void executeReport( final Locale locale ) throws MavenReportException
    {
       LOGGER.info( "FlexPmdMojo starts" );
       try

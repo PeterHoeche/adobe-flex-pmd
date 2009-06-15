@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.sizing;
 
-import com.adobe.ac.pmd.nodes.utils.FunctionUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
@@ -39,25 +38,25 @@ public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
 {
    private int functionLength;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return functionLength;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 25;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitFunction( final IParserNode functionNode,
-                                 final String type )
+   protected final void visitFunction( final IParserNode functionNode,
+                                       final String type )
    {
       super.visitFunction( functionNode,
                            type );
@@ -74,7 +73,7 @@ public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
                - beginningLine;
          if ( functionLength > getThreshold() )
          {
-            final IParserNode nameNode = FunctionUtils.extractNameNode( functionNode );
+            final IParserNode nameNode = getNameFromFunctionDeclaration( functionNode );
 
             addViolation( nameNode );
          }

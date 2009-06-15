@@ -85,7 +85,7 @@ public abstract class AbstractFlexPmdEngine
       return computeViolationNumber( flexPmdViolations );
    }
 
-   public RuleSet getRuleSet()
+   public final RuleSet getRuleSet()
    {
       return ruleSet;
    }

@@ -42,11 +42,9 @@ import com.adobe.ac.pmd.nodes.IPackage;
 
 public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 {
-   final public boolean doesCurrentLineMacthes( final String line )
+   public final boolean doesCurrentLineMacthes( final String line )
    {
-      final Matcher matcher = getMatcher( line );
-
-      return matcher.matches();
+      return getMatcher( line ).matches();
    }
 
    /*
@@ -58,7 +56,7 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    public abstract boolean isConcernedByTheGivenFile( final IFlexFile file );
 
    @Override
-   final public List< IFlexViolation > processFileBody( final IPackage rootNode,
+   public final List< IFlexViolation > processFileBody( final IPackage rootNode,
                                                         final IFlexFile file,
                                                         final Map< String, IFlexFile > files )
    {
@@ -80,7 +78,7 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
       return violations;
    }
 
-   final protected Matcher getMatcher( final String line )
+   protected final Matcher getMatcher( final String line )
    {
       final Pattern pattern = Pattern.compile( getRegexp() );
       final Matcher matcher = pattern.matcher( line );

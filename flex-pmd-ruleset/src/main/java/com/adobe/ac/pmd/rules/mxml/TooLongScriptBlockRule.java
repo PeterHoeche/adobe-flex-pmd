@@ -36,6 +36,7 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.files.IMxmlFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -45,69 +46,44 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
 {
    private int linesInScriptBlock;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return linesInScriptBlock;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 50;
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                     final IFlexFile file,
-                                                     final Map< String, IFlexFile > files )
+   protected final List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                           final IFlexFile file,
+                                                           final Map< String, IFlexFile > files )
    {
-      final int lineInitialValue = -1;
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
-      linesInScriptBlock = lineInitialValue;
+      final IMxmlFile mxml = ( IMxmlFile ) file;
 
-      for ( int lineIndex = 0; lineIndex < file.getLines().size(); lineIndex++ )
+      linesInScriptBlock = mxml.getEndingScriptBlock()
+            - mxml.getBeginningScriptBlock();
+
+      if ( linesInScriptBlock >= getThreshold() )
       {
-         final String line = file.getLines().get( lineIndex );
-
-         if ( linesInScriptBlock == lineInitialValue
-               && line.contains( "Script>" ) )
-         {
-            linesInScriptBlock = 0;
-         }
-         else
-         {
-            if ( linesInScriptBlock != lineInitialValue )
-            {
-               if ( line.contains( "Script>" ) )
-               {
-                  if ( linesInScriptBlock > getThreshold() )
-                  {
-                     final int beginningScriptLine = lineIndex
-                           - linesInScriptBlock;
-
-                     addViolation( violations,
-                                   file,
-                                   new ViolationPosition( beginningScriptLine, lineIndex ) );
-                  }
-                  linesInScriptBlock = lineInitialValue;
-               }
-               else
-               {
-                  linesInScriptBlock++;
-               }
-            }
-         }
+         addViolation( violations,
+                       file,
+                       new ViolationPosition( mxml.getBeginningScriptBlock(), mxml.getEndingScriptBlock() ) );
       }
       return violations;
    }

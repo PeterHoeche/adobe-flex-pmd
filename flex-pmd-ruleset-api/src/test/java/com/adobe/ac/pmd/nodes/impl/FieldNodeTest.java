@@ -40,6 +40,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 
 public class FieldNodeTest extends FlexPmdTestBase
@@ -53,14 +54,14 @@ public class FieldNodeTest extends FlexPmdTestBase
       final IAttribute second = nonBindableModelLocator.getAttributes().get( 1 );
       final IAttribute third = nonBindableModelLocator.getAttributes().get( 2 );
 
-      assertTrue( first.isPrivate() );
+      assertTrue( first.is( Modifier.PRIVATE ) );
       assertFalse( first.isPublic() );
-      assertFalse( first.isProtected() );
-      assertTrue( second.isProtected() );
+      assertFalse( first.is( Modifier.PROTECTED ) );
+      assertTrue( second.is( Modifier.PROTECTED ) );
       assertFalse( second.isPublic() );
-      assertFalse( second.isPrivate() );
+      assertFalse( second.is( Modifier.PRIVATE ) );
       assertTrue( third.isPublic() );
-      assertFalse( third.isProtected() );
-      assertFalse( third.isPrivate() );
+      assertFalse( third.is( Modifier.PROTECTED ) );
+      assertFalse( third.is( Modifier.PRIVATE ) );
    }
 }

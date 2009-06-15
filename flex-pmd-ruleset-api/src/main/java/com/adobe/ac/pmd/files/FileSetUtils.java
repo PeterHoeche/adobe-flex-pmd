@@ -59,7 +59,7 @@ import de.bokelberg.flex.parser.AS3Parser;
  */
 public final class FileSetUtils
 {
-   private final static ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
+   private static final ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
    private static final Logger             LOGGER   = Logger.getLogger( FileSetUtils.class.getName() );
 
    public static IParserNode buildAst( final IFlexFile file ) throws PMDException

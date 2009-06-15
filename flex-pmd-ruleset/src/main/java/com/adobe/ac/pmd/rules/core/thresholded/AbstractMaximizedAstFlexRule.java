@@ -38,18 +38,18 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
 public abstract class AbstractMaximizedAstFlexRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   public int getThreshold()
+   public final int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
-   public String getThresholdName()
+   public final String getThresholdName()
    {
       return MAXIMUM;
    }
 
    @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
+   protected final Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
    }

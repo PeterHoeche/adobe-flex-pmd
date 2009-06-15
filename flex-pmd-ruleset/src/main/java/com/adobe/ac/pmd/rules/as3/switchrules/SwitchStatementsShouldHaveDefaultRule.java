@@ -39,13 +39,13 @@ public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
    private boolean defaultStatementFound = false;
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }
 
    @Override
-   protected void visitSwitch( final IParserNode ast )
+   protected final void visitSwitch( final IParserNode ast )
    {
       super.visitSwitch( ast );
 
@@ -58,7 +58,7 @@ public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void visitSwitchDefaultCase( final IParserNode child )
+   protected final void visitSwitchDefaultCase( final IParserNode child )
    {
       super.visitSwitchDefaultCase( child );
 

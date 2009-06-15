@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-class Violation implements IFlexViolation
+final class Violation implements IFlexViolation
 {
    private final int       beginColumn;
    private final int       beginLine;

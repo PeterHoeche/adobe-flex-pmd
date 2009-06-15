@@ -43,13 +43,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.getClassName().endsWith( "Event.as" );
    }
 
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       if ( isExtendedClassCairngormEvent( classNode ) )
       {
@@ -64,7 +64,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

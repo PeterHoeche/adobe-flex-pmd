@@ -39,13 +39,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return !file.isMxml();
    }
 
    @Override
-   protected void findViolations( final IFunction constructor )
+   protected final void findViolations( final IFunction constructor )
    {
       for ( final IParserNode statement : constructor.findPrimaryStatementsInBody( "dispatchEvent" ) )
       {
@@ -54,7 +54,7 @@ public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

@@ -45,24 +45,24 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
 {
    private int currentLine;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return currentLine;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 120;
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
 
    @Override
-   final public List< IFlexViolation > processFileBody( final IPackage rootNode,
+   public final List< IFlexViolation > processFileBody( final IPackage rootNode,
                                                         final IFlexFile file,
                                                         final Map< String, IFlexFile > files )
    {
@@ -90,7 +90,7 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }

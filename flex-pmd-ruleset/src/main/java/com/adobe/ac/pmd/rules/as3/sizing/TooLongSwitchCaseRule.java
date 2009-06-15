@@ -38,24 +38,24 @@ public class TooLongSwitchCaseRule extends AbstractMaximizedAstFlexRule
 {
    private int length;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return length;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 2;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitSwitchCase( final IParserNode caseBlock )
+   protected final void visitSwitchCase( final IParserNode caseBlock )
    {
       if ( caseBlock.getLastChild() != null )
       {

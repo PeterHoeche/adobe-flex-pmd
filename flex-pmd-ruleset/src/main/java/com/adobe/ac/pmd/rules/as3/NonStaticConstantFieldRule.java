@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class NonStaticConstantFieldRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromConstants( final List< IConstant > constants )
+   protected final void findViolationsFromConstants( final List< IConstant > constants )
    {
       for ( final IConstant field : constants )
       {
@@ -51,7 +51,7 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }

@@ -49,8 +49,8 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    private static final Logger LOGGER = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
 
    @Override
-   protected void writeReport( final FlexPmdViolations pmd,
-                               final File outputDirectory ) throws PMDException
+   protected final void writeReport( final FlexPmdViolations pmd,
+                                     final File outputDirectory ) throws PMDException
    {
       final File realOutputDirectory = outputDirectory;
 

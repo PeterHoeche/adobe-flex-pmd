@@ -45,6 +45,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
@@ -128,13 +129,13 @@ public class ClassNodeTest extends FlexPmdTestBase
    public void testVisibility()
    {
       assertTrue( radonDataGrid.isPublic() );
-      assertTrue( modelLocator.isProtected() );
-      assertTrue( nonBindableModelLocator.isPrivate() );
-      assertFalse( nonBindableModelLocator.isProtected() );
+      assertTrue( modelLocator.is( Modifier.PROTECTED ) );
+      assertTrue( nonBindableModelLocator.is( Modifier.PRIVATE ) );
+      assertFalse( nonBindableModelLocator.is( Modifier.PROTECTED ) );
       assertFalse( nonBindableModelLocator.isPublic() );
-      assertFalse( radonDataGrid.isProtected() );
-      assertFalse( radonDataGrid.isPrivate() );
+      assertFalse( radonDataGrid.is( Modifier.PROTECTED ) );
+      assertFalse( radonDataGrid.is( Modifier.PRIVATE ) );
       assertFalse( modelLocator.isPublic() );
-      assertFalse( modelLocator.isPrivate() );
+      assertFalse( modelLocator.is( Modifier.PRIVATE ) );
    }
 }

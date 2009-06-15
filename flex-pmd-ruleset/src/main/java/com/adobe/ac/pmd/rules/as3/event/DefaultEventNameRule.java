@@ -38,13 +38,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class DefaultEventNameRule extends AbstractAstFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.getClassName().endsWith( "Event.as" );
    }
 
    @Override
-   protected void findViolations( final IFunction constructor )
+   protected final void findViolations( final IFunction constructor )
    {
       if ( constructor.getParameters().size() > 0
             && constructor.getParameters().get( 0 ).getType().toString().equals( "String" )
@@ -55,7 +55,7 @@ public class DefaultEventNameRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

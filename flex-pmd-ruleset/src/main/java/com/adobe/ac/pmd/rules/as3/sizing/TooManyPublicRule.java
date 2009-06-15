@@ -43,18 +43,18 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    private IFunction constructor;
    private int       publicCount;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return publicCount;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 10;
    }
 
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       publicCount = 0;
       constructor = classNode.getConstructor();
@@ -68,7 +68,7 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -81,7 +81,7 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
       for ( final IAttribute variable : variables )
       {
@@ -93,7 +93,7 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

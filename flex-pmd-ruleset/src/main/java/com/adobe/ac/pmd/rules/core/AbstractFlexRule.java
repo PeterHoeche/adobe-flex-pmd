@@ -70,7 +70,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    /**
     * not used in FlexPMD
     */
-   final public void apply( final List< ? > astCompilationUnits,
+   public final void apply( final List< ? > astCompilationUnits,
                             final RuleContext ctx )
    {
    }
@@ -79,7 +79,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
     * @return Extracts the rulename from the qualified name of the underlying
     *         class
     */
-   final public String getRuleName()
+   public final String getRuleName()
    {
       final String qualifiedClassName = this.getClass().getName();
       final String className = StringUtils.substringAfter( qualifiedClassName,
@@ -89,7 +89,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
                                 "" );
    }
 
-   final public List< IFlexViolation > processFile( final IFlexFile file,
+   public final List< IFlexViolation > processFile( final IFlexFile file,
                                                     final IPackage rootNode,
                                                     final Map< String, IFlexFile > files )
    {
@@ -111,7 +111,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violations;
    }
 
-   final protected void addViolation( final List< IFlexViolation > violations,
+   protected final void addViolation( final List< IFlexViolation > violations,
                                       final IFlexFile file,
                                       final ViolationPosition position )
    {
@@ -125,7 +125,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    protected abstract ViolationPriority getDefaultPriority();
 
-   final protected Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
+   protected final Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
    {
       final Map< String, PropertyDescriptor > properties = new HashMap< String, PropertyDescriptor >();
 
@@ -162,7 +162,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    {
    }
 
-   protected void prettyPrintMessage( final IFlexViolation violation )
+   protected final void prettyPrintMessage( final IFlexViolation violation )
    {
       if ( this instanceof IThresholdedRule )
       {

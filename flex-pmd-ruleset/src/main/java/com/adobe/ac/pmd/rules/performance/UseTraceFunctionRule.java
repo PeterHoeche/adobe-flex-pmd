@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UseTraceFunctionRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       super.findViolations( functions );
 
@@ -54,7 +54,7 @@ public class UseTraceFunctionRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }

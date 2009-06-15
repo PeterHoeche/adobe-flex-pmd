@@ -46,7 +46,7 @@ import com.adobe.ac.pmd.files.IFlexFile;
  * 
  * @author xagnetti
  */
-abstract class AbstractFlexFile implements Comparable< IFlexFile >, IFlexFile
+abstract class AbstractFlexFile implements IFlexFile
 {
    private static final Logger LOGGER = Logger.getLogger( AbstractFlexFile.class.getName() );
 

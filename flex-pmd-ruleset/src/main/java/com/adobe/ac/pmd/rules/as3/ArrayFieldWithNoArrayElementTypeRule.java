@@ -42,7 +42,7 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    private static final String ARRAY_TYPE                 = "Array";
 
    @Override
-   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
       for ( final IAttribute variable : variables )
       {
@@ -55,7 +55,7 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

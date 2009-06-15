@@ -36,28 +36,27 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
 public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 {
-
    private int paramsNb;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return paramsNb;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 4;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }
 
    @Override
-   protected void visitFunction( final IParserNode ast,
-                                 final String type )
+   protected final void visitFunction( final IParserNode ast,
+                                       final String type )
    {
       super.visitFunction( ast,
                            type );

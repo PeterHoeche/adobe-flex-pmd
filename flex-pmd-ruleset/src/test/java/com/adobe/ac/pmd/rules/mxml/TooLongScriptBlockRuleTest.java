@@ -51,9 +51,9 @@ public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
       return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                  "DeleteButtonRenderer.mxml",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 48, 104 ) } ),
+                                 { new ViolationPosition( 49, 103 ) } ),
                        "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39, 91 ) } );
+                       { new ViolationPosition( 40, 90 ) } );
    }
 }

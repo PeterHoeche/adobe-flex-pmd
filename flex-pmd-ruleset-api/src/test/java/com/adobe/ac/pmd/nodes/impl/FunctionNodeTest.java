@@ -220,9 +220,9 @@ public class FunctionNodeTest extends FlexPmdTestBase
    public void testVisibility()
    {
       assertTrue( constructor.isPublic() );
-      assertTrue( drawHighlightIndicator.isProtected() );
-      assertTrue( drawSelectionIndicator.isProtected() );
-      assertTrue( drawRowBackground.isProtected() );
-      assertTrue( isTrueGetter.isPrivate() );
+      assertTrue( drawHighlightIndicator.is( Modifier.PROTECTED ) );
+      assertTrue( drawSelectionIndicator.is( Modifier.PROTECTED ) );
+      assertTrue( drawRowBackground.is( Modifier.PROTECTED ) );
+      assertTrue( isTrueGetter.is( Modifier.PRIVATE ) );
    }
 }

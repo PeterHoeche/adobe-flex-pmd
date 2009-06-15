@@ -32,10 +32,8 @@ package com.adobe.ac.pmd.files;
 
 import java.util.List;
 
-public interface IFlexFile
+public interface IFlexFile extends Comparable< IFlexFile >
 {
-   int compareTo( final IFlexFile otherViolation );
-
    boolean contains( final String stringToLookup,
                      final int lineToBeIgnored );
 

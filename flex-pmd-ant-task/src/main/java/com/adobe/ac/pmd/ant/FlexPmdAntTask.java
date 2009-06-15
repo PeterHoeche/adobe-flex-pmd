@@ -51,7 +51,7 @@ public class FlexPmdAntTask extends Task
    private File sourceDirectory;
 
    @Override
-   public void execute()
+   public final void execute()
    {
       final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine();
 
@@ -80,17 +80,17 @@ public class FlexPmdAntTask extends Task
       }
    }
 
-   public void setOutputDirectory( final File outputDirectoryToBeSet )
+   public final void setOutputDirectory( final File outputDirectoryToBeSet )
    {
       outputDirectory = outputDirectoryToBeSet;
    }
 
-   public void setRuleSet( final File ruleSetToBeSet )
+   public final void setRuleSet( final File ruleSetToBeSet )
    {
       ruleSet = ruleSetToBeSet;
    }
 
-   public void setSourceDirectory( final File sourceDirectoryToBeSet )
+   public final void setSourceDirectory( final File sourceDirectoryToBeSet )
    {
       sourceDirectory = sourceDirectoryToBeSet;
    }

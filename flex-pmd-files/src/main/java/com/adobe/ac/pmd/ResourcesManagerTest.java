@@ -52,7 +52,7 @@ final class ResourcesManagerTest
    private static ResourcesManagerTest instance = null;
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
-   public static ResourcesManagerTest getInstance()
+   public static synchronized ResourcesManagerTest getInstance()
    {
       if ( instance == null )
       {
@@ -89,7 +89,7 @@ final class ResourcesManagerTest
       return testFiles;
    }
 
-   protected final File getTestRootDirectory()
+   protected File getTestRootDirectory()
    {
       return testRootDirectory;
    }

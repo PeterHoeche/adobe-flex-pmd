@@ -35,13 +35,14 @@ import java.util.List;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       final boolean isClassFinal = classNode.isFinal();
 
@@ -52,7 +53,7 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }
@@ -64,7 +65,7 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
       {
          for ( final IAttribute field : atributes )
          {
-            if ( field.isProtected()
+            if ( field.is( Modifier.PROTECTED )
                   && isClassFinal )
             {
                addViolation( field );
@@ -80,7 +81,7 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
       {
          for ( final IFunction function : functions )
          {
-            if ( function.isProtected()
+            if ( function.is( Modifier.PROTECTED )
                   && !function.isOverriden() && isClassFinal )
             {
                addViolation( function );

@@ -40,18 +40,18 @@ public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule
 {
    private IFunction currentFunction = null;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return currentFunction.getCyclomaticComplexity();
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 10;
    }
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -64,7 +64,7 @@ public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

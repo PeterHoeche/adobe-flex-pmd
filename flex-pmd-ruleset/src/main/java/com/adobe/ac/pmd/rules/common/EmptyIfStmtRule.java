@@ -37,13 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class EmptyIfStmtRule extends AbstractAstFlexRule
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitIf( final IParserNode ast )
+   protected final void visitIf( final IParserNode ast )
    {
       super.visitIf( ast );
 

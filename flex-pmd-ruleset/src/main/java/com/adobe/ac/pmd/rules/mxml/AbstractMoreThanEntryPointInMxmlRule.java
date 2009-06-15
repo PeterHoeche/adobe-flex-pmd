@@ -30,69 +30,71 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractFlexRule
+abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
 {
    private int lastPublicVarLine = 0;
    private int publicVarCount    = 0;
 
-   abstract public int getThreshold();
+   public abstract int getThreshold();
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.isMxml();
    }
 
    @Override
-   protected void onFileProcessingEnded( final IPackage rootNode,
-                                         final IFlexFile file,
-                                         final List< IFlexViolation > violations )
-   {
-      if ( publicVarCount > getThreshold() )
-      {
-         addViolation( violations,
-                       file,
-                       new ViolationPosition( lastPublicVarLine,
-                                              lastPublicVarLine,
-                                              0,
-                                              file.getLines().get( lastPublicVarLine - 1 ).length() ) );
-      }
-   }
-
-   @Override
-   protected void onFileProcessingStarting()
+   protected void findViolations( final IClass classNode )
    {
       publicVarCount = 0;
       lastPublicVarLine = 0;
+
+      super.findViolations( classNode );
+
+      if ( publicVarCount > getThreshold() )
+      {
+         addViolation( new ViolationPosition( lastPublicVarLine,
+                                              lastPublicVarLine,
+                                              0,
+                                              getCurrentFile().getLines()
+                                                              .get( lastPublicVarLine - 1 )
+                                                              .length() ) );
+      }
    }
 
    @Override
-   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                     final IFlexFile file,
-                                                     final Map< String, IFlexFile > files )
+   protected void findViolations( final List< IFunction > functions )
    {
-      for ( int i = 0; i < file.getLines().size(); i++ )
+      for ( final IFunction function : functions )
       {
-         final String line = file.getLines().get( i );
-
-         if ( line.contains( "public var" )
-               || line.contains( "public function set " ) )
+         if ( function.isPublic()
+               && function.isSetter() )
          {
             publicVarCount++;
-            lastPublicVarLine = i + 1;
+            lastPublicVarLine = function.getInternalNode().getLine();
          }
       }
+   }
 
-      return new ArrayList< IFlexViolation >();
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+      for ( final IAttribute attribute : variables )
+      {
+         if ( attribute.isPublic() )
+         {
+            publicVarCount++;
+            lastPublicVarLine = attribute.getInternalNode().getLine();
+         }
+      }
    }
 }

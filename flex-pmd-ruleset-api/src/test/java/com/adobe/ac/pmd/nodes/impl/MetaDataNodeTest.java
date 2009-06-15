@@ -58,7 +58,7 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    }
 
    @Test
-   public void testGetName()
+   public void testGetMetaDataName()
    {
       assertEquals( "Bindable",
                     modelLocator.getMetaData( "Bindable" ).get( 0 ).getName() );
@@ -67,7 +67,7 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    }
 
    @Test
-   public void testGetParameter()
+   public void testGetMetaDataParameter()
    {
       assertEquals( "",
                     modelLocator.getMetaData( "Bindable" ).get( 0 ).getParameter() );

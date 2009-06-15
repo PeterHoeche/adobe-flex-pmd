@@ -35,13 +35,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class MoreThanTwoEntryPointsInMxmlRule extends AbstractMoreThanEntryPointInMxmlRule
 {
    @Override
-   public int getThreshold()
+   public final int getThreshold()
    {
       return 2;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

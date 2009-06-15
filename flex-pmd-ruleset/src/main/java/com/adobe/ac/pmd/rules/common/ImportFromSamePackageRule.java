@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class ImportFromSamePackageRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IPackage packageNode )
+   protected final void findViolations( final IPackage packageNode )
    {
       final String packageName = packageNode.getName();
 
@@ -55,7 +55,7 @@ public class ImportFromSamePackageRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }

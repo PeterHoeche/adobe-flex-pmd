@@ -36,28 +36,27 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class BindingUtilsRule extends AbstractRegexpBasedRule
 {
-
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected String getRegexp()
+   protected final String getRegexp()
    {
       return ".*\\s+BindingUtils\\..*";
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
       return true;
    }

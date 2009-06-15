@@ -46,27 +46,27 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
    private static final String VIEW_PACKAGE_NAME          = "view";
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return !file.isMxml()
             && file.getFullyQualifiedName().toLowerCase( Locale.ENGLISH ).contains( MODEL_CLASS_SUFFIX );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected String getRegexp()
+   protected final String getRegexp()
    {
       return ".*import (.*);?.*";
    }
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                            final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
       final Matcher matcher = getMatcher( line );
 

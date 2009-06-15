@@ -40,13 +40,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class IdenticalSwitchCasesRule extends AbstractAstFlexRule
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.INFO;
    }
 
    @Override
-   protected void visitSwitch( final IParserNode ast )
+   protected final void visitSwitch( final IParserNode ast )
    {
       super.visitSwitch( ast );
 

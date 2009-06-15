@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.core;
 
-public class ViolationPosition
+public final class ViolationPosition
 {
    private final int beginColumn;
    private final int beginLine;

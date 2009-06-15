@@ -44,21 +44,21 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UncorrectClassCase extends AbstractFlexRule
 {
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return true;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                     final IFlexFile file,
-                                                     final Map< String, IFlexFile > files )
+   protected final List< IFlexViolation > processFileBody( final IPackage rootNode,
+                                                           final IFlexFile file,
+                                                           final Map< String, IFlexFile > files )
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
       final char firstChar = file.getClassName().charAt( 0 );

@@ -39,13 +39,13 @@ public class NestedSwitchRule extends AbstractAstFlexRule
    private int switchLevel = 0;
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitSwitch( final IParserNode ast )
+   protected final void visitSwitch( final IParserNode ast )
    {
       switchLevel++;
       if ( switchLevel > 1 )

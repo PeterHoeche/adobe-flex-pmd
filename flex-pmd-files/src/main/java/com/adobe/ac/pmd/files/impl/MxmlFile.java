@@ -38,8 +38,10 @@ import com.adobe.ac.pmd.files.IMxmlFile;
 
 class MxmlFile extends AbstractFlexFile implements IMxmlFile
 {
+   private int      endLine;
    private boolean  mainApplication = false;
    private String[] scriptBlock;
+   private int      startLine;
 
    protected MxmlFile( final File file,
                        final File rootDirectory )
@@ -56,6 +58,11 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       return false;
    }
 
+   public int getBeginningScriptBlock()
+   {
+      return startLine;
+   }
+
    @Override
    public final String getCommentClosingTag()
    {
@@ -66,6 +73,11 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
    public final String getCommentOpeningTag()
    {
       return "<!--";
+   }
+
+   public int getEndingScriptBlock()
+   {
+      return endLine;
    }
 
    public final String[] getScriptBlock()
@@ -121,8 +133,8 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
    private void extractScriptBlock()
    {
       int currentLineIndex = 0;
-      int startLine = 0;
-      int endLine = 0;
+      startLine = 0;
+      endLine = 0;
 
       for ( final String line : getLines() )
       {
@@ -154,8 +166,8 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       {
          scriptLines.add( "" );
       }
-      scriptLines.addAll( new ArrayList< String >( getLines() ).subList( startLine,
-                                                                         endLine ) );
+      scriptLines.addAll( new ArrayList< String >( getLines().subList( startLine,
+                                                                       endLine ) ) );
       for ( int j = endLine; j < getLines().size(); j++ )
       {
          scriptLines.add( "" );

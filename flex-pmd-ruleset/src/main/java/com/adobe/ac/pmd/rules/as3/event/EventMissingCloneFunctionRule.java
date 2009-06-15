@@ -43,20 +43,20 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    private IClass classNode = null;
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
       return file.getClassName().endsWith( "Event.as" );
    }
 
    @Override
-   protected void findViolations( final IClass classNodeToBeSet )
+   protected final void findViolations( final IClass classNodeToBeSet )
    {
       classNode = classNodeToBeSet;
       super.findViolations( classNode );
    }
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       boolean cloneFound = false;
 
@@ -74,7 +74,7 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

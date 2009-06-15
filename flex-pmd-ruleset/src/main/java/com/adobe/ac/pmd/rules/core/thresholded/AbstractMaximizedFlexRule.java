@@ -32,9 +32,9 @@ package com.adobe.ac.pmd.rules.core.thresholded;
 
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-
 import net.sourceforge.pmd.PropertyDescriptor;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 
 public abstract class AbstractMaximizedFlexRule extends AbstractFlexRule implements IThresholdedRule
 {
@@ -43,13 +43,13 @@ public abstract class AbstractMaximizedFlexRule extends AbstractFlexRule impleme
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
-   public String getThresholdName()
+   public final String getThresholdName()
    {
       return MAXIMUM;
    }
 
    @Override
-   protected Map< String, PropertyDescriptor > propertiesByName()
+   protected final Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
    }

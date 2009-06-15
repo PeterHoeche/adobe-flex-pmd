@@ -38,24 +38,24 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
 {
    private int ifLevel = 0;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return ifLevel;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 2;
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitElse( final IParserNode ast )
+   protected final void visitElse( final IParserNode ast )
    {
       beforeVisitingIfBlock();
 
@@ -65,8 +65,8 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void visitFunction( final IParserNode ast,
-                                 final String type )
+   protected final void visitFunction( final IParserNode ast,
+                                       final String type )
    {
       ifLevel = 0;
 
@@ -75,7 +75,7 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void visitThen( final IParserNode ast )
+   protected final void visitThen( final IParserNode ast )
    {
       beforeVisitingIfBlock();
 

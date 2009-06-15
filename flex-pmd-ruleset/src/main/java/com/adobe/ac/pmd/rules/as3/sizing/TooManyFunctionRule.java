@@ -42,18 +42,18 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
    private IClass classNode;
    private int    functionNb;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return functionNb;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 10;
    }
 
    @Override
-   protected void findViolations( final IClass classNodeToSet )
+   protected final void findViolations( final IClass classNodeToSet )
    {
       functionNb = 0;
       classNode = classNodeToSet;
@@ -62,7 +62,7 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction functionNode : functions )
       {
@@ -79,7 +79,7 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }

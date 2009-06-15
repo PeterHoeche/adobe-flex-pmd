@@ -38,18 +38,18 @@ public class ExcessiveImportRule extends AbstractMaximizedAstFlexRule
 {
    private int importNumber;
 
-   public int getActualValueForTheCurrentViolation()
+   public final int getActualValueForTheCurrentViolation()
    {
       return importNumber;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return 15;
    }
 
    @Override
-   protected void findViolations( final IPackage packageNode )
+   protected final void findViolations( final IPackage packageNode )
    {
       importNumber = packageNode.getImports().size();
 
@@ -60,7 +60,7 @@ public class ExcessiveImportRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }

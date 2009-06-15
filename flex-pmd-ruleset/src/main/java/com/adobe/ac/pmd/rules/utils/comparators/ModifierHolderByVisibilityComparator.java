@@ -34,14 +34,18 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import com.adobe.ac.pmd.nodes.IVisible;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
+import com.adobe.ac.pmd.nodes.Modifier;
 
 class ModifierHolderByVisibilityComparator implements Comparator< IVisible >, Serializable
 {
+   private static final int  INTERNAL_WEIGHT  = 2;
+   private static final int  PROTECTED_WEIGHT = 1;
+   private static final int  PUBLIC_WEIGHT    = 3;
+
    private static final long serialVersionUID = 2019528304660124281L;
 
-   public int compare( final IVisible firstModifierHolder,
-                       final IVisible secondModifierHolder )
+   public final int compare( final IVisible firstModifierHolder,
+                             final IVisible secondModifierHolder )
    {
       return getVisibilityWeight( secondModifierHolder )
             - getVisibilityWeight( firstModifierHolder );
@@ -53,15 +57,15 @@ class ModifierHolderByVisibilityComparator implements Comparator< IVisible >, Se
 
       if ( field.isPublic() )
       {
-         weight = 3;
+         weight = PUBLIC_WEIGHT;
       }
-      else if ( ModifierUtils.isInternal( field ) )
+      else if ( field.is( Modifier.INTERNAL ) )
       {
-         weight = 2;
+         weight = INTERNAL_WEIGHT;
       }
-      else if ( ModifierUtils.isProtected( field ) )
+      else if ( field.is( Modifier.PROTECTED ) )
       {
-         weight = 1;
+         weight = PROTECTED_WEIGHT;
       }
       return weight;
    }

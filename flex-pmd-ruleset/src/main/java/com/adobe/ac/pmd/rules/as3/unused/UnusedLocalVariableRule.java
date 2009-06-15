@@ -39,14 +39,14 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
    private boolean isInFunction;
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
 
    @Override
-   protected void visitFunction( final IParserNode ast,
-                                 final String type )
+   protected final void visitFunction( final IParserNode ast,
+                                       final String type )
    {
       isInFunction = true;
       super.visitFunction( ast,
@@ -55,7 +55,7 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitStatement( final IParserNode ast )
+   protected final void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
       if ( isInFunction

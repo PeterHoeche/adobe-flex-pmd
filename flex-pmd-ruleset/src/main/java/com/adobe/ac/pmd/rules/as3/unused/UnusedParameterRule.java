@@ -30,20 +30,19 @@
  */
 package com.adobe.ac.pmd.rules.as3.unused;
 
-import com.adobe.ac.pmd.nodes.utils.ClassUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.ERROR;
    }
 
    @Override
-   protected void visitParameters( final IParserNode ast )
+   protected final void visitParameters( final IParserNode ast )
    {
       super.visitParameters( ast );
 
@@ -63,7 +62,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
    private boolean isParameterAnEvent( final IParserNode parameterNode )
    {
-      final IParserNode parameterType = ClassUtils.getTypeFromFieldDeclaration( parameterNode );
+      final IParserNode parameterType = getTypeFromFieldDeclaration( parameterNode );
 
       return parameterType != null
             && parameterType.getStringValue() != null && parameterType.getStringValue().contains( "Event" );

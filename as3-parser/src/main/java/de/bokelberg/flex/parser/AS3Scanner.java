@@ -46,7 +46,32 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 class AS3Scanner
 {
-   public static class Token
+   public static class XMLVerifier extends DefaultHandler
+   {
+      public boolean verify( final String text )
+      {
+         // Use the default (non-validating) parser
+         final SAXParserFactory factory = SAXParserFactory.newInstance();
+         factory.setNamespaceAware( false );
+
+         // Parse the input
+         SAXParser saxParser;
+         try
+         {
+            saxParser = factory.newSAXParser();
+            saxParser.parse( new InputSource( new StringReader( text ) ),
+                             this );
+            return true;
+         }
+         catch ( final Throwable e )
+         {
+            e.printStackTrace();
+         }
+         return false;
+      }
+   }
+
+   static class Token
    {
       private final int     column;
       private final boolean isNum;
@@ -89,31 +114,6 @@ class AS3Scanner
       public boolean isNum()
       {
          return isNum;
-      }
-   }
-
-   public static class XMLVerifier extends DefaultHandler
-   {
-      public boolean verify( final String text )
-      {
-         // Use the default (non-validating) parser
-         final SAXParserFactory factory = SAXParserFactory.newInstance();
-         factory.setNamespaceAware( false );
-
-         // Parse the input
-         SAXParser saxParser;
-         try
-         {
-            saxParser = factory.newSAXParser();
-            saxParser.parse( new InputSource( new StringReader( text ) ),
-                             this );
-            return true;
-         }
-         catch ( final Throwable e )
-         {
-            e.printStackTrace();
-         }
-         return false;
       }
    }
 
@@ -178,31 +178,27 @@ class AS3Scanner
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
-                                       { "::" },
-                                       2 );
+                                       { "::" } );
       }
       if ( currentCharacter == '*' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
-                                       {},
-                                       1 );
+                                       {} );
       }
       if ( currentCharacter == '+' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
                                        { "++",
-                                                   "+=" },
-                                       2 );
+                                                   "+=" } );
       }
       if ( currentCharacter == '-' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
                                        { "--",
-                                                   "-=" },
-                                       2 );
+                                                   "-=" } );
       }
       // called by scanCommentOrRegExp if( c == '/' ) return
       // scanCharacterSequence( c, new String[]{"/="}, 2);
@@ -210,31 +206,27 @@ class AS3Scanner
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
-                                       { "%=" },
-                                       2 );
+                                       { "%=" } );
       }
       if ( currentCharacter == '&' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
                                        { "&&",
-                                                   "&=" },
-                                       2 );
+                                                   "&=" } );
       }
       if ( currentCharacter == '|' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
                                        { "||",
-                                                   "|=" },
-                                       2 );
+                                                   "|=" } );
       }
       if ( currentCharacter == '^' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
-                                       { "^=" },
-                                       2 );
+                                       { "^=" } );
       }
       // called by scanXML if( c == '<' ) return scanCharacterSequence( c, new
       // String[]{"<<=","<<","<="}, 3);
@@ -246,24 +238,21 @@ class AS3Scanner
                                                    ">>>",
                                                    ">>=",
                                                    ">>",
-                                                   ">=" },
-                                       4 );
+                                                   ">=" } );
       }
       if ( currentCharacter == '=' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
                                        { "===",
-                                                   "==" },
-                                       3 );
+                                                   "==" } );
       }
       if ( currentCharacter == '!' )
       {
          return scanCharacterSequence( currentCharacter,
                                        new String[]
                                        { "!==",
-                                                   "!=" },
-                                       3 );
+                                                   "!=" } );
       }
 
       return scanWord( currentCharacter );
@@ -289,6 +278,18 @@ class AS3Scanner
             || isLower || isUpper;
    }
 
+   private int computePossibleMatchesMaxLength( final String[] possibleMatches )
+   {
+      int max = 0;
+
+      for ( final String possibleMatch : possibleMatches )
+      {
+         max = Math.max( max,
+                         possibleMatch.length() );
+      }
+      return max;
+   }
+
    private String getRemainingLine()
    {
       return lines[ line ].substring( column );
@@ -311,13 +312,13 @@ class AS3Scanner
    {
       try
       {
-         return null != Pattern.compile( pattern );
+         Pattern.compile( pattern );
       }
       catch ( final Throwable t )
       {
-         // ignore
+         return false;
       }
-      return false;
+      return true;
    }
 
    private boolean isValidXML( final String text )
@@ -374,11 +375,11 @@ class AS3Scanner
     * @return
     */
    private Token scanCharacterSequence( final char currentCharacter,
-                                        final String[] possibleMatches,
-                                        final int maxLength )
+                                        final String[] possibleMatches )
    {
       int peekPos = 1;
       final StringBuffer buffer = new StringBuffer();
+      final int maxLength = computePossibleMatchesMaxLength( possibleMatches );
 
       buffer.append( currentCharacter );
       String found = buffer.toString();
@@ -783,8 +784,7 @@ class AS3Scanner
                                                 "<<<",
                                                 "<<=",
                                                 "<<",
-                                                "<=" },
-                                    4 );
+                                                "<=" } );
    }
 
    private void skipChar()

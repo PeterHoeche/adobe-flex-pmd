@@ -63,8 +63,8 @@ public class FlexPmdViolations
       violations = new TreeMap< IFlexFile, List< IFlexViolation > >( new FlexFileComparator() );
    }
 
-   public void computeViolations( final File sourceDirectory,
-                                  final RuleSet ruleSet ) throws PMDException
+   public final void computeViolations( final File sourceDirectory,
+                                        final RuleSet ruleSet ) throws PMDException
    {
       beenComputed = true;
 
@@ -104,12 +104,12 @@ public class FlexPmdViolations
       }
    }
 
-   public Map< IFlexFile, List< IFlexViolation >> getViolations()
+   public final Map< IFlexFile, List< IFlexViolation >> getViolations()
    {
       return violations;
    }
 
-   public boolean hasViolationsBeenComputed()
+   public final boolean hasViolationsBeenComputed()
    {
       return beenComputed;
    }

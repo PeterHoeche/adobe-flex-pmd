@@ -44,7 +44,6 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
-import com.adobe.ac.pmd.nodes.utils.ModifierUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
@@ -160,22 +159,12 @@ class ClassNode extends AbstractNode implements IClass
     */
    public boolean isFinal()
    {
-      return ModifierUtils.isFinal( this );
-   }
-
-   public boolean isPrivate()
-   {
-      return ModifierUtils.isPrivate( this );
-   }
-
-   public boolean isProtected()
-   {
-      return ModifierUtils.isProtected( this );
+      return is( Modifier.FINAL );
    }
 
    public boolean isPublic()
    {
-      return ModifierUtils.isPublic( this );
+      return is( Modifier.PUBLIC );
    }
 
    @Override
@@ -195,8 +184,8 @@ class ClassNode extends AbstractNode implements IClass
             }
             else if ( node.is( NodeKind.MOD_LIST ) )
             {
-               ModifierUtils.computeModifierList( this,
-                                                  node );
+               computeModifierList( this,
+                                    node );
             }
             else if ( node.is( NodeKind.NAME ) )
             {

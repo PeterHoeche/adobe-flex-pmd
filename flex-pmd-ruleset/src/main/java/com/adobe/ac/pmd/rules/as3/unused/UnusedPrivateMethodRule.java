@@ -36,6 +36,7 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.files.IAs3File;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -45,7 +46,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    private Map< String, IFunction > privateFunctions = null;
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       super.findViolations( functions );
 
@@ -53,7 +54,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 
       for ( final IFunction function : functions )
       {
-         if ( function.isPrivate() )
+         if ( function.is( Modifier.PRIVATE ) )
          {
             privateFunctions.put( function.getName(),
                                   function );
@@ -79,7 +80,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.WARNING;
    }
