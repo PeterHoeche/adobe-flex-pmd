@@ -47,7 +47,11 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
    @Test
    public void testExecuteReport() throws MojoExecutionException
    {
-      final FlexPmdMojo mojo = new FlexPmdMojo( new File( "target" ),
+      final File outputDirectoryToBeSet = new File( "target/pmd" );
+
+      outputDirectoryToBeSet.mkdirs();
+
+      final FlexPmdMojo mojo = new FlexPmdMojo( outputDirectoryToBeSet,
                                                 new MavenProjectStub(),
                                                 null,
                                                 getTestDirectory() );
