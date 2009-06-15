@@ -156,4 +156,9 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    {
       return sourceDirectory;
    }
+
+   protected final void setSiteRenderer( final SiteRenderer siteRendererToBeSet )
+   {
+      this.siteRenderer = siteRendererToBeSet;
+   }
 }
