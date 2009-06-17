@@ -102,6 +102,7 @@ public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 
          for ( final IFlexViolation violation : violations )
          {
+            report.addRuleViolation( violation );
             reportSink.ruleViolationAdded( violation );
          }
          reportSink.endFile( javaFile );
