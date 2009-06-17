@@ -71,4 +71,10 @@
 		<description>Nested containers can decrease application overall performance especially if they are in item renderers.</description>
 		<priority>3</priority>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.mxml.CodeBehindInMxmlRule"
+		message="Avoid using code behind files">
+		<description>Code behind files are tightly coupled with the view, not unit-testable, not easy to navigate 
+		the code code base and not reusable. Try using presentation model pattern, or observer pattern</description>
+		<priority>5</priority>
+	</rule>
 </ruleset>

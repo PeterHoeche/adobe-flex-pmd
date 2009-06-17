@@ -232,6 +232,21 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>as3Ncss-maven-plugin</artifactId>
+				<version>${as3Ncss-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				
+			</plugin>
 		</plugins>
 	</build>
 

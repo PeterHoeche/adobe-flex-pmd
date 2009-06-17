@@ -69,36 +69,16 @@ public class FlexPmdViolations
       beenComputed = true;
 
       final Map< String, IFlexRule > rules = computeRulesList( ruleSet );
-      final Map< String, IFlexFile > files = FileUtils.computeFilesList( sourceDirectory );
-      final Map< String, IPackage > asts = FileSetUtils.computeAsts( files );
+      final Map< String, IFlexFile > filesInSourceDirectory = FileUtils.computeFilesList( sourceDirectory );
+      final Map< String, IPackage > astsInSourceDirectory = FileSetUtils.computeAsts( filesInSourceDirectory );
 
-      for ( final Entry< String, IFlexRule > ruleEntry : rules.entrySet() )
+      for ( final Entry< String, IFlexRule > currentRuleEntry : rules.entrySet() )
       {
-         final IFlexRule rule = ruleEntry.getValue();
-
-         LOGGER.fine( "Processing "
-               + rule.getRuleName() + "..." );
-         for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
-         {
-            final IFlexFile file = fileEntry.getValue();
-            final IPackage ast = rule instanceof IFlexAstRule ? asts.get( file.getFullyQualifiedName() )
-                                                             : null;
-            final List< IFlexViolation > foundViolations = rule.processFile( file,
-                                                                             ast,
-                                                                             files );
-
-            if ( violations.containsKey( file ) )
-            {
-               violations.get( file ).addAll( foundViolations );
-            }
-            else
-            {
-               violations.put( file,
-                               foundViolations );
-            }
-         }
+         processRule( filesInSourceDirectory,
+                      astsInSourceDirectory,
+                      currentRuleEntry.getValue() );
       }
-      for ( final Entry< String, IFlexFile > entry : files.entrySet() )
+      for ( final Entry< String, IFlexFile > entry : filesInSourceDirectory.entrySet() )
       {
          Collections.sort( violations.get( entry.getValue() ) );
       }
@@ -131,5 +111,43 @@ public class FlexPmdViolations
       }
 
       return rules;
+   }
+
+   private void processFile( final Map< String, IFlexFile > filesInSourceDirectory,
+                             final Map< String, IPackage > astsInSourceDirectory,
+                             final IFlexRule ruleToProcess,
+                             final IFlexFile fileToProcess )
+   {
+      final String fullyQualifiedName = fileToProcess.getFullyQualifiedName();
+      final IPackage ast = ruleToProcess instanceof IFlexAstRule ? astsInSourceDirectory.get( fullyQualifiedName )
+                                                                : null;
+      final List< IFlexViolation > foundViolations = ruleToProcess.processFile( fileToProcess,
+                                                                                ast,
+                                                                                filesInSourceDirectory );
+
+      if ( violations.containsKey( fileToProcess ) )
+      {
+         violations.get( fileToProcess ).addAll( foundViolations );
+      }
+      else
+      {
+         violations.put( fileToProcess,
+                         foundViolations );
+      }
+   }
+
+   private void processRule( final Map< String, IFlexFile > filesInSourceDirectory,
+                             final Map< String, IPackage > astsInSourceDirectory,
+                             final IFlexRule currentRule )
+   {
+      LOGGER.fine( "Processing "
+            + currentRule.getRuleName() + "..." );
+      for ( final Entry< String, IFlexFile > currentFileEntry : filesInSourceDirectory.entrySet() )
+      {
+         processFile( filesInSourceDirectory,
+                      astsInSourceDirectory,
+                      currentRule,
+                      currentFileEntry.getValue() );
+      }
    }
 }

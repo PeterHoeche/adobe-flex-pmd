@@ -28,22 +28,36 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package flexUnit.flexui.data
+package com.adobe.ac.pmd.rules.mxml;
+
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class CodeBehindInMxmlRule extends AbstractRegexpBasedRule
 {
-   public class GenericType extends com.adobe.ac.GenericType
+   @Override
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
-      public var logger : *;
-      public const logger : *;
-      public static const LOG : * = Log.getLogger( "flexUnit.flexui.data.AbstractRowData" );
+      return file.isMxml();
+   }
 
-      public function get assertionsMade() : *
-      {
-         callLater( assertionsMadeLegend, [ null ] );
-      }
+   @Override
+   protected final ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.ERROR;
+   }
 
-      public function set assertionsMadeLegend( value : * ) : void
-      {
-      	var idfrfr : * = new Object();
-      }
+   @Override
+   protected final String getRegexp()
+   {
+      return ".*<.*Script.*";
+   }
+
+   @Override
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
+   {
+      return line.contains( "source" );
    }
 }

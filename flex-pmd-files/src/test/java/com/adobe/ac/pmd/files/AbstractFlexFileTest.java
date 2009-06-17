@@ -46,7 +46,6 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 public class AbstractFlexFileTest extends FlexPmdTestBase
 {
    private IAs3File  as3;
-
    private IMxmlFile mainMxml;
    private IMxmlFile mxml;
 

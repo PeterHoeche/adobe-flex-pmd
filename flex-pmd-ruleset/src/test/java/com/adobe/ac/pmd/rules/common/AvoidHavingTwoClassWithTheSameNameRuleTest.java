@@ -28,22 +28,35 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package flexUnit.flexui.data
+package com.adobe.ac.pmd.rules.common;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class AvoidHavingTwoClassWithTheSameNameRuleTest extends AbstractFlexRuleTest
 {
-   public class GenericType extends com.adobe.ac.GenericType
+   @Override
+   protected AbstractFlexRule getRule()
    {
-      public var logger : *;
-      public const logger : *;
-      public static const LOG : * = Log.getLogger( "flexUnit.flexui.data.AbstractRowData" );
+      return new AvoidHavingTwoClassWithTheSameNameRule();
+   }
 
-      public function get assertionsMade() : *
-      {
-         callLater( assertionsMadeLegend, [ null ] );
-      }
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      final ViolationPosition[] positions = new ViolationPosition[]
+      { new ViolationPosition( 0, 0 ) };
 
-      public function set assertionsMadeLegend( value : * ) : void
-      {
-      	var idfrfr : * = new Object();
-      }
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "AbstractRowData.mxml",
+                                           positions ),
+                                 "AbstractRowData.as",
+                                 positions ),
+                       "com.adobe.ac.AbstractRowData.as",
+                       positions );
    }
 }

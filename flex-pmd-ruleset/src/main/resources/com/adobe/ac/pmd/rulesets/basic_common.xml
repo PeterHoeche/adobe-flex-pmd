@@ -160,4 +160,8 @@ package com.adobe.ac
 		message="Don't call 'callLater' explicitly">
 		<description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component lifecycle.</description>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.common.AvoidHavingTwoClassWithTheSameNameRule"
+		message="Another file with the same class name exist in the source path">
+		<description/>
+	</rule>
 </ruleset>

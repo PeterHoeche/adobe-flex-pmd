@@ -138,7 +138,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return properties;
    }
 
-   protected abstract boolean isConcernedByTheGivenFile( IFlexFile file );
+   protected abstract boolean isConcernedByTheGivenFile( IFlexFile currentFile );
 
    /**
     * Overrides this function if you need to compute anything after the file has
@@ -179,9 +179,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       }
    }
 
-   protected abstract List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                              final IFlexFile file,
-                                                              final Map< String, IFlexFile > files );
+   protected abstract List< IFlexViolation > processFileBody( final IPackage packageToBeProcessed,
+                                                              final IFlexFile fileToBeProcessed,
+                                                              final Map< String, IFlexFile > filesInTheSourcePath );
 
    private void setDefaultPriority()
    {

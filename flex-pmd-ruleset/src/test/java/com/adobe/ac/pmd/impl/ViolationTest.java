@@ -59,6 +59,8 @@ public class ViolationTest extends FlexPmdTestBase
 
    public ViolationTest()
    {
+      super();
+
       position = new ViolationPosition( 10, 20, 30, 30 );
    }
 

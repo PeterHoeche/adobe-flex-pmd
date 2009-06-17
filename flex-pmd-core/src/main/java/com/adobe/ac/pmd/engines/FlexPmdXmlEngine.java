@@ -65,19 +65,9 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 
          writter = new FileWriter( pmdReport );
          writeReportHeader( writter );
-
-         for ( final IFlexFile sourceFile : pmd.getViolations().keySet() )
-         {
-            final Collection< IFlexViolation > violations = pmd.getViolations().get( sourceFile );
-            final String sourceFilePath = sourceFile.getFilePath();
-
-            formatFileFiolation( writter,
-                                 sourceFile,
-                                 violations,
-                                 sourceFilePath );
-         }
-         writter.write( "</pmd>"
-               + getNewLine() );
+         writeFileViolations( pmd,
+                              writter );
+         writeReportFooter( writter );
          writter.close();
       }
       catch ( final IOException e )
@@ -142,6 +132,27 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       {
          LOGGER.severe( "Unable to create an output folder" );
       }
+   }
+
+   private void writeFileViolations( final FlexPmdViolations pmd,
+                                     final FileWriter writter ) throws IOException
+   {
+      for ( final IFlexFile sourceFile : pmd.getViolations().keySet() )
+      {
+         final Collection< IFlexViolation > violations = pmd.getViolations().get( sourceFile );
+         final String sourceFilePath = sourceFile.getFilePath();
+
+         formatFileFiolation( writter,
+                              sourceFile,
+                              violations,
+                              sourceFilePath );
+      }
+   }
+
+   private void writeReportFooter( final FileWriter writter ) throws IOException
+   {
+      writter.write( "</pmd>"
+            + getNewLine() );
    }
 
    private void writeReportHeader( final FileWriter writter ) throws IOException

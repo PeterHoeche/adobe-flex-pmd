@@ -32,25 +32,6 @@
 
 -->
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*"
-	backgroundColor="#E57000" horizontalAlign="left"
-	creationComplete="ds.fill(products, 'all')" xmlns:lcds="com.adobe.ac.lcds.*" addedToStage="callLater( myFunction )"
-	creationPolicy="all">
+	>
 
-	<mx:Script>
-		<![CDATA[
-		   import mx.data.mxml.DataService;
-		
-		import mx.data.events.DataConflictEvent;
-		import mx.data.Conflicts;
-		import mx.data.Conflict;
-		]]>
-	</mx:Script>
-
-   <mx:Style>
-.myStyle
-{
-}      
-   </mx:Style>
-   
-   <mx:Script source="myCodeBehind.as"/>AvoidHavingTwoClassWithTheSameNameRule
 </mx:Application>

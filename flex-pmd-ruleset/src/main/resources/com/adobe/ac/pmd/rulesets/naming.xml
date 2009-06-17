@@ -74,4 +74,19 @@
          ]]>
       </example>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.as3.ClassAndExtensionAreIdenticalRule"
+		message="The extension name is the same as the class name">
+		<description/>
+		<priority>3</priority>
+		<example>
+         <![CDATA[
+   package com.MyCompany
+   {
+      public class SomeClass extends mx.module.SomeClass // VIOLATION
+      {
+      }
+   }
+         ]]>
+      </example>
+	</rule>
 </ruleset>

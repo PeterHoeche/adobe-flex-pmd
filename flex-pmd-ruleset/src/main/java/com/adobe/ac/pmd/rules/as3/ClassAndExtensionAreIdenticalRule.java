@@ -28,22 +28,42 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package flexUnit.flexui.data
+package com.adobe.ac.pmd.rules.as3;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class ClassAndExtensionAreIdenticalRule extends AbstractAstFlexRule
 {
-   public class GenericType extends com.adobe.ac.GenericType
+   @Override
+   protected final void findViolations( final IClass classNode )
    {
-      public var logger : *;
-      public const logger : *;
-      public static const LOG : * = Log.getLogger( "flexUnit.flexui.data.AbstractRowData" );
+      final String extensionName = classNode.getExtensionName();
 
-      public function get assertionsMade() : *
+      if ( extensionName != null )
       {
-         callLater( assertionsMadeLegend, [ null ] );
-      }
+         final String extension = extractExtensionName( extensionName );
 
-      public function set assertionsMadeLegend( value : * ) : void
-      {
-      	var idfrfr : * = new Object();
+         if ( extension.equals( classNode.getName() ) )
+         {
+            addViolation( classNode );
+         }
       }
+   }
+
+   @Override
+   protected final ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.ERROR;
+   }
+
+   private String extractExtensionName( final String extensionName )
+   {
+      return extensionName.indexOf( '.' ) == -1 ? extensionName
+                                               : StringUtils.substringAfterLast( extensionName,
+                                                                                 "." );
    }
 }

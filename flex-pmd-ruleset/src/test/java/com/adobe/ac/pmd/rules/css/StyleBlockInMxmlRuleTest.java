@@ -79,6 +79,6 @@ public class StyleBlockInMxmlRuleTest extends AbstractRegExpBasedRuleTest
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "Main.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 50, 50 ) } );
+                       { new ViolationPosition( 49, 49 ) } );
    }
 }

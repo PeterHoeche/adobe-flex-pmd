@@ -28,22 +28,29 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package flexUnit.flexui.data
+package com.adobe.ac.pmd.rules.as3;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class ClassAndExtensionAreIdenticalRuleTest extends AbstractAstFlexRuleTest
 {
-   public class GenericType extends com.adobe.ac.GenericType
+   @Override
+   protected AbstractFlexRule getRule()
    {
-      public var logger : *;
-      public const logger : *;
-      public static const LOG : * = Log.getLogger( "flexUnit.flexui.data.AbstractRowData" );
+      return new ClassAndExtensionAreIdenticalRule();
+   }
 
-      public function get assertionsMade() : *
-      {
-         callLater( assertionsMadeLegend, [ null ] );
-      }
-
-      public function set assertionsMadeLegend( value : * ) : void
-      {
-      	var idfrfr : * = new Object();
-      }
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "GenericType.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 33, 33 ) } );
    }
 }
