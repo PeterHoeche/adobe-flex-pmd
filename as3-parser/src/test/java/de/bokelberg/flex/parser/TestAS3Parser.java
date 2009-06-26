@@ -53,12 +53,6 @@ public class TestAS3Parser extends TestCase
          parser.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
 
          parser.buildAst( getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath() );
-         // parser.buildAst( getClass().getResource(
-         // "/examples/unformatted/RfqQuoteChartLegendRenderer.as"
-         // ).toURI().getPath() );
-
-         // parser.buildAst( getClass().getResource(
-         // "/examples/unformatted/LifeCycleHandler.as" ).toURI().getPath() );
       }
       catch ( final TokenException e )
       {

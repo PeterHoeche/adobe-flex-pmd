@@ -74,6 +74,16 @@
 			<artifactId>pmd</artifactId>
 			<version>${pmd.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>${plexus-utils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -148,9 +158,6 @@
 								<copy
 									file="${maven.dependency.com.adobe.ac.flex-pmd-ruleset-api.jar.path}"
 									todir="${project.build.directory}/release" overwrite="true" />
-								<copy
-									file="../${project.parent.artifactId}-ruleset/src/main/resources/com/adobe/ac/pmd/rulesets/all_flex.xml"
-									todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.adobe.ac.as3-parser-api.jar.path}"
 									todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.adobe.ac.as3-parser.jar.path}"
@@ -161,6 +168,10 @@
 									todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.pmd.pmd.jar.path}" todir="${project.build.directory}/release"
 									overwrite="true" />
+								<copy file="${maven.dependency.plexus.plexus-utils.jar.path}"
+									todir="${project.build.directory}/release" overwrite="true" />
+								<copy file="${maven.dependency.commons-lang.commons-lang.jar.path}"
+									todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.martiansoftware.jsap.jar.path}"
 									todir="${project.build.directory}/release" overwrite="true" />
 								<echo message="Extracting license..." />

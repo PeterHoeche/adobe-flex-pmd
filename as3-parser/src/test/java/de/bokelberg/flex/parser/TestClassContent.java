@@ -174,5 +174,4 @@ public class TestClassContent extends AbstractAs3ParserTest
                           + expected + "</content>",
                     result );
    }
-
 }

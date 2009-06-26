@@ -72,14 +72,18 @@ package com.adobe.ac.pmd.services.translators
          var xmlString : String = "<ruleset name=\"" + ruleset.name + "\"" + 
             "xmlns=\"http://pmd.sf.net/ruleset/1.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
             "xsi:schemaLocation=\"http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd\"" +
-            "xsi:noNamespaceSchemaLocation=\"http://pmd.sf.net/ruleset_xml_schema.xsd\">\n\n" +
-            "   <description>" + ( ruleset.description ? ruleset.description : "" ) + "</description>\n\n";
+            "xsi:noNamespaceSchemaLocation=\"http://pmd.sf.net/ruleset_xml_schema.xsd\">" +
+            "<description>" + ( ruleset.description ? ruleset.description : "" ) + "</description>";
 
          for each( var childRuleset : Ruleset in ruleset.rulesets )
          {
             xmlString += serializeRuleset( childRuleset ).toXMLString();
          }
-         xmlString += "</ruleset>\n";
+         for each( var rule : Rule in ruleset.rules )
+         {
+            xmlString += RuleTranslator.serialize( rule ).toXMLString();
+         }
+         xmlString += "</ruleset>";
 
          return XML( xmlString );
       }

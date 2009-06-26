@@ -30,85 +30,81 @@
  */
 package com.adobe.ac.pmd.services.translators
 {
-   import com.adobe.ac.pmd.model.Property;
-   import com.adobe.ac.pmd.model.Rule;
-   import com.adobe.ac.pmd.model.ViolationPriority;
+    import com.adobe.ac.pmd.model.Property;
+    import com.adobe.ac.pmd.model.Rule;
+    import com.adobe.ac.pmd.model.ViolationPriority;
 
-   public class RuleTranslator
-   {
-      private static const INDENT : String = "        ";
+    public class RuleTranslator
+    {
+        private static const INDENT : String = "        ";
 
-      public static function deserialize( ruleXml : XML ) : Rule
-      {
-         var rule : Rule = new Rule();
+        public static function deserialize( ruleXml : XML ) : Rule
+        {
+            var rule : Rule = new Rule();
 
-         rule.since = ruleXml.@since;
-         rule.name = ruleXml.attribute( "class" );
-         rule.message = ruleXml.@message;
+            rule.since = ruleXml.@since;
+            rule.name = ruleXml.attribute( "class" );
+            rule.message = ruleXml.@message;
 
-         for( var childIndex : int = 0; childIndex < ruleXml.children().length(); childIndex++ )
-         {
-            var child : XML = ruleXml.children()[ childIndex ];
-            var name : String = child.name().toString().replace( child.namespace() + "::",
-               "" );
-
-            deserializeChildren( rule, name, child.children() );
-         }
-
-         return rule;
-      }
-
-      public static function serialize( rule : Rule ) : XML
-      {
-         var xmlString : String = INDENT + "<rule since=\"" + rule.since + "\" class=\"" +
-            rule.name + "\" message=\"" + rule.message + "\">\n";
-
-         xmlString += INDENT + "   <description>" + ( rule.description ? rule.description :
-            "" ) + "</description>\n";
-         xmlString += INDENT + "   <priority>" + ( rule.priority ? rule.priority.level : ViolationPriority.WARNING.level ) +
-            "</priority>\n";
-
-         if( rule.properties.length > 0 )
-         {
-            xmlString += INDENT + "   <properties>\n";
-
-            for each( var property : Property in rule.properties )
+            for ( var childIndex : int = 0; childIndex < ruleXml.children().length(); childIndex++ )
             {
-               xmlString += INDENT + "      <property name=\"" + property.name + "\">\n";
-               xmlString += INDENT + "         <value>" + property.value + "</value>\n";
-               xmlString += INDENT + "      </property>\n";
+                var child : XML = ruleXml.children()[ childIndex ];
+                var name : String = child.name().toString().replace( child.namespace() + "::", "" );
+
+                deserializeChildren( rule, name, child.children() );
             }
-            xmlString += INDENT + "   </properties>\n";
-         }
 
-         if( rule.examples )
-         {
-            xmlString += INDENT + "   <example><![CDATA[\n" + rule.examples + "\n" + INDENT +
-               "   ]]></example>\n";
-         }
-         xmlString += INDENT + "</rule>\n";
-         return XML( xmlString );
-      }
+            return rule;
+        }
 
-      private static function deserializeChildren( rule : Rule, propertyName : String, value : XMLList ) : void
-      {
-         switch( propertyName )
-         {
-            case "priority":
-               rule.priority = ViolationPriority.create( Number( value.toString() ) );
-               break;
-            case "description":
-               rule.description = value.toString();
-               break;
-            case "properties":
-               rule.properties = PropertyTranslator.deserializeProperties( value );
-               break;
-            case "example":
-               rule.examples = value.toString();
-               break;
-            default:
-               break;
-         }
-      }
-   }
+        public static function serialize( rule : Rule ) : XML
+        {
+            var xmlString : String = "<rule since=\"" + rule.since + "\" class=\"" + rule.name + "\" message=\"" + rule.message +
+                "\">";
+
+            xmlString += "<description>" + ( rule.description ? rule.description : "" ) + "</description>";
+            xmlString += "<priority>" + ( rule.priority ? rule.priority.level : ViolationPriority.WARNING.level ) + "</priority>";
+
+            if ( rule.properties.length > 0 )
+            {
+                xmlString += "<properties>";
+
+                for each ( var property : Property in rule.properties )
+                {
+                    xmlString += "<property name=\"" + property.name + "\">";
+                    xmlString += "<value>" + property.value + "</value>";
+                    xmlString += "</property>";
+                }
+                xmlString += "</properties>";
+            }
+
+            if ( rule.examples )
+            {
+                xmlString += "<example><![CDATA[" + rule.examples + "]]></example>";
+            }
+            xmlString += "</rule>";
+            return XML( xmlString );
+        }
+
+        private static function deserializeChildren( rule : Rule, propertyName : String, value : XMLList ) : void
+        {
+            switch ( propertyName )
+            {
+                case "priority":
+                    rule.priority = ViolationPriority.create( Number( value.toString() ) );
+                    break;
+                case "description":
+                    rule.description = value.toString();
+                    break;
+                case "properties":
+                    rule.properties = PropertyTranslator.deserializeProperties( value );
+                    break;
+                case "example":
+                    rule.examples = value.toString();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

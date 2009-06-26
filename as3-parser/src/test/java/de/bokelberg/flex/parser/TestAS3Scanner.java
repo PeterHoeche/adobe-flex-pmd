@@ -396,5 +396,4 @@ public class TestAS3Scanner extends AbstractAs3ParserTest
       }
       return result.toString();
    }
-
 }

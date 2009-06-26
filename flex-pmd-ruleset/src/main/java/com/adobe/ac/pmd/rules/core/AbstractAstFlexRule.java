@@ -947,9 +947,12 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          }
          else if ( ast.is( NodeKind.OBJECT ) )
          {
-            for ( final IParserNode node : ast.getChildren() )
+            if ( isNodeNavigable( ast ) )
             {
-               visitExpression( node.getChild( 1 ) );
+               for ( final IParserNode node : ast.getChildren() )
+               {
+                  visitExpression( node.getChild( 1 ) );
+               }
             }
          }
          else if ( ast.is( NodeKind.NEW ) )
