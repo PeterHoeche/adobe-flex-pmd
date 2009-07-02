@@ -221,8 +221,8 @@
 
 	</build>
 
-	<distributionManagement>
-		<!-- repository>
+	<!--distributionManagement>
+		< repository>
 			<id>flexpmd.opensource.adobe.com</id>
 			<url>svn:https://${source.url}/maven-repository/release/</url>
 		</repository-->
@@ -230,8 +230,8 @@
 			<id>flexpmd.opensource.adobe.com</id>
 			<url>svn:https://${source.url}/maven-repository/snapshot/</url>
 			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository-->
-	</distributionManagement>
+		</snapshotRepository>
+	</distributionManagement-->
 
 	<repositories>
 		<repository>
@@ -248,17 +248,6 @@
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>fna-repository</id>
-			<name>fna-repository</name>
-			<url>http://fna-v2.googlecode.com/svn/trunk/fna/fna_m2_repository/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 		<repository>
@@ -289,7 +278,7 @@
 		</repository>
 		<repository>
 			<id>snapshot-fna</id>
-			<url>http://fna-v2.googlecode.com/svn/trunk/fna/fna_m2_repository/</url>
+			<url>http://fna-v2.googlecode.com/svn/trunk/fna_m2_repository/</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<checksumPolicy>ignore</checksumPolicy>
