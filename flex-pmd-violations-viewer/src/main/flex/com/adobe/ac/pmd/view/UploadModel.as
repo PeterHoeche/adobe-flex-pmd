@@ -1,7 +1,9 @@
 package com.adobe.ac.pmd.view
 {
     import com.adobe.ac.model.IPresentationModel;
+    import com.adobe.ac.pmd.model.CharacterPosition;
     import com.adobe.ac.pmd.model.Violation;
+    import com.adobe.ac.pmd.model.ViolationPosition;
     import com.adobe.ac.pmd.model.ViolationPriority;
     
     import flash.events.Event;
@@ -32,26 +34,29 @@ package com.adobe.ac.pmd.view
 
         public function deserializeViolations( violationsXml : XML ) : ArrayCollection
         {
-            var violations : ArrayCollection = new ArrayCollection();
+            var newViolations : ArrayCollection = new ArrayCollection();
 
             for each ( var fileXml : XML in violationsXml.file )
             {
                 for each ( var violationXml : XML in fileXml.violation )
                 {
-                    violations.addItem( deserializeViolation( violationXml, fileXml.@name ) );
+                    newViolations.addItem( deserializeViolation( violationXml, fileXml.@name ) );
                 }
             }
-            return violations;
+            return newViolations;
         }
 
         private function deserializeViolation( violationXml : XML, filePath : String ) : Violation
         {
             var violation : Violation = new Violation();
-
-            violation.beginColumn = violationXml.@beginline;
-            violation.beginLine = violationXml.@begincolumn;
-            violation.endColumn = violationXml.@endcolumn;
-            violation.endLine = violationXml.@endline;
+            
+            violation.position = new ViolationPosition();
+            violation.position.begin = new CharacterPosition();
+            violation.position.end = new CharacterPosition();
+            violation.position.begin.line = violationXml.@beginline;
+            violation.position.begin.column = violationXml.@begincolumn;
+            violation.position.end.line = violationXml.@endline;
+            violation.position.end.column = violationXml.@endcolumn;
             violation.ruleName = violationXml.@rule;
             violation.ruleset = violationXml.@ruleset
             violation.priority = ViolationPriority.create( violationXml.@priority );

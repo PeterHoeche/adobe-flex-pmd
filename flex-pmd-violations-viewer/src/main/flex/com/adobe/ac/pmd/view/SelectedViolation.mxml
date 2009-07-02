@@ -96,11 +96,11 @@
                 	width="50"
                     />
 
-                <mx:Label text="{ violation.beginLine }"
+                <mx:Label text="{ violation.position.begin.line }"
                 	width="50"
                     />
 
-                <mx:Label text="{ violation.beginColumn }"
+                <mx:Label text="{ violation.position.begin.column }"
                 	width="50"
                     />
 
@@ -112,11 +112,11 @@
                 	width="50"
                     />
 
-                <mx:Label text="{ violation.endLine }"
+                <mx:Label text="{ violation.position.end.line }"
                 	width="50"
                     />
 
-                <mx:Label text="{ violation.endColumn }"
+                <mx:Label text="{ violation.position.end.column }"
                 	width="50"
                     />
 

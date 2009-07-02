@@ -3,10 +3,7 @@ package com.adobe.ac.pmd.model
 	[Bindable]
     public class Violation
     {
-        public var beginLine : int;
-        public var beginColumn : int;
-        public var endLine : int;
-        public var endColumn : int;
+    	public var position : ViolationPosition;
         public var ruleName : String;
         public var ruleset : String;
         public var priority : ViolationPriority;
