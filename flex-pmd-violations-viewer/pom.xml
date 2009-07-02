@@ -3,11 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-violations-viewer</artifactId>
-	<version>0.5.6-SNAPSHOT</version>
 	<packaging>swf</packaging>
 	<name>Adobe Flex PMD Violations viewer</name>
 	<description>Adobe Flex PMD Violations viewer</description>
 
+	<parent>
+		<artifactId>flex-pmd</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>0.5.6-SNAPSHOT</version>
+	</parent>
+	
 	<properties>
 
 		<!-- Plugin versions -->

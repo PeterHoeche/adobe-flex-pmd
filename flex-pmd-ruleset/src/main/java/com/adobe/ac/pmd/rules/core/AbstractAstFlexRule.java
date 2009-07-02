@@ -125,7 +125,8 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       final IParserNode name = getNameFromFunctionDeclaration( function.getInternalNode() );
 
       return addViolation( name,
-                           name );
+                           name,
+                           name.getStringValue() );
    }
 
    /**
