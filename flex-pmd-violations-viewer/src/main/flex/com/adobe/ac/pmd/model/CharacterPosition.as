@@ -5,5 +5,9 @@ package com.adobe.ac.pmd.model
 	{
 		public var line : int;
 		public var column : int;
+
+		public function CharacterPosition()
+    	{
+    	}
 	}
 }

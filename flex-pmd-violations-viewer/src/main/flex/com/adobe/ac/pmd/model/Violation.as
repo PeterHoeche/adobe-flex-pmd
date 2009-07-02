@@ -3,6 +3,10 @@ package com.adobe.ac.pmd.model
 	[Bindable]
     public class Violation
     {
+    	public function Violation()
+    	{
+    	}
+
     	public var position : ViolationPosition;
         public var ruleName : String;
         public var ruleset : String;

@@ -24,7 +24,12 @@ package com.adobe.ac.pmd.view
         public var violations : ArrayCollection;
 
         private var fileReference : FileReference;
-
+        
+        public function UploadModel()
+        {
+        	super();
+        }
+        
         public function load() : void
         {
             fileReference = new FileReference();

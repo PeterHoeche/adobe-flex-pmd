@@ -5,5 +5,9 @@ package com.adobe.ac.pmd.model
 	{
 		public var begin : CharacterPosition;
 		public var end : CharacterPosition;
+
+		public function ViolationPosition()
+    	{
+    	}
 	}
 }
