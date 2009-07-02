@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:view="com.adobe.ac.pmd.view.*"
+    width="100%"
+    minHeight="600"
+    bottom="0"
+    horizontalAlign="center"
+    top="0"
+    verticalAlign="middle"
+    >
+
+    <mx:Metadata>
+		[Event(name="violationsLoaded", type="flash.events.Event")]
+	</mx:Metadata>
+
+    <view:UploadModel id="model"
+        violationsLoaded="dispatchEvent( event.clone() )"
+        />
+
+    <mx:Button label="Upload your Pmd results"
+        click="model.load()"
+        />
+
+</mx:VBox>

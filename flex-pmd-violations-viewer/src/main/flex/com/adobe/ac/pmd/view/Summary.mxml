@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:model="com.adobe.ac.pmd.model.*"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    >
+
+    <mx:Script>
+        <![CDATA[
+            [Bindable]
+            public var model : ResultsModel;
+        ]]>
+    </mx:Script>
+
+<!--    <mx:HBox>-->
+
+        <mx:FormItem label="Violations #"
+            >
+
+            <mx:Label text="{ model.violationsNumber }"
+                />
+
+        </mx:FormItem>
+
+        <mx:FormItem label="Errors #"
+            >
+
+            <mx:Label text="{ model.errors }"
+                />
+
+        </mx:FormItem>
+
+        <mx:FormItem label="Warnings #"
+            >
+
+            <mx:Label text="{ model.warnings }"
+                />
+
+        </mx:FormItem>
+
+        <mx:FormItem label="Informations #"
+            >
+
+            <mx:Label text="{ model.informations }"
+                />
+
+        </mx:FormItem>
+
+<!--    </mx:Form>-->
+
+</mx:HBox>

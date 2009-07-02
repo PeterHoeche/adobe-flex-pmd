@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Form xmlns:mx="http://www.adobe.com/2006/mxml"
+    height="100%"
+    paddingBottom="0"
+    paddingLeft="0"
+    paddingRight="10"
+    paddingTop="0"
+    >
+    <mx:Metadata>
+    	[Event(name="close", type = "flash.events.Event")]
+    </mx:Metadata>
+
+    <mx:Script>
+        <![CDATA[
+            import com.adobe.ac.pmd.model.Violation;
+
+            public static const CLOSE : String = "close";
+
+            [Bindable]
+            public var violation : Violation;
+        ]]>
+    </mx:Script>
+
+    <mx:HBox verticalAlign="middle"
+        >
+
+        <mx:Button label=">"
+            toolTip="Close panel"
+            click="dispatchEvent( new Event( CLOSE ) )"
+            />
+
+        <mx:Label text="Selected violation"
+            fontWeight="bold"
+            />
+
+    </mx:HBox>
+
+    <mx:FormItem label="RuleName"
+        >
+
+        <mx:Label text="{ violation.shortRuleName }"
+            toolTip="{ violation.ruleName }"
+            />
+
+    </mx:FormItem>
+
+    <mx:FormItem label="RuleSet"
+        >
+
+        <mx:Label text="{ violation.ruleset }"
+            />
+
+    </mx:FormItem>
+
+    <mx:FormItem label="Message"
+        >
+
+        <mx:Text width="300"
+            text="{ violation.message }"
+            />
+
+    </mx:FormItem>
+
+    <mx:FormItem label="Priority"
+        >
+
+        <mx:Label text="{ violation.priority.name }"
+            />
+
+    </mx:FormItem>
+
+    <mx:FormItem label="Position"
+        >
+
+        <mx:VBox>
+
+            <mx:HBox>
+
+                <mx:Label text=""
+                	width="50"
+                    />
+
+                <mx:Label text="line"
+                	width="50"
+                    />
+
+                <mx:Label text="column"
+                	width="50"
+                    />
+
+            </mx:HBox>
+
+            <mx:HBox>
+
+                <mx:Label text="start"
+                	width="50"
+                    />
+
+                <mx:Label text="{ violation.beginLine }"
+                	width="50"
+                    />
+
+                <mx:Label text="{ violation.beginColumn }"
+                	width="50"
+                    />
+
+            </mx:HBox>
+
+            <mx:HBox>
+
+                <mx:Label text="end"
+                	width="50"
+                    />
+
+                <mx:Label text="{ violation.endLine }"
+                	width="50"
+                    />
+
+                <mx:Label text="{ violation.endColumn }"
+                	width="50"
+                    />
+
+            </mx:HBox>
+
+        </mx:VBox>
+
+    </mx:FormItem>
+
+</mx:Form>

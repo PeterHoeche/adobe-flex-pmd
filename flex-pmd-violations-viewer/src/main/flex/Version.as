@@ -1,0 +1,1 @@
+package{   public class Version   {      public static const BUILD_NUMBER : String = '0.5.6-SNAPSHOT';      public static const BUILD_TIME : String = '08:28:56';      public static const BUILD_DATE : String = '2009-07-02';   }}

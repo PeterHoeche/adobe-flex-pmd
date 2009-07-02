@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	horizontalAlign="center">
+
+    <mx:Script>
+        <![CDATA[
+            [Bindable]
+            public var model : ResultsModel;
+        ]]>
+    </mx:Script>
+
+	<mx:FormItem
+		label="Show violation level"
+		>
+		
+		<mx:ComboBox id="filter"
+	        dataProvider="{ ResultsFilter.VIOLATION_PRIORITIES }"
+	        selectedIndex="1"
+	        labelField="name"
+	        change="model.currentPriorityVisible = filter.selectedItem.level"
+	        />
+
+	</mx:FormItem>
+    
+    <mx:FormItem
+		label="Group by"
+		>
+
+	    <mx:List id="groupBy"
+	    	 allowMultipleSelection="true"
+	        dataProvider="{ ResultsFilter.GROUPING_FIELDS }"
+	        labelField="name"
+	        allowDragSelection="true"
+	        rowCount="{ ResultsFilter.GROUPING_FIELDS.length }"
+	        selectedIndices="{ model.selectedGoupFieldIndices }"
+	        change="model.selectedGroupFields = groupBy.selectedIndices"
+	        />
+    	
+    </mx:FormItem>    	
+
+	<mx:Button
+		label="Filter"
+		click="model.filter()"
+		/>
+		
+</mx:HBox>
