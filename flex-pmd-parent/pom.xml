@@ -221,17 +221,12 @@
 
 	</build>
 
-	<!--distributionManagement>
-		< repository>
-			<id>flexpmd.opensource.adobe.com</id>
-			<url>svn:https://${source.url}/maven-repository/release/</url>
-		</repository-->
-		<!-- snapshotRepository>
-			<id>flexpmd.opensource.adobe.com</id>
-			<url>svn:https://${source.url}/maven-repository/snapshot/</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement-->
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<url>file://D:/nexus_storage/txi</url>
+		</repository>
+	</distributionManagement>
 
 	<repositories>
 		<repository>
