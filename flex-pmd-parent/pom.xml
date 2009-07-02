@@ -122,6 +122,8 @@
 		<module>../flex-pmd-command-line</module>
 		<module>../flex-pmd-command-line-api</module>
 		<module>../flex-pmd-ruleset-creator</module>
+		<module>../flex-pmd-violations-viewer</module>
+		<module>../flex-pmd-flex-lib</module>
 		<module>../flex-pmd-files</module>
 	</modules>
 
@@ -216,14 +218,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-<!---->
-<!--		<extensions>-->
-<!--			<extension>-->
-<!--				<groupId>org.jvnet.wagon-svn</groupId>-->
-<!--				<artifactId>wagon-svn</artifactId>-->
-<!--				<version>${wagon-svn.version}</version>-->
-<!--			</extension>-->
-<!--		</extensions>-->
 
 	</build>
 

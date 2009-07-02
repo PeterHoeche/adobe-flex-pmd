@@ -28,51 +28,45 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.cairngorm;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends AbstractRegExpBasedRuleTest
+ package com.adobe.ac.pmd.model
 {
-   @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { "ModelLocator",
-                  "import com.my.MyModelLocator;" };
-   }
+   import flexunit.framework.EventfulTestCase;
 
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   public class RuleTest extends EventfulTestCase
    {
-      return new ReferenceModelLocatorOutsideTheMainApplicationRule();
-   }
+      private var rule : Rule;
+      
+      public function RuleTest()
+      {
+      }
 
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "ModfrelLocator",
-                  "import com.my.MyModelLocafrtor;" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
-   {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "UnboundMetadata.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 33, 33 ) } ),
-                                 "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 41, 41 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+      override public function setUp():void
+      {
+         rule = new Rule();
+      }
+      
+      public function testName() : void
+      {
+         listenForEvent( rule, Rule.NAME_CHANGE );
+         
+         rule.name = "com.adobe.ac.MyRule";
+         
+         assertEvents();
+         assertEquals( "MyRule", rule.shortName );
+         
+         rule.name = "MyRule";
+         assertEquals( "MyRule", rule.shortName );         
+      }
+      
+      public function testRemove() : void
+      {
+         var parentRuleset : Ruleset = new Ruleset();
+         
+         rule.ruleset = parentRuleset;
+         parentRuleset.rules.addItem( rule );
+         rule.remove();
+         
+         assertEquals( 0, parentRuleset.rules.length );
+      }
    }
 }

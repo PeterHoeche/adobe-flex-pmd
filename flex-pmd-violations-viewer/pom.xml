@@ -130,47 +130,6 @@
 		<plugins>
 
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>${ant-run-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>copy-version-as</id>
-						<phase>process-resources</phase>
-						<configuration>
-							<tasks>
-								<tstamp>
-									<format property="last.updated.date" pattern="yyyy-MM-dd" />
-									<format property="last.updated.time" pattern="HH:mm:ss" />
-								</tstamp>
-								<echo message="Generating Version.as..." />
-								<echo file="${basedir}/src/main/flex/Version.as" append="false"
-									message="package" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="{" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="   public class Version" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="   {" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="      public static const BUILD_NUMBER : String = '${project.version}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="      public static const BUILD_TIME : String = '${last.updated.time}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="      public static const BUILD_DATE : String = '${last.updated.date}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="   }" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true"
-									message="}" />
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
 				<groupId>org.sonatype.flexmojos</groupId>
 				<artifactId>flexmojos-maven-plugin</artifactId>
 				<version>${flex-mojos-plugin.version}</version>

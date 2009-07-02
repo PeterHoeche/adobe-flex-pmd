@@ -47,14 +47,6 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
       return getMatcher( line ).matches();
    }
 
-   /*
-    * (non-Javadoc)
-    * @seecom.adobe.ac.pmd.rules.core.IisConcernedByTheGivenFile#
-    * isConcernedByTheGivenFile(com.adobe.ac.pmd.files.AbstractFlexFile)
-    */
-   @Override
-   public abstract boolean isConcernedByTheGivenFile( final IFlexFile file );
-
    @Override
    public final List< IFlexViolation > processFileBody( final IPackage rootNode,
                                                         final IFlexFile file,

@@ -43,11 +43,11 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
 public class OverLongLineRule extends AbstractMaximizedFlexRule
 {
-   private int currentLine;
+   private int currentLineLength;
 
    public final int getActualValueForTheCurrentViolation()
    {
-      return currentLine;
+      return currentLineLength;
    }
 
    public final int getDefaultThreshold()
@@ -77,8 +77,8 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
             if ( !line.trim().startsWith( "import" )
                   && line.length() >= getThreshold() )
             {
-               currentLine = line.length();
-               final ViolationPosition position = new ViolationPosition( i + 1, i + 1, 0, line.length() );
+               currentLineLength = line.length();
+               final ViolationPosition position = new ViolationPosition( i + 1, i + 1, 0, currentLineLength );
 
                addViolation( violations,
                              file,

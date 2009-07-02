@@ -36,7 +36,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule
 {
-
    @Override
    public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {

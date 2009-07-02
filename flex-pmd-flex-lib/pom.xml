@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
-	<artifactId>flex-pmd-ruleset-creator</artifactId>
+	<artifactId>flex-pmd-flex-lib</artifactId>
 	<version>0.5.6-SNAPSHOT</version>
-	<packaging>swf</packaging>
-	<name>Adobe Flex PMD Ruleset creator</name>
-	<description>Adobe Flex PMD Ruleset creator</description>
+	<packaging>swc</packaging>
+	<name>Adobe Flex PMD Flex lib</name>
+	<description>Adobe Flex PMD Flex library containing shared classes</description>
 
 	<properties>
 
@@ -36,13 +36,6 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>flex-pmd-ruleset</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>flex-pmd-flex-lib</artifactId>
-			<version>${project.version}</version>
-			<type>swc</type>
 		</dependency>
 
 		<dependency>
@@ -141,22 +134,42 @@
 		<plugins>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>${maven-dependency-plugin.version}</version>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${ant-run-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>unpack-binary-resources</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>unpack-dependencies</goal>
-						</goals>
+						<id>copy-version-as</id>
+						<phase>process-resources</phase>
 						<configuration>
-							<includeGroupIds>${project.groupId}</includeGroupIds>
-							<includes>**/*.xml</includes>
-							<outputDirectory>target/rulesets</outputDirectory>
-							<excludeTransitive>true</excludeTransitive>
+							<tasks>
+								<tstamp>
+									<format property="last.updated.date" pattern="yyyy-MM-dd" />
+									<format property="last.updated.time" pattern="HH:mm:ss" />
+								</tstamp>
+								<echo message="Generating Version.as..." />
+								<echo file="${basedir}/src/main/flex/Version.as" append="false"
+									message="package" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="{" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="   public class Version" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="   {" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="      public static const BUILD_NUMBER : String = '${project.version}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="      public static const BUILD_TIME : String = '${last.updated.time}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="      public static const BUILD_DATE : String = '${last.updated.date}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="   }" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true"
+									message="}" />
+							</tasks>
 						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -173,20 +186,6 @@
 
 			<plugin>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>as3Ncss-maven-plugin</artifactId>
-				<version>${as3Ncss-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
 				<version>${flex-pmd-maven-plugin.version}</version>
 				<executions>
@@ -199,6 +198,20 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>as3Ncss-maven-plugin</artifactId>
+				<version>${as3Ncss-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				
+			</plugin>
 		</plugins>
 	</build>
 
