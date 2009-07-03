@@ -39,6 +39,14 @@
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>flexunit-theme</artifactId>
+			<version>${project.version}</version>
+			<type>swc</type>
+			<scope>theme</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>flex-pmd-ruleset</artifactId>
 			<version>${project.version}</version>
 		</dependency>

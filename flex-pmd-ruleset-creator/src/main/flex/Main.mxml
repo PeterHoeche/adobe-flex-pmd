@@ -46,9 +46,6 @@
    verticalAlign="top"
    >
 
-   <mx:Style source="/css/default.css"
-      />
-
    <control:Controller/>
 
    <services:MyServiceLocator/>

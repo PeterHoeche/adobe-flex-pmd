@@ -125,6 +125,8 @@
 		<module>../flex-pmd-violations-viewer</module>
 		<module>../flex-pmd-flex-lib</module>
 		<module>../flex-pmd-files</module>
+		<module>../flex-pmd-cpd</module>
+		<module>../flexunit-theme</module>
 	</modules>
 
 	<build>

@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flexunit-theme</artifactId>
+	<packaging>swc</packaging>
+	<name>Adobe Flex FlexUnit theme</name>
+	<description>Adobe FlexUnit theme</description>
+
+	<parent>
+		<artifactId>flex-pmd</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>0.5.6-SNAPSHOT</version>
+	</parent>
+	
+	<properties>
+
+		<!-- Plugin versions -->
+
+		<flex-pmd-maven-plugin.version>${project.version}</flex-pmd-maven-plugin.version>
+		<ant-run-plugin.version>1.2</ant-run-plugin.version>
+		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
+		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
+		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
+
+		<!-- Dependency versions -->
+
+		<flex.version>3.2.0.3958</flex.version>
+		<flash-player.version>10</flash-player.version>
+
+	</properties>
+
+	<dependencies>
+
+		<!-- flex sdk dependencies -->
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>flex-framework</artifactId>
+			<version>${flex.version}</version>
+			<type>pom</type>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>playerglobal</artifactId>
+			<version>${flash-player.version}-${flex.version}</version>
+			<!--            <classifier>${flash-player.version}</classifier>-->
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>flex-framework</artifactId>
+			<version>${flex.version}</version>
+			<type>pom</type>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>flexmojos-repository</id>
+			<url>http://repository.sonatype.org/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>flexmojos-repository</id>
+			<url>http://repository.sonatype.org/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>

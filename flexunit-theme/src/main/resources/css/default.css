@@ -55,26 +55,26 @@ ToolTip
 
 ScrollBar
 {
-	downArrowDisabledSkin: Embed( source="/skins/VScrollBar_downArrowDisabledSkin.png" );
-	downArrowDownSkin: Embed( source="/skins/VScrollBar_downArrowDownSkin.png" );
-	downArrowOverSkin: Embed( source="/skins/VScrollBar_downArrowOverSkin.png" );
-	downArrowUpSkin: Embed( source="/skins/VScrollBar_downArrowUpSkin.png" );
-	thumbIcon: Embed( source="/skins/VScrollBar_thumbIcon.png" );
-	trackSkin: Embed( source="/skins/VScrollBar_trackSkin.png" );
-	upArrowDisabledSkin: Embed( source="/skins/VScrollBar_upArrowDisabledSkin.png" );
-	upArrowDownSkin: Embed( source="/skins/VScrollBar_upArrowDownSkin.png" );
-	upArrowOverSkin: Embed( source="/skins/VScrollBar_upArrowOverSkin.png" );
-	upArrowUpSkin: Embed( source="/skins/VScrollBar_upArrowUpSkin.png" );
+	downArrowDisabledSkin: Embed( source="skins/VScrollBar_downArrowDisabledSkin.png" );
+	downArrowDownSkin: Embed( source="skins/VScrollBar_downArrowDownSkin.png" );
+	downArrowOverSkin: Embed( source="skins/VScrollBar_downArrowOverSkin.png" );
+	downArrowUpSkin: Embed( source="skins/VScrollBar_downArrowUpSkin.png" );
+	thumbIcon: Embed( source="skins/VScrollBar_thumbIcon.png" );
+	trackSkin: Embed( source="skins/VScrollBar_trackSkin.png" );
+	upArrowDisabledSkin: Embed( source="skins/VScrollBar_upArrowDisabledSkin.png" );
+	upArrowDownSkin: Embed( source="skins/VScrollBar_upArrowDownSkin.png" );
+	upArrowOverSkin: Embed( source="skins/VScrollBar_upArrowOverSkin.png" );
+	upArrowUpSkin: Embed( source="skins/VScrollBar_upArrowUpSkin.png" );
 	thumbDownSkin: Embed( 
-	   source="/skins/VScrollBar_thumbDownSkin.png",
+	   source="skins/VScrollBar_thumbDownSkin.png",
 		   scaleGridLeft="1", scaleGridTop="5", 
 		   scaleGridRight="8", scaleGridBottom="44" );
 	thumbOverSkin: Embed( 
-	   source="/skins/VScrollBar_thumbOverSkin.png",
+	   source="skins/VScrollBar_thumbOverSkin.png",
    		scaleGridLeft="1", scaleGridTop="5", 
    		scaleGridRight="8", scaleGridBottom="44" );
 	thumbUpSkin: Embed( 
-	   source="/skins/VScrollBar_thumbUpSkin.png",
+	   source="skins/VScrollBar_thumbUpSkin.png",
 		   scaleGridLeft="1", scaleGridTop="5", 
 		   scaleGridRight="8", scaleGridBottom="44" );
 }
@@ -82,7 +82,7 @@ ScrollBar
 /* Embedded Fonts */
  @font-face {
 	font-family: "Myriad Pro SemiCond";
-	src: url( "/fonts/fonts.swf" );
+	src: url( "fonts/fonts.swf" );
 }
 /* CSS file used for component-level compilation */
 
@@ -90,43 +90,43 @@ ScrollBar
 /* Font for titles */
 @font-face {
 	font-family: "Myriad Pro SemiCond";
-	src: url("/fonts/fonts.swf");
+	src: url("fonts/fonts.swf");
 }
 
 /* Font for anything else */
 @font-face {
 	font-family: "Myriad Pro";
-	src: url("/fonts/fonts.swf");
+	src: url("fonts/fonts.swf");
 }
 
 @font-face {
 	font-family: "Myriad Pro";
 	font-weight: bold;
-	src: url("/fonts/fonts.swf");
+	src: url("fonts/fonts.swf");
 }
 
 ScrollBar
 {
-	downArrowDisabledSkin: Embed(source="/skins/VScrollBar_downArrowDisabledSkin.png");
-	downArrowDownSkin: Embed(source="/skins/VScrollBar_downArrowDownSkin.png");
-	downArrowOverSkin: Embed(source="/skins/VScrollBar_downArrowOverSkin.png");
-	downArrowUpSkin: Embed(source="/skins/VScrollBar_downArrowUpSkin.png");
-	thumbIcon: Embed(source="/skins/VScrollBar_thumbIcon.png");
-	trackSkin: Embed(source="/skins/VScrollBar_trackSkin.png");
-	upArrowDisabledSkin: Embed(source="/skins/VScrollBar_upArrowDisabledSkin.png");
-	upArrowDownSkin: Embed(source="/skins/VScrollBar_upArrowDownSkin.png");
-	upArrowOverSkin: Embed(source="/skins/VScrollBar_upArrowOverSkin.png");
-	upArrowUpSkin: Embed(source="/skins/VScrollBar_upArrowUpSkin.png");
+	downArrowDisabledSkin: Embed(source="skins/VScrollBar_downArrowDisabledSkin.png");
+	downArrowDownSkin: Embed(source="skins/VScrollBar_downArrowDownSkin.png");
+	downArrowOverSkin: Embed(source="skins/VScrollBar_downArrowOverSkin.png");
+	downArrowUpSkin: Embed(source="skins/VScrollBar_downArrowUpSkin.png");
+	thumbIcon: Embed(source="skins/VScrollBar_thumbIcon.png");
+	trackSkin: Embed(source="skins/VScrollBar_trackSkin.png");
+	upArrowDisabledSkin: Embed(source="skins/VScrollBar_upArrowDisabledSkin.png");
+	upArrowDownSkin: Embed(source="skins/VScrollBar_upArrowDownSkin.png");
+	upArrowOverSkin: Embed(source="skins/VScrollBar_upArrowOverSkin.png");
+	upArrowUpSkin: Embed(source="skins/VScrollBar_upArrowUpSkin.png");
 	thumbDownSkin: Embed(
-	   source="/skins/VScrollBar_thumbDownSkin.png",
+	   source="skins/VScrollBar_thumbDownSkin.png",
 		   scaleGridLeft="1", scaleGridTop="5", 
 		   scaleGridRight="8", scaleGridBottom="44" );
 	thumbOverSkin: Embed(
-	   source="/skins/VScrollBar_thumbOverSkin.png",
+	   source="skins/VScrollBar_thumbOverSkin.png",
 		   scaleGridLeft="1", scaleGridTop="5", 
 		   scaleGridRight="8", scaleGridBottom="44" );
 	thumbUpSkin: Embed(
-	   source="/skins/VScrollBar_thumbUpSkin.png",
+	   source="skins/VScrollBar_thumbUpSkin.png",
 		   scaleGridLeft="1", scaleGridTop="5", 
 		   scaleGridRight="8", scaleGridBottom="44" );
 }
@@ -142,7 +142,7 @@ Button
    header-height: 0;
    vertical-gap: 2;
 	borderSkin: Embed( 
-	   source="/skins/Panel_borderSkin.png", 
+	   source="skins/Panel_borderSkin.png", 
    	   scaleGridLeft="12", scaleGridTop="31", 
    	   scaleGridRight="265", scaleGridBottom="189" );	
     padding-top: 20;
@@ -211,7 +211,7 @@ HRule {
 }
 
 .panelTitleLogo {
-	background-image:Embed(source="/assets/todoLogo_big.png");
+	background-image:Embed(source="assets/todoLogo_big.png");
 	backgroundAlpha: 1.0;
 	backgroundSize: auto;
 }
@@ -219,35 +219,35 @@ HRule {
 .firstButtonBarButton
 {
     disabledSkin: Embed(
-      source="/skins/ButtonBarFirstButton_disabledSkin.png",
+      source="skins/ButtonBarFirstButton_disabledSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     downSkin: Embed(
-      source="/skins/ButtonBarFirstButton_downSkin.png",
+      source="skins/ButtonBarFirstButton_downSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     overSkin: Embed(
-      source="/skins/ButtonBarFirstButton_overSkin.png",
+      source="skins/ButtonBarFirstButton_overSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedDisabledSkin: Embed(
-      source="/skins/ButtonBarFirstButton_selectedDisabledSkin.png",
+      source="skins/ButtonBarFirstButton_selectedDisabledSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedDownSkin: Embed(
-      source="/skins/ButtonBarFirstButton_downSkin.png",
+      source="skins/ButtonBarFirstButton_downSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedOverSkin: Embed(
-      source="/skins/ButtonBarFirstButton_overSkin.png",
+      source="skins/ButtonBarFirstButton_overSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedUpSkin: Embed(
-      source="/skins/ButtonBarFirstButton_selectedUpSkin.png",
+      source="skins/ButtonBarFirstButton_selectedUpSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     upSkin: Embed(
-      source="/skins/ButtonBarFirstButton_upSkin.png",
+      source="skins/ButtonBarFirstButton_upSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
 }
@@ -255,35 +255,35 @@ HRule {
 .lastButtonBarButton
 {
     disabledSkin: Embed(
-      source="/skins/ButtonBarLastButton_disabledSkin.png",
+      source="skins/ButtonBarLastButton_disabledSkin.png",
    		scaleGridLeft="6", scaleGridTop="6", 
    		scaleGridRight="40", scaleGridBottom="16" );
     downSkin: Embed(
-      source="/skins/ButtonBarLastButton_downSkin.png",
+      source="skins/ButtonBarLastButton_downSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     overSkin: Embed(
-      source="/skins/ButtonBarLastButton_overSkin.png",
+      source="skins/ButtonBarLastButton_overSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedDisabledSkin: Embed(
-      source="/skins/ButtonBarLastButton_disabledSkin.png",
+      source="skins/ButtonBarLastButton_disabledSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedDownSkin: Embed(
-      source="/skins/ButtonBarLastButton_downSkin.png",
+      source="skins/ButtonBarLastButton_downSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedOverSkin: Embed(
-      source="/skins/ButtonBarLastButton_overSkin.png",
+      source="skins/ButtonBarLastButton_overSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     selectedUpSkin: Embed(
-      source="/skins/ButtonBarLastButton_selectedUpSkin.png",
+      source="skins/ButtonBarLastButton_selectedUpSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
     upSkin: Embed(
-      source="/skins/ButtonBarLastButton_upSkin.png",
+      source="skins/ButtonBarLastButton_upSkin.png",
 		   scaleGridLeft="6", scaleGridTop="6", 
 		   scaleGridRight="40", scaleGridBottom="16" );
 }

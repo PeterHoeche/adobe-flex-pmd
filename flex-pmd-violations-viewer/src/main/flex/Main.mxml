@@ -46,9 +46,6 @@
     verticalAlign="top"
     xmlns:source="com.adobe.ac.pmd.view.source.*">
 
-    <mx:Style source="/css/default.css"
-        />
-
     <mx:Panel width="100%"
         styleName="mainPanel"
         >
