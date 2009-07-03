@@ -4,7 +4,6 @@
 <compilerSourcePath>
 <compilerSourcePathEntry kind="1" linkType="1" path="src/main/flex"/>
 <compilerSourcePathEntry kind="1" linkType="1" path="src/test/flex"/>
-<compilerSourcePathEntry kind="1" linkType="1" path="src/main/resources"/>
 </compilerSourcePath>
 <libraryPath defaultLinkType="1">
 <libraryPathEntry kind="3" linkType="1" path="/Users/xagnetti/.m2/repository/com/adobe/flex/framework/datavisualization/3.2.0.3958/datavisualization-3.2.0.3958-en_US.rb.swc" useDefaultLinkType="false"/>
