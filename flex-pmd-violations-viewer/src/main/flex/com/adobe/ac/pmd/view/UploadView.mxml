@@ -39,6 +39,7 @@
     horizontalAlign="center"
     top="0"
     verticalAlign="middle"
+    creationComplete="model.tryToLoadFromParameters()"
     >
 
     <mx:Metadata>

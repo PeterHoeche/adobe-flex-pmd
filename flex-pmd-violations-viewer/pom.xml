@@ -151,6 +151,24 @@
 					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
 					<defaultSizeWidth>1000</defaultSizeWidth>
 					<defaultSizeHeight>700</defaultSizeHeight>
+					<useNetwork>false</useNetwork>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wrapper</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<templateURI>folder:html-template</templateURI>
 				</configuration>
 			</plugin>
 

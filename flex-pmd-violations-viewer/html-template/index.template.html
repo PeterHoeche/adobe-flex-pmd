@@ -78,10 +78,26 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 		"pluginspage", "http://www.adobe.com/go/getflashplayer"
 	);
 } else if (hasRequestedVersion) {
+
+	function getReport()
+	{
+		if ( window.location.href.indexOf('=') == -1 )
+		{
+			return "";
+		}
+	    var hashes = window.location.href.slice(window.location.href.indexOf('=') + 1);
+
+	    return hashes;
+	}
+
+	var report = getReport();
+
 	// if we've detected an acceptable version
 	// embed the Flash Content SWF when all tests are passed
+	
 	AC_FL_RunContent(
 			"src", "${swf}",
+			"flashVars", "report=" + report,
 			"width", "${width}",
 			"height", "${height}",
 			"align", "middle",

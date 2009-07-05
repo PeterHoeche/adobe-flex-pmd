@@ -68,7 +68,8 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
             if ( field.is( Modifier.PROTECTED )
                   && isClassFinal )
             {
-               addViolation( field );
+               addViolation( field,
+                             field.getName() );
             }
          }
       }

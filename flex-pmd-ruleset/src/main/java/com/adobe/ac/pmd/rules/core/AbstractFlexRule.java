@@ -164,13 +164,16 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    protected final void prettyPrintMessage( final IFlexViolation violation )
    {
+      final int nbOfBraces = violation.getRuleMessage().split( "\\{" ).length - 1;
+
       if ( this instanceof IThresholdedRule )
       {
          final IThresholdedRule thresholdeRule = ( IThresholdedRule ) this;
 
-         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ) );
+         violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getThreshold() ),
+                                                nbOfBraces - 2 );
          violation.replacePlaceholderInMessage( String.valueOf( thresholdeRule.getActualValueForTheCurrentViolation() ),
-                                                1 );
+                                                nbOfBraces - 1 );
       }
       if ( getDescription() != null )
       {

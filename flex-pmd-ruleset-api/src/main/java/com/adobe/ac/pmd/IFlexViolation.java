@@ -41,8 +41,6 @@ public interface IFlexViolation extends Comparable< IFlexViolation >, IRuleViola
 
    String getRuleMessage();
 
-   void replacePlaceholderInMessage( final String replacement );
-
    void replacePlaceholderInMessage( final String replacement,
                                      final int index );
 

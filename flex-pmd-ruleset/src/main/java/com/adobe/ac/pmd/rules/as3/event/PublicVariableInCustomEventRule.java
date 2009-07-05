@@ -52,7 +52,8 @@ public class PublicVariableInCustomEventRule extends AbstractAstFlexRule
       {
          if ( attribute.isPublic() )
          {
-            addViolation( attribute );
+            addViolation( attribute,
+                          attribute.getName() );
          }
       }
    }

@@ -131,7 +131,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    /**
     * @param violatingNode
-    * @param endNode
     * @return the added violation replacing the threshold value in the message
     *         if any.
     */
@@ -139,6 +138,19 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       return addViolation( violatingNode.getInternalNode(),
                            violatingNode.getInternalNode() );
+   }
+
+   /**
+    * @param violatingNode
+    * @return the added violation replacing the threshold value in the message
+    *         if any.
+    */
+   protected final IFlexViolation addViolation( final INode violatingNode,
+                                                final String... messageToReplace )
+   {
+      return addViolation( violatingNode.getInternalNode(),
+                           violatingNode.getInternalNode(),
+                           messageToReplace );
    }
 
    /**
@@ -161,16 +173,34 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
     */
    protected final IFlexViolation addViolation( final IParserNode beginningNode,
                                                 final IParserNode endNode,
-                                                final String messageToReplace )
+                                                final String... messageToReplace )
    {
       final IFlexViolation violation = addViolation( new ViolationPosition( beginningNode.getLine(),
                                                                             endNode.getLine(),
                                                                             beginningNode.getColumn(),
                                                                             endNode.getColumn() ) );
 
-      violation.replacePlaceholderInMessage( messageToReplace );
+      for ( int i = 0; i < messageToReplace.length; i++ )
+      {
+         violation.replacePlaceholderInMessage( messageToReplace[ i ],
+                                                i );
+      }
 
       return violation;
+   }
+
+   /**
+    * @param violatingNode
+    * @param endNode
+    * @param messageToReplace
+    * @return the add violation replacing the {0} token by the specified message
+    */
+   protected final IFlexViolation addViolation( final IParserNode violatingNode,
+                                                final String... messageToReplace )
+   {
+      return addViolation( violatingNode,
+                           violatingNode,
+                           messageToReplace );
    }
 
    /**

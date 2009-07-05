@@ -37,6 +37,6 @@ public class FlexLanguage extends AbstractLanguage implements Language
 {
    public FlexLanguage()
    {
-      super( new FlexTokenizer(), "as" );
+      super( new FlexTokenizer(), "as", "mxml" );
    }
 }

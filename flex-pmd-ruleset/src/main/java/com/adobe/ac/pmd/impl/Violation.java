@@ -165,18 +165,6 @@ final class Violation implements IFlexViolation
     * (non-Javadoc)
     * @see
     * com.adobe.ac.pmd.IFlexViolation#replacePlaceholderInMessage(java.lang.
-    * String)
-    */
-   public void replacePlaceholderInMessage( final String replacement )
-   {
-      replacePlaceholderInMessage( replacement,
-                                   0 );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.IFlexViolation#replacePlaceholderInMessage(java.lang.
     * String, int)
     */
    public void replacePlaceholderInMessage( final String replacement,
@@ -229,11 +217,6 @@ final class Violation implements IFlexViolation
       return formatter.toString();
    }
 
-   String getNewLine()
-   {
-      return System.getProperty( "line.separator" );
-   }
-
    private int getLinePriority( final IFlexViolation otherViolation )
    {
       int res;
@@ -272,5 +255,10 @@ final class Violation implements IFlexViolation
       }
 
       return res;
+   }
+
+   String getNewLine()
+   {
+      return System.getProperty( "line.separator" );
    }
 }

@@ -45,7 +45,8 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
       {
          if ( !field.isStatic() )
          {
-            addViolation( field );
+            addViolation( field,
+                          field.getName() );
          }
       }
    }

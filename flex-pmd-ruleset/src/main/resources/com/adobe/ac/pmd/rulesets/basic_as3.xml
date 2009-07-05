@@ -64,7 +64,7 @@
 	</rule>
 	<rule
 		class="com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule"
-		message="No public variables should be inside a custom event">
+		message="No public variables should be inside a custom event. This variable ({0}) is public">
 		<description>In order to improve encapsulation in your custom event, it is better not to have public variable in your event. Prefer having read-only attributes, set by the event constructor.</description>
 		<priority>3</priority>
 		<example>
@@ -147,7 +147,7 @@
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.as3.ArrayFieldWithNoArrayElementTypeRule"
-		message="ArrayElementType metadata is not specified for an array-type field">
+		message="ArrayElementType metadata is not specified for this array-type field ({0})">
 		<description>
       </description>
 		<priority>3</priority>
@@ -162,7 +162,7 @@
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.as3.NonStaticConstantFieldRule"
-		message="A constant field should be static">
+		message="A constant field should be static ({0})">
 		<description>
       </description>
 		<priority>1</priority>
@@ -174,7 +174,7 @@
       </example>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedParameterRule"
-		message="Some parameters of this function are not used ({0})">
+		message="This parameter ({0}) of this function is not used">
 		<description>
       </description>
 		<priority>1</priority>
@@ -186,7 +186,7 @@
       </example>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedLocalVariableRule"
-		message="You should delete this unused variable ({0})">
+		message="This variable ({0}) is not used">
 		<description>
       </description>
 		<priority>3</priority>
@@ -255,7 +255,7 @@
       </example>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.UselessOverridenFunctionRule"
-		message="This method is empty. This should be removed">
+		message="This method is empty. This should be removed ({0})">
 		<description>This function is not needed.</description>
 		<priority>3</priority>
 		<example>
@@ -270,11 +270,11 @@
 		<priority>3</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.PropertyHiddenByLocalVariableRule"
-		message="A class property is hidden by this local variable">
+		message="A class property is hidden by this local variable ({0})">
 		<priority>3</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.AvoidProtectedFieldInFinalClassRule"
-		message="Protected accessors are useless in a final class. Make them private">
+		message="Protected accessors are useless in a final class. Make it private ({0})">
 		<priority>3</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.event.DefaultEventNameRule"

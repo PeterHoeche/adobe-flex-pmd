@@ -49,7 +49,8 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
          if ( ARRAY_TYPE.equals( variable.getType().toString() )
                && variable.getMetaData( ARRAY_ELEMENT_TYPE_BINDING ) == null )
          {
-            addViolation( variable );
+            addViolation( variable,
+                          variable.getName() );
          }
       }
    }

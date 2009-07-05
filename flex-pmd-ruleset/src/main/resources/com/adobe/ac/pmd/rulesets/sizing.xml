@@ -59,7 +59,7 @@
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.sizing.TooLongFunctionRule"
 		message="This function is far too long ({0} maximum, but {1} actually)">
-		<description>Violations of this rule usually indicate that the method is doing too much. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
+		<description>Violations of this rule usually indicate that the method has too much responsability. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
 		<priority>3</priority>
 		<properties>
 			<property name="maximum">

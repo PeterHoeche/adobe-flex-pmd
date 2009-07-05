@@ -31,9 +31,7 @@
 package com.adobe.ac.pmd.view
 {
     import com.adobe.ac.model.IPresentationModel;
-    import com.adobe.ac.pmd.model.CharacterPosition;
     import com.adobe.ac.pmd.model.Violation;
-    import com.adobe.ac.pmd.model.ViolationPosition;
     import com.adobe.ac.pmd.model.ViolationPriority;
     
     import flash.events.Event;
@@ -43,6 +41,11 @@ package com.adobe.ac.pmd.view
     import flash.utils.ByteArray;
     
     import mx.collections.ArrayCollection;
+    import mx.controls.Alert;
+    import mx.core.Application;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
+    import mx.rpc.http.mxml.HTTPService;
 
     [Event( name="violationsLoaded", type = "flash.events.Event" )]
 
@@ -50,20 +53,41 @@ package com.adobe.ac.pmd.view
     {
         public static const VIOLATIONS_LOADED : String = "violationsLoaded";
 
+        [ArrayElementType( "flash.net.FileFilter" )]
+        private static const FILTERS : Array = [ new FileFilter( "Pmd results file", "pmd.xml" ) ];
+
         [Bindable]
         public var violations : ArrayCollection;
 
         private var fileReference : FileReference;
-        
+
         public function UploadModel()
         {
-        	super();
+            super();
         }
-        
+
+        public function tryToLoadFromParameters() : void
+        {
+            var report : String = Application.application.parameters.report;
+
+            if ( report != "" )
+            {
+                var request : HTTPService = new HTTPService();
+                
+                request.useProxy = false;
+                request.url = report;
+                request.showBusyCursor = true;
+                request.resultFormat = "xml";
+                request.addEventListener( ResultEvent.RESULT, onDonwloadResult );
+				request.addEventListener(FaultEvent.FAULT, onFault );
+                request.send();
+            }
+        }
+
         public function load() : void
         {
             fileReference = new FileReference();
-            fileReference.browse( [ new FileFilter( "Pmd results file", "pmd.xml" ) ] );
+            fileReference.browse( FILTERS );
             fileReference.addEventListener( Event.SELECT, onSelect );
         }
 
@@ -84,7 +108,7 @@ package com.adobe.ac.pmd.view
         private function deserializeViolation( violationXml : XML, filePath : String ) : Violation
         {
             var violation : Violation = new Violation();
-            
+
             violation.position.begin.line = violationXml.@beginline;
             violation.position.begin.column = violationXml.@begincolumn;
             violation.position.end.line = violationXml.@endline;
@@ -96,6 +120,18 @@ package com.adobe.ac.pmd.view
             violation.filePath = filePath;
 
             return violation;
+        }
+
+        private function onDonwloadResult( e : ResultEvent ) : void
+        {
+        	violations = deserializeViolations( new XML( e.result ) );
+
+            dispatchEvent( new Event( VIOLATIONS_LOADED ) )
+        }
+        
+        private function onFault( e : FaultEvent ) : void
+        {
+        	Alert.show( e.fault.message );
         }
 
         private function onSelect( e : Event ) : void
