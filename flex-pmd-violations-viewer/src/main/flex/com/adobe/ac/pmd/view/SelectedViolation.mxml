@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 
-       Copyright (c) 2008. Adobe Systems Incorporated.
-       All rights reserved.
+     Copyright (c) 2008. Adobe Systems Incorporated.
+     All rights reserved.
 
-       Redistribution and use in source and binary forms, with or without
-       modification, are permitted provided that the following conditions
-       are met:
+     Redistribution and use in source and binary forms, with or without
+     modification, are permitted provided that the following conditions
+     are met:
 
-         * Redistributions of source code must retain the above copyright
-           notice, this list of conditions and the following disclaimer.
-         * Redistributions in binary form must reproduce the above copyright
-           notice, this list of conditions and the following disclaimer in
-           the documentation and/or other materials provided with the
-           distribution.
-         * Neither the name of Adobe Systems Incorporated nor the names of
-           its contributors may be used to endorse or promote products derived
-           from this software without specific prior written permission.
+     * Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in
+     the documentation and/or other materials provided with the
+     distribution.
+     * Neither the name of Adobe Systems Incorporated nor the names of
+     its contributors may be used to endorse or promote products derived
+     from this software without specific prior written permission.
 
-       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-       "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-       LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
-       OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-       EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-       PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-       PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-       LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-       NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-       SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+     LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+     PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+     OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+     EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+     PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 <mx:Form xmlns:mx="http://www.adobe.com/2006/mxml"
@@ -70,8 +70,8 @@
     <mx:FormItem label="RuleName"
         >
 
-        <mx:Label text="{ violation.shortRuleName }"
-            toolTip="{ violation.ruleName }"
+        <mx:Label text="{ violation.rule.shortName }"
+            toolTip="{ violation.rule.name }"
             />
 
     </mx:FormItem>
@@ -79,7 +79,7 @@
     <mx:FormItem label="RuleSet"
         >
 
-        <mx:Label text="{ violation.ruleset }"
+        <mx:Label text="{ violation.rule.ruleset.name }"
             />
 
     </mx:FormItem>
@@ -88,7 +88,7 @@
         >
 
         <mx:Text width="300"
-            text="{ violation.message }"
+            text="{ violation.rule.message }"
             />
 
     </mx:FormItem>
@@ -96,7 +96,7 @@
     <mx:FormItem label="Priority"
         >
 
-        <mx:Label text="{ violation.priority.name }"
+        <mx:Label text="{ violation.rule.priority.name }"
             />
 
     </mx:FormItem>
@@ -106,50 +106,54 @@
 
         <mx:VBox>
 
+            <mx:Label text="{ violation.violatedFile.shortPath }"
+            	toolTip="{ violation.violatedFile.path }"
+                />
+
             <mx:HBox>
 
-                <mx:Label text=""
-                	width="50"
+                <mx:Label width="50"
+                    text=""
                     />
 
-                <mx:Label text="line"
-                	width="50"
+                <mx:Label width="50"
+                    text="line"
                     />
 
-                <mx:Label text="column"
-                	width="50"
+                <mx:Label width="50"
+                    text="column"
                     />
 
             </mx:HBox>
 
             <mx:HBox>
 
-                <mx:Label text="start"
-                	width="50"
+                <mx:Label width="50"
+                    text="start"
                     />
 
-                <mx:Label text="{ violation.position.begin.line }"
-                	width="50"
+                <mx:Label width="50"
+                    text="{ violation.position.begin.line }"
                     />
 
-                <mx:Label text="{ violation.position.begin.column }"
-                	width="50"
+                <mx:Label width="50"
+                    text="{ violation.position.begin.column }"
                     />
 
             </mx:HBox>
 
             <mx:HBox>
 
-                <mx:Label text="end"
-                	width="50"
+                <mx:Label width="50"
+                    text="end"
                     />
 
-                <mx:Label text="{ violation.position.end.line }"
-                	width="50"
+                <mx:Label width="50"
+                    text="{ violation.position.end.line }"
                     />
 
-                <mx:Label text="{ violation.position.end.column }"
-                	width="50"
+                <mx:Label width="50"
+                    text="{ violation.position.end.column }"
                     />
 
             </mx:HBox>

@@ -55,7 +55,7 @@
 		</properties>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.performance.HeavyConstructorRule"
-		message="Constructor must be as lightweight as possible. No control statement allowed.">
+		message="Constructor must be as lightweight as possible. No control statement allowed, whereas a cyclomatic complexe of {0} has been detected">
 		<description><![CDATA[The Just-In-Time compiler does not compile constructors. Make them as lightweight as possible.]]></description>
 		<priority>3</priority>
 	</rule>

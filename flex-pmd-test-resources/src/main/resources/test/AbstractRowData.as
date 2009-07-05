@@ -106,9 +106,9 @@ package flexUnit.flexui.data
          {
          }
          addEventListener("lalaEvent");
-         dispatchEvent("lalaEvent");
-         dispatchEvent( "lalaEvent" );
-         dispatchEvent( EVENT );
+         dispatchEvent(new Event("lalaEvent"));
+         dispatchEvent( new Event( "lalaEvent" ) );
+         dispatchEvent( new Event( EVENT ) );
          if( true );
          return f.format( assertionsMade );
       }

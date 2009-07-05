@@ -31,10 +31,10 @@
 package com.adobe.ac.pmd.model
 {
    import com.adobe.ac.model.IDomainModel;
-
+   
    import flash.events.Event;
    import flash.events.EventDispatcher;
-
+   
    import mx.collections.ArrayCollection;
    import mx.collections.ListCollectionView;
 
@@ -55,6 +55,7 @@ package com.adobe.ac.pmd.model
 
       public function Rule()
       {
+      	ruleset = new Ruleset();
       }
 
       [Bindable( "nameChange" )]

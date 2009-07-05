@@ -45,25 +45,24 @@ package com.adobe.ac.pmd.view
     {
         private static const CURRENT_VISIBILITY_CHANGE : String = "currentVisibilityChange";
         private static const VIOLATIONS_COMPUTED : String = "violationsComputed";
+        private static const SELECTED_GROUP_FIELDS_CHANGE : String = 'selectedGroupFieldsChange';
 
-        private var _violations : ArrayCollection;
-        private var _errors : int = 0;
-        private var _warnings : int = 0;
-        private var _informations : int = 0;
         private var _grouping : Grouping;
+        private var _violations : ViolationsModel
         
         [Bindable]
         public var selectedViolation : Violation;
         
         public function ResultsModel()
         {
+        	_violations = new ViolationsModel();
         	_grouping = new Grouping();
         	selectedGroupFields = [ 0 ];
         }
         
         public function filter() : void
         {
-        	_violations.refresh();
+        	_violations.filter();
             dispatchEvent( new Event( CURRENT_VISIBILITY_CHANGE ) )
         }
         
@@ -75,7 +74,7 @@ package com.adobe.ac.pmd.view
         		_grouping.fields.push( ResultsFilter.GROUPING_FIELDS[ indice ] );
         	}
         	
-        	dispatchEvent( new Event( 'selectedGroupFieldsChange' ) );
+        	dispatchEvent( new Event( SELECTED_GROUP_FIELDS_CHANGE ) );
         }
         
         [Bindable('selectedGroupFieldsChange')]
@@ -113,56 +112,39 @@ package com.adobe.ac.pmd.view
 
         public function set violations( value : ArrayCollection ) : void
         {
-            _violations = value;
-            _violations.filterFunction = ResultsFilter.filterViolation;
+            _violations.violations = value;
 
-            for each ( var violation : Violation in _violations )
-            {
-                if ( violation.priority.level == 1 )
-                {
-                    _errors++;
-                }
-                else if ( violation.priority.level == 3 )
-                {
-                    _warnings++;
-                }
-                else if ( violation.priority.level == 5 )
-                {
-                    _informations++;
-                }
-            }
-            _violations.refresh();
             dispatchEvent( new Event( VIOLATIONS_COMPUTED ) );
         }
 
         [Bindable( "violationsComputed" )]
         public function get errors() : int
         {
-            return _errors;
+            return _violations.errors;
         }
 
         [Bindable( "violationsComputed" )]
         public function get warnings() : int
         {
-            return _warnings;
+            return _violations.warnings;
         }
 
         [Bindable( "violationsComputed" )]
         public function get informations() : int
         {
-            return _informations;
+            return _violations.informations;
         }
 
         [Bindable( "violationsComputed" )]
         public function get violationsNumber() : int
         {
-            return _violations.source.length;
+            return _violations.violations.source.length;
         }
 
         [Bindable( "violationsComputed" )]
         public function get violations() : ArrayCollection
         {
-            return _violations;
+            return _violations.violations;
         }
     }
 }

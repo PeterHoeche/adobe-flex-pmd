@@ -43,8 +43,10 @@ public class DispatchHardCodedEventNameRuleTest extends AbstractRegExpBasedRuleT
    protected String[] getMatchableLines()
    {
       return new String[]
-      { "dispatchEvent( \"change\" );",
-                  "dispatchEvent(\"change\");" };
+      { "dispatchEvent(new Event(\"change\" ));",
+                  "dispatchEvent( new Event('change') );",
+                  "dispatchEvent(new Event(\"change\"));",
+                  "dispatchEvent( new Event( 'selectedGroupFieldsChange' ) )" };
    }
 
    @Override
@@ -59,14 +61,17 @@ public class DispatchHardCodedEventNameRuleTest extends AbstractRegExpBasedRuleT
       return new String[]
       { "var i : int = 0;",
                   "lala();",
-                  "dispatchEvent( CONST );",
-                  "dispatchEvent(Rule.CONST);" };
+                  "dispatchEvent( new Event( CONST ) );",
+                  "dispatchEvent(new Event(Rule.CONST));" };
    }
 
    @Override
    protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.ac.ncss.BigImporterModel.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 58, 58 ) } ),
                        "AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 109, 109 ),

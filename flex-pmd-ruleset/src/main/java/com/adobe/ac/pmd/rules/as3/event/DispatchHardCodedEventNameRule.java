@@ -51,7 +51,7 @@ public class DispatchHardCodedEventNameRule extends AbstractRegexpBasedRule
    @Override
    protected final String getRegexp()
    {
-      return ".*dispatchEvent *\\( *\".*\" *\\).*";
+      return ".*dispatchEvent *\\( *new Event\\( *(\"|\').*(\"|\') *\\) *\\).*";
    }
 
    @Override

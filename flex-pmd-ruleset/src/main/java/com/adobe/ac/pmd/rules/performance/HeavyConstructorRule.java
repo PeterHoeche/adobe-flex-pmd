@@ -48,7 +48,8 @@ public class HeavyConstructorRule extends AbstractAstFlexRule
    {
       if ( constructor.getCyclomaticComplexity() > 1 )
       {
-         addViolation( constructor );
+         addViolation( constructor,
+                       String.valueOf( constructor.getCyclomaticComplexity() ) );
       }
    }
 

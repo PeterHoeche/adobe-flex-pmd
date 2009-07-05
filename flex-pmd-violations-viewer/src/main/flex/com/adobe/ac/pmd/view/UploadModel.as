@@ -79,7 +79,6 @@ package com.adobe.ac.pmd.view
                 request.showBusyCursor = true;
                 request.resultFormat = "xml";
                 request.addEventListener( ResultEvent.RESULT, onDonwloadResult );
-				request.addEventListener(FaultEvent.FAULT, onFault );
                 request.send();
             }
         }
@@ -113,11 +112,11 @@ package com.adobe.ac.pmd.view
             violation.position.begin.column = violationXml.@begincolumn;
             violation.position.end.line = violationXml.@endline;
             violation.position.end.column = violationXml.@endcolumn;
-            violation.ruleName = violationXml.@rule;
-            violation.ruleset = violationXml.@ruleset
-            violation.priority = ViolationPriority.create( violationXml.@priority );
-            violation.message = violationXml.toString();
-            violation.filePath = filePath;
+            violation.rule.name = violationXml.@rule;
+            violation.rule.ruleset.name = violationXml.@ruleset
+            violation.rule.priority = ViolationPriority.create( violationXml.@priority );
+            violation.rule.message = violationXml.toString();
+            violation.violatedFile.path = filePath;
 
             return violation;
         }
@@ -129,11 +128,6 @@ package com.adobe.ac.pmd.view
             dispatchEvent( new Event( VIOLATIONS_LOADED ) )
         }
         
-        private function onFault( e : FaultEvent ) : void
-        {
-        	Alert.show( e.fault.message );
-        }
-
         private function onSelect( e : Event ) : void
         {
             fileReference.addEventListener( Event.COMPLETE, onLoadComplete );

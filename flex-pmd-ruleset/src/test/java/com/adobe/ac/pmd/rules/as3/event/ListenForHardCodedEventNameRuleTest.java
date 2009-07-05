@@ -44,6 +44,7 @@ public class ListenForHardCodedEventNameRuleTest extends AbstractRegExpBasedRule
    {
       return new String[]
       { "addEventListener( \"change\", handleChange );",
+                  "addEventListener( 'change', handleChange );",
                   "addEventListener(\"change\",handleChange);",
                   "addEventListener( \"change\"," };
    }

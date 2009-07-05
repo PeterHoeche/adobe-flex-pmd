@@ -51,7 +51,7 @@ public class ListenForHardCodedEventNameRule extends AbstractRegexpBasedRule
    @Override
    protected final String getRegexp()
    {
-      return ".*addEventListener *\\( *\".*\".*";
+      return ".*addEventListener *\\( *(\"|\').*(\"|\').*";
    }
 
    @Override

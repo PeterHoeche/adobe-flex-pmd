@@ -30,44 +30,25 @@
  */
 package com.adobe.ac.pmd.model
 {
+	public class File
+	{
+		[Bindable]
+        public var path : String;
 
-    [Bindable]
-    public class Violation
-    {
-        public function Violation()
-        {
-            position = new ViolationPosition();
-            rule = new Rule();
-            violatedFile = new File();
-        }
-
-        public var position : ViolationPosition;
-        public var rule : Rule;
-        public var violatedFile : File;
-
+		public function File()
+		{
+		}
+        
         public function get shortPath() : String
         {
-            return violatedFile.shortPath;
+        	var srcIndex : int = path.indexOf( "src" );
+
+            if ( srcIndex != -1 )
+            {
+                var regexp : RegExp = new RegExp( "/", "g" );
+                return path.substr( srcIndex + 4 ).replace( regexp, "." );
+            }
+            return path;
         }
-        
-        public function get shortRuleName() : String
-        {
-        	return rule.shortName;
-        }
-        
-        public function get beginLine() : Number
-        {
-        	return position.begin.line;
-        }
-        
-        public function get message() : String
-        {
-        	return rule.message;
-        }
-        
-        public function get priority() : ViolationPriority
-        {
-        	return rule.priority;
-        }
-    }
+	}
 }

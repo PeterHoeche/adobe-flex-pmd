@@ -129,6 +129,16 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                            name.getStringValue() );
    }
 
+   protected final IFlexViolation addViolation( final IFunction function,
+                                                final String messageToReplace )
+   {
+      final IParserNode name = getNameFromFunctionDeclaration( function.getInternalNode() );
+
+      return addViolation( name,
+                           name,
+                           messageToReplace );
+   }
+
    /**
     * @param violatingNode
     * @return the added violation replacing the threshold value in the message
@@ -213,6 +223,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                                                                 this,
                                                                 currentFile );
 
+      prettyPrintMessage( violation );
       violations.add( violation );
 
       return violation;
@@ -635,22 +646,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
-   private IFlexViolation addViolation( final IParserNode beginningNode,
-                                        final IParserNode endNode )
-   {
-      final IFlexViolation violation = ViolationFactory.create( new ViolationPosition( beginningNode.getLine(),
-                                                                                       endNode.getLine(),
-                                                                                       beginningNode.getColumn(),
-                                                                                       endNode.getColumn() ),
-                                                                this,
-                                                                currentFile );
-
-      prettyPrintMessage( violation );
-      violations.add( violation );
-
-      return violation;
-   }
-
    private boolean isNodeNavigable( final IParserNode node )
    {
       return node != null
@@ -663,7 +658,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                        NodeKind.ADD,
                        new ExpressionVisitor()
                        {
-
                           public void visitExpression( final IParserNode ast )
                           {
                              visitMultiplicativeExpression( ast );
@@ -786,19 +780,15 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       {
          for ( final IParserNode node : ast.getChildren() )
          {
-            if ( node.is( NodeKind.PACKAGE ) )
+            if ( node.is( NodeKind.PACKAGE )
+                  && node.numChildren() >= 2 )
             {
-               if ( node.numChildren() >= 2 )
-               {
-                  visitPackageContent( node.getChild( 1 ) );
-               }
+               visitPackageContent( node.getChild( 1 ) );
             }
-            else
+            if ( !node.is( NodeKind.PACKAGE )
+                  && node.numChildren() > 0 )
             {
-               if ( node.numChildren() > 0 )
-               {
-                  visitPackageContent( node );
-               }
+               visitPackageContent( node );
             }
          }
       }

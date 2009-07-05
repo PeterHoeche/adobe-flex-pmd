@@ -54,7 +54,7 @@ package com.adobe.ac.pmd.view
             {
                 return true;
             }
-            return ( value as Violation ).priority.level == currentPriorityVisible;
+            return ( value as Violation ).rule.priority.level == currentPriorityVisible;
         }
     }
 }
