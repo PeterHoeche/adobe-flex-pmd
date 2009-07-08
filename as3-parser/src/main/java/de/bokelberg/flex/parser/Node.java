@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
  * 
  * @author rbokel
  */
-class Node extends NestedNode implements IParserNode
+final class Node extends NestedNode implements IParserNode
 {
    public static Node create( final NodeKind idToBeSet,
                               final int lineToBeSet,
