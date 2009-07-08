@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
  * 
  * @author xagnetti
  */
-public interface IClass extends IVisible, IMetaDataListHolder, INamable, INode
+public interface IClass extends IVisible, IMetaDataListHolder, INamableNode
 {
    List< IAttribute > getAttributes();
 

@@ -28,34 +28,75 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.performance;
+package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.files.IFlexFile;
+import java.util.List;
+
+import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.INamableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class HeavyConstructorRule extends AbstractAstFlexRule
+public class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   protected void findViolations( final IClass classNode )
    {
-      return !file.isMxml();
+      super.findViolations( classNode );
+
+      findViolationsInNamableList( classNode.getAttributes() );
+      findViolationsInNamableList( classNode.getConstants() );
+      findViolationsInNamableList( classNode.getFunctions() );
    }
 
    @Override
-   protected final void findViolationsFromConstructor( final IFunction constructor )
+   protected void findViolations( final IFunction function )
    {
-      if ( constructor.getCyclomaticComplexity() > 1 )
+      findViolationsInNamableList( function.getParameters() );
+
+      for ( final String variableName : function.getLocalVariables().keySet() )
       {
-         addViolation( constructor,
-                       String.valueOf( constructor.getCyclomaticComplexity() ) );
+         if ( isNameEndsWithNumeric( variableName ) )
+         {
+            addViolation( function.getLocalVariables().get( variableName ),
+                          variableName );
+         }
       }
    }
 
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.HIGH;
+      return ViolationPriority.NORMAL;
+   }
+
+   private void findViolationsInNamableList( final List< ? extends INamableNode > namables )
+   {
+      for ( final INamableNode namable : namables )
+      {
+         if ( isNameEndsWithNumeric( namable.getName() ) )
+         {
+            if ( namable instanceof IFunction )
+            {
+               final IFunction function = ( IFunction ) namable;
+
+               addViolation( function,
+                             function.getName() );
+            }
+            else
+            {
+               addViolation( namable,
+                             namable.getName() );
+            }
+         }
+      }
+   }
+
+   private boolean isNameEndsWithNumeric( final String name )
+   {
+      final char lastCharacter = name.charAt( name.length() - 1 );
+
+      return Character.isDigit( lastCharacter );
    }
 }

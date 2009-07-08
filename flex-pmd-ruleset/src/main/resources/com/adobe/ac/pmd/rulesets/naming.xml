@@ -89,4 +89,10 @@
          ]]>
       </example>
 	</rule>
+	
+	<rule class="com.adobe.ac.pmd.rules.as3.VariableNameEndingWithNumericRule"
+		message="Using digits at the end of a symbol does not help understanging the meaning of it">
+		<priority>3</priority>
+	</rule>
+	
 </ruleset>

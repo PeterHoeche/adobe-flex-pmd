@@ -28,34 +28,9 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.performance;
+package com.adobe.ac.pmd.nodes;
 
-import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class HeavyConstructorRule extends AbstractAstFlexRule
+public interface INamableNode extends INode, INamable
 {
-   @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
-   {
-      return !file.isMxml();
-   }
 
-   @Override
-   protected final void findViolationsFromConstructor( final IFunction constructor )
-   {
-      if ( constructor.getCyclomaticComplexity() > 1 )
-      {
-         addViolation( constructor,
-                       String.valueOf( constructor.getCyclomaticComplexity() ) );
-      }
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.HIGH;
-   }
 }

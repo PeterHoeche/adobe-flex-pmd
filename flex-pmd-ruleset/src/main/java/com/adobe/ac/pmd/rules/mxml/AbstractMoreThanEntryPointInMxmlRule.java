@@ -70,16 +70,13 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final IFunction function )
    {
-      for ( final IFunction function : functions )
+      if ( function.isPublic()
+            && function.isSetter() )
       {
-         if ( function.isPublic()
-               && function.isSetter() )
-         {
-            publicVarCount++;
-            lastPublicVarLine = function.getInternalNode().getLine();
-         }
+         publicVarCount++;
+         lastPublicVarLine = function.getInternalNode().getLine();
       }
    }
 

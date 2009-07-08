@@ -68,15 +68,12 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected final void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final IFunction function )
    {
-      for ( final IFunction function : functions )
+      if ( function.isPublic()
+            && function != constructor && !function.isGetter() && !function.isSetter() )
       {
-         if ( function.isPublic()
-               && function != constructor && !function.isGetter() && !function.isSetter() )
-         {
-            publicCount++;
-         }
+         publicCount++;
       }
    }
 

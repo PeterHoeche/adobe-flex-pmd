@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.List;
-
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
@@ -51,15 +49,12 @@ public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected final void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final IFunction function )
    {
-      for ( final IFunction function : functions )
+      currentFunction = function;
+      if ( function.getCyclomaticComplexity() > getThreshold() )
       {
-         currentFunction = function;
-         if ( function.getCyclomaticComplexity() > getThreshold() )
-         {
-            addViolation( function );
-         }
+         addViolation( function );
       }
    }
 

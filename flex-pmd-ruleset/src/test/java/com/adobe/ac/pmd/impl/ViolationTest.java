@@ -40,8 +40,10 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.IFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class ViolationTest extends FlexPmdTestBase
 {
@@ -49,9 +51,9 @@ public class ViolationTest extends FlexPmdTestBase
    private static final int              BEGINNING_LINE   = 1;
    private static final int              ENDING_COLUMN    = 20;
    private static final int              ENDING_LINE      = 10;
-   private static final AbstractFlexRule INFO_RULE        = new EmptyRule();
+   private static final IThresholdedRule INFO_RULE        = new EmptyRule();
    private static final String           RULE_SET_NAME    = "RuleSetName";
-   private static final AbstractFlexRule WARNING_RULE     = new WarningRule();
+   private static final IFlexRule        WARNING_RULE     = new WarningRule();
    private IFlexFile                     abstractRowData;
    private IFlexFile                     abstractRowDataWithPackage;
    private IFlexFile                     iterationsListMxml;
@@ -104,11 +106,29 @@ public class ViolationTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetActualValueForTheCurrentViolation()
+   {
+      final IThresholdedRule thresholdRule = ( IThresholdedRule ) new Violation( position, INFO_RULE, null ).getRule();
+
+      assertEquals( "",
+                    0,
+                    thresholdRule.getActualValueForTheCurrentViolation() );
+   }
+
+   @Test
    public void testGetClassName()
    {
       assertEquals( "",
                     "",
                     new Violation( position, INFO_RULE, null ).getClassName() );
+   }
+
+   @Test
+   public void testGetDefaultThreshold()
+   {
+      assertEquals( "",
+                    Integer.valueOf( ViolationPriority.LOW.toString() ),
+                    new Violation( position, INFO_RULE, null ).getRule().getPriority() );
    }
 
    @Test

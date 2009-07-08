@@ -68,17 +68,19 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    protected static IParserNode getNameFromFunctionDeclaration( final IParserNode functionNode )
    {
+      IParserNode nameChild = null;
       if ( functionNode.numChildren() != 0 )
       {
          for ( final IParserNode child : functionNode.getChildren() )
          {
             if ( child.is( NodeKind.NAME ) )
             {
-               return child;
+               nameChild = child;
+               break;
             }
          }
       }
-      return functionNode;
+      return nameChild;
    }
 
    protected static IParserNode getTypeFromFieldDeclaration( final IParserNode fieldNode )
@@ -244,16 +246,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
       if ( classNode.getConstructor() != null )
       {
-         findViolations( classNode.getConstructor() );
+         findViolationsFromConstructor( classNode.getConstructor() );
       }
    }
 
-   /**
-    * find the violations list from the given class constructor node
-    * 
-    * @param constructor
-    */
-   protected void findViolations( final IFunction constructor )
+   protected void findViolations( final IFunction function )
    {
    }
 
@@ -280,6 +277,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
     */
    protected void findViolations( final List< IFunction > functions )
    {
+      for ( final IFunction function : functions )
+      {
+         findViolations( function );
+      }
    }
 
    /**
@@ -297,6 +298,15 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
     * @param constants
     */
    protected void findViolationsFromConstants( final List< IConstant > constants )
+   {
+   }
+
+   /**
+    * find the violations list from the given class constructor node
+    * 
+    * @param constructor
+    */
+   protected void findViolationsFromConstructor( final IFunction constructor )
    {
    }
 
@@ -333,7 +343,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
       catch ( final Exception e )
       {
-         LOGGER.warning( StackTraceUtils.print( e ) );
+         LOGGER.finer( StackTraceUtils.print( e ) );
       }
       final List< IFlexViolation > copy = new ArrayList< IFlexViolation >( violations );
 

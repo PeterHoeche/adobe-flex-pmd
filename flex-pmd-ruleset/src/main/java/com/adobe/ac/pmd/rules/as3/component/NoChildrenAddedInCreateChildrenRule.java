@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.as3.component;
 
-import java.util.List;
-
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -44,21 +42,18 @@ public class NoChildrenAddedInCreateChildrenRule extends AbstractAstFlexRule
                "addChildAt"                     };
 
    @Override
-   protected final void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final IFunction function )
    {
-      for ( final IFunction function : functions )
+      if ( function.getName().equals( CREATE_CHILDREN ) )
       {
-         if ( function.getName().equals( CREATE_CHILDREN ) )
+         for ( final String methodName : METHOD_NAMES )
          {
-            for ( final String methodName : METHOD_NAMES )
+            if ( function.findPrimaryStatementsInBody( methodName ).size() > 0 )
             {
-               if ( function.findPrimaryStatementsInBody( methodName ).size() > 0 )
-               {
-                  return;
-               }
+               return;
             }
-            addViolation( function );
          }
+         addViolation( function );
       }
    }
 

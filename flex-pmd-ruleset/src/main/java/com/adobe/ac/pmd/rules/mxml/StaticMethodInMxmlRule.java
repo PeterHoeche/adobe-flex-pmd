@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.List;
-
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.Modifier;
@@ -47,14 +45,11 @@ public class StaticMethodInMxmlRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected final void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final IFunction function )
    {
-      for ( final IFunction function : functions )
+      if ( function.is( Modifier.STATIC ) )
       {
-         if ( function.is( Modifier.STATIC ) )
-         {
-            addViolation( function );
-         }
+         addViolation( function );
       }
    }
 

@@ -70,8 +70,7 @@ public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 47, 47 ),
-                                                       new ViolationPosition( 358, 358 ) } ),
+                                           { new ViolationPosition( 47, 47 ) } ),
                                  "Looping.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 63, 63 ) } ),

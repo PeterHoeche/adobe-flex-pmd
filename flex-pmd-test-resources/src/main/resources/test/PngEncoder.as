@@ -337,25 +337,25 @@ package org.alivepdf.encoding
 			/* Pass 1: process rows. */
 			var dataOff:int=0;
 			for (var i:int=0; i<8; i++) {
-				var tmp0:Number = data[dataOff+0] + data[dataOff+7];
-				var tmp7:Number = data[dataOff+0] - data[dataOff+7];
-				var tmp1:Number = data[dataOff+1] + data[dataOff+6];
-				var tmp6:Number = data[dataOff+1] - data[dataOff+6];
-				var tmp2:Number = data[dataOff+2] + data[dataOff+5];
-				var tmp5:Number = data[dataOff+2] - data[dataOff+5];
-				var tmp3:Number = data[dataOff+3] + data[dataOff+4];
-				var tmp4:Number = data[dataOff+3] - data[dataOff+4];
+				var tmp0p:Number = data[dataOff+0] + data[dataOff+7];
+				var tmp7p:Number = data[dataOff+0] - data[dataOff+7];
+				var tmp1p:Number = data[dataOff+1] + data[dataOff+6];
+				var tmp6p:Number = data[dataOff+1] - data[dataOff+6];
+				var tmp2p:Number = data[dataOff+2] + data[dataOff+5];
+				var tmp5p:Number = data[dataOff+2] - data[dataOff+5];
+				var tmp3p:Number = data[dataOff+3] + data[dataOff+4];
+				var tmp4p:Number = data[dataOff+3] - data[dataOff+4];
 	
 				/* Even part */
-				var tmp10:Number = tmp0 + tmp3;	/* phase 2 */
-				var tmp13:Number = tmp0 - tmp3;
-				var tmp11:Number = tmp1 + tmp2;
-				var tmp12:Number = tmp1 - tmp2;
+				var tmp10p:Number = tmp0 + tmp3;	/* phase 2 */
+				var tmp13p:Number = tmp0 - tmp3;
+				var tmp11p:Number = tmp1 + tmp2;
+				var tmp12p:Number = tmp1 - tmp2;
 	
 				data[dataOff+0] = tmp10 + tmp11; /* phase 3 */
 				data[dataOff+4] = tmp10 - tmp11;
 	
-				var z1:Number = (tmp12 + tmp13) * 0.707106781; /* c4 */
+				var z1p:Number = (tmp12 + tmp13) * 0.707106781; /* c4 */
 				data[dataOff+2] = tmp13 + z1; /* phase 5 */
 				data[dataOff+6] = tmp13 - z1;
 	
@@ -365,13 +365,13 @@ package org.alivepdf.encoding
 				tmp12 = tmp6 + tmp7;
 	
 				/* The rotator is modified from fig 4-8 to avoid extra negations. */
-				var zz5:Number = (tmp10 - tmp12) * 0.382683433; /* c6 */
-				var zz2:Number = 0.541196100 * tmp10 + zz5; /* c2-c6 */
-				var zz4:Number = 1.306562965 * tmp12 + zz5; /* c2+c6 */
-				var zz3:Number = tmp11 * 0.707106781; /* c4 */
+				var zz5p:Number = (tmp10 - tmp12) * 0.382683433; /* c6 */
+				var zz2p:Number = 0.541196100 * tmp10 + zz5; /* c2-c6 */
+				var zz4p:Number = 1.306562965 * tmp12 + zz5; /* c2+c6 */
+				var zz3p:Number = tmp11 * 0.707106781; /* c4 */
 	
-				var z11:Number = tmp7 + zz3;	/* phase 5 */
-				var z13:Number = tmp7 - zz3;
+				var z11p:Number = tmp7 + zz3;	/* phase 5 */
+				var z13p:Number = tmp7 - zz3;
 	
 				data[dataOff+5] = z13 + zz2;	/* phase 6 */
 				data[dataOff+3] = z13 - zz2;
@@ -384,20 +384,20 @@ package org.alivepdf.encoding
 			/* Pass 2: process columns. */
 			dataOff = 0;
 			for (var j:int=0; j<8; j++) {
-				var tmp0p2:Number = data[dataOff+ 0] + data[dataOff+56];
-				var tmp7p2:Number = data[dataOff+ 0] - data[dataOff+56];
-				var tmp1p2:Number = data[dataOff+ 8] + data[dataOff+48];
-				var tmp6p2:Number = data[dataOff+ 8] - data[dataOff+48];
-				var tmp2p2:Number = data[dataOff+16] + data[dataOff+40];
-				var tmp5p2:Number = data[dataOff+16] - data[dataOff+40];
-				var tmp3p2:Number = data[dataOff+24] + data[dataOff+32];
-				var tmp4p2:Number = data[dataOff+24] - data[dataOff+32];
+				var tmp0p2p:Number = data[dataOff+ 0] + data[dataOff+56];
+				var tmp7p2p:Number = data[dataOff+ 0] - data[dataOff+56];
+				var tmp1p2p:Number = data[dataOff+ 8] + data[dataOff+48];
+				var tmp6p2p:Number = data[dataOff+ 8] - data[dataOff+48];
+				var tmp2p2p:Number = data[dataOff+16] + data[dataOff+40];
+				var tmp5p2p:Number = data[dataOff+16] - data[dataOff+40];
+				var tmp3p2p:Number = data[dataOff+24] + data[dataOff+32];
+				var tmp4p2p:Number = data[dataOff+24] - data[dataOff+32];
 	
 				/* Even part */
-				var tmp10p2:Number = tmp0p2 + tmp3p2;	/* phase 2 */
-				var tmp13p2:Number = tmp0p2 - tmp3p2;
-				var tmp11p2:Number = tmp1p2 + tmp2p2;
-				var tmp12p2:Number = tmp1p2 - tmp2p2;
+				var tmp10p2p:Number = tmp0p2 + tmp3p2;	/* phase 2 */
+				var tmp13p2p:Number = tmp0p2 - tmp3p2;
+				var tmp11p2p:Number = tmp1p2 + tmp2p2;
+				var tmp12p2p:Number = tmp1p2 - tmp2p2;
 	
 				data[dataOff+ 0] = tmp10p2 + tmp11p2; /* phase 3 */
 				data[dataOff+32] = tmp10p2 - tmp11p2;
@@ -412,13 +412,13 @@ package org.alivepdf.encoding
 				tmp12p2 = tmp6p2 + tmp7p2;
 	
 				/* The rotator is modified from fig 4-8 to avoid extra negations. */
-				var z5p2:Number = (tmp10p2 - tmp12p2) * 0.382683433; /* c6 */
-				var z2p2:Number = 0.541196100 * tmp10p2 + z5p2; /* c2-c6 */
-				var z4p2:Number = 1.306562965 * tmp12p2 + z5p2; /* c2+c6 */
-				var z3p2:Number= tmp11p2 * 0.707106781; /* c4 */
+				var z5p2p:Number = (tmp10p2 - tmp12p2) * 0.382683433; /* c6 */
+				var z2p2p:Number = 0.541196100 * tmp10p2 + z5p2; /* c2-c6 */
+				var z4p2p:Number = 1.306562965 * tmp12p2 + z5p2; /* c2+c6 */
+				var z3p2p:Number= tmp11p2 * 0.707106781; /* c4 */
 	
-				var z11p2:Number = tmp7p2 + z3p2;	/* phase 5 */
-				var z13p2:Number = tmp7p2 - z3p2;
+				var z11p2p:Number = tmp7p2 + z3p2;	/* phase 5 */
+				var z13p2p:Number = tmp7p2 - z3p2;
 	
 				data[dataOff+40] = z13p2 + z2p2; /* phase 6 */
 				data[dataOff+24] = z13p2 - z2p2;

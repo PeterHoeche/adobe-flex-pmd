@@ -30,7 +30,9 @@
  */
 package com.adobe.ac.pmd.rules.core.thresholded;
 
-public interface IThresholdedRule
+import com.adobe.ac.pmd.rules.core.IFlexRule;
+
+public interface IThresholdedRule extends IFlexRule
 {
    int getActualValueForTheCurrentViolation();
 
