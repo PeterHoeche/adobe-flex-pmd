@@ -31,8 +31,7 @@
 package com.adobe.ac.cpd;
 
 import net.sourceforge.pmd.cpd.AnyTokenizer;
-import net.sourceforge.pmd.cpd.Tokenizer;
 
-public class FlexTokenizer extends AnyTokenizer implements Tokenizer
+public class FlexTokenizer extends AnyTokenizer
 {
 }

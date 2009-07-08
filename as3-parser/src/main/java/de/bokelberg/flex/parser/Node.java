@@ -43,6 +43,29 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 class Node extends NestedNode implements IParserNode
 {
+   public static Node create( final NodeKind idToBeSet,
+                              final int lineToBeSet,
+                              final int columnToBeSet )
+   {
+      return new Node( idToBeSet, lineToBeSet, columnToBeSet );
+   }
+
+   public static Node create( final NodeKind idToBeSet,
+                              final int lineToBeSet,
+                              final int columnToBeSet,
+                              final IParserNode childToBeSet )
+   {
+      return new Node( idToBeSet, lineToBeSet, columnToBeSet, childToBeSet );
+   }
+
+   public static Node create( final NodeKind idToBeSet,
+                              final int lineToBeSet,
+                              final int columnToBeSet,
+                              final String valueToBeSet )
+   {
+      return new Node( idToBeSet, lineToBeSet, columnToBeSet, valueToBeSet );
+   }
+
    private static boolean isNameInArray( final String[] strings,
                                          final String string )
    {
@@ -57,12 +80,14 @@ class Node extends NestedNode implements IParserNode
    }
 
    private final int column;
+
    private final int line;
+
    private String    stringValue;
 
-   public Node( final NodeKind idToBeSet,
-                final int lineToBeSet,
-                final int columnToBeSet )
+   private Node( final NodeKind idToBeSet,
+                 final int lineToBeSet,
+                 final int columnToBeSet )
    {
       super( idToBeSet );
 
@@ -70,10 +95,10 @@ class Node extends NestedNode implements IParserNode
       column = columnToBeSet;
    }
 
-   public Node( final NodeKind idToBeSet,
-                final int lineToBeSet,
-                final int columnToBeSet,
-                final IParserNode childToBeSet )
+   private Node( final NodeKind idToBeSet,
+                 final int lineToBeSet,
+                 final int columnToBeSet,
+                 final IParserNode childToBeSet )
    {
       super( idToBeSet, childToBeSet );
 
@@ -81,10 +106,10 @@ class Node extends NestedNode implements IParserNode
       column = columnToBeSet;
    }
 
-   public Node( final NodeKind idToBeSet,
-                final int lineToBeSet,
-                final int columnToBeSet,
-                final String valueToBeSet )
+   private Node( final NodeKind idToBeSet,
+                 final int lineToBeSet,
+                 final int columnToBeSet,
+                 final String valueToBeSet )
    {
       this( idToBeSet, lineToBeSet, columnToBeSet );
 

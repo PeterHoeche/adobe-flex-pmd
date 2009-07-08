@@ -168,7 +168,10 @@ class NestedNode
                         final int childColumn,
                         final IParserNode nephew )
    {
-      addChild( new Node( childId, childLine, childColumn, nephew ) );
+      addChild( Node.create( childId,
+                             childLine,
+                             childColumn,
+                             nephew ) );
    }
 
    final void addChild( final NodeKind childId,
@@ -176,7 +179,10 @@ class NestedNode
                         final int childColumn,
                         final String value )
    {
-      addChild( new Node( childId, childLine, childColumn, value ) );
+      addChild( Node.create( childId,
+                             childLine,
+                             childColumn,
+                             value ) );
    }
 
    final void setId( final NodeKind idToBeSet )
