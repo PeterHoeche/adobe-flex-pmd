@@ -57,7 +57,7 @@ class WarningRule extends AbstractFlexRule
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override

@@ -37,6 +37,8 @@
 
     <mx:Script>
         <![CDATA[
+        	import com.adobe.ac.pmd.view.model.ResultsModel;
+
             [Bindable]
             public var model : ResultsModel;
         ]]>

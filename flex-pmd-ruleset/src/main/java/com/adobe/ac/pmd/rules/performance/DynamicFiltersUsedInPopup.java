@@ -45,7 +45,7 @@ public class DynamicFiltersUsedInPopup extends AbstractRegexpBasedRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.HIGH;
    }
 
    @Override

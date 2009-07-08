@@ -43,6 +43,6 @@ public class MoreThanTwoEntryPointsInMxmlRule extends AbstractMoreThanEntryPoint
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 }

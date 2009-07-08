@@ -39,7 +39,7 @@ public class EmptyCatchStatementRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override

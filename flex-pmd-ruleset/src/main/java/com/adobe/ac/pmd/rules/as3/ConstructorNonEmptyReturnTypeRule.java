@@ -49,6 +49,6 @@ public class ConstructorNonEmptyReturnTypeRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 }

@@ -223,6 +223,16 @@ abstract class AbstractFlexFile implements IFlexFile
             + className;
    }
 
+   public String getLineAt( final int lineIndex )
+   {
+      return lines.get( lineIndex - 1 );
+   }
+
+   public int getLinesNb()
+   {
+      return lines.size();
+   }
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.files.IFlexFile#getLines()

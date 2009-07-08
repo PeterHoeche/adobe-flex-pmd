@@ -81,7 +81,7 @@
             }
          }
          
-         private function displayTitle(item : Object, column : DataGridColumn) : String
+         private function displayTitle(item : Object, column : DataGridColumn) : String // No PMD
          {
             var i  : Iteration = Iteration( item );
             

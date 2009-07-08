@@ -56,6 +56,6 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 }

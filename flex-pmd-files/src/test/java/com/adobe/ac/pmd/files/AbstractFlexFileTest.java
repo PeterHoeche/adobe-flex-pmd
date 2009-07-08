@@ -150,10 +150,10 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    {
       assertEquals( "",
                     141,
-                    as3.getLines().size() );
+                    as3.getLinesNb() );
       assertEquals( "",
                     100,
-                    mxml.getLines().size() );
+                    mxml.getLinesNb() );
    }
 
    @Test

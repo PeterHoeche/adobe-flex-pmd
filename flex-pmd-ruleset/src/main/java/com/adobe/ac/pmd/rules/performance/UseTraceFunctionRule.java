@@ -46,7 +46,9 @@ public class UseTraceFunctionRule extends AbstractAstFlexRule
 
       for ( final IFunction function : functions )
       {
-         for ( final IParserNode statement : function.findPrimaryStatementsInBody( "trace" ) )
+         final List< IParserNode > traceStatements = function.findPrimaryStatementsInBody( "trace" );
+
+         for ( final IParserNode statement : traceStatements )
          {
             addViolation( statement );
          }
@@ -56,6 +58,6 @@ public class UseTraceFunctionRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 }

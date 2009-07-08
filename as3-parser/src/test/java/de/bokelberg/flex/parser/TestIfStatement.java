@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestIfStatement extends AbstractAs3ParserTest
+public class TestIfStatement extends AbstractStatementTest
 {
    @Test
    public void testIf() throws TokenException
@@ -113,28 +113,4 @@ public class TestIfStatement extends AbstractAs3ParserTest
                              + "column=\"18\"><primary line=\"1\" column=\"18\">i</primary>"
                              + "</arguments></call></if>" );
    }
-
-   // @Test
-   // public void testWithE4x() throws TokenException
-   // {
-   // assertStatement(
-   // "",
-   // "if(xml.factory.constructor.parameter.(@index==\"1\" && @optional==\"false\").length() !=0){}",
-   // "" );
-   // }
-
-   private void assertStatement( final String message,
-                                 final String input,
-                                 final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input,
-                  "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals( message,
-                    expected,
-                    result );
-   }
-
 }

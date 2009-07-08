@@ -57,7 +57,8 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
                                                 getTestDirectory() );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
-      assertNotNull( mojo.getName( Locale.ENGLISH ) );
+      assertNotNull( "",
+                     mojo.getName( Locale.ENGLISH ) );
 
       mojo.execute();
 

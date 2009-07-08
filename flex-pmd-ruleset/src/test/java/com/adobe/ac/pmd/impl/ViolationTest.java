@@ -61,7 +61,10 @@ public class ViolationTest extends FlexPmdTestBase
    {
       super();
 
-      position = new ViolationPosition( 10, 20, 30, 30 );
+      position = ViolationPosition.create( 10,
+                                           20,
+                                           30,
+                                           30 );
    }
 
    @Before
@@ -76,9 +79,10 @@ public class ViolationTest extends FlexPmdTestBase
    public void testCompareTo()
    {
       final Violation infoViolation = new Violation( position, INFO_RULE, null );
-      final Violation infoViolation2 = new Violation( new ViolationPosition( 11, 20, 30, 30 ),
-                                                      INFO_RULE,
-                                                      null );
+      final Violation infoViolation2 = new Violation( ViolationPosition.create( 11,
+                                                                                20,
+                                                                                30,
+                                                                                30 ), INFO_RULE, null );
       final Violation warningViolation = new Violation( position, WARNING_RULE, null );
       final Violation warningViolation2 = new Violation( position, WARNING_RULE, null );
 
@@ -103,20 +107,23 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetClassName()
    {
       assertEquals( "",
+                    "",
                     new Violation( position, INFO_RULE, null ).getClassName() );
    }
 
    @Test
    public void testGetDescription()
    {
-      assertEquals( "emptyMessage",
+      assertEquals( "",
+                    "emptyMessage",
                     new Violation( position, INFO_RULE, null ).getDescription() );
    }
 
    @Test
    public void testGetEndColumn()
    {
-      assertEquals( 30,
+      assertEquals( "",
+                    30,
                     new Violation( position, INFO_RULE, null ).getEndColumn() );
    }
 
@@ -124,16 +131,19 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetPackageName()
    {
       assertEquals( "",
+                    "",
                     new Violation( position, INFO_RULE, abstractRowData ).getPackageName() );
    }
 
    @Test
    public void testGetRuleMessage()
    {
-      assertEquals( "emptyMessage",
+      assertEquals( "",
+                    "emptyMessage",
                     new Violation( position, INFO_RULE, null ).getRuleMessage() );
 
-      assertEquals( "warning message",
+      assertEquals( "",
+                    "warning message",
                     new Violation( position, WARNING_RULE, null ).getRuleMessage() );
    }
 
@@ -141,6 +151,7 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetVariableName()
    {
       assertEquals( "",
+                    "",
                     new Violation( position, INFO_RULE, null ).getVariableName() );
    }
 
@@ -148,10 +159,12 @@ public class ViolationTest extends FlexPmdTestBase
    public void testToXmlString() throws FileNotFoundException,
                                 URISyntaxException
    {
-      final Violation infoViolation = new Violation( new ViolationPosition( BEGINNING_LINE,
-                                                                            ENDING_LINE,
-                                                                            BEGINNING_COLUMN,
-                                                                            ENDING_COLUMN ), INFO_RULE, null );
+      final Violation infoViolation = new Violation( ViolationPosition.create( BEGINNING_LINE,
+                                                                               ENDING_LINE,
+                                                                               BEGINNING_COLUMN,
+                                                                               ENDING_COLUMN ),
+                                                     INFO_RULE,
+                                                     null );
 
       assertEquals( "As3 file at a root level",
                     "      <violation beginline=\""
@@ -164,10 +177,10 @@ public class ViolationTest extends FlexPmdTestBase
                     infoViolation.toXmlString( abstractRowData,
                                                RULE_SET_NAME ) );
 
-      final Violation warningViolation = new Violation( new ViolationPosition( BEGINNING_LINE,
-                                                                               ENDING_LINE,
-                                                                               BEGINNING_COLUMN,
-                                                                               ENDING_COLUMN ),
+      final Violation warningViolation = new Violation( ViolationPosition.create( BEGINNING_LINE,
+                                                                                  ENDING_LINE,
+                                                                                  BEGINNING_COLUMN,
+                                                                                  ENDING_COLUMN ),
                                                         WARNING_RULE,
                                                         null );
 

@@ -62,12 +62,10 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
 
       if ( publicVarCount > getThreshold() )
       {
-         addViolation( new ViolationPosition( lastPublicVarLine,
-                                              lastPublicVarLine,
-                                              0,
-                                              getCurrentFile().getLines()
-                                                              .get( lastPublicVarLine - 1 )
-                                                              .length() ) );
+         addViolation( ViolationPosition.create( lastPublicVarLine,
+                                                 lastPublicVarLine,
+                                                 0,
+                                                 getCurrentFile().getLineAt( lastPublicVarLine - 1 ).length() ) );
       }
    }
 

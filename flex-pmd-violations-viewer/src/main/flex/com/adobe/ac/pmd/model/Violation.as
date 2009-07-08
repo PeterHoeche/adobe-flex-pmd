@@ -34,40 +34,55 @@ package com.adobe.ac.pmd.model
     [Bindable]
     public class Violation
     {
-        public function Violation()
+        private var _position : ViolationPosition;
+        private var _rule : Rule;
+        private var _violatedFile : File;
+
+        public function Violation( begin : CharacterPosition, end : CharacterPosition, violatedFilePath : String )
         {
-            position = new ViolationPosition();
-            rule = new Rule();
-            violatedFile = new File();
+            _position = new ViolationPosition( begin, end );
+            _rule = new Rule();
+            _violatedFile = new File( violatedFilePath );
         }
 
-        public var position : ViolationPosition;
-        public var rule : Rule;
-        public var violatedFile : File;
+        public function get rule() : Rule
+        {
+            return _rule;
+        }
+
+        public function get position() : ViolationPosition
+        {
+            return _position;
+        }
 
         public function get shortPath() : String
         {
-            return violatedFile.shortPath;
+            return _violatedFile.shortPath;
         }
-        
+
+        public function get filePath() : String
+        {
+            return _violatedFile.path;
+        }
+
         public function get shortRuleName() : String
         {
-        	return rule.shortName;
+            return _rule.shortName;
         }
-        
+
         public function get beginLine() : Number
         {
-        	return position.begin.line;
+            return _position.begin.line;
         }
-        
+
         public function get message() : String
         {
-        	return rule.message;
+            return _rule.message;
         }
-        
+
         public function get priority() : ViolationPriority
         {
-        	return rule.priority;
+            return _rule.priority;
         }
     }
 }

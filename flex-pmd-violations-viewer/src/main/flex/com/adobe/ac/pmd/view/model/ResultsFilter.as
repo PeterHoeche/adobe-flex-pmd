@@ -28,44 +28,33 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3.event;
-
-import java.util.List;
-
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class UntypedEventMetadataRule extends AbstractAstFlexRule
+package com.adobe.ac.pmd.view.model
 {
-   @Override
-   protected final void findViolations( final IClass classNode )
-   {
-      final List< IMetaData > eventMetaData = classNode.getMetaData( "Event" );
+    import com.adobe.ac.pmd.model.Violation;
+    import com.adobe.ac.pmd.model.ViolationPriority;
+    
+    import mx.collections.GroupingField;
 
-      if ( eventMetaData != null )
-      {
-         findViolationsInMetaDataNode( eventMetaData );
-      }
-   }
+    public final class ResultsFilter
+    {
+        public static const VIOLATION_PRIORITIES : Array = [ 
+        				{ name: "All", level: 0 }, 
+        				ViolationPriority.ERROR, 
+        				ViolationPriority.WARNING,
+            			ViolationPriority.INFO ];
+    	public static const FILE_PATH_GROUPFIELD : GroupingField = new GroupingField( "shortPath" );
+    	public static const RULENAME_GROUPFIELD : GroupingField = new GroupingField( "shortRuleName" );
+    	public static const GROUPING_FIELDS : Array = [ FILE_PATH_GROUPFIELD, RULENAME_GROUPFIELD ];
 
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.LOW;
-   }
+        public static var currentPriorityVisible : int = 1;
 
-   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas )
-   {
-      for ( final IMetaData metaData : eventMetaDatas )
-      {
-         final String metaDataValue = metaData.getInternalNode().getStringValue();
-
-         if ( !metaDataValue.contains( "type = \"" ) )
-         {
-            addViolation( metaData );
-         }
-      }
-   }
+        public static function filterViolation( value : Object ) : Boolean
+        {
+            if ( currentPriorityVisible == 0 )
+            {
+                return true;
+            }
+            return ( value as Violation ).rule.priority.level == currentPriorityVisible;
+        }
+    }
 }

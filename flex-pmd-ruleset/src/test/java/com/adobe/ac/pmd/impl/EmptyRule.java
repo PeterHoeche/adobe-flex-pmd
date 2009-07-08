@@ -73,7 +73,7 @@ class EmptyRule extends AbstractMaximizedFlexRule
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 
    @Override

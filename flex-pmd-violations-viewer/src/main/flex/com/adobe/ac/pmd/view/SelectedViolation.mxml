@@ -106,8 +106,8 @@
 
         <mx:VBox>
 
-            <mx:Label text="{ violation.violatedFile.shortPath }"
-            	toolTip="{ violation.violatedFile.path }"
+            <mx:Label text="{ violation.shortPath }"
+            	toolTip="{ violation.filePath }"
                 />
 
             <mx:HBox>

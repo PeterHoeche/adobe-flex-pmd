@@ -69,7 +69,7 @@ public class FatControllerRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    private int computeCommandsCountInImport( final List< IParserNode > imports )

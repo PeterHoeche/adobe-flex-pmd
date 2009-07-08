@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestTryCatchFinallyStatement extends AbstractAs3ParserTest
+public class TestTryCatchFinallyStatement extends AbstractStatementTest
 {
    @Test
    public void testCatch() throws TokenException
@@ -68,19 +68,5 @@ public class TestTryCatchFinallyStatement extends AbstractAs3ParserTest
                              + "<call line=\"1\" column=\"11\"><primary line=\"1\" column=\"6\">"
                              + "trace</primary><arguments line=\"1\" column=\"13\"><primary line=\"1\" column=\"13\">"
                              + "true</primary></arguments></call></block></try>" );
-   }
-
-   private void assertStatement( final String message,
-                                 final String input,
-                                 final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input,
-                  "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals( message,
-                    expected,
-                    result );
    }
 }

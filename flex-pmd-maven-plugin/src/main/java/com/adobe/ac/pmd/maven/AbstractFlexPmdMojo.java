@@ -49,7 +49,7 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    {
       return ResourceBundle.getBundle( "flexPmd",
                                        locale,
-                                       FlexPmdReportMojo.class.getClassLoader() );
+                                       FlexPmdReportMojo.class.getClassLoader() ); // NOPMD
    }
 
    /**

@@ -115,7 +115,7 @@ package com.adobe.radon.core.controls
         }
 
         override protected function drawRowBackground( s : Sprite, rowIndex : int, y : Number, height : Number, color : uint,
-            dataIndex : int ) : void
+            dataIndex : int ) : void // NO PMD
         {
             var contentHolder : ListBaseContentHolder = ListBaseContentHolder( s.parent );
 

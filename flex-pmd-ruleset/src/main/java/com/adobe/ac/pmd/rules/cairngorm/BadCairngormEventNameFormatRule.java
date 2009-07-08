@@ -66,7 +66,7 @@ public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    private String extractEventName( final IClass classNode )

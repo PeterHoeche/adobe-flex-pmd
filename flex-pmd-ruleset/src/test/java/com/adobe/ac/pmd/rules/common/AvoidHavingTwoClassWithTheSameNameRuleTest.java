@@ -49,7 +49,7 @@ public class AvoidHavingTwoClassWithTheSameNameRuleTest extends AbstractFlexRule
    protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
       final ViolationPosition[] positions = new ViolationPosition[]
-      { new ViolationPosition( 0, 0 ) };
+      { new ViolationPosition( -1, -1 ) };
 
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                            "AbstractRowData.mxml",

@@ -66,7 +66,7 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 
    @Override

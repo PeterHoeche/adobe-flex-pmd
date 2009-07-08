@@ -95,6 +95,6 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 }

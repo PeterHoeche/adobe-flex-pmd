@@ -59,7 +59,7 @@ public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRu
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override

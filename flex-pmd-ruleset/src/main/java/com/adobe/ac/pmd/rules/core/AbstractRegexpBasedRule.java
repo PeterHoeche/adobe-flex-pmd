@@ -54,9 +54,9 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-      for ( int i = 0; i < file.getLines().size(); i++ )
+      for ( int i = 1; i <= file.getLinesNb(); i++ )
       {
-         final String line = file.getLines().get( i );
+         final String line = file.getLineAt( i );
 
          if ( doesCurrentLineMacthes( line )
                && isViolationDetectedOnThisMatchingLine( line,
@@ -64,7 +64,10 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
          {
             addViolation( violations,
                           file,
-                          new ViolationPosition( i + 1, i + 1, 0, line.length() ) );
+                          ViolationPosition.create( i,
+                                                    i,
+                                                    0,
+                                                    line.length() ) );
          }
       }
       return violations;

@@ -53,7 +53,7 @@ public class CopyrightMissingRule extends AbstractFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override
@@ -64,8 +64,8 @@ public class CopyrightMissingRule extends AbstractFlexRule
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
       final String commentOpeningTag = file.getCommentOpeningTag();
       final boolean hasMxmlCopyright = file instanceof IMxmlFile
-            && file.getLines().size() > 1 && file.getLines().get( 1 ).contains( commentOpeningTag );
-      final String firstLine = file.getLines().get( 0 );
+            && file.getLinesNb() > 1 && file.getLineAt( 2 ).contains( commentOpeningTag );
+      final String firstLine = file.getLineAt( 1 );
       final boolean isFirstLineContainCopyright = firstLine.startsWith( commentOpeningTag );
 
       if ( !isFirstLineContainCopyright
@@ -73,7 +73,7 @@ public class CopyrightMissingRule extends AbstractFlexRule
       {
          addViolation( violations,
                        file,
-                       new ViolationPosition( 0, 0 ) );
+                       new ViolationPosition( -1, -1 ) );
       }
 
       return violations;

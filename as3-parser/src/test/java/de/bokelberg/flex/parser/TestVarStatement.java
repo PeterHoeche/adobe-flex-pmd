@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestVarStatement extends AbstractAs3ParserTest
+public class TestVarStatement extends AbstractStatementTest
 {
    @Test
    public void testFullFeaturedVar() throws TokenException
@@ -88,19 +88,5 @@ public class TestVarStatement extends AbstractAs3ParserTest
                        "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
                              + "<name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">Object</type>"
                              + "</name-type-init></var-list>" );
-   }
-
-   private void assertStatement( final String message,
-                                 final String input,
-                                 final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input,
-                  "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals( message,
-                    expected,
-                    result );
    }
 }

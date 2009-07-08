@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.view.model
 {
     import com.adobe.ac.model.IPresentationModel;
     import com.adobe.ac.pmd.model.Violation;

@@ -47,7 +47,7 @@ public class CreationPolicySetToAllRule extends AbstractRegexpBasedRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override

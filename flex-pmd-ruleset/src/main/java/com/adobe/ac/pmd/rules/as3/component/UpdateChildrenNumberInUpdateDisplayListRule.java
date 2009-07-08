@@ -66,6 +66,6 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.HIGH;
    }
 }

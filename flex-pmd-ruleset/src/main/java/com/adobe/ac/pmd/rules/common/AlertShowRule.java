@@ -45,7 +45,7 @@ public class AlertShowRule extends AbstractRegexpBasedRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 
    @Override

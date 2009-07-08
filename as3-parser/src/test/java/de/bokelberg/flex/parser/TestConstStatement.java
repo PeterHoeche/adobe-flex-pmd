@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestConstStatement extends AbstractAs3ParserTest
+public class TestConstStatement extends AbstractStatementTest
 {
    @Test
    public void testFullFeaturedConst() throws TokenException
@@ -77,19 +77,5 @@ public class TestConstStatement extends AbstractAs3ParserTest
                        "<const-list line=\"1\" column=\"7\"><name-type-init line=\"1\" column=\"7\">"
                              + "<name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"9\">Object</type>"
                              + "</name-type-init></const-list>" );
-   }
-
-   private void assertStatement( final String message,
-                                 final String input,
-                                 final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input,
-                  "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals( message,
-                    expected,
-                    result );
    }
 }

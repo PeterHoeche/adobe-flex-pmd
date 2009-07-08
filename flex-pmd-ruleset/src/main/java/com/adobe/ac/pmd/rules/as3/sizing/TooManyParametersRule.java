@@ -51,7 +51,7 @@ public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 
    @Override

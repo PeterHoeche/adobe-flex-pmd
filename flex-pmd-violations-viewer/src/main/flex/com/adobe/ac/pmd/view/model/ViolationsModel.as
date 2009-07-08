@@ -28,33 +28,69 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.view.model
 {
-    import com.adobe.ac.pmd.model.Violation;
-    import com.adobe.ac.pmd.model.ViolationPriority;
-    
-    import mx.collections.GroupingField;
+	import com.adobe.ac.pmd.model.Violation;
+	
+	import mx.collections.ArrayCollection;
+	
+	public class ViolationsModel
+	{
+        private var _errors : int = 0;
+        private var _warnings : int = 0;
+        private var _informations : int = 0;
+        private var _violations : ArrayCollection;
+        
+		public function ViolationsModel()
+		{
+		}
+		
+		public function get violations() : ArrayCollection
+		{
+			return _violations;
+		}
+		
+		public function get errors() : int
+		{
+			return _errors;
+		}
+		
+		public function get warnings() : int
+		{
+			return _warnings;
+		}
+		
+		public function get informations() : int
+		{
+			return _informations;
+		}
 
-    public final class ResultsFilter
-    {
-        public static const VIOLATION_PRIORITIES : Array = [ 
-        				{ name: "All", level: 0 }, 
-        				ViolationPriority.ERROR, 
-        				ViolationPriority.WARNING,
-            			ViolationPriority.INFO ];
-    	public static const FILE_PATH_GROUPFIELD : GroupingField = new GroupingField( "shortPath" );
-    	public static const RULENAME_GROUPFIELD : GroupingField = new GroupingField( "shortRuleName" );
-    	public static const GROUPING_FIELDS : Array = [ FILE_PATH_GROUPFIELD, RULENAME_GROUPFIELD ];
-
-        public static var currentPriorityVisible : int = 1;
-
-        public static function filterViolation( value : Object ) : Boolean
+		public function set violations( value : ArrayCollection ) : void
         {
-            if ( currentPriorityVisible == 0 )
+            _violations = value;
+            _violations.filterFunction = ResultsFilter.filterViolation;
+
+            for each ( var violation : Violation in _violations )
             {
-                return true;
+                if ( violation.rule.priority.level == 1 )
+                {
+                    _errors++;
+                }
+                else if ( violation.rule.priority.level == 3 )
+                {
+                    _warnings++;
+                }
+                else if ( violation.rule.priority.level == 5 )
+                {
+                    _informations++;
+                }
             }
-            return ( value as Violation ).rule.priority.level == currentPriorityVisible;
+            _violations.refresh();
         }
-    }
+        
+        public function filter() : void
+        {
+        	_violations.refresh();
+        }
+	}
 }

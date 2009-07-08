@@ -31,7 +31,8 @@
      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+<mx:VBox xmlns:model="com.adobe.ac.pmd.view.model.*"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
     xmlns:view="com.adobe.ac.pmd.view.*"
     width="100%"
     height="100%"
@@ -54,10 +55,22 @@
             {
                 gc.refresh();
             }
+
+            private function groupLabelFunction( item : Object, column : AdvancedDataGridColumn ) : String
+            {
+                if ( item && item.children )
+                {
+                    return item[ gc.grouping.label ] + " (" + item.children.length + ")";
+                }
+                else
+                {
+                    return item[ column.dataField ];
+                }
+            }
         ]]>
     </mx:Script>
 
-    <view:ResultsModel id="model"
+    <model:ResultsModel id="model"
         currentVisibilityChange="currentVisibilityChange()"
         />
 
@@ -89,6 +102,7 @@
             height="100%"
             dataProvider="{ gc }"
             change="model.selectedViolation = dg.selectedItem as Violation"
+            groupLabelFunction="groupLabelFunction"
             >
 
             <mx:columns>

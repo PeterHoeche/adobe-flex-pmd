@@ -47,7 +47,7 @@ public class AvoidHavingTwoClassWithTheSameNameRule extends AbstractFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.HIGH;
    }
 
    @Override
@@ -62,7 +62,7 @@ public class AvoidHavingTwoClassWithTheSameNameRule extends AbstractFlexRule
                                                            final Map< String, IFlexFile > files )
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
-      final ViolationPosition position = new ViolationPosition( 0, 0 );
+      final ViolationPosition position = new ViolationPosition( -1, -1 );
 
       for ( final Entry< String, IFlexFile > currentFileEntry : files.entrySet() )
       {

@@ -66,6 +66,6 @@ public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.HIGH;
    }
 }

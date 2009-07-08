@@ -30,18 +30,23 @@
  */
 package com.adobe.ac.pmd.model
 {
-	public class File
-	{
-		[Bindable]
-        public var path : String;
+    public class File
+    {
+        private var _path : String;
 
-		public function File()
-		{
-		}
-        
+        public function File( path : String )
+        {
+            _path = path;
+        }
+
+        public function get path() : String
+        {
+            return _path;
+        }
+
         public function get shortPath() : String
         {
-        	var srcIndex : int = path.indexOf( "src" );
+            var srcIndex : int = path.indexOf( "src" );
 
             if ( srcIndex != -1 )
             {
@@ -50,5 +55,5 @@ package com.adobe.ac.pmd.model
             }
             return path;
         }
-	}
+    }
 }

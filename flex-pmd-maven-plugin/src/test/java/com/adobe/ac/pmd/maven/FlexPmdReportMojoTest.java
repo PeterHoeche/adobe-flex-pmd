@@ -55,7 +55,8 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
                                                             getTestDirectory() );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
-      assertNotNull( mojo.getName( Locale.ENGLISH ) );
+      assertNotNull( "",
+                     mojo.getName( Locale.ENGLISH ) );
 
       mojo.execute();
    }
@@ -67,7 +68,9 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
       final ResourceBundle bundle = AbstractFlexPmdMojo.getBundle( availableLocales[ 0 ] );
       final ResourceBundle englishBundle = AbstractFlexPmdMojo.getBundle( Locale.ENGLISH );
 
-      assertNotNull( bundle );
-      assertNotNull( englishBundle );
+      assertNotNull( "",
+                     bundle );
+      assertNotNull( "",
+                     englishBundle );
    }
 }

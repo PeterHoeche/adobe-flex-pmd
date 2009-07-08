@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.rules.core;
 
 public enum ViolationPriority
 {
-   ERROR
+   HIGH
    {
       @Override
       public String toString()
@@ -40,7 +40,7 @@ public enum ViolationPriority
          return "1";
       }
    },
-   INFO
+   LOW
    {
       @Override
       public String toString()
@@ -48,7 +48,7 @@ public enum ViolationPriority
          return "5";
       }
    },
-   WARNING
+   NORMAL
    {
       @Override
       public String toString()

@@ -57,7 +57,7 @@ public class ClassAndExtensionAreIdenticalRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.HIGH;
    }
 
    private String extractExtensionName( final String extensionName )

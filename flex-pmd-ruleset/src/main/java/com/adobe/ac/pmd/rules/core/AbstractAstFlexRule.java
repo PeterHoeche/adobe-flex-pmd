@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.StackTraceUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.impl.ViolationFactory;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IConstant;
@@ -185,10 +184,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                                                 final IParserNode endNode,
                                                 final String... messageToReplace )
    {
-      final IFlexViolation violation = addViolation( new ViolationPosition( beginningNode.getLine(),
-                                                                            endNode.getLine(),
-                                                                            beginningNode.getColumn(),
-                                                                            endNode.getColumn() ) );
+      final IFlexViolation violation = addViolation( ViolationPosition.create( beginningNode.getLine(),
+                                                                               endNode.getLine(),
+                                                                               beginningNode.getColumn(),
+                                                                               endNode.getColumn() ) );
 
       for ( int i = 0; i < messageToReplace.length; i++ )
       {
@@ -219,14 +218,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
     */
    protected final IFlexViolation addViolation( final ViolationPosition violationPosition )
    {
-      final IFlexViolation violation = ViolationFactory.create( violationPosition,
-                                                                this,
-                                                                currentFile );
-
-      prettyPrintMessage( violation );
-      violations.add( violation );
-
-      return violation;
+      return addViolation( violations,
+                           currentFile,
+                           violationPosition );
    }
 
    /**

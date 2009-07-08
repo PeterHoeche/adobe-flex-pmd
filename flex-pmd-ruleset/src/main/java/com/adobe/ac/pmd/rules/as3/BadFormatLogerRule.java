@@ -81,7 +81,7 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 
    private void lookupStringMethodArguments( final IFieldInitialization initializationExpression,

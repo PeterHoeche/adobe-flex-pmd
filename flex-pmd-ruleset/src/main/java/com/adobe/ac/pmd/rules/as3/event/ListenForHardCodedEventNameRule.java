@@ -45,7 +45,7 @@ public class ListenForHardCodedEventNameRule extends AbstractRegexpBasedRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override

@@ -61,7 +61,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas,

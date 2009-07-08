@@ -159,9 +159,15 @@ package com.adobe.ac
 	<rule class="com.adobe.ac.pmd.rules.common.CallLaterDirectlyRule"
 		message="Don't call 'callLater' explicitly">
 		<description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component lifecycle.</description>
+		<priority>1</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.common.AvoidHavingTwoClassWithTheSameNameRule"
 		message="Another file with the same class name exist in the source path">
-		<description/>
+		<priority>3</priority>
+	</rule>
+	
+	<rule class="com.adobe.ac.pmd.rules.common.CopyrightMissingRule"
+		message="The copyright header is missing in this file">
+		<priority>5</priority>
 	</rule>
 </ruleset>

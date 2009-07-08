@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.files;
 
-import java.util.List;
-
 public interface IFlexFile extends Comparable< IFlexFile >
 {
    boolean contains( final String stringToLookup,
@@ -79,7 +77,9 @@ public interface IFlexFile extends Comparable< IFlexFile >
 
    String getFullyQualifiedName();
 
-   List< String > getLines();
+   String getLineAt( int lineIndex );
+
+   int getLinesNb();
 
    String getPackageName();
 
@@ -92,5 +92,4 @@ public interface IFlexFile extends Comparable< IFlexFile >
     * @return true if the file is a MXML file
     */
    boolean isMxml();
-
 }

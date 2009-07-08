@@ -43,7 +43,7 @@ import com.adobe.ac.pmd.nodes.Modifier;
 public class ModifierHolderByVisibilityAndStaticityComparatorTest
 {
    @Test
-   public void testCompare()
+   public void testCompare() // NOPMD by xagnetti on 7/7/09 3:13 PM
    {
       final List< VisibleMock > fields = new ArrayList< VisibleMock >();
 

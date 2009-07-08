@@ -52,7 +52,7 @@ public class UncorrectClassCase extends AbstractFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.WARNING;
+      return ViolationPriority.NORMAL;
    }
 
    @Override
@@ -68,7 +68,7 @@ public class UncorrectClassCase extends AbstractFlexRule
       {
          addViolation( violations,
                        file,
-                       new ViolationPosition( 1, file.getLines().size() ) );
+                       new ViolationPosition( 1, file.getLinesNb() ) );
       }
       return violations;
    }

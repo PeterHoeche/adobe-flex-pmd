@@ -55,7 +55,7 @@ public class AvoidProtectedFieldInFinalClassRule extends AbstractAstFlexRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.INFO;
+      return ViolationPriority.LOW;
    }
 
    private void findProtectedAttributes( final List< IAttribute > atributes,

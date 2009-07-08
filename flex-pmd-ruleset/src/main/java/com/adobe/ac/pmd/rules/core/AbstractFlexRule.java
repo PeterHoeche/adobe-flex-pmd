@@ -111,16 +111,29 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violations;
    }
 
-   protected final void addViolation( final List< IFlexViolation > violations,
-                                      final IFlexFile file,
-                                      final ViolationPosition position )
+   protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
+                                                final IFlexFile file,
+                                                final ViolationPosition position )
    {
       final IFlexViolation violation = ViolationFactory.create( position,
                                                                 this,
                                                                 file );
+      final int beginLine = position.getBeginLine();
 
       prettyPrintMessage( violation );
-      violations.add( violation );
+
+      if ( beginLine == -1
+            || beginLine == 0 )
+      {
+         violations.add( violation );
+      }
+      else if ( beginLine <= file.getLinesNb()
+            && isViolationNotIgnored( file.getLineAt( beginLine ) ) )
+      {
+         violations.add( violation );
+      }
+
+      return violation;
    }
 
    protected abstract ViolationPriority getDefaultPriority();
@@ -185,6 +198,12 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    protected abstract List< IFlexViolation > processFileBody( final IPackage packageToBeProcessed,
                                                               final IFlexFile fileToBeProcessed,
                                                               final Map< String, IFlexFile > filesInTheSourcePath );
+
+   private boolean isViolationNotIgnored( final String violatiedLine )
+   {
+      return !violatiedLine.contains( "// No PMD" )
+            && !violatiedLine.contains( "// NO PMD" );
+   }
 
    private void setDefaultPriority()
    {

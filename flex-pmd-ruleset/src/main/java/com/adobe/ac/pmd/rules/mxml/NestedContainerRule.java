@@ -58,7 +58,7 @@ public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.ERROR;
+      return ViolationPriority.HIGH;
    }
 
    @Override

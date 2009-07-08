@@ -59,7 +59,7 @@ class VisibleMock implements IVisible, INamable
       return name;
    }
 
-   public boolean is( final Modifier modifier )
+   public boolean is( final Modifier modifier ) // NOPMD by xagnetti on 7/7/09 3:13 PM
    {
       return modifiers.containsKey( modifier );
    }

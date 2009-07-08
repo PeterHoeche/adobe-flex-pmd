@@ -34,7 +34,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestEmptyStatement extends AbstractAs3ParserTest
+public class TestEmptyStatement extends AbstractStatementTest
 {
    @Test
    public void testComplex() throws TokenException
@@ -53,19 +53,4 @@ public class TestEmptyStatement extends AbstractAs3ParserTest
                        ";",
                        "<stmt-empty line=\"1\" column=\"1\">;</stmt-empty>" );
    }
-
-   private void assertStatement( final String message,
-                                 final String input,
-                                 final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { input,
-                  "__END__" } );
-      asp.nextToken();
-      final String result = new ASTToXMLConverter().convert( asp.parseStatement() );
-      assertEquals( message,
-                    expected,
-                    result );
-   }
-
 }

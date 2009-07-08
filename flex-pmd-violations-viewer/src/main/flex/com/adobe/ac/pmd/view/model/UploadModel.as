@@ -28,9 +28,10 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.view.model
 {
     import com.adobe.ac.model.IPresentationModel;
+    import com.adobe.ac.pmd.model.CharacterPosition;
     import com.adobe.ac.pmd.model.Violation;
     import com.adobe.ac.pmd.model.ViolationPriority;
     
@@ -41,9 +42,7 @@ package com.adobe.ac.pmd.view
     import flash.utils.ByteArray;
     
     import mx.collections.ArrayCollection;
-    import mx.controls.Alert;
     import mx.core.Application;
-    import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
     import mx.rpc.http.mxml.HTTPService;
 
@@ -106,17 +105,18 @@ package com.adobe.ac.pmd.view
 
         private function deserializeViolation( violationXml : XML, filePath : String ) : Violation
         {
-            var violation : Violation = new Violation();
+        	var beginPosition : CharacterPosition = new CharacterPosition( 
+        													violationXml.@beginline, 
+        													violationXml.@begincolumn );
+        	var endPosition : CharacterPosition = new CharacterPosition( 
+        													violationXml.@endline, 
+        													violationXml.@endcolumn );
+            var violation : Violation = new Violation( beginPosition, endPosition, filePath );
 
-            violation.position.begin.line = violationXml.@beginline;
-            violation.position.begin.column = violationXml.@begincolumn;
-            violation.position.end.line = violationXml.@endline;
-            violation.position.end.column = violationXml.@endcolumn;
             violation.rule.name = violationXml.@rule;
             violation.rule.ruleset.name = violationXml.@ruleset
             violation.rule.priority = ViolationPriority.create( violationXml.@priority );
             violation.rule.message = violationXml.toString();
-            violation.violatedFile.path = filePath;
 
             return violation;
         }

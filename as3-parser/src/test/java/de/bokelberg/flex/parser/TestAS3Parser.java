@@ -33,26 +33,21 @@ package de.bokelberg.flex.parser;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
-import com.adobe.ac.pmd.parser.IAS3Parser;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestAS3Parser extends TestCase
+public class TestAS3Parser extends AbstractAs3ParserTest
 {
    @Test
    public void testBuildAst() throws IOException,
                              URISyntaxException
    {
-      final IAS3Parser parser = new AS3Parser();
-
       try
       {
-         parser.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
+         asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
 
-         parser.buildAst( getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath() );
+         asp.buildAst( getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath() );
       }
       catch ( final TokenException e )
       {

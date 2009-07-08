@@ -36,14 +36,13 @@ package com.adobe.ac.pmd.view
 
     public final class ResultsFormatter
     {
-        public static function formatViolationsNumberOrBeginLine( item : Object, 
-        														  column : AdvancedDataGridColumn ) : String
+        public static function formatViolationsNumberOrBeginLine( item : Object, column : AdvancedDataGridColumn ) : String
         {
-            if ( item is Violation ) 
-            {
-                var violation : Violation = item as Violation;
+            var violation : Violation = item as Violation;
 
-                return ( item as Violation ).position.begin.line.toString()
+            if ( violation )
+            {
+                return violation.position.begin.line.toString();
             }
             return "";
         }
