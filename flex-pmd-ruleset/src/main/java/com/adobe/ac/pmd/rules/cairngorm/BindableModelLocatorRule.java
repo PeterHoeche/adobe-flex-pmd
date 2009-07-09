@@ -40,14 +40,13 @@ public class BindableModelLocatorRule extends AbstractAstFlexRule
    @Override
    public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
-      return super.isConcernedByTheGivenFile( file )
-            && file.getClassName().endsWith( "ModelLocator.as" );
+      return file.getClassName().endsWith( "ModelLocator.as" );
    }
 
    @Override
    protected final void findViolations( final IClass classNode )
    {
-      if ( classNode.getMetaData( "Bindable" ) != null )
+      if ( classNode.isBindable() )
       {
          addViolation( classNode );
       }

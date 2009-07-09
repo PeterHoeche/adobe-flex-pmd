@@ -63,7 +63,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>defaultLocation</key>
-					<string>~/Work</string>
+					<string>~/Work/repositories/faramir/Professional_Services/Project_Delivery/Q/Quintiles/Release/Main/COMeT_Air/src</string>
 					<key>granularity</key>
 					<integer>1</integer>
 					<key>multipleSelection</key>
@@ -477,14 +477,14 @@ echo file://${viewerDirectory}/flex-pmd-violations-viewer-${flexPmdVersion}.html
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>0525CBB0-ABB2-4178-B1C1-46A8953FEB68</key>
+		<key>696281DB-DB4B-47B4-8C03-C57B0CA0CEE1</key>
 		<dict>
 			<key>from</key>
 			<string>B38DA4F4-3B0A-479A-8996-6FEFB5CE76DE - B38DA4F4-3B0A-479A-8996-6FEFB5CE76DE</string>
 			<key>to</key>
 			<string>7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A - 7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A</string>
 		</dict>
-		<key>64896E88-7672-4E46-B1D9-BB050C3E3483</key>
+		<key>E9FE9148-6A85-4170-99B1-0B6DE9B72FC3</key>
 		<dict>
 			<key>from</key>
 			<string>7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A - 7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A</string>
@@ -501,9 +501,9 @@ echo file://${viewerDirectory}/flex-pmd-violations-viewer-${flexPmdVersion}.html
 		<key>MainSplitViewPosition_v2</key>
 		<real>525</real>
 		<key>windowFrame</key>
-		<string>{{2, 51}, {1440, 827}}</string>
+		<string>{{0, 51}, {1440, 827}}</string>
 		<key>windowFrameTopLeft</key>
-		<string>{{2, 0}, {1440, 827}}</string>
+		<string>{{0, 0}, {1440, 827}}</string>
 		<key>workflowViewScrollPosition</key>
 		<string>{{0, 0}, {915, 576}}</string>
 	</dict>

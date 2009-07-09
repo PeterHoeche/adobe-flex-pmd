@@ -85,7 +85,8 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
          new FlexPmdXmlEngine().executeReport( getSourceDirectory(),
                                                getOutputDirectoryFile(),
                                                getRuleSet(),
-                                               pmd );
+                                               pmd,
+                                               getExcludePackage() );
 
          final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
                                                                             getBundle( locale ),
@@ -96,7 +97,8 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
                                           new File( getOutputDirectory()
                                                 + "/site" ),
                                           getRuleSet(),
-                                          pmd );
+                                          pmd,
+                                          getExcludePackage() );
       }
       catch ( final PMDException e )
       {

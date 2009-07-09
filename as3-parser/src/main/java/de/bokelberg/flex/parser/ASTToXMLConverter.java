@@ -32,7 +32,7 @@ package de.bokelberg.flex.parser;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public final class ASTToXMLConverter
+final class ASTToXMLConverter
 {
    private static String escapeEntities( final String stringToEscape )
    {

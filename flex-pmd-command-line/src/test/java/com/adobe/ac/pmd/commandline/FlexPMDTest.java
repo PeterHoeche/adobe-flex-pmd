@@ -104,10 +104,14 @@ public class FlexPMDTest extends FlexPmdTestBase
                                  URISyntaxException,
                                  IOException
    {
-      FlexPMD.startFlexPMD( new String[]
+      final String[] args = new String[]
       { "-s",
                   getTestDirectory().getAbsolutePath(),
                   "-o",
-                  new File( "target/test" ).getAbsolutePath() } );
+                  new File( "target/test" ).getAbsolutePath(),
+                  "--excludePackage",
+                  "cairngorm." };
+
+      FlexPMD.startFlexPMD( args );
    }
 }

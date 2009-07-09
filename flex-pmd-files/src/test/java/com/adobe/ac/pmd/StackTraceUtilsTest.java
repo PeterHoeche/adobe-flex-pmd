@@ -37,11 +37,11 @@ import org.junit.Test;
 public class StackTraceUtilsTest
 {
    @SuppressWarnings("serial")
-   private class CustomException extends Exception
+   private static class CustomException extends Exception
    {
-      public CustomException( final String arg0 )
+      public CustomException( final String message )
       {
-         super( arg0 );
+         super( message );
       }
    }
 

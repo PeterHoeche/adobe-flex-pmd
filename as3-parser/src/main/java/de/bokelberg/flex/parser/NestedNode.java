@@ -41,13 +41,13 @@ class NestedNode
    private List< IParserNode > children;
    private NodeKind            nodeId;
 
-   public NestedNode( final NodeKind idToBeSet )
+   protected NestedNode( final NodeKind idToBeSet )
    {
       nodeId = idToBeSet;
    }
 
-   public NestedNode( final NodeKind idToBeSet,
-                      final IParserNode childToBeSet )
+   protected NestedNode( final NodeKind idToBeSet,
+                         final IParserNode childToBeSet )
    {
       this( idToBeSet );
       addChild( childToBeSet );

@@ -60,8 +60,6 @@ public class CreationPolicySetToAllRule extends AbstractRegexpBasedRule
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
                                                                   final IFlexFile file )
    {
-      return line.toLowerCase( Locale.FRANCE ).contains( "all" ); // Because
-      // French
-      // rock!
+      return line.toLowerCase( Locale.FRANCE ).contains( "all" );
    }
 }

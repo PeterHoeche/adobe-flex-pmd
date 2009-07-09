@@ -46,7 +46,8 @@ import com.adobe.ac.pmd.files.IFlexFile;
 
 public final class FileUtils
 {
-   public static Map< String, IFlexFile > computeFilesList( final File sourceDirectory ) throws PMDException
+   public static Map< String, IFlexFile > computeFilesList( final File sourceDirectory,
+                                                            final String packageToExclude ) throws PMDException
    {
       final Map< String, IFlexFile > files = new HashMap< String, IFlexFile >();
       final FlexFilter flexFilter = new FlexFilter();
@@ -58,8 +59,12 @@ public final class FileUtils
          final AbstractFlexFile file = create( sourceFile,
                                                sourceDirectory );
 
-         files.put( file.getFullyQualifiedName(),
-                    file );
+         if ( packageToExclude.equals( "" )
+               || !file.getFullyQualifiedName().startsWith( packageToExclude ) )
+         {
+            files.put( file.getFullyQualifiedName(),
+                       file );
+         }
       }
 
       return files;

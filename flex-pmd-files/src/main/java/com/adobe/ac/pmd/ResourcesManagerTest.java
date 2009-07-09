@@ -52,7 +52,10 @@ final class ResourcesManagerTest
    private static ResourcesManagerTest instance = null;
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
-   public static synchronized ResourcesManagerTest getInstance()
+   public static synchronized ResourcesManagerTest getInstance() // NOPMD by
+                                                                 // xagnetti on
+                                                                 // 7/9/09 6:45
+                                                                 // AM
    {
       if ( instance == null )
       {
@@ -81,7 +84,8 @@ final class ResourcesManagerTest
       final URL resource = this.getClass().getResource( "/test" );
 
       testRootDirectory = new File( resource.toURI().getPath() );
-      testFiles = FileUtils.computeFilesList( testRootDirectory );
+      testFiles = FileUtils.computeFilesList( testRootDirectory,
+                                              "" );
    }
 
    public Map< String, IFlexFile > getTestFiles()

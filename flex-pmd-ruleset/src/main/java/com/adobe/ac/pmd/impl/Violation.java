@@ -47,9 +47,9 @@ final class Violation implements IFlexViolation
    private final IFlexRule rule;
    private String          ruleMessage = "";
 
-   public Violation( final ViolationPosition position,
-                     final IFlexRule violatedRule,
-                     final IFlexFile violatedFile )
+   protected Violation( final ViolationPosition position,
+                        final IFlexRule violatedRule,
+                        final IFlexFile violatedFile )
    {
       beginLine = position.getBeginLine();
       endLine = position.getEndLine();
@@ -217,6 +217,11 @@ final class Violation implements IFlexViolation
       return formatter.toString();
    }
 
+   String getNewLine()
+   {
+      return System.getProperty( "line.separator" );
+   }
+
    private int getLinePriority( final IFlexViolation otherViolation )
    {
       int res;
@@ -255,10 +260,5 @@ final class Violation implements IFlexViolation
       }
 
       return res;
-   }
-
-   String getNewLine()
-   {
-      return System.getProperty( "line.separator" );
    }
 }

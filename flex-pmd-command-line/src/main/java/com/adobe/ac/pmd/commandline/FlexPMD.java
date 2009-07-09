@@ -99,12 +99,15 @@ public final class FlexPMD
       if ( areCommandLineOptionsCorrect( args ) )
       {
          final String rulesetRef = getParameterValue( CommandLineOptions.RULE_SET );
+         final String excludePackage = getParameterValue( CommandLineOptions.EXLUDE_PACKAGE );
 
          new FlexPmdXmlEngine().executeReport( new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) ),
                                                new File( getParameterValue( CommandLineOptions.OUTPUT ) ),
                                                rulesetRef != null ? new File( rulesetRef )
                                                                  : null,
-                                               new FlexPmdViolations() );
+                                               new FlexPmdViolations(),
+                                               excludePackage != null ? excludePackage
+                                                                     : "" );
       }
 
       return config.success();
@@ -121,6 +124,9 @@ public final class FlexPMD
                                           true );
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.RULE_SET,
+                                          false );
+      CommandLineUtils.registerParameter( jsap,
+                                          CommandLineOptions.EXLUDE_PACKAGE,
                                           false );
 
       return jsap.parse( args );

@@ -49,8 +49,9 @@ public enum KeyWords
    FINAL("final"),
    FINALLY("finally"),
    FOR("for"),
-   FOREACH("foreach"),
-   FORIN("forin"),
+   /*
+    * FOREACH("foreach"), FORIN("forin"),
+    */
    FUNCTION("function"),
    GET("get"),
    IF("if"),

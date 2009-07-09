@@ -46,9 +46,10 @@ import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 public class FlexPmdAntTask extends Task
 {
-   private File outputDirectory;
-   private File ruleSet;
-   private File sourceDirectory;
+   private File   outputDirectory;
+   private String packageToExclude;
+   private File   ruleSet;
+   private File   sourceDirectory;
 
    @Override
    public final void execute()
@@ -60,7 +61,8 @@ public class FlexPmdAntTask extends Task
          engine.executeReport( sourceDirectory,
                                outputDirectory,
                                ruleSet,
-                               new FlexPmdViolations() );
+                               new FlexPmdViolations(),
+                               packageToExclude );
       }
       catch ( final PMDException e )
       {
@@ -83,6 +85,11 @@ public class FlexPmdAntTask extends Task
    public final void setOutputDirectory( final File outputDirectoryToBeSet )
    {
       outputDirectory = outputDirectoryToBeSet;
+   }
+
+   public final void setPackageToExclude( final String packageToExcludeToBeSet )
+   {
+      packageToExclude = packageToExcludeToBeSet;
    }
 
    public final void setRuleSet( final File ruleSetToBeSet )

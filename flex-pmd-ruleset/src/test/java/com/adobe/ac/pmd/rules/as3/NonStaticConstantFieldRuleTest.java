@@ -67,6 +67,6 @@ public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
                                  { new ViolationPosition( 36, 36 ) } ),
                        "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 38, 38 ) } );
+                       { new ViolationPosition( 39, 39 ) } );
    }
 }

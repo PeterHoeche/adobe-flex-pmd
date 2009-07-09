@@ -45,7 +45,7 @@ import com.adobe.ac.pmd.FlexPmdViolations;
 
 public abstract class AbstractTestFlexPmdEngine extends TestCase
 {
-   protected static final String OUTPUT_DIRECTORY_URL = "target/report/";
+   private static final String OUTPUT_DIRECTORY_URL = "target/report/";
 
    public AbstractTestFlexPmdEngine( final String name )
    {
@@ -73,7 +73,8 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
       engine.executeReport( sourceDirectory,
                             outputDirectory,
                             null,
-                            new FlexPmdViolations() );
+                            new FlexPmdViolations(),
+                            "" );
 
       onTestExecuteReportDone();
    }

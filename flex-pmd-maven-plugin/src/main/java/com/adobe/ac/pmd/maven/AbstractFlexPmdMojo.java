@@ -39,7 +39,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
 
-public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
+abstract class AbstractFlexPmdMojo extends AbstractMavenReport
 {
    protected static final Logger LOGGER      = Logger.getLogger( AbstractFlexPmdMojo.class.getName() );
 
@@ -51,6 +51,8 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
                                        locale,
                                        FlexPmdReportMojo.class.getClassLoader() ); // NOPMD
    }
+
+   private final String excludePackage = "";
 
    /**
     * Location of the file.
@@ -122,6 +124,11 @@ public abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    public final String getOutputName()
    {
       return OUTPUT_NAME;
+   }
+
+   protected final String getExcludePackage()
+   {
+      return excludePackage;
    }
 
    @Override

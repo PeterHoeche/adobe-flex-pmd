@@ -32,7 +32,10 @@ package com.adobe.ac.pmd;
 
 public enum CommandLineOptions
 {
-   OUTPUT("outputDirectory"), RULE_SET("ruleSet"), SOURCE_DIRECTORY("sourceDirectory");
+   EXLUDE_PACKAGE("excludePackage"),
+   OUTPUT("outputDirectory"),
+   RULE_SET("ruleSet"),
+   SOURCE_DIRECTORY("sourceDirectory");
 
    private String name;
 

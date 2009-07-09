@@ -74,7 +74,8 @@ public class FlexPmdMojo extends AbstractFlexPmdMojo
          new FlexPmdXmlEngine().executeReport( getSourceDirectory(),
                                                getOutputDirectoryFile(),
                                                getRuleSet(),
-                                               pmd );
+                                               pmd,
+                                               getExcludePackage() );
       }
       catch ( final PMDException e )
       {

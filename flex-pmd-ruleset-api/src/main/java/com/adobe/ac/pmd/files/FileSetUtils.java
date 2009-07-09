@@ -151,7 +151,7 @@ public final class FileSetUtils
    private static void logErrorWhileBuildingAst( final IFlexFile file,
                                                  final Exception exception )
    {
-      LOGGER.warning( "while building AST on "
+      LOGGER.finer( "while building AST on "
             + file.getFullyQualifiedName() + ", an error occured: " + exception.getMessage() );
    }
 

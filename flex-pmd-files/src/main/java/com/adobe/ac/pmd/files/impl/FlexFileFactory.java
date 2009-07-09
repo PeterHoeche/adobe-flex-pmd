@@ -34,10 +34,10 @@ import java.io.File;
 
 import com.adobe.ac.pmd.files.IFlexFile;
 
-public final class FlexFileFactory
+final class FlexFileFactory
 {
-   public static IFlexFile create( final File sourceFile,
-                                   final File sourceDirectory )
+   protected static IFlexFile create( final File sourceFile,
+                                      final File sourceDirectory )
    {
       IFlexFile file;
 

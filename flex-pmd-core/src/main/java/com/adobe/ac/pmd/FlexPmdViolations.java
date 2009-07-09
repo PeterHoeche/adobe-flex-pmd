@@ -54,7 +54,7 @@ import com.adobe.ac.pmd.rules.core.IFlexRule;
 
 public class FlexPmdViolations
 {
-   public static final Logger                                   LOGGER       = Logger.getLogger( "FlexPmdViolation" );
+   private static final Logger                                  LOGGER       = Logger.getLogger( "FlexPmdViolation" );
    private boolean                                              beenComputed = false;
    private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
 
@@ -64,12 +64,14 @@ public class FlexPmdViolations
    }
 
    public final void computeViolations( final File sourceDirectory,
-                                        final RuleSet ruleSet ) throws PMDException
+                                        final RuleSet ruleSet,
+                                        final String packageToExclude ) throws PMDException
    {
       beenComputed = true;
 
       final Map< String, IFlexRule > rules = computeRulesList( ruleSet );
-      final Map< String, IFlexFile > filesInSourceDirectory = FileUtils.computeFilesList( sourceDirectory );
+      final Map< String, IFlexFile > filesInSourceDirectory = FileUtils.computeFilesList( sourceDirectory,
+                                                                                          packageToExclude );
       final Map< String, IPackage > astsInSourceDirectory = FileSetUtils.computeAsts( filesInSourceDirectory );
 
       for ( final Entry< String, IFlexRule > currentRuleEntry : rules.entrySet() )

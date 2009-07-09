@@ -63,4 +63,8 @@
 		message="creationPolicy to ALL impacts the performance significantly">
 		<priority>1</priority>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.performance.BindableClassRule"
+		message="Globally bindable classes can lead to unexpected behaviour especially when you have a setter to a property, and hits the performance of the application.">
+		<priority>3</priority>	
+	</rule>
 </ruleset>

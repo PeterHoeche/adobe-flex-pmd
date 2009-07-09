@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.parser.exceptions;
 @SuppressWarnings("serial")
 public class TokenException extends Exception
 {
-   public TokenException( final String message )
+   protected TokenException( final String message )
    {
       super( message );
    }

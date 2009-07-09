@@ -76,6 +76,6 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRul
                                              new ViolationPosition( 128, 128 ) } ),
                        "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 34, 34 ) } );
    }
 }

@@ -52,17 +52,17 @@ import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPMDFormat;
 import com.adobe.ac.pmd.files.IFlexFile;
 
-public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
+class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 {
    private final boolean        aggregate;
    private final ResourceBundle bundle;
    private final MavenProject   project;
    private final Sink           sink;
 
-   public FlexPmdHtmlEngine( final Sink sinkToBeSet,
-                             final ResourceBundle bundleToBeSet,
-                             final boolean aggregateToBeSet,
-                             final MavenProject projectToBeSet )
+   protected FlexPmdHtmlEngine( final Sink sinkToBeSet,
+                                final ResourceBundle bundleToBeSet,
+                                final boolean aggregateToBeSet,
+                                final MavenProject projectToBeSet )
    {
       super();
 
@@ -93,11 +93,11 @@ public class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 
       for ( final IFlexFile file : pmd.getViolations().keySet() )
       {
-         final File javaFile = new File( file.getFilePath() );
+         final File javaFile = new File( file.getFilePath() ); // NOPMD
          final List< IFlexViolation > violations = pmd.getViolations().get( file );
 
          reportSink.beginFile( javaFile,
-                               new PmdFileInfo( project, javaFile.getParentFile(), "" ) );
+                               new PmdFileInfo( project, javaFile.getParentFile(), "" ) ); // NOPMD
          ruleContext.setSourceCodeFilename( javaFile.getAbsolutePath() );
 
          for ( final IFlexViolation violation : violations )

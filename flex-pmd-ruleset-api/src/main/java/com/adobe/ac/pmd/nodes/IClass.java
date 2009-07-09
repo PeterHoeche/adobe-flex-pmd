@@ -55,5 +55,7 @@ public interface IClass extends IVisible, IMetaDataListHolder, INamableNode
 
    List< IParserNode > getImplementations();
 
+   boolean isBindable();
+
    boolean isFinal();
 }

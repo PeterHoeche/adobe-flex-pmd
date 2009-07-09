@@ -97,15 +97,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
       if ( isConcernedByTheGivenFile( file ) )
       {
-         onFileProcessingStarting();
-
          violations = processFileBody( rootNode,
                                        file,
                                        files );
-
-         onFileProcessingEnded( rootNode,
-                                file,
-                                violations );
       }
 
       return violations;
@@ -153,29 +147,17 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    protected abstract boolean isConcernedByTheGivenFile( IFlexFile currentFile );
 
-   /**
-    * Overrides this function if you need to compute anything after the file has
-    * been processed.
-    * 
-    * @param rootNode
-    * @param file
-    * @param violations
-    */
-   protected void onFileProcessingEnded( final IPackage rootNode,
-                                         final IFlexFile file,
-                                         final List< IFlexViolation > violations )
+   protected abstract List< IFlexViolation > processFileBody( final IPackage packageToBeProcessed,
+                                                              final IFlexFile fileToBeProcessed,
+                                                              final Map< String, IFlexFile > filesInTheSourcePath );
+
+   private boolean isViolationNotIgnored( final String violatiedLine )
    {
+      return !violatiedLine.contains( "// No PMD" )
+            && !violatiedLine.contains( "// NO PMD" );
    }
 
-   /**
-    * Overrides this method if you need to compute anything before the file is
-    * processed
-    */
-   protected void onFileProcessingStarting()
-   {
-   }
-
-   protected final void prettyPrintMessage( final IFlexViolation violation )
+   private final void prettyPrintMessage( final IFlexViolation violation )
    {
       final int nbOfBraces = violation.getRuleMessage().split( "\\{" ).length - 1;
 
@@ -193,16 +175,6 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
          violation.appendToMessage( ". " );
          violation.appendToMessage( getDescription() );
       }
-   }
-
-   protected abstract List< IFlexViolation > processFileBody( final IPackage packageToBeProcessed,
-                                                              final IFlexFile fileToBeProcessed,
-                                                              final Map< String, IFlexFile > filesInTheSourcePath );
-
-   private boolean isViolationNotIgnored( final String violatiedLine )
-   {
-      return !violatiedLine.contains( "// No PMD" )
-            && !violatiedLine.contains( "// NO PMD" );
    }
 
    private void setDefaultPriority()

@@ -153,6 +153,11 @@ class ClassNode extends AbstractNode implements IClass
       return modifiers.contains( modifier );
    }
 
+   public boolean isBindable()
+   {
+      return metadatas.get( "Bindable" ) != null;
+   }
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IClass#isFinal()

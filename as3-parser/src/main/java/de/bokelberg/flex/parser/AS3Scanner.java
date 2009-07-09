@@ -31,6 +31,7 @@
 package de.bokelberg.flex.parser;
 
 import java.io.StringReader;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.SAXParser;
@@ -46,49 +47,24 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 class AS3Scanner
 {
-   public static class XMLVerifier extends DefaultHandler
-   {
-      public boolean verify( final String text )
-      {
-         // Use the default (non-validating) parser
-         final SAXParserFactory factory = SAXParserFactory.newInstance();
-         factory.setNamespaceAware( false );
-
-         // Parse the input
-         SAXParser saxParser;
-         try
-         {
-            saxParser = factory.newSAXParser();
-            saxParser.parse( new InputSource( new StringReader( text ) ),
-                             this );
-            return true;
-         }
-         catch ( final Throwable e )
-         {
-            e.printStackTrace();
-         }
-         return false;
-      }
-   }
-
-   static class Token
+   static final class Token
    {
       private final int     column;
       private final boolean isNum;
       private final int     line;
       private final String  text;
 
-      public Token( final String textContent,
-                    final int tokenLine,
-                    final int tokenColumn )
+      private Token( final String textContent,
+                     final int tokenLine,
+                     final int tokenColumn )
       {
          this( textContent, tokenLine, tokenColumn, false );
       }
 
-      public Token( final String textContent,
-                    final int tokenLine,
-                    final int tokenColumn,
-                    final boolean isNumToSet )
+      private Token( final String textContent,
+                     final int tokenLine,
+                     final int tokenColumn,
+                     final boolean isNumToSet )
       {
          text = textContent;
          line = tokenLine + 1;
@@ -117,7 +93,34 @@ class AS3Scanner
       }
    }
 
-   public static boolean isDecimalChar( final char currentCharacter )
+   private static class XMLVerifier extends DefaultHandler
+   {
+      public boolean verify( final String text )
+      {
+         // Use the default (non-validating) parser
+         final SAXParserFactory factory = SAXParserFactory.newInstance();
+         factory.setNamespaceAware( false );
+
+         // Parse the input
+         SAXParser saxParser;
+         try
+         {
+            saxParser = factory.newSAXParser();
+            saxParser.parse( new InputSource( new StringReader( text ) ),
+                             this );
+            return true;
+         }
+         catch ( final Throwable e )
+         {
+            LOGGER.finer( e.getMessage() );
+         }
+         return false;
+      }
+   }
+
+   private static final Logger LOGGER = Logger.getLogger( AS3Scanner.class.getName() );
+
+   protected static boolean isDecimalChar( final char currentCharacter )
    {
       return currentCharacter >= '0'
             && currentCharacter <= '9';
@@ -127,7 +130,20 @@ class AS3Scanner
    private int      line;
    private String[] lines = null;
 
-   public Token nextToken()
+   boolean isHexChar( final char currentCharacter )
+   {
+      final boolean isNum = currentCharacter >= '0'
+            && currentCharacter <= '9';
+      final boolean isLower = currentCharacter >= 'A'
+            && currentCharacter <= 'Z';
+      final boolean isUpper = currentCharacter >= 'a'
+            && currentCharacter <= 'z';
+
+      return isNum
+            || isLower || isUpper;
+   }
+
+   protected Token nextToken()
    {
       char currentCharacter;
 
@@ -258,24 +274,11 @@ class AS3Scanner
       return scanWord( currentCharacter );
    }
 
-   public void setLines( final String[] linesToBeSet )
+   protected void setLines( final String[] linesToBeSet )
    {
       lines = linesToBeSet;
       line = 0;
       column = -1;
-   }
-
-   boolean isHexChar( final char currentCharacter )
-   {
-      final boolean isNum = currentCharacter >= '0'
-            && currentCharacter <= '9';
-      final boolean isLower = currentCharacter >= 'A'
-            && currentCharacter <= 'Z';
-      final boolean isUpper = currentCharacter >= 'a'
-            && currentCharacter <= 'z';
-
-      return isNum
-            || isLower || isUpper;
    }
 
    private int computePossibleMatchesMaxLength( final String[] possibleMatches )

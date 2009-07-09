@@ -43,25 +43,25 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 final class Node extends NestedNode implements IParserNode
 {
-   public static Node create( final NodeKind idToBeSet,
-                              final int lineToBeSet,
-                              final int columnToBeSet )
+   protected static Node create( final NodeKind idToBeSet,
+                                 final int lineToBeSet,
+                                 final int columnToBeSet )
    {
       return new Node( idToBeSet, lineToBeSet, columnToBeSet );
    }
 
-   public static Node create( final NodeKind idToBeSet,
-                              final int lineToBeSet,
-                              final int columnToBeSet,
-                              final IParserNode childToBeSet )
+   protected static Node create( final NodeKind idToBeSet,
+                                 final int lineToBeSet,
+                                 final int columnToBeSet,
+                                 final IParserNode childToBeSet )
    {
       return new Node( idToBeSet, lineToBeSet, columnToBeSet, childToBeSet );
    }
 
-   public static Node create( final NodeKind idToBeSet,
-                              final int lineToBeSet,
-                              final int columnToBeSet,
-                              final String valueToBeSet )
+   protected static Node create( final NodeKind idToBeSet,
+                                 final int lineToBeSet,
+                                 final int columnToBeSet,
+                                 final String valueToBeSet )
    {
       return new Node( idToBeSet, lineToBeSet, columnToBeSet, valueToBeSet );
    }

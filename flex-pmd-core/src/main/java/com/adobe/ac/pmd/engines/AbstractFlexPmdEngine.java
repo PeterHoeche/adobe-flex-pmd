@@ -58,9 +58,10 @@ public abstract class AbstractFlexPmdEngine
    public final int executeReport( final File sourceDirectory,
                                    final File outputDirectory,
                                    final File ruleSetFile,
-                                   final FlexPmdViolations flexPmdViolations ) throws PMDException,
-                                                                              URISyntaxException,
-                                                                              IOException
+                                   final FlexPmdViolations flexPmdViolations,
+                                   final String packageToExclude ) throws PMDException,
+                                                                  URISyntaxException,
+                                                                  IOException
    {
 
       if ( sourceDirectory == null )
@@ -77,7 +78,8 @@ public abstract class AbstractFlexPmdEngine
       if ( !flexPmdViolations.hasViolationsBeenComputed() )
       {
          computeViolations( sourceDirectory,
-                            flexPmdViolations );
+                            flexPmdViolations,
+                            packageToExclude );
       }
       writeReport( outputDirectory,
                    flexPmdViolations );
@@ -106,12 +108,14 @@ public abstract class AbstractFlexPmdEngine
    }
 
    private void computeViolations( final File sourceDirectory,
-                                   final FlexPmdViolations flexPmdViolations ) throws PMDException
+                                   final FlexPmdViolations flexPmdViolations,
+                                   final String packageToExclude ) throws PMDException
    {
       final long startTime = System.currentTimeMillis();
 
       flexPmdViolations.computeViolations( sourceDirectory,
-                                           ruleSet );
+                                           ruleSet,
+                                           packageToExclude );
       final long ellapsedTime = System.currentTimeMillis()
             - startTime;
       LOGGER.info( "It took "

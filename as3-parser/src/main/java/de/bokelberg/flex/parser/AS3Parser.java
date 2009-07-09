@@ -289,15 +289,17 @@ public class AS3Parser implements IAS3Parser
       {
          result.addChild( parseE4XAttributeIdentifier() );
       }
-      else if ( tok.isNum()
-            || tokIs( KeyWords.TRUE ) || tokIs( KeyWords.FALSE ) || tokIs( KeyWords.NULL )
-            || tok.getText().startsWith( Operators.DOUBLE_QUOTE.toString() )
-            || tok.getText().startsWith( Operators.SIMPLE_QUOTE.toString() )
-            || tok.getText().startsWith( Operators.SLASH.toString() )
-            || tok.getText().startsWith( Operators.INFERIOR.toString() ) || tokIs( KeyWords.UNDEFINED ) )
-      {
-         nextToken();
-      }
+      // else if ( tok.isNum()
+      // || tokIs( KeyWords.TRUE ) || tokIs( KeyWords.FALSE ) || tokIs(
+      // KeyWords.NULL )
+      // || tok.getText().startsWith( Operators.DOUBLE_QUOTE.toString() )
+      // || tok.getText().startsWith( Operators.SIMPLE_QUOTE.toString() )
+      // || tok.getText().startsWith( Operators.SLASH.toString() )
+      // || tok.getText().startsWith( Operators.INFERIOR.toString() ) || tokIs(
+      // KeyWords.UNDEFINED ) )
+      // {
+      // nextToken();
+      // }
       else
       {
          nextToken();
