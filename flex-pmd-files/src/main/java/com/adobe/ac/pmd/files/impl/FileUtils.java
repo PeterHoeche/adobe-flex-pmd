@@ -59,7 +59,7 @@ public final class FileUtils
          final AbstractFlexFile file = create( sourceFile,
                                                sourceDirectory );
 
-         if ( packageToExclude.equals( "" )
+         if ( "".equals( packageToExclude )
                || !file.getFullyQualifiedName().startsWith( packageToExclude ) )
          {
             files.put( file.getFullyQualifiedName(),
