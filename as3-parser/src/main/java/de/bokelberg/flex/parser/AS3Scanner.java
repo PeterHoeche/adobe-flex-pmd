@@ -54,17 +54,17 @@ class AS3Scanner
       private final int     line;
       private final String  text;
 
-      private Token( final String textContent,
-                     final int tokenLine,
-                     final int tokenColumn )
+      protected Token( final String textContent,
+                       final int tokenLine,
+                       final int tokenColumn )
       {
          this( textContent, tokenLine, tokenColumn, false );
       }
 
-      private Token( final String textContent,
-                     final int tokenLine,
-                     final int tokenColumn,
-                     final boolean isNumToSet )
+      protected Token( final String textContent,
+                       final int tokenLine,
+                       final int tokenColumn,
+                       final boolean isNumToSet )
       {
          text = textContent;
          line = tokenLine + 1;
