@@ -31,7 +31,7 @@
 		<compileSource>1.5</compileSource>
 		<cobertura.version>2.2</cobertura.version>
 		<junit.version>4.0</junit.version>
-		<as3-plugin-utils.version>1.1</as3-plugin-utils.version>
+		<as3-plugin-utils.version>${project.version}</as3-plugin-utils.version>
 		<commons-lang.version>2.4</commons-lang.version>
 		<as3-parser.version>1.3-SNAPSHOT</as3-parser.version>
 		<findbugs.version>2.1</findbugs.version>
@@ -113,6 +113,7 @@
 	<modules>
 		<module>../as3-parser</module>
 		<module>../as3-parser-api</module>
+		<module>../as3-plugin-utils</module>
 		<module>../flex-pmd-test-resources</module>
 		<module>../flex-pmd-ruleset</module>
 		<module>../flex-pmd-ruleset-api</module>
@@ -127,6 +128,7 @@
 		<module>../flex-pmd-files</module>
 		<module>../flex-pmd-cpd</module>
 		<module>../flexunit-theme</module>
+		<module>../flex-pmd-automator-workflow</module>
 	</modules>
 
 	<build>

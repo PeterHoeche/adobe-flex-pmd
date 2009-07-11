@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+       Copyright (c) 2008. Adobe Systems Incorporated.
+       All rights reserved.
+
+       Redistribution and use in source and binary forms, with or without
+       modification, are permitted provided that the following conditions
+       are met:
+
+         * Redistributions of source code must retain the above copyright
+           notice, this list of conditions and the following disclaimer.
+         * Redistributions in binary form must reproduce the above copyright
+           notice, this list of conditions and the following disclaimer in
+           the documentation and/or other materials provided with the
+           distribution.
+         * Neither the name of Adobe Systems Incorporated nor the names of
+           its contributors may be used to endorse or promote products derived
+           from this software without specific prior written permission.
+
+       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+       "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+       LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+       PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+       OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+       EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+       PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+       PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+       LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+       NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+       SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<mx:Panel 
+   xmlns:mx="http://www.adobe.com/2006/mxml"
+   xmlns:ns1="com.adobe.ac.anthology.view.iteration.*"
+   xmlns:component="com.adobe.ac.anthology.utils.components.*"
+   title="MyIterations" 
+   horizontalAlign="left"
+   visible="{ model.selectedRelease != null }">
+
+    <mx:Script>
+    <![CDATA[
+       import com.adobe.ac.anthology.model.object.Iteration;
+       import com.adobe.ac.anthology.model.AnthologyModelLocator;
+       import com.adobe.ac.anthology.model.ProjectModel;
+      import com.adobe.cairngorm.business.ServiceLocator;
+      import com.adobe.ac.anthology.control.event.iteration.*;
+      import com.adobe.ac.anthology.utils.FormTools;
+      
+      [Bindable]
+      private var model : ProjectModel = AnthologyModelLocator.instance.projectModel;
+      
+      private function addIteration() : void
+ 	   {
+ 	      model.selectedRelease.addIteration( new Iteration() );
+ 	   }
+ 	   
+ 	   private function changeIteration() : void
+ 	   {
+ 	      model.selectedIteration = dg.selectedItem as Iteration;
+ 	   }
+
+    ]]>
+    </mx:Script>
+    <mx:HBox height="320"> 
+    
+    <ns1:DetailedIterationWithControl
+       id="detailedIterationForm"
+       iteration="{ model.selectedIteration }" />
+	     
+    <mx:VRule
+       height="100%"
+       strokeColor="#DDDDDD"/>   
+ 
+    <mx:VBox
+       paddingTop="15"
+       paddingLeft="15"
+       paddingRight="15"
+       paddingBottom="15">
+     
+      <mx:Text text="List of Iterations"/>
+      
+      <component:ScrawlGrid
+            id="dg"
+            dataProvider="{ model.selectedRelease.iterations }"
+            width="200" height="220"
+            change="changeIteration()">
+            
+         <component:columns>
+               
+            <mx:DataGridColumn
+               dataField="iterationNumber"
+               headerText="#"/>
+               
+            <mx:DataGridColumn
+               dataField="startDate"
+               headerText="Start Date"
+               editable="false"/>
+               
+            <mx:DataGridColumn 
+               dataField="endDate" 
+               headerText="End Date"/>
+               
+         </component:columns>
+         
+      </component:ScrawlGrid>
+      
+      <mx:HBox width="200">
+      
+         <mx:Button label="Add Iteration"
+            click="addIteration()"/>
+            
+      </mx:HBox>
+  
+    </mx:VBox>
+ 
+  </mx:HBox>   
+</mx:Panel>
