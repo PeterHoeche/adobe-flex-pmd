@@ -41,9 +41,9 @@ package flexUnit.flexui.data
          callLater( assertionsMadeLegend, [ null ] );
       }
 
-      public function set assertionsMadeLegend( value : * ) : void
+      public function set assertionsMadeLegend( foo : * ) : void
       {
-      	var idfrfr : * = new Object();
+      	var tmp : * = new Object();
       }
    }
 }

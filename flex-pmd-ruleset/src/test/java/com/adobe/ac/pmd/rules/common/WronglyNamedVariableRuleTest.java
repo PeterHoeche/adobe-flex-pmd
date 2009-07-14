@@ -28,35 +28,33 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.bnpp.msms.model
+package com.adobe.ac.pmd.rules.common;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class WronglyNamedVariableRuleTest extends AbstractAstFlexRuleTest
 {
-	import com.bnpp.msms.model.VO.ConfigVO;
-	
-	import de.polygonal.ds.HashMap;
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new WronglyNamedVariableRule();
+   }
 
-	public class ConfigProxy extends MS2Proxy
-	{
-		public static const NAME:String = "configProxy";
-		private static var configs:HashMap = new HashMap(MS2Proxy.HASHMAP_INITAL_SIZE);
-		
-		public function ConfigProxy(bar:Object=null)
-		{
-			super(ConfigProxy.NAME, bar);
-		}
-		
-		public static function populateStub():void {
-			Alert.show( "error" );
-			ConfigProxy.insertConfig(new ConfigVO(118218, order, 9000001, "fr", "default.css", "", 9000001)); 
-		}
-
-		internal static function insertConfig(configVO:ConfigVO):void {
-		   try
-		   {
-			   ConfigProxy.configs.remove(Number(configVO.idUser));
-			}
-			catch( e : Exception )
-			{
-			}
-		}
-	}
+   @Override
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "GenericType.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 44, 44 ),
+                                             new ViolationPosition( 46, 46 ) } ),
+                       "com.adobe.ac.ncss.ConfigProxy.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 42, 42 ) } );
+   }
 }
