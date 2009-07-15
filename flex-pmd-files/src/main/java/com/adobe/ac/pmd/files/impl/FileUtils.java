@@ -70,6 +70,23 @@ public final class FileUtils
       return files;
    }
 
+   public static AbstractFlexFile create( final File sourceFile,
+                                          final File sourceDirectory )
+   {
+      AbstractFlexFile file;
+
+      if ( sourceFile.getName().endsWith( ".as" ) )
+      {
+         file = new As3File( sourceFile, sourceDirectory );
+      }
+      else
+      {
+         file = new MxmlFile( sourceFile, sourceDirectory );
+      }
+
+      return file;
+   }
+
    public static String[] readStrings( final File file ) throws IOException
    {
       final ArrayList< String > result = new ArrayList< String >();
@@ -96,23 +113,6 @@ public final class FileUtils
       }
       return result.toArray( new String[]
       {} );
-   }
-
-   private static AbstractFlexFile create( final File sourceFile,
-                                           final File sourceDirectory )
-   {
-      AbstractFlexFile file;
-
-      if ( sourceFile.getName().endsWith( ".as" ) )
-      {
-         file = new As3File( sourceFile, sourceDirectory );
-      }
-      else
-      {
-         file = new MxmlFile( sourceFile, sourceDirectory );
-      }
-
-      return file;
    }
 
    private static Collection< File > getFlexFiles( final File sourceDirectory,

@@ -91,7 +91,8 @@ public class WronglyNamedVariableRule extends AbstractAstFlexRule
       {
          if ( forbiddenName.equals( variableName ) )
          {
-            addViolation( variableNode );
+            addViolation( variableNode,
+                          variableName );
          }
       }
    }

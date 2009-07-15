@@ -37,26 +37,20 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooManyPublicRuleTest extends AbstractAstFlexRuleTest
+public class TooManyFieldInVORuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new TooManyPublicRule();
+      return new TooManyFieldInVORule();
    }
 
    @Override
    protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "com.adobe.ac.ncss.ArrayVO.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 33, 33 ) } ),
-                                 "com.adobe.ac.ncss.TestResult.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 44, 44 ) } ),
-                       "com.adobe.ac.ncss.BigModel.as",
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
+                       { new ViolationPosition( 33, 33 ) } );
    }
 }

@@ -201,7 +201,7 @@
 		message="This private method ({0}) does not seem to be used">
 		<description>
       </description>
-		<priority>3</priority>
+		<priority>1</priority>
 		<example>
       </example>
 	</rule>

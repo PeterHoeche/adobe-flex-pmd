@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.rules.as3.sizing;
 
 import java.util.List;
 
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -47,9 +48,15 @@ public class TooManyFieldsRule extends AbstractMaximizedAstFlexRule
       return attributesNb;
    }
 
-   public final int getDefaultThreshold()
+   public int getDefaultThreshold()
    {
       return 5;
+   }
+
+   @Override
+   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   {
+      return !file.getClassName().endsWith( "VO.as" );
    }
 
    @Override

@@ -38,5 +38,21 @@ package model.vo {
 		[ArrayElementType("model.vo.MenuItemVO")]
 		public const constant : Array = [];
 		public static const staticConstant : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
+		public var first : String = "";
 	}
 }

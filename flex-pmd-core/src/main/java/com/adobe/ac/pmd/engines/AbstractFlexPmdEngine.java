@@ -53,7 +53,24 @@ public abstract class AbstractFlexPmdEngine
 {
    private static final Logger LOGGER = Logger.getLogger( AbstractFlexPmdEngine.class.getName() );
 
-   private RuleSet             ruleSet;
+   public static File extractDefaultRuleSet() throws URISyntaxException,
+                                             IOException
+   {
+      final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
+
+      final InputStream resourceAsStream = AbstractFlexPmdEngine.class.getResourceAsStream( rulesetURI );
+      final File tempRuleset = File.createTempFile( "all_flex",
+                                                    ".xml" );
+      // Delete temp file when program exits.
+      tempRuleset.deleteOnExit();
+      final FileOutputStream writter = new FileOutputStream( tempRuleset );
+      IOUtil.copy( resourceAsStream,
+                   writter );
+
+      return tempRuleset;
+   }
+
+   private RuleSet ruleSet;
 
    public final int executeReport( final File sourceDirectory,
                                    final File outputDirectory,
@@ -73,8 +90,11 @@ public abstract class AbstractFlexPmdEngine
          throw new PMDException( "unspecified outputDirectory" );
       }
 
-      loadRuleset( sourceDirectory,
-                   ruleSetFile );
+      loadRuleset( ruleSetFile );
+
+      LOGGER.fine( "Search Flex files in "
+            + sourceDirectory.getPath() );
+
       if ( !flexPmdViolations.hasViolationsBeenComputed() )
       {
          computeViolations( sourceDirectory,
@@ -90,6 +110,20 @@ public abstract class AbstractFlexPmdEngine
    public final RuleSet getRuleSet()
    {
       return ruleSet;
+   }
+
+   protected void loadRuleset( final File ruleSetFile ) throws URISyntaxException,
+                                                       IOException
+   {
+      final File realRuleSet = extractRuleset( ruleSetFile );
+
+      ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( realRuleSet ) );
+
+      LOGGER.info( "Ruleset: "
+            + realRuleSet.getAbsolutePath() );
+
+      LOGGER.info( "Rules number in the ruleSet: "
+            + ruleSet.getRules().size() );
    }
 
    protected abstract void writeReport( final FlexPmdViolations pmd,
@@ -122,23 +156,6 @@ public abstract class AbstractFlexPmdEngine
             + ellapsedTime + "ms to compute violations" );
    }
 
-   private File extractDefaultRuleSet() throws URISyntaxException,
-                                       IOException
-   {
-      final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
-
-      final InputStream resourceAsStream = getClass().getResourceAsStream( rulesetURI );
-      final File temp = File.createTempFile( "all_flex",
-                                             ".xml" );
-      // Delete temp file when program exits.
-      temp.deleteOnExit();
-      final FileOutputStream writter = new FileOutputStream( temp );
-      IOUtil.copy( resourceAsStream,
-                   writter );
-
-      return temp;
-   }
-
    private File extractRuleset( final File ruleSetFile ) throws URISyntaxException,
                                                         IOException
    {
@@ -151,24 +168,6 @@ public abstract class AbstractFlexPmdEngine
       return StringUtils.substringBefore( StringUtils.substringAfter( getClass().getName(),
                                                                       "FlexPmd" ),
                                           "Engine" );
-   }
-
-   private void loadRuleset( final File sourceDirectory,
-                             final File ruleSetFile ) throws URISyntaxException,
-                                                     IOException
-   {
-      final File realRuleSet = extractRuleset( ruleSetFile );
-
-      ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( realRuleSet ) );
-
-      LOGGER.info( "Ruleset: "
-            + realRuleSet.getAbsolutePath() );
-
-      LOGGER.info( "Rules number in the ruleSet: "
-            + ruleSet.getRules().size() );
-
-      LOGGER.fine( "Search Flex files in "
-            + sourceDirectory.getPath() );
    }
 
    private void writeReport( final File outputDirectory,

@@ -124,7 +124,7 @@
 		<priority>5</priority>
 		<properties>
 			<property name="maximum">
-				<value>120</value>
+				<value>200</value>
 			</property>
 		</properties>
 		<example>
@@ -165,9 +165,12 @@ package com.adobe.ac
 		message="Another file with the same class name exist in the source path">
 		<priority>3</priority>
 	</rule>
-	
 	<rule class="com.adobe.ac.pmd.rules.common.CopyrightMissingRule"
 		message="The copyright header is missing in this file">
 		<priority>5</priority>
+	</rule>
+	<rule class="com.adobe.ac.pmd.rules.common.WronglyNamedVariableRule"
+		message="This variable ({0}) seems to be incorrectly named. Let your creativity flow.">
+		<priority>3</priority>	
 	</rule>
 </ruleset>
