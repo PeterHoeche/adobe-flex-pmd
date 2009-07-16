@@ -30,11 +30,11 @@
  */
 package 
 {
-   public class SecondCustomEvent   
+   public class SecondCustomEvent extends CairngormEvent
    {
       public function SecondCustomEvent()
       {
-         
+      	super("myDomain.SecondCustomEvent");
       }
    }
 }

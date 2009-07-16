@@ -57,7 +57,6 @@ public abstract class AbstractFlexPmdEngine
                                              IOException
    {
       final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
-
       final InputStream resourceAsStream = AbstractFlexPmdEngine.class.getResourceAsStream( rulesetURI );
       final File tempRuleset = File.createTempFile( "all_flex",
                                                     ".xml" );

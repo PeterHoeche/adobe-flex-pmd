@@ -178,4 +178,9 @@
    }      
       </example>
 	</rule>
+	
+	<rule class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFieldInVORule"
+		message="Too many field detected ({0} maximum, but {1} actually)">
+		<priority>3</priority>
+	</rule>
 </ruleset>

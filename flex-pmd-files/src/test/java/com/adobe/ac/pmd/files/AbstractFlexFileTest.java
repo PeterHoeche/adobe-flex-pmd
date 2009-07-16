@@ -44,7 +44,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class AbstractFlexFileTest extends FlexPmdTestBase
-{
+{ // NOPMD by xagnetti on 7/15/09 5:01 PM
    private IAs3File  as3;
    private IMxmlFile mainMxml;
    private IMxmlFile mxml;

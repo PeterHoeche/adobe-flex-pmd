@@ -48,16 +48,12 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      final ViolationPosition[] expectedPositions = new ViolationPosition[]
-      { new ViolationPosition( 33, 33 ) };
-
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "com.adobe.ac.ncss.SearchBarEvent.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 35, 35 ) } ),
-                                 "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-                                 expectedPositions ),
-                       "com.adobe.ac.ncss.event.SecondCustomEvent.as",
-                       expectedPositions );
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "com.adobe.ac.ncss.SearchBarEvent.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 35, 35 ) } ),
+                       "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 33, 33 ) } );
    }
 }

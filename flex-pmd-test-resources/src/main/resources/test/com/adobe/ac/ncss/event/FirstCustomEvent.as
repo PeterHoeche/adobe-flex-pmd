@@ -30,7 +30,7 @@
  */
 package 
 {
-   public class FirstCustomEvent   
+   public class FirstCustomEvent extends Event
    {
       public var lala : String;
       

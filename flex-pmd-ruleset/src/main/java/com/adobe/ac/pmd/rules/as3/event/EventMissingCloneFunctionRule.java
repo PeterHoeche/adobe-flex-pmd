@@ -52,7 +52,10 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    protected final void findViolations( final IClass classNodeToBeSet )
    {
       classNode = classNodeToBeSet;
-      super.findViolations( classNode );
+      if ( "Event".equals( classNode.getExtensionName() ) )
+      {
+         super.findViolations( classNode );
+      }
    }
 
    @Override
