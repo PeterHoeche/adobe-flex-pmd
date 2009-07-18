@@ -30,29 +30,27 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TrueFalseConditionRule extends AbstractAstFlexRule
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class AvoidUsingPublicStaticFieldRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected AbstractFlexRule getRule()
    {
-      return ViolationPriority.HIGH;
+      return new AvoidUsingPublicStaticFieldRule();
    }
 
    @Override
-   protected void visitCondition( final IParserNode condition )
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      super.visitCondition( condition );
-
-      final String conditionStr = condition.toString();
-
-      if ( conditionStr.contains( "true" )
-            || conditionStr.contains( "false" ) )
-      {
-         addViolation( condition );
-      }
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "Sorted.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 47, 47 ) } );
    }
 }

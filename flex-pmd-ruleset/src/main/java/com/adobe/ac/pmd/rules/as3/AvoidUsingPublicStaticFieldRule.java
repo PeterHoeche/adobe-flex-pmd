@@ -30,29 +30,30 @@
  */
 package com.adobe.ac.pmd.rules.as3;
 
-import com.adobe.ac.pmd.parser.IParserNode;
+import java.util.List;
+
+import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class TrueFalseConditionRule extends AbstractAstFlexRule
+public class AvoidUsingPublicStaticFieldRule extends AbstractAstFlexRule
 {
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+      for ( final IAttribute attribute : variables )
+      {
+         if ( attribute.isPublic()
+               && attribute.isStatic() && !attribute.getName().contains( "instance" ) )
+         {
+            addViolation( attribute );
+         }
+      }
+   }
+
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
-   }
-
-   @Override
-   protected void visitCondition( final IParserNode condition )
-   {
-      super.visitCondition( condition );
-
-      final String conditionStr = condition.toString();
-
-      if ( conditionStr.contains( "true" )
-            || conditionStr.contains( "false" ) )
-      {
-         addViolation( condition );
-      }
    }
 }

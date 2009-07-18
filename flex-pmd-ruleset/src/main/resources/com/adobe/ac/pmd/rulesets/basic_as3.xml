@@ -290,7 +290,11 @@
 		<priority>3</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.TrueFalseConditionRule"
-		message="">
+		message="This test contains an hard coded boolean value. You could remove it.">
 		<priority>1</priority>
+	</rule>
+	<rule class="com.adobe.ac.pmd.rules.as3.AvoidUsingPublicStaticFieldRule"
+	message="If this field was meant to be a constant, make it constant. Otherwise, if it is used as a global variable, you may want to redesign this class.">
+		<priority>3</priority>
 	</rule>
 </ruleset>
