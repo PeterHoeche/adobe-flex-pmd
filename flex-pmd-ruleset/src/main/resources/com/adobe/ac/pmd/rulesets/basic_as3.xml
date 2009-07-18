@@ -286,6 +286,11 @@
 		<priority>1</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.as3.DeeplyNestedIfRule"
+		message="Nested if statements are not a good design">
+		<priority>3</priority>
+	</rule>
+	<rule class="com.adobe.ac.pmd.rules.as3.TrueFalseConditionRule"
 		message="">
+		<priority>1</priority>
 	</rule>
 </ruleset>

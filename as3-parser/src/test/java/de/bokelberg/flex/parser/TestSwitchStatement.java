@@ -56,5 +56,14 @@ public class TestSwitchStatement extends AbstractStatementTest
                              + "</primary>" + "<arguments line=\"1\" column=\"60\">"
                              + "<primary line=\"1\" column=\"60\">'unknown'</primary>"
                              + "</arguments></call></switch-block></case></cases></switch>" );
+      assertStatement( "1",
+                       "switch( x ){ case 1 : break; default:}",
+                       "<switch line=\"1\" column=\"7\"><condition line=\"1\" column=\"9\"><primary line=\"1\" "
+                             + "column=\"9\">x</primary></condition><cases line=\"1\" column=\"14\"><case line=\"1\" "
+                             + "column=\"19\"><primary line=\"1\" column=\"19\">1</primary><switch-block line=\"1\" "
+                             + "column=\"23\"><primary line=\"1\" column=\"23\">break</primary></switch-block></case>"
+                             + "<case line=\"1\" column=\"38\"><default line=\"1\" column=\"38\">default</default>"
+                             + "<switch-block line=\"1\" column=\"38\"></switch-block></case></cases></switch>" );
+
    }
 }

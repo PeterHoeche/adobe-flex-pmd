@@ -377,12 +377,22 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * Visit the condition of a if, while, ...
+    * 
+    * @param condition
+    */
+   protected void visitCondition( final IParserNode condition )
+   {
+      visitExpression( condition );
+   }
+
    protected void visitDo( final IParserNode ast )
    {
       if ( isNodeNavigable( ast ) )
       {
          visitBlock( ast.getChild( 0 ) );
-         visitExpression( ast.getChild( 1 ) );
+         visitCondition( ast.getChild( 1 ) );
       }
    }
 
@@ -453,7 +463,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       if ( isNodeNavigable( ast ) )
       {
-         visitExpression( ast.getChild( 0 ) );
+         visitCondition( ast.getChild( 0 ) );
          visitThen( ast );
          if ( ast.numChildren() == 3 )
          {
@@ -645,7 +655,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       if ( isNodeNavigable( ast ) )
       {
-         visitExpression( ast.getChild( 0 ) );
+         visitCondition( ast.getChild( 0 ) );
          visitBlock( ast.getChild( 1 ) );
       }
    }

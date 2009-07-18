@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,30 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 {
+   private static class AssertPosition
+   {
+      public static AssertPosition create( final String message,
+                                           final int expectedLine,
+                                           final int actualLine )
+      {
+         return new AssertPosition( message, expectedLine, actualLine );
+      }
+      public int    actualLine;
+      public int    expectedLine;
+
+      public String message;
+
+      private AssertPosition( final String messageToBeSet,
+                              final int expectedLineToBeSet,
+                              final int actualLineToBeSet )
+      {
+         super();
+         this.message = messageToBeSet;
+         this.expectedLine = expectedLineToBeSet;
+         this.actualLine = actualLineToBeSet;
+      }
+   }
+
    protected static Map< String, ViolationPosition[] > addToMap( final Map< String, ViolationPosition[] > map,
                                                                  final String resource,
                                                                  final ViolationPosition[] positions )
@@ -114,20 +139,29 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
          if ( expectedPositions.length != 0 )
          {
+            final List< AssertPosition > failures = new ArrayList< AssertPosition >();
+
             for ( int i = 0; i < expectedPositions.length; i++ )
             {
                final IFlexViolation violation = violations.get( i );
                final ViolationPosition expectedPosition = expectedPositions[ i ];
 
-               assertEquals( BEGIN_LINE_NOT_CORRECT
-                                   + " at " + i + "th violation on " + resourcePath,
-                             expectedPosition.getBeginLine(),
-                             violation.getBeginLine() );
-               assertEquals( END_LINE_NOT_CORRECT
-                                   + " at " + i + "th violation on " + resourcePath,
-                             expectedPosition.getEndLine(),
-                             violation.getEndLine() );
+               if ( expectedPosition.getBeginLine() != violation.getBeginLine() )
+               {
+                  failures.add( AssertPosition.create( BEGIN_LINE_NOT_CORRECT
+                                                             + " at " + i + "th violation on " + resourcePath,
+                                                       expectedPosition.getBeginLine(),
+                                                       violation.getBeginLine() ) );
+               }
+               if ( expectedPosition.getEndLine() != violation.getEndLine() )
+               {
+                  failures.add( AssertPosition.create( END_LINE_NOT_CORRECT
+                                                             + " at " + i + "th violation on " + resourcePath,
+                                                       expectedPosition.getEndLine(),
+                                                       violation.getEndLine() ) );
+               }
             }
+            printFailures( failures );
          }
       }
       catch ( final IOException e )
@@ -180,5 +214,21 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          }
       }
       return violatedFiles;
+   }
+
+   private void printFailures( final List< AssertPosition > failures )
+   {
+      if ( !failures.isEmpty() )
+      {
+         final StringBuffer message = new StringBuffer();
+
+         for ( final AssertPosition assertPosition : failures )
+         {
+            message.append( assertPosition.message
+                  + ": expected <" + assertPosition.expectedLine + "> but actually <"
+                  + assertPosition.actualLine + ">\n" );
+         }
+         fail( message.toString() );
+      }
    }
 }
