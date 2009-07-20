@@ -104,4 +104,7 @@ package control
 		<example>
       </example>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.cairngorm.CairngormEventDispatcherCallExplicitlyRule"
+		  message="CairngormEventDispatcher is called explicitly. {0}">
+	</rule>
 </ruleset>

@@ -106,7 +106,7 @@ package flexUnit.flexui.data
          {
          }
          addEventListener("lalaEvent");
-         dispatchEvent(new Event("lalaEvent"));
+         CairngormEventDispatcher.getInstance().dispatchEvent(new Event("lalaEvent"));
          dispatchEvent( new Event( "lalaEvent" ) );
          dispatchEvent( new Event( EVENT ) );
          if( true );
