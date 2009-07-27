@@ -30,12 +30,15 @@
  */
 package com.adobe.ac.ncss.utils;
 
+import java.io.File;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class TestFileUtils
-      extends TestCase
+import com.adobe.ac.ncss.filters.FlexFilter;
+
+public class TestFileUtils extends TestCase
 {
    @Test
    public void testIsLineACorrectStatement()
@@ -52,5 +55,30 @@ public class TestFileUtils
       assertTrue( FileUtils.isLineACorrectStatement( "var i : int;" ) );
       assertTrue( FileUtils.isLineACorrectStatement( "  foo( bar );" ) );
       assertTrue( FileUtils.isLineACorrectStatement( "lalla;" ) );
+   }
+
+   @Test
+   public void testListFiles()
+   {
+      assertEquals( 24,
+                    FileUtils.listFiles( new File( "." ),
+                                         new FlexFilter(),
+                                         true ).size() );
+
+      assertEquals( 0,
+                    FileUtils.listFiles( new File( "./src/main/java" ),
+                                         new FlexFilter(),
+                                         true ).size() );
+   }
+
+   @Test
+   public void testReadFile()
+   {
+      assertEquals( 75,
+                    FileUtils.readFile( new File( "./src/test/resources/com/adobe/ac/ncss/mxml/IterationsList.mxml" ) )
+                             .size() );
+
+      assertEquals( 0,
+                    FileUtils.readFile( new File( "./DoNotExistFile.as" ) ).size() );
    }
 }

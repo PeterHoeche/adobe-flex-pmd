@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule
+public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule // NO_UCD
 {
    private static final String ALERT_CLASS_NAME           = "Alert";
    private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";

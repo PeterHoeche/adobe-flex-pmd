@@ -52,6 +52,11 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
                                        FlexPmdReportMojo.class.getClassLoader() ); // NOPMD
    }
 
+   /**
+    * Location of the file.
+    * 
+    * @parameter
+    */
    private final String excludePackage = "";
 
    /**
@@ -96,6 +101,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    public AbstractFlexPmdMojo()
    {
       super();
+
    }
 
    public AbstractFlexPmdMojo( final File outputDirectoryToBeSet,
@@ -164,7 +170,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       return sourceDirectory;
    }
 
-   protected final void setSiteRenderer( final SiteRenderer siteRendererToBeSet )
+   protected final void setSiteRenderer( final SiteRenderer siteRendererToBeSet ) // NO_UCD
    {
       this.siteRenderer = siteRendererToBeSet;
    }

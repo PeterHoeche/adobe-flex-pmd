@@ -38,7 +38,6 @@ import java.net.URL;
 import junit.framework.TestCase;
 import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 public class AllInOneRulesetTest extends TestCase
@@ -49,7 +48,6 @@ public class AllInOneRulesetTest extends TestCase
                                 PMDException,
                                 IOException
    {
-      final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine();
       final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
       final URL ruleSetUrl = getClass().getResource( "/allInOneRuleset.xml" );
 
@@ -65,14 +63,12 @@ public class AllInOneRulesetTest extends TestCase
       final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
       final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
-      engine.executeReport( sourceDirectory,
-                            outputDirectory,
-                            ruleSetFile,
-                            new FlexPmdViolations(),
-                            "" );
+      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( sourceDirectory, outputDirectory, "" );
+
+      engine.executeReport( ruleSetFile );
 
       assertEquals( "Number of rules found is not correct",
-                    45,
+                    44,
                     engine.getRuleSet().size() );
    }
 }

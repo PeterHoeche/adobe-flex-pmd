@@ -38,7 +38,7 @@
 	<description>
       The Basic As3 Ruleset contains a collection of good practices which everyone should follow.
   </description>
-	<rule class="com.adobe.ac.pmd.rules.as3.DynamicClassRule" message="A class must not be dynamic">
+	<rule class="com.adobe.ac.pmd.rules.maintanability.DynamicClassRule" message="A class must not be dynamic">
 		<description>When using dynamic classes, you cannot control how the developer will use your classe. It makes refactoring really difficult.</description>
 		<priority>1</priority>
 		<example>
@@ -47,7 +47,7 @@
    }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.event.EventMissingCloneFunctionRule"
+	<rule class="com.adobe.ac.pmd.rules.event.EventMissingCloneFunctionRule"
 		message="The clone event must be overiden in a custom event">
 		<description>Why do you need to override clone? Well, the clone method creates a copy of your event (or object - whatever object has the clone event; this isn't limited to Event objects). The default clone method inherited by the Event class or whatever class your custom class extends, will return an event object of the type of that class, not your custom event subclass. In the situations where a clone is needed, it is needed to be of the same type of your class, not the class it extends.</description>
 		<priority>1</priority>
@@ -63,7 +63,7 @@
       </example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule"
+		class="com.adobe.ac.pmd.rules.event.PublicVariableInCustomEventRule"
 		message="No public variables should be inside a custom event. This variable ({0}) is public">
 		<description>In order to improve encapsulation in your custom event, it is better not to have public variable in your event. Prefer having read-only attributes, set by the event constructor.</description>
 		<priority>3</priority>
@@ -77,7 +77,7 @@
       }
    }      </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.ConstructorNonEmptyReturnTypeRule"
+	<rule class="com.adobe.ac.pmd.rules.style.ConstructorNonEmptyReturnTypeRule"
 		message="A constructor should not have a return type">
 		<description>Even if this is syntaxically correct, there should not be a return type for a constructor.</description>
 		<priority>3</priority>
@@ -91,7 +91,7 @@
       </example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStatementsShouldHaveDefaultRule"
+		class="com.adobe.ac.pmd.rules.switchrules.SwitchStatementsShouldHaveDefaultRule"
 		message="A switch statement does not contain a default statement">
 		<description>Switch statements should have a default label in order to detect corner cases.</description>
 		<priority>1</priority>
@@ -109,7 +109,7 @@
    }     
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.UseOfObjectTypeRule"
 		message="Do not use Object class">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
 		<priority>1</priority>
@@ -121,7 +121,7 @@
       </example>
 	</rule>
 
-	<rule class="com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule"
+	<rule class="com.adobe.ac.pmd.rules.switchrules.NestedSwitchRule"
 		message="Switch must not be nested">
 		<description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when siwtch statements are nested.</description>
 		<priority>3</priority>
@@ -146,7 +146,7 @@
       </example>
 	</rule>
 
-	<rule class="com.adobe.ac.pmd.rules.as3.ArrayFieldWithNoArrayElementTypeRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.ArrayFieldWithNoArrayElementTypeRule"
 		message="ArrayElementType metadata is not specified for this array-type field ({0})">
 		<description>
       </description>
@@ -161,7 +161,7 @@
       </example>
 	</rule>
 
-	<rule class="com.adobe.ac.pmd.rules.as3.NonStaticConstantFieldRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.NonStaticConstantFieldRule"
 		message="A constant field should be static ({0})">
 		<description>
       </description>
@@ -173,7 +173,7 @@
    }     
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedParameterRule"
+	<rule class="com.adobe.ac.pmd.rules.unused.UnusedParameterRule"
 		message="This parameter ({0}) of this function is not used">
 		<description>
       </description>
@@ -185,7 +185,7 @@
       }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedLocalVariableRule"
+	<rule class="com.adobe.ac.pmd.rules.unused.UnusedLocalVariableRule"
 		message="This variable ({0}) is not used">
 		<description>
       </description>
@@ -197,7 +197,7 @@
       }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.unused.UnusedPrivateMethodRule"
+	<rule class="com.adobe.ac.pmd.rules.unused.UnusedPrivateMethodRule"
 		message="This private method ({0}) does not seem to be used">
 		<description>
       </description>
@@ -206,7 +206,7 @@
       </example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule"
+		class="com.adobe.ac.pmd.rules.switchrules.TooFewBrancheInSwitchStatementRule"
 		message="There are too few branches in this switch statement ({0} minimum, but {1} actual)">
 		<description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
 		<priority>5</priority>
@@ -218,14 +218,14 @@
 		<example>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.BadFormatLogerRule"
+	<rule class="com.adobe.ac.pmd.rules.style.BadFormatLogerRule"
 		message="The logger is not correctly formatted, for that reason: {0}">
 		<description></description>
 		<priority>5</priority>
 		<example>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoopRule"
+	<rule class="com.adobe.ac.pmd.rules.performance.AvoidInstanciationInLoopRule"
 		message="Instanciating a variable in a loop can be expensive">
 		<description></description>
 		<priority>3</priority>
@@ -239,7 +239,7 @@
 		<example>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.UseGenericTypeRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.UseGenericTypeRule"
 		message="Use strongly typed objects instead of *">
 		<description></description>
 		<priority>1</priority>
@@ -247,14 +247,14 @@
       </example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.event.ConstructorDispatchingEventRule"
+		class="com.adobe.ac.pmd.rules.event.ConstructorDispatchingEventRule"
 		message="An event is dispatched in a constructor">
 		<description>This is pointless, since event listeners cannot be attached to an object before it has been constructed, so nothing can ever hear the event</description>
 		<priority>1</priority>
 		<example>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.UselessOverridenFunctionRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.UselessOverridenFunctionRule"
 		message="This method is empty. This should be removed ({0})">
 		<description>This function is not needed.</description>
 		<priority>3</priority>
@@ -265,27 +265,27 @@
       }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.EmptyCatchStatementRule"
+	<rule class="com.adobe.ac.pmd.rules.empty.EmptyCatchStatementRule"
 		message="This catch statement is empty">
 		<priority>3</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.PropertyHiddenByLocalVariableRule"
+	<rule class="com.adobe.ac.pmd.rules.naming.PropertyHiddenByLocalVariableRule"
 		message="A class property is hidden by this local variable ({0})">
 		<priority>3</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.AvoidProtectedFieldInFinalClassRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidProtectedFieldInFinalClassRule"
 		message="Protected accessors are useless in a final class. Make it private ({0})">
 		<priority>3</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.event.DefaultEventNameRule"
+	<rule class="com.adobe.ac.pmd.rules.event.DefaultEventNameRule"
 		message="Event name should be set explicitly">
 		<priority>3</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.switchrules.IdenticalSwitchCasesRule"
+	<rule class="com.adobe.ac.pmd.rules.switchrules.IdenticalSwitchCasesRule"
 		message="Two switch cases should not identical">
 		<priority>1</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.DeeplyNestedIfRule"
+	<rule class="com.adobe.ac.pmd.rules.performance.DeeplyNestedIfRule"
 		message="Nested if statements are not a good design">
 		<priority>3</priority>
 	</rule>
@@ -293,7 +293,7 @@
 		message="This test contains an hard coded boolean value. You could remove it.">
 		<priority>1</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.AvoidUsingPublicStaticFieldRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingPublicStaticFieldRule"
 	message="If this field was meant to be a constant, make it constant. Otherwise, if it is used as a global variable, you may want to redesign this class.">
 		<priority>3</priority>
 	</rule>

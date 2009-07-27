@@ -42,9 +42,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.adobe.ac.ncss.filters.DirectoryFilter;
-import com.adobe.ac.ncss.filters.FlexFilter;
-
 public class FileUtils
 {
    public static final Logger LOGGER = Logger.getLogger( FileUtils.class.getName() );
@@ -60,46 +57,9 @@ public class FileUtils
                                                final FilenameFilter filter,
                                                final boolean recurse )
    {
-
-      if ( directory.listFiles() == null )
-      {
-         LOGGER.severe( directory.getAbsolutePath()
-               + " does not contain any related files" );
-         return new ArrayList< File >();
-      }
-
       return listFilesRecurse( directory,
                                filter,
                                recurse );
-   }
-
-   public static Collection< File > listNonEmptyDirectories( final File directory,
-                                                             final boolean recurse )
-   {
-      final Collection< File > files = new ArrayList< File >();
-      final File[] entries = directory.listFiles( new DirectoryFilter() );
-      final FlexFilter flexFilter = new FlexFilter();
-
-      if ( entries != null )
-      {
-         for ( final File entry : entries )
-         {
-            if ( entry.isDirectory()
-                  && !listFiles( entry,
-                                 flexFilter,
-                                 false ).isEmpty() )
-            {
-               files.add( entry );
-            }
-            if ( recurse
-                  && entry.isDirectory() )
-            {
-               files.addAll( listNonEmptyDirectories( entry,
-                                                      recurse ) );
-            }
-         }
-      }
-      return files;
    }
 
    public static List< String > readFile( final File file )
@@ -136,19 +96,6 @@ public class FileUtils
          e.printStackTrace();
       }
       return content;
-   }
-
-   /* remove all superfluous whitespaces in source string */
-   public static String trim( final String source )
-   {
-      return itrim( ltrim( rtrim( source ) ) );
-   }
-
-   /* replace multiple whitespaces between words with single blank */
-   private static String itrim( final String source )
-   {
-      return source.replaceAll( "\\b\\s{2,}\\b",
-                                " " );
    }
 
    private static Collection< File > listFilesRecurse( final File directory,
@@ -197,5 +144,9 @@ public class FileUtils
    {
       return source.replaceAll( "\\s+$",
                                 "" );
+   }
+
+   private FileUtils()
+   {
    }
 }

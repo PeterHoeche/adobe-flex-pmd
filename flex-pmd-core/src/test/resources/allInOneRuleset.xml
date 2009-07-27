@@ -37,7 +37,7 @@
 		<priority>3</priority>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.mxml.TooLongBindingExpressionRule"
+		class="com.adobe.ac.pmd.rules.binding.TooLongBindingExpressionRule"
 		message="This binding expression is too long">
 		<description>A Binding expression is executed as soon as one of the bindable attributes changed. If a binding expression contains too many expression, there could be some performance issue.</description>
 		<priority>3</priority>
@@ -62,7 +62,7 @@
 		<description>Nested containers can descrease application overall performance especially if they are in item renderers.</description>
 		<priority>3</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.DynamicClassRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.DynamicClassRule"
 		message="A class must not be dynamic">
 		<description>When using dynamic classes, you cannot control how the developer will use your classe. It makes refactoring really difficult.</description>
 		<priority>1</priority>
@@ -73,7 +73,7 @@ dynamic public class DynamicObject // VIOLATION
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.event.EventMissingCloneFunctionRule"
+		class="com.adobe.ac.pmd.rules.event.EventMissingCloneFunctionRule"
 		message="The clone event must be overiden in a custom event">
 		<description>Why do you need to override clone? Well, the clone method creates a copy of your event (or object - whatever object has the clone event; this isn't limited to Event objects). The default clone method inherited by the Event class or whatever class your custom class extends, will return an event object of the type of that class, not your custom event subclass. In the situations where a clone is needed, it is needed to be of the same type of your class, not the class it extends.</description>
 		<priority>1</priority>
@@ -89,7 +89,7 @@ public class FirstCustomEvent   // VIOLATION - clone method is missing
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.event.PublicVariableInCustomEventRule"
+		class="com.adobe.ac.pmd.rules.event.PublicVariableInCustomEventRule"
 		message="No public variables should be inside a custom event">
 		<description>In order to improve encapsulation in your custom event, it is better not to have public variable in your event. Prefer having read-only attributes, set by the event constructor.</description>
 		<priority>3</priority>
@@ -105,7 +105,7 @@ public class FirstCustomEvent
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.ConstructorNonEmptyReturnTypeRule"
+		class="com.adobe.ac.pmd.rules.style.ConstructorNonEmptyReturnTypeRule"
 		message="A constructor should not have a return type">
 		<description>Even if this is syntaxically correct, there should not be a return type for a constructor.</description>
 		<priority>3</priority>
@@ -119,7 +119,7 @@ public class VoidConstructor
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.switchrules.SwitchStatementsShouldHaveDefaultRule"
+		class="com.adobe.ac.pmd.rules.switchrules.SwitchStatementsShouldHaveDefaultRule"
 		message="A switch statement does not contain a default statement">
 		<description>Switch statements should have a default label in order to detect corner cases.</description>
 		<priority>1</priority>
@@ -137,7 +137,7 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UseOfObjectTypeRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.UseOfObjectTypeRule"
 		message="Do not use Object class.">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
 		<priority>1</priority>
@@ -149,7 +149,7 @@ public class Foo
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.switchrules.NestedSwitchRule"
+		class="com.adobe.ac.pmd.rules.switchrules.NestedSwitchRule"
 		message="Switch must not be nested.">
 		<description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when siwtch statements are nested.</description>
 		<priority>3</priority>
@@ -174,7 +174,7 @@ public function foo( a : Number, b : Number ) : void
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.ArrayFieldWithNoArrayElementTypeRule"
+		class="com.adobe.ac.pmd.rules.maintanability.ArrayFieldWithNoArrayElementTypeRule"
 		message="ArrayElementType metadata is not specified for an array-type field">
 		<description />
 		<priority>3</priority>
@@ -188,7 +188,7 @@ public class ArrayVO {
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.NonStaticConstantFieldRule" message="A constant field should be static">
+		class="com.adobe.ac.pmd.rules.maintanability.NonStaticConstantFieldRule" message="A constant field should be static">
 		<description />
 		<priority>1</priority>
 		<example><![CDATA[
@@ -199,7 +199,7 @@ public class MyObject {
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.unused.UnusedParameterRule" message="You should use all the parameters of a function">
+		class="com.adobe.ac.pmd.rules.unused.UnusedParameterRule" message="You should use all the parameters of a function">
 		<description />
 		<priority>1</priority>
 		<example><![CDATA[
@@ -210,7 +210,7 @@ public function foo( param1 : Number, param2 : Number, param3 : Number, param4 :
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.unused.UnusedLocalVariableRule"
+		class="com.adobe.ac.pmd.rules.unused.UnusedLocalVariableRule"
 		message="You should delete an unused variable">
 		<description />
 		<priority>3</priority>
@@ -222,30 +222,24 @@ public function foo() : void
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.unused.UnusedPrivateMethodRule"
+		class="com.adobe.ac.pmd.rules.unused.UnusedPrivateMethodRule"
 		message="This private method does not seem to be used">
 		<description />
 		<priority>3</priority>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.WronglyOrderedClassElementRule"
-		message="This element ({0}) does not seem to be correctly ordered">
-		<description />
-		<priority>3</priority>
-	</rule>
-	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.switchrules.TooFewBrancheInSwitchStatementRule"
+		class="com.adobe.ac.pmd.rules.switchrules.TooFewBrancheInSwitchStatementRule"
 		message="There are too few branches in this swicth statement">
 		<description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
 		<priority>5</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.BadFormatLogerRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.style.BadFormatLogerRule"
 		message="The loger is not correctly formatted">
 		<description />
 		<priority>5</priority>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.AvoidInstanciationInLoopRule"
+		class="com.adobe.ac.pmd.rules.performance.AvoidInstanciationInLoopRule"
 		message="Instanciating a variable in a loop can be expensive">
 		<description />
 		<priority>3</priority>
@@ -256,13 +250,13 @@ public function foo() : void
 		<description />
 		<priority>3</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.UseGenericTypeRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.UseGenericTypeRule"
 		message="Use strongly typed objects instead of *">
 		<description />
 		<priority>1</priority>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.event.DispatchHardCodedEventNameRule"
+		class="com.adobe.ac.pmd.rules.event.DispatchHardCodedEventNameRule"
 		message="DispatchEvent function must dispatch constant strings">
 		<description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
 		<priority>3</priority>
@@ -277,7 +271,7 @@ public class Foo
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.event.ListenForHardCodedEventNameRule"
+		class="com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule"
 		message="addEventListener must not contain hard coded strings.">
 		<description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
 		<priority>3</priority>
@@ -291,12 +285,12 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.AlertShowRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule"
 		message="Do not call Alert.show directly.">
 		<description>You should not Alert.show() directly. If an error occured in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
 		<priority>1</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.EmptyIfStmtRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule"
 		message="No statements in this if statement">
 		<description>Empty If Statement finds instances where a condition is checked but nothing is done about it.</description>
 		<priority>3</priority>
@@ -313,7 +307,7 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule"
 		message="A high number of imports can indicate a high degree of coupling within an object.">
 		<description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
 		<priority>3</priority>
@@ -334,12 +328,12 @@ import blah.blah.Baz;
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.BindingUtilsRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.binding.BindingUtilsRule"
 		message="If you need to use BindingUtils, you should probably consider refactoring using events">
 		<description />
 		<priority>3</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.OverLongLineRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.style.OverLongLineRule"
 		message="Too long line ({0} maximum)">
 		<description />
 		<priority>5</priority>
@@ -350,7 +344,7 @@ import blah.blah.Baz;
 		</properties>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.common.ImportFromSamePackageRule"
+		class="com.adobe.ac.pmd.rules.style.ImportFromSamePackageRule"
 		message="Imports from the same package are not necessary">
 		<description />
 		<priority>1</priority>
@@ -366,7 +360,7 @@ package com.adobe.ac
 }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.common.UncorrectClassCase"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase"
 		message="A class name must start by a majuscule character">
 		<description />
 		<priority>3</priority>
@@ -441,7 +435,7 @@ package control
 		<priority>3</priority>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFunctionRule" message="Too many methods detected">
+		class="com.adobe.ac.pmd.rules.sizing.TooManyFunctionRule" message="Too many methods detected">
 		<description>A class with too many methods is probably a good suspect for refactoring, in order to reduce its complexity and find a way to have more fine grained objects.</description>
 		<priority>3</priority>
 		<properties>
@@ -460,7 +454,7 @@ public class Foo
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.sizing.TooLongFunctionRule" message="This function is far long">
+		class="com.adobe.ac.pmd.rules.sizing.TooLongFunctionRule" message="This function is far long">
 		<description>Violations of this rule usually indicate that the method is doing too much. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
 		<priority>3</priority>
 		<properties>
@@ -481,7 +475,7 @@ public class Foo
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.sizing.TooLongSwitchCaseRule"
+		class="com.adobe.ac.pmd.rules.sizing.TooLongSwitchCaseRule"
 		message="Long switch case detected">
 		<description>A switch case statement should be either empty, or contain a break, or call another method.</description>
 		<priority>3</priority>
@@ -508,7 +502,7 @@ public class Bar
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.sizing.TooManyParametersRule"
+		class="com.adobe.ac.pmd.rules.sizing.TooManyParametersRule"
 		message="Long parameter list detected">
 		<description>Long parameter lists can indicate that a new object should be created to wrap the numerous parameters.  Basically, try to group the parameters together.</description>
 		<priority>1</priority>
@@ -527,7 +521,7 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyPublicRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.sizing.TooManyPublicRule"
 		message="Too much public fields or functions detected">
 		<description>A large number of public methods and attributes declared in a class can indicate the class may need to be broken up as increased effort will be required to thoroughly test it.</description>
 		<priority>3</priority>
@@ -553,7 +547,7 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.sizing.TooManyFieldsRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.sizing.TooManyFieldsRule"
 		message="Too many field detected">
 		<description>Classes that have too many fields could be redesigned to have fewer fields, possibly  through some nested object grouping of some of the information.  For example, a class with  city/state/zip fields could instead have one Address field.</description>
 		<priority>3</priority>
@@ -575,7 +569,7 @@ public class Person
            ]]></example>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule"
+		class="com.adobe.ac.pmd.rules.naming.TooShortVariableRule"
 		message="This variable name is too short">
 		<description>Detects when a field, local, or parameter has a very short name.</description>
 		<priority>5</priority>
@@ -591,7 +585,7 @@ public class Something
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.as3.naming.PackageCaseRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.naming.PackageCaseRule"
 		message="A package name should be lower case">
 		<description>Detects when a package definition contains upper case characters.</description>
 		<priority>3</priority>

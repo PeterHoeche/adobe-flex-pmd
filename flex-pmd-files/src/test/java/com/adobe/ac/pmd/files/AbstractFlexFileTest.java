@@ -44,7 +44,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class AbstractFlexFileTest extends FlexPmdTestBase
-{ // NOPMD by xagnetti on 7/15/09 5:01 PM
+{
    private IAs3File  as3;
    private IMxmlFile mainMxml;
    private IMxmlFile mxml;
@@ -81,46 +81,7 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
                                  0 ) );
       assertFalse( "",
                    as3.contains( "addEventListener",
-                                 108 ) );
-   }
-
-   @Test
-   public void testDoesCurrentLineContainCommentClosingTag()
-   {
-      assertTrue( "",
-                  as3.doesCurrentLineContainCommentClosingTag( "*/" ) );
-      assertTrue( "",
-                  mxml.doesCurrentLineContainCommentClosingTag( "-->" ) );
-      assertFalse( "",
-                   mxml.doesCurrentLineContainCommentClosingTag( "*/" ) );
-      assertFalse( "",
-                   as3.doesCurrentLineContainCommentClosingTag( "-->" ) );
-   }
-
-   @Test
-   public void testDoesCurrentLineContainCommentOpeningTag()
-   {
-      assertTrue( "",
-                  as3.doesCurrentLineContainCommentOpeningTag( "/*" ) );
-      assertTrue( "",
-                  mxml.doesCurrentLineContainCommentOpeningTag( "<!--" ) );
-      assertFalse( "",
-                   mxml.doesCurrentLineContainCommentOpeningTag( "<--" ) );
-      assertFalse( "",
-                   as3.doesCurrentLineContainCommentOpeningTag( "**" ) );
-   }
-
-   @Test
-   public void testDoesCurrentLineContainOneLineComment()
-   {
-      assertTrue( "",
-                  as3.doesCurrentLineContainOneLineComment( "//" ) );
-      assertFalse( "",
-                   mxml.doesCurrentLineContainOneLineComment( "<!-- -->" ) );
-      assertFalse( "",
-                   mxml.doesCurrentLineContainOneLineComment( "<--" ) );
-      assertFalse( "",
-                   as3.doesCurrentLineContainOneLineComment( "**" ) );
+                                 109 ) );
    }
 
    @Test
@@ -149,7 +110,7 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    public void testGetLines()
    {
       assertEquals( "",
-                    141,
+                    142,
                     as3.getLinesNb() );
       assertEquals( "",
                     100,

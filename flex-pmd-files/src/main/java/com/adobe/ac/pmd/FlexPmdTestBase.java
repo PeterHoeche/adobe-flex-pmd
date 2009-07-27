@@ -40,11 +40,11 @@ import com.adobe.ac.pmd.files.IFlexFile;
  * 
  * @author xagnetti
  */
-public class FlexPmdTestBase
+public class FlexPmdTestBase // NO_UCD
 {
-   protected static final String          BEGIN_LINE_NOT_CORRECT        = "Begining line is not correct";
-   protected static final String          END_LINE_NOT_CORRECT          = "Ending line is not correct";
-   protected static final String          VIOLATIONS_NUMBER_NOT_CORRECT = "Violations number is not correct";
+   protected static final String          BEGIN_LINE_NOT_CORRECT        = "Begining line is not correct";     // NO_UCD
+   protected static final String          END_LINE_NOT_CORRECT          = "Ending line is not correct";       // NO_UCD
+   protected static final String          VIOLATIONS_NUMBER_NOT_CORRECT = "Violations number is not correct"; // NO_UCD
 
    /**
     * Test files placeholder. The key is the qualified file name
@@ -56,12 +56,12 @@ public class FlexPmdTestBase
    {
    }
 
-   protected final File getTestDirectory()
+   protected final File getTestDirectory() // NO_UCD
    {
       return ResourcesManagerTest.getInstance().getTestRootDirectory();
    }
 
-   protected final Map< String, IFlexFile > getTestFiles()
+   protected final Map< String, IFlexFile > getTestFiles() // NO_UCD
    {
       return testFiles;
    }

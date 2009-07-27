@@ -34,7 +34,7 @@ import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule
+public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule // NO_UCD
 {
    @Override
    public final boolean isConcernedByTheGivenFile( final IFlexFile file )

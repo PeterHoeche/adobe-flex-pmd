@@ -38,6 +38,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.IAs3File;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.IMxmlFile;
 
 public class FlexFileFactoryTest extends FlexPmdTestBase
@@ -46,14 +47,31 @@ public class FlexFileFactoryTest extends FlexPmdTestBase
    public void testCreate()
    {
       assertTrue( "",
-                  FlexFileFactory.create( new File( getTestFiles().get( "AbstractRowData.as" ).getFilePath() ),
-                                          new File( "" ) ) instanceof IAs3File );
+                  create( new File( getTestFiles().get( "AbstractRowData.as" ).getFilePath() ),
+                          new File( "" ) ) instanceof IAs3File );
       assertTrue( "",
-                  FlexFileFactory.create( new File( getTestFiles().get( "Main.mxml" ).getFilePath() ),
-                                          new File( "" ) ) instanceof IMxmlFile );
+                  create( new File( getTestFiles().get( "Main.mxml" ).getFilePath() ),
+                          new File( "" ) ) instanceof IMxmlFile );
       assertTrue( "",
-                  FlexFileFactory.create( new File( getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" )
-                                                                  .getFilePath() ),
-                                          new File( "" ) ) instanceof IMxmlFile );
+                  create( new File( getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" )
+                                                  .getFilePath() ),
+                          new File( "" ) ) instanceof IMxmlFile );
+   }
+
+   private IFlexFile create( final File sourceFile,
+                             final File sourceDirectory )
+   {
+      IFlexFile file;
+
+      if ( sourceFile.getName().endsWith( ".as" ) )
+      {
+         file = new As3File( sourceFile, sourceDirectory );
+      }
+      else
+      {
+         file = new MxmlFile( sourceFile, sourceDirectory );
+      }
+
+      return file;
    }
 }

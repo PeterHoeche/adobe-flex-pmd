@@ -42,53 +42,24 @@ class As3File extends AbstractFlexFile implements IAs3File
       super( file, rootDirectory );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.files.IAs3File#doesCurrentLineContainOneLineComment(java
-    * .lang.String)
-    */
-   @Override
-   public final boolean doesCurrentLineContainOneLineComment( final String line )
-   {
-      return doesCurrentLineContain( line,
-                                     "//" );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IAs3File#getCommentClosingTag()
-    */
    @Override
    public final String getCommentClosingTag()
    {
       return "*/";
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IAs3File#getCommentOpeningTag()
-    */
    @Override
    public final String getCommentOpeningTag()
    {
       return "/*";
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IAs3File#isMainApplication()
-    */
    @Override
    public final boolean isMainApplication()
    {
       return false;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IAs3File#isMxml()
-    */
    @Override
    public final boolean isMxml()
    {

@@ -82,23 +82,23 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
       {
          final FlexPmdViolations pmd = new FlexPmdViolations();
 
-         new FlexPmdXmlEngine().executeReport( getSourceDirectory(),
-                                               getOutputDirectoryFile(),
-                                               getRuleSet(),
-                                               pmd,
-                                               getExcludePackage() );
+         final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( getSourceDirectory(),
+                                                               getOutputDirectoryFile(),
+                                                               getExcludePackage() );
+
+         engine.executeReport( pmd,
+                               getRuleSet() );
 
          final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
                                                                             getBundle( locale ),
                                                                             aggregate,
-                                                                            getProject() );
+                                                                            getProject(),
+                                                                            getSourceDirectory(),
+                                                                            getOutputDirectoryFile(),
+                                                                            getExcludePackage() );
 
-         flexPmdHtmlEngine.executeReport( getSourceDirectory(),
-                                          new File( getOutputDirectory()
-                                                + "/site" ),
-                                          getRuleSet(),
-                                          pmd,
-                                          getExcludePackage() );
+         flexPmdHtmlEngine.executeReport( pmd,
+                                          getRuleSet() );
       }
       catch ( final PMDException e )
       {

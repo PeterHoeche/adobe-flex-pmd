@@ -53,7 +53,7 @@ class NestedNode
       addChild( childToBeSet );
    }
 
-   public int computeCyclomaticComplexity()
+   final public int computeCyclomaticComplexity()
    {
       int cyclomaticComplexity = 0;
 
@@ -81,7 +81,7 @@ class NestedNode
       return cyclomaticComplexity;
    }
 
-   public int countNodeFromType( final NodeKind type )
+   final public int countNodeFromType( final NodeKind type )
    {
       int count = 0;
 
@@ -99,11 +99,7 @@ class NestedNode
       return count;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#getChild(int)
-    */
-   public IParserNode getChild( final int index )
+   final public IParserNode getChild( final int index )
    {
       return getChildren() == null
             || getChildren().size() <= index ? null
@@ -120,30 +116,18 @@ class NestedNode
       return nodeId;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#getLastChild()
-    */
    public IParserNode getLastChild()
    {
       return getChild( numChildren() - 1 );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#is(java.lang.String)
-    */
-   public boolean is( final NodeKind expectedType )
+   final public boolean is( final NodeKind expectedType )
    {
       return getId() == null
             && expectedType == null || expectedType.equals( getId() );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see de.bokelberg.flex.parser.IParserNode#numChildren()
-    */
-   public int numChildren()
+   final public int numChildren()
    {
       return getChildren() == null ? 0
                                   : getChildren().size();

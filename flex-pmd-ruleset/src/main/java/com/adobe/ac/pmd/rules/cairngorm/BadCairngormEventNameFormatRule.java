@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule
+public class BadCairngormEventNameFormatRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
    public final boolean isConcernedByTheGivenFile( final IFlexFile file )

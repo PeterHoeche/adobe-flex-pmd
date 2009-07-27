@@ -41,14 +41,13 @@ import net.sourceforge.pmd.PMDException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.MavenReportException;
 
-import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
 /**
  * @goal check
  * @phase verify
  */
-public class FlexPmdMojo extends AbstractFlexPmdMojo
+public class FlexPmdMojo extends AbstractFlexPmdMojo // NO_UCD
 {
    public FlexPmdMojo()
    {
@@ -69,13 +68,10 @@ public class FlexPmdMojo extends AbstractFlexPmdMojo
       LOGGER.info( "FlexPmdMojo starts" );
       try
       {
-         final FlexPmdViolations pmd = new FlexPmdViolations();
-
-         new FlexPmdXmlEngine().executeReport( getSourceDirectory(),
-                                               getOutputDirectoryFile(),
-                                               getRuleSet(),
-                                               pmd,
-                                               getExcludePackage() );
+         final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( getSourceDirectory(),
+                                                               getOutputDirectoryFile(),
+                                                               getExcludePackage() );
+         engine.executeReport( getRuleSet() );
       }
       catch ( final PMDException e )
       {

@@ -35,24 +35,6 @@ public interface IFlexFile extends Comparable< IFlexFile >
    boolean contains( final String stringToLookup,
                      final int lineToBeIgnored );
 
-   /**
-    * @param line
-    * @return true if the given line contains a comment closing tag
-    */
-   boolean doesCurrentLineContainCommentClosingTag( final String line );
-
-   /**
-    * @param line
-    * @return true if the given line contains a comment opening tag
-    */
-   boolean doesCurrentLineContainCommentOpeningTag( final String line );
-
-   /**
-    * @param line
-    * @return true if the given line contain a one line comment
-    */
-   boolean doesCurrentLineContainOneLineComment( final String line );
-
    String getClassName();
 
    /**

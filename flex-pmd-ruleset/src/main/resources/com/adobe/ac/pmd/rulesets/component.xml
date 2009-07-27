@@ -33,20 +33,20 @@
       The Component Ruleset contains a collection of good practices related to custom component development.
    </description>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.component.UpdateChildrenNumberInUpdateDisplayListRule"
+		class="com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule"
 		message="Do not add or remove displayable children from updateDisplayList">
 		<description>Add children in createChildren</description>
 		<priority>1</priority>
 		<example></example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.component.NoChildrenAddedInCreateChildrenRule"
+		class="com.adobe.ac.pmd.rules.component.NoChildrenAddedInCreateChildrenRule"
 		message="No children are added from createChildren">
 		<priority>1</priority>
 		<example></example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.component.AddChildNotInCreateChildrenRule"
+		class="com.adobe.ac.pmd.rules.component.AddChildNotInCreateChildrenRule"
 		message="You must add child only inside the createChildren method">
 		<priority>1</priority>
 	</rule>

@@ -40,7 +40,7 @@
       The Basic As3/MXML Ruleset contains a collection of good practices which everyone should follow.
   </description>
 
-	<rule class="com.adobe.ac.pmd.rules.as3.event.DispatchHardCodedEventNameRule"
+	<rule class="com.adobe.ac.pmd.rules.event.DispatchHardCodedEventNameRule"
 		message="DispatchEvent function must dispatch constant strings">
 		<description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
 		<priority>3</priority>
@@ -55,7 +55,7 @@
       </example>
 	</rule>
 	<rule
-		class="com.adobe.ac.pmd.rules.as3.event.ListenForHardCodedEventNameRule"
+		class="com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule"
 		message="addEventListener must not contain hard coded strings.">
 		<description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
 		<priority>3</priority>
@@ -69,11 +69,11 @@
    }      
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.AlertShowRule" message="Do not call Alert.show directly.">
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule" message="Do not call Alert.show directly.">
 		<description>You should not Alert.show() directly. If an error occured in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
 		<priority>1</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.EmptyIfStmtRule"
+	<rule class="com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule"
 		message="No statements in this if statement">
 		<description>Empty If Statement finds instances where a condition is checked but nothing is done about it. </description>
 		<priority>3</priority>
@@ -90,7 +90,7 @@
    } 
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.ExcessiveImportRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule"
 		message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum but {1} actually)">
 		<description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
 		<priority>3</priority>
@@ -111,14 +111,14 @@
    }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.BindingUtilsRule"
+	<rule class="com.adobe.ac.pmd.rules.binding.BindingUtilsRule"
 		message="If you need to use BindingUtils, you should probably consider refactoring using events">
 		<description></description>
-		<priority>3</priority>
+		<priority>1</priority>
 		<example>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.OverLongLineRule"
+	<rule class="com.adobe.ac.pmd.rules.style.OverLongLineRule"
 		message="Too long line ({0} maximum, but {1} actually)">
 		<description></description>
 		<priority>5</priority>
@@ -130,7 +130,7 @@
 		<example>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.ImportFromSamePackageRule"
+	<rule class="com.adobe.ac.pmd.rules.style.ImportFromSamePackageRule"
 		message="Imports from the same package are not necessary">
 		<description></description>
 		<priority>1</priority>
@@ -146,7 +146,7 @@ package com.adobe.ac
 }         
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.UncorrectClassCase"
+	<rule class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase"
 		message="A class name must start by a majuscule character">
 		<description></description>
 		<priority>3</priority>
@@ -156,21 +156,25 @@ package com.adobe.ac
    }      
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.CallLaterDirectlyRule"
+	<rule class="com.adobe.ac.pmd.rules.component.CallLaterDirectlyRule"
 		message="Don't call 'callLater' explicitly">
 		<description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component lifecycle.</description>
 		<priority>1</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.AvoidHavingTwoClassWithTheSameNameRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidHavingTwoClassWithTheSameNameRule"
 		message="Another file with the same class name exist in the source path">
 		<priority>3</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.CopyrightMissingRule"
+	<rule class="com.adobe.ac.pmd.rules.style.CopyrightMissingRule"
 		message="The copyright header is missing in this file">
 		<priority>5</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.common.WronglyNamedVariableRule"
+	<rule class="com.adobe.ac.pmd.rules.naming.WronglyNamedVariableRule"
 		message="This variable ({0}) seems to be incorrectly named. Let your creativity flow.">
 		<priority>3</priority>	
+	</rule>
+	<rule class="com.adobe.ac.pmd.rules.binding.ChangeWatcherRule"
+		message="ChangeWatcher class uses hard coded strings to specify the attribute name, to listen to. Prefer listening to events or setters">
+		<priority>1</priority>	
 	</rule>
 </ruleset>

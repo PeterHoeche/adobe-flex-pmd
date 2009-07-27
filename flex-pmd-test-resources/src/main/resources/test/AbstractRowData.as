@@ -32,6 +32,7 @@ package flexUnit.flexui.data
 {
    import flexunit.flexui.controls.FlexUnitLabelsModelLocator;
    
+   import mx.binding.utils.ChangeWatcher;
    import mx.formatters.NumberFormatter;
    
    /**

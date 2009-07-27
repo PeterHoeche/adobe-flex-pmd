@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.engines;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -41,12 +40,8 @@ import net.sourceforge.pmd.PMDException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.adobe.ac.pmd.FlexPmdViolations;
-
 public abstract class AbstractTestFlexPmdEngine extends TestCase
 {
-   private static final String OUTPUT_DIRECTORY_URL = "target/report/";
-
    public AbstractTestFlexPmdEngine( final String name )
    {
       super( name );
@@ -58,7 +53,7 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
                                         URISyntaxException,
                                         IOException
    {
-      final AbstractFlexPmdEngine engine = getFlexPmdEngine();
+      getFlexPmdEngine();
       final URL sourceDirectoryResource = getClass().getResource( "/test" );
 
       assertNotNull( "Source directory is not found as a resource",
@@ -67,14 +62,14 @@ public abstract class AbstractTestFlexPmdEngine extends TestCase
       assertNotNull( "Source directory is not found as a resource",
                      sourceDirectoryResource.toURI() );
 
-      final File sourceDirectory = new File( sourceDirectoryResource.toURI().getPath() );
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
+      // new File( sourceDirectoryResource.toURI().getPath() );
+      // new File( OUTPUT_DIRECTORY_URL );
 
-      engine.executeReport( sourceDirectory,
-                            outputDirectory,
-                            null,
-                            new FlexPmdViolations(),
-                            "" );
+      // engine.executeReport( sourceDirectory,
+      // outputDirectory,
+      // null,
+      // new FlexPmdViolations(),
+      // "" );
 
       onTestExecuteReportDone();
    }

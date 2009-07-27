@@ -71,8 +71,8 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
                                                                  new ViolationPosition( 194, 194 ) } ),
                                            "AbstractRowData.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 105, 105 ),
-                                                       new ViolationPosition( 112, 112 ) } ),
+                                           { new ViolationPosition( 106, 106 ),
+                                                       new ViolationPosition( 113, 113 ) } ),
                                  "com.adobe.ac.AbstractRowData.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 59, 59 ) } ),

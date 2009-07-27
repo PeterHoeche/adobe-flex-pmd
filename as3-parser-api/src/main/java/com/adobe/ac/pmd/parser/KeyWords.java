@@ -45,13 +45,9 @@ public enum KeyWords
    ELSE("else"),
    EOF("__END__"),
    EXTENDS("extends"),
-   FALSE("false"),
    FINAL("final"),
    FINALLY("finally"),
    FOR("for"),
-   /*
-    * FOREACH("foreach"), FORIN("forin"),
-    */
    FUNCTION("function"),
    GET("get"),
    IF("if"),
@@ -62,7 +58,6 @@ public enum KeyWords
    INTERNAL("internal"),
    IS("is"),
    NEW("new"),
-   NULL("null"),
    OVERRIDE("override"),
    PACKAGE("package"),
    PRIVATE("private"),
@@ -73,16 +68,14 @@ public enum KeyWords
    STATIC("static"),
    SUPER("super"),
    SWITCH("switch"),
-   TRUE("true"),
    TRY("try"),
    TYPEOF("typeof"),
-   UNDEFINED("undefined"),
    USE("use"),
    VAR("var"),
    VOID("void"),
    WHILE("while");
 
-   private String name;
+   private final String name;
 
    private KeyWords( final String nameToBeSet )
    {

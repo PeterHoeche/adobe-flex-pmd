@@ -38,7 +38,7 @@
 	<description>
       The Basic As3 Ruleset contains a collection of good practices which everyone should follow.
   </description>
-	<rule class="com.adobe.ac.pmd.rules.as3.naming.TooShortVariableRule"
+	<rule class="com.adobe.ac.pmd.rules.naming.TooShortVariableRule"
 		message="This variable name is too short ({0} characters minimum, but {1} actually)">
 		<description>Detects when a field, local, or parameter has a very short name.</description>
 		<priority>5</priority>
@@ -59,7 +59,7 @@
    }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.naming.PackageCaseRule"
+	<rule class="com.adobe.ac.pmd.rules.naming.PackageCaseRule"
 		message="A package name should be lower case">
 		<description>Detects when a package definition contains upper case characters.</description>
 		<priority>3</priority>
@@ -74,7 +74,7 @@
          ]]>
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.ClassAndExtensionAreIdenticalRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.ClassAndExtensionAreIdenticalRule"
 		message="The extension name is the same as the class name">
 		<description/>
 		<priority>3</priority>
@@ -90,7 +90,7 @@
       </example>
 	</rule>
 	
-	<rule class="com.adobe.ac.pmd.rules.as3.VariableNameEndingWithNumericRule"
+	<rule class="com.adobe.ac.pmd.rules.naming.VariableNameEndingWithNumericRule"
 		message="Using digits at the end of a symbol does not help understanging the meaning of it">
 		<priority>3</priority>
 	</rule>

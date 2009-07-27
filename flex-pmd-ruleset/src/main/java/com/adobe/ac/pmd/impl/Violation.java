@@ -74,7 +74,7 @@ final class Violation implements IFlexViolation
       ruleMessage += messageToAppend;
    }
 
-   public int compareTo( final IFlexViolation otherViolation )
+   public int compareTo( final IFlexViolation otherViolation ) // NO_UCD
    {
       int res;
       final int priorityOrder = getPrioriyOrder( otherViolation );

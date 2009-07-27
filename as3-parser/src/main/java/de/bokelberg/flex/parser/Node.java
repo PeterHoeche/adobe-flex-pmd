@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
  * A single node of the ast
- * 
+ *
  * @author rbokel
  */
 final class Node extends NestedNode implements IParserNode

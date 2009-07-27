@@ -48,9 +48,15 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 {
    private static final Logger LOGGER = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
 
+   public FlexPmdXmlEngine( final File sourceDirectory,
+                            final File outputDirectory,
+                            final String packageToExclude )
+   {
+      super( sourceDirectory, outputDirectory, packageToExclude );
+   }
+
    @Override
-   protected final void writeReport( final FlexPmdViolations pmd,
-                                     final File outputDirectory ) throws PMDException
+   protected final void writeReport( final FlexPmdViolations pmd ) throws PMDException
    {
       final File realOutputDirectory = outputDirectory;
 

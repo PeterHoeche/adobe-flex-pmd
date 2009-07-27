@@ -34,7 +34,7 @@ public enum FlexPMDFormat
 {
    HTML("flexPmd.html"), XML("pmd.xml");
 
-   private String name;
+   private final String name;
 
    private FlexPMDFormat( final String formatName )
    {

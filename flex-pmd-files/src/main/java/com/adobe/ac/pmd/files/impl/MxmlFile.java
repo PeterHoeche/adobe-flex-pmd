@@ -52,12 +52,6 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       extractScriptBlock();
    }
 
-   @Override
-   public final boolean doesCurrentLineContainOneLineComment( final String line )
-   {
-      return false;
-   }
-
    public int getBeginningScriptBlock()
    {
       return startLine;

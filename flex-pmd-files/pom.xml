@@ -26,11 +26,6 @@
 			<version>${as3-plugin-utils.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>pmd</groupId>
-			<artifactId>pmd</artifactId>
-			<version>${pmd.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
 			<version>${project.version}</version>

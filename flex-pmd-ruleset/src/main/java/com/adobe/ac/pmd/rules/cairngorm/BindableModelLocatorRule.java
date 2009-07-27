@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class BindableModelLocatorRule extends AbstractAstFlexRule
+public class BindableModelLocatorRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
    public final boolean isConcernedByTheGivenFile( final IFlexFile file )

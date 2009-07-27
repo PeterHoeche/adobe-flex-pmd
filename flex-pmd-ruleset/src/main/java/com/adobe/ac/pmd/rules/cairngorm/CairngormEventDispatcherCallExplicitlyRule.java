@@ -37,10 +37,14 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexRule
+public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexRule // NO_UCD
 {
-   private static final String DISPATCH_EVENT   = "dispatchEvent";
-   private static final String EVENT_DISPATCHER = "CairngormEventDispatcher";
+   private static final String ADD_EVENT_LISTENER_MESSAGE = "The Cairngorm event is listened directly. "
+                                                                + "The Controller is then avoided, and "
+                                                                + "the MVC pattern is broken.";
+   private static final String DISPATCH_EVENT             = "dispatchEvent";
+   private static final String DISPATCH_EVENT_MESSAGE     = "Use cairngormEvent.dispatch instead";
+   private static final String EVENT_DISPATCHER           = "CairngormEventDispatcher";
 
    @Override
    protected void findViolations( final IFunction function )
@@ -49,20 +53,15 @@ public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexR
 
       for ( final IParserNode primary : primaries )
       {
-         String message = "";
-
-         if ( function.findPrimaryStatementsInBody( DISPATCH_EVENT ).isEmpty() )
-         {
-            message = "The Cairngorm event is listened directly. "
-                  + "The Controller is then avoided, and the MVC pattern is broken.";
-         }
-         else
-         {
-            message = "Use cairngormEvent.dispatch instead";
-         }
          addViolation( primary,
-                       message );
+                       computeMessage( function ) );
       }
+   }
+
+   private String computeMessage( final IFunction function )
+   {
+      return function.findPrimaryStatementsInBody( DISPATCH_EVENT ).isEmpty() ? ADD_EVENT_LISTENER_MESSAGE
+                                                                        : DISPATCH_EVENT_MESSAGE;
    }
 
    @Override

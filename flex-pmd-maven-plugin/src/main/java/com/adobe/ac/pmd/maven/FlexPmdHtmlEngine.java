@@ -62,9 +62,12 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
    protected FlexPmdHtmlEngine( final Sink sinkToBeSet,
                                 final ResourceBundle bundleToBeSet,
                                 final boolean aggregateToBeSet,
-                                final MavenProject projectToBeSet )
+                                final MavenProject projectToBeSet,
+                                final File sourceDirectoryToBeSet,
+                                final File outputDirectoryToBeSet,
+                                final String packageToExcludeToBeSet )
    {
-      super();
+      super( sourceDirectoryToBeSet, outputDirectoryToBeSet, packageToExcludeToBeSet );
 
       sink = sinkToBeSet;
       bundle = bundleToBeSet;
@@ -73,8 +76,7 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
    }
 
    @Override
-   protected final void writeReport( final FlexPmdViolations pmd,
-                                     final File outputDirectory ) throws PMDException
+   protected final void writeReport( final FlexPmdViolations pmd ) throws PMDException
    {
       writeReport( outputDirectory,
                    computeReport( pmd ) );

@@ -48,7 +48,7 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 {
-   private static class AssertPosition
+   private final static class AssertPosition
    {
       public static AssertPosition create( final String message,
                                            final int expectedLine,
@@ -66,9 +66,9 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
                               final int actualLineToBeSet )
       {
          super();
-         this.message = messageToBeSet;
-         this.expectedLine = expectedLineToBeSet;
-         this.actualLine = actualLineToBeSet;
+         message = messageToBeSet;
+         expectedLine = expectedLineToBeSet;
+         actualLine = actualLineToBeSet;
       }
    }
 
@@ -220,7 +220,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    {
       if ( !failures.isEmpty() )
       {
-         final StringBuffer message = new StringBuffer();
+         final StringBuffer message = new StringBuffer( 42 );
 
          for ( final AssertPosition assertPosition : failures )
          {

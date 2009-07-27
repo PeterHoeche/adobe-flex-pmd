@@ -40,11 +40,11 @@ import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
-import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngine;
+import com.adobe.ac.pmd.engines.AbstractTestFlexPmdEngineTest;
 import com.adobe.ac.pmd.engines.FlexPMDFormat;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
-public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
+public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngineTest
 {
    private static final String OUTPUT_DIRECTORY_URL = "target/report/";
 
@@ -54,9 +54,11 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngine
    }
 
    @Override
-   protected AbstractFlexPmdEngine getFlexPmdEngine()
+   protected AbstractFlexPmdEngine getFlexPmdEngine( final File sourceDirectory,
+                                                     final File outputDirectory,
+                                                     final String packageToExclude )
    {
-      return new FlexPmdXmlEngine();
+      return new FlexPmdXmlEngine( sourceDirectory, outputDirectory, packageToExclude );
    }
 
    @Override

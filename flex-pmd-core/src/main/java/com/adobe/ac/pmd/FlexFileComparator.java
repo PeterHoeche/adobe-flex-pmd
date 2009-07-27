@@ -39,7 +39,7 @@ class FlexFileComparator implements Comparator< IFlexFile >, Serializable
 {
    private static final long serialVersionUID = -7929554744612318974L;
 
-   public final int compare( final IFlexFile firstFile,
+   public final int compare( final IFlexFile firstFile, // NO_UCD
                              final IFlexFile secondFile )
    {
       return firstFile.compareTo( secondFile );
