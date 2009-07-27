@@ -104,11 +104,11 @@ public final class FlexPMD // NO_UCD
          final File outputDirectory = new File( getParameterValue( CommandLineOptions.OUTPUT ) );
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( sourceDirectory,
                                                                outputDirectory,
-                                                               excludePackage != null ? excludePackage
-                                                                                     : "" );
+                                                               excludePackage == null ? ""
+                                                                                     : excludePackage );
 
-         engine.executeReport( rulesetRef != null ? new File( rulesetRef )
-                                                 : null );
+         engine.executeReport( rulesetRef == null ? null
+                                                 : new File( rulesetRef ) );
       }
 
       return config.success();

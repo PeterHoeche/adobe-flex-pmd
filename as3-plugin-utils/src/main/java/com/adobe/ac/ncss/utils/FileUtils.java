@@ -42,7 +42,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class FileUtils
+public final class FileUtils
 {
    public static final Logger LOGGER = Logger.getLogger( FileUtils.class.getName() );
 

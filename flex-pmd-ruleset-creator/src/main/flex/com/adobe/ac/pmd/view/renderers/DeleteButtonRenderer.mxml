@@ -61,7 +61,7 @@
 
             private var grid : AdvancedDataGrid;
 
-            override public function set data( value : Object ) : void
+            override public function set data( value : Object ) : void // NO PMD
             {
                 super.data = value;
 

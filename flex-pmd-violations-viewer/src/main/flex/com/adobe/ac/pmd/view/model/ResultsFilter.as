@@ -48,7 +48,7 @@ package com.adobe.ac.pmd.view.model
 
         public static var currentPriorityVisible : int = 1;
 
-        public static function filterViolation( value : Object ) : Boolean
+        public static function filterViolation( value : Object ) : Boolean // NO PMD
         {
             if ( currentPriorityVisible == 0 )
             {

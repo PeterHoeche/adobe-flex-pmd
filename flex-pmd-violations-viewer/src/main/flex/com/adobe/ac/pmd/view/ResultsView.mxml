@@ -56,7 +56,7 @@
                 gc.refresh();
             }
 
-            private function groupLabelFunction( item : Object, column : AdvancedDataGridColumn ) : String
+            private function groupLabelFunction( item : Object, column : AdvancedDataGridColumn ) : String // NO PMD
             {
                 if ( item && item.children )
                 {

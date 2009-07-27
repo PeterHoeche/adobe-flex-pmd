@@ -60,8 +60,7 @@ public abstract class AbstractUseOfForbiddenTypeRule extends AbstractAstFlexRule
 
       for ( final Entry< String, IParserNode > localVariableEntry : function.getLocalVariables().entrySet() )
       {
-         final IParserNode localVariable = localVariableEntry.getValue();
-         final IParserNode type = getTypeFromFieldDeclaration( localVariable );
+         final IParserNode type = getTypeFromFieldDeclaration( localVariableEntry.getValue() );
 
          tryToAddViolation( type,
                             type.getStringValue() );

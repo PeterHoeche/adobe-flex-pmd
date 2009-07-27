@@ -60,7 +60,7 @@ package com.adobe.ac.pmd.control.commands
          new RulesetDelegate().getRuleset( this, GetRulesetContentEvent( event ).ref );
       }
 
-      public function result( data : Object ) : void
+      public function result( data : Object ) : void // NO PMD
       {
          var xml : XML = ResultEvent( data ).result as XML;
          var ruleset : Ruleset = RulesetTranslator.deserialize( xml );
@@ -68,7 +68,7 @@ package com.adobe.ac.pmd.control.commands
          invoker.onReceiveRulesetContent( ruleset );
       }
 
-      public function fault( info : Object ) : void
+      public function fault( info : Object ) : void // NO PMD
       {
          LOG.error( info.toString() );
       }

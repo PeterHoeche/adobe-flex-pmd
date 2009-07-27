@@ -37,7 +37,7 @@ package com.adobe.ac.pmd.view
     public final class ResultsFormatter
     {
         public static function formatViolationsNumberOrBeginLine( 
-        							item : Object, 
+        							item : Object, // NO PMD
         							column : AdvancedDataGridColumn ) : String // NO PMD
         {
             var violation : Violation = item as Violation;

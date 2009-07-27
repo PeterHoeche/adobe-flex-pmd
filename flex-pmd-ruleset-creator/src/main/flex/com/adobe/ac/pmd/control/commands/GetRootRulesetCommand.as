@@ -58,14 +58,14 @@ package com.adobe.ac.pmd.control.commands
          new RulesetDelegate().getRootRuleset( this );
       }
 
-      public function result( data : Object ) : void
+      public function result( data : Object ) : void // NO PMD
       {
          var xml : XML = XML( ResultEvent( data ).result );
 
          invoker.onReceiveRootRuleset( RulesetTranslator.deserialize( xml ) );
       }
 
-      public function fault( info : Object ) : void
+      public function fault( info : Object ) : void // NO PMD
       {
          LOG.error( info.toString() );
       }
