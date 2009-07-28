@@ -28,53 +28,18 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.engines;
+package com.adobe.ac.pmd.parser;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import junit.framework.TestCase;
-import net.sourceforge.pmd.PMDException;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-public abstract class AbstractTestFlexPmdEngine extends TestCase
+public class KeyWordsTest
 {
-   public AbstractTestFlexPmdEngine( final String name )
-   {
-      super( name );
-   }
-
    @Test
-   public final void testExecuteReport() throws PMDException,
-                                        SAXException,
-                                        URISyntaxException,
-                                        IOException
+   public void testToString()
    {
-      getFlexPmdEngine();
-      final URL sourceDirectoryResource = getClass().getResource( "/test" );
-
-      assertNotNull( "Source directory is not found as a resource",
-                     sourceDirectoryResource );
-
-      assertNotNull( "Source directory is not found as a resource",
-                     sourceDirectoryResource.toURI() );
-
-      // new File( sourceDirectoryResource.toURI().getPath() );
-      // new File( OUTPUT_DIRECTORY_URL );
-
-      // engine.executeReport( sourceDirectory,
-      // outputDirectory,
-      // null,
-      // new FlexPmdViolations(),
-      // "" );
-
-      onTestExecuteReportDone();
+      assertEquals( "as",
+                    KeyWords.AS.toString() );
    }
-
-   protected abstract AbstractFlexPmdEngine getFlexPmdEngine();
-
-   protected abstract void onTestExecuteReportDone();
 }
