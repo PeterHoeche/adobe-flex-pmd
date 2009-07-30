@@ -5,12 +5,11 @@
   <artifactId>as3-parser</artifactId>
   <packaging>jar</packaging>
   <name>As3 Parser</name>
-  <version>1.0.RC1</version>
 
   <parent>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
-	<version>1.0.RC1</version>
+	<version>1.0.RC2-SNAPSHOT</version>
   </parent>
   
   <dependencies>

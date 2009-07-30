@@ -7,7 +7,7 @@
   <parent>
     <artifactId>flex-pmd</artifactId>
     <groupId>com.adobe.ac</groupId>
-    <version>1.0.RC1</version>
+    <version>1.0.RC2-SNAPSHOT</version>
   </parent>
 
 </project>

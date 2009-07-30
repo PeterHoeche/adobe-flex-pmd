@@ -36,6 +36,7 @@ import java.util.Map;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule;
 
 public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
 {
