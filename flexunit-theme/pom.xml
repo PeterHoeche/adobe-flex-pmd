@@ -6,11 +6,12 @@
 	<packaging>swc</packaging>
 	<name>Adobe Flex FlexUnit theme</name>
 	<description>Adobe FlexUnit theme</description>
+	<version>1.0</version>
 
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>0.5.6-SNAPSHOT</version>
+		<version>1.0.RC1</version>
 	</parent>
 	
 	<properties>

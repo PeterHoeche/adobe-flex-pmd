@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>0.5.6-SNAPSHOT</version>
+		<version>1.0.RC1</version>
 	</parent>
 	
 	<properties>
@@ -32,6 +32,7 @@
 		<flexunit-optional.version>0.85</flexunit-optional.version>
 		<event-source.version>1.1</event-source.version>
 		<cairngorm.version>2.2.1</cairngorm.version>
+		<flexunit-theme.version>1.0</flexunit-theme.version>
 
 	</properties>
 
@@ -40,7 +41,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>flexunit-theme</artifactId>
-			<version>${project.version}</version>
+			<version>${flexunit-theme.version}</version>
 			<type>swc</type>
 			<scope>theme</scope>
 		</dependency>
