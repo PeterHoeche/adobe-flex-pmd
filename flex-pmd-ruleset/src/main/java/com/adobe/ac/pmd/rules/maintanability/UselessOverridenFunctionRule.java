@@ -40,8 +40,10 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
    @Override
    protected final void findViolations( final IFunction function )
    {
+      final int statementNbAtFirstLevelInBody = function.getStatementNbInBody();
+
       if ( function.getBody() != null
-            && function.isOverriden() && function.getBody().numChildren() == 1
+            && function.isOverriden() && statementNbAtFirstLevelInBody == 1
             && function.findPrimaryStatementsInBody( KeyWords.SUPER.toString() ).size() != 0 )
       {
          addViolation( function );

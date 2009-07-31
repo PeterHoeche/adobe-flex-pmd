@@ -170,6 +170,17 @@ public class FunctionNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetStatementNbInBody()
+   {
+      assertEquals( 7,
+                    constructor.getStatementNbInBody() );
+      assertEquals( 9,
+                    drawHighlightIndicator.getStatementNbInBody() );
+      assertEquals( 21,
+                    placeSortArrow.getStatementNbInBody() );
+   }
+
+   @Test
    public void testIsGetter()
    {
       assertFalse( constructor.isGetter() );

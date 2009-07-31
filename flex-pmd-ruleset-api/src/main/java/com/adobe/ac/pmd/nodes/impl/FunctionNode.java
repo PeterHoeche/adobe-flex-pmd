@@ -161,6 +161,11 @@ class FunctionNode extends AbstractNode implements IFunction
       return returnType;
    }
 
+   public int getStatementNbInBody()
+   {
+      return 1 + getStatementInNode( body );
+   }
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IFunction#getSuperCall()
@@ -305,5 +310,27 @@ class FunctionNode extends AbstractNode implements IFunction
             computeVariableList( child );
          }
       }
+   }
+
+   private int getStatementInNode( final IParserNode node )
+   {
+      int statementNb = 0;
+
+      if ( node != null
+            && node.numChildren() != 0 )
+      {
+         int lastLine = node.getChild( 0 ).getLine();
+         for ( final IParserNode childContent : node.getChildren() )
+         {
+            if ( childContent.getLine() != lastLine )
+            {
+               lastLine = childContent.getLine();
+               statementNb++;
+            }
+            statementNb += getStatementInNode( childContent );
+         }
+      }
+
+      return statementNb;
    }
 }

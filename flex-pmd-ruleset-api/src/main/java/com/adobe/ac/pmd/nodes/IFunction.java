@@ -69,6 +69,8 @@ public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode
 
    IIdentifierNode getReturnType();
 
+   int getStatementNbInBody();
+
    /**
     * @return Extracts the super call node (if any) from the function content
     *         block
