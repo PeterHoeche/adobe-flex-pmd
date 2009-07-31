@@ -289,7 +289,7 @@
 		message="Nested if statements are not a good design">
 		<priority>3</priority>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.as3.TrueFalseConditionRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule"
 		message="This test contains an hard coded boolean value. You could remove it.">
 		<priority>1</priority>
 	</rule>

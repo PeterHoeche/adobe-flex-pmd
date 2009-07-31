@@ -113,7 +113,7 @@
 		message="Long parameter list detected ({0} maximum, but {1} actually)">
 		<description>Long parameter lists can indicate that a new object should be created to wrap the numerous parameters.  Basically, try to group the parameters together.
       </description>
-		<priority>1</priority>
+		<priority>3</priority>
 		<properties>
 			<property name="maximum">
 				<value>4</value>

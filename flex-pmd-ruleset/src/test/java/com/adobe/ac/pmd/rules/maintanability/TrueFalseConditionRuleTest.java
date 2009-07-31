@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.maintanability;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,6 @@ import java.util.Map;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule;
 
 public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
 {
@@ -49,27 +48,28 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                                         "PngEncoder.as",
-                                                                         new ViolationPosition[]
-                                                                         { new ViolationPosition( 574, 574 ),
-                                                                                     new ViolationPosition( 576,
-                                                                                                            576 ),
-                                                                                     new ViolationPosition( 578,
-                                                                                                            578 ),
-                                                                                     new ViolationPosition( 584,
-                                                                                                            584 ) } ),
-                                                               "Looping.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 44, 44 ),
-                                                                           new ViolationPosition( 57, 57 ),
-                                                                           new ViolationPosition( 66, 66 ),
-                                                                           new ViolationPosition( 69, 69 ) } ),
-                                                     "RadonDataGrid.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 63, 63 ),
-                                                                 new ViolationPosition( 190, 190 ),
-                                                                 new ViolationPosition( 194, 194 ) } ),
+      final HashMap< String, ViolationPosition[] > violatingFiles = new HashMap< String, ViolationPosition[] >();
+
+      addToMap( addToMap( addToMap( violatingFiles,
+                                    "PngEncoder.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 574, 574 ),
+                                                new ViolationPosition( 576, 576 ),
+                                                new ViolationPosition( 578, 578 ),
+                                                new ViolationPosition( 584, 584 ) } ),
+                          "Looping.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 44, 44 ),
+                                      new ViolationPosition( 57, 57 ),
+                                      new ViolationPosition( 66, 66 ),
+                                      new ViolationPosition( 69, 69 ) } ),
+                "RadonDataGrid.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 63, 63 ),
+                            new ViolationPosition( 190, 190 ),
+                            new ViolationPosition( 194, 194 ) } );
+
+      return addToMap( addToMap( addToMap( violatingFiles,
                                            "AbstractRowData.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 106, 106 ),
