@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<!--
+
+     Copyright (c) 2008. Adobe Systems Incorporated.
+     All rights reserved.
+
+     Redistribution and use in source and binary forms, with or without
+     modification, are permitted provided that the following conditions
+     are met:
+
+     * Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in
+     the documentation and/or other materials provided with the
+     distribution.
+     * Neither the name of Adobe Systems Incorporated nor the names of
+     its contributors may be used to endorse or promote products derived
+     from this software without specific prior written permission.
+
+     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+     LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+     PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+     OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+     EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+     PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+     PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<project name="FlexPMD client build utility" default="default" xmlns:artifact="urn:maven-artifact-ant">
+
+	<property environment="env" />
+	<property file="${basedir}/build.properties" />
+
+	<!-- uncomment if you need to see what properties ant is picking up 
+	<echoproperties />
+    -->
+	
+	<path id="maven-ant-tasks.classpath" path="${basedir}/ant.lib/maven-ant-tasks-2.0.9.jar" />
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant" classpathref="maven-ant-tasks.classpath" />
+
+
+	<target name="default">
+		<echo> This build contains at set of usefull targets </echo>
+		<echo> The compilation, unit test, flexpmd quality report and done with maven </echo>
+		<echo />
+		<echo> From here, you may  the following target: </echo>
+		<echo />
+		<echo> -------- update the third party libraries swc  ----------------- </echo>
+		<echo> libs.update          -- will clean and recopy the 3rd party swc in libs</echo>
+		<echo />
+		<echo> -------- flexcover --------------------------------------------- </echo>
+		<echo> flexcover.run          -- will run the flexcover air client and flexunit test runner</echo>
+		<echo> flexcover.report       -- will run flexcover and create a emma.xml report</echo>
+	</target>
+
+	<target name="libs.update">
+		<delete includeemptydirs="true">
+			<fileset dir="${basedir}/libs" includes="*.swc" excludes="radon_flex_remoted_objects*.swc" />
+		</delete>
+		<artifact:dependencies filesetId="dependency.fileset" useScope="test">
+			<pom file="${basedir}/pom.xml" />
+		</artifact:dependencies>
+		<copy todir="${basedir}/libs">
+			<fileset refid="dependency.fileset" />
+			<!-- This mapper strips off all leading directory information -->
+			<mapper type="flatten" />
+		</copy>
+		<delete includeemptydirs="true">
+			<fileset dir="${basedir}/libs" includes="*${flex.sdk.version}*" defaultexcludes="false" excludes="datavisualization-3.2.0.3958-en_US.rb.swc,datavisualization-3.2.0.3958.swc"/>
+			<fileset dir="${basedir}/libs" includes="*.pom" defaultexcludes="false" />
+			<fileset dir="${basedir}/libs" includes="*.zip" defaultexcludes="false" />
+            <fileset dir="${basedir}/libs" includes="*.jar" defaultexcludes="false" />
+		</delete>
+	</target>
+
+	<target name="flexcover.run" depends="libs.update">
+		<ant antfile="${basedir}/flexcover.xml" target="run" />
+	</target>
+
+	<target name="flexcover.report" depends="libs.update">
+		<ant antfile="${basedir}/flexcover.xml" target="report" />
+	</target>
+
+</project>
