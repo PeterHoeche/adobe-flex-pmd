@@ -344,12 +344,19 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>2.0-beta-5</version>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.1.1</version>
+            </plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>surefire-report-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
 				<inherited>true</inherited>
+				<version>2.4.3</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -365,10 +372,12 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
+				<version>2.0-beta-2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.5</version>
 			</plugin>
 		</plugins>
 	</reporting>
