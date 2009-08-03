@@ -1,35 +1,30 @@
 <!--
 
-     Copyright (c) 2008. Adobe Systems Incorporated.
-     All rights reserved.
+		Copyright (c) 2008. Adobe Systems Incorporated. All rights reserved.
 
-     Redistribution and use in source and binary forms, with or without
-     modification, are permitted provided that the following conditions
-     are met:
+		Redistribution and use in source and binary forms, with or without
+		modification, are permitted provided that the following conditions are
+		met: * Redistributions of source code must retain the above copyright
+		notice, this list of conditions and the following disclaimer. *
+		Redistributions in binary form must reproduce the above copyright
+		notice, this list of conditions and the following disclaimer in the
+		documentation and/or other materials provided with the distribution. *
+		Neither the name of Adobe Systems Incorporated nor the names of its
+		contributors may be used to endorse or promote products derived from
+		this software without specific prior written permission. THIS SOFTWARE
+		IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+		EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+		IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+		PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+		CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+		EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+		PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+		PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+		LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+		NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+		SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+	-->
 
-     * Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
-     * Redistributions in binary form must reproduce the above copyright
-     notice, this list of conditions and the following disclaimer in
-     the documentation and/or other materials provided with the
-     distribution.
-     * Neither the name of Adobe Systems Incorporated nor the names of
-     its contributors may be used to endorse or promote products derived
-     from this software without specific prior written permission.
-
-     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-     "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-     LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-     PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
-     OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-     EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-     PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-     PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-     LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-     NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -44,7 +39,7 @@
 		<groupId>com.adobe.ac</groupId>
 		<version>1.0.RC2-SNAPSHOT</version>
 	</parent>
-	
+
 	<properties>
 
 		<!-- Plugin versions -->
@@ -65,8 +60,9 @@
 		<event-source.version>1.1</event-source.version>
 		<cairngorm.version>2.2.1</cairngorm.version>
 		<flexunit-theme.version>1.0</flexunit-theme.version>
-        
-    </properties>
+		<flex-pmd.version>1.0.RC1</flex-pmd.version>
+
+	</properties>
 
 	<dependencies>
 
@@ -78,20 +74,21 @@
 			<scope>theme</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>flex-pmd-ruleset</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>flex-pmd-flex-lib</artifactId>
-			<version>${project.version}</version>
+			<version>${flex-pmd.version}</version>
 			<type>swc</type>
+			<exclusions>
+				<exclusion>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>flex-pmd-ruleset</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>com.adobe.cairngorm</groupId>
 			<artifactId>cairngorm</artifactId>
@@ -137,21 +134,21 @@
 			<classifier>en_US</classifier>
 		</dependency>
 
-        <dependency>
-            <groupId>com.adobe.cairngorm</groupId>
-            <artifactId>event-source</artifactId>
-            <version>${event-source.version}</version>
-            <type>swc</type>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>event-source</artifactId>
+			<version>${event-source.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.adobe.flexunit</groupId>
-            <artifactId>flexunit</artifactId>
-            <version>${flexunit.version}</version>
-            <type>swc</type>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.adobe.flexunit</groupId>
+			<artifactId>flexunit</artifactId>
+			<version>${flexunit.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
 		<!-- flexmojos Unit testing support -->
 		<dependency>
 			<groupId>org.sonatype.flexmojos</groupId>
@@ -176,29 +173,22 @@
 				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>
-		
+
 		<plugins>
 
-			<!--  plugin>
-				<groupId>org.apache.maven.plugins</groupId>
+			<!--
+				plugin> <groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>${maven-dependency-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>unpack-binary-resources</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>unpack-dependencies</goal>
-						</goals>
-						<configuration>
-							<includeGroupIds>${project.groupId}</includeGroupIds>
-							<includes>**/*.xml</includes>
-							<outputDirectory>target/rulesets</outputDirectory>
-							<excludeTransitive>true</excludeTransitive>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin -->
+				<version>${maven-dependency-plugin.version}</version> <executions>
+				<execution> <id>unpack-binary-resources</id>
+				<phase>process-sources</phase> <goals>
+				<goal>unpack-dependencies</goal> </goals> <configuration>
+				<includeGroupIds>${project.groupId}</includeGroupIds>
+				<includes>**/*.xml</includes>
+				<outputDirectory>target/rulesets</outputDirectory>
+				<excludeTransitive>true</excludeTransitive> </configuration>
+				</execution> </executions> </plugin
+			-->
 
 			<plugin>
 				<groupId>org.sonatype.flexmojos</groupId>
@@ -207,36 +197,22 @@
 				<extensions>true</extensions>
 				<configuration>
 					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+					<compiledLocales>
+                        <locale>en_US</locale>
+                    </compiledLocales>
+                    <resourceBundlePath>${basedir}/src/main/locales/{locale}</resourceBundlePath>
+                    <allowSourcePathOverlap>true</allowSourcePathOverlap>
+                    <showWarnings>true</showWarnings>
+                    <sourceFile>Main.mxml</sourceFile>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>as3Ncss-maven-plugin</artifactId>
-				<version>${as3Ncss-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<!-- plugin>
-				<groupId>${project.groupId}</groupId>
+			<!--
+				plugin> <groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${flex-pmd-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin -->
+				<version>${flex-pmd-maven-plugin.version}</version> <executions>
+				<execution> <phase>package</phase> <goals> <goal>check</goal>
+				</goals> </execution> </executions> </plugin
+			-->
 
 		</plugins>
 	</build>
@@ -258,7 +234,7 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>				
+				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.4.3</version>
 				<configuration>
 					<reportsDirectory>surefire-reports</reportsDirectory>
@@ -268,8 +244,7 @@
 			<plugin>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<!-- tofix <version>${flex-pmd-maven-plugin.version}</version> -->
-				<version>1.0.RC1</version>
+				<version>${flex-pmd.version}</version>
 			</plugin>
 
 			<plugin>
