@@ -50,11 +50,6 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
    {
       final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
 
-      addToMap( violations,
-                "DefaultNameEvent.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 37, 37 ) } );
-
       addToMap( addToMap( addToMap( violations,
                                     "com.adobe.ac.ncss.BigImporterModel.as",
                                     new ViolationPosition[]
