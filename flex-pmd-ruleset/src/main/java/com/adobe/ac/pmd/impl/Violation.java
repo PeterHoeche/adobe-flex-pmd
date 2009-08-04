@@ -65,10 +65,6 @@ final class Violation implements IFlexViolation
       }
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.IFlexViolation#appendToMessage(java.lang.String)
-    */
    public void appendToMessage( final String messageToAppend )
    {
       ruleMessage += messageToAppend;

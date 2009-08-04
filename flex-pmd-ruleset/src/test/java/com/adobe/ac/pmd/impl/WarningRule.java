@@ -38,9 +38,10 @@ import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-class WarningRule extends AbstractFlexRule
+public class WarningRule extends AbstractFlexRule
 {
    @Override
    public String getMessage()
@@ -65,6 +66,12 @@ class WarningRule extends AbstractFlexRule
                                                      final IFlexFile file,
                                                      final Map< String, IFlexFile > files )
    {
-      return new ArrayList< IFlexViolation >();
+      final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
+
+      addViolation( violations,
+                    file,
+                    new ViolationPosition( 0, 0 ) );
+
+      return violations;
    }
 }

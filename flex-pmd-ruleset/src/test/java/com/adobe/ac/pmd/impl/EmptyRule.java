@@ -37,10 +37,11 @@ import java.util.Map;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
-class EmptyRule extends AbstractMaximizedFlexRule
+public class EmptyRule extends AbstractMaximizedFlexRule
 {
    public int getActualValueForTheCurrentViolation()
    {
@@ -50,6 +51,12 @@ class EmptyRule extends AbstractMaximizedFlexRule
    public int getDefaultThreshold()
    {
       return 10;
+   }
+
+   @Override
+   public String getDescription()
+   {
+      return "description";
    }
 
    @Override
@@ -81,6 +88,12 @@ class EmptyRule extends AbstractMaximizedFlexRule
                                                      final IFlexFile file,
                                                      final Map< String, IFlexFile > files )
    {
-      return new ArrayList< IFlexViolation >();
+      final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
+
+      addViolation( violations,
+                    file,
+                    new ViolationPosition( 0, 0 ) );
+
+      return violations;
    }
 }

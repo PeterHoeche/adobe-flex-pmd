@@ -48,7 +48,7 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 {
-   private final static class AssertPosition
+   final static class AssertPosition
    {
       public static AssertPosition create( final String message,
                                            final int expectedLine,
@@ -79,6 +79,70 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       map.put( resource,
                positions );
       return map;
+   }
+
+   protected static StringBuffer buildFailuresMessage( final List< AssertPosition > failures )
+   {
+      final StringBuffer message = new StringBuffer( 42 );
+
+      for ( final AssertPosition assertPosition : failures )
+      {
+         message.append( assertPosition.message
+               + ": expected <" + assertPosition.expectedLine + "> but actually <"
+               + assertPosition.actualLine + ">\n" );
+      }
+      return message;
+   }
+
+   protected static List< AssertPosition > buildFailureViolations( final String resourcePath,
+                                                                   final ViolationPosition[] expectedPositions,
+                                                                   final List< IFlexViolation > violations )
+   {
+      List< AssertPosition > failures;
+      failures = new ArrayList< AssertPosition >();
+
+      for ( int i = 0; i < expectedPositions.length; i++ )
+      {
+         final IFlexViolation violation = violations.get( i );
+         final ViolationPosition expectedPosition = expectedPositions[ i ];
+
+         if ( expectedPosition.getBeginLine() != violation.getBeginLine() )
+         {
+            failures.add( AssertPosition.create( BEGIN_LINE_NOT_CORRECT
+                                                       + " at " + i + "th violation on " + resourcePath,
+                                                 expectedPosition.getBeginLine(),
+                                                 violation.getBeginLine() ) );
+         }
+         if ( expectedPosition.getEndLine() != violation.getEndLine() )
+         {
+            failures.add( AssertPosition.create( END_LINE_NOT_CORRECT
+                                                       + " at " + i + "th violation on " + resourcePath,
+                                                 expectedPosition.getEndLine(),
+                                                 violation.getEndLine() ) );
+         }
+      }
+      return failures;
+   }
+
+   protected static StringBuffer buildMessageName( final Map< String, List< IFlexViolation >> violatedFiles )
+   {
+      final StringBuffer buffer = new StringBuffer( 100 );
+
+      for ( final String violatedFileName : violatedFiles.keySet() )
+      {
+         final List< IFlexViolation > violations = violatedFiles.get( violatedFileName );
+
+         buffer.append( violatedFileName
+               + " should not contain any violations " + " (" + violations.size() + " found" );
+
+         if ( violations.size() == 1 )
+         {
+            buffer.append( " at "
+                  + violations.get( 0 ).getBeginLine() + ":" + violations.get( 0 ).getEndLine() );
+         }
+         buffer.append( ")\n" );
+      }
+      return buffer;
    }
 
    /**
@@ -139,29 +203,9 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
          if ( expectedPositions.length != 0 )
          {
-            final List< AssertPosition > failures = new ArrayList< AssertPosition >();
-
-            for ( int i = 0; i < expectedPositions.length; i++ )
-            {
-               final IFlexViolation violation = violations.get( i );
-               final ViolationPosition expectedPosition = expectedPositions[ i ];
-
-               if ( expectedPosition.getBeginLine() != violation.getBeginLine() )
-               {
-                  failures.add( AssertPosition.create( BEGIN_LINE_NOT_CORRECT
-                                                             + " at " + i + "th violation on " + resourcePath,
-                                                       expectedPosition.getBeginLine(),
-                                                       violation.getBeginLine() ) );
-               }
-               if ( expectedPosition.getEndLine() != violation.getEndLine() )
-               {
-                  failures.add( AssertPosition.create( END_LINE_NOT_CORRECT
-                                                             + " at " + i + "th violation on " + resourcePath,
-                                                       expectedPosition.getEndLine(),
-                                                       violation.getEndLine() ) );
-               }
-            }
-            printFailures( failures );
+            printFailures( buildFailureViolations( resourcePath,
+                                                   expectedPositions,
+                                                   violations ) );
          }
       }
       catch ( final IOException e )
@@ -172,27 +216,6 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       {
          fail( e.getMessage() );
       }
-   }
-
-   private StringBuffer buildMessageName( final Map< String, List< IFlexViolation >> violatedFiles )
-   {
-      final StringBuffer buffer = new StringBuffer( 100 );
-
-      for ( final String violatedFileName : violatedFiles.keySet() )
-      {
-         final List< IFlexViolation > violations = violatedFiles.get( violatedFileName );
-
-         buffer.append( violatedFileName
-               + " should not contain any violations " + " (" + violations.size() + " found" );
-
-         if ( violations.size() == 1 )
-         {
-            buffer.append( " at "
-                  + violations.get( 0 ).getBeginLine() + ":" + violations.get( 0 ).getEndLine() );
-         }
-         buffer.append( ")\n" );
-      }
-      return buffer;
    }
 
    private Map< String, List< IFlexViolation >> extractActualViolatedFiles() throws IOException,
@@ -220,15 +243,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    {
       if ( !failures.isEmpty() )
       {
-         final StringBuffer message = new StringBuffer( 42 );
-
-         for ( final AssertPosition assertPosition : failures )
-         {
-            message.append( assertPosition.message
-                  + ": expected <" + assertPosition.expectedLine + "> but actually <"
-                  + assertPosition.actualLine + ">\n" );
-         }
-         fail( message.toString() );
+         fail( buildFailuresMessage( failures ).toString() );
       }
    }
 }
