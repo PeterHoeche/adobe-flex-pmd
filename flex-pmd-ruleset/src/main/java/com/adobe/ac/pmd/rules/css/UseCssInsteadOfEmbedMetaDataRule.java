@@ -28,44 +28,51 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.event;
+package com.adobe.ac.pmd.rules.css;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UntypedEventMetadataRule extends AbstractAstFlexRule
+public class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
 {
    @Override
-   protected final void findViolations( final IClass classNode )
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {
-      final List< IMetaData > eventMetaData = classNode.getMetaData( MetaData.EVENT );
+      super.findViolationsFromAttributes( variables );
 
-      if ( eventMetaData != null )
-      {
-         findViolationsInMetaDataNode( eventMetaData );
-      }
+      findViolationsInMetaDataList( variables );
    }
 
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected void findViolationsFromConstants( final List< IConstant > constants )
+   {
+      super.findViolationsFromConstants( constants );
+
+      findViolationsInMetaDataList( constants );
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
    }
 
-   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas )
+   private void findViolationsInMetaDataList( final List< ? extends IMetaDataListHolder > metaDataList )
    {
-      for ( final IMetaData metaData : eventMetaDatas )
+      for ( final IMetaDataListHolder metaData : metaDataList )
       {
-         final String metaDataValue = metaData.getInternalNode().getStringValue();
+         final List< IMetaData > embedList = metaData.getMetaData( MetaData.EMBED );
 
-         if ( !metaDataValue.contains( "type = \"" ) )
+         if ( embedList != null )
          {
-            addViolation( metaData );
+            addViolation( embedList.get( 0 ) );
          }
       }
    }

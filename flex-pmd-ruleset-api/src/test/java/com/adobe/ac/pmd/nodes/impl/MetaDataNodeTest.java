@@ -38,12 +38,13 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.parser.IParserNode;
 
 public class MetaDataNodeTest extends FlexPmdTestBase
 {
-   private static final String       NAME_DAY_CHANGE_TYPE_DEFAULT_NAME_EVENT = "name = \"dayChange\" ,"
-                                                                                   + " type = \"DefaultNameEvent\"";
+   private static final String       NAME_DAY_CHANGE_EVENT_NAME_EVENT = "name = \"dayChange\" ,"
+                                                                            + " type = \"DefaultNameEvent\"";
    private final IMetaDataListHolder modelLocator;
    private final IMetaDataListHolder unboundMetaData;
 
@@ -58,20 +59,34 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testEmbed() throws PMDException
+   {
+      final IParserNode titleNode = FileSetUtils.buildAst( getTestFiles().get( "Title.as" ) );
+
+      final IMetaDataListHolder show = NodeFactory.createPackage( titleNode )
+                                                  .getClassNode()
+                                                  .getConstants()
+                                                  .get( 0 );
+      assertEquals( MetaData.EMBED,
+                    show.getMetaData( MetaData.EMBED ).get( 0 ).getName() );
+
+   }
+
+   @Test
    public void testGetMetaDataName()
    {
-      assertEquals( "Bindable",
-                    modelLocator.getMetaData( "Bindable" ).get( 0 ).getName() );
-      assertEquals( "Event",
-                    unboundMetaData.getMetaData( "Event" ).get( 0 ).getName() );
+      assertEquals( MetaData.BINDABLE,
+                    modelLocator.getMetaData( MetaData.BINDABLE ).get( 0 ).getName() );
+      assertEquals( MetaData.EVENT,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getName() );
    }
 
    @Test
    public void testGetMetaDataParameter()
    {
       assertEquals( "",
-                    modelLocator.getMetaData( "Bindable" ).get( 0 ).getParameter() );
-      assertEquals( NAME_DAY_CHANGE_TYPE_DEFAULT_NAME_EVENT,
-                    unboundMetaData.getMetaData( "Event" ).get( 0 ).getParameter() );
+                    modelLocator.getMetaData( MetaData.BINDABLE ).get( 0 ).getParameter() );
+      assertEquals( NAME_DAY_CHANGE_EVENT_NAME_EVENT,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getParameter() );
    }
 }

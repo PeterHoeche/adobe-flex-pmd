@@ -30,10 +30,39 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UseOfObjectTypeRule extends AbstractUseOfForbiddenTypeRule // NO_UCD
 {
+   private boolean isResponder;
+
+   @Override
+   protected void findViolations( final IClass classNode )
+   {
+      for ( final IParserNode implementation : classNode.getImplementations() )
+      {
+         if ( "IResponder".equals( implementation.getStringValue() ) )
+         {
+            isResponder = true;
+            break;
+         }
+      }
+
+      super.findViolations( classNode );
+   }
+
+   @Override
+   protected void findViolationsInParametersList( final IFunction function )
+   {
+      if ( !isResponderImplementation( function ) )
+      {
+         super.findViolationsInParametersList( function );
+      }
+   }
+
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
@@ -44,5 +73,11 @@ public class UseOfObjectTypeRule extends AbstractUseOfForbiddenTypeRule // NO_UC
    protected String getForbiddenType()
    {
       return "Object";
+   }
+
+   private boolean isResponderImplementation( final IFunction function )
+   {
+      return isResponder
+            && ( function.getName().equals( "result" ) || function.getName().equals( "fault" ) );
    }
 }

@@ -28,45 +28,16 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.event;
+package com.adobe.ac.pmd.nodes;
 
-import java.util.List;
-
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.nodes.MetaData;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class UntypedEventMetadataRule extends AbstractAstFlexRule
+public final class MetaData
 {
-   @Override
-   protected final void findViolations( final IClass classNode )
+   public static final String ARRAY_ELEMENT_TYPE = "ArrayElementType";
+   public static final String BINDABLE           = "Bindable";
+   public static final String EMBED              = "Embed";
+   public static final String EVENT              = "Event";
+
+   private MetaData()
    {
-      final List< IMetaData > eventMetaData = classNode.getMetaData( MetaData.EVENT );
-
-      if ( eventMetaData != null )
-      {
-         findViolationsInMetaDataNode( eventMetaData );
-      }
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.LOW;
-   }
-
-   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas )
-   {
-      for ( final IMetaData metaData : eventMetaDatas )
-      {
-         final String metaDataValue = metaData.getInternalNode().getStringValue();
-
-         if ( !metaDataValue.contains( "type = \"" ) )
-         {
-            addViolation( metaData );
-         }
-      }
    }
 }

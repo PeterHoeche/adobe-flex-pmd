@@ -28,45 +28,29 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.event;
+package com.adobe.ac.pmd.rules.css;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.nodes.MetaData;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UntypedEventMetadataRule extends AbstractAstFlexRule
+public class UseCssInsteadOfEmbedMetaDataRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected final void findViolations( final IClass classNode )
+   protected AbstractFlexRule getRule()
    {
-      final List< IMetaData > eventMetaData = classNode.getMetaData( MetaData.EVENT );
-
-      if ( eventMetaData != null )
-      {
-         findViolationsInMetaDataNode( eventMetaData );
-      }
+      return new UseCssInsteadOfEmbedMetaDataRule();
    }
 
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      return ViolationPriority.LOW;
-   }
-
-   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas )
-   {
-      for ( final IMetaData metaData : eventMetaDatas )
-      {
-         final String metaDataValue = metaData.getInternalNode().getStringValue();
-
-         if ( !metaDataValue.contains( "type = \"" ) )
-         {
-            addViolation( metaData );
-         }
-      }
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "Title.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 39, 39 ) } );
    }
 }

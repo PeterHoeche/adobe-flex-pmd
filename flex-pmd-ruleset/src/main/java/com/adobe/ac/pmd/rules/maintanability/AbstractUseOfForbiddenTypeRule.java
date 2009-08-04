@@ -53,18 +53,14 @@ public abstract class AbstractUseOfForbiddenTypeRule extends AbstractAstFlexRule
    @Override
    protected void findViolations( final IFunction function )
    {
-      tryToAddViolation( function.getReturnType().getInternalNode(),
-                         function.getReturnType().toString() );
+      findViolationsInReturnType( function );
+      findViolationsInParametersList( function );
+      findViolationsInLocalVariables( function );
+   }
 
+   protected void findViolationsInParametersList( final IFunction function )
+   {
       findViolationInVariableLists( function.getParameters() );
-
-      for ( final Entry< String, IParserNode > localVariableEntry : function.getLocalVariables().entrySet() )
-      {
-         final IParserNode type = getTypeFromFieldDeclaration( localVariableEntry.getValue() );
-
-         tryToAddViolation( type,
-                            type.getStringValue() );
-      }
    }
 
    abstract protected String getForbiddenType();
@@ -79,6 +75,23 @@ public abstract class AbstractUseOfForbiddenTypeRule extends AbstractAstFlexRule
                                variable.getType().toString() );
          }
       }
+   }
+
+   private void findViolationsInLocalVariables( final IFunction function )
+   {
+      for ( final Entry< String, IParserNode > localVariableEntry : function.getLocalVariables().entrySet() )
+      {
+         final IParserNode type = getTypeFromFieldDeclaration( localVariableEntry.getValue() );
+
+         tryToAddViolation( type,
+                            type.getStringValue() );
+      }
+   }
+
+   private void findViolationsInReturnType( final IFunction function )
+   {
+      tryToAddViolation( function.getReturnType().getInternalNode(),
+                         function.getReturnType().toString() );
    }
 
    private void tryToAddViolation( final IParserNode node,

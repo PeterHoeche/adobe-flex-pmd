@@ -28,45 +28,20 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.event;
-
-import java.util.List;
-
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.nodes.MetaData;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class UntypedEventMetadataRule extends AbstractAstFlexRule
+package
 {
-   @Override
-   protected final void findViolations( final IClass classNode )
-   {
-      final List< IMetaData > eventMetaData = classNode.getMetaData( MetaData.EVENT );
 
-      if ( eventMetaData != null )
-      {
-         findViolationsInMetaDataNode( eventMetaData );
-      }
-   }
+    public class Responder implements IResponder
+    {
+        public function result( event : Object ) : void
+        { 
+        	event as Event;
+        }
 
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.LOW;
-   }
 
-   private void findViolationsInMetaDataNode( final List< IMetaData > eventMetaDatas )
-   {
-      for ( final IMetaData metaData : eventMetaDatas )
-      {
-         final String metaDataValue = metaData.getInternalNode().getStringValue();
-
-         if ( !metaDataValue.contains( "type = \"" ) )
-         {
-            addViolation( metaData );
-         }
-      }
-   }
+        public function fault( info : Object ) : void
+        {
+        	info as Event;
+        }
+    }
 }

@@ -38,6 +38,7 @@ import org.apache.commons.lang.StringUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -49,7 +50,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    @Override
    protected final void findViolations( final IClass classNode )
    {
-      final List< IMetaData > eventMetaDatas = classNode.getMetaData( "Event" );
+      final List< IMetaData > eventMetaDatas = classNode.getMetaData( MetaData.EVENT );
 
       if ( eventMetaDatas != null )
       {

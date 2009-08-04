@@ -35,7 +35,7 @@
 	public final class Title 
 	
 	{
-		
+        [Embed(source="/assets/pass_small.png")]
 		public static const SHOW:String = "true";
 		public static const HIDE:String = "false";
 		private var watcher : ChangeWatcher;

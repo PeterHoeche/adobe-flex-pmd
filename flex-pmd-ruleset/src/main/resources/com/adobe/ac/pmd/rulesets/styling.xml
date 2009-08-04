@@ -44,4 +44,8 @@
 		<description>It is not a good practice to embed style blocks inside the MXML component. Prefer using external css files.</description>
 		<priority>3</priority>
 	</rule>
-</ruleset>   
+	<rule class="com.adobe.ac.pmd.rules.css.UseCssInsteadOfEmbedMetaDataRule"
+		message="Embed metadata detected in source code where a stylesheet may be cleaner">
+		<priority>5</priority>
+	</rule>
+</ruleset>

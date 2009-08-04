@@ -45,6 +45,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
@@ -109,7 +110,7 @@ public class ClassNodeTest extends FlexPmdTestBase
    {
       assertEquals( 0,
                     radonDataGrid.getMetaDataCount() );
-      assertNotNull( modelLocator.getMetaData( "Bindable" ) );
+      assertNotNull( modelLocator.getMetaData( MetaData.BINDABLE ) );
    }
 
    @Test
