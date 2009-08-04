@@ -31,7 +31,6 @@
 package com.adobe.ac.pmd.rules.unused;
 
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -47,15 +46,6 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
    protected final void visitStatement( final IParserNode ast )
    {
       super.visitStatement( ast );
-      tryToAddVariableNodeInChildren( ast );
-   }
-
-   @Override
-   protected void visitVarOrConstList( final IParserNode ast,
-                                       final KeyWords varOrConst )
-   {
-      super.visitVarOrConstList( ast,
-                                 varOrConst );
       tryToAddVariableNodeInChildren( ast );
    }
 
