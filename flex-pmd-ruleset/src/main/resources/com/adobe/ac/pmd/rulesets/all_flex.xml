@@ -38,14 +38,20 @@
 
 	<description>Every Flex Rule in FlexPMD</description>
 
+	<rule ref="com/adobe/ac/pmd/rulesets/architecture.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/basic_mxml.xml" />
-	<rule ref="com/adobe/ac/pmd/rulesets/basic_as3.xml" />
-	<rule ref="com/adobe/ac/pmd/rulesets/basic_common.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/binding.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/cairngorm.xml" />
-	<rule ref="com/adobe/ac/pmd/rulesets/sizing.xml" />
-	<rule ref="com/adobe/ac/pmd/rulesets/naming.xml" />
-	<rule ref="com/adobe/ac/pmd/rulesets/styling.xml" />
-	<rule ref="com/adobe/ac/pmd/rulesets/performance.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/component.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/css.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/empty.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/event.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/maintanability.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/naming.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/performance.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/sizing.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/style.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/switches.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/unused.xml" />
 
 </ruleset>

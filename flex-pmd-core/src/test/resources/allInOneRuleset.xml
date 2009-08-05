@@ -245,7 +245,7 @@ public function foo() : void
 		<priority>3</priority>
 	</rule>
 	<rule since="0.1"
-		class="com.adobe.ac.pmd.rules.as3.ViewComponentReferencedInModelRule"
+		class="com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule"
 		message="A view component should not be referenced in a model class">
 		<description />
 		<priority>3</priority>

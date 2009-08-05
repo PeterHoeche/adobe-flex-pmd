@@ -28,49 +28,53 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.as3;
+package com.adobe.ac.pmd.rules.architecture;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Locale;
+import java.util.regex.Matcher;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ViewComponentReferencedInModelRuleTest extends AbstractRegExpBasedRuleTest
+public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule // NO_UCD
 {
+   private static final String ALERT_CLASS_NAME           = "Alert";
+   private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
+   private static final String MODEL_CLASS_SUFFIX         = "model";
+   private static final String MODEL_PACKAGE_NAME         = "model";
+   private static final String VIEW_PACKAGE_NAME          = "view";
+
    @Override
-   protected String[] getMatchableLines()
+   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
    {
-      return new String[]
-      { "import lala.view.MyObject;",
-                  "import MyObject   ",
-                  "   import lala.view.MyObject" };
+      return !file.isMxml()
+            && file.getFullyQualifiedName().toLowerCase( Locale.ENGLISH ).contains( MODEL_CLASS_SUFFIX );
    }
 
    @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected final ViolationPriority getDefaultPriority()
    {
-      return new ViewComponentReferencedInModelRule();
+      return ViolationPriority.NORMAL;
    }
 
    @Override
-   protected String[] getUnmatchableLines()
+   protected final String getRegexp()
    {
-      return new String[]
-      { "mport lala.view.MyObject",
-                  " text=\"{ vfrfr().frfr.frf.lala }\"/>",
-                  " text=\"{vfrfr().frfr.frf.lala}\"/>",
-                  "public dynamic class DynamicObject {",
-                  "dynamic public class DynamicObject" };
+      return ".*import (.*);?.*";
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
+                                                                  final IFlexFile file )
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "com.adobe.ac.ncss.BigImporterModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
+      final Matcher matcher = getMatcher( line );
+
+      matcher.matches();
+      final String importedClass = matcher.group( 1 );
+
+      return importedClass.contains( FLEX_CONTROLS_PACKAGE_NAME )
+            && !importedClass.contains( ALERT_CLASS_NAME ) || importedClass.contains( VIEW_PACKAGE_NAME )
+            && !importedClass.contains( MODEL_PACKAGE_NAME );
    }
 }
