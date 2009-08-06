@@ -54,6 +54,6 @@ public class UselessOverridenFunctionRuleTest extends AbstractAstFlexRuleTest
                                  { new ViolationPosition( 38, 38 ) } ),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 137, 137 ) } );
+                       { new ViolationPosition( 138, 138 ) } );
    }
 }

@@ -99,7 +99,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       return typeNode;
    }
 
-   private IFlexFile                    currentFile;
    private Map< String, IFlexFile >     filesInSourcePath;
 
    private final List< IFlexViolation > violations;
@@ -221,7 +220,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    protected final IFlexViolation addViolation( final ViolationPosition violationPosition )
    {
       return addViolation( violations,
-                           currentFile,
+                           getCurrentFile(),
                            violationPosition );
    }
 
@@ -311,14 +310,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    }
 
    /**
-    * @return the current file under investigation
-    */
-   protected final IFlexFile getCurrentFile()
-   {
-      return currentFile;
-   }
-
-   /**
     * @return the list of Flex files in the source path
     */
    protected final Map< String, IFlexFile > getFilesInSourcePath()
@@ -331,7 +322,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                                                            final IFlexFile file,
                                                            final Map< String, IFlexFile > files )
    {
-      currentFile = file;
       filesInSourcePath = files;
       try
       {

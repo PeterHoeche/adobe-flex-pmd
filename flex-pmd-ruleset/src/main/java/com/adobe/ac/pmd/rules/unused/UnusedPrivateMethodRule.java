@@ -31,8 +31,10 @@
 package com.adobe.ac.pmd.rules.unused;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.adobe.ac.pmd.files.IAs3File;
 import com.adobe.ac.pmd.nodes.IFunction;
@@ -66,13 +68,17 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
          findUnusedFunction( function.getBody() );
       }
 
+      final Set< Integer > ignoredLines = new HashSet< Integer >();
+
       for ( final String functionName : privateFunctions.keySet() )
       {
          final IFunction function = privateFunctions.get( functionName );
+         ignoredLines.clear();
+         ignoredLines.add( function.getInternalNode().getLine() );
 
          if ( getCurrentFile() instanceof IAs3File
                || !getCurrentFile().contains( functionName,
-                                              function.getInternalNode().getLine() ) )
+                                              ignoredLines ) )
          {
             addViolation( function );
          }
@@ -87,27 +93,26 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 
    private void findUnusedFunction( final IParserNode body )
    {
-      if ( body == null )
+      if ( body != null )
       {
-         return;
-      }
-      if ( body.getStringValue() != null
-            && !privateFunctions.isEmpty() )
-      {
-         for ( final String functionName : privateFunctions.keySet() )
+         if ( body.getStringValue() != null
+               && !privateFunctions.isEmpty() )
          {
-            if ( body.getStringValue().equals( functionName ) )
+            for ( final String functionName : privateFunctions.keySet() )
             {
-               privateFunctions.remove( functionName );
-               break;
+               if ( body.getStringValue().equals( functionName ) )
+               {
+                  privateFunctions.remove( functionName );
+                  break;
+               }
             }
          }
-      }
-      if ( body.numChildren() != 0 )
-      {
-         for ( final IParserNode child : body.getChildren() )
+         if ( body.numChildren() != 0 )
          {
-            findUnusedFunction( child );
+            for ( final IParserNode child : body.getChildren() )
+            {
+               findUnusedFunction( child );
+            }
          }
       }
    }

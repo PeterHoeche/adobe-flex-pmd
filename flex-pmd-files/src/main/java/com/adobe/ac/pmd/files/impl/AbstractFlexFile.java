@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
@@ -102,7 +103,7 @@ abstract class AbstractFlexFile implements IFlexFile
     * @see com.adobe.ac.pmd.files.IFlexFile#contains(java.lang.String, int)
     */
    public final boolean contains( final String stringToLookup,
-                                  final int lineToBeIgnored )
+                                  final Set< Integer > linesToBeIgnored )
    {
       int lineIndex = 1;
       boolean found = false;
@@ -111,7 +112,7 @@ abstract class AbstractFlexFile implements IFlexFile
       {
          if ( doesCurrentLineContain( line,
                                       stringToLookup )
-               && lineIndex != lineToBeIgnored )
+               && !linesToBeIgnored.contains( lineIndex ) )
          {
             found = true;
             break;

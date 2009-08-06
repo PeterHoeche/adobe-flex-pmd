@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
@@ -148,11 +149,40 @@ public class ViolationTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetFileName()
+   {
+      final Violation infoViolation = new Violation( position, INFO_RULE, abstractRowData );
+
+      assertEquals( "",
+                    "AbstractRowData.as",
+                    infoViolation.getFilename() );
+
+      final Violation infoViolation2 = new Violation( position, INFO_RULE, abstractRowDataWithPackage );
+
+      assertEquals( "",
+                    "com.adobe.ac.AbstractRowData.as",
+                    infoViolation2.getFilename() );
+   }
+
+   @Test
+   public void testGetMethodName()
+   {
+      assertEquals( "",
+                    "",
+                    new Violation( position, INFO_RULE, abstractRowData ).getMethodName() );
+
+   }
+
+   @Test
    public void testGetPackageName()
    {
       assertEquals( "",
                     "",
                     new Violation( position, INFO_RULE, abstractRowData ).getPackageName() );
+
+      assertEquals( "",
+                    "com.adobe.ac",
+                    new Violation( position, INFO_RULE, abstractRowDataWithPackage ).getPackageName() );
    }
 
    @Test
@@ -173,6 +203,13 @@ public class ViolationTest extends FlexPmdTestBase
       assertEquals( "",
                     "",
                     new Violation( position, INFO_RULE, null ).getVariableName() );
+   }
+
+   @Test
+   public void testIsSuppressed()
+   {
+      assertFalse( "",
+                   new Violation( position, INFO_RULE, abstractRowData ).isSuppressed() );
    }
 
    @Test

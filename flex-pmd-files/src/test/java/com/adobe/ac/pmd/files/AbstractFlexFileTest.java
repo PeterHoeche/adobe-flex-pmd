@@ -37,6 +37,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -70,18 +72,17 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
                     as3.compareTo( as3 ) );
    }
 
-   @Test
    public void testContains()
    {
       assertTrue( "",
                   as3.contains( "logger",
-                                0 ) );
+                                buildSetContaining( 0 ) ) );
       assertFalse( "",
                    as3.contains( "loggerr",
-                                 0 ) );
+                                 buildSetContaining( 0 ) ) );
       assertFalse( "",
                    as3.contains( "addEventListener",
-                                 109 ) );
+                                 buildSetContaining( 109 ) ) );
    }
 
    @Test
@@ -110,7 +111,7 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    public void testGetLines()
    {
       assertEquals( "",
-                    142,
+                    143,
                     as3.getLinesNb() );
       assertEquals( "",
                     100,
@@ -157,5 +158,14 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
                    as3.isMxml() );
       assertTrue( "",
                   mxml.isMxml() );
+   }
+
+   private Set< Integer > buildSetContaining( final int i )
+   {
+
+      final HashSet< Integer > hashSet = new HashSet< Integer >();
+
+      hashSet.add( i );
+      return hashSet;
    }
 }

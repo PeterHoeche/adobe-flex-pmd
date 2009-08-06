@@ -111,6 +111,7 @@ package flexUnit.flexui.data
          dispatchEvent( new Event( "lalaEvent" ) );
          dispatchEvent( new Event( EVENT ) );
          if( true );
+         CairngormEventDispatcher.getInstance().addEventListener(CONSTANT, onHearing);
          return f.format( assertionsMade );
       }
       

@@ -59,6 +59,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 {
    protected static final String MAXIMUM = "maximum";
    protected static final String MINIMUM = "minimum";
+   private IFlexFile             currentFile;
 
    public AbstractFlexRule()
    {
@@ -95,6 +96,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    {
       List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
+      currentFile = file;
+
       if ( isConcernedByTheGivenFile( file ) )
       {
          violations = processFileBody( rootNode,
@@ -128,6 +131,14 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       }
 
       return violation;
+   }
+
+   /**
+    * @return the current file under investigation
+    */
+   protected IFlexFile getCurrentFile()
+   {
+      return currentFile;
    }
 
    protected abstract ViolationPriority getDefaultPriority();

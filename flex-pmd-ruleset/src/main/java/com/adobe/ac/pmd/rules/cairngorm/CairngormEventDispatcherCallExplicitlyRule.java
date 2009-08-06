@@ -53,15 +53,13 @@ public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexR
 
       for ( final IParserNode primary : primaries )
       {
-         addViolation( primary,
-                       computeMessage( function ) );
-      }
-   }
+         final String violationLine = getCurrentFile().getLineAt( primary.getLine() );
+         final String messageToAppend = violationLine.contains( DISPATCH_EVENT ) ? ADD_EVENT_LISTENER_MESSAGE
+                                                                                : DISPATCH_EVENT_MESSAGE;
 
-   private String computeMessage( final IFunction function )
-   {
-      return function.findPrimaryStatementsInBody( DISPATCH_EVENT ).isEmpty() ? ADD_EVENT_LISTENER_MESSAGE
-                                                                        : DISPATCH_EVENT_MESSAGE;
+         addViolation( primary,
+                       messageToAppend );
+      }
    }
 
    @Override

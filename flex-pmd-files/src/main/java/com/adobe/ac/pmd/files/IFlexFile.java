@@ -30,10 +30,12 @@
  */
 package com.adobe.ac.pmd.files;
 
+import java.util.Set;
+
 public interface IFlexFile extends Comparable< IFlexFile >
 {
    boolean contains( final String stringToLookup,
-                     final int lineToBeIgnored );
+                     final Set< Integer > linesToBeIgnored );
 
    String getClassName();
 
