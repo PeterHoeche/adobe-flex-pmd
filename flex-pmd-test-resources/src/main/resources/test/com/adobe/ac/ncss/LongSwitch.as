@@ -89,6 +89,18 @@ package com.adobe.ac
          {
              endTest( testCase );             
          }         
+         switch(event.type){
+             case GoogleSearchPanel.LAUNCH_GOOGLE_WEB_SEARCH:
+                googleResquest.url = "";
+                break;
+             case GoogleSearchPanel.LAUNCH_GOOGLE_IMAGE_SEARCH:                   
+                googleResquest.url = "";
+                break;
+             case GoogleSearchPanel.LAUNCH_GOOGLE_IMAGE_SEARCH2:                   
+                googleResquest.url = "";
+                break;
+             default:
+         }
       }
    }
 }

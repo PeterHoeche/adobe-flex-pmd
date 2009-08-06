@@ -62,6 +62,9 @@ public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
    {
       super.visitSwitchDefaultCase( child );
 
-      defaultStatementFound = true;
+      if ( child.numChildren() != 0 )
+      {
+         defaultStatementFound = true;
+      }
    }
 }

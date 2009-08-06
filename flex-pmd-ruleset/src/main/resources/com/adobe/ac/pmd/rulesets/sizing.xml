@@ -59,7 +59,7 @@
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.sizing.TooLongFunctionRule"
 		message="This function is far too long ({0} maximum, but {1} actually)">
-		<description>Violations of this rule usually indicate that the method has too much responsability. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
+		<description>Violations of this rule usually indicate that the method has too much responsibility. Try to reduce the method size by creating helper methods and removing any copy/pasted code.</description>
 		<priority>3</priority>
 		<properties>
 			<property name="maximum">
@@ -159,7 +159,7 @@
 
 	<rule class="com.adobe.ac.pmd.rules.sizing.TooManyFieldsRule"
 		message="Too many field detected ({0} maximum, but {1} actually)">
-		<description>Classes that have too many fields could be redesigned to have fewer fields, possibly  through some nested object grouping of some of the information.  For example, a class with  city/state/zip fields could instead have one Address field.</description>
+		<description>Classes that have too many fields could be redesigned to have fewer fields, possibly  through some nested object grouping of some of the information.  For example, a class with  city/state/zipcode fields could instead have one Address field.</description>
 		<priority>3</priority>
 		<properties>
 			<property name="maximum">

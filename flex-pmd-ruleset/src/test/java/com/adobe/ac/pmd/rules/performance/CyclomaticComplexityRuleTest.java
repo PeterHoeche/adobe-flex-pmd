@@ -48,7 +48,10 @@ public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "com.adobe.ac.ncss.LongSwitch.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 39, 39 ) } ),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 548, 548 ) } ),

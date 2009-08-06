@@ -52,7 +52,8 @@ public class SwitchStatementsShouldHaveDefaultRuleTest extends AbstractAstFlexRu
                                  "com.adobe.ac.ncss.LongSwitch.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 53, 53 ),
-                                             new ViolationPosition( 41, 41 ) } ),
+                                             new ViolationPosition( 41, 41 ),
+                                             new ViolationPosition( 92, 92 ) } ),
                        "com.adobe.ac.ncss.NestedSwitch.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 43, 43 ) } );

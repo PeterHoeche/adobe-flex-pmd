@@ -60,7 +60,7 @@
 
 	<rule class="com.adobe.ac.pmd.rules.switchrules.NestedSwitchRule"
 		message="Switch must not be nested">
-		<description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when siwtch statements are nested.</description>
+		<description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when switch statements are nested.</description>
 		<priority>3</priority>
 		<example>
       public function foo( a : Number, b : Number ) : void
@@ -87,7 +87,7 @@
 	<rule
 		class="com.adobe.ac.pmd.rules.switchrules.TooFewBrancheInSwitchStatementRule"
 		message="There are too few branches in this switch statement ({0} minimum, but {1} actual)">
-		<description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
+		<description>Switch statements are designed for complex branches, and allow branches to share treatment. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
 		<priority>5</priority>
 		<properties>
 			<property name="minimum">

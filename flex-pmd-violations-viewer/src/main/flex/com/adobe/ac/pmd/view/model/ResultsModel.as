@@ -57,7 +57,7 @@ package com.adobe.ac.pmd.view.model
         {
         	_violations = new ViolationsModel();
         	_grouping = new Grouping();
-        	selectedGroupFields = [ 0 ];
+        	selectedGroupFields = [ 1 ];
         }
         
         public function filter() : void

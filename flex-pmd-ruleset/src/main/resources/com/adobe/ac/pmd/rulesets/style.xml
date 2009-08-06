@@ -41,7 +41,7 @@
 
 	<rule class="com.adobe.ac.pmd.rules.style.ConstructorNonEmptyReturnTypeRule"
 		message="A constructor should not have a return type">
-		<description>Even if this is syntaxically correct, there should not be a return type for a constructor.</description>
+		<description>Even if this is syntactically correct, there should not be a return type for a constructor.</description>
 		<priority>3</priority>
 		<example>
    public class VoidConstructor   
