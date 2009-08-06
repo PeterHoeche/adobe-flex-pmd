@@ -51,6 +51,6 @@ public class UntypedEventMetadataRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "UnboundMetadata.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ) } );
+                       { new ViolationPosition( 40, 40 ) } );
    }
 }

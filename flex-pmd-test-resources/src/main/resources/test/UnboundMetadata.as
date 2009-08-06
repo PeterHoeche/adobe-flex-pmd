@@ -37,7 +37,7 @@ package
    [Event(name="dayChange",type="DefaultNameEvent")]
    [Event(name="dayChange2",type="DefaultNmeEvent")]
    [Event("untypedEvent")]
-   
+   [Event(name="dayChange",type="flash.events.Event")]   
    public class UnboundMetadata
    {
    }

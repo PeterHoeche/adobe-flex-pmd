@@ -30,8 +30,10 @@
  */
 package com.adobe.ac.pmd.rules.event;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -44,8 +46,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
 {
-   private static final String QUOTE      = "\"";
-   private static final String TYPE_EQUAL = "type = \"";
+   private static final Set< String > KNOWN_TYPES = new HashSet< String >();
+   private static final String        QUOTE       = "\"";
+   private static final String        TYPE_EQUAL  = "type = \"";
+
+   static
+   {
+      KNOWN_TYPES.add( "flash.events.Event" );
+   }
 
    @Override
    protected final void findViolations( final IClass classNode )
@@ -80,7 +88,8 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
                                                              QUOTE );
 
             if ( !files.containsKey( type
-                  + ".as" ) )
+                  + ".as" )
+                  && !KNOWN_TYPES.contains( type ) )
             {
                addViolation( metaData );
             }
