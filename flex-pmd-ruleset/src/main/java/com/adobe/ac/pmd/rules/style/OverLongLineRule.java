@@ -32,11 +32,9 @@ package com.adobe.ac.pmd.rules.style;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
@@ -56,23 +54,17 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
-   {
-      return true;
-   }
-
-   @Override
-   public final List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                        final IFlexFile file,
-                                                        final Map< String, IFlexFile > files )
+   public final List< IFlexViolation > findViolationsInCurrentFile()
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-      if ( isConcernedByTheGivenFile( file ) )
+      if ( isConcernedByTheCurrentFile() )
       {
-         for ( int i = 1; i <= file.getLinesNb(); i++ )
+         final IFlexFile currentFile = getCurrentFile();
+
+         for ( int i = 1; i <= currentFile.getLinesNb(); i++ )
          {
-            final String line = file.getLineAt( i );
+            final String line = currentFile.getLineAt( i );
 
             if ( !line.trim().startsWith( "import" )
                   && line.length() >= getThreshold() )
@@ -84,7 +76,6 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
                                                                             currentLineLength );
 
                addViolation( violations,
-                             file,
                              position );
             }
          }
@@ -96,5 +87,11 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
+   }
+
+   @Override
+   protected boolean isConcernedByTheCurrentFile()
+   {
+      return true;
    }
 }

@@ -32,11 +32,8 @@ package com.adobe.ac.pmd.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -50,7 +47,7 @@ public class WarningRule extends AbstractFlexRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
@@ -62,14 +59,11 @@ public class WarningRule extends AbstractFlexRule
    }
 
    @Override
-   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                     final IFlexFile file,
-                                                     final Map< String, IFlexFile > files )
+   protected List< IFlexViolation > findViolationsInCurrentFile()
    {
       final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       addViolation( violations,
-                    file,
                     new ViolationPosition( 0, 0 ) );
 
       return violations;

@@ -57,9 +57,11 @@ import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
  */
 public abstract class AbstractFlexRule extends CommonAbstractRule implements IFlexRule
 {
-   protected static final String MAXIMUM = "maximum";
-   protected static final String MINIMUM = "minimum";
-   private IFlexFile             currentFile;
+   protected static final String    MAXIMUM = "maximum";
+   protected static final String    MINIMUM = "minimum";
+   private IFlexFile                currentFile;
+   private IPackage                 currentPackageNode;
+   private Map< String, IFlexFile > filesInSourcePath;
 
    public AbstractFlexRule()
    {
@@ -91,30 +93,29 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    }
 
    public final List< IFlexViolation > processFile( final IFlexFile file,
-                                                    final IPackage rootNode,
+                                                    final IPackage packageNode,
                                                     final Map< String, IFlexFile > files )
    {
       List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       currentFile = file;
+      filesInSourcePath = files;
+      currentPackageNode = packageNode;
 
-      if ( isConcernedByTheGivenFile( file ) )
+      if ( isConcernedByTheCurrentFile() )
       {
-         violations = processFileBody( rootNode,
-                                       file,
-                                       files );
+         violations = findViolationsInCurrentFile();
       }
 
       return violations;
    }
 
    protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
-                                                final IFlexFile file,
                                                 final ViolationPosition position )
    {
       final IFlexViolation violation = ViolationFactory.create( position,
                                                                 this,
-                                                                file );
+                                                                getCurrentFile() );
       final int beginLine = position.getBeginLine();
 
       prettyPrintMessage( violation );
@@ -124,8 +125,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       {
          violations.add( violation );
       }
-      else if ( beginLine <= file.getLinesNb()
-            && isViolationNotIgnored( file.getLineAt( beginLine ) ) )
+      else if ( beginLine <= getCurrentFile().getLinesNb()
+            && isViolationNotIgnored( getCurrentFile().getLineAt( beginLine ) ) )
       {
          violations.add( violation );
       }
@@ -141,7 +142,17 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return currentFile;
    }
 
+   protected final IPackage getCurrentPackageNode()
+   {
+      return currentPackageNode;
+   }
+
    protected abstract ViolationPriority getDefaultPriority();
+
+   protected final Map< String, IFlexFile > getFilesInSourcePath()
+   {
+      return filesInSourcePath;
+   }
 
    protected final Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
    {
@@ -156,11 +167,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return properties;
    }
 
-   protected abstract boolean isConcernedByTheGivenFile( IFlexFile currentFile );
+   protected abstract boolean isConcernedByTheCurrentFile();
 
-   protected abstract List< IFlexViolation > processFileBody( final IPackage packageToBeProcessed,
-                                                              final IFlexFile fileToBeProcessed,
-                                                              final Map< String, IFlexFile > filesInTheSourcePath );
+   protected abstract List< IFlexViolation > findViolationsInCurrentFile();
 
    private boolean isViolationNotIgnored( final String violatiedLine )
    {

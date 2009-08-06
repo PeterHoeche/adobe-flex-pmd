@@ -32,7 +32,6 @@ package com.adobe.ac.pmd.rules.event;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -43,9 +42,9 @@ public class EventMissingCloneFunctionRule extends AbstractAstFlexRule
    private IClass classNode = null;
 
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return file.getClassName().endsWith( "Event.as" );
+      return getCurrentFile().getClassName().endsWith( "Event.as" );
    }
 
    @Override

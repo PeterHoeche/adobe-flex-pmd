@@ -32,7 +32,6 @@ package com.adobe.ac.pmd.rules.mxml;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
@@ -47,9 +46,9 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
    public abstract int getThreshold();
 
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return file.isMxml();
+      return getCurrentFile().isMxml();
    }
 
    @Override

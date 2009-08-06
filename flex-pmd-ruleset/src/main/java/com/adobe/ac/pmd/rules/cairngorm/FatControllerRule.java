@@ -32,7 +32,6 @@ package com.adobe.ac.pmd.rules.cairngorm;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -42,9 +41,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class FatControllerRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return file.getClassName().endsWith( "Controller.as" );
+      return getCurrentFile().getClassName().endsWith( "Controller.as" );
    }
 
    @Override

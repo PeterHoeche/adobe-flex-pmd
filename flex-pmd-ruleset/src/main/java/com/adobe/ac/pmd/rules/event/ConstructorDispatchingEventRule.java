@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.event;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -39,9 +38,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return !file.isMxml();
+      return !getCurrentFile().isMxml();
    }
 
    @Override

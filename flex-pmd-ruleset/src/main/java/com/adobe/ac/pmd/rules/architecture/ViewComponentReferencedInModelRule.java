@@ -33,7 +33,6 @@ package com.adobe.ac.pmd.rules.architecture;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -44,13 +43,6 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule 
    private static final String MODEL_CLASS_SUFFIX         = "model";
    private static final String MODEL_PACKAGE_NAME         = "model";
    private static final String VIEW_PACKAGE_NAME          = "view";
-
-   @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
-   {
-      return !file.isMxml()
-            && file.getFullyQualifiedName().toLowerCase( Locale.ENGLISH ).contains( MODEL_CLASS_SUFFIX );
-   }
 
    @Override
    protected final ViolationPriority getDefaultPriority()
@@ -65,8 +57,16 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule 
    }
 
    @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                                  final IFlexFile file )
+   protected boolean isConcernedByTheCurrentFile()
+   {
+      return !getCurrentFile().isMxml()
+            && getCurrentFile().getFullyQualifiedName()
+                               .toLowerCase( Locale.ENGLISH )
+                               .contains( MODEL_CLASS_SUFFIX );
+   }
+
+   @Override
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       final Matcher matcher = getMatcher( line );
 

@@ -33,12 +33,10 @@ package com.adobe.ac.pmd.rules.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.StackTraceUtils;
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IConstant;
@@ -99,8 +97,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       return typeNode;
    }
 
-   private Map< String, IFlexFile >     filesInSourcePath;
-
    private final List< IFlexViolation > violations;
 
    public AbstractAstFlexRule()
@@ -111,7 +107,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
@@ -220,7 +216,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    protected final IFlexViolation addViolation( final ViolationPosition violationPosition )
    {
       return addViolation( violations,
-                           getCurrentFile(),
                            violationPosition );
    }
 
@@ -309,26 +304,15 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
    }
 
-   /**
-    * @return the list of Flex files in the source path
-    */
-   protected final Map< String, IFlexFile > getFilesInSourcePath()
-   {
-      return filesInSourcePath;
-   }
-
    @Override
-   protected final List< IFlexViolation > processFileBody( final IPackage packageNode,
-                                                           final IFlexFile file,
-                                                           final Map< String, IFlexFile > files )
+   protected final List< IFlexViolation > findViolationsInCurrentFile()
    {
-      filesInSourcePath = files;
       try
       {
-         if ( packageNode != null )
+         if ( getCurrentPackageNode() != null )
          {
-            visitCompilationUnit( packageNode.getInternalNode() );
-            findViolations( packageNode );
+            visitCompilationUnit( getCurrentPackageNode().getInternalNode() );
+            findViolations( getCurrentPackageNode() );
          }
       }
       catch ( final Exception e )

@@ -32,7 +32,6 @@ package com.adobe.ac.pmd.rules.event;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -40,9 +39,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class PublicVariableInCustomEventRule extends AbstractAstFlexRule
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return file.getClassName().endsWith( "Event.as" );
+      return getCurrentFile().getClassName().endsWith( "Event.as" );
    }
 
    @Override

@@ -32,11 +32,8 @@ package com.adobe.ac.pmd.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
@@ -72,7 +69,7 @@ public class EmptyRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
@@ -84,14 +81,11 @@ public class EmptyRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   protected List< IFlexViolation > processFileBody( final IPackage rootNode,
-                                                     final IFlexFile file,
-                                                     final Map< String, IFlexFile > files )
+   protected List< IFlexViolation > findViolationsInCurrentFile()
    {
       final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       addViolation( violations,
-                    file,
                     new ViolationPosition( 0, 0 ) );
 
       return violations;

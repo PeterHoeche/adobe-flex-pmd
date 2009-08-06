@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-import com.adobe.ac.pmd.files.IFlexFile;
-
 public class TooManyFieldInVORule extends TooManyFieldsRule
 {
    @Override
@@ -41,8 +39,8 @@ public class TooManyFieldInVORule extends TooManyFieldsRule
    }
 
    @Override
-   public boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return file.getClassName().endsWith( "VO.as" );
+      return !super.isConcernedByTheCurrentFile();
    }
 }

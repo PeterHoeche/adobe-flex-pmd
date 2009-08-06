@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -38,10 +37,10 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class BindableClassRule extends AbstractAstFlexRule
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return !file.isMxml()
-            && !file.getClassName().endsWith( "VO.as" );
+      return !getCurrentFile().isMxml()
+            && !getCurrentFile().getClassName().endsWith( "VO.as" );
    }
 
    @Override

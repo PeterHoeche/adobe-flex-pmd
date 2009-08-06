@@ -30,16 +30,15 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class DynamicFiltersUsedInPopup extends AbstractRegexpBasedRule
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return file.getClassName().contains( "Popup" );
+      return getCurrentFile().getClassName().contains( "Popup" );
    }
 
    @Override
@@ -55,8 +54,7 @@ public class DynamicFiltersUsedInPopup extends AbstractRegexpBasedRule
    }
 
    @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                                  final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return true;
    }

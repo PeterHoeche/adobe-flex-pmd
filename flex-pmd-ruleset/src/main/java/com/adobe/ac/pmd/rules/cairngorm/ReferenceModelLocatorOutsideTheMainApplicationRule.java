@@ -30,17 +30,16 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule // NO_UCD
 {
    @Override
-   public final boolean isConcernedByTheGivenFile( final IFlexFile file )
+   public final boolean isConcernedByTheCurrentFile()
    {
-      return !file.getClassName().endsWith( "ModelLocator.as" )
-            && ( !file.isMxml() || !file.isMainApplication() );
+      return !getCurrentFile().getClassName().endsWith( "ModelLocator.as" )
+            && ( !getCurrentFile().isMxml() || !getCurrentFile().isMainApplication() );
    }
 
    @Override
@@ -56,8 +55,7 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRule extends Abstract
    }
 
    @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line,
-                                                                  final IFlexFile file )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return true;
    }
