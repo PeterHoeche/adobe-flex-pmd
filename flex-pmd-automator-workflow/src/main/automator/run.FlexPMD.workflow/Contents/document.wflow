@@ -103,6 +103,8 @@
 				</array>
 				<key>OutputUUID</key>
 				<string>85D7C03F-8983-4BF2-83C6-7DF3F3838515</string>
+				<key>StartAction</key>
+				<false/>
 				<key>UUID</key>
 				<string>B38DA4F4-3B0A-479A-8996-6FEFB5CE76DE</string>
 				<key>UnlocalizedApplications</key>
@@ -167,7 +169,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>450.000000:714.000000</string>
+				<string>457.500000:586.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Ask for Finder Items.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -226,7 +228,7 @@
 #
 # The FlexPMD version
 #
-flexPmdVersion=0.5.6-SNAPSHOT
+flexPmdVersion=1.0.RC2-SNAPSHOT
 
 #
 # The directory where the FlexPMD automator workflow has been extracted
@@ -395,7 +397,7 @@ echo file://${viewerDirectory}/flex-pmd-violations-viewer-${flexPmdVersion}.html
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>450.000000:559.000000</string>
+				<string>457.500000:431.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -419,10 +421,7 @@ echo file://${viewerDirectory}/flex-pmd-violations-viewer-${flexPmdVersion}.html
 				<key>AMActionVersion</key>
 				<string>1.0</string>
 				<key>AMParameterProperties</key>
-				<dict>
-					<key>temporary items path</key>
-					<dict/>
-				</dict>
+				<dict/>
 				<key>AMProvides</key>
 				<dict>
 					<key>Container</key>
@@ -483,27 +482,25 @@ echo file://${viewerDirectory}/flex-pmd-violations-viewer-${flexPmdVersion}.html
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>0001242B-6864-461C-8C35-67FB7A7D4006</key>
-		<dict>
-			<key>from</key>
-			<string>7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A - 7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A</string>
-			<key>to</key>
-			<string>89B93EE5-8B2B-48D4-B0D9-1AC49BB0AA6D - 89B93EE5-8B2B-48D4-B0D9-1AC49BB0AA6D</string>
-		</dict>
-		<key>8544850C-CAFD-4A62-8E3F-458C1A23B09A</key>
+		<key>073CDD95-EB15-47E3-AE4D-9667F1C01ECF</key>
 		<dict>
 			<key>from</key>
 			<string>B38DA4F4-3B0A-479A-8996-6FEFB5CE76DE - B38DA4F4-3B0A-479A-8996-6FEFB5CE76DE</string>
 			<key>to</key>
 			<string>7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A - 7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A</string>
 		</dict>
+		<key>56A224D4-DCA7-469A-974D-DAAAFF5B5871</key>
+		<dict>
+			<key>from</key>
+			<string>7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A - 7F7B8E52-6DD4-47FA-AF9D-74246B8DFA1A</string>
+			<key>to</key>
+			<string>89B93EE5-8B2B-48D4-B0D9-1AC49BB0AA6D - 89B93EE5-8B2B-48D4-B0D9-1AC49BB0AA6D</string>
+		</dict>
 	</dict>
 	<key>state</key>
 	<dict>
 		<key>EditorSplitViewPosition</key>
 		<real>576</real>
-		<key>EditorView</key>
-		<integer>1</integer>
 		<key>MainSplitViewPosition_v2</key>
 		<real>525</real>
 		<key>windowFrame</key>
@@ -511,7 +508,7 @@ echo file://${viewerDirectory}/flex-pmd-violations-viewer-${flexPmdVersion}.html
 		<key>windowFrameTopLeft</key>
 		<string>{{0, 0}, {1440, 827}}</string>
 		<key>workflowViewScrollPosition</key>
-		<string>{{0, 0}, {900, 576}}</string>
+		<string>{{0, 0}, {915, 576}}</string>
 	</dict>
 	<key>variables</key>
 	<array>
