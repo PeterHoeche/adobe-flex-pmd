@@ -80,11 +80,12 @@
                 grid = AdvancedDataGrid( owner );
                 visible = false;
                 grid.addEventListener( ListEvent.CHANGE, onChange );
+                changeVisibility();
             }
 
             private function changeVisibility() : void
             {
-                visible = grid.isItemSelected( data ) && rule != null;
+                alpha = grid.isItemSelected( data ) && rule ? 1 : 0;
             }
 
             private function onChange( event : ListEvent ) : void
