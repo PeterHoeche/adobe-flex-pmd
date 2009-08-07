@@ -40,6 +40,12 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class UnusedFieldRule extends AbstractUnusedVariableRule
 {
    @Override
+   public boolean isConcernedByTheCurrentFile()
+   {
+      return !getCurrentFile().isMxml();
+   }
+
+   @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;

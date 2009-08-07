@@ -44,10 +44,7 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
    {
       final HashMap< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
 
-      addToMap( addToMap( addToMap( violatedFiles,
-                                    "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 48, 48 ) } ),
+      addToMap( addToMap( violatedFiles,
                           "Title.as",
                           new ViolationPosition[]
                           { new ViolationPosition( 41, 41 ) } ),
@@ -60,13 +57,11 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
                             new ViolationPosition( 299, 299 ),
                             new ViolationPosition( 303, 303 ) } );
 
-      addToMap( addToMap( addToMap( violatedFiles,
-                                    "Sorted.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 54, 54 ) } ),
-                          "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+      addToMap( addToMap( violatedFiles,
+                          "Sorted.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 47, 47 ) } ),
+                          { new ViolationPosition( 54, 54 ) } ),
+
                 "com.adobe.ac.ncss.BigModel.as",
                 new ViolationPosition[]
                 { new ViolationPosition( 42, 42 ) } );
