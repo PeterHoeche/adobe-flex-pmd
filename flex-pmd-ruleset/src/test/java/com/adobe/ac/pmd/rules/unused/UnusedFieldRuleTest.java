@@ -40,29 +40,22 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedFieldRule();
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final HashMap< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
 
       addToMap( addToMap( addToMap( violatedFiles,
-                                    "com.adobe.ac.ncss.event.DynamicCustomEvent.as",
+                                    "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 35, 35 ) } ),
-                          "GenericType.as",
+                                    { new ViolationPosition( 48, 48 ) } ),
+                          "Title.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 35, 35 ) } ),
+                          { new ViolationPosition( 41, 41 ) } ),
                 "com.adobe.ac.ncss.TestResult.as",
                 new ViolationPosition[]
                 { new ViolationPosition( 298, 298 ),
                             new ViolationPosition( 300, 300 ),
                             new ViolationPosition( 302, 302 ),
-                            new ViolationPosition( 46, 46 ),
                             new ViolationPosition( 301, 301 ),
                             new ViolationPosition( 299, 299 ),
                             new ViolationPosition( 303, 303 ) } );
@@ -73,48 +66,17 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
                                     { new ViolationPosition( 54, 54 ) } ),
                           "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
                           new ViolationPosition[]
-                          { new ViolationPosition( 45, 45 ),
-                                      new ViolationPosition( 47, 47 ) } ),
+                          { new ViolationPosition( 47, 47 ) } ),
                 "com.adobe.ac.ncss.BigModel.as",
                 new ViolationPosition[]
                 { new ViolationPosition( 42, 42 ) } );
 
-      addToMap( addToMap( addToMap( violatedFiles,
-                                    "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 35, 35 ) } ),
-                          "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 45, 45 ),
-                                      new ViolationPosition( 46, 46 ),
-                                      new ViolationPosition( 48, 48 ) } ),
-                "PngEncoder.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 632, 632 ),
-                            new ViolationPosition( 633, 633 ) } );
+      return violatedFiles;
+   }
 
-      addToMap( addToMap( violatedFiles,
-                          "com.adobe.ac.AbstractRowData.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 45, 45 ),
-                                      new ViolationPosition( 43, 43 ),
-                                      new ViolationPosition( 46, 46 ) } ),
-                "Title.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 41, 41 ) } );
-
-      return addToMap( addToMap( addToMap( violatedFiles,
-                                           "cairngorm.NonBindableModelLocator.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 39, 39 ) } ),
-                                 "com.adobe.ac.ncss.ArrayVO.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 34, 34 ),
-                                             new ViolationPosition( 56, 56 ),
-                                             new ViolationPosition( 37, 37 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 44, 44 ),
-                                   new ViolationPosition( 52, 52 ) } );
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UnusedFieldRule();
    }
 }

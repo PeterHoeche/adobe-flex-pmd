@@ -46,7 +46,7 @@ public class AvoidHavingTwoClassWithTheSameNameRuleTest extends AbstractFlexRule
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final ViolationPosition[] positions = new ViolationPosition[]
       { new ViolationPosition( -1, -1 ) };

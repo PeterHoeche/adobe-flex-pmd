@@ -46,7 +46,7 @@ public class ConstructorDispatchingEventRuleTest extends AbstractAstFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.BigImporterModel.as",

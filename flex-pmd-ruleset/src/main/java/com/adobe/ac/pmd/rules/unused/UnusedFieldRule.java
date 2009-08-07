@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.unused;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
@@ -68,7 +69,21 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
    {
       if ( !isInFunction )
       {
-         tryToAddVariableNodeInChildren( ast );
+         final List< IParserNode > modifiers = ast.getChild( 0 ).getChildren();
+         boolean isPrivate = false;
+
+         for ( final IParserNode modifierNode : modifiers )
+         {
+            if ( modifierNode.getStringValue().equals( "private" ) )
+            {
+               isPrivate = true;
+               break;
+            }
+         }
+         if ( isPrivate )
+         {
+            tryToAddVariableNodeInChildren( ast );
+         }
       }
       super.visitVarOrConstList( ast,
                                  varOrConst,

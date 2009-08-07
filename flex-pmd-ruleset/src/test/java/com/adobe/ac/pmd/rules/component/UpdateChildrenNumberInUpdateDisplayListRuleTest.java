@@ -46,7 +46,7 @@ public class UpdateChildrenNumberInUpdateDisplayListRuleTest extends AbstractAst
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "BadComponent.as",

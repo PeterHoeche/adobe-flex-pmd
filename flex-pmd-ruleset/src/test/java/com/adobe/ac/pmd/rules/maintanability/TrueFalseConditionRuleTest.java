@@ -46,7 +46,7 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final HashMap< String, ViolationPosition[] > violatingFiles = new HashMap< String, ViolationPosition[] >();
 

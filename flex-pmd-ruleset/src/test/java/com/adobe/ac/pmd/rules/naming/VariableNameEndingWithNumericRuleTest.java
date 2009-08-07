@@ -46,7 +46,7 @@ public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTe
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                                      "PngEncoder.as",

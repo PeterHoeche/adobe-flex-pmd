@@ -33,13 +33,21 @@ package com.adobe.ac.pmd.rules.architecture;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.architecture.ViewComponentReferencedInModelRule;
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ViewComponentReferencedInModelRuleTest extends AbstractRegExpBasedRuleTest
 {
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.BigImporterModel.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 35, 35 ) } );
+   }
+
    @Override
    protected String[] getMatchableLines()
    {
@@ -64,14 +72,5 @@ public class ViewComponentReferencedInModelRuleTest extends AbstractRegExpBasedR
                   " text=\"{vfrfr().frfr.frf.lala}\"/>",
                   "public dynamic class DynamicObject {",
                   "dynamic public class DynamicObject" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
-   {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "com.adobe.ac.ncss.BigImporterModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
    }
 }

@@ -46,7 +46,7 @@ public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final ViolationPosition[] positions =
       { new ViolationPosition( 38, 38 ) };

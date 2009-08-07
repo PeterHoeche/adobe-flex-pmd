@@ -46,7 +46,7 @@ public class UncorrectClassCaseTest extends AbstractFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                            "schedule_internal.as",

@@ -170,16 +170,16 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    @Test
    public final void testProcessViolatingFiles()
    {
-      for ( final String fileName : getViolatingFiles().keySet() )
+      for ( final String fileName : getExpectedViolatingFiles().keySet() )
       {
          assertViolations( fileName,
-                           getViolatingFiles().get( fileName ) );
+                           getExpectedViolatingFiles().get( fileName ) );
       }
    }
 
-   protected abstract AbstractFlexRule getRule();
+   protected abstract Map< String, ViolationPosition[] > getExpectedViolatingFiles();
 
-   protected abstract Map< String, ViolationPosition[] > getViolatingFiles();
+   protected abstract AbstractFlexRule getRule();
 
    protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
                                                                             TokenException
@@ -225,7 +225,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
       for ( final Map.Entry< String, IFlexFile > fileNameEntry : getTestFiles().entrySet() )
       {
-         if ( !getViolatingFiles().containsKey( fileNameEntry.getKey() ) )
+         if ( !getExpectedViolatingFiles().containsKey( fileNameEntry.getKey() ) )
          {
             final List< IFlexViolation > violations = processFile( fileNameEntry.getKey() );
 

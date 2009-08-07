@@ -46,7 +46,7 @@ public class BadFormatLogerRuleTest extends AbstractAstFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                  "com.adobe.cairngorm.work.SequenceWorkFlow.as",

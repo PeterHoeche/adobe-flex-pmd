@@ -46,7 +46,7 @@ public class OverLongLineRuleTest extends AbstractFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final Map< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
 

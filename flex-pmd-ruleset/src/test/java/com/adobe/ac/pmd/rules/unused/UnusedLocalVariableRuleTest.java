@@ -46,7 +46,7 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getViolatingFiles()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
 
