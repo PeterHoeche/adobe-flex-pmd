@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
+import java.util.HashMap;
+
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -39,6 +41,24 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
+   }
+
+   @Override
+   protected void visitFunction( final IParserNode ast,
+                                 final String type )
+   {
+      variablesUnused = new HashMap< String, IParserNode >();
+
+      super.visitFunction( ast,
+                           type );
+      for ( final String variableName : variablesUnused.keySet() )
+      {
+         final IParserNode variable = variablesUnused.get( variableName );
+
+         addViolation( variable,
+                       variable,
+                       variableName );
+      }
    }
 
    @Override

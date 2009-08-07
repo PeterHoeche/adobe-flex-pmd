@@ -73,5 +73,14 @@
 		<example>
       </example>
 	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.unused.UnusedFieldRule"
+		message="This attribute ({0}) does not seem to be used">
+		<description>
+      </description>
+		<priority>1</priority>
+		<example>
+      </example>
+	</rule>
 		
 </ruleset>

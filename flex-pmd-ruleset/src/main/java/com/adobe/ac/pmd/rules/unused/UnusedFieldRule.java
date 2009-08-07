@@ -33,24 +33,24 @@ package com.adobe.ac.pmd.rules.unused;
 import java.util.HashMap;
 
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
+public class UnusedFieldRule extends AbstractUnusedVariableRule
 {
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.NORMAL;
+      return ViolationPriority.HIGH;
    }
 
    @Override
-   protected void visitFunction( final IParserNode ast,
-                                 final String type )
+   protected void visitClass( final IParserNode ast )
    {
       variablesUnused = new HashMap< String, IParserNode >();
 
-      super.visitFunction( ast,
-                           type );
+      super.visitClass( ast );
+
       for ( final String variableName : variablesUnused.keySet() )
       {
          final IParserNode variable = variablesUnused.get( variableName );
@@ -62,9 +62,16 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected final void visitStatement( final IParserNode ast )
+   protected void visitVarOrConstList( final IParserNode ast,
+                                       final KeyWords varOrConst,
+                                       final boolean isInFunction )
    {
-      super.visitStatement( ast );
-      tryToAddVariableNodeInChildren( ast );
+      if ( !isInFunction )
+      {
+         tryToAddVariableNodeInChildren( ast );
+      }
+      super.visitVarOrConstList( ast,
+                                 varOrConst,
+                                 isInFunction );
    }
 }

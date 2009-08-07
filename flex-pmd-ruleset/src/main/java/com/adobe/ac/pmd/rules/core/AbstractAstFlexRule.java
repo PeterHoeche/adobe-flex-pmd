@@ -335,7 +335,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
-   final protected void visitClass( final IParserNode ast )
+   protected void visitClass( final IParserNode ast )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -530,12 +530,14 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       else if ( ast.is( NodeKind.VAR ) )
       {
          visitVarOrConstList( ast,
-                              KeyWords.VAR );
+                              KeyWords.VAR,
+                              true );
       }
       else if ( ast.is( NodeKind.CONST ) )
       {
          visitVarOrConstList( ast,
-                              KeyWords.CONST );
+                              KeyWords.CONST,
+                              true );
       }
       else if ( ast.is( NodeKind.RETURN ) )
       {
@@ -604,7 +606,8 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    }
 
    protected void visitVarOrConstList( final IParserNode ast,
-                                       final KeyWords varOrConst )
+                                       final KeyWords varOrConst,
+                                       final boolean isInFunction )
    {
       if ( isNodeNavigable( ast ) )
       {
@@ -736,12 +739,14 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
             if ( node.is( NodeKind.VAR_LIST ) )
             {
                visitVarOrConstList( node,
-                                    KeyWords.VAR );
+                                    KeyWords.VAR,
+                                    false );
             }
             else if ( node.is( NodeKind.CONST_LIST ) )
             {
                visitVarOrConstList( node,
-                                    KeyWords.CONST );
+                                    KeyWords.CONST,
+                                    false );
             }
             else if ( node.is( NodeKind.FUNCTION ) )
             {
