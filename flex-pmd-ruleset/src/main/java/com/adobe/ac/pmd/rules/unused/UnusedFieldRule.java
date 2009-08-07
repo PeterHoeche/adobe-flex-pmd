@@ -70,17 +70,17 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
 
    @Override
    protected void visitVarOrConstList( final IParserNode ast,
-                                       final KeyWords varOrConst,
-                                       final boolean isInFunction )
+                                       final VariableOrConstant varOrConst,
+                                       final VariableScope scope )
    {
-      if ( !isInFunction )
+      if ( scope.equals( VariableScope.IN_CLASS ) )
       {
          final List< IParserNode > modifiers = ast.getChild( 0 ).getChildren();
          boolean isPrivate = false;
 
          for ( final IParserNode modifierNode : modifiers )
          {
-            if ( modifierNode.getStringValue().equals( "private" ) )
+            if ( modifierNode.getStringValue().equals( KeyWords.PRIVATE.toString() ) )
             {
                isPrivate = true;
                break;
@@ -93,6 +93,6 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
       }
       super.visitVarOrConstList( ast,
                                  varOrConst,
-                                 isInFunction );
+                                 scope );
    }
 }

@@ -56,7 +56,7 @@ public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
 
    @Override
    protected final void visitFunction( final IParserNode functionNode,
-                                       final String type )
+                                       final FunctionType type )
    {
       super.visitFunction( functionNode,
                            type );

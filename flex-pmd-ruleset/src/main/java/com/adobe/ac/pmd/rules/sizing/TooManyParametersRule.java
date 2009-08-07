@@ -56,7 +56,7 @@ public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 
    @Override
    protected final void visitFunction( final IParserNode ast,
-                                       final String type )
+                                       final FunctionType type )
    {
       super.visitFunction( ast,
                            type );

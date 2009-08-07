@@ -66,7 +66,7 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
 
    @Override
    protected final void visitFunction( final IParserNode ast,
-                                       final String type )
+                                       final FunctionType type )
    {
       ifLevel = 0;
 

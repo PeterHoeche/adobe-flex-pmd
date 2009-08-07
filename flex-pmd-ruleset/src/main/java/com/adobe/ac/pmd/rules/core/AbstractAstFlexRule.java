@@ -44,7 +44,6 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 
 /**
@@ -57,6 +56,21 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IFlexAstRule
 {
+   protected enum FunctionType
+   {
+      GETTER, NORMAL, SETTER
+   }
+
+   protected enum VariableOrConstant
+   {
+      CONSTANT, VARIABLE
+   }
+
+   protected enum VariableScope
+   {
+      IN_CLASS, IN_FUNCTION
+   }
+
    private interface ExpressionVisitor
    {
       void visitExpression( final IParserNode ast );
@@ -304,6 +318,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
    }
 
+   /**
+    * Find violations in the current file
+    */
    @Override
    protected final List< IFlexViolation > findViolationsInCurrentFile()
    {
@@ -326,21 +343,21 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       return copy;
    }
 
-   protected void visitCatch( final IParserNode ast )
+   protected void visitCatch( final IParserNode catchNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( catchNode ) )
       {
-         visitNameTypeInit( ast.getChild( 0 ) );
-         visitBlock( ast.getChild( 1 ) );
+         visitNameTypeInit( catchNode.getChild( 0 ) );
+         visitBlock( catchNode.getChild( 1 ) );
       }
    }
 
-   protected void visitClass( final IParserNode ast )
+   protected void visitClass( final IParserNode classNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( classNode ) )
       {
          IParserNode content = null;
-         for ( final IParserNode node : ast.getChildren() )
+         for ( final IParserNode node : classNode.getChildren() )
          {
             if ( node.is( NodeKind.CONTENT ) )
             {
@@ -361,98 +378,98 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitExpression( condition );
    }
 
-   protected void visitDo( final IParserNode ast )
+   protected void visitDo( final IParserNode doNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( doNode ) )
       {
-         visitBlock( ast.getChild( 0 ) );
-         visitCondition( ast.getChild( 1 ) );
+         visitBlock( doNode.getChild( 0 ) );
+         visitCondition( doNode.getChild( 1 ) );
       }
    }
 
-   protected void visitElse( final IParserNode ast )
+   protected void visitElse( final IParserNode elseNode )
    {
-      visitBlock( ast.getChild( 2 ) );
+      visitBlock( elseNode.getChild( 2 ) );
    }
 
-   protected void visitFinally( final IParserNode ast )
+   protected void visitFinally( final IParserNode finallyNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( finallyNode ) )
       {
-         visitBlock( ast.getChild( 0 ) );
+         visitBlock( finallyNode.getChild( 0 ) );
       }
    }
 
-   protected void visitFor( final IParserNode ast )
+   protected void visitFor( final IParserNode forNode )
    {
-      if ( ast.numChildren() > 3 )
+      if ( forNode.numChildren() > 3 )
       {
-         visitBlock( ast.getChild( 3 ) );
+         visitBlock( forNode.getChild( 3 ) );
       }
    }
 
-   protected void visitForEach( final IParserNode ast )
+   protected void visitForEach( final IParserNode foreachNode )
    {
-      if ( ast.numChildren() > 2 )
+      if ( foreachNode.numChildren() > 2 )
       {
-         visitBlock( ast.getChild( 2 ) );
+         visitBlock( foreachNode.getChild( 2 ) );
       }
    }
 
-   protected void visitForIn( final IParserNode ast )
+   protected void visitForIn( final IParserNode forInNode )
    {
    }
 
-   protected void visitFunction( final IParserNode ast,
-                                 final String type )
+   protected void visitFunction( final IParserNode functionNode,
+                                 final FunctionType type )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( functionNode ) )
       {
-         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
-         IParserNode node = iterator.next();
+         final Iterator< IParserNode > iterator = functionNode.getChildren().iterator();
+         IParserNode currentNode = iterator.next();
 
-         if ( node.is( NodeKind.META_LIST )
-               || node.is( NodeKind.MOD_LIST ) )
+         if ( currentNode.is( NodeKind.META_LIST )
+               || currentNode.is( NodeKind.MOD_LIST ) )
          {
-            node = iterator.next();
+            currentNode = iterator.next();
          }
-         node = iterator.next();
-         visitParameters( node );
-         node = iterator.next();
-         visitFunctionReturnType( node );
+         currentNode = iterator.next();
+         visitParameters( currentNode );
+         currentNode = iterator.next();
+         visitFunctionReturnType( currentNode );
          if ( iterator.hasNext() )
          {
-            node = iterator.next();
-            visitFunctionBody( node );
+            currentNode = iterator.next();
+            visitFunctionBody( currentNode );
          }
       }
    }
 
-   protected void visitFunctionReturnType( final IParserNode node )
+   protected void visitFunctionReturnType( final IParserNode functionReturnTypeNode )
    {
-      visitBlock( node );
+      visitBlock( functionReturnTypeNode );
    }
 
-   protected void visitIf( final IParserNode ast )
+   protected void visitIf( final IParserNode ifNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( ifNode ) )
       {
-         visitCondition( ast.getChild( 0 ) );
-         visitThen( ast );
-         if ( ast.numChildren() == 3 )
+         visitCondition( ifNode.getChild( 0 ) );
+         visitThen( ifNode );
+         if ( ifNode.numChildren() == 3 )
          {
-            visitElse( ast );
+            visitElse( ifNode );
          }
       }
    }
 
-   protected void visitInterface( final IParserNode ast )
+   protected void visitInterface( final IParserNode interfaceNode )
    {
    }
 
-   protected void visitMethodCall( final IParserNode ast )
+   protected void visitMethodCall( final IParserNode methodCallNode )
    {
-      final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+      final Iterator< IParserNode > iterator = methodCallNode.getChildren().iterator();
       visitExpression( iterator.next() );
       do
       {
@@ -461,11 +478,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       while ( iterator.hasNext() );
    }
 
-   protected void visitParameters( final IParserNode ast )
+   protected void visitParameters( final IParserNode functionParametersNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( functionParametersNode ) )
       {
-         for ( final IParserNode node2 : ast.getChildren() )
+         for ( final IParserNode node2 : functionParametersNode.getChildren() )
          {
             final IParserNode node = node2.getChild( 0 );
 
@@ -477,83 +494,83 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
-   protected void visitStatement( final IParserNode ast )
+   protected void visitStatement( final IParserNode statementNode )
    {
-      if ( ast == null )
+      if ( statementNode == null )
       {
          return;
       }
-      if ( ast.is( NodeKind.FOR ) )
+      if ( statementNode.is( NodeKind.FOR ) )
       {
-         visitFor( ast );
+         visitFor( statementNode );
       }
-      else if ( ast.is( NodeKind.FORIN ) )
+      else if ( statementNode.is( NodeKind.FORIN ) )
       {
-         visitForIn( ast );
+         visitForIn( statementNode );
       }
-      else if ( ast.is( NodeKind.FOREACH ) )
+      else if ( statementNode.is( NodeKind.FOREACH ) )
       {
-         visitForEach( ast );
+         visitForEach( statementNode );
       }
-      else if ( ast.is( NodeKind.DO ) )
+      else if ( statementNode.is( NodeKind.DO ) )
       {
-         visitDo( ast );
+         visitDo( statementNode );
       }
-      else if ( ast.is( NodeKind.WHILE ) )
+      else if ( statementNode.is( NodeKind.WHILE ) )
       {
-         visitWhile( ast );
+         visitWhile( statementNode );
       }
-      else if ( ast.is( NodeKind.IF ) )
+      else if ( statementNode.is( NodeKind.IF ) )
       {
-         visitIf( ast );
+         visitIf( statementNode );
       }
-      else if ( ast.is( NodeKind.SWITCH ) )
+      else if ( statementNode.is( NodeKind.SWITCH ) )
       {
-         visitSwitch( ast );
+         visitSwitch( statementNode );
       }
-      else if ( ast.is( NodeKind.TRY ) )
+      else if ( statementNode.is( NodeKind.TRY ) )
       {
-         visitTry( ast );
+         visitTry( statementNode );
       }
-      else if ( ast.is( NodeKind.CATCH ) )
+      else if ( statementNode.is( NodeKind.CATCH ) )
       {
-         visitCatch( ast );
+         visitCatch( statementNode );
       }
-      else if ( ast.is( NodeKind.FINALLY ) )
+      else if ( statementNode.is( NodeKind.FINALLY ) )
       {
-         visitFinally( ast );
+         visitFinally( statementNode );
       }
-      else if ( ast.is( NodeKind.LEFT_CURLY_BRACKET ) )
+      else if ( statementNode.is( NodeKind.LEFT_CURLY_BRACKET ) )
       {
-         visitBlock( ast );
+         visitBlock( statementNode );
       }
-      else if ( ast.is( NodeKind.VAR ) )
+      else if ( statementNode.is( NodeKind.VAR ) )
       {
-         visitVarOrConstList( ast,
-                              KeyWords.VAR,
-                              true );
+         visitVarOrConstList( statementNode,
+                              VariableOrConstant.VARIABLE,
+                              VariableScope.IN_FUNCTION );
       }
-      else if ( ast.is( NodeKind.CONST ) )
+      else if ( statementNode.is( NodeKind.CONST ) )
       {
-         visitVarOrConstList( ast,
-                              KeyWords.CONST,
-                              true );
+         visitVarOrConstList( statementNode,
+                              VariableOrConstant.CONSTANT,
+                              VariableScope.IN_FUNCTION );
       }
-      else if ( ast.is( NodeKind.RETURN ) )
+      else if ( statementNode.is( NodeKind.RETURN ) )
       {
-         visitReturn( ast );
+         visitReturn( statementNode );
       }
-      else if ( !ast.is( NodeKind.STMT_EMPTY ) )
+      else if ( !statementNode.is( NodeKind.STMT_EMPTY ) )
       {
-         visitExpressionList( ast );
+         visitExpressionList( statementNode );
       }
    }
 
-   protected void visitSwitch( final IParserNode ast )
+   protected void visitSwitch( final IParserNode switchNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( switchNode ) )
       {
-         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+         final Iterator< IParserNode > iterator = switchNode.getChildren().iterator();
 
          visitExpression( iterator.next() );
 
@@ -582,14 +599,14 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
-   protected void visitSwitchCase( final IParserNode child )
+   protected void visitSwitchCase( final IParserNode switchCaseNode )
    {
-      visitBlock( child );
+      visitBlock( switchCaseNode );
    }
 
-   protected void visitSwitchDefaultCase( final IParserNode child )
+   protected void visitSwitchDefaultCase( final IParserNode defaultCaseNode )
    {
-      visitBlock( child );
+      visitBlock( defaultCaseNode );
    }
 
    protected void visitThen( final IParserNode ast )
@@ -605,13 +622,13 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
-   protected void visitVarOrConstList( final IParserNode ast,
-                                       final KeyWords varOrConst,
-                                       final boolean isInFunction )
+   protected void visitVarOrConstList( final IParserNode variableNode,
+                                       final VariableOrConstant varOrConst,
+                                       final VariableScope scope )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( variableNode ) )
       {
-         final Iterator< IParserNode > iterator = ast.getChildren().iterator();
+         final Iterator< IParserNode > iterator = variableNode.getChildren().iterator();
 
          IParserNode node = iterator.next();
          if ( node.is( NodeKind.META_LIST )
@@ -628,12 +645,12 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
-   protected void visitWhile( final IParserNode ast )
+   protected void visitWhile( final IParserNode whileNode )
    {
-      if ( isNodeNavigable( ast ) )
+      if ( isNodeNavigable( whileNode ) )
       {
-         visitCondition( ast.getChild( 0 ) );
-         visitBlock( ast.getChild( 1 ) );
+         visitCondition( whileNode.getChild( 0 ) );
+         visitBlock( whileNode.getChild( 1 ) );
       }
    }
 
@@ -739,29 +756,29 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
             if ( node.is( NodeKind.VAR_LIST ) )
             {
                visitVarOrConstList( node,
-                                    KeyWords.VAR,
-                                    false );
+                                    VariableOrConstant.VARIABLE,
+                                    VariableScope.IN_CLASS );
             }
             else if ( node.is( NodeKind.CONST_LIST ) )
             {
                visitVarOrConstList( node,
-                                    KeyWords.CONST,
-                                    false );
+                                    VariableOrConstant.CONSTANT,
+                                    VariableScope.IN_CLASS );
             }
             else if ( node.is( NodeKind.FUNCTION ) )
             {
                visitFunction( node,
-                              "" );
+                              FunctionType.NORMAL );
             }
             else if ( node.is( NodeKind.SET ) )
             {
                visitFunction( node,
-                              "set " );
+                              FunctionType.SETTER );
             }
             else if ( node.is( NodeKind.GET ) )
             {
                visitFunction( node,
-                              "get " );
+                              FunctionType.GETTER );
             }
          }
       }

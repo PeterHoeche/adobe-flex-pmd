@@ -45,7 +45,7 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
 
    @Override
    protected void visitFunction( final IParserNode ast,
-                                 final String type )
+                                 final FunctionType type )
    {
       variablesUnused = new HashMap< String, IParserNode >();
 

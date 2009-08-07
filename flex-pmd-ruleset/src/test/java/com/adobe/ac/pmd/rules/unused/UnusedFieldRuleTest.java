@@ -42,31 +42,25 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
+      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                     "Sorted.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 54, 54 ) } ),
 
-      addToMap( addToMap( violatedFiles,
-                          "Title.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 41, 41 ) } ),
-                "com.adobe.ac.ncss.TestResult.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 298, 298 ),
-                            new ViolationPosition( 300, 300 ),
-                            new ViolationPosition( 302, 302 ),
-                            new ViolationPosition( 301, 301 ),
-                            new ViolationPosition( 299, 299 ),
-                            new ViolationPosition( 303, 303 ) } );
-
-      addToMap( addToMap( violatedFiles,
-                          "Sorted.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 54, 54 ) } ),
-
-                "com.adobe.ac.ncss.BigModel.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 42, 42 ) } );
-
-      return violatedFiles;
+                                           "com.adobe.ac.ncss.BigModel.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 42, 42 ) } ),
+                                 "Title.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 41, 41 ) } ),
+                       "com.adobe.ac.ncss.TestResult.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 298, 298 ),
+                                   new ViolationPosition( 300, 300 ),
+                                   new ViolationPosition( 302, 302 ),
+                                   new ViolationPosition( 301, 301 ),
+                                   new ViolationPosition( 299, 299 ),
+                                   new ViolationPosition( 303, 303 ) } );
    }
 
    @Override
