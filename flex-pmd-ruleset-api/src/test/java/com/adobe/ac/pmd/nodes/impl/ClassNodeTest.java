@@ -111,6 +111,9 @@ public class ClassNodeTest extends FlexPmdTestBase
       assertEquals( 0,
                     radonDataGrid.getMetaDataCount() );
       assertNotNull( modelLocator.getMetaData( MetaData.BINDABLE ) );
+      assertNotNull( modelLocator.getMetaData( "UnknownMetaData" ) );
+      assertEquals( 1,
+                    modelLocator.getMetaData( MetaData.BINDABLE ).size() );
    }
 
    @Test

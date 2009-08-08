@@ -28,18 +28,47 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
-
-public final class MetaData
+ package com.adobe.ac.pmd.model
 {
-   public static final String ARRAY_ELEMENT_TYPE = "ArrayElementType";
-   public static final String BEFORE             = "Before";
-   public static final String BINDABLE           = "Bindable";
-   public static final String EMBED              = "Embed";
-   public static final String EVENT              = "Event";
-   public static final String TEST               = "Test";
+   import com.adobe.ac.pmd.control.events.GetRulesetContentEvent;
+   import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+   
+   import flexunit.framework.CairngormEventSource;
+   import flexunit.framework.EventfulTestCase;
+   
+   import mx.collections.ArrayCollection;
 
-   private MetaData()
+   public class RulesetTest extends EventfulTestCase
    {
+      override public function setUp():void
+      {
+         model = new Ruleset();
+      }
+      
+      public function testGetRulesetContent() : void
+      {
+         model.getRulesetContent( "ref" );
+      }
+      
+      public function testOnReceiveRulesetContent() : void
+      {
+         var receivedRuleset : Ruleset = new Ruleset();
+         
+         listenForEvent( model, RulesetReceivedEvent.EVENT_NAME );
+         
+         receivedRuleset.name = "name";
+         receivedRuleset.description = "description";
+         receivedRuleset.rules = new ArrayCollection();
+         receivedRuleset.rulesets = new ArrayCollection();
+         
+         model.onReceiveRulesetContent( receivedRuleset );
+         
+         assertEvents();
+         assertEquals( model, RulesetReceivedEvent( lastDispatchedExpectedEvent ).ruleset );
+         assertEquals( receivedRuleset.name, model.name );
+         assertEquals( receivedRuleset.description, model.description );
+         assertEquals( receivedRuleset.rules, model.rules );
+         assertEquals( receivedRuleset.rulesets, model.rulesets );
+      }
    }
 }

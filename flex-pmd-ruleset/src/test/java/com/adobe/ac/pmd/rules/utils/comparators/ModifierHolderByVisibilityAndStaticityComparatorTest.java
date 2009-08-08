@@ -97,29 +97,21 @@ public class ModifierHolderByVisibilityAndStaticityComparatorTest
       Collections.sort( fields,
                         new ModifierHolderByVisibilityAndStaticityComparator() );
 
-      assertEquals( "",
-                    "publicStatic",
+      assertEquals( "publicStatic",
                     fields.get( 0 ).getName() );
-      assertEquals( "",
-                    "internalStatic",
+      assertEquals( "internalStatic",
                     fields.get( 1 ).getName() );
-      assertEquals( "",
-                    "protectedStatic",
+      assertEquals( "protectedStatic",
                     fields.get( 2 ).getName() );
-      assertEquals( "",
-                    "privateStatic",
+      assertEquals( "privateStatic",
                     fields.get( 3 ).getName() );
-      assertEquals( "",
-                    "public",
+      assertEquals( "public",
                     fields.get( 4 ).getName() );
-      assertEquals( "",
-                    "internal",
+      assertEquals( "internal",
                     fields.get( 5 ).getName() );
-      assertEquals( "",
-                    "protected",
+      assertEquals( "protected",
                     fields.get( 6 ).getName() );
-      assertEquals( "",
-                    "private",
+      assertEquals( "private",
                     fields.get( 7 ).getName() );
    }
 }

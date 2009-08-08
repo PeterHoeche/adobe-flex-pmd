@@ -67,54 +67,43 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
                   as3.compareTo( mxml ) < 0 );
       assertTrue( "",
                   mxml.compareTo( as3 ) > 0 );
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     as3.compareTo( as3 ) );
    }
 
    public void testContains()
    {
-      assertTrue( "",
-                  as3.contains( "logger",
+      assertTrue( as3.contains( "logger",
                                 buildSetContaining( 0 ) ) );
-      assertFalse( "",
-                   as3.contains( "loggerr",
+      assertFalse( as3.contains( "loggerr",
                                  buildSetContaining( 0 ) ) );
-      assertFalse( "",
-                   as3.contains( "addEventListener",
+      assertFalse( as3.contains( "addEventListener",
                                  buildSetContaining( 109 ) ) );
    }
 
    @Test
    public void testGetClassName()
    {
-      assertEquals( "",
-                    "AbstractRowData.as",
+      assertEquals( "AbstractRowData.as",
                     as3.getClassName() );
-      assertEquals( "",
-                    "IterationsList.mxml",
+      assertEquals( "IterationsList.mxml",
                     mxml.getClassName() );
    }
 
    @Test
    public void testGetFilePath()
    {
-      assertNotNull( "",
-                     as3.getFilePath() );
-      assertNotNull( "",
-                     mxml.getFilePath() );
-      assertNotNull( "",
-                     mainMxml.getFilePath() );
+      assertNotNull( as3.getFilePath() );
+      assertNotNull( mxml.getFilePath() );
+      assertNotNull( mainMxml.getFilePath() );
    }
 
    @Test
    public void testGetLines()
    {
-      assertEquals( "",
-                    143,
+      assertEquals( 143,
                     as3.getLinesNb() );
-      assertEquals( "",
-                    100,
+      assertEquals( 100,
                     mxml.getLinesNb() );
    }
 
@@ -122,42 +111,33 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    public void testGetPackageName()
    {
       assertEquals( "",
-                    "",
                     as3.getPackageName() );
-      assertEquals( "",
-                    "com.adobe.ac.ncss.mxml",
+      assertEquals( "com.adobe.ac.ncss.mxml",
                     mxml.getPackageName() );
    }
 
    @Test
    public void testGetPath()
    {
-      assertEquals( "",
-                    "AbstractRowData.as",
+      assertEquals( "AbstractRowData.as",
                     as3.getFullyQualifiedName() );
-      assertEquals( "",
-                    "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+      assertEquals( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                     mxml.getFullyQualifiedName() );
    }
 
    @Test
    public void testIsMainApplication()
    {
-      assertFalse( "",
-                   as3.isMainApplication() );
-      assertFalse( "",
-                   mxml.isMainApplication() );
-      assertTrue( "",
-                  mainMxml.isMainApplication() );
+      assertFalse( as3.isMainApplication() );
+      assertFalse( mxml.isMainApplication() );
+      assertTrue( mainMxml.isMainApplication() );
    }
 
    @Test
    public void testIsMxml()
    {
-      assertFalse( "",
-                   as3.isMxml() );
-      assertTrue( "",
-                  mxml.isMxml() );
+      assertFalse( as3.isMxml() );
+      assertTrue( mxml.isMxml() );
    }
 
    private Set< Integer > buildSetContaining( final int i )

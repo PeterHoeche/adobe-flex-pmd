@@ -334,7 +334,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
       catch ( final Exception e )
       {
-         LOGGER.finer( StackTraceUtils.print( e ) );
+         LOGGER.warning( StackTraceUtils.print( e ) );
       }
       final List< IFlexViolation > copy = new ArrayList< IFlexViolation >( violations );
 
@@ -362,6 +362,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
             if ( node.is( NodeKind.CONTENT ) )
             {
                content = node;
+               break;
             }
          }
          visitClassContent( content );
@@ -428,7 +429,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          final Iterator< IParserNode > iterator = functionNode.getChildren().iterator();
          IParserNode currentNode = iterator.next();
 
-         if ( currentNode.is( NodeKind.META_LIST )
+         while ( currentNode.is( NodeKind.META_LIST )
                || currentNode.is( NodeKind.MOD_LIST ) )
          {
             currentNode = iterator.next();

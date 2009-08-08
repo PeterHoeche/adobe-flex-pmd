@@ -28,18 +28,33 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.rules.flexunit;
 
-public final class MetaData
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class EmptyUnitTestTest extends AbstractAstFlexRuleTest
 {
-   public static final String ARRAY_ELEMENT_TYPE = "ArrayElementType";
-   public static final String BEFORE             = "Before";
-   public static final String BINDABLE           = "Bindable";
-   public static final String EMBED              = "Embed";
-   public static final String EVENT              = "Event";
-   public static final String TEST               = "Test";
-
-   private MetaData()
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "flexunit.RaoulTest.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 48, 48 ),
+                                             new ViolationPosition( 54, 54 ) } ),
+                       "flexunit.RulesetTest.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 48, 48 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new EmptyUnitTest();
    }
 }

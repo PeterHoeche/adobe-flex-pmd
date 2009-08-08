@@ -55,7 +55,7 @@ class ClassNode extends AbstractNode implements IClass
    private String                           extensionName;
    private List< IFunction >                functions;
    private List< IParserNode >              implementations;
-   private Map< String, List< IMetaData > > metadatas;
+   private Map< String, List< IMetaData > > metaDataList;
    private Set< Modifier >                  modifiers;
    private IdentifierNode                   name;
 
@@ -66,12 +66,12 @@ class ClassNode extends AbstractNode implements IClass
 
    public void add( final IMetaData metaData )
    {
-      if ( !metadatas.containsKey( metaData.getName() ) )
+      if ( !metaDataList.containsKey( metaData.getName() ) )
       {
-         metadatas.put( metaData.getName(),
-                        new ArrayList< IMetaData >() );
+         metaDataList.put( metaData.getName(),
+                           new ArrayList< IMetaData >() );
       }
-      metadatas.get( metaData.getName() ).add( metaData );
+      metaDataList.get( metaData.getName() ).add( metaData );
    }
 
    public void add( final Modifier modifier )
@@ -131,12 +131,19 @@ class ClassNode extends AbstractNode implements IClass
 
    public List< IMetaData > getMetaData( final String metaDataName )
    {
-      return metadatas.get( metaDataName );
+      if ( metaDataList.containsKey( metaDataName ) )
+      {
+         return metaDataList.get( metaDataName );
+      }
+      else
+      {
+         return new ArrayList< IMetaData >();
+      }
    }
 
    public int getMetaDataCount()
    {
-      return metadatas.size();
+      return metaDataList.size();
    }
 
    /*
@@ -155,7 +162,7 @@ class ClassNode extends AbstractNode implements IClass
 
    public boolean isBindable()
    {
-      return metadatas.get( "Bindable" ) != null;
+      return metaDataList.get( "Bindable" ) != null;
    }
 
    /*
@@ -176,7 +183,7 @@ class ClassNode extends AbstractNode implements IClass
    protected void compute()
    {
       modifiers = new HashSet< Modifier >();
-      metadatas = new HashMap< String, List< IMetaData > >();
+      metaDataList = new HashMap< String, List< IMetaData > >();
       implementations = new ArrayList< IParserNode >();
 
       if ( getInternalNode().numChildren() != 0 )

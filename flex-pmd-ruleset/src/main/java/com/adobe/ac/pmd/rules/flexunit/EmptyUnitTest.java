@@ -28,71 +28,65 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.unused;
+package com.adobe.ac.pmd.rules.flexunit;
 
-import java.util.HashMap;
-import java.util.List;
-
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.MetaData;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedFieldRule extends AbstractUnusedVariableRule
+public class EmptyUnitTest extends AbstractAstFlexRule
 {
+   private static final String[] ASSERTIONS = new String[]
+                                            { "assertEquals",
+               "assertObjectEquals",
+               "assertMatch",
+               "assertNoMatch",
+               "assertContained",
+               "assertNotContained",
+               "assertStrictlyEquals",
+               "assertTrue",
+               "assertFalse",
+               "assertNull",
+               "assertNotNull",
+               "assertUndefined",
+               "assertNotUndefined",
+               "assertThat",
+               "fail"                      };
+
+   private boolean               isExtendingTestCase;
+
    @Override
-   public boolean isConcernedByTheCurrentFile()
+   protected void findViolations( final IClass classNode )
    {
-      return !getCurrentFile().isMxml();
+      isExtendingTestCase = classNode.getExtensionName() != null
+            && classNode.getExtensionName().endsWith( "TestCase" );
+
+      super.findViolations( classNode );
    }
 
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected void findViolations( final IFunction function )
    {
-      return ViolationPriority.HIGH;
-   }
+      super.findViolations( function );
 
-   @Override
-   protected void visitClass( final IParserNode classNode )
-   {
-      variablesUnused = new HashMap< String, IParserNode >();
-
-      super.visitClass( classNode );
-
-      for ( final String variableName : variablesUnused.keySet() )
+      if ( isExtendingTestCase
+            && function.getName().startsWith( "test" )
+            && function.findPrimaryStatementInBody( ASSERTIONS ).isEmpty() )
       {
-         final IParserNode variable = variablesUnused.get( variableName );
-
-         addViolation( variable,
-                       variable,
-                       variableName );
+         addViolation( function );
+      }
+      if ( !function.getMetaData( MetaData.TEST ).isEmpty()
+            && function.findPrimaryStatementInBody( ASSERTIONS ).isEmpty() )
+      {
+         addViolation( function );
       }
    }
 
    @Override
-   protected void visitVarOrConstList( final IParserNode ast,
-                                       final VariableOrConstant varOrConst,
-                                       final VariableScope scope )
+   protected ViolationPriority getDefaultPriority()
    {
-      if ( scope.equals( VariableScope.IN_CLASS ) )
-      {
-         final List< IParserNode > modifiers = ast.getChild( 0 ).getChildren();
-         boolean isPrivate = false;
-
-         for ( final IParserNode modifierNode : modifiers )
-         {
-            if ( modifierNode.getStringValue().equals( KeyWords.PRIVATE.toString() ) )
-            {
-               isPrivate = true;
-               break;
-            }
-         }
-         if ( isPrivate )
-         {
-            tryToAddVariableNodeInChildren( ast );
-         }
-      }
-      super.visitVarOrConstList( ast,
-                                 varOrConst,
-                                 scope );
+      return ViolationPriority.NORMAL;
    }
 }

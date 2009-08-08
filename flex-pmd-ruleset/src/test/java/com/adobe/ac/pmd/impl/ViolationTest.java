@@ -89,20 +89,15 @@ public class ViolationTest extends FlexPmdTestBase
       final Violation warningViolation = new Violation( position, WARNING_RULE, null );
       final Violation warningViolation2 = new Violation( position, WARNING_RULE, null );
 
-      assertEquals( "",
-                    -1,
+      assertEquals( -1,
                     infoViolation.compareTo( infoViolation2 ) );
-      assertEquals( "",
-                    -1,
+      assertEquals( -1,
                     warningViolation.compareTo( infoViolation ) );
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     warningViolation.compareTo( warningViolation2 ) );
-      assertEquals( "",
-                    1,
+      assertEquals( 1,
                     infoViolation2.compareTo( infoViolation ) );
-      assertEquals( "",
-                    1,
+      assertEquals( 1,
                     infoViolation.compareTo( warningViolation ) );
    }
 
@@ -111,8 +106,7 @@ public class ViolationTest extends FlexPmdTestBase
    {
       final IThresholdedRule thresholdRule = ( IThresholdedRule ) new Violation( position, INFO_RULE, null ).getRule();
 
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     thresholdRule.getActualValueForTheCurrentViolation() );
    }
 
@@ -120,31 +114,27 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetClassName()
    {
       assertEquals( "",
-                    "",
                     new Violation( position, INFO_RULE, null ).getClassName() );
    }
 
    @Test
    public void testGetDefaultThreshold()
    {
-      assertEquals( "",
-                    Integer.valueOf( ViolationPriority.LOW.toString() ),
+      assertEquals( Integer.valueOf( ViolationPriority.LOW.toString() ),
                     new Violation( position, INFO_RULE, null ).getRule().getPriority() );
    }
 
    @Test
    public void testGetDescription()
    {
-      assertEquals( "",
-                    "emptyMessage",
+      assertEquals( "emptyMessage",
                     new Violation( position, INFO_RULE, null ).getDescription() );
    }
 
    @Test
    public void testGetEndColumn()
    {
-      assertEquals( "",
-                    30,
+      assertEquals( 30,
                     new Violation( position, INFO_RULE, null ).getEndColumn() );
    }
 
@@ -153,14 +143,12 @@ public class ViolationTest extends FlexPmdTestBase
    {
       final Violation infoViolation = new Violation( position, INFO_RULE, abstractRowData );
 
-      assertEquals( "",
-                    "AbstractRowData.as",
+      assertEquals( "AbstractRowData.as",
                     infoViolation.getFilename() );
 
       final Violation infoViolation2 = new Violation( position, INFO_RULE, abstractRowDataWithPackage );
 
-      assertEquals( "",
-                    "com.adobe.ac.AbstractRowData.as",
+      assertEquals( "com.adobe.ac.AbstractRowData.as",
                     infoViolation2.getFilename() );
    }
 
@@ -168,7 +156,6 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetMethodName()
    {
       assertEquals( "",
-                    "",
                     new Violation( position, INFO_RULE, abstractRowData ).getMethodName() );
 
    }
@@ -177,23 +164,19 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetPackageName()
    {
       assertEquals( "",
-                    "",
                     new Violation( position, INFO_RULE, abstractRowData ).getPackageName() );
 
-      assertEquals( "",
-                    "com.adobe.ac",
+      assertEquals( "com.adobe.ac",
                     new Violation( position, INFO_RULE, abstractRowDataWithPackage ).getPackageName() );
    }
 
    @Test
    public void testGetRuleMessage()
    {
-      assertEquals( "",
-                    "emptyMessage",
+      assertEquals( "emptyMessage",
                     new Violation( position, INFO_RULE, null ).getRuleMessage() );
 
-      assertEquals( "",
-                    "warning message",
+      assertEquals( "warning message",
                     new Violation( position, WARNING_RULE, null ).getRuleMessage() );
    }
 
@@ -201,7 +184,6 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetVariableName()
    {
       assertEquals( "",
-                    "",
                     new Violation( position, INFO_RULE, null ).getVariableName() );
    }
 

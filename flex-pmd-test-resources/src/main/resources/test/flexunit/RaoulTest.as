@@ -28,18 +28,32 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
-
-public final class MetaData
+package suite.cases
 {
-   public static final String ARRAY_ELEMENT_TYPE = "ArrayElementType";
-   public static final String BEFORE             = "Before";
-   public static final String BINDABLE           = "Bindable";
-   public static final String EMBED              = "Embed";
-   public static final String EVENT              = "Event";
-   public static final String TEST               = "Test";
-
-   private MetaData()
-   {
-   }
+	import flexunit.framework.TestCase;
+	
+	import math.RaoulUtil;
+	
+	public class RaoulTest
+	{
+		private var classToTestRef : math.RaoulUtil;
+		
+		[Before]
+	    public function setUp():void
+		{
+			classToTestRef = new RaoulUtil();
+		}
+		
+		[Test]
+		public function foo():void
+		{
+			classToTestRef.foo1();
+		}
+		
+		[Test]
+		public function fooAgain():void
+		{
+			classToTestRef.foo();
+		}
+	}
 }

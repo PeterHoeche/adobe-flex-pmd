@@ -55,22 +55,16 @@ public class EmptyRuleTest extends FlexPmdTestBase
                                                                             null,
                                                                             null );
 
-      assertEquals( "",
-                    1,
+      assertEquals( 1,
                     violatons.size() );
 
       final IFlexViolation firstViolation = violatons.get( 0 );
 
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     firstViolation.getBeginLine() );
-
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     firstViolation.getEndLine() );
-
-      assertEquals( "",
-                    "emptyMessage. description",
+      assertEquals( "emptyMessage. description",
                     firstViolation.getRuleMessage() );
    }
 
@@ -81,22 +75,16 @@ public class EmptyRuleTest extends FlexPmdTestBase
                                                                               null,
                                                                               null );
 
-      assertEquals( "",
-                    1,
+      assertEquals( 1,
                     violatons.size() );
 
       final IFlexViolation firstViolation = violatons.get( 0 );
 
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     firstViolation.getBeginLine() );
-
-      assertEquals( "",
-                    0,
+      assertEquals( 0,
                     firstViolation.getEndLine() );
-
-      assertEquals( "",
-                    "warning message",
+      assertEquals( "warning message",
                     firstViolation.getRuleMessage() );
    }
 
@@ -109,8 +97,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
                                            1,
                                            2 ) );
 
-      assertEquals( "",
-                    "message: expected <1> but actually <2>\n",
+      assertEquals( "message: expected <1> but actually <2>\n",
                     AbstractFlexRuleTest.buildFailuresMessage( position ).toString() );
    }
 
@@ -129,16 +116,11 @@ public class EmptyRuleTest extends FlexPmdTestBase
                                                                                             expectedPositions,
                                                                                             violations );
 
-      assertEquals( "",
-                    2,
+      assertEquals( 2,
                     positions.size() );
-
-      assertEquals( "",
-                    "Begining line is not correct at 0th violation on ",
+      assertEquals( "Begining line is not correct at 0th violation on ",
                     positions.get( 0 ).message );
-
-      assertEquals( "",
-                    "Ending line is not correct at 0th violation on ",
+      assertEquals( "Ending line is not correct at 0th violation on ",
                     positions.get( 1 ).message );
    }
 
@@ -154,8 +136,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
       violatedFiles.put( "file2",
                          emptyList );
 
-      assertEquals( "",
-                    "file1 should not contain any violations  (0 found)\n"
+      assertEquals( "file1 should not contain any violations  (0 found)\n"
                           + "file2 should not contain any violations  (0 found)\n",
                     AbstractFlexRuleTest.buildMessageName( violatedFiles ).toString() );
 
@@ -167,8 +148,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
       violatedFiles.put( "file2",
                          oneItemList );
 
-      assertEquals( "",
-                    "file1 should not contain any violations  (0 found)\n"
+      assertEquals( "file1 should not contain any violations  (0 found)\n"
                           + "file2 should not contain any violations  (1 found at 0:0)\n",
                     AbstractFlexRuleTest.buildMessageName( violatedFiles ).toString() );
    }

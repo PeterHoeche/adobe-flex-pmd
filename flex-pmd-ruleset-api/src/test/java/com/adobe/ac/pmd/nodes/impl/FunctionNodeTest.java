@@ -47,6 +47,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
@@ -57,6 +58,8 @@ public class FunctionNodeTest extends FlexPmdTestBase
    private IFunction drawHighlightIndicator;
    private IFunction drawRowBackground;
    private IFunction drawSelectionIndicator;
+   private IFunction flexunit4Test;
+   private IFunction flexunit4TestSetUp;
    private IFunction getHeight;
    private IFunction isTrueGetter;
    private IFunction isTrueSetter;
@@ -76,8 +79,12 @@ public class FunctionNodeTest extends FlexPmdTestBase
       final IParserNode dataGridAst = FileSetUtils.buildAst( getTestFiles().get( "RadonDataGrid.as" ) );
       final IParserNode modelLocatorAst = FileSetUtils.buildAst( getTestFiles().get( "cairngorm."
             + "NonBindableModelLocator.as" ) );
+      final IParserNode flexUnit4TestCaseAst = FileSetUtils.buildAst( getTestFiles().get( "flexunit."
+            + "RaoulTest.as" ) );
+
       final IClass radonDataGrid = NodeFactory.createPackage( dataGridAst ).getClassNode();
       final IClass nonBindableModelLocator = NodeFactory.createPackage( modelLocatorAst ).getClassNode();
+      final IClass flexUnit4TestCase = NodeFactory.createPackage( flexUnit4TestCaseAst ).getClassNode();
 
       constructor = radonDataGrid.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGrid.getFunctions().get( 1 );
@@ -87,6 +94,8 @@ public class FunctionNodeTest extends FlexPmdTestBase
       isTrueGetter = radonDataGrid.getFunctions().get( 5 );
       isTrueSetter = radonDataGrid.getFunctions().get( 6 );
       getHeight = nonBindableModelLocator.getFunctions().get( 2 );
+      flexunit4Test = flexUnit4TestCase.getFunctions().get( 1 );
+      flexunit4TestSetUp = flexUnit4TestCase.getFunctions().get( 0 );
    }
 
    @Test
@@ -98,6 +107,13 @@ public class FunctionNodeTest extends FlexPmdTestBase
                     drawHighlightIndicator.findPrimaryStatementInBody( new String[]
                     { "super",
                                 "" } ).size() );
+   }
+
+   @Test
+   public void testGetBody()
+   {
+      assertEquals( 1,
+                    flexunit4TestSetUp.getBody().numChildren() );
    }
 
    @Test
@@ -122,6 +138,12 @@ public class FunctionNodeTest extends FlexPmdTestBase
                     getHeight.getMetaDataCount() );
       assertEquals( 0,
                     isTrueGetter.getMetaDataCount() );
+      assertEquals( 1,
+                    flexunit4Test.getMetaData( MetaData.TEST ).size() );
+      assertEquals( "Test",
+                    flexunit4Test.getMetaData( MetaData.TEST ).get( 0 ).getName() );
+      assertEquals( 0,
+                    flexunit4Test.getMetaData( MetaData.BEFORE ).size() );
    }
 
    @Test
@@ -167,6 +189,8 @@ public class FunctionNodeTest extends FlexPmdTestBase
                     drawRowBackground.getReturnType().getInternalNode().getStringValue() );
       assertEquals( "void",
                     placeSortArrow.getReturnType().getInternalNode().getStringValue() );
+      assertEquals( "void",
+                    flexunit4TestSetUp.getReturnType().getInternalNode().getStringValue() );
    }
 
    @Test

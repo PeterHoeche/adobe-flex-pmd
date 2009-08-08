@@ -130,7 +130,14 @@ class FunctionNode extends AbstractNode implements IFunction
 
    public List< IMetaData > getMetaData( final String metaDataName )
    {
-      return metaDataList.get( metaDataName );
+      if ( metaDataList.containsKey( metaDataName ) )
+      {
+         return metaDataList.get( metaDataName );
+      }
+      else
+      {
+         return new ArrayList< IMetaData >();
+      }
    }
 
    public int getMetaDataCount()
