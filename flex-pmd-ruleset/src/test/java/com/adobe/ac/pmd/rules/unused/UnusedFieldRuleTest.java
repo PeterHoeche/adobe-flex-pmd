@@ -42,7 +42,10 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                               "Responder.as",
+                                                               new ViolationPosition[]
+                                                               { new ViolationPosition( 37, 37 ) } ),
                                                      "Sorted.as",
                                                      new ViolationPosition[]
                                                      { new ViolationPosition( 54, 54 ) } ),

@@ -109,21 +109,28 @@ public final class FileSetUtils
          }
          catch ( final InterruptedException e )
          {
-            logErrorWhileBuildingAst( file,
-                                      e );
+            LOGGER.warning( buildLogMessage( file,
+                                             e.getMessage() ) );
+         }
+         catch ( final NoClassDefFoundError e )
+         {
+            LOGGER.warning( buildLogMessage( file,
+                                             e.getMessage() ) );
          }
          catch ( final ExecutionException e )
          {
-            logErrorWhileBuildingAst( file,
-                                      e );
-         }
-         catch ( final NullPointerException e )
-         {
-            logErrorWhileBuildingAst( file,
-                                      e );
+            LOGGER.warning( buildLogMessage( file,
+                                             e.getMessage() ) );
          }
       }
       return asts;
+   }
+
+   private static String buildLogMessage( final IFlexFile file,
+                                          final String message )
+   {
+      return "while building AST on "
+            + file.getFullyQualifiedName() + ", an error occured: " + message;
    }
 
    private static IParserNode buildThreadedAst( final IFlexFile file ) throws PMDException,
@@ -146,13 +153,6 @@ public final class FileSetUtils
       // called.
 
       return ( IParserNode ) futures.get( 0 ).get();
-   }
-
-   private static void logErrorWhileBuildingAst( final IFlexFile file,
-                                                 final Exception exception )
-   {
-      LOGGER.finer( "while building AST on "
-            + file.getFullyQualifiedName() + ", an error occured: " + exception.getMessage() );
    }
 
    private FileSetUtils()

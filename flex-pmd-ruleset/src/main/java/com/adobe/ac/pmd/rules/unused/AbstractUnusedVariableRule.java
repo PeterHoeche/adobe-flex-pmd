@@ -59,11 +59,8 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
       }
    }
 
-   @Override
-   protected void visitStatement( final IParserNode ast )
+   protected final void tryToMarkVariableAsUsed( final IParserNode ast )
    {
-      super.visitStatement( ast );
-
       if ( variablesUnused != null
             && !variablesUnused.isEmpty() && ast != null )
       {
@@ -71,7 +68,15 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
       }
    }
 
-   private void markVariableAsUsed( final IParserNode ast )
+   @Override
+   protected void visitStatement( final IParserNode ast )
+   {
+      super.visitStatement( ast );
+
+      tryToMarkVariableAsUsed( ast );
+   }
+
+   private final void markVariableAsUsed( final IParserNode ast )
    {
       if ( ast.numChildren() == 0 )
       {

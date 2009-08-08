@@ -91,7 +91,8 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
                   + ".as" )
                   && !KNOWN_TYPES.contains( type ) )
             {
-               addViolation( metaData );
+               addViolation( metaData,
+                             type );
             }
          }
       }

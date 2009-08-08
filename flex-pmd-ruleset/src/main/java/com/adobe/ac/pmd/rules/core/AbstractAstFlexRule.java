@@ -623,6 +623,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   protected void visitVariableInitialization( final IParserNode node )
+   {
+      visitExpression( node );
+   }
+
    protected void visitVarOrConstList( final IParserNode variableNode,
                                        final VariableOrConstant varOrConst,
                                        final VariableScope scope )
@@ -632,7 +637,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          final Iterator< IParserNode > iterator = variableNode.getChildren().iterator();
 
          IParserNode node = iterator.next();
-         if ( node.is( NodeKind.META_LIST )
+         while ( node.is( NodeKind.META_LIST )
                || node.is( NodeKind.MOD_LIST ) )
          {
             node = iterator.next();
@@ -931,7 +936,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
             if ( node.is( NodeKind.INIT ) )
             {
-               visitExpression( node );
+               visitVariableInitialization( node );
             }
          }
       }

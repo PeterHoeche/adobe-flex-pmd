@@ -95,6 +95,10 @@ public class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
 
    private boolean isNameEndsWithNumeric( final String name )
    {
+      if ( name.length() == 0 )
+      {
+         return false;
+      }
       final char lastCharacter = name.charAt( name.length() - 1 );
 
       return Character.isDigit( lastCharacter );

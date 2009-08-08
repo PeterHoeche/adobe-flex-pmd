@@ -33,6 +33,9 @@ package
 
     public class Responder implements IResponder
     {
+    	private var usedInAttribute : boolean = false;
+    	private var unusedAttribute : boolean = usedInAttribute;
+    	
         public function result( event : Object ) : void
         { 
         	event as Event;

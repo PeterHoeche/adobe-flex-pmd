@@ -69,6 +69,14 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
    }
 
    @Override
+   protected void visitVariableInitialization( final IParserNode node )
+   {
+      super.visitVariableInitialization( node );
+
+      tryToMarkVariableAsUsed( node );
+   }
+
+   @Override
    protected void visitVarOrConstList( final IParserNode ast,
                                        final VariableOrConstant varOrConst,
                                        final VariableScope scope )

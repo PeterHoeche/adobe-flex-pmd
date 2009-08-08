@@ -103,7 +103,8 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 
    public String getName()
    {
-      return name.toString();
+      return name != null ? name.toString()
+                         : "";
    }
 
    /*

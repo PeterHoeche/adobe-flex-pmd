@@ -112,7 +112,7 @@ class AS3Scanner
          }
          catch ( final Throwable e )
          {
-            LOGGER.finer( e.getMessage() );
+            LOGGER.warning( e.getMessage() );
          }
          return false;
       }
