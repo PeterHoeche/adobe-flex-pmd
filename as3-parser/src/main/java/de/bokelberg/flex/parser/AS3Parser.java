@@ -66,9 +66,8 @@ public class AS3Parser implements IAS3Parser
    public final IParserNode buildAst( final String filePath ) throws IOException,
                                                              TokenException
    {
-      final String[] lines = FileUtils.readStrings( new File( filePath ) );
       return parseLines( filePath,
-                         lines );
+                         FileUtils.readStrings( new File( filePath ) ) );
    }
 
    public final IParserNode buildAst( final String filePath,
@@ -114,6 +113,10 @@ public class AS3Parser implements IAS3Parser
 
       while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
       {
+         if ( tokIs( Operators.LEFT_CURLY_BRACKET ) )
+         {
+            result.addChild( parseBlock() );
+         }
          if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
          {
             meta.add( parseMetaData() );
@@ -523,10 +526,6 @@ public class AS3Parser implements IAS3Parser
                   returnType };
    }
 
-   // ------------------------------------------------------------------------
-   // language specific recursive descent parsing
-   // ------------------------------------------------------------------------
-
    private NodeKind findFunctionTypeFromSignature( final Node[] signature )
    {
       for ( final Node node : signature )
@@ -546,6 +545,10 @@ public class AS3Parser implements IAS3Parser
       }
       return NodeKind.FUNCTION;
    }
+
+   // ------------------------------------------------------------------------
+   // language specific recursive descent parsing
+   // ------------------------------------------------------------------------
 
    /**
     * Get the next token Skip comments but keep newlines We need this method for

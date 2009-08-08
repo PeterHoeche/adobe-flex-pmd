@@ -40,15 +40,12 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new HeavyConstructorRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                     "flexunit.RaoulTest.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 68, 68 ) } ),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 130, 130 ) } ),
@@ -58,5 +55,11 @@ public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
                        "RadonDataGrid.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 53, 53 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new HeavyConstructorRule();
    }
 }
