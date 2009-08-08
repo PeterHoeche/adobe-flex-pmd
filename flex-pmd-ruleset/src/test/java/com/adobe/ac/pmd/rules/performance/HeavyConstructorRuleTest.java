@@ -45,7 +45,7 @@ public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                                      "flexunit.RaoulTest.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 68, 68 ) } ),
+                                                     { new ViolationPosition( 71, 71 ) } ),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 130, 130 ) } ),
