@@ -129,6 +129,10 @@
 		message="Protected accessors are useless in a final class. Make it private ({0})">
 		<priority>3</priority>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingWithKeyWordRuleTest"
+		message="You should not use the with keyword. It does not help readability.">
+		<priority>3</priority>
+	</rule>
 	<rule class="com.adobe.ac.pmd.rules.maintanability.ArrayFieldWithNoArrayElementTypeRule"
 		message="ArrayElementType metadata is not specified for this array-type field ({0})">
 		<description>
