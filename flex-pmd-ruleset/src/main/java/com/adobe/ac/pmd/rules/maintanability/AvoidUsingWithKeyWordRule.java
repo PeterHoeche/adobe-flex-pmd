@@ -28,33 +28,31 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.rules.maintanability;
+
+import java.util.List;
+
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class AvoidUsingWithKeyWordRule extends AbstractAstFlexRule
 {
-   import mx.controls.Label;
-   import mx.core.UIComponent;
-   
-   public class GoodComponent extends UIComponent
+   @Override
+   protected void findViolations( final IFunction function )
    {
-      override protected function updateDisplayList( w : Number, h : Number ) : void
+      final List< IParserNode > withStatements = function.findPrimaryStatementsInBody( "with" );
+
+      for ( final IParserNode withStatement : withStatements )
       {
-         super.updateDisplayList( w, h );
+         addViolation( withStatement );
       }
-      
-      override protected function createChildren() : void
-      {
-         super.createChildren();
-         
-         addChild( new Label() );
-         addChildAt( new Label() );
-         removeChild( new Label() );
-         removeChildAt( 0 );
-         
-         var myDirect : MyObject;
-         
-         with( myDirect )
-         {
-         	i = "";
-         }
-      }
-   }   
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.HIGH;
+   }
 }
