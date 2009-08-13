@@ -33,10 +33,10 @@ package com.adobe.ac.pmd.control.commands
    import com.adobe.ac.pmd.api.IGetRootRuleset;
    import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
    import com.adobe.ac.pmd.services.rulesets.RulesetDelegate;
-   import com.adobe.ac.pmd.services.translators.RulesetTranslator;
+   import com.adobe.ac.pmd.services.translators.RootRulesetTranslator;
    import com.adobe.cairngorm.commands.ICommand;
    import com.adobe.cairngorm.control.CairngormEvent;
-
+   
    import mx.logging.ILogger;
    import mx.logging.Log;
    import mx.rpc.IResponder;
@@ -62,7 +62,7 @@ package com.adobe.ac.pmd.control.commands
       {
          var xml : XML = XML( ResultEvent( data ).result );
 
-         invoker.onReceiveRootRuleset( RulesetTranslator.deserialize( xml ) );
+         invoker.onReceiveRootRuleset( RootRulesetTranslator.deserialize( xml ) );
       }
 
       public function fault( info : Object ) : void // NO PMD

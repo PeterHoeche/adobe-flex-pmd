@@ -71,7 +71,6 @@
          receivedRuleset.name = "name";
          receivedRuleset.description = "description";
          receivedRuleset.rules = new ArrayCollection();
-         receivedRuleset.rulesets = new ArrayCollection();
          
          model.onReceiveRulesetContent( receivedRuleset );
          
@@ -80,7 +79,6 @@
          assertEquals( receivedRuleset.name, model.name );
          assertEquals( receivedRuleset.description, model.description );
          assertEquals( receivedRuleset.rules, model.rules );
-         assertEquals( receivedRuleset.rulesets, model.rulesets );
       }
    }
 }

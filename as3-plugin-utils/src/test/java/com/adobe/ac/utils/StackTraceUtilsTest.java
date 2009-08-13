@@ -28,45 +28,32 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.model
+package com.adobe.ac.utils;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class StackTraceUtilsTest
 {
-    import com.adobe.ac.model.IDomainModel;
-    import com.adobe.ac.pmd.api.IGetRulesetContent;
-    import com.adobe.ac.pmd.control.events.GetRulesetContentEvent;
-    import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+   @SuppressWarnings("serial")
+   private static class CustomException extends Exception
+   {
+      public CustomException( final String message )
+      {
+         super( message );
+      }
+   }
 
-    import flash.events.EventDispatcher;
+   @Test
+   public void testPrint()
+   {
+      final Exception exception = new CustomException( "message" );
 
-    import mx.collections.ArrayCollection;
-    import mx.collections.ListCollectionView;
-    import mx.events.CollectionEvent;
-
-    [Event( name="rulesetReceived",type="com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    [Bindable]
-    public class Ruleset extends EventDispatcher implements IDomainModel, IGetRulesetContent
-    {
-        private static const RULES_CHANGED : String = "rulesChange";
-        public var isRef : Boolean;
-        public var name : String;
-        public var description : String;
-        public var rules : ListCollectionView = new ArrayCollection();
-
-        public function Ruleset()
-        {
-        }
-
-        public function getRulesetContent( ref : String ) : void
-        {
-            new GetRulesetContentEvent( this, ref ).dispatch();
-        }
-
-        public function onReceiveRulesetContent( ruleset : Ruleset ) : void
-        {
-            name = ruleset.name;
-            rules = ruleset.rules;
-            isRef = ruleset.isRef;
-            description = ruleset.description;
-            dispatchEvent( new RulesetReceivedEvent( this ) );
-        }
-    }
+      assertEquals( "stackTrace is not correct",
+                    "message at com.adobe.ac.utils.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:51)\n"
+                          + "sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n"
+                          + "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)",
+                    StackTraceUtils.print( exception ) );
+   }
 }

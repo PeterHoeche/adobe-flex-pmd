@@ -28,11 +28,11 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.maintanability;
+package com.adobe.ac.pmd.rules.maintanability.forbiddentypes;
 
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UseGenericTypeRule extends AbstractUseOfForbiddenTypeRule // NO_UCD
+public class UseGenericTypeRule extends AbstractUseForbiddenTypeRule // NO_UCD
 {
    private static final String STAR = "*";
 

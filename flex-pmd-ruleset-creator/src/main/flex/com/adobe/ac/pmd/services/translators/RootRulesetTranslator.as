@@ -28,56 +28,64 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.services.translators
 {
-    import com.adobe.ac.model.IPresentationModel;
-    import com.adobe.ac.pmd.api.IGetRootRuleset;
-    import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
+	import com.adobe.ac.pmd.model.Rule;
 	import com.adobe.ac.pmd.model.Ruleset;
 	import com.adobe.ac.pmd.model.RootRuleset;
-    import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
-    import com.adobe.ac.pmd.services.translators.RootRulesetTranslator;
-    
-    import flash.events.Event;
-    import flash.events.EventDispatcher;
-    import flash.net.FileReference;
 
-    [Event( name="rootRulesetReceived", type = "flash.events.Event" )]
-    [Event( name="rulesetReceived", type = "com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset
-    {
-        public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
-
-        [Bindable]
-        public var rootRuleset : RootRuleset;
-
-        public function RuleSetNavigatorPM()
-        {
-        }
-
-        public function getRootRuleset() : void
-        {
-            new GetRootRulesetEvent( this ).dispatch();
-        }
-
-        public function onReceiveRootRuleset( ruleset : RootRuleset ) : void
-        {
-			rootRuleset = ruleset;
+	public class RootRulesetTranslator
+	{
+		public static function deserialize( xml : XML ) : RootRuleset
+		{
+			var ruleset : RootRuleset = new RootRuleset();
+			var children : XMLList = xml.children();
 			
-            for each ( var childRuleset : Ruleset in ruleset.rulesets )
-            {
-                childRuleset.addEventListener( RulesetReceivedEvent.EVENT_NAME, dispatchEvent );
-            }
+			ruleset.name = xml.@name;
+			
+			for( var i : int = 1; i < children.length(); i++ )
+			{
+				var ruleXml : XML = children[ i ];
+				
+				if( ruleXml.@ref != undefined )
+				{
+					var childRuleset : Ruleset = new Ruleset();
+					
+					childRuleset.isRef = true;
+					childRuleset.getRulesetContent( ruleXml.@ref );
+					ruleset.rulesets.addItem( childRuleset );
+				}
+			}
+			
+			return ruleset;			
+		}
 
-            dispatchEvent( new Event( ROOT_RULESET_RECEIVED ) );
-        }
-
-        public function exportRootRuleset() : void
-        {
-            var xml : XML = RootRulesetTranslator.serializeRootRuleset( rootRuleset );
-            var fileReference : FileReference = new FileReference();
-
-            fileReference.save( xml, "pmd.xml" );
-        }
-    }
+		public static function serializeRootRuleset( ruleset : RootRuleset ) : XML
+		{
+			var xmlString : String = "<ruleset name=\"" + ruleset.name + "\"" + 
+				"xmlns=\"http://pmd.sf.net/ruleset/1.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
+				"xsi:schemaLocation=\"http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd\"" +
+				"xsi:noNamespaceSchemaLocation=\"http://pmd.sf.net/ruleset_xml_schema.xsd\">" +
+				"<description>" + ( ruleset.description ? ruleset.description : "" ) + "</description>";
+			
+			for each( var childRuleset : Ruleset in ruleset.rulesets )
+			{
+				xmlString += serializeRuleset( childRuleset ).toXMLString();
+			}
+			xmlString += "</ruleset>";
+			
+			return XML( xmlString );
+		}
+		
+		private static function serializeRuleset( ruleset : Ruleset ) : XMLList
+		{
+			var xmlString : String = "";
+			
+			for each( var rule : Rule in ruleset.rules )
+			{
+				xmlString += RuleTranslator.serialize( rule ).toXMLString();
+			}
+			
+			return new XMLList( xmlString );
+		}}
 }

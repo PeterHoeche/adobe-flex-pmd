@@ -31,6 +31,7 @@
  package com.adobe.ac.pmd.view
 {
    import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
+   import com.adobe.ac.pmd.model.RootRuleset;
    import com.adobe.ac.pmd.model.Ruleset;
    import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
 
@@ -63,7 +64,7 @@
 
       public function testOnReceiveRootRuleset() : void
       {
-         var emptyRootRuleset : Ruleset = new Ruleset();
+         var emptyRootRuleset : RootRuleset = new RootRuleset();
 
          listenForEvent( model, RuleSetNavigatorPM.ROOT_RULESET_RECEIVED );
 
@@ -72,7 +73,7 @@
          assertEvents();
          assertEquals( emptyRootRuleset, model.rootRuleset );
 
-         var rootRuleset : Ruleset = new Ruleset();
+         var rootRuleset : RootRuleset = new RootRuleset();
 
          rootRuleset.rulesets = new ArrayCollection();
          rootRuleset.rulesets.addItem( new Ruleset() );

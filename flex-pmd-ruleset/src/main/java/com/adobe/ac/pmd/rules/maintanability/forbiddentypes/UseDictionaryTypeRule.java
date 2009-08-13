@@ -28,41 +28,21 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.maintanability;
+package com.adobe.ac.pmd.rules.maintanability.forbiddentypes;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class UseOfObjectTypeRuleTest extends AbstractAstFlexRuleTest
+public class UseDictionaryTypeRule extends AbstractUseForbiddenTypeRule // NO_UCD
 {
    @Override
-   protected AbstractFlexRule getRule()
+   protected final ViolationPriority getDefaultPriority()
    {
-      return new UseOfObjectTypeRule();
+      return ViolationPriority.HIGH;
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected String getForbiddenType()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                               "Looping.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 63, 63 ) } ),
-                                                     "com.adobe.ac.ncss.ConfigProxy.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 42, 42 ) } ),
-                                           "DeleteButtonRenderer.mxml",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 64, 64 ) } ),
-                                 "Sorted.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 67, 67 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 52, 52 ) } );
+      return "Dictionnary";
    }
 }

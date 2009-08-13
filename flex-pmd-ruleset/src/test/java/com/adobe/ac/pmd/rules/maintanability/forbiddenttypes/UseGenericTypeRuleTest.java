@@ -28,45 +28,35 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.model
+package com.adobe.ac.pmd.rules.maintanability.forbiddenttypes;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule;
+
+public class UseGenericTypeRuleTest extends AbstractAstFlexRuleTest
 {
-    import com.adobe.ac.model.IDomainModel;
-    import com.adobe.ac.pmd.api.IGetRulesetContent;
-    import com.adobe.ac.pmd.control.events.GetRulesetContentEvent;
-    import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "GenericType.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 39, 39 ),
+                                   new ViolationPosition( 44, 44 ),
+                                   new ViolationPosition( 46, 46 ),
+                                   new ViolationPosition( 35, 35 ),
+                                   new ViolationPosition( 36, 36 ),
+                                   new ViolationPosition( 37, 37 ) } );
+   }
 
-    import flash.events.EventDispatcher;
-
-    import mx.collections.ArrayCollection;
-    import mx.collections.ListCollectionView;
-    import mx.events.CollectionEvent;
-
-    [Event( name="rulesetReceived",type="com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    [Bindable]
-    public class Ruleset extends EventDispatcher implements IDomainModel, IGetRulesetContent
-    {
-        private static const RULES_CHANGED : String = "rulesChange";
-        public var isRef : Boolean;
-        public var name : String;
-        public var description : String;
-        public var rules : ListCollectionView = new ArrayCollection();
-
-        public function Ruleset()
-        {
-        }
-
-        public function getRulesetContent( ref : String ) : void
-        {
-            new GetRulesetContentEvent( this, ref ).dispatch();
-        }
-
-        public function onReceiveRulesetContent( ruleset : Ruleset ) : void
-        {
-            name = ruleset.name;
-            rules = ruleset.rules;
-            isRef = ruleset.isRef;
-            description = ruleset.description;
-            dispatchEvent( new RulesetReceivedEvent( this ) );
-        }
-    }
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UseGenericTypeRule();
+   }
 }

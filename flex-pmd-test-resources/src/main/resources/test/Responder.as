@@ -33,7 +33,7 @@ package
 
     public class Responder implements IResponder
     {
-    	private var usedInAttribute : boolean = false;
+    	private var usedInAttribute : Dictionnary = false;
     	private var unusedAttribute : boolean = usedInAttribute;
     	
         public function result( event : Object ) : void

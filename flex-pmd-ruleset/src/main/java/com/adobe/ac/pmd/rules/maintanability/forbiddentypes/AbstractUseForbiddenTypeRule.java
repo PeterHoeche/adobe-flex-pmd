@@ -28,7 +28,7 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.maintanability;
+package com.adobe.ac.pmd.rules.maintanability.forbiddentypes;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-public abstract class AbstractUseOfForbiddenTypeRule extends AbstractAstFlexRule
+public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
 {
    @Override
    protected void findViolations( final IClass classNode )

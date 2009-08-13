@@ -137,7 +137,7 @@ public class Foo
    }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.UseOfObjectTypeRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule"
 		message="Do not use Object class.">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
 		<priority>1</priority>
@@ -250,7 +250,7 @@ public function foo() : void
 		<description />
 		<priority>3</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.UseGenericTypeRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule"
 		message="Use strongly typed objects instead of *">
 		<description />
 		<priority>1</priority>

@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.StackTraceUtils;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IConstant;
@@ -45,6 +44,7 @@ import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
+import com.adobe.ac.utils.StackTraceUtils;
 
 /**
  * Abstract class for AST-based rule Extends this class if your rule is only

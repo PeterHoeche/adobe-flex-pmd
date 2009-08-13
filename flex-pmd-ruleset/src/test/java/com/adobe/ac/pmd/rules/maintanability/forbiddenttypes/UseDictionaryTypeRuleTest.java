@@ -28,32 +28,30 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.rules.maintanability.forbiddenttypes;
 
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseDictionaryTypeRule;
 
-public class StackTraceUtilsTest
+public class UseDictionaryTypeRuleTest extends AbstractAstFlexRuleTest
 {
-   @SuppressWarnings("serial")
-   private static class CustomException extends Exception
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      public CustomException( final String message )
-      {
-         super( message );
-      }
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "Responder.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 36, 36 ) } );
    }
 
-   @Test
-   public void testPrint()
+   @Override
+   protected AbstractFlexRule getRule()
    {
-      final Exception exception = new CustomException( "message" );
-
-      assertEquals( "stackTrace is not correct",
-                    "message at com.adobe.ac.pmd.StackTraceUtilsTest.testPrint(StackTraceUtilsTest.java:51)\n"
-                          + "sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n"
-                          + "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)",
-                    StackTraceUtils.print( exception ) );
+      return new UseDictionaryTypeRule();
    }
 }

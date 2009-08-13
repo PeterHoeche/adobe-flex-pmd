@@ -81,7 +81,7 @@
 	<rule class="com.adobe.ac.pmd.rules.event.DispatchHardCodedEventNameRule"
 		message="DispatchEvent function must dispatch constant strings">
 		<description>You should not dispatch a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
-		<priority>3</priority>
+		<priority>1</priority>
 		<example>
    public class Foo 
    {
@@ -96,7 +96,7 @@
 		class="com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule"
 		message="addEventListener must not contain hard coded strings.">
 		<description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
-		<priority>3</priority>
+		<priority>1</priority>
 		<example>
    public class Foo 
    {
@@ -116,6 +116,6 @@
 		class="com.adobe.ac.pmd.rules.event.UntypedEventMetadataRule"
 		message="This event type is not specified">
 		<description>Specifying a type will allow Flash builder and the class to have this event exposed in its API</description>
-		<priority>1</priority>
+		<priority>3</priority>
 	</rule>
 </ruleset>

@@ -40,6 +40,7 @@ import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
+import com.adobe.ac.utils.StackTraceUtils;
 
 /**
  * Internal utility which finds out the test resources, and map them to their
@@ -53,9 +54,9 @@ final class ResourcesManagerTest
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
    public static synchronized ResourcesManagerTest getInstance() // NOPMD by
-                                                                 // xagnetti on
-                                                                 // 7/9/09 6:45
-                                                                 // AM
+   // xagnetti on
+   // 7/9/09 6:45
+   // AM
    {
       if ( instance == null )
       {
@@ -83,6 +84,10 @@ final class ResourcesManagerTest
    {
       final URL resource = this.getClass().getResource( "/test" );
 
+      if ( resource == null )
+      {
+         LOGGER.severe( "/test folder is not fount in the resource" );
+      }
       testRootDirectory = new File( resource.toURI().getPath() );
       testFiles = FileUtils.computeFilesList( testRootDirectory,
                                               "" );

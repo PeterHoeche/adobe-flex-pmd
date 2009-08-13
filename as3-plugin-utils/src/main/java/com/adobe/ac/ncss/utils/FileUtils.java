@@ -30,17 +30,18 @@
  */
 package com.adobe.ac.ncss.utils;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+
+import com.adobe.ac.utils.StackTraceUtils;
 
 public final class FileUtils
 {
@@ -64,38 +65,30 @@ public final class FileUtils
 
    public static List< String > readFile( final File file )
    {
-      final List< String > content = new ArrayList< String >();
-
-      FileInputStream fis = null;
-      BufferedInputStream bis = null;
-      DataInputStream dis = null;
-
+      final List< String > result = new ArrayList< String >();
+      BufferedReader inReader = null;
       try
       {
-         fis = new FileInputStream( file );
-         bis = new BufferedInputStream( fis );
-         dis = new DataInputStream( bis );
 
-         while ( dis.available() != 0 )
+         inReader = new BufferedReader( new FileReader( file ) );
+
+         String line = inReader.readLine();
+
+         while ( line != null )
          {
-            content.add( dis.readLine() );
+            result.add( line );
+            line = inReader.readLine();
          }
-
-         // dispose all the resources after using them.
-         fis.close();
-         bis.close();
-         dis.close();
-
       }
       catch ( final FileNotFoundException e )
       {
-         e.printStackTrace();
+         StackTraceUtils.print( e );
       }
       catch ( final IOException e )
       {
-         e.printStackTrace();
+         StackTraceUtils.print( e );
       }
-      return content;
+      return result;
    }
 
    private static Collection< File > listFilesRecurse( final File directory,

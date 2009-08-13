@@ -28,28 +28,53 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
-
-public final class StackTraceUtils
+package com.adobe.ac.pmd.model
 {
-   /**
-    * Pretty print the first two lines of the stacktrace of the given exception
-    *
-    * @param exception Exception to print
-    * @return The first two lines of the stacktrace
-    */
-   public static String print( final Exception exception )
-   {
-      final StringBuffer buffer = new StringBuffer();
+	import com.adobe.ac.model.IDomainModel;
+	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
+	import mx.collections.ArrayCollection;
+	import mx.collections.ListCollectionView;
+	import mx.events.CollectionEvent;
 
-      buffer.append( exception.getMessage()
-            + " at " + exception.getStackTrace()[ 0 ] + "\n" );
-      buffer.append( exception.getStackTrace()[ 1 ]
-            + "\n" + exception.getStackTrace()[ 2 ] );
-      return buffer.toString();
-   }
-
-   private StackTraceUtils()
-   {
-   }
+	public class RootRuleset  extends EventDispatcher implements IDomainModel
+	{
+		private static const RULES_CHANGED : String = "rulesChange";
+		public var name : String;
+		public var description : String;
+		public var rulesets : ListCollectionView = new ArrayCollection();
+		
+		public function RootRuleset()
+		{
+			rulesets.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleRulesetChange);
+		}
+		
+		private function handleRulesetChange( event : CollectionEvent ) : void
+		{
+			for each ( var ruleset : Ruleset in rulesets )
+			{
+				ruleset.rules.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleRulesChange);
+			}
+		}
+		
+		private function handleRulesChange( event : CollectionEvent ) : void
+		{
+			dispatchEvent( new Event( RULES_CHANGED ) );
+		}
+		
+		[Bindable("rulesChange")]
+		public function get rulesNb() : Number
+		{
+			var result : Number = 0;
+			
+			for each ( var ruleset : Ruleset in rulesets )
+			{
+				result += ruleset.rules.length;
+			}
+			
+			return result;
+		}
+	}
 }

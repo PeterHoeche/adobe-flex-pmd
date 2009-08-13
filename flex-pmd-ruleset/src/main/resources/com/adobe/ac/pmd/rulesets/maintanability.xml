@@ -69,7 +69,7 @@
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule"
 		message="This test contains a hard coded boolean value. You could remove it">
-		<priority>1</priority>
+		<priority>3</priority>
 	</rule>
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingPublicStaticFieldRule"
 	message="If this field was meant to be a constant, make it constant. Otherwise, if it is used as a global variable, you may want to redesign this class">
@@ -84,9 +84,20 @@
    }
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.maintanability.UseOfObjectTypeRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule"
 		message="Do not use Object class">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
+		<priority>1</priority>
+		<example>
+   public class Foo
+   {
+      public var bar : Object; // VIOLATION      
+   }
+      </example>
+	</rule>
+	<rule class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseDictionaryTypeRule"
+		message="Do not use Object class">
+		<description>It is a bad practice to use the dynamic class Dictionary. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
 		<priority>1</priority>
 		<example>
    public class Foo
@@ -107,7 +118,7 @@
    }     
       </example>
 	</rule>
-	<rule class="com.adobe.ac.pmd.rules.maintanability.UseGenericTypeRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule"
 		message="Use strongly typed objects instead of *">
 		<description></description>
 		<priority>1</priority>

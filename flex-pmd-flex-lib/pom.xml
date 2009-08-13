@@ -13,42 +13,12 @@
 		<version>1.0.RC2-SNAPSHOT</version>
 	</parent>
 	
-	<properties>
-
-		<!-- Plugin versions -->
-
-		<flex-pmd-maven-plugin.version>${project.version}</flex-pmd-maven-plugin.version>
-		<ant-run-plugin.version>1.2</ant-run-plugin.version>
-		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
-		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
-		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
-
-		<!-- Dependency versions -->
-
-		<flex.version>3.2.0.3958</flex.version>
-		<flash-player.version>10</flash-player.version>
-		<flexunit.version>0.9</flexunit.version>
-		<event-source.version>1.1</event-source.version>
-		<flexunit-optional.version>0.85</flexunit-optional.version>
-		<event-source.version>1.1</event-source.version>
-		<cairngorm.version>2.2.1</cairngorm.version>
-
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>flex-pmd-ruleset</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.adobe.cairngorm</groupId>
-			<artifactId>event-source</artifactId>
-			<version>${event-source.version}</version>
-			<type>swc</type>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -85,7 +55,6 @@
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>playerglobal</artifactId>
 			<version>${flash-player.version}-${flex.version}</version>
-			<!--            <classifier>${flash-player.version}</classifier>-->
 			<type>swc</type>
 		</dependency>
 

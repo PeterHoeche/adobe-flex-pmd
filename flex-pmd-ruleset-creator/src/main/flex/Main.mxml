@@ -102,8 +102,17 @@
             styleName="flexUnitHRule"
             />
 
-         <view:RuleEditor id="editor"
-            />
+		 <mx:VBox
+			 height="100%">
+			 
+	         <view:RuleEditor id="editor"
+	            />
+			 
+			 <mx:Label
+				 text="{ navigator.model.rootRuleset.rulesNb } rule(s) in your current ruleset"
+				 />
+
+		 </mx:VBox>
 
       </mx:HBox>
 

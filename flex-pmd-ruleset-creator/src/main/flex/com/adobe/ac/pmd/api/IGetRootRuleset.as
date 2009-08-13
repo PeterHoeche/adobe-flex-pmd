@@ -30,11 +30,11 @@
  */
 package com.adobe.ac.pmd.api
 {
-   import com.adobe.ac.pmd.model.Ruleset;
+   import com.adobe.ac.pmd.model.RootRuleset;
 
    public interface IGetRootRuleset
    {
       function getRootRuleset() : void;
-      function onReceiveRootRuleset( ruleset : Ruleset ) : void;
+	  function onReceiveRootRuleset( ruleset : RootRuleset ) : void;
    }
 }

@@ -13,29 +13,6 @@
 		<version>1.0.RC2-SNAPSHOT</version>
 	</parent>
 	
-	<properties>
-
-		<!-- Plugin versions --> 	
-
-		<flex-pmd-maven-plugin.version>${project.version}</flex-pmd-maven-plugin.version>
-		<ant-run-plugin.version>1.2</ant-run-plugin.version>
-		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
-		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
-		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
-
-		<!-- Dependency versions -->
-
-		<flex.version>3.2.0.3958</flex.version>
-		<flash-player.version>10</flash-player.version>
-		<flexunit.version>0.9</flexunit.version>
-		<event-source.version>1.1</event-source.version>
-		<flexunit-optional.version>0.85</flexunit-optional.version>
-		<event-source.version>1.1</event-source.version>
-		<cairngorm.version>2.2.1</cairngorm.version>
-		<flexunit-theme.version>1.0</flexunit-theme.version>
-
-	</properties>
-
 	<dependencies>
 
 		<dependency>
@@ -53,14 +30,7 @@
 			<type>swc</type>
 		</dependency>
 
-		<dependency>
-			<groupId>com.adobe.cairngorm</groupId>
-			<artifactId>event-source</artifactId>
-			<version>${event-source.version}</version>
-			<type>swc</type>
-			<scope>test</scope>
-		</dependency>
-
+		<!--  Cairngorm -->
 		<dependency>
 			<groupId>com.adobe.cairngorm</groupId>
 			<artifactId>event-source</artifactId>
@@ -95,7 +65,6 @@
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>playerglobal</artifactId>
 			<version>${flash-player.version}-${flex.version}</version>
-			<!--            <classifier>${flash-player.version}</classifier>-->
 			<type>swc</type>
 		</dependency>
 
@@ -153,7 +122,17 @@
 					<defaultSizeWidth>1000</defaultSizeWidth>
 					<defaultSizeHeight>700</defaultSizeHeight>
 					<useNetwork>false</useNetwork>
+					<licenses>
+			          <flexbuilder3>${flexbuilder3.version}</flexbuilder3>
+			        </licenses>
 				</configuration>
+				<dependencies>
+					<dependency>
+			        	<groupId>com.adobe.flex</groupId>
+			        	<artifactId>license</artifactId>
+			        	<version>${flex.version}</version>
+			        </dependency>
+				</dependencies>
 			</plugin>
 
 			<plugin>
@@ -207,13 +186,25 @@
 	<repositories>
 		<repository>
 			<id>flexmojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>flexmojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 		</pluginRepository>
 	</pluginRepositories>
 

@@ -28,45 +28,28 @@
  *    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.model
+package com.adobe.ac.utils;
+
+public final class StackTraceUtils
 {
-    import com.adobe.ac.model.IDomainModel;
-    import com.adobe.ac.pmd.api.IGetRulesetContent;
-    import com.adobe.ac.pmd.control.events.GetRulesetContentEvent;
-    import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+   /**
+    * Pretty print the first two lines of the stacktrace of the given exception
+    *
+    * @param exception Exception to print
+    * @return The first two lines of the stacktrace
+    */
+   public static String print( final Exception exception )
+   {
+      final StringBuffer buffer = new StringBuffer();
 
-    import flash.events.EventDispatcher;
+      buffer.append( exception.getMessage()
+            + " at " + exception.getStackTrace()[ 0 ] + "\n" );
+      buffer.append( exception.getStackTrace()[ 1 ]
+            + "\n" + exception.getStackTrace()[ 2 ] );
+      return buffer.toString();
+   }
 
-    import mx.collections.ArrayCollection;
-    import mx.collections.ListCollectionView;
-    import mx.events.CollectionEvent;
-
-    [Event( name="rulesetReceived",type="com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    [Bindable]
-    public class Ruleset extends EventDispatcher implements IDomainModel, IGetRulesetContent
-    {
-        private static const RULES_CHANGED : String = "rulesChange";
-        public var isRef : Boolean;
-        public var name : String;
-        public var description : String;
-        public var rules : ListCollectionView = new ArrayCollection();
-
-        public function Ruleset()
-        {
-        }
-
-        public function getRulesetContent( ref : String ) : void
-        {
-            new GetRulesetContentEvent( this, ref ).dispatch();
-        }
-
-        public function onReceiveRulesetContent( ruleset : Ruleset ) : void
-        {
-            name = ruleset.name;
-            rules = ruleset.rules;
-            isRef = ruleset.isRef;
-            description = ruleset.description;
-            dispatchEvent( new RulesetReceivedEvent( this ) );
-        }
-    }
+   private StackTraceUtils()
+   {
+   }
 }

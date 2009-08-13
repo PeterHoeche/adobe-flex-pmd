@@ -39,8 +39,8 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.adobe.ac.pmd.StackTraceUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.utils.StackTraceUtils;
 
 /**
  * Abstract class representing a Flex File (either MXML or AS)

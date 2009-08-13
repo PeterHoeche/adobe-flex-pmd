@@ -30,11 +30,8 @@
  */
 package com.adobe.ac.pmd.files.impl;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,29 +86,7 @@ public final class FileUtils
 
    public static String[] readStrings( final File file ) throws IOException
    {
-      final ArrayList< String > result = new ArrayList< String >();
-      BufferedReader inReader = null;
-
-      try
-      {
-         inReader = new BufferedReader( new FileReader( file ) );
-
-         String line = inReader.readLine();
-
-         while ( line != null )
-         {
-            result.add( line );
-            line = inReader.readLine();
-         }
-      }
-      finally
-      {
-         if ( inReader != null )
-         {
-            inReader.close();
-         }
-      }
-      return result.toArray( new String[]
+      return com.adobe.ac.ncss.utils.FileUtils.readFile( file ).toArray( new String[]
       {} );
    }
 
