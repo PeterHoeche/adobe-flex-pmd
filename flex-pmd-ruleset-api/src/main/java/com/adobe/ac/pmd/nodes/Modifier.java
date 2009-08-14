@@ -72,6 +72,9 @@ public enum Modifier
          modifier = Modifier.FINAL;
       }
       return modifier;
+   }
 
+   private Modifier()
+   {
    }
 }

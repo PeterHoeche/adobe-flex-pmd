@@ -33,6 +33,7 @@ package com.adobe.ac.pmd;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -53,10 +54,7 @@ final class ResourcesManagerTest
    private static ResourcesManagerTest instance = null;
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
-   public static synchronized ResourcesManagerTest getInstance() // NOPMD by
-   // xagnetti on
-   // 7/9/09 6:45
-   // AM
+   public static synchronized ResourcesManagerTest getInstance()
    {
       if ( instance == null )
       {
@@ -87,10 +85,15 @@ final class ResourcesManagerTest
       if ( resource == null )
       {
          LOGGER.severe( "/test folder is not fount in the resource" );
+         testRootDirectory = null;
+         testFiles = new HashMap< String, IFlexFile >();
       }
-      testRootDirectory = new File( resource.toURI().getPath() );
-      testFiles = FileUtils.computeFilesList( testRootDirectory,
-                                              "" );
+      else
+      {
+         testRootDirectory = new File( resource.toURI().getPath() );
+         testFiles = FileUtils.computeFilesList( testRootDirectory,
+                                                 "" );
+      }
    }
 
    public Map< String, IFlexFile > getTestFiles()

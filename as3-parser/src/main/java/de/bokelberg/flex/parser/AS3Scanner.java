@@ -49,9 +49,17 @@ class AS3Scanner
 {
    static final class Token
    {
+      private static Token create( final String textContent,
+                                   final int tokenLine,
+                                   final int tokenColumn )
+      {
+         return new Token( textContent, tokenLine, tokenColumn );
+      }
+
       private final int     column;
-      private final boolean isNum;
+      private final boolean isNumeric;
       private final int     line;
+
       private final String  text;
 
       protected Token( final String textContent,
@@ -69,7 +77,7 @@ class AS3Scanner
          text = textContent;
          line = tokenLine + 1;
          column = tokenColumn + 1;
-         isNum = isNumToSet;
+         isNumeric = isNumToSet;
       }
 
       public int getColumn()
@@ -89,7 +97,7 @@ class AS3Scanner
 
       public boolean isNum()
       {
-         return isNum;
+         return isNumeric;
       }
    }
 
@@ -669,7 +677,9 @@ class AS3Scanner
          if ( currentCharacter == delimiter
                && numberOfBackslashes == 0 )
          {
-            final Token result = new Token( buffer.toString(), line, column );
+            final Token result = Token.create( buffer.toString(),
+                                               line,
+                                               column );
             skipChars( buffer.toString().length() - 1 );
             return result;
          }

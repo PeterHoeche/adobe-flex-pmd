@@ -103,8 +103,8 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 
    public String getName()
    {
-      return name != null ? name.toString()
-                         : "";
+      return name == null ? ""
+                         : name.toString();
    }
 
    /*
@@ -159,15 +159,15 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
          {
             if ( child.is( NodeKind.NAME ) )
             {
-               name = new IdentifierNode( child );
+               name = IdentifierNode.create( child );
             }
             else if ( child.is( NodeKind.TYPE ) )
             {
-               type = new IdentifierNode( child );
+               type = IdentifierNode.create( child );
             }
             else if ( child.is( NodeKind.INIT ) )
             {
-               initializationExpression = new FieldInitializationNode( child );
+               initializationExpression = FieldInitializationNode.create( child );
             }
             else
             {

@@ -201,7 +201,7 @@ class ClassNode extends AbstractNode implements IClass
             }
             else if ( node.is( NodeKind.NAME ) )
             {
-               name = new IdentifierNode( node );
+               name = IdentifierNode.create( node );
             }
             else if ( node.is( NodeKind.META_LIST ) )
             {

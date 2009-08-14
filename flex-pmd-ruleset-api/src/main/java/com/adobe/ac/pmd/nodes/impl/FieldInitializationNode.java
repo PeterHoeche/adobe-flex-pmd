@@ -35,6 +35,11 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 class FieldInitializationNode extends AbstractNode implements IFieldInitialization
 {
+   static FieldInitializationNode create( final IParserNode node )
+   {
+      return new FieldInitializationNode( node );
+   }
+
    protected FieldInitializationNode( final IParserNode node )
    {
       super( node );

@@ -35,6 +35,11 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 class IdentifierNode extends AbstractNode implements IIdentifierNode
 {
+   static IdentifierNode create( final IParserNode node )
+   {
+      return new IdentifierNode( node );
+   }
+
    protected IdentifierNode( final IParserNode node )
    {
       super( node );

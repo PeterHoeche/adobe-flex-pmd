@@ -255,7 +255,7 @@ class FunctionNode extends AbstractNode implements IFunction
             }
             else if ( node.is( NodeKind.NAME ) )
             {
-               name = new IdentifierNode( node );
+               name = IdentifierNode.create( node );
             }
             else if ( node.is( NodeKind.MOD_LIST ) )
             {
@@ -268,7 +268,7 @@ class FunctionNode extends AbstractNode implements IFunction
             }
             else if ( node.is( NodeKind.TYPE ) )
             {
-               returnType = new IdentifierNode( node );
+               returnType = IdentifierNode.create( node );
             }
             else if ( node.is( NodeKind.META_LIST ) )
             {
@@ -298,7 +298,7 @@ class FunctionNode extends AbstractNode implements IFunction
       {
          for ( final IParserNode parameterNode : node.getChildren() )
          {
-            parameters.add( new FormalNode( parameterNode ) );
+            parameters.add( FormalNode.create( parameterNode ) );
          }
       }
    }
