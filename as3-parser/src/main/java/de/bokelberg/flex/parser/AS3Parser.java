@@ -67,7 +67,7 @@ public class AS3Parser implements IAS3Parser
                                                              TokenException
    {
       return parseLines( filePath,
-                         FileUtils.readStrings( new File( filePath ) ) );
+                         FileUtils.readLines( new File( filePath ) ) );
    }
 
    public final IParserNode buildAst( final String filePath,

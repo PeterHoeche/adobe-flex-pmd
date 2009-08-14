@@ -927,7 +927,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
          if ( iterator.hasNext() )
          {
-            node = iterator.next();
+            iterator.next();
          }
 
          if ( iterator.hasNext() )

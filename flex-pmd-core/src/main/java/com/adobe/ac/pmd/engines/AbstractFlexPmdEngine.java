@@ -66,6 +66,7 @@ public abstract class AbstractFlexPmdEngine
       IOUtil.copy( resourceAsStream,
                    writter );
 
+      resourceAsStream.close();
       return temporaryRuleset;
    }
 
@@ -188,13 +189,15 @@ public abstract class AbstractFlexPmdEngine
    {
       final File realRuleSet = extractRuleset( ruleSetFile );
 
-      ruleSet = new RuleSetFactory().createRuleSet( new FileInputStream( realRuleSet ) );
+      final FileInputStream inputStream = new FileInputStream( realRuleSet );
+
+      ruleSet = new RuleSetFactory().createRuleSet( inputStream );
 
       LOGGER.info( "Ruleset: "
             + realRuleSet.getAbsolutePath() );
-
       LOGGER.info( "Rules number in the ruleSet: "
             + ruleSet.getRules().size() );
+      inputStream.close();
    }
 
    private void writeAnyReport( final FlexPmdViolations flexPmdViolations ) throws PMDException

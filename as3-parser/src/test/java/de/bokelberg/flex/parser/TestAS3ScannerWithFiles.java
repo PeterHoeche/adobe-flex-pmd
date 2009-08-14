@@ -75,7 +75,7 @@ public class TestAS3ScannerWithFiles extends AbstractAs3ParserTest
                             final String fileName ) throws IOException,
                                                    URISyntaxException
    {
-      final String[] lines = FileUtils.readStrings( new File( getClass().getResource( "/examples/unformatted/" )
+      final String[] lines = FileUtils.readLines( new File( getClass().getResource( "/examples/unformatted/" )
                                                                        .toURI()
                                                                        .getPath()
             + fileName ) );

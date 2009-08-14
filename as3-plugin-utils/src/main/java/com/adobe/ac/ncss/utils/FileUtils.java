@@ -79,6 +79,7 @@ public final class FileUtils
             result.add( line );
             line = inReader.readLine();
          }
+         inReader.close();
       }
       catch ( final FileNotFoundException e )
       {

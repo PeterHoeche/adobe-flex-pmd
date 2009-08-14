@@ -123,11 +123,13 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 
       try
       {
-         renderer.render( new FileWriter( new File( outputDirectory.getAbsolutePath()
-                                + "/" + FlexPMDFormat.HTML.toString() ) ),
+         final FileWriter fileWriter = new FileWriter( new File( outputDirectory.getAbsolutePath()
+               + "/" + FlexPMDFormat.HTML.toString() ) );
+
+         renderer.render( fileWriter,
                           report );
          renderer.getWriter().flush();
-         renderer.getWriter().close();
+         fileWriter.close();
       }
       catch ( final IOException e )
       {

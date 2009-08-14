@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
 public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
 {
-   private IClass classNode;
+   private IClass classNode = null;
    private int    functionNb;
 
    public final int getActualValueForTheCurrentViolation()

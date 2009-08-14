@@ -76,7 +76,7 @@ abstract class AbstractFlexFile implements IFlexFile
       try
       {
          String[] linesArray;
-         linesArray = FileUtils.readStrings( underlyingFile );
+         linesArray = FileUtils.readLines( underlyingFile );
          for ( final String string : linesArray )
          {
             lines.add( string );

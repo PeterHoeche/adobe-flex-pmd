@@ -40,7 +40,7 @@ class FormalNode extends VariableNode implements IParameter
       return new FormalNode( node );
    }
 
-   protected FormalNode( final IParserNode node )
+   private FormalNode( final IParserNode node )
    {
       super( node );
    }

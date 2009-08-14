@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.sourceforge.pmd.PMDException;
@@ -84,10 +85,11 @@ public final class FileUtils
       return file;
    }
 
-   public static String[] readStrings( final File file ) throws IOException
+   public static String[] readLines( final File file ) throws IOException
    {
-      return com.adobe.ac.ncss.utils.FileUtils.readFile( file ).toArray( new String[]
-      {} );
+      final List< String > lines = com.adobe.ac.ncss.utils.FileUtils.readFile( file );
+
+      return lines.toArray( new String[ lines.size() ] );
    }
 
    private static Collection< File > getFlexFiles( final File sourceDirectory,
