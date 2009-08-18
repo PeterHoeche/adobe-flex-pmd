@@ -13,7 +13,6 @@
 	</parent>
 
 	<properties>
-		<maven-pmd-plugin.version>2.4</maven-pmd-plugin.version>
 		<maven-reporting-impl.version>2.0-beta-3</maven-reporting-impl.version>
 		<maven-plugin-api.version>3.0-alpha-2</maven-plugin-api.version>
 		<maven-plugin-testing-harness.version>1.0-beta-1</maven-plugin-testing-harness.version>

@@ -42,6 +42,9 @@
 		<wagon-svn.version>1.8</wagon-svn.version>
 		<maven-antrun-plugin.version>1.2</maven-antrun-plugin.version>
 		<plexus-utils.version>1.0.2</plexus-utils.version>
+
+		<!-- Reporting versions -->
+		<maven-pmd-plugin.version>2.4</maven-pmd-plugin.version>
 		
 		<!-- Flex project versions -->
 		<!-- Plugin versions -->
@@ -381,6 +384,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven-pmd-plugin.version}</version>
 				<configuration>
 					<linkXref>true</linkXref>
 					<minimumTokens>100</minimumTokens>
