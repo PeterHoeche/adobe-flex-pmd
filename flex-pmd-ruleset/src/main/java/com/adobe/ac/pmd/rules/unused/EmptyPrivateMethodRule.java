@@ -28,47 +28,28 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.model
+package com.adobe.ac.pmd.rules.unused;
+
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.Modifier;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class EmptyPrivateMethodRule extends AbstractAstFlexRule
 {
-	import com.model.VO.ConfigVO;
-	
-	import de.polygonal.ds.HashMap;
+   @Override
+   protected void findViolations( final IFunction function )
+   {
+      if ( function.is( Modifier.PRIVATE )
+            && function.getBody().numChildren() == 0 )
+      {
+         addViolation( function );
+      }
+   }
 
-	public class ConfigProxy extends MS2Proxy
-	{
-      public static const NAME:String = "configProxy";
-      internal static const NAME:String = "configProxy";
-      protected static const NAME:String = "configProxy";
-      private static const NAME:String = "configProxy";
-      public const NAME:String = "configProxy";
-      internal const NAME:String = "configProxy";
-      protected const NAME:String = "configProxy";
-      private const NAME:String = "configProxy";
-      public static var NAME:String = "configProxy";
-      internal static var NAME:String = "configProxy";
-      protected static v NAME:String = "configProxy";
-      private static var NAME:String = "configProxy";
-      public var NAME:String = "configProxy";
-      internal var NAME:String = "configProxy";
-      protected var NAME:String = "configProxy";
-      private var NAME:String = "configProxy";
-		
-      public static function populateStub():void {
-      }
-      internal static function insertConfig(configVO:ConfigVO):void {
-      }
-      protected static function populateStub():void {
-      }
-      private static function populateStub():void {
-      }
-
-      public function populateStub():void {
-      }
-      internal function insertConfig(configVO:CairngormEvent, e : Object):void {
-      }
-      protected function populateStub():void {
-      }
-      private function populateStub( e : Event ):void {
-      }
-	}
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
 }

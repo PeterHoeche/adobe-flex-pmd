@@ -32,7 +32,7 @@
 -->
 <mx:Canvas
    xmlns:mx="http://www.adobe.com/2006/mxml"
-   xmlns:view="com.bnpp.msms.view.core.gui.*"
+   xmlns:view="com.view.core.gui.*"
    showFlexChrome="false"
    layout="absolute"
    height="768" width="1024"

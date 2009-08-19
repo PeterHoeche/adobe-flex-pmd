@@ -35,13 +35,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
 	xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+	
 	<description>
       The Maintanability ruleset contains a collection of good practices around Maintanability.
 	</description>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule" message="Do not call Alert.show directly.">
 		<description>You should not Alert.show() directly. If an error occurred in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
 		<priority>1</priority>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.ExcessiveImportRule"
 		message="A high number of imports can indicate a high degree of coupling within an object. ({0} maximum but {1} actually)">
 		<description>A high number of imports can indicate a high degree of coupling within an object. Rule counts the number of unique imports and reports a violation if the count is above the user defined threshold.</description>
@@ -63,18 +66,30 @@
    }
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidHavingTwoClassWithTheSameNameRule"
 		message="Another file with the same class name exist in the source path">
 		<priority>3</priority>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule"
 		message="This test contains a hard coded boolean value. You could remove it">
 		<priority>3</priority>
+		<example>
+   if ( true ) // VIOLATION
+   {
+      if ( myCondition == false ) // VIOLATION
+      {
+      }
+   }		
+		</example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingPublicStaticFieldRule"
 	message="If this field was meant to be a constant, make it constant. Otherwise, if it is used as a global variable, you may want to redesign this class">
 		<priority>3</priority>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.DynamicClassRule" message="A class must not be dynamic">
 		<description>When using dynamic classes, you cannot control how the developer will use your class. It makes refactoring really difficult</description>
 		<priority>1</priority>
@@ -84,6 +99,7 @@
    }
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule"
 		message="Do not use Object class">
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
@@ -95,6 +111,7 @@
    }
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseDictionaryTypeRule"
 		message="Do not use Object class">
 		<description>It is a bad practice to use the dynamic class Dictionary. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
@@ -106,6 +123,7 @@
    }
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.NonStaticConstantFieldRule"
 		message="A constant field should be static ({0})">
 		<description>
@@ -118,13 +136,15 @@
    }     
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule"
 		message="Use strongly typed objects instead of *">
 		<description></description>
 		<priority>1</priority>
 		<example>
-      </example>
+        </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.UselessOverridenFunctionRule"
 		message="This method is empty. This should be removed ({0})">
 		<description>This function is not needed.</description>
@@ -136,18 +156,21 @@
       }
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidProtectedFieldInFinalClassRule"
 		message="Protected accessors are useless in a final class. Make it private ({0})">
 		<priority>3</priority>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingWithKeyWordRule"
 		message="You should not use the with keyword. It does not help readability.">
 		<priority>3</priority>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.ArrayFieldWithNoArrayElementTypeRule"
 		message="ArrayElementType metadata is not specified for this array-type field ({0})">
 		<description>
-      </description>
+        </description>
 		<priority>3</priority>
 		<example>
    public class ArrayVO {
@@ -158,6 +181,7 @@
    }      
       </example>
 	</rule>
+	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.ClassAndExtensionAreIdenticalRule"
 		message="The extension name is the same as the class name">
 		<description/>
@@ -166,11 +190,12 @@
          <![CDATA[
    package com.MyCompany
    {
-      public class SomeClass extends mx.module.SomeClass // VIOLATION
+      public class SomeClass extends mx.SomeClass // VIOLATION
       {
       }
    }
          ]]>
       </example>
 	</rule>
+	
 </ruleset>

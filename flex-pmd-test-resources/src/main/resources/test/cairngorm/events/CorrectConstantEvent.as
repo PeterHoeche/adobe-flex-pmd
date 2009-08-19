@@ -42,11 +42,16 @@ package cairngorm.events
       public function CorrectConstantEvent( model : IModel )
       {
          super( EVENT_NAME, model );
+		 usedEmptyMethod();
       }
       
       public override function clone() : Event
       {
          return new CorrectConstantEvent( model );
       }
+	  
+	  private function usedEmptyMethod() : void
+	  {
+	  }
    }
 }

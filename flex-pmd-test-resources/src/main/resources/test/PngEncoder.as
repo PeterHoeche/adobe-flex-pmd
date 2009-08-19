@@ -33,7 +33,7 @@
 * @author kaourantin
 * @version 0.1
 */
-package org.alivepdf.encoding
+package org.encoding
 {
 	import flash.geom.*;
 	import flash.display.*;

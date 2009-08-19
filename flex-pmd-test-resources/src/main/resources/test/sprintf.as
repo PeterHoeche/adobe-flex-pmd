@@ -55,7 +55,7 @@
  *  DEALINGS IN THE SOFTWARE.  
  */
 
-package org.alivepdf.tools
+package org.tools
 {
 
 /*  sprintf(3) implementation in ActionScript 3.0.

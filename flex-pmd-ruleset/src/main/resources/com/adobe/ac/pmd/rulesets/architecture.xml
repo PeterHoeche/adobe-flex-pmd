@@ -43,6 +43,14 @@
 		<description></description>
 		<priority>3</priority>
 		<example>
+package com.adobe.ac
+{
+   import mx.controls.ComboBox; // VIOLATION
+
+   public class MyModelClass
+   {
+   }
+} 		
       </example>
 	</rule>
 </ruleset>

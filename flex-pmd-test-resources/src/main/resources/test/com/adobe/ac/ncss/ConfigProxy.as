@@ -28,9 +28,9 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.bnpp.msms.model
+package com.model
 {
-	import com.bnpp.msms.model.VO.ConfigVO;
+	import com.model.VO.ConfigVO;
 	
 	import de.polygonal.ds.HashMap;
 

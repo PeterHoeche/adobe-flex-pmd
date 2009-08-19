@@ -28,14 +28,14 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.scoyo.commons.context
+package com.commons.context
 {
 	import flash.events.IEventDispatcher;
 	
 	/**
 	 * Interface IContext.
 	 * 
-	 * @author scoyo (resp. mv)
+	 * @author  (resp. mv)
 	 */
 	public interface IContext extends IEventDispatcher
 	{
@@ -83,7 +83,7 @@ package com.scoyo.commons.context
 		 * @param key the url or key of the asset.
 		 * @return the object of given url with following type:
 		 * MediaType.Text  := String
-		 * MediaType.Audio := com.scoyo.commons.media.ISound
+		 * MediaType.Audio := com.commons.media.ISound
 		 * MediaType.Image := DisplayObject
 		 * MediaType.FlexModule := DisplayObject
 		 * MediaType.Video := NetStream

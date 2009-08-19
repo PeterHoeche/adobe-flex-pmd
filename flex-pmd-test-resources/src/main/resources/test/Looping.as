@@ -30,7 +30,7 @@
  */
 package
 {
-   import com.bnpp.msms.model.VO.ConfigVO;
+   import com.model.VO.ConfigVO;
    
    import de.polygonal.ds.HashMap;
 

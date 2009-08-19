@@ -28,47 +28,40 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.model
+package com.adobe.ac.pmd.rules.unused;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class EmptyPrivateMethodRuleTest extends AbstractAstFlexRuleTest
 {
-	import com.model.VO.ConfigVO;
-	
-	import de.polygonal.ds.HashMap;
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "Sorted.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 62, 62 ),
+                                                       new ViolationPosition( 71, 71 ) } ),
+                                 "com.adobe.ac.ncss.BigModel.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 82, 82 ),
+                                             new ViolationPosition( 86, 86 ),
+                                             new ViolationPosition( 90, 90 ),
+                                             new ViolationPosition( 94, 94 ),
+                                             new ViolationPosition( 98, 98 ) } ),
+                       "cairngorm.events.CorrectConstantEvent.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 53, 53 ) } );
+   }
 
-	public class ConfigProxy extends MS2Proxy
-	{
-      public static const NAME:String = "configProxy";
-      internal static const NAME:String = "configProxy";
-      protected static const NAME:String = "configProxy";
-      private static const NAME:String = "configProxy";
-      public const NAME:String = "configProxy";
-      internal const NAME:String = "configProxy";
-      protected const NAME:String = "configProxy";
-      private const NAME:String = "configProxy";
-      public static var NAME:String = "configProxy";
-      internal static var NAME:String = "configProxy";
-      protected static v NAME:String = "configProxy";
-      private static var NAME:String = "configProxy";
-      public var NAME:String = "configProxy";
-      internal var NAME:String = "configProxy";
-      protected var NAME:String = "configProxy";
-      private var NAME:String = "configProxy";
-		
-      public static function populateStub():void {
-      }
-      internal static function insertConfig(configVO:ConfigVO):void {
-      }
-      protected static function populateStub():void {
-      }
-      private static function populateStub():void {
-      }
-
-      public function populateStub():void {
-      }
-      internal function insertConfig(configVO:CairngormEvent, e : Object):void {
-      }
-      protected function populateStub():void {
-      }
-      private function populateStub( e : Event ):void {
-      }
-	}
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new EmptyPrivateMethodRule();
+   }
 }

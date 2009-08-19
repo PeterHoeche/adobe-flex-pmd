@@ -35,6 +35,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
 	xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+	
 	<description>
       The Architecture ruleset contains a collection of good practices around architecture.
 	</description>
@@ -76,6 +77,15 @@
 
 	<rule class="com.adobe.ac.pmd.rules.unused.UnusedFieldRule"
 		message="This private attribute ({0}) does not seem to be used">
+		<description>
+      </description>
+		<priority>1</priority>
+		<example>
+      </example>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.unused.EmptyPrivateMethodRule"
+		message="This private method ({0}) is used but its content is empty">
 		<description>
       </description>
 		<priority>1</priority>
