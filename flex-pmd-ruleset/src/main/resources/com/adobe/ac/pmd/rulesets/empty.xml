@@ -43,6 +43,20 @@
 	<rule class="com.adobe.ac.pmd.rules.empty.EmptyCatchStatementRule"
 		message="This catch statement is empty">
 		<priority>3</priority>
+		<example>
+public class Foo 
+{
+   public function bar( x : int ) : void
+   {
+      try
+      {
+      }
+      catch( e : Exception )         // VIOLATION
+      {
+      }
+   }
+} 		
+		</example>
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule"
@@ -50,16 +64,16 @@
 		<description>Empty If Statement finds instances where a condition is checked but nothing is done about it. </description>
 		<priority>3</priority>
 		<example>
-   public class Foo 
+public class Foo 
+{
+   public function bar( x : int ) : void
    {
-      public function bar( x : int ) : void
+      if ( x == 0 ) 
       {
-         if ( x == 0 ) 
-         {
-            // VIOLATION
-         }
+         // VIOLATION
       }
-   } 
+   }
+} 
       </example>
 	</rule>
 	

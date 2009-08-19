@@ -46,7 +46,8 @@ public class AvoidUsingPublicStaticFieldRule extends AbstractAstFlexRule
          if ( attribute.isPublic()
                && attribute.isStatic() && !attribute.getName().contains( "instance" ) )
          {
-            addViolation( attribute );
+            addViolation( attribute,
+                          attribute.getName() );
          }
       }
    }

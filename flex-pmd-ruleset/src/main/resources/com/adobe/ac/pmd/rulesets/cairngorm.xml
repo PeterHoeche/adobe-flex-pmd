@@ -44,10 +44,10 @@
 		<description>A bindable ModelLocator could leads to performance issues due to bindings</description>
 		<priority>1</priority>
 		<example>
-   [Bindable]
-   public class BindableModelLocator // VIOLATION 
-   {      
-   }      
+[Bindable]
+public class BindableModelLocator // VIOLATION 
+{      
+}      
       </example>
 	</rule>
 	
@@ -107,22 +107,22 @@ package control
 		<priority>3</priority>
 		<example>
 
-   public class UncorrectConstructorEvent extends CairngormEvent
+public class UncorrectConstructorEvent extends CairngormEvent
+{
+   public function UncorrectConstructorEvent( model : IModel )
    {
-      public function UncorrectConstructorEvent( model : IModel )
-      {
-         super( "eventName", model ); // VIOLATION. It should be "functionalArea.eventName" instead
-      }
+      super( "eventName", model ); // VIOLATION. It should be "functionalArea.eventName" instead
    }
-   public class UncorrectConstantEvent extends CairngormEnterpriseEvent
+}
+public class UncorrectConstantEvent extends CairngormEnterpriseEvent
+{
+   public static const EVENT_NAME : String = "eventName";
+   
+   public function UncorrectConstantEvent( model : IModel )
    {
-      public static const EVENT_NAME : String = "eventName";
-      
-      public function UncorrectConstantEvent( model : IModel )
-      {
-         super( EVENT_NAME, model ); // VIOLATION
-      }
+      super( EVENT_NAME, model ); // VIOLATION
    }
+}
        </example>
 	</rule>
 	
@@ -130,11 +130,11 @@ package control
 		  message="CairngormEventDispatcher is called explicitly. {0}">
 		  <priority>3</priority>
 		  <example>
-		public function foo() : void
-		{
-		   CairngormEventDispatcher.getInstance().dispatchEvent(new Event(CONSTANT)); // VIOLATION
-           CairngormEventDispatcher.getInstance().addEventListener(CONSTANT, onHearing); // VIOLATION
-		}  
+public function foo() : void
+{
+   CairngormEventDispatcher.getInstance().dispatchEvent(new Event(CONSTANT)); // VIOLATION
+         CairngormEventDispatcher.getInstance().addEventListener(CONSTANT, onHearing); // VIOLATION
+}  
 		  </example>
 	</rule>
 </ruleset>

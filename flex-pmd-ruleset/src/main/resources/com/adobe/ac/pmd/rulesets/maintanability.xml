@@ -55,15 +55,15 @@
 			</property>
 		</properties>
 		<example>
-   import blah.blah.Baz;
-   import blah.blah.Bif;
-   // 18 others from the same package elided
-   public class Foo 
+import blah.blah.Baz;
+import blah.blah.Bif;
+// 18 others from the same package elided
+public class Foo 
+{
+   public function doWork() : void 
    {
-      public function doWork() : void 
-      {
-      }
    }
+}
       </example>
 	</rule>
 	
@@ -76,12 +76,12 @@
 		message="This test contains a hard coded boolean value. You could remove it">
 		<priority>3</priority>
 		<example>
-   if ( true ) // VIOLATION
+if ( true ) // VIOLATION
+{
+   if ( myCondition == false ) // VIOLATION
    {
-      if ( myCondition == false ) // VIOLATION
-      {
-      }
-   }		
+   }
+}		
 		</example>
 	</rule>
 	
@@ -94,9 +94,9 @@
 		<description>When using dynamic classes, you cannot control how the developer will use your class. It makes refactoring really difficult</description>
 		<priority>1</priority>
 		<example>
-   dynamic public class DynamicObject // VIOLATION
-   {
-   }
+dynamic public class DynamicObject // VIOLATION
+{
+}
       </example>
 	</rule>
 	
@@ -105,10 +105,10 @@
 		<description>It is a bad practice to use the dynamic class Object. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
 		<priority>1</priority>
 		<example>
-   public class Foo
-   {
-      public var bar : Object; // VIOLATION      
-   }
+public class Foo
+{
+   public var bar : Object; // VIOLATION      
+}
       </example>
 	</rule>
 	
@@ -117,10 +117,10 @@
 		<description>It is a bad practice to use the dynamic class Dictionary. Prefer using strongly typed object, or marker interface in order to avoid silent compilation errors while refactoring</description>
 		<priority>1</priority>
 		<example>
-   public class Foo
-   {
-      public var bar : Dictionnary; // VIOLATION      
-   }
+public class Foo
+{
+   public var bar : Dictionnary; // VIOLATION      
+}
       </example>
 	</rule>
 	
@@ -130,10 +130,10 @@
       </description>
 		<priority>1</priority>
 		<example>
-   public class MyObject {
-      public static const MY_STATIC_CONSTANT : String = "myStaticConstant";
-      public const MY_NON_STATIC_CONSTANT : String = "myStaticConstant"; // VIOLATION
-   }     
+public class MyObject {
+   public static const MY_STATIC_CONSTANT : String = "myStaticConstant";
+   public const MY_NON_STATIC_CONSTANT : String = "myStaticConstant"; // VIOLATION
+}     
       </example>
 	</rule>
 	
@@ -142,10 +142,10 @@
 		<description></description>
 		<priority>1</priority>
 		<example>
-   public class Foo
-   {
-      public var bar : *; // VIOLATION      
-   }
+public class Foo
+{
+   public var bar : *; // VIOLATION      
+}
         </example>
 	</rule>
 	
@@ -154,10 +154,10 @@
 		<description>This function is not needed.</description>
 		<priority>3</priority>
 		<example>
-      override protected function createChildren() : void
-      {
-         super.createChildren();
-      }
+override protected function createChildren() : void
+{
+   super.createChildren();
+}
       </example>
 	</rule>
 	
@@ -165,10 +165,10 @@
 		message="Protected accessors are useless in a final class. Make it private ({0})">
 		<priority>3</priority>
 		<example>
-   final public class Foo
-   {
-      protected var bar : int; // VIOLATION      
-   }
+final public class Foo
+{
+   protected var bar : int; // VIOLATION      
+}
         </example>
 	</rule>
 	
@@ -183,12 +183,12 @@
         </description>
 		<priority>3</priority>
 		<example>
-   public class ArrayVO {
-      public var items:Array; //VIOLATION
+public class ArrayVO {
+   public var items:Array; //VIOLATION
 
-      [ArrayElementType("model.vo.MenuItemVO")]
-      public var menuItems : Array;
-   }      
+   [ArrayElementType("model.vo.MenuItemVO")]
+   public var menuItems : Array;
+}      
       </example>
 	</rule>
 	
@@ -197,14 +197,12 @@
 		<description/>
 		<priority>3</priority>
 		<example>
-         <![CDATA[
-   package com.MyCompany
+package com.MyCompany
+{
+   public class SomeClass extends mx.SomeClass // VIOLATION
    {
-      public class SomeClass extends mx.SomeClass // VIOLATION
-      {
-      }
    }
-         ]]>
+}
       </example>
 	</rule>
 	
@@ -213,12 +211,10 @@
 		<description/>
 		<priority>3</priority>
 		<example>
-         <![CDATA[
-      protected static function foo() : void // VIOLATION
-      {
-      }
-         ]]>
-      </example>
+protected static function foo() : void // VIOLATION
+{
+}
+		</example>
 	</rule>
 	
 </ruleset>

@@ -101,7 +101,7 @@
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.switchrules.IdenticalSwitchCasesRule"
-		message="Two switch cases should not identical">
+		message="Two switch cases should not be identical">
 		<priority>1</priority>
 	</rule>
 		
