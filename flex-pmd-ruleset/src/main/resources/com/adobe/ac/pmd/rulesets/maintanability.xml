@@ -198,4 +198,17 @@
       </example>
 	</rule>
 	
+	<rule class="com.adobe.ac.pmd.rules.maintanability.ProtectedStaticMethodRule"
+		message="This method ({0}) should be private.">
+		<description/>
+		<priority>3</priority>
+		<example>
+         <![CDATA[
+      protected static function foo() : void // VIOLATION
+      {
+      }
+         ]]>
+      </example>
+	</rule>
+	
 </ruleset>
