@@ -58,12 +58,12 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
                                  { new ViolationPosition( 41, 41 ) } ),
                        "com.adobe.ac.ncss.TestResult.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 298, 298 ),
-                                   new ViolationPosition( 300, 300 ),
+                       { new ViolationPosition( 300, 300 ),
                                    new ViolationPosition( 302, 302 ),
+                                   new ViolationPosition( 304, 304 ),
+                                   new ViolationPosition( 303, 303 ),
                                    new ViolationPosition( 301, 301 ),
-                                   new ViolationPosition( 299, 299 ),
-                                   new ViolationPosition( 303, 303 ) } );
+                                   new ViolationPosition( 305, 305 ) } );
    }
 
    @Override

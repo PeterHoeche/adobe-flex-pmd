@@ -40,12 +40,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooManyFunctionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new TooManyFunctionRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
@@ -54,9 +48,15 @@ public class TooManyFunctionRuleTest extends AbstractAstFlexRuleTest
                                            { new ViolationPosition( 42, 42 ) } ),
                                  "com.adobe.ac.ncss.TestResult.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 44, 44 ) } ),
+                                 { new ViolationPosition( 46, 46 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 35, 35 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new TooManyFunctionRule();
    }
 }

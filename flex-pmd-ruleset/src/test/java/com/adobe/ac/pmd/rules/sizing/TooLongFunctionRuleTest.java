@@ -40,12 +40,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new TooLongFunctionRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
@@ -70,9 +64,15 @@ public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
                                            { new ViolationPosition( 97, 97 ) } ),
                                  "com.adobe.ac.ncss.TestResult.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 227, 227 ) } ),
+                                 { new ViolationPosition( 229, 229 ) } ),
                        "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39, 39 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new TooLongFunctionRule();
    }
 }

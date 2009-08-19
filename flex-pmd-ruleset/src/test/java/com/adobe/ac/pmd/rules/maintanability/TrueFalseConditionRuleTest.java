@@ -40,12 +40,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new TrueFalseConditionRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final HashMap< String, ViolationPosition[] > violatingFiles = new HashMap< String, ViolationPosition[] >();
@@ -79,6 +73,12 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
                                  { new ViolationPosition( 59, 59 ) } ),
                        "com.adobe.ac.ncss.TestResult.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 206, 206 ) } );
+                       { new ViolationPosition( 208, 208 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new TrueFalseConditionRule();
    }
 }
