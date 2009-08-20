@@ -60,12 +60,12 @@ package com.adobe.ac.pmd.model
             new GetRulesetContentEvent( this, ref ).dispatch();
         }
 
-        public function onReceiveRulesetContent( ruleset : Ruleset ) : void
+        public function onReceiveRulesetContent( receivedRuleset : Ruleset ) : void
         {
-            name = ruleset.name;
-            rules = ruleset.rules;
-            isRef = ruleset.isRef;
-            description = ruleset.description;
+            name = receivedRuleset.name;
+            rules = receivedRuleset.rules;
+            isRef = receivedRuleset.isRef;
+            description = receivedRuleset.description;
             dispatchEvent( new RulesetReceivedEvent( this ) );
         }
     }

@@ -65,6 +65,7 @@ package com.adobe.ac.pmd.control.commands
          var xml : XML = ResultEvent( data ).result as XML;
          var ruleset : Ruleset = RulesetTranslator.deserialize( xml );
 
+		 trace( "received " + ruleset.name + " length " + ruleset.rules.length );
          invoker.onReceiveRulesetContent( ruleset );
       }
 

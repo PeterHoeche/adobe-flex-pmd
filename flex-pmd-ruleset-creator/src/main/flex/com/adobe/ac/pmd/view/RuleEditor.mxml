@@ -33,7 +33,7 @@
 -->
 <mx:Form xmlns:mx="http://www.adobe.com/2006/mxml"
     xmlns:view="com.adobe.ac.pmd.view.*"
-    width="400"
+    width="450"
     height="100%"
     paddingBottom="0"
     paddingLeft="0"
@@ -76,7 +76,8 @@
 
         <mx:TextInput id="message"
             width="{ width - FORM_LABELS_WIDTH }"
-            text="{ model.selectedRule.message }"
+			text="{ model.selectedRule.message }"
+			toolTip="{ model.selectedRule.message }"
             enabled="{ model.selectedRule != null }"
             change="model.selectedRule.message = message.text"
             />

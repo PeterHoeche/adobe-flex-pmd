@@ -68,7 +68,8 @@ public class UseInternalClassOutsideApiClass extends AbstractAstFlexRule
                && ( functionAreaName == null || !functionAreaName.equals( importFunctionalArea ) ) )
          {
             addViolation( importNode,
-                          importName );
+                          importName,
+                          importFunctionalArea );
          }
       }
    }

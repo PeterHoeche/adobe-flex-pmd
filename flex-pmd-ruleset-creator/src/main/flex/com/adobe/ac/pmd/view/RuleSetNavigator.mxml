@@ -43,6 +43,7 @@
 
     <mx:Script>
         <![CDATA[
+			import mx.core.Application;
             import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
             import com.adobe.ac.pmd.model.Ruleset;
             import com.adobe.ac.pmd.model.Rule;
@@ -52,8 +53,6 @@
             import mx.events.CollectionEvent;
 
             import mx.collections.IHierarchicalCollectionViewCursor;
-
-            private var isFirstRulesetReceived : Boolean = true;
 
             public function onRuleRemoved() : void
             {
@@ -70,12 +69,6 @@
             {
                 dg.dataProvider.openNode( event.ruleset );
                 event.ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
-
-                if ( isFirstRulesetReceived )
-                {
-                    selectFirstRule();
-                    isFirstRulesetReceived = false;
-                }
             }
 
             private function onRulesChange( event : CollectionEvent ) : void
@@ -85,10 +78,38 @@
                     selectFirstRule();
                 }
             }
+			
+			private function onAllRulesReceived() : void
+			{
+				var ruleNameToLoad : String = Application.application.parameters[ "rule" ];
+				var index : int = -1;
+				
+				if ( ruleNameToLoad )
+				{
+					for each ( var ruleset : Ruleset in model.rootRuleset.rulesets )
+					{
+						index++;
+						for each ( var rule : Rule in ruleset.rules )
+						{
+							index++;
+							if ( rule.name.indexOf( ruleNameToLoad ) != -1 )
+							{
+								dg.selectedIndex = index;
+								onChange();
+								return;
+							}
+						}
+					}
+				}
+				else
+				{
+					selectFirstRule();
+				}
+			}
 
             private function selectFirstRule() : void
             {
-                dg.selectedIndex = 1;
+				dg.selectedIndex = 1;
                 onChange();
             }
         ]]>
@@ -96,6 +117,7 @@
 
     <view:RuleSetNavigatorPM id="model"
         rulesetReceived="onRulesetReceived( event )"
+		allRulesReceived="onAllRulesReceived()"
         />
 
     <mx:AdvancedDataGrid id="dg"
