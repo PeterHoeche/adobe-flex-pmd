@@ -28,64 +28,13 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.mxml;
-
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
-
-public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
+package functional.func2.restricted
 {
-   private int     currentLevel   = 0;
-   private boolean violationFound = false;
-
-   public final int getActualValueForTheCurrentViolation()
-   {
-      return currentLevel;
-   }
-
-   public final int getDefaultThreshold()
-   {
-      return 2;
-   }
-
-   @Override
-   public final boolean isConcernedByTheCurrentFile()
-   {
-      return getCurrentFile().isMxml();
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.HIGH;
-   }
-
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*<(mx:)?(.*Box|Canvas|Accordion|Form|FormItem|LayoutContainer|Panel|Tile|ViewStack|Grid).*";
-   }
-
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      boolean result = false;
-
-      if ( line.contains( "</" ) )
-      {
-         currentLevel--;
-      }
-      else
-      {
-         currentLevel++;
-      }
-      if ( !violationFound
-            && currentLevel > getThreshold() )
-      {
-         violationFound = true;
-
-         result = true;
-      }
-      return result;
-   }
+	import functional.func1.api.Func1ExposedClass;
+	import functional.func1.restricted.Func1RestrictedClass; // VIOLATION
+	import functional.func2.api.Func2ExposedClass;
+	
+	public class Func2RestrictedClass
+	{
+	}
 }

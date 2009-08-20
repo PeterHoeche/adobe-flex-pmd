@@ -61,5 +61,64 @@ package com.adobe.ac
 		<description>Monkey patching is risky because it is not using intended extensibility points and thus may have unintended consequences or make migration to newer versions of the SDK more difficult</description>
 		<priority>1</priority>
 	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.architecture.UseInternalClassOutsideApiClass"
+		message="This class imports an internal class ({0}) from another function area ({1})">
+		<priority>1</priority>
+		<example>
+package functional
+{
+	import functional.func1.api.Func1ExposedClass;
+	import functional.func1.restricted.Func1RestrictedClass; // VIOLATION
+	import functional.func2.api.Func2ExposedClass;
+	import functional.func2.restricted.Func2RestrictedClass; // VIOLATION
 	
+	public class FunctionClient
+	{
+	}
+}
+package functional.func1.api
+
+{
+	import functional.func1.restricted.Func1RestrictedClass; 
+	import functional.func2.api.Func2ExposedClass;
+	import functional.func2.restricted.Func2RestrictedClass; // VIOLATION
+	
+	public class Func1ExposedClass
+	{
+	}
+}
+package functional.func1.restricted
+{
+	import functional.func1.api.Func1ExposedClass;
+	import functional.func2.api.Func2ExposedClass;
+	import functional.func2.restricted.Func2RestrictedClass; // VIOLATION
+	
+	public class Func1RestrictedClass
+	{
+	}
+}
+package functional.func2.api
+{
+	import functional.func1.api.Func1ExposedClass;
+	import functional.func1.restricted.Func1RestrictedClass; // VIOLATION
+	import functional.func2.restricted.Func2RestrictedClass;
+	
+	public class Func2ExposedClass
+	{
+	}
+}
+package functional.func2.restricted
+{
+	import functional.func1.api.Func1ExposedClass;
+	import functional.func1.restricted.Func1RestrictedClass; // VIOLATION
+	import functional.func2.api.Func2ExposedClass;
+	
+	public class Func2RestrictedClass
+	{
+	}
+}		
+		</example>
+	</rule>
+
 </ruleset>

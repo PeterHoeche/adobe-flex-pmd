@@ -28,64 +28,48 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.mxml;
+package com.adobe.ac.pmd.rules.architecture;
 
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
+import java.util.HashMap;
+import java.util.Map;
 
-public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class UseInternalClassOutsideApiClassTest extends AbstractAstFlexRuleTest
 {
-   private int     currentLevel   = 0;
-   private boolean violationFound = false;
-
-   public final int getActualValueForTheCurrentViolation()
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return currentLevel;
-   }
+      final HashMap< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
 
-   public final int getDefaultThreshold()
-   {
-      return 2;
+      addToMap( addToMap( addToMap( addToMap( violatedFiles,
+                                              "functional.func2.restricted.Func2RestrictedClass.as",
+                                              new ViolationPosition[]
+                                              { new ViolationPosition( 34, 34 ) } ),
+                                    "functional.func1.restricted.Func1RestrictedClass.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 35, 35 ) } ),
+                          "functional.func2.api.Func2ExposedClass.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 34, 34 ) } ),
+                "functional.func1.api.Func1ExposedClass.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 36, 36 ) } );
+
+      addToMap( violatedFiles,
+                "functional.FunctionalClient.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 34, 34 ),
+                            new ViolationPosition( 36, 36 ) } );
+
+      return violatedFiles;
    }
 
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected AbstractFlexRule getRule()
    {
-      return getCurrentFile().isMxml();
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.HIGH;
-   }
-
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*<(mx:)?(.*Box|Canvas|Accordion|Form|FormItem|LayoutContainer|Panel|Tile|ViewStack|Grid).*";
-   }
-
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      boolean result = false;
-
-      if ( line.contains( "</" ) )
-      {
-         currentLevel--;
-      }
-      else
-      {
-         currentLevel++;
-      }
-      if ( !violationFound
-            && currentLevel > getThreshold() )
-      {
-         violationFound = true;
-
-         result = true;
-      }
-      return result;
+      return new UseInternalClassOutsideApiClass();
    }
 }
