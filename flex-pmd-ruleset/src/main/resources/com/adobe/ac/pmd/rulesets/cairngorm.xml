@@ -130,11 +130,13 @@ public class UncorrectConstantEvent extends CairngormEnterpriseEvent
 		  message="CairngormEventDispatcher is called explicitly. {0}">
 		  <priority>3</priority>
 		  <example>
+		  <![CDATA[
 public function foo() : void
 {
-   CairngormEventDispatcher.getInstance().dispatchEvent(new Event(CONSTANT)); // VIOLATION
-         CairngormEventDispatcher.getInstance().addEventListener(CONSTANT, onHearing); // VIOLATION
+   CairngormEventDispatcher.getInstance().dispatchEvent(new Event(CONSTANT)); // VIOLATION <- use cairngormEvent.dispatch();
+   CairngormEventDispatcher.getInstance().addEventListener(CONSTANT, onHearing); // VIOLATION <- MVC broken
 }  
+		  ]]>
 		  </example>
 	</rule>
 </ruleset>
