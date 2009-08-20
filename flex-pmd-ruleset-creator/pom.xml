@@ -209,7 +209,7 @@
 				</executions>
 				<configuration>
 					<templateURI>folder:html-template</templateURI>
-					<htmlName>${project.artifactId}.html</htmlName>
+					<htmlName>${project.artifactId}</htmlName>
 				</configuration>
 			</plugin>
 			<!--
