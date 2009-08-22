@@ -40,12 +40,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new NonStaticConstantFieldRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
@@ -58,15 +52,18 @@ public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
                                                                  new ViolationPosition( 50, 50 ) } ),
                                            "Sorted.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 43, 43 ),
-                                                       new ViolationPosition( 44, 44 ),
-                                                       new ViolationPosition( 45, 45 ),
-                                                       new ViolationPosition( 46, 46 ) } ),
+                                           { new ViolationPosition( 43, 43 ) } ),
                                  "GenericType.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 36, 36 ) } ),
                        "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39, 39 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new NonStaticConstantFieldRule();
    }
 }

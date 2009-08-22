@@ -43,12 +43,10 @@ package com.adobe.ac.pmd.view
     import flash.net.FileReference;
 
 	[Event( name="rootRulesetReceived", type = "flash.events.Event" )]
-	[Event( name="allRulesReceived", type = "flash.events.Event" )]
     [Event( name="rulesetReceived", type = "com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
     public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset
     {
 		public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
-		public static const ALL_RULES_RECEIVED : String = "allRulesReceived";
 
         [Bindable]
         public var rootRuleset : RootRuleset;
@@ -89,11 +87,6 @@ package com.adobe.ac.pmd.view
 		{
 			rulesetReceived++;
 			dispatchEvent( event );			
-
-			if ( rulesetReceived == rootRuleset.rulesets.length * 4 )
-			{
-				dispatchEvent( new Event( ALL_RULES_RECEIVED ) );
-			}
 		}
     }
 }

@@ -33,6 +33,8 @@ package com.adobe.ac.pmd.rules.maintanability;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IConstant;
+import com.adobe.ac.pmd.nodes.IField;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -44,7 +46,24 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    @Override
    protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
-      for ( final IAttribute variable : variables )
+      findViolationFromFieds( variables );
+   }
+
+   @Override
+   protected void findViolationsFromConstants( final List< IConstant > constants )
+   {
+      findViolationFromFieds( constants );
+   }
+
+   @Override
+   protected final ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
+
+   private void findViolationFromFieds( final List< ? extends IField > fields )
+   {
+      for ( final IField variable : fields )
       {
          if ( ARRAY_TYPE.equals( variable.getType().toString() )
                && variable.getMetaData( MetaData.ARRAY_ELEMENT_TYPE ) == null )
@@ -53,11 +72,5 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
                           variable.getName() );
          }
       }
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.NORMAL;
    }
 }

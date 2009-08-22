@@ -43,7 +43,8 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
    {
       for ( final IConstant field : constants )
       {
-         if ( !field.isStatic() )
+         if ( !field.isStatic()
+               && field.isPublic() )
          {
             addViolation( field,
                           field.getName() );

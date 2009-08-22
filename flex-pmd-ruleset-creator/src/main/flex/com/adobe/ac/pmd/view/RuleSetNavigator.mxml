@@ -69,6 +69,7 @@
             {
                 dg.dataProvider.openNode( event.ruleset );
                 event.ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
+				selectDefaultRule();
             }
 
             private function onRulesChange( event : CollectionEvent ) : void
@@ -79,7 +80,7 @@
                 }
             }
 			
-			private function onAllRulesReceived() : void
+			private function selectDefaultRule() : void
 			{
 				var ruleNameToLoad : String = Application.application.parameters[ "rule" ];
 				var index : int = -1;
@@ -104,9 +105,9 @@
 				else
 				{
 					selectFirstRule();
-				}
+				}				
 			}
-
+			
             private function selectFirstRule() : void
             {
 				dg.selectedIndex = 1;
@@ -117,7 +118,6 @@
 
     <view:RuleSetNavigatorPM id="model"
         rulesetReceived="onRulesetReceived( event )"
-		allRulesReceived="onAllRulesReceived()"
         />
 
     <mx:AdvancedDataGrid id="dg"
