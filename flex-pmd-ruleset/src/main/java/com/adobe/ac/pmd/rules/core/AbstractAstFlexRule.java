@@ -393,6 +393,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitBlock( elseNode.getChild( 2 ) );
    }
 
+   protected void visitEmptyStatetement( final IParserNode statementNode )
+   {
+      visitExpressionList( statementNode );
+   }
+
    protected void visitFinally( final IParserNode finallyNode )
    {
       if ( isNodeNavigable( finallyNode ) )
@@ -563,7 +568,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
       else if ( !statementNode.is( NodeKind.STMT_EMPTY ) )
       {
-         visitExpressionList( statementNode );
+         visitEmptyStatetement( statementNode );
       }
    }
 

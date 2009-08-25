@@ -28,36 +28,30 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.rules.performance;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class RecursiveStyleManagerRuleTest extends AbstractAstFlexRuleTest
 {
-   import mx.controls.Label;
-   import mx.core.UIComponent;
-   
-   public class GoodComponent extends UIComponent
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      override protected function updateDisplayList( w : Number, h : Number ) : void
-      {
-         super.updateDisplayList( w, h );
-      }
-      
-      override protected function createChildren() : void
-      {
-         super.createChildren();
-         
-         addChild( new Label() );
-         addChildAt( new Label() );
-         removeChild( new Label() );
-         removeChildAt( 0 );
-         
-         var myDirect : MyObject;
-         
-         with( myDirect )
-         {
-         	i = "";
-         }
-		 StyleManaer.loadStyles( something, false );
-		 StyleManager.loadStyles( something );
-		 StyleManager.loadStyles( something, true ); 
-      }
-   }   
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "GoodComponent.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 59, 59 ),
+                                   new ViolationPosition( 60, 60 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new RecursiveStyleManagerRule();
+   }
 }

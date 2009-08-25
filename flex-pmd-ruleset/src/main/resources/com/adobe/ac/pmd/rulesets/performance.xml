@@ -87,4 +87,10 @@
 		<priority>3</priority>
 	</rule>
 
+	<rule class="com.adobe.ac.pmd.rules.performance.RecursiveStyleManagerRule"
+		message="Detect calls to the StyleManager that don’t pass “false” as the second parameter.">
+		<description>A recursive style manager call can be a very expensive operation, causing parts of the UI to flicker visibly. Instead it is preferable to defer the creation of parts of the UI that depend on a runtime CSS SWF until after the SWF has been loaded. In this case a recursive call is not required.</description>
+		<priority>3</priority>
+	</rule>
+
 </ruleset>

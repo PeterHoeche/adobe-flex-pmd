@@ -28,36 +28,32 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.view
+package com.adobe.ac.pmd.rules.performance;
+
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class RecursiveStyleManagerRule extends AbstractAstFlexRule
 {
-   import mx.controls.Label;
-   import mx.core.UIComponent;
-   
-   public class GoodComponent extends UIComponent
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-      override protected function updateDisplayList( w : Number, h : Number ) : void
+      return ViolationPriority.NORMAL;
+   }
+
+   @Override
+   protected void visitMethodCall( final IParserNode methodCallNode )
+   {
+      final String methodName = methodCallNode.getChild( 0 ).getStringValue();
+
+      if ( "loadStyles".equals( methodName )
+            && ( methodCallNode.getChild( 1 ).numChildren() != 2 || "true".equals( methodCallNode.getChild( 1 )
+                                                                                                 .getChild( 1 )
+                                                                                                 .getStringValue() ) ) )
       {
-         super.updateDisplayList( w, h );
+         addViolation( methodCallNode );
       }
-      
-      override protected function createChildren() : void
-      {
-         super.createChildren();
-         
-         addChild( new Label() );
-         addChildAt( new Label() );
-         removeChild( new Label() );
-         removeChildAt( 0 );
-         
-         var myDirect : MyObject;
-         
-         with( myDirect )
-         {
-         	i = "";
-         }
-		 StyleManaer.loadStyles( something, false );
-		 StyleManager.loadStyles( something );
-		 StyleManager.loadStyles( something, true ); 
-      }
-   }   
+      super.visitMethodCall( methodCallNode );
+   }
 }
