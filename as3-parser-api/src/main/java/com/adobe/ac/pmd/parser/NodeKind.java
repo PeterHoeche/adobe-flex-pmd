@@ -77,6 +77,7 @@ public enum NodeKind
    IMPLEMENTS_LIST("implements-list"),
    IMPORT("import"),
    IN("in"),
+   INCLUDE("include"),
    INIT("init"),
    INTERFACE("interface"),
    ITER("iter"),

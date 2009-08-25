@@ -30,32 +30,28 @@
  */
 package com.adobe.ac.pmd.rules.binding;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class BindingUtilsRule extends AbstractRegexpBasedRule // NO_UCD
+public class BindingUtilsRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected void findViolations( final IPackage packageNode )
    {
-      return true;
+      for ( final IParserNode importNode : packageNode.getImports() )
+      {
+         if ( importNode.getStringValue().contains( "BindingUtils" ) )
+         {
+            addViolation( importNode );
+         }
+      }
    }
 
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
-   }
-
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*\\s+BindingUtils\\..*";
-   }
-
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      return true;
    }
 }

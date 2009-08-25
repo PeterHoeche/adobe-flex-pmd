@@ -30,32 +30,31 @@
  */
 package com.adobe.ac.pmd.rules.component;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import java.util.List;
+
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class CallLaterDirectlyRule extends AbstractRegexpBasedRule // NO_UCD
+public class CallLaterDirectlyRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected void findViolations( final IFunction function )
    {
-      return true;
+      final List< IParserNode > callLaterStatements = function.findPrimaryStatementsInBody( "callLater" );
+      if ( !callLaterStatements.isEmpty() )
+      {
+         for ( final IParserNode callLaterStatement : callLaterStatements )
+         {
+            addViolation( callLaterStatement );
+         }
+      }
    }
 
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
-   }
-
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*callLater.*\\(.*";
-   }
-
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      return true;
    }
 }

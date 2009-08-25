@@ -54,6 +54,12 @@ public class AlertShowRule extends AbstractRegexpBasedRule
    }
 
    @Override
+   protected boolean isCurrentLineConcerned( final String line )
+   {
+      return line.contains( "Alert" );
+   }
+
+   @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return true;

@@ -82,6 +82,12 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
    }
 
    @Override
+   protected boolean isCurrentLineConcerned( final String line )
+   {
+      return line.contains( "var" );
+   }
+
+   @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       final Matcher matcher = getMatcher( line );

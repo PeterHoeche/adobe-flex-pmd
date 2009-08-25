@@ -40,17 +40,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UseCssInsteadOfEmbedMetaDataRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UseCssInsteadOfEmbedMetaDataRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "Title.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39, 39 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UseCssInsteadOfEmbedMetaDataRule();
    }
 }

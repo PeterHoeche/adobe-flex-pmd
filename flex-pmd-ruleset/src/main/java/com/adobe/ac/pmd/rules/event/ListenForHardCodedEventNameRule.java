@@ -54,6 +54,12 @@ public class ListenForHardCodedEventNameRule extends AbstractRegexpBasedRule
    }
 
    @Override
+   protected boolean isCurrentLineConcerned( final String line )
+   {
+      return line.contains( "addEventListener" );
+   }
+
+   @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return getMatcher( line ).matches();

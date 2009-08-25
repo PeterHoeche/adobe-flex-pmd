@@ -56,6 +56,19 @@ public class TestForStatement extends AbstractStatementTest
                              + "column=\"47\"><primary line=\"1\" column=\"42\">trace"
                              + "</primary><arguments line=\"1\" column=\"49\"><primary line=\"1\" column=\"49\">i"
                              + "</primary></arguments></call></block></for>" );
+
+      assertStatement( "",
+                       "        for (i = 0; i < n; i++)",
+                       "<for line=\"1\" column=\"14\"><init line=\"1\" column=\"14\">"
+                             + "<assign line=\"1\" column=\"14\"><primary line=\"1\" column=\"14\">"
+                             + "i</primary><op line=\"1\" column=\"16\">=</op>"
+                             + "<primary line=\"1\" column=\"18\">0</primary></assign></init>"
+                             + "<cond line=\"1\" column=\"21\"><relation line=\"1\" column=\"21\">"
+                             + "<primary line=\"1\" column=\"21\">i</primary>"
+                             + "<op line=\"1\" column=\"23\">&lt;</op><primary line=\"1\" column=\"25\">n"
+                             + "</primary></relation></cond><iter line=\"1\" column=\"28\">"
+                             + "<post-inc line=\"1\" column=\"31\"><primary line=\"1\" column=\"28\">i"
+                             + "</primary></post-inc></iter><primary line=\"2\" column=\"1\">__END__</primary></for>" );
    }
 
    @Test
@@ -89,5 +102,11 @@ public class TestForStatement extends AbstractStatementTest
                              + "<type line=\"1\" column=\"12\">String</type></name-type-init>"
                              + "</var-list></init><in line=\"1\" column=\"24\"><primary line=\"1\" "
                              + "column=\"24\">obj</primary></in></forin>" );
+
+      assertStatement( "for in",
+                       "            for (p in events);",
+                       "<forin line=\"1\" column=\"18\"><init line=\"1\" column=\"18\">"
+                             + "<primary line=\"1\" column=\"18\">p</primary></init><in line=\"1\" "
+                             + "column=\"23\"><primary line=\"1\" column=\"23\">events</primary></in></forin>" );
    }
 }

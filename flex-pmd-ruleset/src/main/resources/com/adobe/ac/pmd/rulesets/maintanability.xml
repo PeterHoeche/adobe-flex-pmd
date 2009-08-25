@@ -67,11 +67,6 @@ public class Foo
       </example>
 	</rule>
 	
-	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidHavingTwoClassWithTheSameNameRule"
-		message="Another file with the same class name exist in the source path">
-		<priority>3</priority>
-	</rule>
-	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule"
 		message="This test contains a hard coded boolean value. You could remove it">
 		<priority>3</priority>

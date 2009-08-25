@@ -39,6 +39,14 @@ import com.adobe.ac.pmd.IFlexViolation;
 
 public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 {
+   private final Pattern pattern;
+
+   public AbstractRegexpBasedRule()
+   {
+      super();
+      pattern = Pattern.compile( getRegexp() );
+   }
+
    @Override
    public final List< IFlexViolation > findViolationsInCurrentFile()
    {
@@ -48,8 +56,8 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
       {
          final String line = getCurrentFile().getLineAt( i );
 
-         if ( doesCurrentLineMacthes( line )
-               && isViolationDetectedOnThisMatchingLine( line ) )
+         if ( isCurrentLineConcerned( line )
+               && doesCurrentLineMacthes( line ) && isViolationDetectedOnThisMatchingLine( line ) )
          {
             addViolation( violations,
                           ViolationPosition.create( i,
@@ -68,13 +76,17 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 
    protected final Matcher getMatcher( final String line )
    {
-      final Pattern pattern = Pattern.compile( getRegexp() );
       final Matcher matcher = pattern.matcher( line );
 
       return matcher;
    }
 
    protected abstract String getRegexp();
+
+   protected boolean isCurrentLineConcerned( final String line )
+   {
+      return true;
+   }
 
    protected abstract boolean isViolationDetectedOnThisMatchingLine( final String line );
 }

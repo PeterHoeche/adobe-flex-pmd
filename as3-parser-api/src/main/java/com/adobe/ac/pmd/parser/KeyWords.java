@@ -53,6 +53,8 @@ public enum KeyWords
    IF("if"),
    IMPLEMENTS("implements"),
    IMPORT("import"),
+   IN("in"),
+   INCLUDE("include"),
    INSTANCE_OF("instanceOf"),
    INTERFACE("interface"),
    INTERNAL("internal"),

@@ -84,7 +84,7 @@ final class ResourcesManagerTest
 
       if ( resource == null )
       {
-         LOGGER.severe( "/test folder is not fount in the resource" );
+         LOGGER.severe( "/test folder is not found in the resource" );
          testRootDirectory = null;
          testFiles = new HashMap< String, IFlexFile >();
       }

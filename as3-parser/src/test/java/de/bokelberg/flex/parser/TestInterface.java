@@ -57,6 +57,20 @@ public class TestInterface extends AbstractAs3ParserTest
                                   + "</content></interface></content>" );
    }
 
+   @Test
+   public void testInclude() throws TokenException
+   {
+      assertPackageContent( "1",
+                            "public interface A extends B { include \"ITextFieldInterface.asz\" } ",
+                            "<content line=\"2\" column=\"1\"><interface line=\"2\" column=\"18\">"
+                                  + "<name line=\"2\" column=\"18\">A</name><mod-list line=\"2\" column=\"20\">"
+                                  + "<mod line=\"2\" column=\"20\">public</mod></mod-list>"
+                                  + "<extends line=\"2\" column=\"28\">"
+                                  + "B</extends><content line=\"2\" column=\"32\"><include line=\"2\" column=\"32\">"
+                                  + "<primary line=\"2\" column=\"40\">\"ITextFieldInterface.asz\"</primary>"
+                                  + "</include></content></interface></content>" );
+   }
+
    private void assertPackageContent( final String message,
                                       final String input,
                                       final String expected ) throws TokenException

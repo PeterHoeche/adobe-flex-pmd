@@ -33,43 +33,25 @@ package com.adobe.ac.pmd.rules.component;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class CallLaterDirectlyRuleTest extends AbstractRegExpBasedRuleTest
+public class CallLaterDirectlyRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { "callLater( myFunction)",
-                  " callLater (myFunction)" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
-   {
-      return new CallLaterDirectlyRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "callLate( myFunction)",
-                  " allLater(myFunction)" };
-   }
 
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                 "Main.mxml",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 36, 36 ) } ),
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "GenericType.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 41, 41 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new CallLaterDirectlyRule();
    }
 }

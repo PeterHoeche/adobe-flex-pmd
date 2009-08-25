@@ -31,13 +31,16 @@
 package com.adobe.ac.pmd;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
@@ -54,7 +57,7 @@ import com.adobe.ac.pmd.rules.core.IFlexRule;
 
 public class FlexPmdViolations
 {
-   private static final Logger                                  LOGGER       = Logger.getLogger( "FlexPmdViolation" );
+   private static final Logger                                  LOGGER       = Logger.getLogger( FlexPmdViolations.class.getName() );
    private boolean                                              beenComputed = false;
    private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
 
@@ -69,21 +72,42 @@ public class FlexPmdViolations
    {
       beenComputed = true;
 
+      LOGGER.setLevel( Level.INFO );
+      LOGGER.info( "computing RulesList" );
       final Map< String, IFlexRule > rules = computeRulesList( ruleSet );
+
+      LOGGER.info( "computing FilesList" );
       final Map< String, IFlexFile > filesInSourceDirectory = FileUtils.computeFilesList( sourceDirectory,
                                                                                           packageToExclude );
+      LOGGER.info( "computing Asts" );
+
       final Map< String, IPackage > astsInSourceDirectory = FileSetUtils.computeAsts( filesInSourceDirectory );
+      final Map< IFlexRule, Long > workBench = new HashMap< IFlexRule, Long >();
 
       for ( final Entry< String, IFlexRule > currentRuleEntry : rules.entrySet() )
       {
+         LOGGER.info( "Launching rule "
+               + currentRuleEntry.getKey() );
+
+         final long startTime = System.currentTimeMillis();
+
          processRule( filesInSourceDirectory,
                       astsInSourceDirectory,
                       currentRuleEntry.getValue() );
+         final long ellapsedTime = System.currentTimeMillis()
+               - startTime;
+
+         if ( LOGGER.isLoggable( Level.INFO ) )
+         {
+            workBench.put( currentRuleEntry.getValue(),
+                           ellapsedTime );
+         }
       }
       for ( final Entry< String, IFlexFile > entry : filesInSourceDirectory.entrySet() )
       {
          Collections.sort( violations.get( entry.getValue() ) );
       }
+      displayWorkBench( workBench );
    }
 
    public final Map< IFlexFile, List< IFlexViolation >> getViolations()
@@ -115,6 +139,31 @@ public class FlexPmdViolations
       return rules;
    }
 
+   private void displayWorkBench( final Map< IFlexRule, Long > workBench )
+   {
+      if ( LOGGER.isLoggable( Level.INFO ) )
+      {
+         final List< IFlexRule > rulesSortedByTime = new ArrayList< IFlexRule >( workBench.keySet() );
+         Collections.sort( rulesSortedByTime,
+                           new Comparator< IFlexRule >()
+                           {
+                              public int compare( final IFlexRule left,
+                                                  final IFlexRule right )
+                              {
+
+                                 final Long leftValue = workBench.get( left );
+                                 final Long rightValue = workBench.get( right );
+                                 return leftValue.compareTo( rightValue );
+                              }
+                           } );
+         for ( final IFlexRule flexRule : rulesSortedByTime )
+         {
+            LOGGER.info( flexRule.getRuleName()
+                  + " took " + workBench.get( flexRule ) + "ms to compute" );
+         }
+      }
+   }
+
    private void processFile( final Map< String, IFlexFile > filesInSourceDirectory,
                              final Map< String, IPackage > astsInSourceDirectory,
                              final IFlexRule ruleToProcess,
@@ -144,6 +193,7 @@ public class FlexPmdViolations
    {
       LOGGER.fine( "Processing "
             + currentRule.getRuleName() + "..." );
+
       for ( final Entry< String, IFlexFile > currentFileEntry : filesInSourceDirectory.entrySet() )
       {
          processFile( filesInSourceDirectory,

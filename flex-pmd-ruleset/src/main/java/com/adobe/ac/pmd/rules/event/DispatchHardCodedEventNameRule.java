@@ -54,6 +54,12 @@ public class DispatchHardCodedEventNameRule extends AbstractRegexpBasedRule
    }
 
    @Override
+   protected boolean isCurrentLineConcerned( final String line )
+   {
+      return line.contains( "dispatchEvent" );
+   }
+
+   @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return getMatcher( line ).matches();

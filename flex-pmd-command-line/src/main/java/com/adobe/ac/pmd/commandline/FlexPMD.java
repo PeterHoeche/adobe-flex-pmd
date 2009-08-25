@@ -63,7 +63,7 @@ public final class FlexPMD // NO_UCD
                                                  URISyntaxException,
                                                  IOException
    {
-      LOGGER.setLevel( Level.WARNING );
+      LOGGER.setLevel( Level.SEVERE );
       startFlexPMD( args );
       LOGGER.info( "FlexPMD terminated" );
       System.exit( 0 );

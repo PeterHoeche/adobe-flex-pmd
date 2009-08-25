@@ -40,17 +40,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class ChangeWatcherRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new ChangeWatcherRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "Title.as",
+                       "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ) } );
+                       { new ViolationPosition( 35, 35 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new ChangeWatcherRule();
    }
 }

@@ -49,6 +49,28 @@ public class TestIfStatement extends AbstractStatementTest
                              + "</primary><arguments line=\"1\" column=\"20\">"
                              + "<primary line=\"1\" column=\"20\">true</primary>"
                              + "</arguments></call></block></if>" );
+
+      assertStatement( "1",
+                       "if( \"i\" in oaderContext ){ }",
+                       "<if line=\"1\" column=\"3\"><condition line=\"1\" column=\"5\">"
+                             + "<relation line=\"1\" column=\"5\"><primary line=\"1\" column=\"5\">"
+                             + "\"i\"</primary><op line=\"1\" column=\"9\">in</op>"
+                             + "<primary line=\"1\" column=\"12\">oaderContext</primary>"
+                             + "</relation></condition><block line=\"1\" column=\"28\"></block></if>" );
+
+      assertStatement( "internal",
+                       "if (col.mx_internal::contentSize) {col.mx_internal::_width = NaN;}",
+                       "<if line=\"1\" column=\"4\"><condition line=\"1\" column=\"5\">"
+                             + "<dot line=\"1\" column=\"9\"><primary line=\"1\" column=\"5\">col"
+                             + "</primary><dot line=\"1\" column=\"22\"><primary line=\"1\" column=\"9\">"
+                             + "mx_internal</primary><primary line=\"1\" column=\"22\">contentSize"
+                             + "</primary></dot></dot></condition><block line=\"1\" column=\"36\">"
+                             + "<dot line=\"1\" column=\"40\"><primary line=\"1\" column=\"36\">col"
+                             + "</primary><dot line=\"1\" column=\"53\"><primary line=\"1\" column=\"40\">"
+                             + "mx_internal</primary><assign line=\"1\" column=\"53\">"
+                             + "<primary line=\"1\" column=\"53\">_width</primary>"
+                             + "<op line=\"1\" column=\"60\">=</op><primary line=\"1\" column=\"62\">"
+                             + "NaN</primary></assign></dot></dot></block></if>" );
    }
 
    @Test

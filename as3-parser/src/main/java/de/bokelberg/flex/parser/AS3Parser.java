@@ -51,12 +51,14 @@ public class AS3Parser implements IAS3Parser
 {
    private static final String NEW_LINE = "\n";
    private String              fileName;
+   private boolean             isInFor;
    private AS3Scanner          scn;
    private Token               tok;
 
    public AS3Parser()
    {
       this.scn = new AS3Scanner();
+      isInFor = false;
    }
 
    /*
@@ -196,6 +198,10 @@ public class AS3Parser implements IAS3Parser
          else if ( tokIs( KeyWords.FUNCTION ) )
          {
             result.addChild( parseFunctionSignature() );
+         }
+         else if ( tokIs( KeyWords.INCLUDE ) )
+         {
+            result.addChild( parseIncludeExpression() );
          }
          else if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
          {
@@ -546,10 +552,6 @@ public class AS3Parser implements IAS3Parser
       return NodeKind.FUNCTION;
    }
 
-   // ------------------------------------------------------------------------
-   // language specific recursive descent parsing
-   // ------------------------------------------------------------------------
-
    /**
     * Get the next token Skip comments but keep newlines We need this method for
     * beeing able to decide if a returnStatement has an expression
@@ -580,6 +582,10 @@ public class AS3Parser implements IAS3Parser
       while ( tok.getText().startsWith( "//" )
             || tok.getText().startsWith( "/*" ) );
    }
+
+   // ------------------------------------------------------------------------
+   // language specific recursive descent parsing
+   // ------------------------------------------------------------------------
 
    private IParserNode parseAdditiveExpression() throws TokenException
    {
@@ -1324,6 +1330,16 @@ public class AS3Parser implements IAS3Parser
       return result.toString();
    }
 
+   private IParserNode parseIncludeExpression() throws TokenException
+   {
+      final Node result = Node.create( NodeKind.INCLUDE,
+                                       tok.getLine(),
+                                       tok.getColumn() );
+      consume( KeyWords.INCLUDE );
+      result.addChild( parseExpression() );
+      return result;
+   }
+
    private Node parseIncrement( final Node node ) throws TokenException
    {
       nextToken();
@@ -1700,8 +1716,8 @@ public class AS3Parser implements IAS3Parser
                                        parseShiftExpression() );
       while ( tokIs( Operators.INFERIOR )
             || tokIs( Operators.INFERIOR_OR_EQUAL ) || tokIs( Operators.SUPERIOR )
-            || tokIs( Operators.SUPERIOR_OR_EQUAL ) || tokIs( KeyWords.IS ) || tokIs( KeyWords.AS )
-            || tokIs( KeyWords.INSTANCE_OF ) )
+            || tokIs( Operators.SUPERIOR_OR_EQUAL ) || tokIs( KeyWords.IS ) || tokIs( KeyWords.IN )
+            && !isInFor || tokIs( KeyWords.AS ) || tokIs( KeyWords.INSTANCE_OF ) )
       {
          result.addChild( Node.create( NodeKind.OP,
                                        tok.getLine(),
@@ -1869,10 +1885,12 @@ public class AS3Parser implements IAS3Parser
          }
          else
          {
+            isInFor = true;
             result.addChild( NodeKind.INIT,
                              tok.getLine(),
                              tok.getColumn(),
-                             parseExpressionList() );
+                             parseExpression() );
+            isInFor = false;
          }
          if ( tokIs( NodeKind.IN.toString() ) )
          {
@@ -1981,7 +1999,8 @@ public class AS3Parser implements IAS3Parser
       {
          node = parseDecrement( node );
       }
-      else if ( tokIs( Operators.DOT ) )
+      else if ( tokIs( Operators.DOT )
+            || tokIs( Operators.DOUBLE_COLUMN ) )
       {
          node = parseDot( node );
       }
