@@ -61,18 +61,17 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    protected final void writeReport( final FlexPmdViolations pmd ) throws PMDException
    {
       final File realOutputDirectory = outputDirectory;
+      final String filePath = realOutputDirectory.getAbsoluteFile()
+            + File.separator + FlexPMDFormat.XML.toString();
 
       makeSureOutputDirectoryExists( realOutputDirectory );
-
-      final File pmdReport = new File( realOutputDirectory, FlexPMDFormat.XML.toString() );
 
       Writer writter = null;
       try
       {
          LOGGER.finest( "Start writting XML report" );
 
-         writter = new OutputStreamWriter( new FileOutputStream( realOutputDirectory.getAbsoluteFile()
-               + FlexPMDFormat.XML.toString() ), "UTF-8" );
+         writter = new OutputStreamWriter( new FileOutputStream( filePath ), "UTF-8" );
          writeReportHeader( writter );
          writeFileViolations( pmd,
                               writter );
@@ -82,7 +81,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       catch ( final IOException e )
       {
          throw new PMDException( "Error creating file "
-               + pmdReport, e );
+               + filePath, e );
       }
       finally
       {
