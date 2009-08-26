@@ -31,8 +31,10 @@
 package com.adobe.ac.pmd.engines;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -64,12 +66,13 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 
       final File pmdReport = new File( realOutputDirectory, FlexPMDFormat.XML.toString() );
 
-      FileWriter writter = null;
+      Writer writter = null;
       try
       {
          LOGGER.finest( "Start writting XML report" );
 
-         writter = new FileWriter( pmdReport );
+         writter = new OutputStreamWriter( new FileOutputStream( realOutputDirectory.getAbsoluteFile()
+               + FlexPMDFormat.XML.toString() ), "UTF-8" );
          writeReportHeader( writter );
          writeFileViolations( pmd,
                               writter );
@@ -87,7 +90,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       }
    }
 
-   private void finalizeReport( final FileWriter writter )
+   private void finalizeReport( final Writer writter )
    {
       LOGGER.finest( "End writting XML report" );
 
@@ -106,7 +109,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       }
    }
 
-   private void formatFileFiolation( final FileWriter writter,
+   private void formatFileFiolation( final Writer writter,
                                      final IFlexFile sourceFile,
                                      final Collection< IFlexViolation > violations,
                                      final String sourceFilePath ) throws IOException
@@ -141,7 +144,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    }
 
    private void writeFileViolations( final FlexPmdViolations pmd,
-                                     final FileWriter writter ) throws IOException
+                                     final Writer writter ) throws IOException
    {
       for ( final IFlexFile sourceFile : pmd.getViolations().keySet() )
       {
@@ -155,13 +158,13 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       }
    }
 
-   private void writeReportFooter( final FileWriter writter ) throws IOException
+   private void writeReportFooter( final Writer writter ) throws IOException
    {
       writter.write( "</pmd>"
             + getNewLine() );
    }
 
-   private void writeReportHeader( final FileWriter writter ) throws IOException
+   private void writeReportHeader( final Writer writter ) throws IOException
    {
       writter.write( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + getNewLine() );
