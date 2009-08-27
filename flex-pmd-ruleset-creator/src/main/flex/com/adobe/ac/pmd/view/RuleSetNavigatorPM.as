@@ -44,7 +44,7 @@ package com.adobe.ac.pmd.view
 
 	[Event( name="rootRulesetReceived", type = "flash.events.Event" )]
     [Event( name="rulesetReceived", type = "com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset
+    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset // NO PMD
     {
 		public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
 
