@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -42,6 +43,7 @@ import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
@@ -50,11 +52,10 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
 {
    private static final Logger LOGGER = Logger.getLogger( FlexPmdXmlEngine.class.getName() );
 
-   public FlexPmdXmlEngine( final File sourceDirectory,
-                            final File outputDirectory,
-                            final String packageToExclude )
+   public FlexPmdXmlEngine( final FlexPmdParameters parameters ) throws URISyntaxException,
+                                                                IOException
    {
-      super( sourceDirectory, outputDirectory, packageToExclude );
+      super( parameters );
    }
 
    @Override

@@ -41,6 +41,7 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.codehaus.doxia.site.renderer.DefaultSiteRenderer;
 import org.junit.Test;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class FlexPmdMojoTest extends FlexPmdTestBase
@@ -63,11 +64,12 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
 
       outputDirectoryToBeSet.mkdirs();
 
-      final FlexPmdMojo mojo = new FlexPmdMojo( outputDirectoryToBeSet,
-                                                new MavenProjectStub(),
-                                                null,
-                                                getTestDirectory(),
-                                                failOnError );
+      final FlexPmdMojo mojo = new FlexPmdMojo( new MavenProjectStub(),
+                                                new FlexPmdParameters( "",
+                                                                       failOnError,
+                                                                       outputDirectoryToBeSet,
+                                                                       null,
+                                                                       getTestDirectory() ) );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       assertNotNull( "",

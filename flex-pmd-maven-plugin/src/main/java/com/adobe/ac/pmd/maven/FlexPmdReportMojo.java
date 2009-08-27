@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.maven;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Locale;
@@ -40,6 +39,7 @@ import net.sourceforge.pmd.PMDException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.MavenReportException;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 
 /**
@@ -63,17 +63,10 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
       super();
    }
 
-   public FlexPmdReportMojo( final File outputDirectoryToBeSet,
-                             final MavenProject projectToBeSet,
-                             final File ruleSetToBeSet,
-                             final File sourceDirectoryToBeSet,
-                             final boolean failOnErrorToBeSet )
+   public FlexPmdReportMojo( final MavenProject projectToBeSet,
+                             final FlexPmdParameters parameters )
    {
-      super( outputDirectoryToBeSet,
-             projectToBeSet,
-             ruleSetToBeSet,
-             sourceDirectoryToBeSet,
-             failOnErrorToBeSet );
+      super( projectToBeSet, parameters );
    }
 
    @Override
@@ -86,15 +79,16 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
       super.onXmlReportExecuted( violations,
                                  locale );
 
+      final FlexPmdParameters parameters = new FlexPmdParameters( getExcludePackage(),
+                              getOutputDirectoryFile(),
+                              getRuleSet(),
+                              getSourceDirectory() );
       final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
                                                                          getBundle( locale ),
                                                                          aggregate,
                                                                          getProject(),
-                                                                         getSourceDirectory(),
-                                                                         getOutputDirectoryFile(),
-                                                                         getExcludePackage() );
+                                                                         parameters );
 
-      flexPmdHtmlEngine.executeReport( violations,
-                                       getRuleSet() );
+      flexPmdHtmlEngine.executeReport( violations );
    }
 }

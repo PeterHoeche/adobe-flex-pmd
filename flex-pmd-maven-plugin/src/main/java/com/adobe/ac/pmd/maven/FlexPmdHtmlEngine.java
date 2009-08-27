@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.maven;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -46,6 +47,7 @@ import org.apache.maven.plugin.pmd.PmdReportListener;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.doxia.sink.Sink;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
@@ -63,11 +65,10 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
                                 final ResourceBundle bundleToBeSet,
                                 final boolean aggregateToBeSet,
                                 final MavenProject projectToBeSet,
-                                final File sourceDirectoryToBeSet,
-                                final File outputDirectoryToBeSet,
-                                final String packageToExcludeToBeSet )
+                                final FlexPmdParameters parameters ) throws URISyntaxException,
+                                                                    IOException
    {
-      super( sourceDirectoryToBeSet, outputDirectoryToBeSet, packageToExcludeToBeSet );
+      super( parameters );
 
       sink = sinkToBeSet;
       bundle = bundleToBeSet;

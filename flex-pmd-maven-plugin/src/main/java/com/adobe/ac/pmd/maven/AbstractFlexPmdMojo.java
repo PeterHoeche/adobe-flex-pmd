@@ -45,6 +45,7 @@ import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
@@ -68,7 +69,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     * 
     * @parameter
     */
-   private final String excludePackage = "";
+   private final String excludePackage;
 
    /**
     * Build fails if an violation error occurs.
@@ -119,22 +120,20 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    public AbstractFlexPmdMojo()
    {
       super();
-
+      excludePackage = "";
    }
 
-   public AbstractFlexPmdMojo( final File outputDirectoryToBeSet,
-                               final MavenProject projectToBeSet,
-                               final File ruleSetToBeSet,
-                               final File sourceDirectoryToBeSet,
-                               final boolean failOnErrorToBeSet )
+   public AbstractFlexPmdMojo( final MavenProject projectToBeSet,
+                               final FlexPmdParameters parameters )
    {
       super();
 
-      outputDirectory = outputDirectoryToBeSet;
+      outputDirectory = parameters.getOutputDirectory();
       project = projectToBeSet;
-      ruleSet = ruleSetToBeSet;
-      sourceDirectory = sourceDirectoryToBeSet;
-      failOnError = failOnErrorToBeSet;
+      ruleSet = parameters.getRuleSet();
+      sourceDirectory = parameters.getSourceDirectory();
+      failOnError = parameters.isFailOnError();
+      excludePackage = parameters.getExcludePackage();
    }
 
    public final String getDescription( final Locale locale )
@@ -158,12 +157,12 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       LOGGER.info( "FlexPmdMojo starts" );
       try
       {
-         final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( getSourceDirectory(),
-                                                                    getOutputDirectoryFile(),
-                                                                    getExcludePackage() );
+         final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( getExcludePackage(),
+                                                                                           getOutputDirectoryFile(),
+                                                                                           getRuleSet(),
+                                                                                           getSourceDirectory() ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
-         engine.executeReport( violations,
-                               getRuleSet() );
+         engine.executeReport( violations );
 
          onXmlReportExecuted( violations,
                               locale );

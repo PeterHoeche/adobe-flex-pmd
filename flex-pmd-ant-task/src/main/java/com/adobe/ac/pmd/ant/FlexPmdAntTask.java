@@ -40,6 +40,7 @@ import net.sourceforge.pmd.PMDException;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.adobe.ac.pmd.engines.PmdEngineUtils;
@@ -57,14 +58,13 @@ public class FlexPmdAntTask extends Task // NO_UCD
    {
       try
       {
-         final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( sourceDirectory,
-                                                               outputDirectory,
-                                                               packageToExclude );
-
+         final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
+                                                                                      outputDirectory,
+                                                                                      sourceDirectory,
+                                                                                      ruleSet ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
 
-         engine.executeReport( violations,
-                               ruleSet );
+         engine.executeReport( violations );
 
          if ( failOnError )
          {

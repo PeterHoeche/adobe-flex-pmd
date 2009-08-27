@@ -28,26 +28,62 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.maven;
+package com.adobe.ac.pmd;
 
-import org.apache.maven.project.MavenProject;
+import java.io.File;
 
-import com.adobe.ac.pmd.FlexPmdParameters;
-
-/**
- * @goal check
- * @phase verify
- */
-public class FlexPmdMojo extends AbstractFlexPmdMojo // NO_UCD
+public class FlexPmdParameters
 {
-   public FlexPmdMojo()
+   private final String  excludePackage;
+   private final boolean failOnError;
+   private final File    outputDirectory;
+   private final File    ruleSet;
+   private final File    sourceDirectory;
+
+   public FlexPmdParameters( final String excludePackageToBeSet,
+                             final boolean failOnErrorToBeSet,
+                             final File outputDirectoryToBeSet,
+                             final File ruleSetToBeSet,
+                             final File sourceDirectoryToBeSet )
    {
       super();
+      excludePackage = excludePackageToBeSet;
+      failOnError = failOnErrorToBeSet;
+      outputDirectory = outputDirectoryToBeSet;
+      ruleSet = ruleSetToBeSet;
+      sourceDirectory = sourceDirectoryToBeSet;
    }
 
-   public FlexPmdMojo( final MavenProject projectToBeSet,
-                       final FlexPmdParameters parameters )
+   public FlexPmdParameters( final String excludePackageToBeSet,
+                             final File outputDirectoryToBeSet,
+                             final File ruleSetToBeSet,
+                             final File sourceDirectoryToBeSet )
    {
-      super( projectToBeSet, parameters );
+      this( excludePackageToBeSet, false, outputDirectoryToBeSet, ruleSetToBeSet, sourceDirectoryToBeSet );
+   }
+
+   public final String getExcludePackage()
+   {
+      return excludePackage;
+   }
+
+   public final File getOutputDirectory()
+   {
+      return outputDirectory;
+   }
+
+   public final File getRuleSet()
+   {
+      return ruleSet;
+   }
+
+   public final File getSourceDirectory()
+   {
+      return sourceDirectory;
+   }
+
+   public final boolean isFailOnError()
+   {
+      return failOnError;
    }
 }

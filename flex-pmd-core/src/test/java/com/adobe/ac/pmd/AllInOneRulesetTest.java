@@ -63,10 +63,12 @@ public class AllInOneRulesetTest extends TestCase
       final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
       final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
 
-      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( sourceDirectory, outputDirectory, "" );
+      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( "",
+                                                                                   outputDirectory,
+                                                                                   ruleSetFile,
+                                                                                   sourceDirectory ) );
 
-      engine.executeReport( new FlexPmdViolations(),
-                            ruleSetFile );
+      engine.executeReport( new FlexPmdViolations() );
 
       assertEquals( "Number of rules found is not correct",
                     44,

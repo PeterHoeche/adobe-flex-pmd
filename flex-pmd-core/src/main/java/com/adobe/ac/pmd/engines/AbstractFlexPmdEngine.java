@@ -46,6 +46,7 @@ import net.sourceforge.pmd.RuleSetFactory;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.util.IOUtil;
 
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.IFlexViolation;
 
@@ -81,36 +82,34 @@ public abstract class AbstractFlexPmdEngine
       resourceAsStream.close();
       return temporaryRuleset;
    }
-   protected final File outputDirectory;
-   private final String packageToExclude;
-   private RuleSet      ruleSet;
 
-   private final File   sourceDirectory;
+   protected final File  outputDirectory;
+   private final String  packageToExclude;
+   private final RuleSet ruleSet;
+   private final File    sourceDirectory;
 
-   public AbstractFlexPmdEngine( final File sourceDirectoryToBeSet,
-                                 final File outputDirectoryToBeSet,
-                                 final String packageToExcludeToBeSet )
+   public AbstractFlexPmdEngine( final FlexPmdParameters parameters ) throws URISyntaxException,
+                                                                     IOException
    {
       super();
 
-      sourceDirectory = sourceDirectoryToBeSet;
-      outputDirectory = outputDirectoryToBeSet;
-      packageToExclude = packageToExcludeToBeSet;
+      sourceDirectory = parameters.getSourceDirectory();
+      outputDirectory = parameters.getOutputDirectory();
+      packageToExclude = parameters.getExcludePackage();
+      ruleSet = loadRuleset( parameters.getRuleSet() );
    }
 
    /**
     * @param flexPmdViolations
-    * @param ruleSetFile
     * @return The number of violations with the given ruleset and the result
     *         wrapper in case of reuse
     * @throws PMDException
     * @throws URISyntaxException
     * @throws IOException
     */
-   public final void executeReport( final FlexPmdViolations flexPmdViolations,
-                                    final File ruleSetFile ) throws PMDException,
-                                                            URISyntaxException,
-                                                            IOException
+   public final void executeReport( final FlexPmdViolations flexPmdViolations ) throws PMDException,
+                                                                               URISyntaxException,
+                                                                               IOException
    {
       if ( sourceDirectory == null )
       {
@@ -120,8 +119,6 @@ public abstract class AbstractFlexPmdEngine
       {
          throw new PMDException( "unspecified outputDirectory" );
       }
-
-      loadRuleset( ruleSetFile );
 
       LOGGER.fine( "Search Flex files in "
             + sourceDirectory.getPath() );
@@ -168,20 +165,22 @@ public abstract class AbstractFlexPmdEngine
                                           "Engine" );
    }
 
-   private void loadRuleset( final File ruleSetFile ) throws URISyntaxException,
-                                                     IOException
+   private RuleSet loadRuleset( final File ruleSetFile ) throws URISyntaxException,
+                                                        IOException
    {
       final File realRuleSet = extractRuleset( ruleSetFile );
 
       final FileInputStream inputStream = new FileInputStream( realRuleSet );
 
-      ruleSet = new RuleSetFactory().createRuleSet( inputStream );
+      final RuleSet loadedRuleSet = new RuleSetFactory().createRuleSet( inputStream );
 
       LOGGER.info( "Ruleset: "
             + realRuleSet.getAbsolutePath() );
       LOGGER.info( "Rules number in the ruleSet: "
-            + ruleSet.getRules().size() );
+            + loadedRuleSet.getRules().size() );
       inputStream.close();
+
+      return loadedRuleSet;
    }
 
    private void writeAnyReport( final FlexPmdViolations flexPmdViolations ) throws PMDException

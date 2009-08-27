@@ -32,6 +32,7 @@ package com.adobe.ac.pmd;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.xml.transform.stream.StreamSource;
@@ -56,9 +57,14 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngineTest
    @Override
    protected AbstractFlexPmdEngine getFlexPmdEngine( final File sourceDirectory,
                                                      final File outputDirectory,
-                                                     final String packageToExclude )
+                                                     final String packageToExclude,
+                                                     final File ruleSet ) throws URISyntaxException,
+                                                                         IOException
    {
-      return new FlexPmdXmlEngine( sourceDirectory, outputDirectory, packageToExclude );
+      return new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
+                                                          outputDirectory,
+                                                          ruleSet,
+                                                          sourceDirectory ) );
    }
 
    @Override

@@ -71,15 +71,17 @@ public abstract class AbstractTestFlexPmdEngineTest extends TestCase
 
       getFlexPmdEngine( sourceDirectory,
                         outputDirectory,
-                        "" ).executeReport( new FlexPmdViolations(),
-                                            null );
+                        "",
+                        null ).executeReport( new FlexPmdViolations() );
 
       onTestExecuteReportDone();
    }
 
    protected abstract AbstractFlexPmdEngine getFlexPmdEngine( final File sourceDirectory,
                                                               final File outputDirectory,
-                                                              final String packageToExclude );
+                                                              final String packageToExclude,
+                                                              final File ruleSet ) throws URISyntaxException,
+                                                                                  IOException;
 
    protected abstract void onTestExecuteReportDone();
 }

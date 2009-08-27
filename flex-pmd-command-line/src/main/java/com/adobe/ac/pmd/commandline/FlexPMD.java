@@ -40,6 +40,7 @@ import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.pmd.CommandLineOptions;
 import com.adobe.ac.pmd.CommandLineUtils;
+import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.martiansoftware.jsap.JSAP;
@@ -103,14 +104,15 @@ public final class FlexPMD // NO_UCD
 
          final File sourceDirectory = new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
          final File outputDirectory = new File( getParameterValue( CommandLineOptions.OUTPUT ) );
-         final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( sourceDirectory,
-                                                               outputDirectory,
-                                                               excludePackage == null ? ""
-                                                                                     : excludePackage );
+         final FlexPmdParameters parameters = new FlexPmdParameters( excludePackage == null ? ""
+                                                                                           : excludePackage,
+                                                                     outputDirectory,
+                                                                     rulesetRef == null ? null
+                                                                                       : new File( rulesetRef ),
+                                                                     sourceDirectory );
+         final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( parameters );
 
-         engine.executeReport( new FlexPmdViolations(),
-                               rulesetRef == null ? null
-                                                 : new File( rulesetRef ) );
+         engine.executeReport( new FlexPmdViolations() );
       }
 
       return config.success();
