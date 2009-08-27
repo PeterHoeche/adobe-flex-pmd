@@ -215,7 +215,10 @@
 			<plugin>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${flex-pmd-maven-plugin.version}</version>
+				<version>${flex-pmd.version}</version>
+				<configuration>
+					<failOnError>true</failOnError>
+				</configuration>
 			</plugin>
 
 			<plugin>

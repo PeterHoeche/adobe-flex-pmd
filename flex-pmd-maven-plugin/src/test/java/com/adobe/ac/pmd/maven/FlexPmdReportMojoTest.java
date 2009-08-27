@@ -52,7 +52,8 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
       final FlexPmdReportMojo mojo = new FlexPmdReportMojo( new File( "target" ),
                                                             new MavenProjectStub(),
                                                             null,
-                                                            getTestDirectory() );
+                                                            getTestDirectory(),
+                                                            false );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       assertNotNull( "",

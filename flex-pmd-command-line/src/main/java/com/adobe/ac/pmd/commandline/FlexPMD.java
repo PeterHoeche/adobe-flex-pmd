@@ -40,6 +40,7 @@ import net.sourceforge.pmd.PMDException;
 
 import com.adobe.ac.pmd.CommandLineOptions;
 import com.adobe.ac.pmd.CommandLineUtils;
+import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
@@ -107,7 +108,8 @@ public final class FlexPMD // NO_UCD
                                                                excludePackage == null ? ""
                                                                                      : excludePackage );
 
-         engine.executeReport( rulesetRef == null ? null
+         engine.executeReport( new FlexPmdViolations(),
+                               rulesetRef == null ? null
                                                  : new File( rulesetRef ) );
       }
 

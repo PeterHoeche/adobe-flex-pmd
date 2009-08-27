@@ -53,6 +53,18 @@ public abstract class AbstractFlexPmdEngine
 {
    private static final Logger LOGGER = Logger.getLogger( AbstractFlexPmdEngine.class.getName() );
 
+   private static int computeViolationNumber( final FlexPmdViolations flexPmdViolations )
+   {
+      int foundViolations = 0;
+      for ( final List< IFlexViolation > violations : flexPmdViolations.getViolations().values() )
+      {
+         foundViolations += violations.size();
+      }
+      LOGGER.info( "Violations number found: "
+            + foundViolations );
+      return foundViolations;
+   }
+
    private static File extractDefaultRuleSet() throws URISyntaxException,
                                               IOException
    {
@@ -69,10 +81,10 @@ public abstract class AbstractFlexPmdEngine
       resourceAsStream.close();
       return temporaryRuleset;
    }
-
    protected final File outputDirectory;
    private final String packageToExclude;
    private RuleSet      ruleSet;
+
    private final File   sourceDirectory;
 
    public AbstractFlexPmdEngine( final File sourceDirectoryToBeSet,
@@ -87,21 +99,6 @@ public abstract class AbstractFlexPmdEngine
    }
 
    /**
-    * @param ruleSetFile
-    * @return The number of violations with the given ruleset
-    * @throws PMDException
-    * @throws URISyntaxException
-    * @throws IOException
-    */
-   public final int executeReport( final File ruleSetFile ) throws PMDException,
-                                                           URISyntaxException,
-                                                           IOException
-   {
-      return executeReport( new FlexPmdViolations(),
-                            ruleSetFile );
-   }
-
-   /**
     * @param flexPmdViolations
     * @param ruleSetFile
     * @return The number of violations with the given ruleset and the result
@@ -110,10 +107,10 @@ public abstract class AbstractFlexPmdEngine
     * @throws URISyntaxException
     * @throws IOException
     */
-   public final int executeReport( final FlexPmdViolations flexPmdViolations,
-                                   final File ruleSetFile ) throws PMDException,
-                                                           URISyntaxException,
-                                                           IOException
+   public final void executeReport( final FlexPmdViolations flexPmdViolations,
+                                    final File ruleSetFile ) throws PMDException,
+                                                            URISyntaxException,
+                                                            IOException
    {
       if ( sourceDirectory == null )
       {
@@ -133,9 +130,8 @@ public abstract class AbstractFlexPmdEngine
       {
          computeViolations( flexPmdViolations );
       }
+      computeViolationNumber( flexPmdViolations );
       writeAnyReport( flexPmdViolations );
-
-      return computeViolationNumber( flexPmdViolations );
    }
 
    public final RuleSet getRuleSet()
@@ -144,18 +140,6 @@ public abstract class AbstractFlexPmdEngine
    }
 
    protected abstract void writeReport( final FlexPmdViolations pmd ) throws PMDException;
-
-   private int computeViolationNumber( final FlexPmdViolations flexPmdViolations )
-   {
-      int foundViolations = 0;
-      for ( final List< IFlexViolation > violations : flexPmdViolations.getViolations().values() )
-      {
-         foundViolations += violations.size();
-      }
-      LOGGER.info( "Violations number found: "
-            + foundViolations );
-      return foundViolations;
-   }
 
    private void computeViolations( final FlexPmdViolations flexPmdViolations ) throws PMDException
    {

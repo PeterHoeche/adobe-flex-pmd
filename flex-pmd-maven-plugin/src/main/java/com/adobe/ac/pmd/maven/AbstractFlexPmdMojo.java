@@ -31,13 +31,24 @@
 package com.adobe.ac.pmd.maven;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import net.sourceforge.pmd.PMDException;
+
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
+import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
+
+import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
+import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
+import com.adobe.ac.pmd.engines.PmdEngineUtils;
 
 abstract class AbstractFlexPmdMojo extends AbstractMavenReport
 {
@@ -58,6 +69,13 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     * @parameter
     */
    private final String excludePackage = "";
+
+   /**
+    * Build fails if an violation error occurs.
+    * 
+    * @parameter
+    */
+   private boolean      failOnError;
 
    /**
     * Location of the file.
@@ -107,7 +125,8 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    public AbstractFlexPmdMojo( final File outputDirectoryToBeSet,
                                final MavenProject projectToBeSet,
                                final File ruleSetToBeSet,
-                               final File sourceDirectoryToBeSet )
+                               final File sourceDirectoryToBeSet,
+                               final boolean failOnErrorToBeSet )
    {
       super();
 
@@ -115,6 +134,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       project = projectToBeSet;
       ruleSet = ruleSetToBeSet;
       sourceDirectory = sourceDirectoryToBeSet;
+      failOnError = failOnErrorToBeSet;
    }
 
    public final String getDescription( final Locale locale )
@@ -130,6 +150,40 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    public final String getOutputName()
    {
       return OUTPUT_NAME;
+   }
+
+   @Override
+   protected final void executeReport( final Locale locale ) throws MavenReportException
+   {
+      LOGGER.info( "FlexPmdMojo starts" );
+      try
+      {
+         final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( getSourceDirectory(),
+                                                                    getOutputDirectoryFile(),
+                                                                    getExcludePackage() );
+         final FlexPmdViolations violations = new FlexPmdViolations();
+         engine.executeReport( violations,
+                               getRuleSet() );
+
+         onXmlReportExecuted( violations,
+                              locale );
+      }
+      catch ( final PMDException e )
+      {
+         throw new MavenReportException( "An error has been thrown while executing the PMD report", e );
+      }
+      catch ( final FileNotFoundException e )
+      {
+         throw new MavenReportException( "The Ruleset url has not been found", e );
+      }
+      catch ( final URISyntaxException e )
+      {
+         throw new MavenReportException( "The Ruleset url has not been found", e );
+      }
+      catch ( final IOException e )
+      {
+         throw new MavenReportException( "The Ruleset url has not been found", e );
+      }
    }
 
    protected final String getExcludePackage()
@@ -168,6 +222,23 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    protected final File getSourceDirectory()
    {
       return sourceDirectory;
+   }
+
+   protected void onXmlReportExecuted( final FlexPmdViolations violations,
+                                       final Locale locale ) throws PMDException,
+                                                            URISyntaxException,
+                                                            IOException,
+                                                            MavenReportException
+   {
+      if ( failOnError )
+      {
+         final String message = PmdEngineUtils.findFirstViolationError( violations );
+
+         if ( message.length() > 0 )
+         {
+            throw new MavenReportException( message );
+         }
+      }
    }
 
    protected final void setSiteRenderer( final SiteRenderer siteRendererToBeSet ) // NO_UCD

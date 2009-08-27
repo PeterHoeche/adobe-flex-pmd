@@ -41,6 +41,8 @@ import net.sourceforge.pmd.PMDException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.adobe.ac.pmd.FlexPmdViolations;
+
 public abstract class AbstractTestFlexPmdEngineTest extends TestCase
 {
    private static final String OUTPUT_DIRECTORY_URL = "target/report/";
@@ -69,7 +71,8 @@ public abstract class AbstractTestFlexPmdEngineTest extends TestCase
 
       getFlexPmdEngine( sourceDirectory,
                         outputDirectory,
-                        "" ).executeReport( null );
+                        "" ).executeReport( new FlexPmdViolations(),
+                                            null );
 
       onTestExecuteReportDone();
    }

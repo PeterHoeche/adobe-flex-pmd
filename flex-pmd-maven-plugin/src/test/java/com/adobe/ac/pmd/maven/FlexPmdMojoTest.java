@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.maven;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.Locale;
@@ -45,7 +46,18 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 public class FlexPmdMojoTest extends FlexPmdTestBase
 {
    @Test
-   public void testExecuteReport() throws MojoExecutionException
+   public void testExecuteReport()
+   {
+      executeReport( false );
+   }
+
+   @Test
+   public void testExecuteReportFailOnError()
+   {
+      executeReport( true );
+   }
+
+   private void executeReport( final boolean failOnError )
    {
       final File outputDirectoryToBeSet = new File( "target/pmd" );
 
@@ -54,14 +66,31 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
       final FlexPmdMojo mojo = new FlexPmdMojo( outputDirectoryToBeSet,
                                                 new MavenProjectStub(),
                                                 null,
-                                                getTestDirectory() );
+                                                getTestDirectory(),
+                                                failOnError );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       assertNotNull( "",
                      mojo.getName( Locale.ENGLISH ) );
 
-      mojo.execute();
-
-      new File( "target/pmd.xml" ).delete();
+      try
+      {
+         mojo.execute();
+         if ( failOnError )
+         {
+            fail( "One expection should have been thrown" );
+         }
+      }
+      catch ( final MojoExecutionException e )
+      {
+         if ( !failOnError )
+         {
+            fail( "No expections should have been thrown" );
+         }
+      }
+      finally
+      {
+         new File( "target/pmd.xml" ).delete();
+      }
    }
 }

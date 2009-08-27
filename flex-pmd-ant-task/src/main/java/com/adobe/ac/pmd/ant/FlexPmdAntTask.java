@@ -40,14 +40,17 @@ import net.sourceforge.pmd.PMDException;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
+import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
+import com.adobe.ac.pmd.engines.PmdEngineUtils;
 
 public class FlexPmdAntTask extends Task // NO_UCD
 {
-   private File   outputDirectory;
-   private String packageToExclude;
-   private File   ruleSet;
-   private File   sourceDirectory;
+   private boolean failOnError;
+   private File    outputDirectory;
+   private String  packageToExclude;
+   private File    ruleSet;
+   private File    sourceDirectory;
 
    @Override
    public final void execute()
@@ -58,7 +61,20 @@ public class FlexPmdAntTask extends Task // NO_UCD
                                                                outputDirectory,
                                                                packageToExclude );
 
-         engine.executeReport( ruleSet );
+         final FlexPmdViolations violations = new FlexPmdViolations();
+
+         engine.executeReport( violations,
+                               ruleSet );
+
+         if ( failOnError )
+         {
+            final String message = PmdEngineUtils.findFirstViolationError( violations );
+
+            if ( message.length() > 0 )
+            {
+               throw new BuildException( message );
+            }
+         }
       }
       catch ( final PMDException e )
       {
@@ -76,6 +92,11 @@ public class FlexPmdAntTask extends Task // NO_UCD
       {
          throw new BuildException( e );
       }
+   }
+
+   public final void setFailOnError( final boolean failOnErrorToBeSet )
+   {
+      failOnError = failOnErrorToBeSet;
    }
 
    public final void setOutputDirectory( final File outputDirectoryToBeSet )

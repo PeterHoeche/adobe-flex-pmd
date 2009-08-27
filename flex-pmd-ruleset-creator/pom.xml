@@ -212,13 +212,20 @@
 					<htmlName>${project.artifactId}</htmlName>
 				</configuration>
 			</plugin>
-			<!--
-				plugin> <groupId>${project.groupId}</groupId>
+			
+			<plugin>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${flex-pmd-maven-plugin.version}</version> <executions>
-				<execution> <phase>package</phase> <goals> <goal>check</goal>
-				</goals> </execution> </executions> </plugin
-			-->
+				<version>${flex-pmd-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 	</build>
@@ -251,6 +258,9 @@
 				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
 				<version>${flex-pmd.version}</version>
+				<configuration>
+					<failOnError>true</failOnError>
+				</configuration>
 			</plugin>
 
 			<plugin>

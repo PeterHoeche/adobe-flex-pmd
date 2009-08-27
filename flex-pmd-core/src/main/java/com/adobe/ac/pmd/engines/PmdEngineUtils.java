@@ -28,48 +28,44 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.engines;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Map.Entry;
 
-import junit.framework.TestCase;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
-
-public class AllInOneRulesetTest extends TestCase
+public class PmdEngineUtils
 {
-   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
-
-   public void testLoadRuleSet() throws URISyntaxException,
-                                PMDException,
-                                IOException
+   public static String findFirstViolationError( final FlexPmdViolations violations )
    {
-      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource( "/allInOneRuleset.xml" );
+      final StringBuffer buffer = new StringBuffer();
 
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl );
+      for ( final Entry< IFlexFile, List< IFlexViolation >> violatedFile : violations.getViolations()
+                                                                                     .entrySet() )
+      {
+         for ( final IFlexViolation violation : violatedFile.getValue() )
+         {
+            if ( violation.getRule().getPriority() == Integer.parseInt( ViolationPriority.HIGH.toString() ) )
+            {
+               final String message = "An error violation has been found on the file {0} at "
+                     + "line {1}, with the rule \"{2}\": {3}";
+               final MessageFormat form = new MessageFormat( message );
 
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl.toURI() );
-
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl.toURI().getPath() );
-
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
-
-      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( sourceDirectory, outputDirectory, "" );
-
-      engine.executeReport( new FlexPmdViolations(),
-                            ruleSetFile );
-
-      assertEquals( "Number of rules found is not correct",
-                    44,
-                    engine.getRuleSet().size() );
+               buffer.append( form.format( new String[]
+               { violation.getFilename(),
+                           String.valueOf( violation.getBeginLine() ),
+                           violation.getRule().getRuleClass(),
+                           violation.getRuleMessage() } ) );
+               buffer.append( "\n" );
+            }
+         }
+      }
+      return buffer.toString();
    }
+
 }
