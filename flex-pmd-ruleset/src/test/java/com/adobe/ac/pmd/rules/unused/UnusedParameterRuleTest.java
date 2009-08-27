@@ -40,12 +40,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedParameterRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
@@ -63,7 +57,12 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
                                              new ViolationPosition( 62, 62 ) } ),
                        "Sorted.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 58, 58 ),
-                                   new ViolationPosition( 67, 67 ) } );
+                       { new ViolationPosition( 58, 58 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UnusedParameterRule();
    }
 }

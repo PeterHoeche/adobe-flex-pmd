@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.rules.unused;
 import java.util.HashMap;
 
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnusedParameterRule extends AbstractUnusedVariableRule
@@ -51,13 +52,17 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
       super.visitFunction( ast,
                            type );
-      for ( final String variableName : variablesUnused.keySet() )
-      {
-         final IParserNode variable = variablesUnused.get( variableName );
 
-         addViolation( variable,
-                       variable,
-                       variableName );
+      if ( !functionIsEventHandler( ast ) )
+      {
+         for ( final String variableName : variablesUnused.keySet() )
+         {
+            final IParserNode variable = variablesUnused.get( variableName );
+
+            addViolation( variable,
+                          variable,
+                          variableName );
+         }
       }
    }
 
@@ -78,6 +83,29 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
             }
          }
       }
+   }
+
+   private String extractFunctionName( final IParserNode ast )
+   {
+      if ( ast.numChildren() != 0 )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            if ( node.is( NodeKind.NAME ) )
+            {
+               return node.getStringValue();
+            }
+         }
+      }
+      return "";
+   }
+
+   private boolean functionIsEventHandler( final IParserNode ast )
+   {
+      final String functionName = extractFunctionName( ast );
+
+      return functionName.startsWith( "on" )
+            || functionName.startsWith( "handle" ) || functionName.endsWith( "handler" );
    }
 
    private boolean isParameterAnEvent( final IParserNode parameterNode )

@@ -55,7 +55,7 @@ package com.model
 		
       public static function populateStub():void {
       }
-      internal static function insertConfig(configVO:ConfigVO):void {
+      internal static function onInsertConfig(configVO:ConfigVO):void {
       }
       protected static function populateStub():void {
       }
