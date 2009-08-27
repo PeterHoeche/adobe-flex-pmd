@@ -39,11 +39,14 @@ import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class PmdEngineUtils
+public final class PmdEngineUtils
 {
    public static String findFirstViolationError( final FlexPmdViolations violations )
    {
       final StringBuffer buffer = new StringBuffer();
+      final String message = "An error violation has been found on the file {0} at "
+            + "line {1}, with the rule \"{2}\": {3}";
+      final MessageFormat form = new MessageFormat( message );
 
       for ( final Entry< IFlexFile, List< IFlexViolation >> violatedFile : violations.getViolations()
                                                                                      .entrySet() )
@@ -52,20 +55,19 @@ public class PmdEngineUtils
          {
             if ( violation.getRule().getPriority() == Integer.parseInt( ViolationPriority.HIGH.toString() ) )
             {
-               final String message = "An error violation has been found on the file {0} at "
-                     + "line {1}, with the rule \"{2}\": {3}";
-               final MessageFormat form = new MessageFormat( message );
-
                buffer.append( form.format( new String[]
                { violation.getFilename(),
                            String.valueOf( violation.getBeginLine() ),
                            violation.getRule().getRuleClass(),
                            violation.getRuleMessage() } ) );
-               buffer.append( "\n" );
+               buffer.append( '\n' );
             }
          }
       }
       return buffer.toString();
    }
 
+   private PmdEngineUtils()
+   {
+   }
 }

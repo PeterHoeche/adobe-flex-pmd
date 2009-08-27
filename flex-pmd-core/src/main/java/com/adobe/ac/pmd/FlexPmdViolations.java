@@ -156,10 +156,15 @@ public class FlexPmdViolations
                                  return leftValue.compareTo( rightValue );
                               }
                            } );
+         LOGGER.info( "Rules which took less than 1ms to run are not displayed." );
+
          for ( final IFlexRule flexRule : rulesSortedByTime )
          {
-            LOGGER.info( flexRule.getRuleName()
-                  + " took " + workBench.get( flexRule ) + "ms to compute" );
+            if ( workBench.get( flexRule ) > 0 )
+            {
+               LOGGER.info( flexRule.getRuleName()
+                     + " took " + workBench.get( flexRule ) + "ms to compute" );
+            }
          }
       }
    }
