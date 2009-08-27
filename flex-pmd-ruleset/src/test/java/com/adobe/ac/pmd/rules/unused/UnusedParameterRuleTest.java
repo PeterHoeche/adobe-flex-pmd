@@ -57,7 +57,7 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
                                              new ViolationPosition( 62, 62 ) } ),
                        "Sorted.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 58, 58 ) } );
+                       { new ViolationPosition( 67, 67 ) } );
    }
 
    @Override
