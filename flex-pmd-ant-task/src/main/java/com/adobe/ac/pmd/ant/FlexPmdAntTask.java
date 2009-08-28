@@ -48,6 +48,7 @@ import com.adobe.ac.pmd.engines.PmdEngineUtils;
 public class FlexPmdAntTask extends Task // NO_UCD
 {
    private boolean failOnError;
+
    private File    outputDirectory;
    private String  packageToExclude;
    private File    ruleSet;
@@ -58,6 +59,8 @@ public class FlexPmdAntTask extends Task // NO_UCD
    {
       try
       {
+         presetParameters();
+
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
                                                                                       outputDirectory,
                                                                                       sourceDirectory,
@@ -117,5 +120,18 @@ public class FlexPmdAntTask extends Task // NO_UCD
    public final void setSourceDirectory( final File sourceDirectoryToBeSet )
    {
       sourceDirectory = sourceDirectoryToBeSet;
+   }
+
+   final String getPackageToExclude()
+   {
+      return packageToExclude;
+   }
+
+   private void presetParameters()
+   {
+      if ( packageToExclude == null )
+      {
+         packageToExclude = "";
+      }
    }
 }

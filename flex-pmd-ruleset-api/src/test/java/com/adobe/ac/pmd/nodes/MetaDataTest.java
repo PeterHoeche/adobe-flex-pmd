@@ -30,61 +30,40 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-public enum MetaData
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class MetaDataTest
 {
-   ARRAY_ELEMENT_TYPE("ArrayElementType"),
-   BEFORE("Before"),
-   BINDABLE("Bindable"),
-   EMBED("Embed"),
-   EVENT("Event"),
-   OTHER("Other"),
-   TEST("Test");
-
-   public static MetaData create( final String metaDataName )
+   @Test
+   public void testCreate()
    {
-      MetaData metaData = null;
-      if ( MetaData.ARRAY_ELEMENT_TYPE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.ARRAY_ELEMENT_TYPE;
-      }
-      else if ( MetaData.BEFORE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.BEFORE;
-      }
-      else if ( MetaData.BINDABLE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.BINDABLE;
-      }
-      else if ( MetaData.EMBED.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.EMBED;
-      }
-      else if ( MetaData.EVENT.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.EVENT;
-      }
-      else if ( MetaData.TEST.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.TEST;
-      }
-      else
-      {
-         metaData = MetaData.OTHER;
-         metaData._name = metaDataName;
-      }
-      return metaData;
-   }
+      assertEquals( MetaData.BINDABLE.toString(),
+                    MetaData.create( MetaData.BINDABLE.toString() ).toString() );
 
-   private String _name;
+      assertEquals( MetaData.ARRAY_ELEMENT_TYPE.toString(),
+                    MetaData.create( MetaData.ARRAY_ELEMENT_TYPE.toString() ).toString() );
 
-   private MetaData( final String name )
-   {
-      _name = name;
-   }
+      assertEquals( MetaData.BEFORE.toString(),
+                    MetaData.create( MetaData.BEFORE.toString() ).toString() );
 
-   @Override
-   public String toString()
-   {
-      return _name;
+      assertEquals( MetaData.EMBED.toString(),
+                    MetaData.create( MetaData.EMBED.toString() ).toString() );
+
+      assertEquals( MetaData.EVENT.toString(),
+                    MetaData.create( MetaData.EVENT.toString() ).toString() );
+
+      assertEquals( MetaData.TEST.toString(),
+                    MetaData.create( MetaData.TEST.toString() ).toString() );
+
+      final String unknownMetaData = "Unknown";
+      final MetaData other = MetaData.create( unknownMetaData );
+
+      assertEquals( MetaData.OTHER,
+                    other );
+
+      assertEquals( unknownMetaData,
+                    other.toString() );
    }
 }

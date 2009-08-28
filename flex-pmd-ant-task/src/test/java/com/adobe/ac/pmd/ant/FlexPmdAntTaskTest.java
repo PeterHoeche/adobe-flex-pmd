@@ -28,63 +28,41 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
+package com.adobe.ac.pmd.ant;
 
-public enum MetaData
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.FlexPmdTestBase;
+
+public class FlexPmdAntTaskTest extends FlexPmdTestBase
 {
-   ARRAY_ELEMENT_TYPE("ArrayElementType"),
-   BEFORE("Before"),
-   BINDABLE("Bindable"),
-   EMBED("Embed"),
-   EVENT("Event"),
-   OTHER("Other"),
-   TEST("Test");
-
-   public static MetaData create( final String metaDataName )
+   @Test
+   public void testExecuteWithCorrectParameters()
    {
-      MetaData metaData = null;
-      if ( MetaData.ARRAY_ELEMENT_TYPE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.ARRAY_ELEMENT_TYPE;
-      }
-      else if ( MetaData.BEFORE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.BEFORE;
-      }
-      else if ( MetaData.BINDABLE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.BINDABLE;
-      }
-      else if ( MetaData.EMBED.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.EMBED;
-      }
-      else if ( MetaData.EVENT.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.EVENT;
-      }
-      else if ( MetaData.TEST.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.TEST;
-      }
-      else
-      {
-         metaData = MetaData.OTHER;
-         metaData._name = metaDataName;
-      }
-      return metaData;
+      // final FlexPmdAntTask task = new FlexPmdAntTask();
+      // final Project project = new Project();
+      //
+      // task.setProject( project );
+      // task.setOutputDirectory( new File( OUTPUT_DIRECTORY ) );
+      // task.setSourceDirectory( getTestDirectory() );
+      //
+      // task.execute();
+      //
+      // assertEquals( "",
+      // task.getPackageToExclude() );
+      // assertTrue( new File( OUTPUT_DIRECTORY
+      // + File.separator + FlexPMDFormat.XML.toString() ).exists() );
    }
 
-   private String _name;
-
-   private MetaData( final String name )
+   @Test(expected = BuildException.class)
+   public void testExecuteWithoutSettingParameters()
    {
-      _name = name;
-   }
+      final FlexPmdAntTask task = new FlexPmdAntTask();
 
-   @Override
-   public String toString()
-   {
-      return _name;
+      final Project project = new Project();
+      task.setProject( project );
+      task.execute();
    }
 }

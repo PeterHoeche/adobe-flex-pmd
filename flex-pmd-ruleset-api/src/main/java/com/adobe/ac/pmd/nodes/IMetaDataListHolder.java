@@ -36,7 +36,7 @@ public interface IMetaDataListHolder
 {
    void add( IMetaData metaData );
 
-   List< IMetaData > getMetaData( String metaDataName );
+   List< IMetaData > getMetaData( MetaData metaDataName );
 
    int getMetaDataCount();
 }

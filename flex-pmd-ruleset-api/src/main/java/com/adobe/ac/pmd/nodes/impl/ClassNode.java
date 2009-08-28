@@ -42,6 +42,7 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -49,15 +50,15 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class ClassNode extends AbstractNode implements IClass
 {
-   private List< IAttribute >               attributes;
-   private List< IConstant >                constants;
-   private IFunction                        constructor;
-   private String                           extensionName;
-   private List< IFunction >                functions;
-   private List< IParserNode >              implementations;
-   private Map< String, List< IMetaData > > metaDataList;
-   private Set< Modifier >                  modifiers;
-   private IdentifierNode                   name;
+   private List< IAttribute >                 attributes;
+   private List< IConstant >                  constants;
+   private IFunction                          constructor;
+   private String                             extensionName;
+   private List< IFunction >                  functions;
+   private List< IParserNode >                implementations;
+   private Map< MetaData, List< IMetaData > > metaDataList;
+   private Set< Modifier >                    modifiers;
+   private IdentifierNode                     name;
 
    protected ClassNode( final IParserNode node )
    {
@@ -66,12 +67,14 @@ class ClassNode extends AbstractNode implements IClass
 
    public void add( final IMetaData metaData )
    {
-      if ( !metaDataList.containsKey( metaData.getName() ) )
+      final MetaData metaDataImpl = MetaData.create( metaData.getName() );
+
+      if ( !metaDataList.containsKey( metaDataImpl ) )
       {
-         metaDataList.put( metaData.getName(),
+         metaDataList.put( metaDataImpl,
                            new ArrayList< IMetaData >() );
       }
-      metaDataList.get( metaData.getName() ).add( metaData );
+      metaDataList.get( metaDataImpl ).add( metaData );
    }
 
    public void add( final Modifier modifier )
@@ -129,7 +132,7 @@ class ClassNode extends AbstractNode implements IClass
       return implementations;
    }
 
-   public List< IMetaData > getMetaData( final String metaDataName )
+   public List< IMetaData > getMetaData( final MetaData metaDataName )
    {
       if ( metaDataList.containsKey( metaDataName ) )
       {
@@ -162,7 +165,7 @@ class ClassNode extends AbstractNode implements IClass
 
    public boolean isBindable()
    {
-      return metaDataList.get( "Bindable" ) != null;
+      return metaDataList.get( MetaData.BINDABLE ) != null;
    }
 
    /*
@@ -183,7 +186,7 @@ class ClassNode extends AbstractNode implements IClass
    protected void compute()
    {
       modifiers = new HashSet< Modifier >();
-      metaDataList = new HashMap< String, List< IMetaData > >();
+      metaDataList = new HashMap< MetaData, List< IMetaData > >();
       implementations = new ArrayList< IParserNode >();
 
       if ( getInternalNode().numChildren() != 0 )

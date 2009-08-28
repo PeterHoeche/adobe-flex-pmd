@@ -6,8 +6,8 @@
 	<artifactId>flex-pmd-ant-task</artifactId>
 	<name>Adobe Flex PMD Ant task</name>
 	<parent>
-		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
+		<artifactId>flex-pmd</artifactId>
 		<version>1.0.RC3-SNAPSHOT</version>
 	</parent>
 	<description />
@@ -17,69 +17,34 @@
 		<ant.version>1.7.0</ant.version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>${ant.version}</version>
-		</dependency>
-
-		<!-- Dependencies for packaging from ANT -->
-
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-ruleset</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-ruleset-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-plugin-utils</artifactId>
-			<version>${as3-plugin-utils.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-parser</artifactId>
-			<version>${as3-parser.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-parser-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>pmd</groupId>
-			<artifactId>pmd</artifactId>
-			<version>${pmd.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-			<version>${plexus-utils.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons-lang.version}</version>
-		</dependency>
-	</dependencies>
-
 	<build>
+		<testResources>
+			<testResource>
+				<directory>${project.build.directory}/test/generated-resources</directory>
+			</testResource>
+		</testResources>
+
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-test-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>${project.groupId}</includeGroupIds>
+							<includes>**/*.as,**/*.mxml</includes>
+							<outputDirectory>${project.build.directory}/test/generated-resources</outputDirectory>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>${maven-antrun-plugin.version}</version>
@@ -138,5 +103,77 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+			<artifactId>${project.parent.artifactId}-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>${ant.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
+			<version>${project.parent.version}</version>
+			<classifier>resources</classifier>
+			<type>zip</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Dependencies for packaging from ANT -->
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+			<artifactId>${project.parent.artifactId}-ruleset</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+			<artifactId>${project.parent.artifactId}-ruleset-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+			<artifactId>${project.parent.artifactId}-files</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-plugin-utils</artifactId>
+			<version>${as3-plugin-utils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-parser</artifactId>
+			<version>${as3-parser.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-parser-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pmd</groupId>
+			<artifactId>pmd</artifactId>
+			<version>${pmd.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>${plexus-utils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+	</dependencies>
 
 </project>

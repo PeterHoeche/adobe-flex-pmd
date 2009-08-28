@@ -32,28 +32,18 @@ package com.adobe.ac.pmd.rules.core;
 
 public enum ViolationPriority
 {
-   HIGH
+   HIGH("1"), LOW("5"), NORMAL("3");
+
+   private String _priority;
+
+   private ViolationPriority( final String priority )
    {
-      @Override
-      public String toString()
-      {
-         return "1";
-      }
-   },
-   LOW
+      _priority = priority;
+   }
+
+   @Override
+   public String toString()
    {
-      @Override
-      public String toString()
-      {
-         return "5";
-      }
-   },
-   NORMAL
-   {
-      @Override
-      public String toString()
-      {
-         return "3";
-      }
-   };
+      return _priority;
+   }
 }

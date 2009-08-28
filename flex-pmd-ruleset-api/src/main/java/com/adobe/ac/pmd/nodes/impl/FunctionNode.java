@@ -41,6 +41,7 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IParameter;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -49,14 +50,14 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class FunctionNode extends AbstractNode implements IFunction
 {
-   private IParserNode                      body;
-   private int                              cyclomaticComplexity;
-   private Map< String, IParserNode >       localVariables;
-   private Map< String, List< IMetaData > > metaDataList;
-   private Set< Modifier >                  modifiers;
-   private IdentifierNode                   name;
-   private List< IParameter >               parameters;
-   private IIdentifierNode                  returnType;
+   private IParserNode                        body;
+   private int                                cyclomaticComplexity;
+   private Map< String, IParserNode >         localVariables;
+   private Map< MetaData, List< IMetaData > > metaDataList;
+   private Set< Modifier >                    modifiers;
+   private IdentifierNode                     name;
+   private List< IParameter >                 parameters;
+   private IIdentifierNode                    returnType;
 
    protected FunctionNode( final IParserNode node )
    {
@@ -65,12 +66,14 @@ class FunctionNode extends AbstractNode implements IFunction
 
    public void add( final IMetaData metaData )
    {
-      if ( !metaDataList.containsKey( metaData.getName() ) )
+      final MetaData metaDataImpl = MetaData.create( metaData.getName() );
+
+      if ( !metaDataList.containsKey( metaDataImpl ) )
       {
-         metaDataList.put( metaData.getName(),
+         metaDataList.put( metaDataImpl,
                            new ArrayList< IMetaData >() );
       }
-      metaDataList.get( metaData.getName() ).add( metaData );
+      metaDataList.get( metaDataImpl ).add( metaData );
    }
 
    public void add( final Modifier modifier )
@@ -128,7 +131,7 @@ class FunctionNode extends AbstractNode implements IFunction
       return localVariables;
    }
 
-   public List< IMetaData > getMetaData( final String metaDataName )
+   public List< IMetaData > getMetaData( final MetaData metaDataName )
    {
       if ( metaDataList.containsKey( metaDataName ) )
       {
@@ -241,7 +244,7 @@ class FunctionNode extends AbstractNode implements IFunction
    protected void compute()
    {
       modifiers = new HashSet< Modifier >();
-      metaDataList = new HashMap< String, List< IMetaData > >();
+      metaDataList = new HashMap< MetaData, List< IMetaData > >();
       localVariables = new HashMap< String, IParserNode >();
       parameters = new ArrayList< IParameter >();
 

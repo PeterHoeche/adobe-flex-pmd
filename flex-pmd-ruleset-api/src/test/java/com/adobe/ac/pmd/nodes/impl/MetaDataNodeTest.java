@@ -67,7 +67,7 @@ public class MetaDataNodeTest extends FlexPmdTestBase
                                                   .getClassNode()
                                                   .getConstants()
                                                   .get( 0 );
-      assertEquals( MetaData.EMBED,
+      assertEquals( MetaData.EMBED.toString(),
                     show.getMetaData( MetaData.EMBED ).get( 0 ).getName() );
 
    }
@@ -75,9 +75,9 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    @Test
    public void testGetMetaDataName()
    {
-      assertEquals( MetaData.BINDABLE,
+      assertEquals( MetaData.BINDABLE.toString(),
                     modelLocator.getMetaData( MetaData.BINDABLE ).get( 0 ).getName() );
-      assertEquals( MetaData.EVENT,
+      assertEquals( MetaData.EVENT.toString(),
                     unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getName() );
    }
 

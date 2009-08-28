@@ -42,6 +42,7 @@ import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.IVariable;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -56,11 +57,11 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 {
-   private IFieldInitialization             initializationExpression;
-   private Map< String, List< IMetaData > > metaDataList;
-   private Set< Modifier >                  modifiers;
-   private IdentifierNode                   name;
-   private IdentifierNode                   type;
+   private IFieldInitialization               initializationExpression;
+   private Map< MetaData, List< IMetaData > > metaDataList;
+   private Set< Modifier >                    modifiers;
+   private IdentifierNode                     name;
+   private IdentifierNode                     type;
 
    protected VariableNode( final IParserNode rootNode )
    {
@@ -69,12 +70,13 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 
    public void add( final IMetaData metaData )
    {
-      if ( !metaDataList.containsKey( metaData.getName() ) )
+      final MetaData metaDataImpl = MetaData.create( metaData.getName() );
+      if ( !metaDataList.containsKey( metaDataImpl ) )
       {
-         metaDataList.put( metaData.getName(),
+         metaDataList.put( metaDataImpl,
                            new ArrayList< IMetaData >() );
       }
-      metaDataList.get( metaData.getName() ).add( metaData );
+      metaDataList.get( metaDataImpl ).add( metaData );
    }
 
    public void add( final Modifier modifier )
@@ -91,7 +93,7 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       return initializationExpression;
    }
 
-   public List< IMetaData > getMetaData( final String metaDataName )
+   public List< IMetaData > getMetaData( final MetaData metaDataName )
    {
       return metaDataList.get( metaDataName );
    }
@@ -124,7 +126,7 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
    @Override
    protected void compute()
    {
-      metaDataList = new HashMap< String, List< IMetaData > >();
+      metaDataList = new HashMap< MetaData, List< IMetaData > >();
       modifiers = new HashSet< Modifier >();
 
       if ( getInternalNode().is( NodeKind.NAME_TYPE_INIT ) )
