@@ -128,8 +128,8 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    {
       super();
 
-      outputDirectory = parameters.getOutputDirectory();
       project = projectToBeSet;
+      outputDirectory = parameters.getOutputDirectory();
       ruleSet = parameters.getRuleSet();
       sourceDirectory = parameters.getSourceDirectory();
       failOnError = parameters.isFailOnError();
@@ -157,10 +157,11 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       LOGGER.info( "FlexPmdMojo starts" );
       try
       {
-         final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( getExcludePackage(),
-                                                                                           getOutputDirectoryFile(),
-                                                                                           getRuleSet(),
-                                                                                           getSourceDirectory() ) );
+         final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( excludePackage,
+                                                                                           failOnError,
+                                                                                           outputDirectory,
+                                                                                           ruleSet,
+                                                                                           sourceDirectory ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
          engine.executeReport( violations );
 
