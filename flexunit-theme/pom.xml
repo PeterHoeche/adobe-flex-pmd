@@ -8,12 +8,6 @@
 	<description>Adobe FlexUnit theme</description>
 	<version>1.0</version>
 
-	<parent>
-		<artifactId>flex-pmd</artifactId>
-		<groupId>com.adobe.ac</groupId>
-		<version>1.0.RC3-SNAPSHOT</version>
-	</parent>
-	
 	<properties>
 
 		<!-- Plugin versions -->

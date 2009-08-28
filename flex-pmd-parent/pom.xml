@@ -149,7 +149,6 @@
 		<module>../flex-pmd-violations-viewer</module>
 		<module>../flex-pmd-flex-lib</module>
 		<module>../flex-pmd-files</module>
-		<module>../flexunit-theme</module>
 		<module>../flex-pmd-automator-workflow</module>
 	</modules>
 
