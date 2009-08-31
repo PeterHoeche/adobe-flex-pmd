@@ -107,6 +107,20 @@ public class TestExpression extends AbstractStatementTest
    }
 
    @Test
+   public void testEncapsulated() throws TokenException
+   {
+      assertStatement( "",
+                       "(dataProvider as ArrayCollection) = null",
+                       "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">"
+                             + "<encapsulated line=\"1\" column=\"2\"><relation line=\"1\" column=\"2\">"
+                             + "<primary line=\"1\" column=\"2\">dataProvider</primary>"
+                             + "<op line=\"1\" column=\"15\">as</op><primary line=\"1\" column=\"18\">"
+                             + "ArrayCollection</primary></relation></encapsulated></primary>"
+                             + "<op line=\"1\" column=\"35\">=</op><primary line=\"1\" column=\"37\">"
+                             + "null</primary></assign>" );
+   }
+
+   @Test
    public void testEqualityExpression() throws TokenException
    {
       assertStatement( "1",
@@ -124,6 +138,24 @@ public class TestExpression extends AbstractStatementTest
                        "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
                              + "</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" "
                              + "column=\"3\">6</primary></mul>" );
+   }
+
+   @Test
+   public void testNewExpression() throws TokenException
+   {
+      assertStatement( "",
+                       "new Event()",
+                       "<new line=\"1\" column=\"5\"><call line=\"1\" column=\"10\">"
+                             + "<primary line=\"1\" column=\"5\">Event</primary>"
+                             + "<arguments line=\"1\" column=\"11\"></arguments></call></new>" );
+
+      assertStatement( "",
+                       "new Event(\"lala\")",
+                       "<new line=\"1\" column=\"5\"><call line=\"1\" column=\"10\">"
+                             + "<primary line=\"1\" column=\"5\">Event</primary>"
+                             + "<arguments line=\"1\" column=\"11\"><primary line=\"1\" column=\"11\">"
+                             + "\"lala\"</primary></arguments></call></new>" );
+
    }
 
    @Test

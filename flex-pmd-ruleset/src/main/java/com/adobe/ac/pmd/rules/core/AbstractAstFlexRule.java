@@ -484,6 +484,12 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       while ( iterator.hasNext() );
    }
 
+   protected void visitNewExpression( final IParserNode newExpression )
+   {
+      visitExpression( newExpression.getChild( 0 ) );
+      visitExpressionList( newExpression.getChild( 1 ) );
+   }
+
    protected void visitParameters( final IParserNode functionParametersNode )
    {
       if ( isNodeNavigable( functionParametersNode ) )
@@ -999,12 +1005,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          }
          else if ( ast.is( NodeKind.NEW ) )
          {
-            visitExpression( ast.getChild( 0 ) );
-            visitExpressionList( ast.getChild( 1 ) );
-         }
-         else if ( ast.is( NodeKind.ENCAPSULATED ) )
-         {
-            visitExpression( ast.getChild( 0 ) );
+            visitNewExpression( ast );
          }
          else if ( ast.is( NodeKind.E4X_ATTR ) )
          {
