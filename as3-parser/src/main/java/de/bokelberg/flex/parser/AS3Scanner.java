@@ -30,15 +30,20 @@
  */
 package de.bokelberg.flex.parser;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.adobe.ac.utils.StackTraceUtils;
 
 /**
  * convert a actionscript to a stream of tokens
@@ -101,28 +106,50 @@ class AS3Scanner
       }
    }
 
-   private static class XMLVerifier extends DefaultHandler
+   private static class XMLVerifier
    {
-      public boolean verify( final String text )
+      private static DefaultHandler handler;
+      private static SAXParser      saxParser;
+
+      static
       {
-         // Use the default (non-validating) parser
          final SAXParserFactory factory = SAXParserFactory.newInstance();
+
+         handler = new DefaultHandler();
          factory.setNamespaceAware( false );
 
-         // Parse the input
-         SAXParser saxParser;
          try
          {
             saxParser = factory.newSAXParser();
+         }
+         catch ( final ParserConfigurationException e )
+         {
+            LOGGER.warning( StackTraceUtils.print( e ) );
+         }
+         catch ( final SAXException e )
+         {
+            LOGGER.warning( StackTraceUtils.print( e ) );
+         }
+      }
+
+      public static boolean verify( final String text )
+      {
+         try
+         {
             saxParser.parse( new InputSource( new StringReader( text ) ),
-                             this );
+                             handler );
             return true;
          }
-         catch ( final Throwable e )
+         catch ( final SAXException e )
          {
-            LOGGER.warning( e.getMessage() );
+            LOGGER.warning( StackTraceUtils.print( e ) );
+            return false;
          }
-         return false;
+         catch ( final IOException e )
+         {
+            LOGGER.warning( StackTraceUtils.print( e ) );
+            return false;
+         }
       }
    }
 
@@ -334,7 +361,7 @@ class AS3Scanner
 
    private boolean isValidXML( final String text )
    {
-      return new XMLVerifier().verify( text );
+      return XMLVerifier.verify( text );
    }
 
    private char nextChar()
@@ -431,15 +458,6 @@ class AS3Scanner
          return scanMultiLineComment();
       }
 
-      // how can we know, if something is a regExp or a operator?
-      // it looks like we have to look at the rest of the line and
-      // see if we can parse it without errors, eg.
-      // return 5/=2 == 1 && s == "/";
-      // if you parse the text between slashes as a regexp,
-      // the doublequote at the end is left over. So as soon
-      // as we see this error, we have to go back and try
-      // another option
-
       Token result = scanRegExp();
 
       if ( result != null )
@@ -515,11 +533,12 @@ class AS3Scanner
       if ( secondCharacter == '.' )
       {
          final char thirdCharacter = peekChar( 2 );
-
          final String text = thirdCharacter == '.' ? "..."
                                                   : "..";
          final Token result = new Token( text, line, column );
+
          skipChars( text.length() - 1 );
+
          return result;
       }
       return null;

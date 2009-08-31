@@ -47,6 +47,14 @@ public class TestClass extends AbstractAs3ParserTest
                                   + "<mod line=\"2\" column=\"16\">public</mod></mod-list><extends line=\"2\" "
                                   + "column=\"24\">B</extends><content line=\"2\" column=\"28\"></content>"
                                   + "</class></content>" );
+
+      assertPackageContent( "1",
+                            "public class A extends com.adobe::B { } ",
+                            "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\"><name line=\"2\" "
+                                  + "column=\"14\">A</name><mod-list line=\"2\" column=\"16\"><mod line=\"2\" "
+                                  + "column=\"16\">public</mod></mod-list><extends line=\"2\" column=\"24\""
+                                  + ">com.adobe::B</extends><content line=\"2\" column=\"39\"></content>"
+                                  + "</class></content>" );
    }
 
    @Test

@@ -47,6 +47,10 @@ public class TestVarStatement extends AbstractStatementTest
                              + "<init line=\"1\" column=\"15\"><primary line=\"1\" column=\"15\">4</primary>"
                              + "</init></name-type-init></var-list>" );
 
+      assertStatement( "1",
+                       "var a : int = 4, b : int = 2;",
+                       "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\"><name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"7\">int</type><init line=\"1\" column=\"15\"><primary line=\"1\" column=\"15\">4</primary></init></name-type-init><name-type-init line=\"1\" column=\"18\"><name line=\"1\" column=\"18\">b</name><type line=\"1\" column=\"20\">int</type><init line=\"1\" column=\"28\"><primary line=\"1\" column=\"28\">2</primary></init></name-type-init></var-list>" );
+
       assertStatement( "with array",
                        "var colors:Array = [0x2bc9f6, 0x0086ad];",
                        "<var-list line=\"1\" column=\"5\">"

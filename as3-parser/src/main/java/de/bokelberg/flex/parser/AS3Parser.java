@@ -79,7 +79,7 @@ public class AS3Parser implements IAS3Parser
                          scriptBlockLines );
    }
 
-   public final AS3Scanner getScn()
+   final AS3Scanner getScn()
    {
       return scn;
    }
@@ -97,7 +97,6 @@ public class AS3Parser implements IAS3Parser
          nextTokenAllowNewLine();
       }
       while ( tok.getText().equals( NEW_LINE ) );
-      // S ystem.out.println("tok:" + tok.getText() + ".");
    }
 
    /**
@@ -293,10 +292,6 @@ public class AS3Parser implements IAS3Parser
       else if ( tokIs( Operators.LEFT_PARENTHESIS ) )
       {
          result.addChild( parseEncapsulatedExpression() );
-      }
-      else if ( tokIs( Operators.AT ) )
-      {
-         result.addChild( parseE4XAttributeIdentifier() );
       }
       // else if ( tok.isNum()
       // || tokIs( KeyWords.TRUE ) || tokIs( KeyWords.FALSE ) || tokIs(
@@ -995,7 +990,7 @@ public class AS3Parser implements IAS3Parser
          consume( Operators.RIGHT_PARENTHESIS );
          return result;
       }
-      else if ( tokIs( "*" ) )
+      else if ( tokIs( Operators.TIMES ) )
       {
          final Node result = Node.create( NodeKind.E4X_STAR,
                                           tok.getLine(),
@@ -1003,6 +998,10 @@ public class AS3Parser implements IAS3Parser
          result.addChild( node );
          return result;
       }
+      // else if ( tokIs( Operators.AT ) )
+      // {
+      // return parseE4XAttributeIdentifier();
+      // }
       final Node result = Node.create( NodeKind.DOT,
                                        tok.getLine(),
                                        tok.getColumn() );
@@ -1011,35 +1010,35 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
-   private Node parseE4XAttributeIdentifier() throws TokenException
-   {
-      consume( Operators.AT );
-
-      final Node result = Node.create( NodeKind.E4X_ATTR,
-                                       tok.getLine(),
-                                       tok.getColumn() );
-      if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
-      {
-         nextToken();
-         result.addChild( parseExpression() );
-         consume( Operators.RIGHT_SQUARE_BRACKET );
-      }
-      else if ( tokIs( Operators.TIMES ) )
-      {
-         nextToken();
-         result.addChild( Node.create( NodeKind.STAR,
-                                       tok.getLine(),
-                                       tok.getColumn() ) );
-      }
-      else
-      {
-         result.addChild( Node.create( NodeKind.NAME,
-                                       tok.getLine(),
-                                       tok.getColumn(),
-                                       parseQualifiedName() ) );
-      }
-      return result;
-   }
+   // private Node parseE4XAttributeIdentifier() throws TokenException
+   // {
+   // consume( Operators.AT );
+   //
+   // final Node result = Node.create( NodeKind.E4X_ATTR,
+   // tok.getLine(),
+   // tok.getColumn() );
+   // if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
+   // {
+   // nextToken();
+   // result.addChild( parseExpression() );
+   // consume( Operators.RIGHT_SQUARE_BRACKET );
+   // }
+   // else if ( tokIs( Operators.TIMES ) )
+   // {
+   // nextToken();
+   // result.addChild( Node.create( NodeKind.STAR,
+   // tok.getLine(),
+   // tok.getColumn() ) );
+   // }
+   // else
+   // {
+   // result.addChild( Node.create( NodeKind.NAME,
+   // tok.getLine(),
+   // tok.getColumn(),
+   // parseQualifiedName() ) );
+   // }
+   // return result;
+   // }
 
    private Node parseEmptyStatement() throws TokenException
    {

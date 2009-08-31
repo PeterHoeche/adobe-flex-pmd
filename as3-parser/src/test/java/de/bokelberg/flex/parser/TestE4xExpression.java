@@ -30,27 +30,31 @@
  */
 package de.bokelberg.flex.parser;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 
-import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class TestAS3Parser extends AbstractAs3ParserTest
+public class TestE4xExpression extends AbstractStatementTest
 {
    @Test
-   public void testBuildAst() throws IOException,
-                             URISyntaxException,
-                             TokenException
+   public void testE4xFilter() throws TokenException
    {
-      asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
-      final String titlePath = getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath();
+      assertStatement( "",
+                       "myXml.(lala=\"lala\")",
+                       "<e4x-filter line=\"1\" column=\"8\"><primary line=\"1\" column=\"1\">myXml"
+                             + "</primary><assign line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
+                             + "lala</primary><op line=\"1\" column=\"12\">=</op><primary line=\"1\" column=\"13\">"
+                             + "\"lala\"</primary></assign></e4x-filter>" );
 
-      asp.buildAst( titlePath );
-      asp.buildAst( titlePath,
-                    FileUtils.readLines( new File( titlePath ) ) );
+      assertStatement( "",
+                       "doc.*.worm[1]",
+                       "<mul line=\"1\" column=\"1\"><e4x-star line=\"1\" column=\"5\"><primary line=\"1\" "
+                             + "column=\"1\">doc</primary></e4x-star><op line=\"1\" column=\"5\">*</op><primary "
+                             + "line=\"1\" column=\"6\">.</primary></mul>" );
+
+      assertStatement( "",
+                       "doc.@worm",
+                       "<dot line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">doc</primary><primary "
+                             + "line=\"1\" column=\"5\">@worm</primary></dot>" );
    }
 }

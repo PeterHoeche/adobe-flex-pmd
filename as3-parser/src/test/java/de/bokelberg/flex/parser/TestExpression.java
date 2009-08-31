@@ -131,6 +131,18 @@ public class TestExpression extends AbstractStatementTest
    }
 
    @Test
+   public void testExpressionList() throws TokenException
+   {
+      assertStatement( "1",
+                       "5&&6,5&&9",
+                       "<expr-list line=\"1\" column=\"1\"><and line=\"1\" column=\"1\">"
+                             + "<primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">"
+                             + "&&</op><primary line=\"1\" column=\"4\">6</primary></and><and line=\"1\" "
+                             + "column=\"6\"><primary line=\"1\" column=\"6\">5</primary><op line=\"1\" "
+                             + "column=\"7\">&&</op><primary line=\"1\" column=\"9\">9</primary></and></expr-list>" );
+   }
+
+   @Test
    public void testMulExpression() throws TokenException
    {
       assertStatement( "1",

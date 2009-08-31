@@ -87,6 +87,12 @@ public class TestForStatement extends AbstractStatementTest
                              + "<arguments line=\"1\" column=\"50\"><primary line=\"1\" column=\"50\">"
                              + "i</primary></arguments></call></dot></block></foreach>" );
 
+      assertStatement( "1",
+                       "for each( obj in list ){}",
+                       "<foreach line=\"1\" column=\"11\"><name line=\"1\" column=\"11\">obj</name>"
+                             + "<in line=\"1\" column=\"18\"><primary line=\"1\" column=\"18\">list</primary>"
+                             + "</in><block line=\"1\" column=\"25\"></block></foreach>" );
+
       // assertStatement(
       // "", "for each (var a:XML in classInfo..accessor) {}", "" );
    }

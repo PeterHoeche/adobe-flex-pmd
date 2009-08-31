@@ -123,6 +123,22 @@ public class TestClassContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testRestParameter() throws TokenException
+   {
+      assertClassContent( "",
+                          "public function log(message:String, ... rest):void{}",
+                          "<function line=\"2\" column=\"51\"><mod-list line=\"2\" column=\"51\">"
+                                + "<mod line=\"2\" column=\"51\">public</mod></mod-list><name line=\"2\" column=\"17\">"
+                                + "log</name><parameter-list line=\"2\" column=\"21\">"
+                                + "<parameter line=\"2\" column=\"21\"><name-type-init line=\"2\" column=\"21\">"
+                                + "<name line=\"2\" column=\"21\">message</name><type line=\"2\" column=\"28\">String"
+                                + "</type></name-type-init></parameter><parameter line=\"2\" column=\"37\">"
+                                + "<rest line=\"2\" column=\"41\">rest</rest></parameter></parameter-list>"
+                                + "<type line=\"2\" column=\"46\">void</type><block line=\"2\" column=\"52\">"
+                                + "</block></function>" );
+   }
+
+   @Test
    public void testVarDeclarations() throws TokenException
    {
       assertClassContent( "1",
@@ -132,11 +148,11 @@ public class TestClassContent extends AbstractAs3ParserTest
                                 + "</name><type line=\"3\" column=\"1\"></type></name-type-init></var-list>" );
 
       assertClassContent( "2",
-                          "public var a",
+                          "public var a;",
                           "<var-list line=\"2\" column=\"12\"><mod-list line=\"2\" column=\"12\">"
                                 + "<mod line=\"2\" column=\"12\">public</mod></mod-list><name-type-init line=\"2\" "
-                                + "column=\"12\"><name line=\"2\" column=\"12\">a</name><type line=\"3\" "
-                                + "column=\"1\"></type></name-type-init></var-list>" );
+                                + "column=\"12\"><name line=\"2\" column=\"12\">a</name><type line=\"2\" "
+                                + "column=\"13\"></type></name-type-init></var-list>" );
 
       assertClassContent( "3",
                           "public static var a : int = 0",
