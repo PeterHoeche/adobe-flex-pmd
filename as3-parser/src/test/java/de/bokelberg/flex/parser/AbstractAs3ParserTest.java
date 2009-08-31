@@ -52,11 +52,6 @@ public abstract class AbstractAs3ParserTest extends TestCase
 
    private static String escapeEntities( final String stringToEscape )
    {
-      if ( stringToEscape == null )
-      {
-         return null;
-      }
-
       final StringBuffer buffer = new StringBuffer();
 
       for ( int i = 0; i < stringToEscape.length(); i++ )

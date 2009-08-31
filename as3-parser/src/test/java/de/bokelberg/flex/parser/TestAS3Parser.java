@@ -41,17 +41,10 @@ public class TestAS3Parser extends AbstractAs3ParserTest
 {
    @Test
    public void testBuildAst() throws IOException,
-                             URISyntaxException
+                             URISyntaxException,
+                             TokenException
    {
-      try
-      {
-         asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
-
-         asp.buildAst( getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath() );
-      }
-      catch ( final TokenException e )
-      {
-         fail( e.getMessage() );
-      }
+      asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
+      asp.buildAst( getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath() );
    }
 }

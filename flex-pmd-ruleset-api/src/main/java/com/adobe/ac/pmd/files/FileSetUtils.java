@@ -144,16 +144,12 @@ public final class FileSetUtils
       {
          public Object call() throws PMDException
          {
-            // Call the service.
             return buildAst( file );
          }
       } );
       final List< Future< Object >> futures = EXECUTOR.invokeAll( toRun,
-                                                                  500,
+                                                                  5,
                                                                   TimeUnit.SECONDS );
-      // Find out what happened when the service was
-      // called.
-
       return ( IParserNode ) futures.get( 0 ).get();
    }
 

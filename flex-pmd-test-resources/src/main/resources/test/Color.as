@@ -35,7 +35,7 @@ package org.colors
 	public interface Color
 	
 	{
-		
+		function foo() : void;
 	}
 	
 }

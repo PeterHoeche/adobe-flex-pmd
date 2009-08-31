@@ -34,6 +34,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sourceforge.pmd.PMDException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
@@ -45,15 +46,30 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 public class FieldNodeTest extends FlexPmdTestBase
 {
-   @Test
-   public void testVisibility() throws PMDException
+   private IAttribute first;
+   private IAttribute second;
+   private IAttribute third;
+
+   @Before
+   public void setup() throws PMDException
    {
       final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
       final IClass nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
-      final IAttribute first = nonBindableModelLocator.getAttributes().get( 0 );
-      final IAttribute second = nonBindableModelLocator.getAttributes().get( 1 );
-      final IAttribute third = nonBindableModelLocator.getAttributes().get( 2 );
+      first = nonBindableModelLocator.getAttributes().get( 0 );
+      second = nonBindableModelLocator.getAttributes().get( 1 );
+      third = nonBindableModelLocator.getAttributes().get( 2 );
+   }
 
+   @Test
+   public void testIsStatic()
+   {
+      assertTrue( first.isStatic() );
+      assertFalse( second.isStatic() );
+   }
+
+   @Test
+   public void testVisibility() throws PMDException
+   {
       assertTrue( first.is( Modifier.PRIVATE ) );
       assertFalse( first.isPublic() );
       assertFalse( first.is( Modifier.PROTECTED ) );

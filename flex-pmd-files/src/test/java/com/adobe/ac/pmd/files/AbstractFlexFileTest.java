@@ -63,22 +63,26 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    @Test
    public void testCompareTo()
    {
-      assertTrue( "",
-                  as3.compareTo( mxml ) < 0 );
-      assertTrue( "",
-                  mxml.compareTo( as3 ) > 0 );
+      assertEquals( -8,
+                    as3.compareTo( mxml ) );
+      assertEquals( 8,
+                    mxml.compareTo( as3 ) );
       assertEquals( 0,
                     as3.compareTo( as3 ) );
    }
 
+   @Test
    public void testContains()
    {
       assertTrue( as3.contains( "logger",
-                                buildSetContaining( 0 ) ) );
+                                buildSetContaining( 0,
+                                                    -1 ) ) );
       assertFalse( as3.contains( "loggerr",
-                                 buildSetContaining( 0 ) ) );
+                                 buildSetContaining( 0,
+                                                     -1 ) ) );
       assertFalse( as3.contains( "addEventListener",
-                                 buildSetContaining( 109 ) ) );
+                                 buildSetContaining( 109,
+                                                     114 ) ) );
    }
 
    @Test
@@ -140,12 +144,20 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
       assertTrue( mxml.isMxml() );
    }
 
-   private Set< Integer > buildSetContaining( final int i )
+   private Set< Integer > buildSetContaining( final int firstLine,
+                                              final int secondLine )
    {
 
       final HashSet< Integer > hashSet = new HashSet< Integer >();
 
-      hashSet.add( i );
+      if ( firstLine != -1 )
+      {
+         hashSet.add( firstLine );
+      }
+      if ( secondLine != -1 )
+      {
+         hashSet.add( secondLine );
+      }
       return hashSet;
    }
 }

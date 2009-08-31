@@ -28,19 +28,57 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.nodes.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import net.sourceforge.pmd.PMDException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class FileSetUtilsTest extends FlexPmdTestBase
+public class VariableNodeTest extends FlexPmdTestBase
 {
-   @Test
-   public void testComputeAsts() throws PMDException
+   private IAttribute first;
+
+   @Before
+   public void setup() throws PMDException
    {
-      FileSetUtils.computeAsts( getTestFiles() );
+      final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IClass nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
+      first = nonBindableModelLocator.getAttributes().get( 0 );
+   }
+
+   @Test
+   public void testGetInitializationExpression()
+   {
+      assertNull( first.getInitializationExpression() );
+   }
+
+   @Test
+   public void testGetMetaDataCount()
+   {
+      assertEquals( 0,
+                    first.getMetaDataCount() );
+   }
+
+   @Test
+   public void testGetName()
+   {
+      assertEquals( "_instance",
+                    first.getName() );
+   }
+
+   @Test
+   public void testGetType()
+   {
+      assertEquals( "ModelLocator",
+                    first.getType().toString() );
    }
 }

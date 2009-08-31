@@ -52,6 +52,15 @@ public class MxmlFileTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testCommentTags()
+   {
+      assertEquals( "<!--",
+                    iterationsList.getCommentOpeningTag() );
+      assertEquals( "-->",
+                    iterationsList.getCommentClosingTag() );
+   }
+
+   @Test
    public void testGetActionScriptScriptBlock()
    {
       final String[] deleteRendererLines = deleteRenderer.getScriptBlock();
@@ -83,7 +92,6 @@ public class MxmlFileTest extends FlexPmdTestBase
                     iterationsListLines[ iterationsListLines.length - 1 ] );
       assertEquals( 100,
                     iterationsListLines.length );
-
    }
 
    @Test
@@ -99,5 +107,14 @@ public class MxmlFileTest extends FlexPmdTestBase
                     nestedLines.length );
       assertEquals( "}}",
                     nestedLines[ nestedLines.length - 1 ] );
+   }
+
+   @Test
+   public void testScriptBlockLines()
+   {
+      assertEquals( 40,
+                    iterationsList.getBeginningScriptBlock() );
+      assertEquals( 90,
+                    iterationsList.getEndingScriptBlock() );
    }
 }

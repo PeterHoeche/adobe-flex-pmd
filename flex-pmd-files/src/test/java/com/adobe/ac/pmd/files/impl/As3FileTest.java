@@ -28,19 +28,44 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.files.impl;
 
-import net.sourceforge.pmd.PMDException;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.IAs3File;
 
-public class FileSetUtilsTest extends FlexPmdTestBase
+public class As3FileTest extends FlexPmdTestBase
 {
-   @Test
-   public void testComputeAsts() throws PMDException
+   private IAs3File data;
+
+   @Before
+   public void setUp()
    {
-      FileSetUtils.computeAsts( getTestFiles() );
+      data = ( IAs3File ) getTestFiles().get( "AbstractRowData.as" );
+   }
+
+   @Test
+   public void testGetCommentClosingTag()
+   {
+      assertEquals( "*/",
+                    data.getCommentClosingTag() );
+   }
+
+   @Test
+   public void testGetCommentOpeningTag()
+   {
+      assertEquals( "/*",
+                    data.getCommentOpeningTag() );
+   }
+
+   @Test
+   public void testGetLineAt()
+   {
+      assertEquals( "      public const logger : ILogger;",
+                    data.getLineAt( 45 ) );
    }
 }

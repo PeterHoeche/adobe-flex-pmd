@@ -28,19 +28,44 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
-
-import net.sourceforge.pmd.PMDException;
+package de.bokelberg.flex.parser;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
-public class FileSetUtilsTest extends FlexPmdTestBase
+public class NodeTest extends AbstractAs3ParserTest
 {
    @Test
-   public void testComputeAsts() throws PMDException
+   public void testFindPrimaryStatementsFromNameInChildren() throws TokenException
    {
-      FileSetUtils.computeAsts( getTestFiles() );
+      final Node ast = parseFunction( "function set a( value : int ) : void { trace(\"lala\")}" );
+
+      assertEquals( 2,
+                    ast.findPrimaryStatementsFromNameInChildren( new String[]
+                    { "trace",
+                                "\"lala\"" } ).size() );
+   }
+
+   @Test
+   public void testToString() throws TokenException
+   {
+      final Node ast = parseFunction( "function set a( value : int ) : void { trace(\"lala\")}" );
+
+      assertEquals( "content set mod-list  a  parameter-list parameter name-type-init "
+                          + "value  int     void  block call trace  arguments \"lala\"      ",
+                    ast.toString() );
+   }
+
+   private Node parseFunction( final String input ) throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  input,
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+      return asp.parseClassContent();
    }
 }

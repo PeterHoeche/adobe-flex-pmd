@@ -124,7 +124,7 @@ class NestedNode
    final public boolean is( final NodeKind expectedType )
    {
       return getId() == null
-            && expectedType == null || expectedType.equals( getId() );
+            && expectedType == null || getId().equals( expectedType );
    }
 
    final public int numChildren()
@@ -133,11 +133,11 @@ class NestedNode
                                   : getChildren().size();
    }
 
-   final void addChild( final IParserNode child )
+   final IParserNode addChild( final IParserNode child )
    {
       if ( child == null )
       {
-         return; // skip optional children
+         return child; // skip optional children
       }
 
       if ( children == null )
@@ -145,28 +145,29 @@ class NestedNode
          children = new ArrayList< IParserNode >();
       }
       children.add( child );
+      return child;
    }
 
-   final void addChild( final NodeKind childId,
-                        final int childLine,
-                        final int childColumn,
-                        final IParserNode nephew )
+   final IParserNode addChild( final NodeKind childId,
+                               final int childLine,
+                               final int childColumn,
+                               final IParserNode nephew )
    {
-      addChild( Node.create( childId,
-                             childLine,
-                             childColumn,
-                             nephew ) );
+      return addChild( Node.create( childId,
+                                    childLine,
+                                    childColumn,
+                                    nephew ) );
    }
 
-   final void addChild( final NodeKind childId,
-                        final int childLine,
-                        final int childColumn,
-                        final String value )
+   final IParserNode addChild( final NodeKind childId,
+                               final int childLine,
+                               final int childColumn,
+                               final String value )
    {
-      addChild( Node.create( childId,
-                             childLine,
-                             childColumn,
-                             value ) );
+      return addChild( Node.create( childId,
+                                    childLine,
+                                    childColumn,
+                                    value ) );
    }
 
    final void setId( final NodeKind idToBeSet )

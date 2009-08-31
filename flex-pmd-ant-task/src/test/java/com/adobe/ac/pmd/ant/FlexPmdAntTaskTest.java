@@ -38,24 +38,6 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class FlexPmdAntTaskTest extends FlexPmdTestBase
 {
-   @Test
-   public void testExecuteWithCorrectParameters()
-   {
-      // final FlexPmdAntTask task = new FlexPmdAntTask();
-      // final Project project = new Project();
-      //
-      // task.setProject( project );
-      // task.setOutputDirectory( new File( OUTPUT_DIRECTORY ) );
-      // task.setSourceDirectory( getTestDirectory() );
-      //
-      // task.execute();
-      //
-      // assertEquals( "",
-      // task.getPackageToExclude() );
-      // assertTrue( new File( OUTPUT_DIRECTORY
-      // + File.separator + FlexPMDFormat.XML.toString() ).exists() );
-   }
-
    @Test(expected = BuildException.class)
    public void testExecuteWithoutSettingParameters()
    {

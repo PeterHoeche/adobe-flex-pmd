@@ -106,6 +106,15 @@ public class ClassNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetMetaData()
+   {
+      assertEquals( 0,
+                    nonBindableModelLocator.getMetaData( MetaData.BINDABLE ).size() );
+      assertEquals( 1,
+                    modelLocator.getMetaData( MetaData.BINDABLE ).size() );
+   }
+
+   @Test
    public void testGetMetaDataList()
    {
       assertEquals( 0,
@@ -113,6 +122,8 @@ public class ClassNodeTest extends FlexPmdTestBase
       assertNotNull( modelLocator.getMetaData( MetaData.BINDABLE ) );
       assertEquals( 1,
                     modelLocator.getMetaData( MetaData.BINDABLE ).size() );
+      assertTrue( modelLocator.isBindable() );
+      assertFalse( nonBindableModelLocator.isBindable() );
    }
 
    @Test
