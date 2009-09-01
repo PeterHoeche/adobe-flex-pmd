@@ -63,7 +63,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>defaultLocation</key>
-					<string>~/Work/repositories/faramir/Professional_Services/Project_Delivery/Q/Quintiles/Release/Main/COMeT_Air/src</string>
+					<string>~</string>
 					<key>granularity</key>
 					<integer>1</integer>
 					<key>multipleSelection</key>
@@ -228,7 +228,7 @@
 #
 # The FlexPMD version
 #
-flexPmdVersion=1.0.RC2-SNAPSHOT
+flexPmdVersion=1.0.RC3-SNAPSHOT
 
 #
 # The directory where the FlexPMD automator workflow has been extracted
