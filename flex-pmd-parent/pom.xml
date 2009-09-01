@@ -4,11 +4,37 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC3-SNAPSHOT</version>
+	<version>1.0.RC3</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
-
 	<inceptionYear>2008</inceptionYear>
+	<description>This project, FlexPMD, is meant to automatically detect code anti-patterns, code smells, 
+	common bad practices in a Flash/Flex based source code. Originally, FlexPMD has been created to automate 
+	low-level code audits, so that consultants can focus on higher level architectural issues. 
+	It ended up to be rather advanced anti-patterns detector.</description>
+	
+	<distributionManagement>
+		<site>
+      		<id>flexpmd_mvn_site</id>
+      		<url>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd/site/</url>
+    	</site>
+		<repository>
+			<id>releases</id>
+			<url>file://D:/nexus_storage/txi</url>
+		</repository>
+	</distributionManagement>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>https://bugs.adobe.com/jira/browse/FLEXPMD</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>BSD</name>
+			<url>http://www.freebsd.org/copyright/license.html</url>
+		</license>
+	</licenses>
 
 	<scm>
 		<connection>scm:svn:http://${source.url}/flex-pmd-parent</connection>
@@ -86,8 +112,6 @@
 			<id>rbokelberg</id>
 			<name>Ralph Bokelberg</name>
 			<timezone>0</timezone>
-			<organization>${project.organization.name}</organization>
-			<organizationUrl>${project.organization.url}</organizationUrl>
 			<roles>
 				<role>Parser/Lexer developer</role>
 			</roles>
@@ -246,13 +270,6 @@
 		</plugins>
 
 	</build>
-
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>file://D:/nexus_storage/txi</url>
-		</repository>
-	</distributionManagement>
 
 	<repositories>
 		<repository>

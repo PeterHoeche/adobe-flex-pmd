@@ -64,7 +64,6 @@ public class FlexPmdViolations
    }
 
    private boolean                                              beenComputed = false;
-
    private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()

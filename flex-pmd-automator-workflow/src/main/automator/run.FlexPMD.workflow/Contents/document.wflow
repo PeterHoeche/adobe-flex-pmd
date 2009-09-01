@@ -228,7 +228,7 @@
 #
 # The FlexPMD version
 #
-flexPmdVersion=1.0.RC3-SNAPSHOT
+flexPmdVersion=1.0.RC3
 
 #
 # The directory where the FlexPMD automator workflow has been extracted

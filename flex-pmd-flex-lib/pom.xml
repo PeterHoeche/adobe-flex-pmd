@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>1.0.RC3-SNAPSHOT</version>
+		<version>1.0.RC3</version>
 	</parent>
 	
 	<dependencies>
@@ -215,7 +215,7 @@
 			<plugin>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${flex-pmd.version}</version>
+				<version>${project.parent.version}</version>
 				<configuration>
 					<failOnError>true</failOnError>
 				</configuration>
