@@ -81,15 +81,13 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    protected static IParserNode getNameFromFunctionDeclaration( final IParserNode functionNode )
    {
       IParserNode nameChild = null;
-      if ( functionNode.numChildren() != 0 )
+
+      for ( final IParserNode child : functionNode.getChildren() )
       {
-         for ( final IParserNode child : functionNode.getChildren() )
+         if ( child.is( NodeKind.NAME ) )
          {
-            if ( child.is( NodeKind.NAME ) )
-            {
-               nameChild = child;
-               break;
-            }
+            nameChild = child;
+            break;
          }
       }
       return nameChild;
@@ -97,18 +95,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    protected static IParserNode getTypeFromFieldDeclaration( final IParserNode fieldNode )
    {
-      IParserNode typeNode = null;
-
-      for ( final IParserNode node : fieldNode.getChildren() )
-      {
-         if ( node.is( NodeKind.NAME_TYPE_INIT )
-               && node.numChildren() > 1 )
-         {
-            typeNode = node.getChild( 1 );
-            break;
-         }
-      }
-      return typeNode;
+      return fieldNode.getChild( 0 ).getChild( 1 );
    }
 
    private final List< IFlexViolation > violations;
@@ -317,11 +304,16 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       try
       {
-         visitCompilationUnit( getCurrentPackageNode().getInternalNode() );
-         findViolations( getCurrentPackageNode() );
+         if ( getCurrentPackageNode() != null )
+         {
+            visitCompilationUnit( getCurrentPackageNode().getInternalNode() );
+            findViolations( getCurrentPackageNode() );
+         }
       }
       catch ( final Exception e )
       {
+         LOGGER.warning( "on "
+               + getCurrentFile().getFilePath() );
          LOGGER.warning( StackTraceUtils.print( e ) );
       }
       final List< IFlexViolation > copy = new ArrayList< IFlexViolation >( violations );
@@ -363,11 +355,8 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    protected void visitDo( final IParserNode doNode )
    {
-      if ( isNodeNavigable( doNode ) )
-      {
-         visitBlock( doNode.getChild( 0 ) );
-         visitCondition( doNode.getChild( 1 ) );
-      }
+      visitBlock( doNode.getChild( 0 ) );
+      visitCondition( doNode.getChild( 1 ) );
    }
 
    protected void visitElse( final IParserNode elseNode )
@@ -389,10 +378,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    protected void visitFor( final IParserNode forNode )
    {
-      if ( forNode.numChildren() > 3 )
-      {
-         visitBlock( forNode.getChild( 3 ) );
-      }
+      visitBlock( forNode.getChild( 3 ) );
    }
 
    protected void visitForEach( final IParserNode foreachNode )
@@ -864,6 +850,17 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   private void visitObjectInitialization( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            visitExpression( node.getChild( 1 ) );
+         }
+      }
+   }
+
    private void visitOrExpression( final IParserNode ast )
    {
       visitExpression( ast,
@@ -897,24 +894,18 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    private void visitPrimaryExpression( final IParserNode ast )
    {
-      if ( ast.numChildren() != 0
+      if ( ast.is( NodeKind.NEW ) )
+      {
+         visitNewExpression( ast );
+      }
+      else if ( ast.numChildren() != 0
             && ast.is( NodeKind.ARRAY ) )
       {
          visitExpressionList( ast );
       }
       else if ( ast.is( NodeKind.OBJECT ) )
       {
-         if ( isNodeNavigable( ast ) )
-         {
-            for ( final IParserNode node : ast.getChildren() )
-            {
-               visitExpression( node.getChild( 1 ) );
-            }
-         }
-      }
-      else if ( ast.is( NodeKind.NEW ) )
-      {
-         visitNewExpression( ast );
+         visitObjectInitialization( ast );
       }
       else if ( ast.is( NodeKind.E4X_ATTR ) )
       {

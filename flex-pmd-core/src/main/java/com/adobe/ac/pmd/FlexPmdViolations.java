@@ -57,8 +57,14 @@ import com.adobe.ac.pmd.rules.core.IFlexRule;
 
 public class FlexPmdViolations
 {
-   private static final Logger                                  LOGGER       = Logger.getLogger( FlexPmdViolations.class.getName() );
+   private static final Logger                                  LOGGER;
+   static
+   {
+      LOGGER = Logger.getLogger( FlexPmdViolations.class.getName() );
+   }
+
    private boolean                                              beenComputed = false;
+
    private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()
@@ -86,9 +92,6 @@ public class FlexPmdViolations
 
       for ( final Entry< String, IFlexRule > currentRuleEntry : rules.entrySet() )
       {
-         LOGGER.info( "Launching rule "
-               + currentRuleEntry.getKey() );
-
          final long startTime = System.currentTimeMillis();
 
          processRule( filesInSourceDirectory,
@@ -98,6 +101,11 @@ public class FlexPmdViolations
                - startTime;
 
          if ( LOGGER.isLoggable( Level.INFO ) )
+         {
+            LOGGER.info( "rule "
+                  + currentRuleEntry.getKey() + " computed in " + ellapsedTime + "ms" );
+         }
+         if ( LOGGER.isLoggable( Level.FINE ) )
          {
             workBench.put( currentRuleEntry.getValue(),
                            ellapsedTime );
@@ -141,7 +149,7 @@ public class FlexPmdViolations
 
    private void displayWorkBench( final Map< IFlexRule, Long > workBench )
    {
-      if ( LOGGER.isLoggable( Level.INFO ) )
+      if ( LOGGER.isLoggable( Level.FINE ) )
       {
          final List< IFlexRule > rulesSortedByTime = new ArrayList< IFlexRule >( workBench.keySet() );
          Collections.sort( rulesSortedByTime,
@@ -156,15 +164,10 @@ public class FlexPmdViolations
                                  return leftValue.compareTo( rightValue );
                               }
                            } );
-         LOGGER.info( "Rules which took less than 1ms to run are not displayed." );
-
          for ( final IFlexRule flexRule : rulesSortedByTime )
          {
-            if ( workBench.get( flexRule ) > 0 )
-            {
-               LOGGER.info( flexRule.getRuleName()
-                     + " took " + workBench.get( flexRule ) + "ms to compute" );
-            }
+            LOGGER.fine( flexRule.getRuleName()
+                  + " took " + workBench.get( flexRule ) + "ms to compute" );
          }
       }
    }

@@ -43,7 +43,6 @@ import com.adobe.ac.pmd.engines.PmdEngineUtils;
 public class FlexPmdAntTask extends Task // NO_UCD
 {
    private boolean failOnError;
-
    private File    outputDirectory;
    private String  packageToExclude;
    private File    ruleSet;
@@ -58,8 +57,8 @@ public class FlexPmdAntTask extends Task // NO_UCD
 
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
                                                                                       outputDirectory,
-                                                                                      sourceDirectory,
-                                                                                      ruleSet ) );
+                                                                                      ruleSet,
+                                                                                      sourceDirectory ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
 
          engine.executeReport( violations );

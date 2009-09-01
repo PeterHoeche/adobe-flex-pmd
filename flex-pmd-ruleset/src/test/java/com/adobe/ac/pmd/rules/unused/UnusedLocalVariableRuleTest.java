@@ -40,12 +40,6 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedLocalVariableRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
@@ -79,5 +73,11 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 47, 47 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UnusedLocalVariableRule();
    }
 }

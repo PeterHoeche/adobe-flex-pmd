@@ -177,9 +177,7 @@ public abstract class AbstractFlexPmdEngine
                                                         IOException
    {
       final File realRuleSet = extractRuleset( ruleSetFile );
-
       final FileInputStream inputStream = new FileInputStream( realRuleSet );
-
       final RuleSet loadedRuleSet = new RuleSetFactory().createRuleSet( inputStream );
 
       LOGGER.info( "Ruleset: "

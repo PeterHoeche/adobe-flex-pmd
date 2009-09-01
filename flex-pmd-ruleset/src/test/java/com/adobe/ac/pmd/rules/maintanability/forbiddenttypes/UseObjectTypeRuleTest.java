@@ -41,12 +41,6 @@ import com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule;
 public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UseObjectTypeRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       return addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
@@ -65,5 +59,11 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
                        "AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 52, 52 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new UseObjectTypeRule();
    }
 }
