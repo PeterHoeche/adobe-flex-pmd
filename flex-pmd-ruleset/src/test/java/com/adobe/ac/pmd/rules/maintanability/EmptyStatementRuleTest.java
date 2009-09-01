@@ -28,7 +28,7 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.performance;
+package com.adobe.ac.pmd.rules.maintanability;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,27 +37,23 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UseTraceFunctionRuleTest extends AbstractAstFlexRuleTest
+public class EmptyStatementRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "com.adobe.ac.ncss.LongSwitch.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 125, 125 ) } ),
-                                 "Simple.as",
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 1, 1 ) } ),
-                       "com.adobe.ac.ncss.BigImporterModel.as",
+                                 { new ViolationPosition( 569, 569 ) } ),
+                       "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 74, 74 ),
-                                   new ViolationPosition( 75, 75 ) } );
+                       { new ViolationPosition( 114, 114 ) } );
    }
 
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new UseTraceFunctionRule();
+      return new EmptyStatementRule();
    }
 }

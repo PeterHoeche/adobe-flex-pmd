@@ -212,4 +212,18 @@ protected static function foo() : void // VIOLATION
 		</example>
 	</rule>
 	
+	<rule class="com.adobe.ac.pmd.rules.maintanability.EmptyStatementRule"
+		message="This statement is empty.">
+		<description/>
+		<priority>5</priority>
+		<example>
+protected function foo() : void
+{
+   var i : int = 0;
+   
+   ; // VIOLATION
+}
+		</example>
+	</rule>
+	
 </ruleset>

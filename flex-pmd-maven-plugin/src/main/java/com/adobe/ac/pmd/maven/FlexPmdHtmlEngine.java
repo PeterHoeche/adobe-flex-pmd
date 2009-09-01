@@ -33,7 +33,6 @@ package com.adobe.ac.pmd.maven;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,8 +64,7 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
                                 final ResourceBundle bundleToBeSet,
                                 final boolean aggregateToBeSet,
                                 final MavenProject projectToBeSet,
-                                final FlexPmdParameters parameters ) throws URISyntaxException,
-                                                                    IOException
+                                final FlexPmdParameters parameters )
    {
       super( parameters );
 

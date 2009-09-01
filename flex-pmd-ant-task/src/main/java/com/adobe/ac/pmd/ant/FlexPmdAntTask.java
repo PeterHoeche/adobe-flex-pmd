@@ -31,11 +31,6 @@
 package com.adobe.ac.pmd.ant;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import net.sourceforge.pmd.PMDException;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -79,19 +74,7 @@ public class FlexPmdAntTask extends Task // NO_UCD
             }
          }
       }
-      catch ( final PMDException e )
-      {
-         throw new BuildException( e );
-      }
-      catch ( final FileNotFoundException e )
-      {
-         throw new BuildException( e );
-      }
-      catch ( final URISyntaxException e )
-      {
-         throw new BuildException( e );
-      }
-      catch ( final IOException e )
+      catch ( final Exception e )
       {
          throw new BuildException( e );
       }

@@ -32,7 +32,6 @@ package com.adobe.ac.ncss.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -80,10 +79,6 @@ public final class FileUtils
             line = inReader.readLine();
          }
          inReader.close();
-      }
-      catch ( final FileNotFoundException e )
-      {
-         StackTraceUtils.print( e );
       }
       catch ( final IOException e )
       {

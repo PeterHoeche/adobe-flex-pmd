@@ -102,5 +102,28 @@ package com.adobe.ac
              default:
          }
       }
+	  
+	  public function fooBar() : void
+	  {
+		  try
+		  {
+			  var illl : int = 0;
+			  do
+			  {
+				  illl++;
+				  ;
+			  }while(illl<10)
+		  }
+		  catch( e : Error )
+		  {
+			  {
+			  	Message.show("");
+			  }
+		  }
+		  finally
+		  {
+			  trace("");
+		  }
+	  }
    }
 }

@@ -31,14 +31,9 @@
 package com.adobe.ac.pmd.maven;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
-
-import net.sourceforge.pmd.PMDException;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
@@ -168,21 +163,9 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
          onXmlReportExecuted( violations,
                               locale );
       }
-      catch ( final PMDException e )
+      catch ( final Exception e )
       {
-         throw new MavenReportException( "An error has been thrown while executing the PMD report", e );
-      }
-      catch ( final FileNotFoundException e )
-      {
-         throw new MavenReportException( "The Ruleset url has not been found", e );
-      }
-      catch ( final URISyntaxException e )
-      {
-         throw new MavenReportException( "The Ruleset url has not been found", e );
-      }
-      catch ( final IOException e )
-      {
-         throw new MavenReportException( "The Ruleset url has not been found", e );
+         throw new MavenReportException( "A system exception has been thrown", e );
       }
    }
 
@@ -225,10 +208,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    }
 
    protected void onXmlReportExecuted( final FlexPmdViolations violations,
-                                       final Locale locale ) throws PMDException,
-                                                            URISyntaxException,
-                                                            IOException,
-                                                            MavenReportException
+                                       final Locale locale ) throws MavenReportException
    {
       if ( failOnError )
       {

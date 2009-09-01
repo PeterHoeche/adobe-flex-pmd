@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.maven;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Locale;
 
 import net.sourceforge.pmd.PMDException;
@@ -71,24 +69,28 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
 
    @Override
    protected void onXmlReportExecuted( final FlexPmdViolations violations,
-                                       final Locale locale ) throws PMDException,
-                                                            URISyntaxException,
-                                                            IOException,
-                                                            MavenReportException
+                                       final Locale locale ) throws MavenReportException
    {
       super.onXmlReportExecuted( violations,
                                  locale );
 
       final FlexPmdParameters parameters = new FlexPmdParameters( getExcludePackage(),
-                              getOutputDirectoryFile(),
-                              getRuleSet(),
-                              getSourceDirectory() );
+                                                                  getOutputDirectoryFile(),
+                                                                  getRuleSet(),
+                                                                  getSourceDirectory() );
       final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
                                                                          getBundle( locale ),
                                                                          aggregate,
                                                                          getProject(),
                                                                          parameters );
 
-      flexPmdHtmlEngine.executeReport( violations );
+      try
+      {
+         flexPmdHtmlEngine.executeReport( violations );
+      }
+      catch ( final PMDException e )
+      {
+         throw new MavenReportException( "An exception has been thrown while executing the HTML report", e );
+      }
    }
 }

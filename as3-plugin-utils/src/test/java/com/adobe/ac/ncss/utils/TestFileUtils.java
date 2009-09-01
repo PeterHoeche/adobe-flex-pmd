@@ -31,6 +31,7 @@
 package com.adobe.ac.ncss.utils;
 
 import java.io.File;
+import java.io.IOException;
 
 import junit.framework.TestCase;
 
@@ -72,7 +73,7 @@ public class TestFileUtils extends TestCase
    }
 
    @Test
-   public void testReadFile()
+   public void testReadFile() throws IOException
    {
       assertEquals( 75,
                     FileUtils.readFile( new File( "./src/test/resources/com/adobe/ac/ncss/mxml/IterationsList.mxml" ) )

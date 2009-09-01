@@ -49,6 +49,7 @@ import org.codehaus.plexus.util.IOUtil;
 import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.utils.StackTraceUtils;
 
 public abstract class AbstractFlexPmdEngine
 {
@@ -73,7 +74,6 @@ public abstract class AbstractFlexPmdEngine
       final InputStream resourceAsStream = AbstractFlexPmdEngine.class.getResourceAsStream( rulesetURI );
       final File temporaryRuleset = File.createTempFile( "all_flex",
                                                          ".xml" );
-      // Delete temp file when program exits.
       temporaryRuleset.deleteOnExit();
       final FileOutputStream writter = new FileOutputStream( temporaryRuleset );
       IOUtil.copy( resourceAsStream,
@@ -83,20 +83,30 @@ public abstract class AbstractFlexPmdEngine
       return temporaryRuleset;
    }
 
-   protected final File  outputDirectory;
-   private final String  packageToExclude;
-   private final RuleSet ruleSet;
-   private final File    sourceDirectory;
+   protected final File outputDirectory;
+   private final String packageToExclude;
+   private RuleSet      ruleSet;
+   private final File   sourceDirectory;
 
-   public AbstractFlexPmdEngine( final FlexPmdParameters parameters ) throws URISyntaxException,
-                                                                     IOException
+   public AbstractFlexPmdEngine( final FlexPmdParameters parameters )
    {
       super();
 
       sourceDirectory = parameters.getSourceDirectory();
       outputDirectory = parameters.getOutputDirectory();
       packageToExclude = parameters.getExcludePackage();
-      ruleSet = loadRuleset( parameters.getRuleSet() );
+      try
+      {
+         ruleSet = loadRuleset( parameters.getRuleSet() );
+      }
+      catch ( final URISyntaxException e )
+      {
+         LOGGER.warning( StackTraceUtils.print( e ) );
+      }
+      catch ( final IOException e )
+      {
+         LOGGER.warning( StackTraceUtils.print( e ) );
+      }
    }
 
    /**
@@ -107,9 +117,7 @@ public abstract class AbstractFlexPmdEngine
     * @throws URISyntaxException
     * @throws IOException
     */
-   public final void executeReport( final FlexPmdViolations flexPmdViolations ) throws PMDException,
-                                                                               URISyntaxException,
-                                                                               IOException
+   public final void executeReport( final FlexPmdViolations flexPmdViolations ) throws PMDException
    {
       if ( sourceDirectory == null )
       {
