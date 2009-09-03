@@ -210,6 +210,10 @@ public class AS3Parser implements IAS3Parser
             }
             nextToken();
          }
+         else
+         {
+            nextToken();
+         }
       }
       return result;
    }

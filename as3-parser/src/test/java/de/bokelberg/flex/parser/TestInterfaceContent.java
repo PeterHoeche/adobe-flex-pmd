@@ -36,6 +36,17 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class TestInterfaceContent extends AbstractAs3ParserTest
 {
+   @Test(timeout = 2)
+   public void testConditionalCompilation() throws TokenException
+   {
+      assertInterfaceContent( "with conditional compilation",
+                              "CONFIG::DEBUG { function output():String; } ",
+                              "<function line=\"2\" column=\"43\"><name line=\"2\" column=\"26\">"
+                                    + "output</name><parameter-list line=\"2\" column=\"33\"></parameter-list>"
+                                    + "<type line=\"2\" column=\"34\">String</type></function>" );
+
+   }
+
    @Test
    public void testImports() throws TokenException
    {
