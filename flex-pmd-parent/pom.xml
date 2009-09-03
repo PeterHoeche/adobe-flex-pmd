@@ -4,7 +4,7 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC3</version>
+	<version>1.0.RC4-SNAPSHOT</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 	<inceptionYear>2008</inceptionYear>
@@ -57,7 +57,7 @@
 		<compileSource>1.5</compileSource>
 		<cobertura.version>2.2</cobertura.version>
 		<junit.version>4.0</junit.version>
-		<as3-plugin-utils.version>${project.version}</as3-plugin-utils.version>
+		<as3-plugin-utils.version>1.0.RC3</as3-plugin-utils.version>
 		<commons-lang.version>2.4</commons-lang.version>
 		<as3-parser.version>${project.version}</as3-parser.version>
 		<findbugs.version>2.1</findbugs.version>
