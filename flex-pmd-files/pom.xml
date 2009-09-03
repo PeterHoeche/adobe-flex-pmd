@@ -2,7 +2,7 @@
   <parent>
     <artifactId>flex-pmd</artifactId>
     <groupId>com.adobe.ac</groupId>
-    <version>1.0.RC4-SNAPSHOT</version>
+    <version>1.0.RC4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.adobe.ac</groupId>
@@ -18,12 +18,7 @@
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>as3-plugin-utils</artifactId>
-			<version>${as3-plugin-utils.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>as3-plugin-utils</artifactId>
-			<version>${as3-plugin-utils.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
