@@ -135,4 +135,20 @@ public class TestIfStatement extends AbstractStatementTest
                              + "column=\"18\"><primary line=\"1\" column=\"18\">i</primary>"
                              + "</arguments></call></if>" );
    }
+
+   @Test
+   public void testIfWithReturn() throws TokenException
+   {
+      assertStatement( "",
+                       "if ( true )return;",
+                       "<if line=\"1\" column=\"4\"><condition line=\"1\" column=\"6\"><primary line=\"1\" "
+                             + "column=\"6\">true</primary></condition><return line=\"2\" "
+                             + "column=\"1\"></return></if>" );
+
+      assertStatement( "",
+                       "if ( true )throw new Error();",
+                       "<if line=\"1\" column=\"4\"><condition line=\"1\" column=\"6\"><primary line=\"1\" "
+                             + "column=\"6\">true</primary></condition><primary line=\"1\" column=\"12\">"
+                             + "throw</primary></if>" );
+   }
 }

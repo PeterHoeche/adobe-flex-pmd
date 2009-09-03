@@ -192,8 +192,7 @@ package com.adobe.radon.core.controls
                             }
 
                             if ( false )
-                            {
-                            }
+                            	return;
                         }
                         break;
                 }
