@@ -9,7 +9,7 @@
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>1.0.RC4</version>
+		<version>1.0.RC5-SNAPSHOT</version>
 	</parent>
 	
 	<dependencies>
@@ -122,12 +122,12 @@
 								<echo message="Generating Version.as..." />
 								<echo file="${basedir}/src/main/flex/Version.as" append="false" message="package" />
 								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="{" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   public class Version" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   {" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_NUMBER : String = '${project.version}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_TIME : String = '${last.updated.time}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="      public static const BUILD_DATE : String = '${last.updated.date}';" />
-								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="   }" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public class Version" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" {" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public static const BUILD_NUMBER : String = '${project.version}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public static const BUILD_TIME : String = '${last.updated.time}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public static const BUILD_DATE : String = '${last.updated.date}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" }" />
 								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="}" />
 							</tasks>
 						</configuration>
