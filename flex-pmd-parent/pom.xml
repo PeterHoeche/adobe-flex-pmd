@@ -3,7 +3,7 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC4</version>
+	<version>1.0.RC5-SNAPSHOT</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 	<inceptionYear>2008</inceptionYear>
@@ -37,9 +37,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0-RC4</connection>
-		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0-RC4</developerConnection>
-		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0-RC4</url>
+		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/trunk</connection>
+		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/trunk</developerConnection>
+		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/trunk</url>
 	</scm>
 
 	<organization>
