@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC4-SNAPSHOT</version>
+	<version>1.0.RC4</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 	<inceptionYear>2008</inceptionYear>
@@ -38,9 +37,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:${source.url}/trunk</connection>
-		<developerConnection>scm:svn:${source.url}/trunk</developerConnection>
-		<url>scm:svn:${source.url}/trunk</url>
+		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</connection>
+		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</developerConnection>
+		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</url>
 	</scm>
 
 	<organization>
