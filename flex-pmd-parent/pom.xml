@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC4-SNAPSHOT</version>
+	<version>1.0.RC4</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 	<inceptionYear>2008</inceptionYear>
@@ -12,15 +11,16 @@
 	common bad practices in a Flash/Flex based source code. Originally, FlexPMD has been created to automate 
 	low-level code audits, so that consultants can focus on higher level architectural issues. 
 	It ended up to be rather advanced anti-patterns detector.</description>
-	
+
 	<distributionManagement>
 		<site>
-      		<id>flexpmd_mvn_site</id>
-      		<url>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd/site/</url>
-    	</site>
+			<id>flexpmd_mvn_site</id>
+			<url>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd/site/</url>
+		</site>
 		<repository>
-			<id>releases</id>
-			<url>file://D:/nexus_storage/txi</url>
+			<id>nexus-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 
@@ -37,9 +37,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://${source.url}/flex-pmd-parent</connection>
-		<developerConnection>scm:svn:http://${source.url}/flex-pmd-parent</developerConnection>
-		<url>scm:svn:http://${source.url}/flex-pmd-parent</url>
+		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</connection>
+		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</developerConnection>
+		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</url>
 	</scm>
 
 	<organization>
@@ -50,7 +50,7 @@
 	<properties>
 		<!-- Project properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<source.url>opensource.adobe.com/svn/opensource/flexpmd/trunk</source.url>
+		<source.url>http://opensource.adobe.com/svn/opensource/flexpmd</source.url>
 
 		<!-- Plugins/Dependencies version -->
 		<pmd.version>4.2.2</pmd.version>
@@ -59,7 +59,6 @@
 		<junit.version>4.0</junit.version>
 		<as3-plugin-utils.version>1.0.RC3</as3-plugin-utils.version>
 		<commons-lang.version>2.4</commons-lang.version>
-		<as3-parser.version>${project.version}</as3-parser.version>
 		<findbugs.version>2.1</findbugs.version>
 		<checkstyle.version>2.2</checkstyle.version>
 		<license.version>1.4.0</license.version>
@@ -68,14 +67,15 @@
 		<wagon-svn.version>1.8</wagon-svn.version>
 		<maven-antrun-plugin.version>1.2</maven-antrun-plugin.version>
 		<plexus-utils.version>1.0.2</plexus-utils.version>
+		<release-plugin.version>2.0-beta-7</release-plugin.version>
+		<gpg-plugin.version>1.0-alpha-4</gpg-plugin.version>
 
 		<!-- Reporting versions -->
 		<maven-pmd-plugin.version>2.4</maven-pmd-plugin.version>
-		
+
 		<!-- Flex project versions -->
 		<!-- Plugin versions -->
 
-		<flex-pmd-maven-plugin.version>${project.version}</flex-pmd-maven-plugin.version>
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
 		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
@@ -194,6 +194,15 @@
 		</pluginManagement>
 
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${release-plugin.version}</version>
+				<configuration>
+					<tagBase>${source.url}/tags</tagBase>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -379,6 +388,36 @@
 
 	</pluginRepositories>
 
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${gpg-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<reporting>
 		<plugins>
 			<plugin>
@@ -386,11 +425,11 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>2.0-beta-5</version>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.1.1</version>
-            </plugin>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
