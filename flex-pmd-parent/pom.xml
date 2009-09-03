@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC4</version>
+	<version>1.0.RC4-SNAPSHOT</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 	<inceptionYear>2008</inceptionYear>
@@ -37,9 +38,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</connection>
-		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</developerConnection>
-		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/tags/1.0.RC4</url>
+		<connection>scm:svn:${source.url}/trunk/flex-pmd-parent</connection>
+		<developerConnection>scm:svn:${source.url}/trunk/flex-pmd-parent</developerConnection>
+		<url>scm:svn:${source.url}/trunk/flex-pmd-parent</url>
 	</scm>
 
 	<organization>
@@ -59,6 +60,7 @@
 		<junit.version>4.0</junit.version>
 		<as3-plugin-utils.version>1.0.RC3</as3-plugin-utils.version>
 		<commons-lang.version>2.4</commons-lang.version>
+		<as3-parser.version>${project.version}</as3-parser.version>
 		<findbugs.version>2.1</findbugs.version>
 		<checkstyle.version>2.2</checkstyle.version>
 		<license.version>1.4.0</license.version>
@@ -76,6 +78,7 @@
 		<!-- Flex project versions -->
 		<!-- Plugin versions -->
 
+		<flex-pmd-maven-plugin.version>${project.version}</flex-pmd-maven-plugin.version>
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
 		<as3Ncss-maven-plugin.version>1.1</as3Ncss-maven-plugin.version>
