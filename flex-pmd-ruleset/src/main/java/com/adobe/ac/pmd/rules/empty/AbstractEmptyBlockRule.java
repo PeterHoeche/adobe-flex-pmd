@@ -28,41 +28,17 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.unused;
+package com.adobe.ac.pmd.rules.empty;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
+public abstract class AbstractEmptyBlockRule extends AbstractAstFlexRule
 {
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected static boolean isBlockEmpty( final IParserNode block )
    {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                     "Sorted.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 71, 71 ) } ),
-                                           "cairngorm.LightController.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 191, 191 ) } ),
-                                 "RadonDataGrid.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 207, 207 ) } ),
-                       "com.adobe.ac.ncss.BigModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 94, 94 ),
-                                   new ViolationPosition( 86, 86 ),
-                                   new ViolationPosition( 98, 98 ),
-                                   new ViolationPosition( 90, 90 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedPrivateMethodRule();
+      return block.is( NodeKind.BLOCK )
+            && block.numChildren() == 0 || block.is( NodeKind.STMT_EMPTY );
    }
 }

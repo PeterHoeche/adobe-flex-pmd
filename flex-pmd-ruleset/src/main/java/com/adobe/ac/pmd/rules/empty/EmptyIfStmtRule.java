@@ -31,11 +31,9 @@
 package com.adobe.ac.pmd.rules.empty;
 
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EmptyIfStmtRule extends AbstractAstFlexRule
+public class EmptyIfStmtRule extends AbstractEmptyBlockRule
 {
    @Override
    protected final ViolationPriority getDefaultPriority()
@@ -48,10 +46,7 @@ public class EmptyIfStmtRule extends AbstractAstFlexRule
    {
       super.visitIf( ast );
 
-      final IParserNode block = ast.getChild( 1 );
-
-      if ( block.is( NodeKind.BLOCK )
-            && block.numChildren() == 0 || block.is( NodeKind.STMT_EMPTY ) )
+      if ( isBlockEmpty( ast.getChild( 1 ) ) )
       {
          addViolation( ast );
       }
