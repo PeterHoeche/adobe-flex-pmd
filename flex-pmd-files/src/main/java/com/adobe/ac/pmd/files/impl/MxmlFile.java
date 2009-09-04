@@ -49,7 +49,10 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       super( file, rootDirectory );
 
       computeIfIsMainApplication();
-      extractScriptBlock();
+      if ( getLinesNb() > 0 )
+      {
+         extractScriptBlock();
+      }
    }
 
    public int getBeginningScriptBlock()

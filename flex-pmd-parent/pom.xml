@@ -248,6 +248,7 @@
 					</includes>
 					<excludes>
 						<exclude>**/Simple.as</exclude>
+						<exclude>**/Empty.*</exclude>
 						<exclude>**/Version.as</exclude>
 						<exclude>**/header.txt</exclude>
 						<exclude>**/MainWithNoCopyright.mxml</exclude>

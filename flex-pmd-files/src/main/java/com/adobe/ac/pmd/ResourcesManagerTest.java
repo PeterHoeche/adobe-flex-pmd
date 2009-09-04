@@ -35,6 +35,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
@@ -60,6 +61,7 @@ final class ResourcesManagerTest
       {
          try
          {
+            LOGGER.setLevel( Level.WARNING );
             instance = new ResourcesManagerTest();
          }
          catch ( final URISyntaxException e )
