@@ -58,12 +58,20 @@ package com.adobe.ac
 
 	<rule class="com.adobe.ac.pmd.rules.architecture.MonkeyPatchingRule"
 		message="This class looks to be duplicated with a SDK class">
-		<description>Monkey patching is risky because it is not using intended extensibility points and thus may have unintended consequences or make migration to newer versions of the SDK more difficult</description>
+		<description>Monkey patching can be a risky undertaking because it is not using intended extensibility points and thus may have unintended consequences or make migration to newer versions of the SDK more difficult</description>
 		<priority>1</priority>
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.architecture.UseInternalClassOutsideApiClass"
 		message="This class imports an internal class ({0}) from another function area ({1})">
+		<description>If you have different functionalities, you probably don't want every class of each to be accessible from any other functional areas.
+So you probably want to use this packaging:
+[org].[project].func1.api
+[org].[project].func1.restricted
+[org].[project].func2.api
+[org].[project].func2.restricted
+This rule makes sure that no restricted classes is accessed from outside its own function area.
+ </description>
 		<priority>1</priority>
 		<example>
 package functional
