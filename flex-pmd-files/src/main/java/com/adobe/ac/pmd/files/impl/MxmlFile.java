@@ -156,8 +156,11 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       {
          scriptLines.add( "" );
       }
-      scriptLines.addAll( new ArrayList< String >( getLines().subList( startLine,
-                                                                       endLine ) ) );
+      if ( startLine < endLine )
+      {
+         scriptLines.addAll( new ArrayList< String >( getLines().subList( startLine,
+                                                                          endLine ) ) );
+      }
       for ( int j = endLine; j < getLines().size(); j++ )
       {
          scriptLines.add( "" );

@@ -54,6 +54,7 @@ import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.IFlexAstRule;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
+import com.adobe.ac.utils.StackTraceUtils;
 
 public class FlexPmdViolations
 {
@@ -176,21 +177,29 @@ public class FlexPmdViolations
                              final IFlexRule ruleToProcess,
                              final IFlexFile fileToProcess )
    {
-      final String fullyQualifiedName = fileToProcess.getFullyQualifiedName();
-      final IPackage ast = ruleToProcess instanceof IFlexAstRule ? astsInSourceDirectory.get( fullyQualifiedName )
-                                                                : null;
-      final List< IFlexViolation > foundViolations = ruleToProcess.processFile( fileToProcess,
-                                                                                ast,
-                                                                                filesInSourceDirectory );
+      try
+      {
+         final String fullyQualifiedName = fileToProcess.getFullyQualifiedName();
+         final IPackage ast = ruleToProcess instanceof IFlexAstRule ? astsInSourceDirectory.get( fullyQualifiedName )
+                                                                   : null;
+         final List< IFlexViolation > foundViolations = ruleToProcess.processFile( fileToProcess,
+                                                                                   ast,
+                                                                                   filesInSourceDirectory );
 
-      if ( violations.containsKey( fileToProcess ) )
-      {
-         violations.get( fileToProcess ).addAll( foundViolations );
+         if ( violations.containsKey( fileToProcess ) )
+         {
+            violations.get( fileToProcess ).addAll( foundViolations );
+         }
+         else
+         {
+            violations.put( fileToProcess,
+                            foundViolations );
+         }
       }
-      else
+      catch ( final Exception e )
       {
-         violations.put( fileToProcess,
-                         foundViolations );
+         LOGGER.warning( StackTraceUtils.print( fileToProcess.getFullyQualifiedName(),
+                                                e ) );
       }
    }
 

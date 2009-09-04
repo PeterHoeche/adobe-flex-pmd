@@ -34,7 +34,7 @@ public final class StackTraceUtils
 {
    /**
     * Pretty print the first two lines of the stacktrace of the given exception
-    *
+    * 
     * @param exception Exception to print
     * @return The first two lines of the stacktrace
     */
@@ -47,6 +47,21 @@ public final class StackTraceUtils
       buffer.append( exception.getStackTrace()[ 1 ]
             + "\n" + exception.getStackTrace()[ 2 ] );
       return buffer.toString();
+   }
+
+   /**
+    * Pretty print the first two lines of the stacktrace of the given exception,
+    * specifying which file the exception was thrown on.
+    * 
+    * @param fileName current fileName
+    * @param exception exception thrown
+    * @return error message
+    */
+   public static String print( final String fileName,
+                               final Exception exception )
+   {
+      return "on "
+            + fileName + " " + print( exception );
    }
 
    private StackTraceUtils()

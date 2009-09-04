@@ -49,29 +49,39 @@ public class CopyrightMissingRule extends AbstractFlexRule
    }
 
    @Override
+   protected final List< IFlexViolation > findViolationsInCurrentFile()
+   {
+      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
+      final IFlexFile currentFile = getCurrentFile();
+
+      if ( currentFile.getLinesNb() == 1 )
+      {
+         addViolation( violations );
+      }
+      else if ( currentFile.getLinesNb() > 1 )
+      {
+         final String commentOpeningTag = currentFile.getCommentOpeningTag();
+
+         if ( !currentFile.getLineAt( 1 ).startsWith( commentOpeningTag )
+               && !( currentFile instanceof IMxmlFile && currentFile.getLineAt( 2 )
+                                                                    .contains( commentOpeningTag ) ) )
+         {
+            addViolation( violations );
+         }
+      }
+
+      return violations;
+   }
+
+   @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
-   @Override
-   protected final List< IFlexViolation > findViolationsInCurrentFile()
+   private void addViolation( final List< IFlexViolation > violations )
    {
-      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
-      final IFlexFile currentFile = getCurrentFile();
-      final String commentOpeningTag = currentFile.getCommentOpeningTag();
-      final boolean hasMxmlCopyright = currentFile instanceof IMxmlFile
-            && currentFile.getLinesNb() > 1 && currentFile.getLineAt( 2 ).contains( commentOpeningTag );
-      final String firstLine = currentFile.getLineAt( 1 );
-      final boolean isFirstLineContainCopyright = firstLine.startsWith( commentOpeningTag );
-
-      if ( !isFirstLineContainCopyright
-            && !hasMxmlCopyright )
-      {
-         addViolation( violations,
-                       new ViolationPosition( -1, -1 ) );
-      }
-
-      return violations;
+      addViolation( violations,
+                    new ViolationPosition( -1, -1 ) );
    }
 }
