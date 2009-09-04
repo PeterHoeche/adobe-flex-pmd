@@ -182,11 +182,12 @@ class AS3Scanner
    {
       char currentCharacter;
 
-      try
+      if ( lines != null
+            && line < lines.length )
       {
          currentCharacter = nextNonWhitespaceCharacter();
       }
-      catch ( final Exception e )
+      else
       {
          return new Token( "__END__", line, column );
       }
