@@ -78,7 +78,6 @@
                 super.commitProperties();
 
                 grid = AdvancedDataGrid( owner );
-                visible = false;
                 grid.addEventListener( ListEvent.CHANGE, onChange );
                 changeVisibility();
             }

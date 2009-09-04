@@ -122,7 +122,6 @@
 
     <mx:AdvancedDataGrid id="dg"
         width="100%"
-        minHeight="600"
         height="100%"
         change="onChange()"
         >

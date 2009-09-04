@@ -44,7 +44,6 @@ package com.adobe.ac.pmd.model
 		private static const RULES_CHANGED : String = "rulesChange";
 		public var name : String;
 		public var description : String;
-		[Bindable]
 		public var rulesets : ListCollectionView = new ArrayCollection();
 		
 		public function RootRuleset()

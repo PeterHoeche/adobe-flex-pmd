@@ -114,7 +114,7 @@
 
         <mx:TextArea id="examples"
             width="{ width - FORM_LABELS_WIDTH }"
-            height="200"
+            height="150"
             text="{ model.selectedRule.examples }"
             enabled="{ model.selectedRule != null }"
             change="model.selectedRule.examples = examples.text"

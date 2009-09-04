@@ -41,17 +41,15 @@
    layout="vertical"
    minHeight="600"
    minWidth="850"
-   verticalScrollPolicy="off"
    horizontalAlign="center"
    verticalAlign="top"
-   >
+   paddingBottom="10">
 
    <control:Controller/>
 
    <services:MyServiceLocator/>
 
    <mx:Panel width="100%" 
-   	  height="100%" 
       styleName="mainPanel"
       >
 
@@ -87,26 +85,23 @@
          />
 
       <mx:HBox width="100%"
-      	 height="100%"
          paddingBottom="5"
          paddingLeft="10"
          >
 
          <view:RuleSetNavigator id="navigator"
             width="100%"
-            height="100%"
             selectedRuleChange="editor.model.selectedRule = event.selectedRule"
-            />
+             height="550"/>
 
-         <mx:VRule height="100%"
+         <mx:VRule
             styleName="flexUnitHRule"
-            />
+             height="100%"/>
 
 		 <mx:VBox
-			 height="100%">
+			 height="550">
 			 
-	         <view:RuleEditor id="editor"
-	            />
+	         <view:RuleEditor id="editor"/>
 			 
 			 <mx:Label
 				 text="{ navigator.model.rootRuleset.rulesNb } rule(s) in your current ruleset"
