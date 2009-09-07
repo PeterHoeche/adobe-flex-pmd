@@ -452,6 +452,14 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   protected void visitReturn( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         visitExpression( ast.getChild( 0 ) );
+      }
+   }
+
    protected void visitStatement( final IParserNode statementNode )
    {
       if ( statementNode.is( NodeKind.FOR ) )
@@ -694,7 +702,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                                     VariableOrConstant.CONSTANT,
                                     VariableScope.IN_CLASS );
             }
-            else if ( node.is( NodeKind.FUNCTION ) )
+         }
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            if ( node.is( NodeKind.FUNCTION ) )
             {
                visitFunction( node,
                               FunctionType.NORMAL );
@@ -930,14 +941,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                              visitShiftExpression( ast );
                           }
                        } );
-   }
-
-   private void visitReturn( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
    }
 
    private void visitShiftExpression( final IParserNode ast )

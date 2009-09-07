@@ -28,39 +28,27 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.unused;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
+package
 {
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                     "Responder.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 37, 37 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 54, 54 ) } ),
-
-                                 "com.adobe.ac.ncss.BigModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 42, 42 ) } ),
-                       "Title.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedFieldRule();
-   }
-}
+	import flash.events.Event;
+	
+	public class TestEvent extends Event
+	{
+		public function TestEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false, eventTime:Date=null) {
+			super(type, bubbles, cancelable);
+			_eventTime = eventTime;
+		}
+		
+		override public function clone():Event {
+			return new TestEvent(type, bublles, cancelable, eventTime);
+		}
+		
+		public function get eventTime() : Date {
+			return _eventTime;
+		}
+		
+		private var _eventTime : Date;
+		
+	}
+	
+} 

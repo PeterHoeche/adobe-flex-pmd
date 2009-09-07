@@ -28,39 +28,20 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.unused;
+package com.test.testy.ui.components {
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
-{
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                     "Responder.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 37, 37 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 54, 54 ) } ),
-
-                                 "com.adobe.ac.ncss.BigModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 42, 42 ) } ),
-                       "Title.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedFieldRule();
-   }
+	import flash.display.Sprite;
+	
+	public class Link extends Sprite {
+		
+		protected var _linkText:String = '';
+		protected var _style:String;
+		
+		public function Link(text:String = '', style:String = null) {
+			
+			_style = style;
+			_linkText = text;
+		}
+		
+	}
 }

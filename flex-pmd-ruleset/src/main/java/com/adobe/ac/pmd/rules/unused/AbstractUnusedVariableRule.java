@@ -62,7 +62,7 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
    protected final void tryToMarkVariableAsUsed( final IParserNode ast )
    {
       if ( variablesUnused != null
-            && !variablesUnused.isEmpty() && ast != null )
+            && ast != null )
       {
          markVariableAsUsed( ast );
       }
