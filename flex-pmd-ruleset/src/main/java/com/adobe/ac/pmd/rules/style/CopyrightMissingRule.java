@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IAs3File;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.IMxmlFile;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -61,10 +62,12 @@ public class CopyrightMissingRule extends AbstractFlexRule
       else if ( currentFile.getLinesNb() > 1 )
       {
          final String commentOpeningTag = currentFile.getCommentOpeningTag();
+         final String firstLine = currentFile.getLineAt( 1 );
+         final String secondLine = currentFile.getLineAt( 2 );
 
-         if ( !currentFile.getLineAt( 1 ).startsWith( commentOpeningTag )
-               && !( currentFile instanceof IMxmlFile && currentFile.getLineAt( 2 )
-                                                                    .contains( commentOpeningTag ) ) )
+         if ( !firstLine.startsWith( commentOpeningTag )
+               && !( currentFile instanceof IMxmlFile && secondLine.contains( commentOpeningTag ) )
+               && !( currentFile instanceof IAs3File && firstLine.contains( currentFile.getSingleLineComment() ) ) )
          {
             addViolation( violations );
          }

@@ -28,57 +28,28 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.comparators;
 
-import java.util.Set;
+import java.util.Comparator;
+import java.util.Map;
 
-public interface IFlexFile extends Comparable< IFlexFile >
+import com.adobe.ac.pmd.rules.core.IFlexRule;
+
+public class DescendentSpeedRuleComparator implements Comparator< IFlexRule >
 {
-   boolean contains( final String stringToLookup,
-                     final Set< Integer > linesToBeIgnored );
+   private final Map< IFlexRule, Long > ruleSpeeds;
 
-   String getClassName();
+   public DescendentSpeedRuleComparator( final Map< IFlexRule, Long > ruleSpeedsToBeSet )
+   {
+      ruleSpeeds = ruleSpeedsToBeSet;
+   }
 
-   /**
-    * @return the token for comment closing
-    */
-   String getCommentClosingTag();
+   public int compare( final IFlexRule firstRule,
+                       final IFlexRule secondRule )
+   {
 
-   /**
-    * @return the token for comment opening
-    */
-   String getCommentOpeningTag();
-
-   /**
-    * @return java.io.File name
-    */
-   String getFilename();
-
-   /**
-    * @return java.io.File absolute path
-    */
-   String getFilePath();
-
-   String getFullyQualifiedName();
-
-   String getLineAt( int lineIndex );
-
-   int getLinesNb();
-
-   /**
-    * @return the token for one line comment
-    */
-   String getSingleLineComment();
-
-   String getPackageName();
-
-   /**
-    * @return true if the file is a main MXML file
-    */
-   boolean isMainApplication();
-
-   /**
-    * @return true if the file is a MXML file
-    */
-   boolean isMxml();
+      final Long firstValue = ruleSpeeds.get( firstRule );
+      final Long secondValue = ruleSpeeds.get( secondRule );
+      return firstValue.compareTo( secondValue );
+   }
 }

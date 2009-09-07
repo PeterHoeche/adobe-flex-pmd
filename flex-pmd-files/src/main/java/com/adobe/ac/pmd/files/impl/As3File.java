@@ -54,6 +54,11 @@ class As3File extends AbstractFlexFile implements IAs3File
       return "/*";
    }
 
+   public String getSingleLineComment()
+   {
+      return "//";
+   }
+
    @Override
    public final boolean isMainApplication()
    {

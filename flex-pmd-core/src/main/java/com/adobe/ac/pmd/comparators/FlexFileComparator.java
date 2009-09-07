@@ -28,14 +28,14 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.comparators;
 
 import java.io.Serializable;
 import java.util.Comparator;
 
 import com.adobe.ac.pmd.files.IFlexFile;
 
-class FlexFileComparator implements Comparator< IFlexFile >, Serializable
+public class FlexFileComparator implements Comparator< IFlexFile >, Serializable
 {
    private static final long serialVersionUID = -7929554744612318974L;
 

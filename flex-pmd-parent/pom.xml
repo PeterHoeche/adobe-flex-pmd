@@ -250,6 +250,7 @@
 						<exclude>**/Simple.as</exclude>
 						<exclude>**/Empty.*</exclude>
 						<exclude>**/Version.as</exclude>
+						<exclude>**/FlexPMD60.as</exclude>
 						<exclude>**/header.txt</exclude>
 						<exclude>**/MainWithNoCopyright.mxml</exclude>
 					</excludes>

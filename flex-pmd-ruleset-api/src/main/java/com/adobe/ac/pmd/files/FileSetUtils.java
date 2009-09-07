@@ -65,20 +65,11 @@ public final class FileSetUtils
 
    public static IParserNode buildAst( final IFlexFile file ) throws PMDException
    {
-      final IAS3Parser parser = new AS3Parser();
       IParserNode rootNode = null;
 
       try
       {
-         if ( file instanceof IMxmlFile )
-         {
-            rootNode = parser.buildAst( file.getFilePath(),
-                                        ( ( IMxmlFile ) file ).getScriptBlock() );
-         }
-         else
-         {
-            rootNode = parser.buildAst( file.getFilePath() );
-         }
+         rootNode = tryToBuildAst( file );
       }
       catch ( final IOException e )
       {
@@ -151,6 +142,23 @@ public final class FileSetUtils
                                                                   5,
                                                                   TimeUnit.SECONDS );
       return ( IParserNode ) futures.get( 0 ).get();
+   }
+
+   private static IParserNode tryToBuildAst( final IFlexFile file ) throws IOException,
+                                                                   TokenException
+   {
+      IParserNode rootNode;
+      final IAS3Parser parser = new AS3Parser();
+      if ( file instanceof IMxmlFile )
+      {
+         rootNode = parser.buildAst( file.getFilePath(),
+                                     ( ( IMxmlFile ) file ).getScriptBlock() );
+      }
+      else
+      {
+         rootNode = parser.buildAst( file.getFilePath() );
+      }
+      return rootNode;
    }
 
    private FileSetUtils()

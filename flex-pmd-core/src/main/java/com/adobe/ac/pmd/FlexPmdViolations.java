@@ -33,7 +33,6 @@ package com.adobe.ac.pmd;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +47,8 @@ import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleReference;
 import net.sourceforge.pmd.RuleSet;
 
+import com.adobe.ac.pmd.comparators.DescendentSpeedRuleComparator;
+import com.adobe.ac.pmd.comparators.FlexFileComparator;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
@@ -59,63 +60,45 @@ import com.adobe.ac.utils.StackTraceUtils;
 public class FlexPmdViolations
 {
    private static final Logger                                  LOGGER;
+   private static final Logger                                  SPEEDS_LOGGER;
+
    static
    {
       LOGGER = Logger.getLogger( FlexPmdViolations.class.getName() );
+      SPEEDS_LOGGER = Logger.getLogger( FlexPmdViolations.class.getName()
+            + "Speeds" );
+      LOGGER.setLevel( Level.WARNING );
+      SPEEDS_LOGGER.setLevel( Level.INFO );
    }
 
-   private boolean                                              beenComputed = false;
+   private Map< String, IPackage >                              asts;
+   private Map< String, IFlexFile >                             files;
+   private boolean                                              hasBeenComputed;
+   private final Map< String, IFlexRule >                       rules;
+   private final Map< IFlexRule, Long >                         ruleSpeeds;
    private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()
    {
       violations = new TreeMap< IFlexFile, List< IFlexViolation > >( new FlexFileComparator() );
+      rules = new HashMap< String, IFlexRule >();
+      ruleSpeeds = new HashMap< IFlexRule, Long >();
+      hasBeenComputed = false;
    }
 
    public final void computeViolations( final File sourceDirectory,
                                         final RuleSet ruleSet,
                                         final String packageToExclude ) throws PMDException
    {
-      beenComputed = true;
+      hasBeenComputed = true;
 
-      LOGGER.setLevel( Level.INFO );
-      LOGGER.info( "computing RulesList" );
-      final Map< String, IFlexRule > rules = computeRulesList( ruleSet );
-
-      LOGGER.info( "computing FilesList" );
-      final Map< String, IFlexFile > filesInSourceDirectory = FileUtils.computeFilesList( sourceDirectory,
-                                                                                          packageToExclude );
-      LOGGER.info( "computing Asts" );
-
-      final Map< String, IPackage > astsInSourceDirectory = FileSetUtils.computeAsts( filesInSourceDirectory );
-      final Map< IFlexRule, Long > workBench = new HashMap< IFlexRule, Long >();
-
-      for ( final Entry< String, IFlexRule > currentRuleEntry : rules.entrySet() )
-      {
-         final long startTime = System.currentTimeMillis();
-
-         processRule( filesInSourceDirectory,
-                      astsInSourceDirectory,
-                      currentRuleEntry.getValue() );
-         final long ellapsedTime = System.currentTimeMillis()
-               - startTime;
-
-         if ( LOGGER.isLoggable( Level.INFO ) )
-         {
-            LOGGER.info( "rule "
-                  + currentRuleEntry.getKey() + " computed in " + ellapsedTime + "ms" );
-         }
-         if ( LOGGER.isLoggable( Level.FINE ) )
-         {
-            workBench.put( currentRuleEntry.getValue(),
-                           ellapsedTime );
-         }
-      }
-      for ( final Entry< String, IFlexFile > entry : filesInSourceDirectory.entrySet() )
-      {
-         Collections.sort( violations.get( entry.getValue() ) );
-      }
-      displayWorkBench( workBench );
+      computeRules( ruleSet );
+      computeFiles( sourceDirectory,
+                    packageToExclude );
+      computeAsts();
+      processRules();
+      sortViolations();
+      displayRuleSpeeds();
    }
 
    public final Map< IFlexFile, List< IFlexViolation >> getViolations()
@@ -125,12 +108,38 @@ public class FlexPmdViolations
 
    public final boolean hasViolationsBeenComputed()
    {
-      return beenComputed;
+      return hasBeenComputed;
    }
 
-   private Map< String, IFlexRule > computeRulesList( final RuleSet ruleSet )
+   private void computeAsts() throws PMDException
    {
-      final Map< String, IFlexRule > rules = new HashMap< String, IFlexRule >();
+      LOGGER.info( "computing Asts" );
+
+      final long startTime = System.currentTimeMillis();
+      asts = FileSetUtils.computeAsts( files );
+
+      SPEEDS_LOGGER.info( "computed Asts in "
+            + ( System.currentTimeMillis() - startTime ) + " ms" );
+   }
+
+   private void computeFiles( final File sourceDirectory,
+                              final String packageToExclude ) throws PMDException
+   {
+      LOGGER.info( "computing FilesList" );
+
+      final long startTime = System.currentTimeMillis();
+
+      files = FileUtils.computeFilesList( sourceDirectory,
+                                          packageToExclude );
+      SPEEDS_LOGGER.info( "computed FilesList in "
+            + ( System.currentTimeMillis() - startTime ) + " ms" );
+   }
+
+   private void computeRules( final RuleSet ruleSet )
+   {
+      LOGGER.info( "computing RulesList" );
+
+      final long startTime = System.currentTimeMillis();
 
       for ( Rule rule : ruleSet.getRules() )
       {
@@ -144,78 +153,101 @@ public class FlexPmdViolations
                     flexRule );
       }
 
-      return rules;
+      SPEEDS_LOGGER.info( "computed RulesList in "
+            + ( System.currentTimeMillis() - startTime ) + " ms" );
    }
 
-   private void displayWorkBench( final Map< IFlexRule, Long > workBench )
+   private void displayRuleSpeeds()
    {
-      if ( LOGGER.isLoggable( Level.FINE ) )
+      if ( SPEEDS_LOGGER.isLoggable( Level.FINER ) )
       {
-         final List< IFlexRule > rulesSortedByTime = new ArrayList< IFlexRule >( workBench.keySet() );
+         final List< IFlexRule > rulesSortedByTime = new ArrayList< IFlexRule >( ruleSpeeds.keySet() );
          Collections.sort( rulesSortedByTime,
-                           new Comparator< IFlexRule >()
-                           {
-                              public int compare( final IFlexRule left,
-                                                  final IFlexRule right )
-                              {
-
-                                 final Long leftValue = workBench.get( left );
-                                 final Long rightValue = workBench.get( right );
-                                 return leftValue.compareTo( rightValue );
-                              }
-                           } );
+                           new DescendentSpeedRuleComparator( ruleSpeeds ) );
          for ( final IFlexRule flexRule : rulesSortedByTime )
          {
-            LOGGER.fine( flexRule.getRuleName()
-                  + " took " + workBench.get( flexRule ) + "ms to compute" );
+            SPEEDS_LOGGER.finer( flexRule.getRuleName()
+                  + " took " + ruleSpeeds.get( flexRule ) + "ms to compute" );
          }
       }
    }
 
-   private void processFile( final Map< String, IFlexFile > filesInSourceDirectory,
-                             final Map< String, IPackage > astsInSourceDirectory,
-                             final IFlexRule ruleToProcess,
-                             final IFlexFile fileToProcess )
+   private void processFile( final IFlexRule currentRule,
+                             final IFlexFile currentFile )
    {
       try
       {
-         final String fullyQualifiedName = fileToProcess.getFullyQualifiedName();
-         final IPackage ast = ruleToProcess instanceof IFlexAstRule ? astsInSourceDirectory.get( fullyQualifiedName )
-                                                                   : null;
-         final List< IFlexViolation > foundViolations = ruleToProcess.processFile( fileToProcess,
-                                                                                   ast,
-                                                                                   filesInSourceDirectory );
+         final String fullyQualifiedName = currentFile.getFullyQualifiedName();
+         final IPackage ast = currentRule instanceof IFlexAstRule ? asts.get( fullyQualifiedName )
+                                                                 : null;
+         final List< IFlexViolation > foundViolations = currentRule.processFile( currentFile,
+                                                                                 ast,
+                                                                                 files );
 
-         if ( violations.containsKey( fileToProcess ) )
+         if ( violations.containsKey( currentFile ) )
          {
-            violations.get( fileToProcess ).addAll( foundViolations );
+            violations.get( currentFile ).addAll( foundViolations );
          }
          else
          {
-            violations.put( fileToProcess,
+            violations.put( currentFile,
                             foundViolations );
          }
       }
       catch ( final Exception e )
       {
-         LOGGER.warning( StackTraceUtils.print( fileToProcess.getFullyQualifiedName(),
+         LOGGER.warning( StackTraceUtils.print( currentFile.getFullyQualifiedName(),
                                                 e ) );
       }
    }
 
-   private void processRule( final Map< String, IFlexFile > filesInSourceDirectory,
-                             final Map< String, IPackage > astsInSourceDirectory,
-                             final IFlexRule currentRule )
+   private void processRule( final IFlexRule currentRule )
    {
       LOGGER.fine( "Processing "
             + currentRule.getRuleName() + "..." );
 
-      for ( final Entry< String, IFlexFile > currentFileEntry : filesInSourceDirectory.entrySet() )
+      for ( final Entry< String, IFlexFile > currentFileEntry : files.entrySet() )
       {
-         processFile( filesInSourceDirectory,
-                      astsInSourceDirectory,
-                      currentRule,
+         processFile( currentRule,
                       currentFileEntry.getValue() );
+      }
+   }
+
+   private void processRule( final String currentRuleName,
+                             final IFlexRule currentRule )
+   {
+      final long startTime = System.currentTimeMillis();
+
+      processRule( currentRule );
+      final long ellapsedTime = System.currentTimeMillis()
+            - startTime;
+
+      if ( SPEEDS_LOGGER.isLoggable( Level.FINE ) )
+      {
+         SPEEDS_LOGGER.fine( "rule "
+               + currentRuleName + " computed in " + ellapsedTime + "ms" );
+      }
+      if ( SPEEDS_LOGGER.isLoggable( Level.FINER ) )
+      {
+         ruleSpeeds.put( currentRule,
+                         ellapsedTime );
+      }
+   }
+
+   private void processRules()
+   {
+      for ( final Entry< String, IFlexRule > currentRuleEntry : rules.entrySet() )
+      {
+         processRule( currentRuleEntry.getKey(),
+                      currentRuleEntry.getValue() );
+      }
+   }
+
+   private void sortViolations()
+   {
+      for ( final Entry< String, IFlexFile > entry : files.entrySet() )
+      {
+         Collections.sort( violations.get( entry.getValue() ) );
       }
    }
 }

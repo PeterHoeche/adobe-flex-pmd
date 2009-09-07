@@ -77,6 +77,11 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       return endLine;
    }
 
+   public String getSingleLineComment()
+   {
+      return getCommentOpeningTag();
+   }
+
    public final String[] getScriptBlock()
    {
       return scriptBlock; // NOPMD by xagnetti on 7/7/09 3:15 PM
