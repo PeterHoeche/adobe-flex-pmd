@@ -41,7 +41,7 @@ package flexUnit.flexui.data
          callLater( assertionsMadeLegend, [ null ] );
       }
 
-      public function set assertionsMadeLegend( fooBar : * ) : void
+      public override function set assertionsMadeLegend( fooBar : * ) : void
       {
       	var tmp : * = new Object();
       }

@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.rules.unused;
 import java.util.HashMap;
 
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -45,23 +46,27 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitFunction( final IParserNode ast,
+   protected void visitFunction( final IParserNode functionAst,
                                  final FunctionType type )
    {
       variablesUnused = new HashMap< String, IParserNode >();
+      final boolean isOverriden = isFunctionOverriden( functionAst );
 
-      super.visitFunction( ast,
-                           type );
-
-      if ( !functionIsEventHandler( ast ) )
+      if ( !isOverriden )
       {
-         for ( final String variableName : variablesUnused.keySet() )
-         {
-            final IParserNode variable = variablesUnused.get( variableName );
+         super.visitFunction( functionAst,
+                              type );
 
-            addViolation( variable,
-                          variable,
-                          variableName );
+         if ( !functionIsEventHandler( functionAst ) )
+         {
+            for ( final String variableName : variablesUnused.keySet() )
+            {
+               final IParserNode variable = variablesUnused.get( variableName );
+
+               addViolation( variable,
+                             variable,
+                             variableName );
+            }
          }
       }
    }
@@ -106,6 +111,24 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
       return functionName.startsWith( "on" )
             || functionName.startsWith( "handle" ) || functionName.endsWith( "handler" );
+   }
+
+   private boolean isFunctionOverriden( final IParserNode ast )
+   {
+      for ( final IParserNode child : ast.getChildren() )
+      {
+         if ( child.is( NodeKind.MOD_LIST ) )
+         {
+            for ( final IParserNode mod : child.getChildren() )
+            {
+               if ( mod.getStringValue().equals( KeyWords.OVERRIDE.toString() ) )
+               {
+                  return true;
+               }
+            }
+         }
+      }
+      return false;
    }
 
    private boolean isParameterAnEvent( final IParserNode parameterNode )
