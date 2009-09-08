@@ -42,7 +42,8 @@ public class PackageCaseRule extends AbstractAstFlexRule
    {
       if ( containsUpperCharacter( packageNode.getName() ) )
       {
-         final IFlexViolation violation = addViolation( packageNode );
+         final IFlexViolation violation = addViolation( packageNode,
+                                                        packageNode.getName() );
 
          violation.setEndColumn( packageNode.getName().length()
                + violation.getBeginColumn() );

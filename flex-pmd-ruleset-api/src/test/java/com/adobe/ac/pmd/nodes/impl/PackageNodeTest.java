@@ -49,6 +49,7 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 public class PackageNodeTest extends FlexPmdTestBase
 {
    private final IPackage buttonRenderer;
+   private final IPackage FlexPMD62Package;
    private final IPackage modelLocator;
    private final IPackage stylePackage;
 
@@ -63,6 +64,10 @@ public class PackageNodeTest extends FlexPmdTestBase
       final IParserNode modelLocatorAst = FileSetUtils.buildAst( getTestFiles().get( "cairngorm."
             + "NonBindableModelLocator.as" ) );
       modelLocator = NodeFactory.createPackage( modelLocatorAst );
+
+      final IParserNode bug62Ast = FileSetUtils.buildAst( getTestFiles().get( "bug."
+            + "FlexPMD62.as" ) );
+      FlexPMD62Package = NodeFactory.createPackage( bug62Ast );
    }
 
    @Test
@@ -112,5 +117,12 @@ public class PackageNodeTest extends FlexPmdTestBase
                     buttonRenderer.getFullyQualifiedClassName() );
       assertEquals( "com.adobe.ac.sample.model.ModelLocator",
                     modelLocator.getFullyQualifiedClassName() );
+   }
+
+   @Test
+   public void testGetName()
+   {
+      assertEquals( "com.test.testy.ui.components",
+                    FlexPMD62Package.getName() );
    }
 }

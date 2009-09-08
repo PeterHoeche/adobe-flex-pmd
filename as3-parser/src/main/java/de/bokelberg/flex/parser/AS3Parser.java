@@ -2090,12 +2090,12 @@ public class AS3Parser implements IAS3Parser
 
    private boolean tokIs( final KeyWords keyword )
    {
-      return tok.getText().equals( keyword.toString() );
+      return tok.getText().compareTo( keyword.toString() ) == 0;
    }
 
    private boolean tokIs( final Operators operator )
    {
-      return tok.getText().equals( operator.toString() );
+      return tok.getText().compareTo( operator.toString() ) == 0;
    }
 
    /**

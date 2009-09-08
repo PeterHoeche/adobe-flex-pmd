@@ -63,7 +63,7 @@ public class Something
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.naming.PackageCaseRule"
-		message="A package name should be lower case">
+		message="A package name should be lower case ({0})">
 		<description>Detects when a package definition contains upper case characters.</description>
 		<priority>3</priority>
 		<example>

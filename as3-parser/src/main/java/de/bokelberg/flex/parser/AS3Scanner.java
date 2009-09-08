@@ -64,7 +64,6 @@ class AS3Scanner
       private final int     column;
       private final boolean isNumeric;
       private final int     line;
-
       private final String  text;
 
       protected Token( final String textContent,
@@ -388,7 +387,7 @@ class AS3Scanner
          result = nextChar();
       }
       while ( result == ' '
-            || result == '\t' );
+            || result == '\t' || result == '\uFEFF' );
       return result;
    }
 

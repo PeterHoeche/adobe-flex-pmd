@@ -32,9 +32,11 @@ package com.adobe.ac.ncss.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -65,11 +67,12 @@ public final class FileUtils
    public static List< String > readFile( final File file )
    {
       final List< String > result = new ArrayList< String >();
+
       BufferedReader inReader = null;
       try
       {
-
-         inReader = new BufferedReader( new FileReader( file ) );
+         final Reader reader = new InputStreamReader( new FileInputStream( file ), "UTF-8" );
+         inReader = new BufferedReader( reader );
 
          String line = inReader.readLine();
 

@@ -37,6 +37,7 @@ import java.net.URISyntaxException;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.files.impl.FileUtils;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class TestAS3Parser extends AbstractAs3ParserTest
@@ -52,5 +53,19 @@ public class TestAS3Parser extends AbstractAs3ParserTest
       asp.buildAst( titlePath );
       asp.buildAst( titlePath,
                     FileUtils.readLines( new File( titlePath ) ) );
+   }
+
+   @Test
+   public void testBuildAst2() throws IOException,
+                              TokenException,
+                              URISyntaxException
+   {
+      final IParserNode flexPmd60 = asp.buildAst( getClass().getResource( "/examples/FlexPMD62.as" )
+                                                            .toURI()
+                                                            .getPath() );
+
+      assertEquals( "com.test.testy.ui.components",
+                    flexPmd60.getChild( 0 ).getChild( 0 ).getStringValue() );
+
    }
 }
