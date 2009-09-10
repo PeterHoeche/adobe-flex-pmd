@@ -139,4 +139,10 @@ public function foo() : void
 		  ]]>
 		  </example>
 	</rule>
+	
+	<rule class="com.adobe.ac.pmd.rules.cairngorm.ModelLocatorReferencedMoreThanOncePerClassRule"
+		message="Only one reference of ModelLocator is allowed per class">
+		<priority>3</priority>
+	</rule>
+
 </ruleset>
