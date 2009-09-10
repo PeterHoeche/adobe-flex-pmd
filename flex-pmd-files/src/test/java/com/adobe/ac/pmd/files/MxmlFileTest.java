@@ -90,7 +90,7 @@ public class MxmlFileTest extends FlexPmdTestBase
                     iterationsListLines[ 40 ] );
       assertEquals( "}}",
                     iterationsListLines[ iterationsListLines.length - 1 ] );
-      assertEquals( 100,
+      assertEquals( 104,
                     iterationsListLines.length );
    }
 
@@ -114,7 +114,7 @@ public class MxmlFileTest extends FlexPmdTestBase
    {
       assertEquals( 40,
                     iterationsList.getBeginningScriptBlock() );
-      assertEquals( 90,
+      assertEquals( 94,
                     iterationsList.getEndingScriptBlock() );
    }
 }

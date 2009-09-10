@@ -54,6 +54,6 @@ public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
                                  { new ViolationPosition( 49, 103 ) } ),
                        "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 40, 90 ) } );
+                       { new ViolationPosition( 40, 94 ) } );
    }
 }

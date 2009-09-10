@@ -104,6 +104,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
       if ( isConcernedByTheCurrentFile() )
       {
+         onRuleStart();
          violations = findViolationsInCurrentFile();
       }
 
@@ -133,6 +134,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
       return violation;
    }
+
+   protected abstract List< IFlexViolation > findViolationsInCurrentFile();
 
    /**
     * @return the current file under investigation
@@ -169,7 +172,12 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    protected abstract boolean isConcernedByTheCurrentFile();
 
-   protected abstract List< IFlexViolation > findViolationsInCurrentFile();
+   /**
+    * Called when the rule is started on the current file
+    */
+   protected void onRuleStart()
+   {
+   }
 
    private boolean isViolationNotIgnored( final String violatiedLine )
    {

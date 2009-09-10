@@ -40,5 +40,14 @@ package
    [Event(name="dayChange",type="flash.events.Event")]   
    public class UnboundMetadata
    {
+	   public function get modelLocator() : FlexUnitLabelsModelLocator
+	   {
+		   return FlexUnitLabelsModelLocator.instance;
+	   }
+	   
+	   public function UnboundMetadata()
+	   {
+			var lala : int = FlexUnitLabelsModelLocator.instance;   
+	   }
    }
 }

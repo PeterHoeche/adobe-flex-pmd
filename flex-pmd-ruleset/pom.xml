@@ -9,10 +9,6 @@
 		<artifactId>flex-pmd</artifactId>
 		<version>1.0.RC4-SNAPSHOT</version>
 	</parent>
-	<properties>
-        <!--  TODO fix the failing bugs if any -->
-        <maven.test.failure.ignore>true</maven.test.failure.ignore>
-    </properties>
 	
  	<dependencies>
 		<dependency>

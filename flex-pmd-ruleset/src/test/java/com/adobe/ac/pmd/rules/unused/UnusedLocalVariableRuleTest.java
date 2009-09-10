@@ -44,7 +44,10 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
    {
       final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
 
-      addToMap( addToMap( addToMap( violations,
+      addToMap( addToMap( addToMap( addToMap( violations,
+                                              "UnboundMetadata.as",
+                                              new ViolationPosition[]
+                                              { new ViolationPosition( 50, 50 ) } ),
                                     "com.adobe.ac.ncss.BigImporterModel.as",
                                     new ViolationPosition[]
                                     { new ViolationPosition( 64, 64 ) } ),

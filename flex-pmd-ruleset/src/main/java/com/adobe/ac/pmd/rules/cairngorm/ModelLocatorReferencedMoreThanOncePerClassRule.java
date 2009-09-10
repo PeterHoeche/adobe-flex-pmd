@@ -30,33 +30,25 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule // NO_UCD
+public class ModelLocatorReferencedMoreThanOncePerClassRule extends
+                                                           ReferenceModelLocatorOutsideTheMainApplicationRule
 {
-   @Override
-   public final boolean isConcernedByTheCurrentFile()
-   {
-      return !getCurrentFile().getClassName().endsWith( "ModelLocator.as" )
-            && ( !getCurrentFile().isMxml() || !getCurrentFile().isMainApplication() );
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.NORMAL;
-   }
-
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*ModelLocator.*";
-   }
+   private int referencesPerFile;
 
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
-      return true;
+      if ( !line.contains( "import" )
+            && !line.contains( "return" ) )
+      {
+         referencesPerFile++;
+      }
+      return referencesPerFile > 1;
+   }
+
+   @Override
+   protected void onRuleStart()
+   {
+      referencesPerFile = 0;
    }
 }

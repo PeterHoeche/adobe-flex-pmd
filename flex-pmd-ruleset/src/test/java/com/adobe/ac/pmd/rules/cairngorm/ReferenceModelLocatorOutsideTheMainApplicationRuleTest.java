@@ -40,6 +40,26 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "UnboundMetadata.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 33, 33 ),
+                                                       new ViolationPosition( 43, 43 ),
+                                                       new ViolationPosition( 45, 45 ),
+                                                       new ViolationPosition( 50, 50 ) } ),
+                                 "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 41, 41 ),
+                                             new ViolationPosition( 91, 91 ),
+                                             new ViolationPosition( 93, 93 ) } ),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 33, 33 ) } );
+   }
+
+   @Override
    protected String[] getMatchableLines()
    {
       return new String[]
@@ -59,20 +79,5 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends Abst
       return new String[]
       { "ModfrelLocator",
                   "import com.my.MyModelLocafrtor;" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "UnboundMetadata.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 33, 33 ) } ),
-                                 "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 41, 41 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
    }
 }

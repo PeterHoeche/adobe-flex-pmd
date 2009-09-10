@@ -30,33 +30,27 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule // NO_UCD
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class ModelLocatorReferencedMoreThanOncePerClassRuleTest extends
+                                                               ReferenceModelLocatorOutsideTheMainApplicationRuleTest
 {
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return !getCurrentFile().getClassName().endsWith( "ModelLocator.as" )
-            && ( !getCurrentFile().isMxml() || !getCurrentFile().isMainApplication() );
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "UnboundMetadata.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 50, 50 ) } );
    }
 
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
    {
-      return ViolationPriority.NORMAL;
-   }
-
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*ModelLocator.*";
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      return true;
+      return new ModelLocatorReferencedMoreThanOncePerClassRule();
    }
 }

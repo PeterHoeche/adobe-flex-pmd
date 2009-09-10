@@ -87,7 +87,11 @@
             
             return "#" + i.iterationNumber.toString() + " " + i.status;
          }
-         
+
+		  public function get modelLocator() : FlexUnitLabelsModelLocator
+		  {
+			  return FlexUnitLabelsModelLocator.instance;
+		  }
       ]]>
    </mx:Script>
    
