@@ -376,7 +376,14 @@ class AS3Scanner
          return '\n';
       }
 
-      return currentLine.charAt( column );
+      char currentChar = currentLine.charAt( column );
+
+      while ( currentChar == '\uFEFF' )
+      {
+         column++;
+         currentChar = currentLine.charAt( column );
+      }
+      return currentChar;
    }
 
    private char nextNonWhitespaceCharacter()
@@ -387,7 +394,7 @@ class AS3Scanner
          result = nextChar();
       }
       while ( result == ' '
-            || result == '\t' || result == '\uFEFF' );
+            || result == '\t' );
       return result;
    }
 

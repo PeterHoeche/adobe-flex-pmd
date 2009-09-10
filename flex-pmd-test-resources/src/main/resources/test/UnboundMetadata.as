@@ -34,7 +34,7 @@ package
    
    import mx.formatters.NumberFormatter;
    
-   [Event(name="dayChange",type="DefaultNameEvent")]
+   [Event(name="dayChange",type='DefaultNameEvent')]
    [Event(name="dayChange2",type="DefaultNmeEvent")]
    [Event("untypedEvent")]
    [Event(name="dayChange",type="flash.events.Event")]   

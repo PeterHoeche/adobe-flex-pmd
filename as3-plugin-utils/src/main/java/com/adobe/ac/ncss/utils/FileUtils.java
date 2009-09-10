@@ -74,12 +74,12 @@ public final class FileUtils
          final Reader reader = new InputStreamReader( new FileInputStream( file ), "UTF-8" );
          inReader = new BufferedReader( reader );
 
-         String line = inReader.readLine();
+         String line = readLine( inReader );
 
          while ( line != null )
          {
             result.add( line );
-            line = inReader.readLine();
+            line = readLine( inReader );
          }
          inReader.close();
       }
@@ -129,6 +129,18 @@ public final class FileUtils
    {
       return source.replaceAll( "^\\s+",
                                 "" );
+   }
+
+   private static String readLine( final BufferedReader inReader ) throws IOException
+   {
+      final String line = inReader.readLine();
+
+      if ( line != null )
+      {
+         return line.replaceAll( "\uFEFF",
+                                 "" );
+      }
+      return null;
    }
 
    /* remove trailing whitespace */

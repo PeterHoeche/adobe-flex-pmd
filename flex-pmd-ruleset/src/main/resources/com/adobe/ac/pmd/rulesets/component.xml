@@ -42,7 +42,7 @@
    
 	<rule
 		class="com.adobe.ac.pmd.rules.component.UpdateChildrenNumberInUpdateDisplayListRule"
-		message="Do not add or remove displayable children from updateDisplayList">
+		message="Flex specific - Do not add or remove displayable children from updateDisplayList">
 		<description>Add children in createChildren</description>
 		<priority>1</priority>
 		<example></example>
@@ -50,19 +50,19 @@
 	
 	<rule
 		class="com.adobe.ac.pmd.rules.component.NoChildrenAddedInCreateChildrenRule"
-		message="No children are added from createChildren">
+		message="Flex specific - No children are added from createChildren">
 		<priority>1</priority>
 		<example></example>
 	</rule>
 	
 	<rule
 		class="com.adobe.ac.pmd.rules.component.AddChildNotInCreateChildrenRule"
-		message="You must add child only inside the createChildren method">
+		message="Flex specific - You must add child only inside the createChildren method">
 		<priority>1</priority>
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.component.CallLaterDirectlyRule"
-		message="Don't call 'callLater' explicitly">
+		message="Flex specific - Don't call 'callLater' explicitly">
 		<description>If you needed to call 'callLater' explicitly, then you probably did not extend the correct component life cycle.</description>
 		<priority>1</priority>
 	</rule>

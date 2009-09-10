@@ -63,7 +63,7 @@ public class UntypedEventMetadataRule extends AbstractAstFlexRule
       {
          final String metaDataValue = metaData.getInternalNode().getStringValue();
 
-         if ( !metaDataValue.contains( "type = \"" ) )
+         if ( !metaDataValue.contains( "type = " ) )
          {
             addViolation( metaData );
          }

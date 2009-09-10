@@ -53,6 +53,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
    static
    {
       KNOWN_TYPES.add( "flash.events.Event" );
+      KNOWN_TYPES.add( "flash.events.ProgressEvent" );
    }
 
    @Override
@@ -79,9 +80,11 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
       for ( final IMetaData metaData : eventMetaDatas )
       {
          final String metaDataValue = metaData.getParameter();
-         final int startIndex = metaDataValue.indexOf( TYPE_EQUAL );
 
-         if ( startIndex > -1 )
+         if ( metaDataValue.indexOf( TYPE_EQUAL ) > -1 ) // ||
+         // metaDataValue.indexOf(
+         // TYPE_EQUAL_QUOTE ) >
+         // -1 )
          {
             final String type = StringUtils.substringBefore( StringUtils.substringAfter( metaDataValue,
                                                                                          TYPE_EQUAL ),

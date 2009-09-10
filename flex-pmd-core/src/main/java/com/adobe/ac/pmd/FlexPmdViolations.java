@@ -68,7 +68,7 @@ public class FlexPmdViolations
       SPEEDS_LOGGER = Logger.getLogger( FlexPmdViolations.class.getName()
             + "Speeds" );
       LOGGER.setLevel( Level.WARNING );
-      SPEEDS_LOGGER.setLevel( Level.INFO );
+      SPEEDS_LOGGER.setLevel( Level.WARNING );
    }
 
    private Map< String, IPackage >                              asts;

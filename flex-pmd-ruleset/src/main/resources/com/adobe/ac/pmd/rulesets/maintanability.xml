@@ -68,7 +68,7 @@ public class Foo
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.TrueFalseConditionRule"
-		message="This test contains a hard coded boolean value. You could remove it">
+		message="This test contains a hard coded boolean value. You could remove it by having '{0}'">
 		<priority>3</priority>
 		<example>
 if ( true ) // VIOLATION

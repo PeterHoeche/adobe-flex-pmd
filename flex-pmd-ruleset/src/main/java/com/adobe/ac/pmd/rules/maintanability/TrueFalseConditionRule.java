@@ -48,11 +48,15 @@ public class TrueFalseConditionRule extends AbstractAstFlexRule // NO_UCD
       super.visitCondition( condition );
 
       final String conditionStr = condition.toString();
+      final boolean containsTrue = conditionStr.contains( "true" );
 
-      if ( conditionStr.contains( "true" )
+      if ( containsTrue
             || conditionStr.contains( "false" ) )
       {
-         addViolation( condition );
+         addViolation( condition,
+                       ( containsTrue ? ""
+                                     : "!" )
+                             + "condition" );
       }
    }
 }
