@@ -109,7 +109,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       }
    }
 
-   private void formatFileFiolation( final Writer writter,
+   private void formatFileViolation( final Writer writter,
                                      final IFlexFile sourceFile,
                                      final Collection< IFlexViolation > violations,
                                      final String sourceFilePath ) throws IOException
@@ -117,8 +117,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       if ( !violations.isEmpty() )
       {
          writter.write( "   <file name=\""
-               + sourceFilePath.substring( 1,
-                                           sourceFilePath.length() ) + "\">" + getNewLine() );
+               + sourceFilePath + "\">" + getNewLine() );
          for ( final IFlexViolation violation : violations )
          {
             writter.write( violation.toXmlString( sourceFile,
@@ -151,7 +150,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
          final Collection< IFlexViolation > violations = pmd.getViolations().get( sourceFile );
          final String sourceFilePath = sourceFile.getFilePath();
 
-         formatFileFiolation( writter,
+         formatFileViolation( writter,
                               sourceFile,
                               violations,
                               sourceFilePath );
