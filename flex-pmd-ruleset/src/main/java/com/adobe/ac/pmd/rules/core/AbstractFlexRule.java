@@ -127,7 +127,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
          violations.add( violation );
       }
       else if ( beginLine <= getCurrentFile().getLinesNb()
-            && isViolationNotIgnored( getCurrentFile().getLineAt( beginLine ) ) )
+            && !isViolationIgnored( getCurrentFile().getLineAt( beginLine ) ) )
       {
          violations.add( violation );
       }
@@ -179,10 +179,20 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    {
    }
 
-   private boolean isViolationNotIgnored( final String violatiedLine )
+   private boolean isViolationIgnored( final String violatedLine )
    {
-      return !violatiedLine.contains( "// No PMD" )
-            && !violatiedLine.contains( "// NO PMD" );
+      final boolean containsNoPmd = violatedLine.contains( "// No PMD" )
+            || violatedLine.contains( "// NO PMD" );
+
+      if ( !containsNoPmd )
+      {
+         return false;
+      }
+      final String strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) );
+      final boolean ignored = strippedLine.endsWith( "// No PMD" )
+            || strippedLine.endsWith( "// NO PMD" )
+            || strippedLine.contains( getName().substring( getName().lastIndexOf( '.' ) + 1 ) );
+      return ignored;
    }
 
    private final void prettyPrintMessage( final IFlexViolation violation )

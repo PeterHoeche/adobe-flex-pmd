@@ -81,9 +81,9 @@
             }
          }
          
-         private function displayTitle(item : Object, column : DataGridColumn) : String // No PMD
+         private function displayTitle(item : Object, column : DataGridColumn) : String // No PMD UseObjectTypeRule
          {
-            var i  : Iteration = Iteration( item );
+            var i  : Iteration = Iteration( item ); // NO PMD
             
             return "#" + i.iterationNumber.toString() + " " + i.status;
          }

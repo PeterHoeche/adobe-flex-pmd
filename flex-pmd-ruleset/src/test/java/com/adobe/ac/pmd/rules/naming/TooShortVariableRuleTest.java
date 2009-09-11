@@ -40,6 +40,18 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "PngEncoder.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 47, 47 ) } ),
+                       "Looping.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 63, 63 ) } );
+   }
+
+   @Override
    protected String[] getMatchableLines()
    {
       return new String[]
@@ -62,20 +74,5 @@ public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
       return new String[]
       { "function lala() : Number",
                   "lala();" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                           "PngEncoder.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 47, 47 ) } ),
-                                 "Looping.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 63, 63 ) } ),
-                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 86, 86 ) } );
    }
 }
