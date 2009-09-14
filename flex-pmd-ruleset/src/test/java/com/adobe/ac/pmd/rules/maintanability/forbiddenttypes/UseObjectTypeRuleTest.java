@@ -43,22 +43,31 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                               "Looping.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 63, 63 ) } ),
-                                                     "com.adobe.ac.ncss.ConfigProxy.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 42, 42 ) } ),
-                                           "DeleteButtonRenderer.mxml",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 64, 64 ) } ),
-                                 "Sorted.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 67, 67 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 52, 52 ) } );
+      final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
+
+      addToMap( addToMap( addToMap( violations,
+                                    "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 84, 84 ) } ),
+                          "Looping.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 63, 63 ) } ),
+                "com.adobe.ac.ncss.ConfigProxy.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 42, 42 ) } );
+
+      addToMap( addToMap( addToMap( violations,
+                                    "DeleteButtonRenderer.mxml",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 64, 64 ) } ),
+                          "Sorted.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 67, 67 ) } ),
+                "AbstractRowData.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 52, 52 ) } );
+
+      return violations;
    }
 
    @Override

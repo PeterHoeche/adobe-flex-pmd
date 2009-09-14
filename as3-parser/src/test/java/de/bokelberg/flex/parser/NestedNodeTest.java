@@ -71,7 +71,7 @@ public class NestedNodeTest extends AbstractAs3ParserTest
    @Test
    public void testGetLastChild()
    {
-      assertEquals( NodeKind.BLOCK,
+      assertEquals( NodeKind.RETURN,
                     function.getLastChild().getId() );
 
       assertNull( function.getChild( Integer.MAX_VALUE ) );
