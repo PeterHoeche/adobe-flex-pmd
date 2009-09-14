@@ -81,10 +81,7 @@ public class UnboundTypeInMetadataRule extends AbstractAstFlexRule
       {
          final String metaDataValue = metaData.getParameter();
 
-         if ( metaDataValue.indexOf( TYPE_EQUAL ) > -1 ) // ||
-         // metaDataValue.indexOf(
-         // TYPE_EQUAL_QUOTE ) >
-         // -1 )
+         if ( metaDataValue.indexOf( TYPE_EQUAL ) > -1 )
          {
             final String type = StringUtils.substringBefore( StringUtils.substringAfter( metaDataValue,
                                                                                          TYPE_EQUAL ),

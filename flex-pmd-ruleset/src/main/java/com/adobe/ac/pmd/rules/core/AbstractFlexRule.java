@@ -191,7 +191,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       final String strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) );
       final boolean ignored = strippedLine.endsWith( "// No PMD" )
             || strippedLine.endsWith( "// NO PMD" )
-            || strippedLine.contains( getName().substring( getName().lastIndexOf( '.' ) + 1 ) );
+            || strippedLine.contains( StringUtils.substringAfter( getName(),
+                                                                  "." ) );
       return ignored;
    }
 

@@ -40,15 +40,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooLongSwitchCaseRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new TooLongSwitchCaseRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "ErrorToltipSkin.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 189, 189 ),
+                                                       new ViolationPosition( 214, 214 ),
+                                                       new ViolationPosition( 252, 252 ),
+                                                       new ViolationPosition( 290, 290 ) } ),
                                  "com.adobe.ac.ncss.NestedSwitch.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 38, 38 ),
@@ -57,5 +57,11 @@ public class TooLongSwitchCaseRuleTest extends AbstractAstFlexRuleTest
                        new ViolationPosition[]
                        { new ViolationPosition( 47, 47 ),
                                    new ViolationPosition( 52, 52 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new TooLongSwitchCaseRule();
    }
 }

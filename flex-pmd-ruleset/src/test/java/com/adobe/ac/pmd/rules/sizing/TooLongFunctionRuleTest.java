@@ -45,26 +45,21 @@ public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                                                          "ErrorToltipSkin.as",
                                                                          new ViolationPosition[]
-                                                                         { new ViolationPosition( 94, 94 ),
-                                                                                     new ViolationPosition( 156,
-                                                                                                            156 ) } ),
+                                                                         { new ViolationPosition( 156, 156 ) } ),
                                                                "PngEncoder.as",
                                                                new ViolationPosition[]
                                                                { new ViolationPosition( 150, 150 ),
-                                                                           new ViolationPosition( 192, 192 ),
                                                                            new ViolationPosition( 335, 335 ),
-                                                                           new ViolationPosition( 492, 492 ),
                                                                            new ViolationPosition( 548, 548 ) } ),
                                                      "RadonDataGrid.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 84, 84 ),
-                                                                 new ViolationPosition( 117, 117 ) } ),
+                                                     { new ViolationPosition( 84, 84 ) } ),
                                            "cairngorm.FatController.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 97, 97 ) } ),
-                                 "com.adobe.ac.ncss.TestResult.as",
+                                 "com.adobe.ac.ncss.NestedSwitch.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 229, 229 ) } ),
+                                 { new ViolationPosition( 35, 35 ) } ),
                        "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39, 39 ) } );
