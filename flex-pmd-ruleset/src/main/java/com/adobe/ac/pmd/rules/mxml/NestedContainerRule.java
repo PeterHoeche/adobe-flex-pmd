@@ -63,7 +63,7 @@ public class NestedContainerRule extends AbstractMaximizedRegexpBasedRule
    @Override
    protected final String getRegexp()
    {
-      return ".*<(mx:)?(.*Box|Canvas|Accordion|Form|FormItem|LayoutContainer|Panel|Tile|ViewStack|Grid).*";
+      return ".*<(mx:)?(VBox|HBox|Box|Canvas|Accordion|Form|FormItem|LayoutContainer|Panel|Tile|ViewStack|Grid).*";
    }
 
    @Override

@@ -39,40 +39,48 @@ import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class BadFormatLogerRule extends AbstractAstFlexRule
+public class BadFormatLoggerRule extends AbstractAstFlexRule
 {
+   private static final String CORRECT_LOGGER_NAME              = "LOG";
+   private static final String LOGGER_INTERFACE                 = "ILogger";
+   private static final String MESSAGE_LOGGER_NAME_IS_NOT_LOG   = "The logger name is not LOG";
+   private static final String MESSAGE_NOT_FULLY_QUALIFIED_NAME = "The logger is not initialized with "
+                                                                      + "the fully qualified class name";
+   private static final String MESSAGE_NOT_INITIALIZED          = "The logger is not initialized";
+   private static final String MESSAGE_SHOULD_BE_CONSTANT       = "A logger should be constant";
+
    @Override
    protected final void findViolations( final IClass classNode )
    {
       for ( final IVariable field : classNode.getAttributes() )
       {
-         if ( field.getType().toString().equals( "ILogger" ) )
+         if ( field.getType().toString().equals( LOGGER_INTERFACE ) )
          {
             addViolation( field.getInternalNode(),
                           field.getInternalNode(),
-                          "A logger should be constant" );
+                          MESSAGE_SHOULD_BE_CONSTANT );
          }
       }
       for ( final IField field : classNode.getConstants() )
       {
-         if ( field.getType().toString().equals( "ILogger" ) )
+         if ( field.getType().toString().equals( LOGGER_INTERFACE ) )
          {
-            if ( !field.getName().equals( "LOG" ) )
+            if ( !field.getName().equals( CORRECT_LOGGER_NAME ) )
             {
                addViolation( field.getInternalNode(),
                              field.getInternalNode(),
-                             "The logger name is not LOG" );
+                             MESSAGE_LOGGER_NAME_IS_NOT_LOG );
             }
             if ( field.getInitializationExpression() == null )
             {
                addViolation( field.getInternalNode(),
                              field.getInternalNode(),
-                             "The logger is not initialized" );
+                             MESSAGE_NOT_INITIALIZED );
             }
             else
             {
                lookupStringMethodArguments( field.getInitializationExpression(),
-                                            getCurrentFile().getFullyQualifiedName() );
+                                            getCurrentPackageNode().getFullyQualifiedClassName() );
             }
          }
       }
@@ -107,12 +115,11 @@ public class BadFormatLogerRule extends AbstractAstFlexRule
          for ( final IParserNode argumentNode : internalNode.getChildren() )
          {
             if ( argumentNode.getStringValue() != null
-                  && !argumentNode.getStringValue().equals( "\""
-                        + fullyQualifiedClassName + "\"" ) )
+                  && !argumentNode.getStringValue().contains( fullyQualifiedClassName ) )
             {
                addViolation( internalNode,
                              internalNode,
-                             "The logger is not initialized with the fully qualified class name" );
+                             MESSAGE_NOT_FULLY_QUALIFIED_NAME );
             }
          }
       }

@@ -44,6 +44,8 @@ package com.adobe.ac.pmd.view.model
             			ViolationPriority.INFO ];
     	public static const FILE_PATH_GROUPFIELD : GroupingField = new GroupingField( "shortPath" );
     	public static const RULENAME_GROUPFIELD : GroupingField = new GroupingField( "shortRuleName" );
+
+		[ArrayElementType("mx.collections.GroupingField")]
     	public static const GROUPING_FIELDS : Array = [ FILE_PATH_GROUPFIELD, RULENAME_GROUPFIELD ];
 
         public static var currentPriorityVisible : int = 1;

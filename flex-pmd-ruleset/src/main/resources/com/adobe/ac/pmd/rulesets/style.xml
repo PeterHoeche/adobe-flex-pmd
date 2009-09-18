@@ -89,8 +89,8 @@ package com.adobe.ac
 		<priority>5</priority>
 	</rule>
 	
-	<rule class="com.adobe.ac.pmd.rules.style.BadFormatLogerRule"
-		message="The logger is not correctly formatted, for that reason: {0}">
+	<rule class="com.adobe.ac.pmd.rules.style.BadFormatLoggerRule"
+		message="The logger is not correctly formatted because {0}">
 		<description></description>
 		<priority>5</priority>
 		<example>

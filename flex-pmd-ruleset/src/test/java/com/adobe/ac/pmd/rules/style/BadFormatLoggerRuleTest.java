@@ -37,32 +37,25 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class BadFormatLogerRuleTest extends AbstractAstFlexRuleTest
+public class BadFormatLoggerRuleTest extends AbstractAstFlexRuleTest
 {
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new BadFormatLogerRule();
-   }
-
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                 "com.adobe.cairngorm.work.SequenceWorkFlow.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 49, 49 ) } ),
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 44, 44 ),
                                    new ViolationPosition( 45, 45 ),
                                    new ViolationPosition( 45, 45 ),
                                    new ViolationPosition( 46, 46 ),
-                                   new ViolationPosition( 46, 46 ),
                                    new ViolationPosition( 47, 47 ),
-                                   new ViolationPosition( 47, 47 ),
-                                   new ViolationPosition( 48, 48 ),
-                                   new ViolationPosition( 49, 49 ),
-                                   new ViolationPosition( 50, 50 ) } );
+                                   new ViolationPosition( 48, 48 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new BadFormatLoggerRule();
    }
 }

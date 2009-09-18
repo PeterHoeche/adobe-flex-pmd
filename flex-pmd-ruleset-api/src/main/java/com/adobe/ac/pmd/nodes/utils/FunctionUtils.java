@@ -52,4 +52,8 @@ public final class FunctionUtils
       }
       return lineNb;
    }
+
+   private FunctionUtils()
+   {
+   }
 }
