@@ -60,15 +60,11 @@ import com.adobe.ac.utils.StackTraceUtils;
 public class FlexPmdViolations
 {
    private static final Logger                                  LOGGER;
-   private static final Logger                                  SPEEDS_LOGGER;
 
    static
    {
       LOGGER = Logger.getLogger( FlexPmdViolations.class.getName() );
-      SPEEDS_LOGGER = Logger.getLogger( FlexPmdViolations.class.getName()
-            + "Speeds" );
       LOGGER.setLevel( Level.WARNING );
-      SPEEDS_LOGGER.setLevel( Level.WARNING );
    }
 
    private Map< String, IPackage >                              asts;
@@ -118,7 +114,7 @@ public class FlexPmdViolations
       final long startTime = System.currentTimeMillis();
       asts = FileSetUtils.computeAsts( files );
 
-      SPEEDS_LOGGER.info( "computed Asts in "
+      LOGGER.info( "computed Asts in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );
    }
 
@@ -131,7 +127,7 @@ public class FlexPmdViolations
 
       files = FileUtils.computeFilesList( sourceDirectory,
                                           packageToExclude );
-      SPEEDS_LOGGER.info( "computed FilesList in "
+      LOGGER.info( "computed FilesList in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );
    }
 
@@ -153,20 +149,20 @@ public class FlexPmdViolations
                     flexRule );
       }
 
-      SPEEDS_LOGGER.info( "computed RulesList in "
+      LOGGER.info( "computed RulesList in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );
    }
 
    private void displayRuleSpeeds()
    {
-      if ( SPEEDS_LOGGER.isLoggable( Level.FINER ) )
+      if ( LOGGER.isLoggable( Level.FINER ) )
       {
          final List< IFlexRule > rulesSortedByTime = new ArrayList< IFlexRule >( ruleSpeeds.keySet() );
          Collections.sort( rulesSortedByTime,
                            new DescendentSpeedRuleComparator( ruleSpeeds ) );
          for ( final IFlexRule flexRule : rulesSortedByTime )
          {
-            SPEEDS_LOGGER.finer( flexRule.getRuleName()
+            LOGGER.finer( flexRule.getRuleName()
                   + " took " + ruleSpeeds.get( flexRule ) + "ms to compute" );
          }
       }
@@ -222,12 +218,12 @@ public class FlexPmdViolations
       final long ellapsedTime = System.currentTimeMillis()
             - startTime;
 
-      if ( SPEEDS_LOGGER.isLoggable( Level.FINE ) )
+      if ( LOGGER.isLoggable( Level.FINE ) )
       {
-         SPEEDS_LOGGER.fine( "rule "
+         LOGGER.fine( "rule "
                + currentRuleName + " computed in " + ellapsedTime + "ms" );
       }
-      if ( SPEEDS_LOGGER.isLoggable( Level.FINER ) )
+      if ( LOGGER.isLoggable( Level.FINER ) )
       {
          ruleSpeeds.put( currentRule,
                          ellapsedTime );
