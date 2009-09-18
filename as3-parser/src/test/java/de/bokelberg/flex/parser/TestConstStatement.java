@@ -43,7 +43,7 @@ public class TestConstStatement extends AbstractStatementTest
                        "const a : int = 4",
                        "<const-list line=\"1\" column=\"7\">"
                              + "<name-type-init line=\"1\" column=\"7\">"
-                             + "<name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"9\">int</type>"
+                             + "<name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"11\">int</type>"
                              + "<init line=\"1\" column=\"17\"><primary line=\"1\" column=\"17\">4</primary>"
                              + "</init></name-type-init></const-list>" );
    }
@@ -75,7 +75,7 @@ public class TestConstStatement extends AbstractStatementTest
       assertStatement( "1",
                        "const a : Object",
                        "<const-list line=\"1\" column=\"7\"><name-type-init line=\"1\" column=\"7\">"
-                             + "<name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"9\">Object</type>"
+                             + "<name line=\"1\" column=\"7\">a</name><type line=\"1\" column=\"11\">Object</type>"
                              + "</name-type-init></const-list>" );
    }
 }

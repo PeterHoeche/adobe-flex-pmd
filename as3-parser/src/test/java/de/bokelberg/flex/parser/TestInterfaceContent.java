@@ -40,10 +40,11 @@ public class TestInterfaceContent extends AbstractAs3ParserTest
    public void testConditionalCompilation() throws TokenException
    {
       assertInterfaceContent( "with conditional compilation",
+
                               "CONFIG::DEBUG { function output():String; } ",
                               "<function line=\"2\" column=\"43\"><name line=\"2\" column=\"26\">"
                                     + "output</name><parameter-list line=\"2\" column=\"33\"></parameter-list>"
-                                    + "<type line=\"2\" column=\"34\">String</type></function>" );
+                                    + "<type line=\"2\" column=\"35\">String</type></function>" );
 
    }
 
@@ -78,15 +79,15 @@ public class TestInterfaceContent extends AbstractAs3ParserTest
                                     + "<parameter line=\"2\" column=\"17\">"
                                     + "<name-type-init line=\"2\" column=\"17\">"
                                     + "<name line=\"2\" column=\"17\">value</name>"
-                                    + "<type line=\"2\" column=\"23\">int</type>"
+                                    + "<type line=\"2\" column=\"25\">int</type>"
                                     + "</name-type-init></parameter></parameter-list>"
-                                    + "<type line=\"2\" column=\"31\">void</type></set>" );
+                                    + "<type line=\"2\" column=\"33\">void</type></set>" );
 
       assertInterfaceContent( "3",
                               "function get a() : int",
                               "<get line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a"
                                     + "</name><parameter-list line=\"2\" column=\"16\">"
-                                    + "</parameter-list><type line=\"2\" column=\"18\">int" + "</type></get>" );
+                                    + "</parameter-list><type line=\"2\" column=\"20\">int" + "</type></get>" );
    }
 
    private void assertInterfaceContent( final String message,

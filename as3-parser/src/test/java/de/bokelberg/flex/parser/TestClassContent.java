@@ -57,7 +57,7 @@ public class TestClassContent extends AbstractAs3ParserTest
                           "<const-list line=\"2\" column=\"21\"><mod-list line=\"2\" column=\"21\">"
                                 + "<mod line=\"2\" column=\"21\">public</mod><mod line=\"2\" column=\"21\">"
                                 + "static</mod></mod-list><name-type-init line=\"2\" column=\"21\"><name "
-                                + "line=\"2\" column=\"21\">a</name><type line=\"2\" column=\"23\">int</type>"
+                                + "line=\"2\" column=\"21\">a</name><type line=\"2\" column=\"25\">int</type>"
                                 + "<init line=\"2\" column=\"31\"><primary line=\"2\" column=\"31\">0</primary>"
                                 + "</init></name-type-init></const-list>" );
 
@@ -98,15 +98,15 @@ public class TestClassContent extends AbstractAs3ParserTest
                                 + "</mod-list><name line=\"2\" column=\"14\">a</name>"
                                 + "<parameter-list line=\"2\" column=\"17\"><parameter line=\"2\" column=\"17\">"
                                 + "<name-type-init line=\"2\" column=\"17\"><name line=\"2\" column=\"17\">value"
-                                + "</name><type line=\"2\" column=\"23\">int</type></name-type-init></parameter>"
-                                + "</parameter-list><type line=\"2\" column=\"31\">void</type><block line=\"2\" "
+                                + "</name><type line=\"2\" column=\"25\">int</type></name-type-init></parameter>"
+                                + "</parameter-list><type line=\"2\" column=\"33\">void</type><block line=\"2\" "
                                 + "column=\"39\"></block></set>" );
 
       assertClassContent( "3",
                           "function get a() : int {}",
                           "<get line=\"2\" column=\"24\"><mod-list line=\"2\" column=\"24\">"
                                 + "</mod-list><name line=\"2\" column=\"14\">a</name><parameter-list line=\"2\" "
-                                + "column=\"16\"></parameter-list><type line=\"2\" column=\"18\">int"
+                                + "column=\"16\"></parameter-list><type line=\"2\" column=\"20\">int"
                                 + "</type><block line=\"2\" column=\"25\"></block></get>" );
 
       assertClassContent( "function with default parameter",
@@ -115,10 +115,10 @@ public class TestClassContent extends AbstractAs3ParserTest
                                 + "column=\"45\">public</mod></mod-list><name line=\"2\" column=\"17\">newLine"
                                 + "</name><parameter-list line=\"2\" column=\"27\"><parameter line=\"2\" "
                                 + "column=\"27\"><name-type-init line=\"2\" column=\"27\"><name line=\"2\" "
-                                + "column=\"27\">height</name><type line=\"2\" column=\"33\">*</type>"
+                                + "column=\"27\">height</name><type line=\"2\" column=\"34\">*</type>"
                                 + "<init line=\"2\" column=\"36\"><primary line=\"2\" column=\"36\">''"
                                 + "</primary></init></name-type-init></parameter></parameter-list>"
-                                + "<type line=\"2\" column=\"40\">void</type><block line=\"2\" column=\"46\">"
+                                + "<type line=\"2\" column=\"41\">void</type><block line=\"2\" column=\"46\">"
                                 + "</block></function>" );
    }
 
@@ -131,10 +131,10 @@ public class TestClassContent extends AbstractAs3ParserTest
                                 + "<mod line=\"2\" column=\"51\">public</mod></mod-list><name line=\"2\" column=\"17\">"
                                 + "log</name><parameter-list line=\"2\" column=\"21\">"
                                 + "<parameter line=\"2\" column=\"21\"><name-type-init line=\"2\" column=\"21\">"
-                                + "<name line=\"2\" column=\"21\">message</name><type line=\"2\" column=\"28\">String"
+                                + "<name line=\"2\" column=\"21\">message</name><type line=\"2\" column=\"29\">String"
                                 + "</type></name-type-init></parameter><parameter line=\"2\" column=\"37\">"
                                 + "<rest line=\"2\" column=\"41\">rest</rest></parameter></parameter-list>"
-                                + "<type line=\"2\" column=\"46\">void</type><block line=\"2\" column=\"52\">"
+                                + "<type line=\"2\" column=\"47\">void</type><block line=\"2\" column=\"52\">"
                                 + "</block></function>" );
    }
 
@@ -159,7 +159,7 @@ public class TestClassContent extends AbstractAs3ParserTest
                           "<var-list line=\"2\" column=\"19\"><mod-list line=\"2\" column=\"19\">"
                                 + "<mod line=\"2\" column=\"19\">public</mod><mod line=\"2\" column=\"19\">"
                                 + "static</mod></mod-list><name-type-init line=\"2\" column=\"19\">"
-                                + "<name line=\"2\" column=\"19\">a</name><type line=\"2\" column=\"21\">int</type>"
+                                + "<name line=\"2\" column=\"19\">a</name><type line=\"2\" column=\"23\">int</type>"
                                 + "<init line=\"2\" column=\"29\"><primary line=\"2\" column=\"29\">0</primary>"
                                 + "</init></name-type-init></var-list>" );
 

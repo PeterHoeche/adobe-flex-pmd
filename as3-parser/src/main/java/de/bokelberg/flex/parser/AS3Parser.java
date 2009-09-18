@@ -274,8 +274,8 @@ public class AS3Parser implements IAS3Parser
    {
       Node result = Node.create( NodeKind.PRIMARY,
                                  tok.getLine(),
-                                 tok.getColumn() );
-      result.setStringValue( tok.getText() );
+                                 tok.getColumn(),
+                                 tok.getText() );
 
       if ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
       {
@@ -507,14 +507,17 @@ public class AS3Parser implements IAS3Parser
    {
       consume( KeyWords.FUNCTION );
 
-      final Node type = Node.create( NodeKind.TYPE,
-                                     tok.getLine(),
-                                     tok.getColumn(),
-                                     KeyWords.FUNCTION.toString() );
+      Node type = Node.create( NodeKind.TYPE,
+                               tok.getLine(),
+                               tok.getColumn(),
+                               KeyWords.FUNCTION.toString() );
       if ( tokIs( KeyWords.SET )
             || tokIs( KeyWords.GET ) )
       {
-         type.setStringValue( tok.getText() );
+         type = Node.create( NodeKind.TYPE,
+                             tok.getLine(),
+                             tok.getColumn(),
+                             tok.getText() );
          nextToken(); // set or get
       }
       final Node name = Node.create( NodeKind.NAME,
@@ -1536,8 +1539,8 @@ public class AS3Parser implements IAS3Parser
                                        tok.getColumn() );
       final Node name = Node.create( NodeKind.NAME,
                                      tok.getLine(),
-                                     tok.getColumn() );
-      name.setStringValue( tok.getText() );
+                                     tok.getColumn(),
+                                     tok.getText() );
       result.addChild( name );
       nextToken(); // name
       consume( Operators.COLUMN );
@@ -1575,14 +1578,17 @@ public class AS3Parser implements IAS3Parser
     */
    private Node parseOptionalType() throws TokenException
    {
-      final Node result = Node.create( NodeKind.TYPE,
-                                       tok.getLine(),
-                                       tok.getColumn(),
-                                       "" );
+      Node result = Node.create( NodeKind.TYPE,
+                                 tok.getLine(),
+                                 tok.getColumn(),
+                                 "" );
       if ( tokIs( Operators.COLUMN ) )
       {
          nextToken();
-         result.setStringValue( tok.getText() );
+         result = Node.create( NodeKind.TYPE,
+                               tok.getLine(),
+                               tok.getColumn(),
+                               tok.getText() );
          nextToken();
       }
       return result;

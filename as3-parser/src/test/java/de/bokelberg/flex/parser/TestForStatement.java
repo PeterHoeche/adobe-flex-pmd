@@ -44,7 +44,7 @@ public class TestForStatement extends AbstractStatementTest
                        "<for line=\"1\" column=\"6\"><init line=\"1\" column=\"6\">"
                              + "<var-list line=\"1\" column=\"10\"><name-type-init line=\"1\" "
                              + "column=\"10\"><name line=\"1\" column=\"10\">i</name><type line=\"1\" "
-                             + "column=\"12\">int</type><init line=\"1\" column=\"20\">"
+                             + "column=\"14\">int</type><init line=\"1\" column=\"20\">"
                              + "<primary line=\"1\" column=\"20\">0</primary></init>"
                              + "</name-type-init></var-list></init>"
                              + "<cond line=\"1\" column=\"23\"><relation line=\"1\" column=\"23\">"
@@ -78,7 +78,7 @@ public class TestForStatement extends AbstractStatementTest
                        "for each( var obj : Object in list ){ obj.print( i ); }",
                        "<foreach line=\"1\" column=\"11\"><var line=\"1\" column=\"11\">"
                              + "<name-type-init line=\"1\" column=\"15\"><name line=\"1\" "
-                             + "column=\"15\">obj</name><type line=\"1\" column=\"19\">Object"
+                             + "column=\"15\">obj</name><type line=\"1\" column=\"21\">Object"
                              + "</type></name-type-init></var><in line=\"1\" column=\"31\">"
                              + "<primary line=\"1\" column=\"31\">list</primary></in>"
                              + "<block line=\"1\" column=\"39\"><dot line=\"1\" column=\"43\">"
@@ -105,7 +105,7 @@ public class TestForStatement extends AbstractStatementTest
                        "<forin line=\"1\" column=\"6\"><init line=\"1\" column=\"6\">"
                              + "<var-list line=\"1\" column=\"10\"><name-type-init line=\"1\" "
                              + "column=\"10\"><name line=\"1\" column=\"10\">s</name>"
-                             + "<type line=\"1\" column=\"12\">String</type></name-type-init>"
+                             + "<type line=\"1\" column=\"14\">String</type></name-type-init>"
                              + "</var-list></init><in line=\"1\" column=\"24\"><primary line=\"1\" "
                              + "column=\"24\">obj</primary></in></forin>" );
 

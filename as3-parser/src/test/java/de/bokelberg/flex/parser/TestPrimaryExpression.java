@@ -58,9 +58,9 @@ public class TestPrimaryExpression extends AbstractAs3ParserTest
       assertPrimary( "function ( a : Object ) : * { trace('test'); }",
                      "<lambda line=\"1\" column=\"10\"><parameter-list line=\"1\" column=\"12\">"
                            + "<parameter line=\"1\" column=\"12\"><name-type-init line=\"1\" column=\"12\">"
-                           + "<name line=\"1\" column=\"12\">a</name><type line=\"1\" column=\"14\">"
+                           + "<name line=\"1\" column=\"12\">a</name><type line=\"1\" column=\"16\">"
                            + "Object</type></name-type-init></parameter></parameter-list>"
-                           + "<type line=\"1\" column=\"25\">*</type><block line=\"1\" column=\"31\">"
+                           + "<type line=\"1\" column=\"27\">*</type><block line=\"1\" column=\"31\">"
                            + "<call line=\"1\" column=\"36\"><primary line=\"1\" column=\"31\">trace</primary>"
                            + "<arguments line=\"1\" column=\"37\"><primary line=\"1\" column=\"37\">'test'"
                            + "</primary></arguments></call></block></lambda>" );

@@ -79,11 +79,9 @@ final class Node extends NestedNode implements IParserNode
       return false;
    }
 
-   private final int column;
-
-   private final int line;
-
-   private String    stringValue;
+   private final int    column;
+   private final int    line;
+   private final String stringValue;
 
    private Node( final NodeKind idToBeSet,
                  final int lineToBeSet,
@@ -93,6 +91,7 @@ final class Node extends NestedNode implements IParserNode
 
       line = lineToBeSet;
       column = columnToBeSet;
+      stringValue = null;
    }
 
    private Node( final NodeKind idToBeSet,
@@ -104,6 +103,7 @@ final class Node extends NestedNode implements IParserNode
 
       line = lineToBeSet;
       column = columnToBeSet;
+      stringValue = null;
    }
 
    private Node( final NodeKind idToBeSet,
@@ -111,8 +111,10 @@ final class Node extends NestedNode implements IParserNode
                  final int columnToBeSet,
                  final String valueToBeSet )
    {
-      this( idToBeSet, lineToBeSet, columnToBeSet );
+      super( idToBeSet );
 
+      line = lineToBeSet;
+      column = columnToBeSet;
       stringValue = valueToBeSet;
    }
 
@@ -176,10 +178,5 @@ final class Node extends NestedNode implements IParserNode
          }
       }
       return buffer.toString();
-   }
-
-   void setStringValue( final String text )
-   {
-      stringValue = text;
    }
 }
