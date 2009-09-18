@@ -69,7 +69,7 @@ package business
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.cairngorm.FatControllerRule"
-		message="A FrontController must nor add all its commands within the Controller constructor.">
+		message="A FrontController must nor add all its commands within the Controller constructor">
 		<description>Try split them into methods where you add commands depending on their functional area.</description>
 		<priority>3</priority>
 		<example>

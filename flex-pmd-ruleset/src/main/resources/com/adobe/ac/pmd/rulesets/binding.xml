@@ -41,7 +41,7 @@
 	</description>
 
 	<rule class="com.adobe.ac.pmd.rules.binding.BindingUtilsRule"
-		message="If you need to use BindingUtils, you should probably consider refactoring using events">
+		message="BindingUtils class uses hard coded strings, which won't be picked up by the compiler if you rename this attribute. You should probably consider refactoring using events">
 		<description></description>
 		<priority>1</priority>
 		<example>

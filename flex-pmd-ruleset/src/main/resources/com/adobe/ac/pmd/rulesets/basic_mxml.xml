@@ -61,7 +61,7 @@
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.mxml.NestedContainerRule"
-		message="This container is too deeply nested.">
+		message="This container is too deeply nested">
 		<description>Nested containers can decrease application overall performance especially if they are in item renderers.</description>
 		<priority>3</priority>
 	</rule>

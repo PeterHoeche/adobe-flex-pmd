@@ -40,7 +40,7 @@
       The Maintanability ruleset contains a collection of good practices around Maintanability.
 	</description>
 	
-	<rule class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule" message="Do not call Alert.show directly.">
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule" message="Do not call Alert.show directly">
 		<description>You should not Alert.show() directly. If an error occurred in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
 		<priority>1</priority>
 	</rule>
@@ -168,7 +168,7 @@ final public class Foo
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingWithKeyWordRule"
-		message="You should not use the with keyword. It does not help readability.">
+		message="You should not use the with keyword. It does not help readability">
 		<priority>3</priority>
 	</rule>
 	
@@ -202,7 +202,7 @@ package com.MyCompany
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.ProtectedStaticMethodRule"
-		message="This method ({0}) should be private.">
+		message="This method ({0}) should be private">
 		<description/>
 		<priority>3</priority>
 		<example>
@@ -213,7 +213,7 @@ protected static function foo() : void // VIOLATION
 	</rule>
 	
 	<rule class="com.adobe.ac.pmd.rules.maintanability.EmptyStatementRule"
-		message="This statement is empty.">
+		message="This statement is empty">
 		<description/>
 		<priority>5</priority>
 		<example>

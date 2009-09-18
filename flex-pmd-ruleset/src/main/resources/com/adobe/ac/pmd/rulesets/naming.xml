@@ -119,7 +119,7 @@ public class foo // VIOLATION
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.naming.WronglyNamedVariableRule"
-		message="This variable ({0}) seems to be incorrectly named. Let your creativity flow.">
+		message="This variable ({0}) seems to be incorrectly named. Let your creativity flow">
 		<priority>3</priority>	
 		<example>
          <![CDATA[

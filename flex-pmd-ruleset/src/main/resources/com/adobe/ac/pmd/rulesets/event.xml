@@ -119,7 +119,7 @@ public class Foo
 	
 	<rule
 		class="com.adobe.ac.pmd.rules.event.ListenForHardCodedEventNameRule"
-		message="addEventListener must not contain hard coded strings.">
+		message="addEventListener must not contain hard coded strings">
 		<description>You should not listen for a plain string. If you rename this string, you need to replace the string listener as well. Use constants instead</description>
 		<priority>1</priority>
 		<example>
