@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.model
 {
-
-    [Bindable]
     public class ViolationPosition
     {
         private var _begin : CharacterPosition;
@@ -43,11 +41,13 @@ package com.adobe.ac.pmd.model
             _end = end;
         }
 
+		[Bindable("unused")]
         public function get begin() : CharacterPosition
         {
             return _begin;
         }
 
+		[Bindable("unused")]
         public function get end() : CharacterPosition
         {
             return _end;

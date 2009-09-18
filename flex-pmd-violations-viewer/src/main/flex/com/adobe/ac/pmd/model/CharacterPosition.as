@@ -30,7 +30,6 @@
  */
 package com.adobe.ac.pmd.model
 {
-    [Bindable]
     public class CharacterPosition
     {
         private var _line : int;
@@ -42,11 +41,13 @@ package com.adobe.ac.pmd.model
             _column = column;
         }
 
+		[Bindable("unused")]
         public function get line() : int
         {
             return _line;
         }
 
+		[Bindable("unused")]
         public function get column() : int
         {
             return _column;

@@ -30,8 +30,6 @@
  */
 package com.adobe.ac.pmd.model
 {
-
-    [Bindable]
     public class Violation
     {
         private var _position : ViolationPosition;
@@ -45,41 +43,49 @@ package com.adobe.ac.pmd.model
             _violatedFile = new File( violatedFilePath );
         }
 
+		[Bindable("unused")]
         public function get rule() : Rule
         {
             return _rule;
         }
 
+		[Bindable("unused")]
         public function get position() : ViolationPosition
         {
             return _position;
         }
 
+		[Bindable("unused")]
         public function get shortPath() : String
         {
             return _violatedFile.shortPath;
         }
 
+		[Bindable("unused")]
         public function get filePath() : String
         {
             return _violatedFile.path;
         }
 
+		[Bindable("unused")]
         public function get shortRuleName() : String
         {
             return _rule.shortName;
         }
 
+		[Bindable("unused")]
         public function get beginLine() : Number
         {
             return _position.begin.line;
         }
 
+		[Bindable("unused")]
         public function get message() : String
         {
             return _rule.message;
         }
 
+		[Bindable("unused")]
         public function get priority() : ViolationPriority
         {
             return _rule.priority;
