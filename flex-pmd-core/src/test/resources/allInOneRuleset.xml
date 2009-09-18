@@ -264,7 +264,7 @@ public function foo() : void
 		<description>Switch statements are designed for complex branches, and allow branches to share treatement. Using a switch for only 2 branches is ill advised, as switches are not as easy to understand as if. In this case, it's most likely is a good idea to use a if statement</description>
 		<priority>5</priority>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.style.BadFormatLogerRule"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.style.BadFormatLoggerRule"
 		message="The loger is not correctly formatted">
 		<description />
 		<priority>5</priority>
