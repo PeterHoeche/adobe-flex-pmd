@@ -71,7 +71,7 @@ public class AllInOneRulesetTest extends TestCase
       engine.executeReport( new FlexPmdViolations() );
 
       assertEquals( "Number of rules found is not correct",
-                    44,
+                    43,
                     engine.getRuleSet().size() );
    }
 }

@@ -88,11 +88,6 @@
 			</property>
 		</properties>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.mxml.NestedContainerRule"
-		message="This container is too deeply nested.">
-		<description>Nested containers can descrease application overall performance especially if they are in item renderers.</description>
-		<priority>3</priority>
-	</rule>
 	<rule since="0.1" class="com.adobe.ac.pmd.rules.maintanability.DynamicClassRule"
 		message="A class must not be dynamic">
 		<description>When using dynamic classes, you cannot control how the developer will use your classe. It makes refactoring really difficult.</description>
