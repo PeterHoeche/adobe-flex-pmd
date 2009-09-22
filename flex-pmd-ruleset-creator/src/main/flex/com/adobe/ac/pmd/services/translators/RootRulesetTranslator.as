@@ -49,7 +49,7 @@ package com.adobe.ac.pmd.services.translators
 				
 				if( ruleXml.@ref != undefined )
 				{
-					var childRuleset : Ruleset = new Ruleset();
+					var childRuleset : Ruleset = new Ruleset(); // NO PMD AvoidInstanciationInLoop
 					
 					childRuleset.isRef = true;
 					childRuleset.getRulesetContent( ruleXml.@ref );

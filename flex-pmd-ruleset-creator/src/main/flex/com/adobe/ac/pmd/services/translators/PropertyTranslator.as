@@ -44,7 +44,7 @@ package com.adobe.ac.pmd.services.translators
          for( var childIndex : int = 0; childIndex < xmlList.length(); childIndex++ )
          {
             var propertyXml : XML = xmlList[ childIndex ];
-            var property : Property = new Property();
+            var property : Property = new Property(); // NO PMD AvoidInstanciationInLoop
 
             property.name = propertyXml.@name;
             property.value = propertyXml.children()[ 0 ].toString();

@@ -43,7 +43,7 @@ package com.adobe.ac.pmd.model
 
     [Event( name="rulesetReceived",type="com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
     [Bindable]
-    public class Ruleset extends EventDispatcher implements IDomainModel, IGetRulesetContent
+    public class Ruleset extends EventDispatcher implements IDomainModel, IGetRulesetContent // NO PMD BindableClass
     {
         private static const RULES_CHANGED : String = "rulesChange";
         public var isRef : Boolean;

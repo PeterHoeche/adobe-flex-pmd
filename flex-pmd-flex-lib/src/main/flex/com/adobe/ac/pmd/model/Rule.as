@@ -39,7 +39,7 @@ package com.adobe.ac.pmd.model
    import mx.collections.ListCollectionView;
 
    [Bindable]
-   public class Rule extends EventDispatcher implements IDomainModel
+   public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass
    {
       public static const NAME_CHANGE : String = "nameChange";
 

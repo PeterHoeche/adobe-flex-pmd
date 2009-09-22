@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="Main.mxml" projectUUID="650a4e88-67b7-4d1f-87d3-dbc67a4965a7" version="6">
-  <compiler additionalCompilerArguments="-locale en_US -theme ../../../../flexunit-theme/bin-debug/flexunit-theme.swc" autoRSLOrdering="false" copyDependentFiles="true" flexSDK="Flex 3.4" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="target" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="10.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-locale en_US -theme ../../../../flexunit-theme/bin/flexunit-theme.swc" autoRSLOrdering="false" copyDependentFiles="true" flexSDK="Flex 3.4" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="target" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="10.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="src/main/resources"/>
       <compilerSourcePathEntry kind="1" linkType="1" path="src/test/flex"/>
@@ -29,7 +29,8 @@
       <libraryPathEntry kind="3" linkType="1" path="${M2_REPO}/com/adobe/flexunit/flexunit/0.9/flexunit-0.9.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${M2_REPO}/com/adobe/cairngorm/event-source/1.0/event-source-1.0.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/player/10/playerglobal.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/flex-pmd-flex-lib/bin-debug/flex-pmd-flex-lib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/flex-pmd-flex-lib/bin/flex-pmd-flex-lib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/flexunit-theme/bin/flexunit-theme.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
