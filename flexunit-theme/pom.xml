@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flexunit-theme</artifactId>
@@ -9,6 +8,8 @@
 	<version>1.0</version>
 
 	<properties>
+
+		<source.local.path>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd</source.local.path>
 
 		<!-- Plugin versions -->
 
@@ -23,6 +24,23 @@
 
 	</properties>
 
+	<distributionManagement>
+		<site>
+			<id>flexpmd_mvn_site</id>
+			<url>${source.local.path}/site/</url>
+		</site>
+		<repository>
+			<id>flexpmd_mvn_repository</id>
+			<name>Adobe OSS Repository</name>
+			<url>${source.local.path}/maven-repository/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>flexpmd_mvn_repository_snapshot</id>
+			<name>Adobe OSS Snapshot Repository</name>
+			<url>${source.local.path}/maven-repository/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 	<dependencies>
 
 		<!-- flex sdk dependencies -->
