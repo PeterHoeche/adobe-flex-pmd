@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.RC4</version>
+	<version>1.0.RC4-SNAPSHOT</version>
 	<name>Adobe Flex PMD</name>
 	<url>http://www.adobe.com/consulting</url>
 	<inceptionYear>2008</inceptionYear>
@@ -15,13 +16,18 @@
 	<distributionManagement>
 		<site>
 			<id>flexpmd_mvn_site</id>
-			<url>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd/site/</url>
+			<url>${source.local.path}/site/</url>
 		</site>
 		<repository>
-			<id>nexus-releases</id>
-			<name>Nexus Release Repository</name>
-			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<id>flexpmd_mvn_repository</id>
+			<name>Adobe OSS Repository</name>
+			<url>${source.local.path}/maven-repository/release</url>
 		</repository>
+		<snapshotRepository>
+			<id>flexpmd_mvn_repository_snapshot</id>
+			<name>Adobe OSS Snapshot Repository</name>
+			<url>${source.local.path}/maven-repository/snapshot</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<issueManagement>
@@ -51,6 +57,7 @@
 		<!-- Project properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<source.url>http://opensource.adobe.com/svn/opensource/flexpmd</source.url>
+		<source.local.path>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd</source.local.path>
 
 		<!-- Plugins/Dependencies version -->
 		<pmd.version>4.2.2</pmd.version>
@@ -385,36 +392,6 @@
 		</pluginRepository>
 
 	</pluginRepositories>
-
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>${gpg-plugin.version}</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 	<reporting>
 		<plugins>
