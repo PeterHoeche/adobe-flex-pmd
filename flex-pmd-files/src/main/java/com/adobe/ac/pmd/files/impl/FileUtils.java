@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.files.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -104,8 +105,7 @@ public final class FileUtils
                                                                                          true );
       if ( foundFiles.isEmpty() )
       {
-         throw new PMDException( "sourceDirectory does not contain any Flex sources "
-               + "(Specify the source directory in relative (not absolute))", null );
+         return new ArrayList< File >();
       }
       return foundFiles;
    }
