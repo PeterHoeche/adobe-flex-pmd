@@ -45,10 +45,7 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
    {
       final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
 
-      addToMap( addToMap( addToMap( violations,
-                                    "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 84, 84 ) } ),
+      addToMap( addToMap( violations,
                           "Looping.as",
                           new ViolationPosition[]
                           { new ViolationPosition( 63, 63 ) } ),
