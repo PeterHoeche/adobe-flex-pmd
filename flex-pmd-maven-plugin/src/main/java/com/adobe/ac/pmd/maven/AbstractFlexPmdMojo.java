@@ -91,7 +91,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    /**
     * Location of the file.
     * 
-    * @parameter
+    * @parameter expression="${flexpmd.ruleset}"
     */
    private File         ruleSet;
 
