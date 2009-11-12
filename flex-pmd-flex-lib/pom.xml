@@ -59,13 +59,6 @@
 
 		<dependency>
 			<groupId>com.adobe.flex.framework</groupId>
-			<artifactId>flex-framework</artifactId>
-			<version>${flex.version}</version>
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>datavisualization</artifactId>
 			<version>${flex.version}</version>
 			<type>swc</type>
@@ -86,6 +79,12 @@
 			<version>${flex-mojos-plugin.version}</version>
 			<type>swc</type>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
