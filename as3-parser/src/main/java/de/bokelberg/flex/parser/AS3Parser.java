@@ -980,6 +980,10 @@ public class AS3Parser implements IAS3Parser
                                        parseStatement() );
       consume( KeyWords.WHILE );
       result.addChild( parseCondition() );
+      if ( tokIs( Operators.SEMI_COLUMN ) )
+      {
+         nextToken();
+      }
       return result;
    }
 
