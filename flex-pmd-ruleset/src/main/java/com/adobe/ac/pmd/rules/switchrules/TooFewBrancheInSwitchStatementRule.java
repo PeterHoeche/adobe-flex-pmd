@@ -95,4 +95,12 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
 
       switchCases++;
    }
+
+   @Override
+   protected void visitSwitchDefaultCase( final IParserNode defaultCaseNode )
+   {
+      super.visitSwitchDefaultCase( defaultCaseNode );
+
+      switchCases++;
+   }
 }
