@@ -45,7 +45,9 @@ public class MonkeyPatchingRule extends AbstractFlexRule
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-      if ( getCurrentFile().getPackageName().startsWith( "mx." ) )
+      if ( getCurrentFile().getPackageName().startsWith( "mx." )
+            && getCurrentFile().getClassName().equals( "Version.as" )
+            && getCurrentFile().getClassName().endsWith( "Style.as" ) )
       {
          addViolation( violations,
                        new ViolationPosition( 0, 0 ) );
