@@ -131,6 +131,12 @@
 			<version>${flex-mojos-plugin.version}</version>
 			<type>swc</type>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
