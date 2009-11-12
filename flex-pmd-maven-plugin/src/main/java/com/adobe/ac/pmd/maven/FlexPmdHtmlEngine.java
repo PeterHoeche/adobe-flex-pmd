@@ -99,7 +99,8 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
 
          reportSink.beginFile( javaFile,
                                new PmdFileInfo( project, javaFile.getParentFile(), "" ) ); // NOPMD
-         ruleContext.setSourceCodeFilename( javaFile.getAbsolutePath() );
+         ruleContext.setSourceCodeFilename( file.getPackageName()
+               + "." + file.getClassName() );
 
          for ( final IFlexViolation violation : violations )
          {
