@@ -42,7 +42,10 @@ public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                                               "bug.FlexPMD88.as",
+                                                               new ViolationPosition[]
+                                                               { new ViolationPosition( 38, 38 ) } ),
                                                      "flexunit.RaoulTest.as",
                                                      new ViolationPosition[]
                                                      { new ViolationPosition( 71, 71 ) } ),

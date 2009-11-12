@@ -54,6 +54,7 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class FunctionNodeTest extends FlexPmdTestBase
 {
+   private IFunction bug88Constructor;
    private IFunction constructor;
    private IFunction drawHighlightIndicator;
    private IFunction drawRowBackground;
@@ -81,10 +82,13 @@ public class FunctionNodeTest extends FlexPmdTestBase
             + "NonBindableModelLocator.as" ) );
       final IParserNode flexUnit4TestCaseAst = FileSetUtils.buildAst( getTestFiles().get( "flexunit."
             + "RaoulTest.as" ) );
+      final IParserNode bug888Ast = FileSetUtils.buildAst( getTestFiles().get( "bug."
+            + "FlexPMD88.as" ) );
 
       final IClass radonDataGrid = NodeFactory.createPackage( dataGridAst ).getClassNode();
       final IClass nonBindableModelLocator = NodeFactory.createPackage( modelLocatorAst ).getClassNode();
       final IClass flexUnit4TestCase = NodeFactory.createPackage( flexUnit4TestCaseAst ).getClassNode();
+      final IClass bug88 = NodeFactory.createPackage( bug888Ast ).getClassNode();
 
       constructor = radonDataGrid.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGrid.getFunctions().get( 1 );
@@ -96,6 +100,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
       getHeight = nonBindableModelLocator.getFunctions().get( 2 );
       flexunit4Test = flexUnit4TestCase.getFunctions().get( 1 );
       flexunit4TestSetUp = flexUnit4TestCase.getFunctions().get( 0 );
+      bug88Constructor = bug88.getConstructor();
    }
 
    @Test
@@ -129,6 +134,9 @@ public class FunctionNodeTest extends FlexPmdTestBase
                     drawRowBackground.getCyclomaticComplexity() );
       assertEquals( 13,
                     placeSortArrow.getCyclomaticComplexity() );
+
+      assertEquals( 3,
+                    bug88Constructor.getCyclomaticComplexity() );
    }
 
    @Test

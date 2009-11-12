@@ -42,7 +42,10 @@ public class EmptyStatementRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "AbstractRowData.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 113, 113 ) } ),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 569, 569 ) } ),

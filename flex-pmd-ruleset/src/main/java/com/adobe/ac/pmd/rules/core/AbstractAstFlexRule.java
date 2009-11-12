@@ -682,6 +682,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
             visitStatement( node );
          }
       }
+      else if ( ast != null )
+      {
+         visitStatement( ast );
+      }
    }
 
    private void visitClassContent( final IParserNode ast )
