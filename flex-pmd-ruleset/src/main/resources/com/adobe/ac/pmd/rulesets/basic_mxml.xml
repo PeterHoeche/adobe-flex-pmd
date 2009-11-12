@@ -41,7 +41,7 @@
     </description>
 
 	<rule class="com.adobe.ac.pmd.rules.mxml.MoreThanOneEntryPointInMxmlRule"
-		message="There are more than 1 public variable in this MXML component">
+		message="There is more than 1 public variable in this MXML component">
 		<priority>5</priority>
 	</rule>
 
