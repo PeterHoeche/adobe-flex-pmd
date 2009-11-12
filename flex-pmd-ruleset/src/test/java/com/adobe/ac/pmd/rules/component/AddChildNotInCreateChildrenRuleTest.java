@@ -40,15 +40,16 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class AddChildNotInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new AddChildNotInCreateChildrenRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                           "bug.FlexPMD88.as",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 41, 41 ),
+                                                       new ViolationPosition( 42, 42 ),
+                                                       new ViolationPosition( 43, 43 ),
+                                                       new ViolationPosition( 44, 44 ),
+                                                       new ViolationPosition( 45, 45 ) } ),
                                  "RadonDataGrid.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 132, 132 ) } ),
@@ -56,5 +57,11 @@ public class AddChildNotInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
                        new ViolationPosition[]
                        { new ViolationPosition( 42, 42 ),
                                    new ViolationPosition( 43, 43 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new AddChildNotInCreateChildrenRule();
    }
 }
