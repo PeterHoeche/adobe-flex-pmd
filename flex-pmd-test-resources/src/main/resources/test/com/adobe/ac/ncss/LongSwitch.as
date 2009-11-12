@@ -124,6 +124,10 @@ package com.adobe.ac
 		  {
 			  trace("");
 		  }
+		  
+		  do
+		  {
+		  } while( i < 5 );
 	  }
    }
 }
