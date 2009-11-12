@@ -47,7 +47,6 @@ public class UseGenericTypeRuleTest extends AbstractAstFlexRuleTest
                        "GenericType.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39, 39 ),
-                                   new ViolationPosition( 44, 44 ),
                                    new ViolationPosition( 46, 46 ),
                                    new ViolationPosition( 35, 35 ),
                                    new ViolationPosition( 36, 36 ),

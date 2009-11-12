@@ -56,10 +56,7 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
                 new ViolationPosition[]
                 { new ViolationPosition( 42, 42 ) } );
 
-      addToMap( addToMap( addToMap( violations,
-                                    "DeleteButtonRenderer.mxml",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 64, 64 ) } ),
+      addToMap( addToMap( violations,
                           "Sorted.as",
                           new ViolationPosition[]
                           { new ViolationPosition( 67, 67 ) } ),

@@ -54,7 +54,10 @@ public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
    protected void findViolations( final IFunction function )
    {
       findViolationsInReturnType( function );
-      findViolationsInParametersList( function );
+      if ( !function.isOverriden() )
+      {
+         findViolationsInParametersList( function );
+      }
       findViolationsInLocalVariables( function );
    }
 
