@@ -65,6 +65,25 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testExecuteReportOnNoViolationsSourcePath() throws MojoExecutionException
+   {
+      new File( "target/site" ).mkdirs();
+      final FlexPmdReportMojo mojo = new FlexPmdReportMojo( new MavenProjectStub(),
+                                                            new FlexPmdParameters( "",
+                                                                                   false,
+                                                                                   new File( "target" ),
+                                                                                   null,
+                                                                                   new File( getTestDirectory().getAbsoluteFile()
+                                                                                         + "/fu" ) ) );
+
+      mojo.setSiteRenderer( new DefaultSiteRenderer() );
+      assertNotNull( "",
+                     mojo.getName( Locale.ENGLISH ) );
+
+      mojo.execute();
+   }
+
+   @Test
    public void testGetBundle()
    {
       final Locale[] availableLocales = Locale.getAvailableLocales();
