@@ -42,7 +42,7 @@
 	
 	<rule class="com.adobe.ac.pmd.rules.event.EventMissingCloneFunctionRule"
 		message="The clone event must be overiden in a custom event">
-		<description>Why do you need to override clone? Well, the clone method creates a copy of your event (or object - whatever object has the clone event; this isn't limited to Event objects). The default clone method inherited by the Event class or whatever class your custom class extends, will return an event object of the type of that class, not your custom event subclass. In the situations where a clone is needed, it is needed to be of the same type of your class, not the class it extends.</description>
+		<description>When creating your own custom Event class, you must override the inherited Event.clone() method in order for it to duplicate the properties of your custom class. If you do not set all the properties that you add in your event subclass, those properties will not have the correct values when the event is cloned. This is important because the Flex SDK clones events whenever redispatching takes place. </description>
 		<priority>1</priority>
 		<example>
 public class FirstCustomEvent   // VIOLATION - clone method is missing
