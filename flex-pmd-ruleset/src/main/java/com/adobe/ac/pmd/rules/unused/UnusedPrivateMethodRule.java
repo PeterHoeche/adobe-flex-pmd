@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.ac.pmd.files.IAs3File;
+import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -48,26 +49,35 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    private Map< String, IFunction > privateFunctions = null;
 
    @Override
+   protected void findViolations( final IClass classNode )
+   {
+      fillPrivateFunctions( classNode.getFunctions() );
+
+      findUnusedFunction( classNode.getBlock() );
+      super.findViolations( classNode );
+
+      addViolations();
+   }
+
+   @Override
    protected final void findViolations( final List< IFunction > functions )
    {
       super.findViolations( functions );
-
-      privateFunctions = new HashMap< String, IFunction >();
-
-      for ( final IFunction function : functions )
-      {
-         if ( function.is( Modifier.PRIVATE ) )
-         {
-            privateFunctions.put( function.getName(),
-                                  function );
-         }
-      }
 
       for ( final IFunction function : functions )
       {
          findUnusedFunction( function.getBody() );
       }
+   }
 
+   @Override
+   protected final ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
+
+   private void addViolations()
+   {
       final Set< Integer > ignoredLines = new HashSet< Integer >();
 
       for ( final String functionName : privateFunctions.keySet() )
@@ -85,10 +95,18 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       }
    }
 
-   @Override
-   protected final ViolationPriority getDefaultPriority()
+   private void fillPrivateFunctions( final List< IFunction > functions )
    {
-      return ViolationPriority.NORMAL;
+      privateFunctions = new HashMap< String, IFunction >();
+
+      for ( final IFunction function : functions )
+      {
+         if ( function.is( Modifier.PRIVATE ) )
+         {
+            privateFunctions.put( function.getName(),
+                                  function );
+         }
+      }
    }
 
    private void findUnusedFunction( final IParserNode body )

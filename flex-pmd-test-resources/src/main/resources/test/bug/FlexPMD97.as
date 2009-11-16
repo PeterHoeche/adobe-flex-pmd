@@ -28,36 +28,16 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes;
-
-import java.util.List;
-
-import com.adobe.ac.pmd.parser.IParserNode;
-
-/**
- * Node representing a class. It contains different lists (constants, variables,
- * functions, implementations, ...), but also a reference to its constructor (if
- * any), the extension name (if any), and its name.
- * 
- * @author xagnetti
- */
-public interface IClass extends IVisible, IMetaDataListHolder, INamableNode
+package 
 {
-   List< IAttribute > getAttributes();
+	public class LogUtil
+	{
+		{
+			initLogging();
+		}
 
-   IParserNode getBlock();
-
-   List< IConstant > getConstants();
-
-   IFunction getConstructor();
-
-   String getExtensionName();
-
-   List< IFunction > getFunctions();
-
-   List< IParserNode > getImplementations();
-
-   boolean isBindable();
-
-   boolean isFinal();
+		private static function initLogging():void 
+		{
+		}
+	} 
 }

@@ -51,6 +51,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
 class ClassNode extends AbstractNode implements IClass
 {
    private List< IAttribute >                 attributes;
+   private IParserNode                        block;
    private List< IConstant >                  constants;
    private IFunction                          constructor;
    private String                             extensionName;
@@ -85,6 +86,11 @@ class ClassNode extends AbstractNode implements IClass
    public List< IAttribute > getAttributes()
    {
       return attributes;
+   }
+
+   public final IParserNode getBlock()
+   {
+      return block;
    }
 
    /*
@@ -233,6 +239,7 @@ class ClassNode extends AbstractNode implements IClass
       {
          for ( final IParserNode node : classContentNode.getChildren() )
          {
+            detectBlock( node );
             detectFunction( node );
             detectAttribute( node );
             detectConstant( node );
@@ -245,6 +252,14 @@ class ClassNode extends AbstractNode implements IClass
       if ( node.is( NodeKind.VAR_LIST ) )
       {
          attributes.add( new AttributeNode( node ) );
+      }
+   }
+
+   private void detectBlock( final IParserNode node )
+   {
+      if ( node.is( NodeKind.BLOCK ) )
+      {
+         block = node;
       }
    }
 
