@@ -56,7 +56,7 @@ public class FlexPmdExceptionTest
    @Test
    public void testUnexpectedTokenException()
    {
-      assertEquals( "Unexpected token: tokenText in myFileName at 1:1.",
-                    new UnExpectedTokenException( "tokenText", 1, 1, MY_FILE_NAME ).getMessage() );
+      assertEquals( "Unexpected token: tokenText in file (myFileName) at 1:1. Expecting token",
+                    new UnExpectedTokenException( "tokenText", 1, 1, MY_FILE_NAME, "token" ).getMessage() );
    }
 }

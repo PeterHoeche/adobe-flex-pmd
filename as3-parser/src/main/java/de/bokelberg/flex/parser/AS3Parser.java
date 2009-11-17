@@ -458,7 +458,7 @@ public class AS3Parser implements IAS3Parser
    {
       if ( !tokIs( text ) )
       {
-         throw new UnExpectedTokenException( tok.getText(), tok.getLine(), tok.getColumn(), fileName );
+         throw new UnExpectedTokenException( tok.getText(), tok.getLine(), tok.getColumn(), fileName, text );
       }
       nextToken();
    }
@@ -578,7 +578,7 @@ public class AS3Parser implements IAS3Parser
          }
          if ( tok.getText() == null )
          {
-            throw new UnExpectedTokenException( tok.getText(), tok.getLine(), tok.getColumn(), fileName );
+            throw new NullTokenException( fileName );
          }
       }
       while ( tok.getText().startsWith( "//" )

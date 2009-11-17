@@ -52,8 +52,8 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    protected void findViolations( final IClass classNode )
    {
       fillPrivateFunctions( classNode.getFunctions() );
-
       findUnusedFunction( classNode.getBlock() );
+
       super.findViolations( classNode );
 
       addViolations();

@@ -36,9 +36,11 @@ public class UnExpectedTokenException extends TokenException
    public UnExpectedTokenException( final String tokenText,
                                     final int tokenLine,
                                     final int tokenColumn,
-                                    final String fileName )
+                                    final String fileName,
+                                    final String expected )
    {
       super( "Unexpected token: "
-            + tokenText + " in " + fileName + " at " + tokenLine + ":" + tokenColumn + "." );
+            + tokenText + " in file (" + fileName + ") at " + tokenLine + ":" + tokenColumn + ". Expecting "
+            + expected );
    }
 }
