@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class AvoidInstanciationInLoopRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new AvoidInstanciationInLoopRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 255, 255 ),
@@ -65,5 +59,11 @@ public class AvoidInstanciationInLoopRuleTest extends AbstractAstFlexRuleTest
                                    new ViolationPosition( 68, 68 ),
                                    new ViolationPosition( 71, 71 ),
                                    new ViolationPosition( 75, 75 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new AvoidInstanciationInLoopRule();
    }
 }

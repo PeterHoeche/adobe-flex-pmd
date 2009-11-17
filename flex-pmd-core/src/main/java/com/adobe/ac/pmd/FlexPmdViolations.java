@@ -33,7 +33,7 @@ package com.adobe.ac.pmd;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -77,8 +77,8 @@ public class FlexPmdViolations
    public FlexPmdViolations()
    {
       violations = new TreeMap< IFlexFile, List< IFlexViolation > >( new FlexFileComparator() );
-      rules = new HashMap< String, IFlexRule >();
-      ruleSpeeds = new HashMap< IFlexRule, Long >();
+      rules = new LinkedHashMap< String, IFlexRule >();
+      ruleSpeeds = new LinkedHashMap< IFlexRule, Long >();
       hasBeenComputed = false;
    }
 

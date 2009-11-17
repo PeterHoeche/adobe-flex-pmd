@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -47,7 +47,7 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
    protected void visitFunction( final IParserNode ast,
                                  final FunctionType type )
    {
-      variablesUnused = new HashMap< String, IParserNode >();
+      variablesUnused = new LinkedHashMap< String, IParserNode >();
 
       super.visitFunction( ast,
                            type );

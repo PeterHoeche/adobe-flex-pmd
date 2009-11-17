@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.unused;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +43,7 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
+      final HashMap< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
 
       addToMap( addToMap( addToMap( addToMap( violations,
                                               "UnboundMetadata.as",
@@ -57,10 +58,10 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
                 "ErrorToltipSkin.as",
                 new ViolationPosition[]
                 { new ViolationPosition( 163, 163 ),
+                            new ViolationPosition( 165, 165 ),
                             new ViolationPosition( 166, 166 ),
-                            new ViolationPosition( 184, 184 ),
                             new ViolationPosition( 183, 183 ),
-                            new ViolationPosition( 165, 165 ) } );
+                            new ViolationPosition( 184, 184 ) } );
 
       return addToMap( addToMap( addToMap( addToMap( violations,
                                                      "DeleteButtonRenderer.mxml",
@@ -71,8 +72,8 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
                                            { new ViolationPosition( 40, 40 ) } ),
                                  "RadonDataGrid.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 101, 101 ),
-                                             new ViolationPosition( 100, 100 ) } ),
+                                 { new ViolationPosition( 100, 100 ),
+                                             new ViolationPosition( 101, 101 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 47, 47 ) } );

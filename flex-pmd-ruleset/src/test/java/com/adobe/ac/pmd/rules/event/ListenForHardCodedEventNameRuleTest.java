@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.event;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -39,6 +39,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ListenForHardCodedEventNameRuleTest extends AbstractRegExpBasedRuleTest
 {
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                       "AbstractRowData.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 109, 109 ) } );
+   }
+
    @Override
    protected String[] getMatchableLines()
    {
@@ -62,14 +71,5 @@ public class ListenForHardCodedEventNameRuleTest extends AbstractRegExpBasedRule
       { "addEventListener( CHANGE, handleChange );",
                   "addEventListener(CHANGE,handleChange);",
                   "addEventListener( CHANGE," };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 109, 109 ) } );
    }
 }

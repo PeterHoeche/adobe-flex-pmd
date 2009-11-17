@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new CyclomaticComplexityRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "com.adobe.ac.ncss.LongSwitch.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 39, 39 ) } ),
@@ -58,5 +52,11 @@ public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
                        "RadonDataGrid.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 160, 160 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new CyclomaticComplexityRule();
    }
 }

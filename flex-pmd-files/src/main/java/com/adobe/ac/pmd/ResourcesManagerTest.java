@@ -33,7 +33,7 @@ package com.adobe.ac.pmd;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +88,7 @@ final class ResourcesManagerTest
       {
          LOGGER.severe( "/test folder is not found in the resource" );
          testRootDirectory = null;
-         testFiles = new HashMap< String, IFlexFile >();
+         testFiles = new LinkedHashMap< String, IFlexFile >();
       }
       else
       {

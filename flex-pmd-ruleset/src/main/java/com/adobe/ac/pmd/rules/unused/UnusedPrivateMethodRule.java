@@ -30,8 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -97,7 +97,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 
    private void fillPrivateFunctions( final List< IFunction > functions )
    {
-      privateFunctions = new HashMap< String, IFunction >();
+      privateFunctions = new LinkedHashMap< String, IFunction >();
 
       for ( final IFunction function : functions )
       {

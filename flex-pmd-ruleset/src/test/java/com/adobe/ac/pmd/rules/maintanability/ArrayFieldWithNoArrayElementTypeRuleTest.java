@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new ArrayFieldWithNoArrayElementTypeRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 47, 47 ),
@@ -77,5 +71,11 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRul
                        "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 34, 34 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new ArrayFieldWithNoArrayElementTypeRule();
    }
 }

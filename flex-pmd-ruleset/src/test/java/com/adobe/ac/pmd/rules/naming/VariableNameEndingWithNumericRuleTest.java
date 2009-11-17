@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new VariableNameEndingWithNumericRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "PngEncoder.as",
                                                      new ViolationPosition[]
                                                      { new ViolationPosition( 405, 405 ),
@@ -76,5 +70,11 @@ public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTe
                                    new ViolationPosition( 62, 62 ),
                                    new ViolationPosition( 62, 62 ),
                                    new ViolationPosition( 64, 64 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new VariableNameEndingWithNumericRule();
    }
 }

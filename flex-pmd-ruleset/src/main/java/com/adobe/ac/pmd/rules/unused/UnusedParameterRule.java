@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
@@ -49,7 +49,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    protected void visitFunction( final IParserNode functionAst,
                                  final FunctionType type )
    {
-      variablesUnused = new HashMap< String, IParserNode >();
+      variablesUnused = new LinkedHashMap< String, IParserNode >();
       final boolean isOverriden = isFunctionOverriden( functionAst );
 
       if ( !isOverriden )

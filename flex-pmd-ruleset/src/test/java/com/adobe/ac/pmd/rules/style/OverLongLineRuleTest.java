@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.style;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class OverLongLineRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new OverLongLineRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final Map< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
+      final Map< String, ViolationPosition[] > violatedFiles = new LinkedHashMap< String, ViolationPosition[] >();
 
       addToMap( addToMap( violatedFiles,
                           "SkinStyles.as",
@@ -74,5 +68,11 @@ public class OverLongLineRuleTest extends AbstractFlexRuleTest
                             new ViolationPosition( 49, 49 ) } );
 
       return violatedFiles;
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new OverLongLineRule();
    }
 }

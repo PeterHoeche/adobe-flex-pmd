@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -48,7 +48,7 @@ public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "DeleteButtonRenderer.mxml",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 49, 103 ) } ),

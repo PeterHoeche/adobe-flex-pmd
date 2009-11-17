@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.files;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -88,7 +88,7 @@ public final class FileSetUtils
    public static Map< String, IPackage > computeAsts( final Map< String, IFlexFile > files ) throws PMDException
    {
       LOGGER.setLevel( Level.SEVERE );
-      final Map< String, IPackage > asts = new HashMap< String, IPackage >();
+      final Map< String, IPackage > asts = new LinkedHashMap< String, IPackage >();
 
       for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
       {

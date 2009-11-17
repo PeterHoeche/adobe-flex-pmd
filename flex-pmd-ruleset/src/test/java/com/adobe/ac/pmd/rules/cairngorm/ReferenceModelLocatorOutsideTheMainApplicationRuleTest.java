@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -42,7 +42,7 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends Abst
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "UnboundMetadata.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 33, 33 ),

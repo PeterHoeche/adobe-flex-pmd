@@ -31,8 +31,8 @@
 package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -126,7 +126,7 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
    @Override
    protected void compute()
    {
-      metaDataList = new HashMap< MetaData, List< IMetaData > >();
+      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
       modifiers = new HashSet< Modifier >();
 
       if ( getInternalNode().is( NodeKind.NAME_TYPE_INIT ) )

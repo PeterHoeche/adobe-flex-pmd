@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +42,7 @@ public class AvoidUsingWithKeyWordRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "GoodComponent.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 54, 54 ) } );

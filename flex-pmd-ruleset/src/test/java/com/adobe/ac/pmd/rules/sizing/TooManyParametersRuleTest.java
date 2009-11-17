@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooManyParametersRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new TooManyParametersRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "RadonDataGrid.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 68, 68 ),
@@ -60,5 +54,11 @@ public class TooManyParametersRuleTest extends AbstractAstFlexRuleTest
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 62, 62 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new TooManyParametersRule();
    }
 }

@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +42,7 @@ public class UseTraceFunctionRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "com.adobe.ac.ncss.LongSwitch.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 125, 125 ) } ),

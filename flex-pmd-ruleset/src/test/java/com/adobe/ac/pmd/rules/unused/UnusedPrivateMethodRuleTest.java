@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +42,7 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "Sorted.as",
                                                      new ViolationPosition[]
                                                      { new ViolationPosition( 71, 71 ) } ),
@@ -54,10 +54,10 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
                                  { new ViolationPosition( 207, 207 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 94, 94 ),
-                                   new ViolationPosition( 86, 86 ),
-                                   new ViolationPosition( 98, 98 ),
-                                   new ViolationPosition( 90, 90 ) } );
+                       { new ViolationPosition( 86, 86 ),
+                                   new ViolationPosition( 90, 90 ),
+                                   new ViolationPosition( 94, 94 ),
+                                   new ViolationPosition( 98, 98 ) } );
    }
 
    @Override

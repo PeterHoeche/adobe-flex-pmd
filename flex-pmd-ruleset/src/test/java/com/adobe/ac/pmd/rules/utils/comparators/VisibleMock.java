@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.utils.comparators;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.nodes.INamable;
@@ -45,7 +45,7 @@ class VisibleMock implements IVisible, INamable
    public VisibleMock( final String modifierName )
    {
       name = modifierName;
-      modifiers = new HashMap< Modifier, Object >();
+      modifiers = new LinkedHashMap< Modifier, Object >();
    }
 
    public void add( final Modifier modifier )
@@ -59,7 +59,8 @@ class VisibleMock implements IVisible, INamable
       return name;
    }
 
-   public boolean is( final Modifier modifier ) // NOPMD by xagnetti on 7/7/09 3:13 PM
+   public boolean is( final Modifier modifier ) // NOPMD by xagnetti on 7/7/09
+                                                // 3:13 PM
    {
       return modifiers.containsKey( modifier );
    }

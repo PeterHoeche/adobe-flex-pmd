@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.binding;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +42,7 @@ public class ChangeWatcherRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 35, 35 ) } );

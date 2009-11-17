@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.rules.core;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,7 +127,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
    @Test
    public void testBuildMessageName()
    {
-      final Map< String, List< IFlexViolation >> violatedFiles = new HashMap< String, List< IFlexViolation > >();
+      final Map< String, List< IFlexViolation >> violatedFiles = new LinkedHashMap< String, List< IFlexViolation > >();
       final ArrayList< IFlexViolation > emptyList = new ArrayList< IFlexViolation >();
 
       violatedFiles.put( "file1",

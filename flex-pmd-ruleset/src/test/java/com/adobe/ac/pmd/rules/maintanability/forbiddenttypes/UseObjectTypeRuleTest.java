@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.maintanability.forbiddenttypes;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -43,7 +44,7 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violations = new HashMap< String, ViolationPosition[] >();
+      final HashMap< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
 
       addToMap( addToMap( violations,
                           "Looping.as",

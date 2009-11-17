@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.switchrules;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -52,7 +52,7 @@ public class IdenticalSwitchCasesRule extends AbstractAstFlexRule
 
       if ( ast.numChildren() > 0 )
       {
-         final Map< String, IParserNode > cases = new HashMap< String, IParserNode >();
+         final Map< String, IParserNode > cases = new LinkedHashMap< String, IParserNode >();
 
          for ( final IParserNode caseStatement : ast.getChild( 1 ).getChildren() )
          {

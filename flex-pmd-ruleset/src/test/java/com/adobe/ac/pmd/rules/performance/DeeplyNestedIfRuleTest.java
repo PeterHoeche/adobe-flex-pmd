@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new DeeplyNestedIfRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.AbstractRowData.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 59, 59 ) } ),
@@ -58,5 +52,11 @@ public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
                                    new ViolationPosition( 576, 576 ),
                                    new ViolationPosition( 584, 584 ),
                                    new ViolationPosition( 576, 576 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new DeeplyNestedIfRule();
    }
 }

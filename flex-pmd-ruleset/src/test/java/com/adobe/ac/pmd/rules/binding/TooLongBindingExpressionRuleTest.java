@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.binding;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -65,7 +65,7 @@ public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTes
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
                        new ViolationPosition[]
                        { new ViolationPosition( 54, 54 ) } );

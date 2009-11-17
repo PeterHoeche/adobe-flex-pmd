@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.component;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,20 +40,20 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class NoChildrenAddedInCreateChildrenRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new NoChildrenAddedInCreateChildrenRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "AbstractRowData.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 138, 138 ) } ),
                        "BadComponent.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 48, 48 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new NoChildrenAddedInCreateChildrenRule();
    }
 }

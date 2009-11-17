@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,18 +42,21 @@ public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                                                         "ErrorToltipSkin.as",
-                                                                         new ViolationPosition[]
-                                                                         { new ViolationPosition( 156, 156 ) } ),
-                                                               "PngEncoder.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 150, 150 ),
-                                                                           new ViolationPosition( 335, 335 ),
-                                                                           new ViolationPosition( 548, 548 ) } ),
-                                                     "RadonDataGrid.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 84, 84 ) } ),
+      Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
+
+      violations = addToMap( addToMap( addToMap( violations,
+                                                 "ErrorToltipSkin.as",
+                                                 new ViolationPosition[]
+                                                 { new ViolationPosition( 156, 156 ) } ),
+                                       "PngEncoder.as",
+                                       new ViolationPosition[]
+                                       { new ViolationPosition( 150, 150 ),
+                                                   new ViolationPosition( 335, 335 ),
+                                                   new ViolationPosition( 548, 548 ) } ),
+                             "RadonDataGrid.as",
+                             new ViolationPosition[]
+                             { new ViolationPosition( 84, 84 ) } );
+      return addToMap( addToMap( addToMap( violations,
                                            "cairngorm.FatController.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 97, 97 ) } ),

@@ -35,7 +35,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -221,7 +221,7 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    private Map< String, List< IFlexViolation >> extractActualViolatedFiles() throws IOException,
                                                                             TokenException
    {
-      final Map< String, List< IFlexViolation > > violatedFiles = new HashMap< String, List< IFlexViolation > >();
+      final Map< String, List< IFlexViolation > > violatedFiles = new LinkedHashMap< String, List< IFlexViolation > >();
 
       for ( final Map.Entry< String, IFlexFile > fileNameEntry : getTestFiles().entrySet() )
       {

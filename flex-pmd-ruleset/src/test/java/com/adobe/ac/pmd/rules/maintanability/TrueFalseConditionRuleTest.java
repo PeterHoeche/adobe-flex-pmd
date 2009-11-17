@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.maintanability;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +43,7 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violatingFiles = new HashMap< String, ViolationPosition[] >();
+      final HashMap< String, ViolationPosition[] > violatingFiles = new LinkedHashMap< String, ViolationPosition[] >();
 
       addToMap( addToMap( addToMap( violatingFiles,
                                     "PngEncoder.as",

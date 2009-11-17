@@ -34,7 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +48,7 @@ public final class FileUtils
    public static Map< String, IFlexFile > computeFilesList( final File sourceDirectory,
                                                             final String packageToExclude ) throws PMDException
    {
-      final Map< String, IFlexFile > files = new HashMap< String, IFlexFile >();
+      final Map< String, IFlexFile > files = new LinkedHashMap< String, IFlexFile >();
       final FlexFilter flexFilter = new FlexFilter();
       final Collection< File > foundFiles = getFlexFiles( sourceDirectory,
                                                           flexFilter );

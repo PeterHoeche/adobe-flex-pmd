@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.adobe.ac.pmd.parser.IParserNode;
@@ -54,7 +54,7 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
    @Override
    protected void visitClass( final IParserNode classNode )
    {
-      variablesUnused = new HashMap< String, IParserNode >();
+      variablesUnused = new LinkedHashMap< String, IParserNode >();
 
       super.visitClass( classNode );
 

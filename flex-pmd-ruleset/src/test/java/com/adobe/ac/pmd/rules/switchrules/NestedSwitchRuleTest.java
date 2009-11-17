@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.switchrules;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,20 +40,20 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class NestedSwitchRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new NestedSwitchRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.ncss.LongSwitch.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 53, 53 ) } ),
                        "com.adobe.ac.ncss.NestedSwitch.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 43, 43 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new NestedSwitchRule();
    }
 }

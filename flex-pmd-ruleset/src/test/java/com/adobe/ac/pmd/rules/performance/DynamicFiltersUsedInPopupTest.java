@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -39,6 +39,19 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
 {
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                 "filters.MyPopup.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 37, 37 ) } ),
+                       "filters.MyPopup.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 41, 41 ),
+                                   new ViolationPosition( 44, 44 ) } );
+   }
+
    @Override
    protected String[] getMatchableLines()
    {
@@ -62,18 +75,5 @@ public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
       { ".filterFunction",
                   "DropShadowfilter(" };
       return lines;
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
-                                 "filters.MyPopup.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 37, 37 ) } ),
-                       "filters.MyPopup.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ),
-                                   new ViolationPosition( 44, 44 ) } );
    }
 }

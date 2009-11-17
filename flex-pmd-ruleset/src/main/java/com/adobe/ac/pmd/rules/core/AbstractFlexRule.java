@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd.rules.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -159,7 +159,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    protected final Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
    {
-      final Map< String, PropertyDescriptor > properties = new HashMap< String, PropertyDescriptor >();
+      final Map< String, PropertyDescriptor > properties = new LinkedHashMap< String, PropertyDescriptor >();
 
       properties.put( rule.getThresholdName(),
                       new IntegerProperty( rule.getThresholdName(),

@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -41,7 +41,7 @@ public abstract class AbstractMoreThanEntryPointInMxmlRuleTest extends AbstractA
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                                  iterationsListViolations() ),
                        "com.adobe.ac.ncss.mxml.IterationsList2.mxml",

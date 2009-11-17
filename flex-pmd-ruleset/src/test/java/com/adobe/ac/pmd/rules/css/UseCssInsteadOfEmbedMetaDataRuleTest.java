@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.css;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +42,7 @@ public class UseCssInsteadOfEmbedMetaDataRuleTest extends AbstractAstFlexRuleTes
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "Title.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39, 39 ) } );

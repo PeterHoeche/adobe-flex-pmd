@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.css;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -39,6 +39,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class StyleBlockInMxmlRuleTest extends AbstractRegExpBasedRuleTest
 {
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                       "Main.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 49, 49 ) } );
+   }
+
    @Override
    protected String[] getMatchableLines()
    {
@@ -71,14 +80,5 @@ public class StyleBlockInMxmlRuleTest extends AbstractRegExpBasedRuleTest
                   "<Panel",
                   "<ViewStack",
                   "<mx:Style/>" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "Main.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 49, 49 ) } );
    }
 }

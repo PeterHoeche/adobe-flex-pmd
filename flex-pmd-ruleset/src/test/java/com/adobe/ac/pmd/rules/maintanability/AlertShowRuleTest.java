@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -39,6 +39,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
 {
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.ConfigProxy.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 48, 48 ) } );
+   }
+
    @Override
    protected String[] getMatchableLines()
    {
@@ -64,14 +73,5 @@ public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
                   "lert.show( \"something\" );",
                   "Alrt.show(\"something\");",
                   "ScoyoAlert.show(" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "com.adobe.ac.ncss.ConfigProxy.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 48, 48 ) } );
    }
 }

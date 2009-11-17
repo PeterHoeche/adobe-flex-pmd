@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -40,15 +40,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class PackageCaseRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new PackageCaseRule();
-   }
-
-   @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "schedule_internal.as",
                                                      new ViolationPosition[]
                                                      { new ViolationPosition( -1, -1 ) } ),
@@ -61,5 +55,11 @@ public class PackageCaseRuleTest extends AbstractAstFlexRuleTest
                        "AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( -1, -1 ) } );
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new PackageCaseRule();
    }
 }
