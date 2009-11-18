@@ -232,6 +232,20 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>flex-pmd-cpd-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

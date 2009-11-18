@@ -49,10 +49,13 @@ import com.adobe.ac.utils.StackTraceUtils;
  * convert a actionscript to a stream of tokens
  * 
  * @author rbokel
+ * @author xagnetti
  */
-class AS3Scanner
+public class AS3Scanner
 {
-   static final class Token
+   private static final String END = "__END__";
+
+   static public final class Token
    {
       private static Token create( final String textContent,
                                    final int tokenLine,
@@ -164,6 +167,18 @@ class AS3Scanner
    private int      line;
    private String[] lines = null;
 
+   public Token moveToNextToken()
+   {
+      return nextToken();
+   }
+
+   public void setLines( final String[] linesToBeSet )
+   {
+      lines = linesToBeSet;
+      line = 0;
+      column = -1;
+   }
+
    boolean isHexChar( final char currentCharacter )
    {
       final boolean isNum = currentCharacter >= '0'
@@ -188,7 +203,7 @@ class AS3Scanner
       }
       else
       {
-         return new Token( "__END__", line, column );
+         return new Token( END, line, column );
       }
 
       if ( currentCharacter == '\n' )
@@ -307,13 +322,6 @@ class AS3Scanner
       }
 
       return scanWord( currentCharacter );
-   }
-
-   protected void setLines( final String[] linesToBeSet )
-   {
-      lines = linesToBeSet;
-      line = 0;
-      column = -1;
    }
 
    private int computePossibleMatchesMaxLength( final String[] possibleMatches )
