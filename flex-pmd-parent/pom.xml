@@ -60,7 +60,7 @@
 		<source.local.path>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd</source.local.path>
 
 		<!-- Plugins/Dependencies version -->
-		<pmd.version>4.2.2</pmd.version>
+		<pmd.version>4.2.5</pmd.version>
 		<compileSource>1.5</compileSource>
 		<cobertura.version>2.2</cobertura.version>
 		<junit.version>4.0</junit.version>
@@ -75,6 +75,10 @@
 		<plexus-utils.version>1.0.2</plexus-utils.version>
 		<release-plugin.version>2.0-beta-9</release-plugin.version>
 		<gpg-plugin.version>1.0-alpha-4</gpg-plugin.version>
+		<maven-reporting-impl.version>2.0-beta-3</maven-reporting-impl.version>
+		<maven-plugin-api.version>3.0-alpha-2</maven-plugin-api.version>
+		<maven-plugin-testing-harness.version>1.0-beta-1</maven-plugin-testing-harness.version>
+		<ant.version>1.7.0</ant.version>
 
 		<!-- Reporting versions -->
 		<maven-pmd-plugin.version>2.4</maven-pmd-plugin.version>
