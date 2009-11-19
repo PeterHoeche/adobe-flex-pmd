@@ -12,17 +12,11 @@
 		<version>1.0.RC5-SNAPSHOT</version>
 	</parent>
 
-	<properties>
-		<maven-reporting-impl.version>2.0-beta-3</maven-reporting-impl.version>
-		<maven-plugin-api.version>3.0-alpha-2</maven-plugin-api.version>
-		<maven-plugin-testing-harness.version>1.0-beta-1</maven-plugin-testing-harness.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>pmd</groupId>
 			<artifactId>pmd</artifactId>
-			<version>4.2.5</version>
+			<version>${pmd.version}</version>
 		</dependency>
 
 		<dependency>

@@ -11,16 +11,12 @@
 	<name>Adobe Flex CPD Ant task</name>
 	<packaging>jar</packaging>
 
-	<properties>
-		<ant.version>1.7.0</ant.version>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>pmd</groupId>
 			<artifactId>pmd</artifactId>
-			<version>4.2.5</version>
+			<version>${pmd.version}</version>
 		</dependency>
 
 		<dependency>
