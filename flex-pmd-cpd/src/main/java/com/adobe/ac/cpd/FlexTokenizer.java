@@ -50,32 +50,40 @@ public class FlexTokenizer implements Tokenizer
    public void tokenize( final SourceCode tokens,
                          final Tokens tokenEntries )
    {
-      final AS3Scanner scanner = new AS3Scanner();
-
-      final IFlexFile flexFile = FileUtils.create( new File( tokens.getFileName() ),
-                                                   new File( "" ) );
-
-      if ( flexFile instanceof IMxmlFile )
+      try
       {
-         final IMxmlFile mxml = ( IMxmlFile ) flexFile;
+         final AS3Scanner scanner = new AS3Scanner();
 
-         scanner.setLines( mxml.getScriptBlock() );
+         final IFlexFile flexFile = FileUtils.create( new File( tokens.getFileName() ),
+                                                      new File( "" ) );
+
+         if ( flexFile instanceof IMxmlFile )
+         {
+            final IMxmlFile mxml = ( IMxmlFile ) flexFile;
+
+            scanner.setLines( mxml.getScriptBlock() );
+         }
+         else
+         {
+            scanner.setLines( tokens.getCode().toArray( new String[ tokens.getCode().size() ] ) );
+         }
+         Token currentToken = scanner.moveToNextToken();
+
+         while ( currentToken != null
+               && currentToken.getText().compareTo( KeyWords.EOF.toString() ) != 0 )
+         {
+            tokenEntries.add( new TokenEntry( currentToken.getText(),
+                                              tokens.getFileName(),
+                                              currentToken.getLine() ) );
+            currentToken = scanner.moveToNextToken();
+         }
       }
-      else
+      catch ( final Exception e )
       {
-         scanner.setLines( tokens.getCode().toArray( new String[ tokens.getCode().size() ] ) );
       }
-      Token currentToken = scanner.moveToNextToken();
-
-      while ( currentToken != null
-            && currentToken.getText().compareTo( KeyWords.EOF.toString() ) != 0 )
+      finally
       {
-         tokenEntries.add( new TokenEntry( currentToken.getText(),
-                                           tokens.getFileName(),
-                                           currentToken.getLine() ) );
-         currentToken = scanner.moveToNextToken();
+         tokenEntries.add( TokenEntry.getEOF() );
       }
-
-      tokenEntries.add( TokenEntry.getEOF() );
    }
 }
