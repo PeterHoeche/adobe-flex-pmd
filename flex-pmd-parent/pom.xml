@@ -442,4 +442,21 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	
+	<profiles>
+		<profile>
+			<id>hudson</id>
+			<distributionManagement>
+				<repository>
+					<id>txi_releases</id>
+					<url>http://txici.can.adobe.com:9999/nexus/content/repositories/txi</url>
+				</repository>
+				<snapshotRepository>
+					<id>txi_snapshot</id>
+					<url>http://txici.can.adobe.com:9999/nexus/content/repositories/txi_snapshots/</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+	
 </project>
