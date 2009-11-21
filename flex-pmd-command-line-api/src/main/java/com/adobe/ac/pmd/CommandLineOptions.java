@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd;
 
-public enum CommandLineOptions
+public enum CommandLineOptions implements ICommandLineOptions
 {
    EXLUDE_PACKAGE("excludePackage"),
    OUTPUT("outputDirectory"),

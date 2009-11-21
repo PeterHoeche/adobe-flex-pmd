@@ -32,6 +32,8 @@ package com.adobe.ac.pmd.files;
 
 public interface IMxmlFile extends IFlexFile
 {
+   String[] getActualScriptBlock();
+
    int getBeginningScriptBlock();
 
    int getEndingScriptBlock();

@@ -37,7 +37,7 @@ import com.martiansoftware.jsap.JSAPException;
 public final class CommandLineUtils
 {
    public static void registerParameter( final JSAP jsap,
-                                         final CommandLineOptions option,
+                                         final ICommandLineOptions option,
                                          final boolean required ) throws JSAPException
    {
       final String optionName = option.toString();

@@ -3,7 +3,7 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flexunit-theme</artifactId>
 	<packaging>swc</packaging>
-	<name>Adobe Flex FlexUnit theme</name>
+	<name>FlexUnit theme</name>
 	<description>Adobe FlexUnit theme</description>
 	<version>1.0.RC5-SNAPSHOT</version>
 
