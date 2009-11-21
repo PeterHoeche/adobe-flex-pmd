@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-cpd</artifactId>
-	<name>Adobe Flex Copy and Paste Detector</name>
+	<name>Adobe Flex CPD (Copy and Past Detector)</name>
 	<dependencies>
 
 		<dependency>

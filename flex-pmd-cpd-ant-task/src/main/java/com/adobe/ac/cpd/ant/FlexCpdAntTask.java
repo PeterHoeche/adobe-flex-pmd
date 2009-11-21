@@ -34,12 +34,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import net.sourceforge.pmd.cpd.CPD;
 import net.sourceforge.pmd.cpd.FileReporter;
-import net.sourceforge.pmd.cpd.Language;
-import net.sourceforge.pmd.cpd.LanguageFactory;
 import net.sourceforge.pmd.cpd.Renderer;
 import net.sourceforge.pmd.cpd.ReportException;
 import net.sourceforge.pmd.cpd.XMLRenderer;
@@ -50,11 +47,14 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 
+import com.adobe.ac.cpd.FlexLanguage;
+import com.adobe.ac.cpd.FlexTokenizer;
+
 public class FlexCpdAntTask extends Task
 {
-   private String                encoding = System.getProperty( "file.encoding" );
-   private final List< FileSet > filesets = new ArrayList< FileSet >();
-   private int                   minimumTokenCount;
+   private String                encoding          = System.getProperty( "file.encoding" );
+   private final List< FileSet > filesets          = new ArrayList< FileSet >();
+   private int                   minimumTokenCount = FlexTokenizer.DEFAULT_MINIMUM_TOKENS;
 
    private File                  outputFile;
 
@@ -76,7 +76,7 @@ public class FlexCpdAntTask extends Task
 
          log( "Tokenizing files",
               Project.MSG_INFO );
-         final CPD cpd = new CPD( minimumTokenCount, createLanguage() );
+         final CPD cpd = new CPD( minimumTokenCount, new FlexLanguage() );
          cpd.setEncoding( encoding );
          tokenizeFiles( cpd );
 
@@ -127,12 +127,6 @@ public class FlexCpdAntTask extends Task
       final long stop = System.currentTimeMillis();
       return stop
             - start;
-   }
-
-   private Language createLanguage()
-   {
-      return new LanguageFactory().createLanguage( "flex",
-                                                   new Properties() );
    }
 
    private void report( final CPD cpd ) throws ReportException

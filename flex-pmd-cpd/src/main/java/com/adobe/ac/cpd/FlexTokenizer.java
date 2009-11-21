@@ -47,6 +47,8 @@ import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class FlexTokenizer implements Tokenizer
 {
+   public static final Integer DEFAULT_MINIMUM_TOKENS = 25;
+
    public void tokenize( final SourceCode tokens,
                          final Tokens tokenEntries )
    {
@@ -61,7 +63,7 @@ public class FlexTokenizer implements Tokenizer
          {
             final IMxmlFile mxml = ( IMxmlFile ) flexFile;
 
-            scanner.setLines( mxml.getScriptBlock() );
+            scanner.setLines( mxml.getActualScriptBlock() );
          }
          else
          {
