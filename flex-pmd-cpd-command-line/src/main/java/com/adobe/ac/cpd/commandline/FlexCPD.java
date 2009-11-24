@@ -56,7 +56,7 @@ import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.JSAPResult;
 
-public class FlexCPD
+public final class FlexCPD
 {
    private static JSAPResult        config;
    private static final String      encoding = System.getProperty( "file.encoding" );
