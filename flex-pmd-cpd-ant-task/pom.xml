@@ -55,7 +55,7 @@
 			<artifactId>as3-plugin-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-x§		
+
 	</dependencies>
 
 	<build>
