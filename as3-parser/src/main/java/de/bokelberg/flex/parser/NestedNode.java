@@ -120,8 +120,9 @@ class NestedNode
    {
       final IParserNode lastChild = getChild( numChildren() - 1 );
 
-      return lastChild.numChildren() > 0 ? lastChild.getLastChild()
-                                        : lastChild;
+      return lastChild != null
+            && lastChild.numChildren() > 0 ? lastChild.getLastChild()
+                                          : lastChild;
    }
 
    final public boolean is( final NodeKind expectedType )
