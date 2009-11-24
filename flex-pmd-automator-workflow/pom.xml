@@ -2,7 +2,7 @@
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>1.0.RC5-SNAPSHOT</version>
+		<version>1.0.RC5</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
