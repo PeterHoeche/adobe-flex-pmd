@@ -50,7 +50,12 @@
 			<artifactId>as3-parser-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-plugin-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+x§		
 	</dependencies>
 
 	<build>
@@ -77,6 +82,7 @@
 								<copy file="${maven.dependency.com.adobe.ac.as3-parser.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.adobe.ac.as3-parser-api.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.org.apache.ant.ant.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
+								<copy file="${maven.dependency.com.adobe.ac.as3-plugin-utils.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<echo message="Extracting license..." />
 								<copy file="../flex-pmd-parent/src/etc/header.txt" tofile="${project.build.directory}/release/LICENSE.txt" overwrite="true" />
 								<echo message="Compressing zip..." />

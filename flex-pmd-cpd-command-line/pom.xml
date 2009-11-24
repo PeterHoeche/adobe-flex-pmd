@@ -37,6 +37,32 @@
 		</dependency>
 
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+			<artifactId>${project.parent.artifactId}-files</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-plugin-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-parser</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-parser-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>as3-plugin-utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
 			<version>${project.parent.version}</version>
@@ -109,6 +135,8 @@
 								<copy file="${maven.dependency.com.adobe.ac.as3-parser-api.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.adobe.ac.as3-parser.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.adobe.ac.flex-pmd-cpd.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
+								<copy file="${maven.dependency.com.adobe.ac.flex-pmd-files.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
+								<copy file="${maven.dependency.com.adobe.ac.as3-plugin-utils.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<echo message="Copying Command line dependencies..." />
 								<copy file="${maven.dependency.pmd.pmd.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.martiansoftware.jsap.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
