@@ -69,8 +69,7 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
                                                                        failOnError,
                                                                        outputDirectoryToBeSet,
                                                                        null,
-                                                                       getTestDirectory(),
-                                                                       null ) );
+                                                                       getTestDirectory() ) );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       assertNotNull( "",

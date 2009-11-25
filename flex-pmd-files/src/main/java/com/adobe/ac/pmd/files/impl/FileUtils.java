@@ -45,18 +45,18 @@ import com.adobe.ac.pmd.files.IFlexFile;
 
 public final class FileUtils
 {
-   public static Map< String, IFlexFile > computeFilesList( final File sourceDirectory,
+   public static Map< String, IFlexFile > computeFilesList( final File source,
                                                             final String packageToExclude ) throws PMDException
    {
       final Map< String, IFlexFile > files = new LinkedHashMap< String, IFlexFile >();
       final FlexFilter flexFilter = new FlexFilter();
-      final Collection< File > foundFiles = getFlexFiles( sourceDirectory,
+      final Collection< File > foundFiles = getFlexFiles( source,
                                                           flexFilter );
 
       for ( final File sourceFile : foundFiles )
       {
          final AbstractFlexFile file = create( sourceFile,
-                                               sourceDirectory );
+                                               source );
 
          if ( "".equals( packageToExclude )
                || !file.getFullyQualifiedName().startsWith( packageToExclude ) )
@@ -93,16 +93,25 @@ public final class FileUtils
       return lines.toArray( new String[ lines.size() ] );
    }
 
-   private static Collection< File > getFlexFiles( final File sourceDirectory,
+   private static Collection< File > getFlexFiles( final File source,
                                                    final FlexFilter flexFilter ) throws PMDException
    {
-      if ( sourceDirectory == null )
+      if ( source == null )
       {
          throw new PMDException( "sourceDirectory is empty", null );
       }
-      final Collection< File > foundFiles = com.adobe.ac.ncss.utils.FileUtils.listFiles( sourceDirectory,
-                                                                                         flexFilter,
-                                                                                         true );
+      Collection< File > foundFiles;
+      if ( source.isDirectory() )
+      {
+         foundFiles = com.adobe.ac.ncss.utils.FileUtils.listFiles( source,
+                                                                   flexFilter,
+                                                                   true );
+      }
+      else
+      {
+         foundFiles = new ArrayList< File >();
+         foundFiles.add( source );
+      }
       if ( foundFiles.isEmpty() )
       {
          return new ArrayList< File >();

@@ -78,12 +78,6 @@ public class FlexCPDTest extends FlexPmdTestBase
                   "sourceDirectory",
                   "-o",
                   "target" } ) );
-
-      assertTrue( FlexCPD.areCommandLineOptionsCorrect( new String[]
-      { "-f",
-                  "file",
-                  "-o",
-                  "target" } ) );
    }
 
    @Test

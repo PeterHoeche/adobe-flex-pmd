@@ -77,17 +77,14 @@ public final class FlexPMD // NO_UCD
       config = parseCommandLineArguments( args,
                                           jsap );
 
-      if ( !config.success()
-            || getParameterValue( CommandLineOptions.FILE ) == null
-            && getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) == null )
+      if ( !config.success() )
       {
          LOGGER.log( Level.SEVERE,
                      "Usage: java "
                            + FlexPMD.class.getName() + " " + jsap.getUsage() );
-         return false;
       }
 
-      return true;
+      return config.success();
    }
 
    static String getParameterValue( final CommandLineOptions option )
@@ -104,24 +101,15 @@ public final class FlexPMD // NO_UCD
       {
          final String rulesetRef = getParameterValue( CommandLineOptions.RULE_SET );
          final String excludePackage = getParameterValue( CommandLineOptions.EXLUDE_PACKAGE );
-         File sourceDirectory = null;
-         if ( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) != null )
-         {
-            sourceDirectory = new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
-         }
+
+         final File sourceDirectory = new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
          final File outputDirectory = new File( getParameterValue( CommandLineOptions.OUTPUT ) );
-         File sourceFile = null;
-         if ( getParameterValue( CommandLineOptions.FILE ) != null )
-         {
-            sourceFile = new File( getParameterValue( CommandLineOptions.FILE ) );
-         }
          final FlexPmdParameters parameters = new FlexPmdParameters( excludePackage == null ? ""
                                                                                            : excludePackage,
                                                                      outputDirectory,
                                                                      rulesetRef == null ? null
                                                                                        : new File( rulesetRef ),
-                                                                     sourceDirectory,
-                                                                     sourceFile );
+                                                                     sourceDirectory );
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( parameters );
 
          engine.executeReport( new FlexPmdViolations() );
@@ -135,10 +123,7 @@ public final class FlexPMD // NO_UCD
    {
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.SOURCE_DIRECTORY,
-                                          false );
-      CommandLineUtils.registerParameter( jsap,
-                                          CommandLineOptions.FILE,
-                                          false );
+                                          true );
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.OUTPUT,
                                           true );

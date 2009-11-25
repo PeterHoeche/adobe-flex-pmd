@@ -33,7 +33,6 @@ package com.adobe.ac.pmd;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,16 +82,14 @@ public class FlexPmdViolations
       hasBeenComputed = false;
    }
 
-   public final void computeViolations( final File sourceDirectory,
-                                        final File sourceFile,
+   public final void computeViolations( final File source,
                                         final RuleSet ruleSet,
                                         final String packageToExclude ) throws PMDException
    {
       hasBeenComputed = true;
 
       computeRules( ruleSet );
-      computeFiles( sourceDirectory,
-                    sourceFile,
+      computeFiles( source,
                     packageToExclude );
       computeAsts();
       processRules();
@@ -121,28 +118,15 @@ public class FlexPmdViolations
             + ( System.currentTimeMillis() - startTime ) + " ms" );
    }
 
-   private void computeFiles( final File sourceDirectory,
-                              final File sourceFile,
+   private void computeFiles( final File source,
                               final String packageToExclude ) throws PMDException
    {
       LOGGER.info( "computing FilesList" );
 
       final long startTime = System.currentTimeMillis();
 
-      if ( sourceFile != null )
-      {
-         final IFlexFile file = FileUtils.create( sourceFile,
-                                                  sourceFile.getParentFile() );
-
-         files = new HashMap< String, IFlexFile >();
-         files.put( file.getFullyQualifiedName(),
-                    file );
-      }
-      else
-      {
-         files = FileUtils.computeFilesList( sourceDirectory,
-                                             packageToExclude );
-      }
+      files = FileUtils.computeFilesList( source,
+                                          packageToExclude );
       LOGGER.info( "computed FilesList in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );
    }

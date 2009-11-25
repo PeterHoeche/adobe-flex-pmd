@@ -58,8 +58,7 @@ public class FlexPmdAntTask extends Task // NO_UCD
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
                                                                                       outputDirectory,
                                                                                       ruleSet,
-                                                                                      sourceDirectory,
-                                                                                      null ) );
+                                                                                      sourceDirectory ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
 
          engine.executeReport( violations );

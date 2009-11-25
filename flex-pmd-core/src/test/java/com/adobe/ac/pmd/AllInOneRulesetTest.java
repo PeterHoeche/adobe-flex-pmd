@@ -66,8 +66,7 @@ public class AllInOneRulesetTest extends TestCase
       final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( "",
                                                                                    outputDirectory,
                                                                                    ruleSetFile,
-                                                                                   sourceDirectory,
-                                                                                   null ) );
+                                                                                   sourceDirectory ) );
 
       engine.executeReport( new FlexPmdViolations() );
 

@@ -86,15 +86,13 @@ public abstract class AbstractFlexPmdEngine
    protected final File outputDirectory;
    private final String packageToExclude;
    private RuleSet      ruleSet;
-   private final File   sourceDirectory;
-   private final File   sourceFile;
+   private final File   source;
 
    public AbstractFlexPmdEngine( final FlexPmdParameters parameters )
    {
       super();
 
-      sourceFile = parameters.getSourceFile();
-      sourceDirectory = parameters.getSourceDirectory();
+      source = parameters.getSource();
       outputDirectory = parameters.getOutputDirectory();
       packageToExclude = parameters.getExcludePackage();
       try
@@ -121,8 +119,7 @@ public abstract class AbstractFlexPmdEngine
     */
    public final void executeReport( final FlexPmdViolations flexPmdViolations ) throws PMDException
    {
-      if ( sourceDirectory == null
-            && sourceFile == null )
+      if ( source == null )
       {
          throw new PMDException( "unspecified sourceDirectory" );
       }
@@ -130,6 +127,9 @@ public abstract class AbstractFlexPmdEngine
       {
          throw new PMDException( "unspecified outputDirectory" );
       }
+
+      LOGGER.fine( "Search Flex files in "
+            + source.getPath() );
 
       if ( !flexPmdViolations.hasViolationsBeenComputed() )
       {
@@ -150,8 +150,7 @@ public abstract class AbstractFlexPmdEngine
    {
       final long startTime = System.currentTimeMillis();
 
-      flexPmdViolations.computeViolations( sourceDirectory,
-                                           sourceFile,
+      flexPmdViolations.computeViolations( source,
                                            ruleSet,
                                            packageToExclude );
       final long ellapsedTime = System.currentTimeMillis()

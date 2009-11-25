@@ -151,10 +151,7 @@ public final class FlexCPD
    {
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.SOURCE_DIRECTORY,
-                                          false );
-      CommandLineUtils.registerParameter( jsap,
-                                          CommandLineOptions.FILE,
-                                          false );
+                                          true );
       CommandLineUtils.registerParameter( jsap,
                                           CpdCommandLineOptions.OUTPUT_FILE,
                                           true );

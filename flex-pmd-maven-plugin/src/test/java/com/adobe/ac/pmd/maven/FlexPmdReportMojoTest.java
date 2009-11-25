@@ -55,8 +55,7 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
                                                                                    false,
                                                                                    new File( "target" ),
                                                                                    null,
-                                                                                   getTestDirectory(),
-                                                                                   null ) );
+                                                                                   getTestDirectory() ) );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       assertNotNull( "",
@@ -75,8 +74,7 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
                                                                                    new File( "target" ),
                                                                                    null,
                                                                                    new File( getTestDirectory().getAbsoluteFile()
-                                                                                         + "/fu" ),
-                                                                                   null ) );
+                                                                                         + "/fu" ) ) );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       assertNotNull( "",
