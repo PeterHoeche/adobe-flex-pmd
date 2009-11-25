@@ -64,7 +64,8 @@ public class FlexPmdXmlEngineTest extends AbstractTestFlexPmdEngineTest
       return new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
                                                           outputDirectory,
                                                           ruleSet,
-                                                          sourceDirectory ) );
+                                                          sourceDirectory,
+                                                          null ) );
    }
 
    @Override

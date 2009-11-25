@@ -77,6 +77,13 @@ public class FlexPMDTest extends FlexPmdTestBase
                   "sourceDirectory",
                   "-o",
                   "target" } ) );
+
+      assertTrue( FlexPMD.areCommandLineOptionsCorrect( new String[]
+      { "-f",
+                  "file",
+                  "-o",
+                  "target" } ) );
+
    }
 
    @Test
@@ -107,6 +114,23 @@ public class FlexPMDTest extends FlexPmdTestBase
       final String[] args = new String[]
       { "-s",
                   getTestDirectory().getAbsolutePath(),
+                  "-o",
+                  new File( "target/test" ).getAbsolutePath(),
+                  "--excludePackage",
+                  "cairngorm." };
+
+      FlexPMD.startFlexPMD( args );
+   }
+
+   @Test
+   public void testStartFlexPMDWithOneFile() throws JSAPException,
+                                            PMDException,
+                                            URISyntaxException,
+                                            IOException
+   {
+      final String[] args = new String[]
+      { "-f",
+                  getTestFiles().get( "AbstractRowData.as" ).getFilePath(),
                   "-o",
                   new File( "target/test" ).getAbsolutePath(),
                   "--excludePackage",

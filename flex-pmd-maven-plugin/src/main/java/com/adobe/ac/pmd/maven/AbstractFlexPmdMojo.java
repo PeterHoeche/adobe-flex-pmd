@@ -156,7 +156,8 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
                                                                                            failOnError,
                                                                                            outputDirectory,
                                                                                            ruleSet,
-                                                                                           sourceDirectory ) );
+                                                                                           sourceDirectory,
+                                                                                           null ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
          engine.executeReport( violations );
 

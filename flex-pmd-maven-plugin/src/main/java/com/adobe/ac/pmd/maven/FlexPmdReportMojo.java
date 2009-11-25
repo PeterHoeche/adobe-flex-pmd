@@ -77,7 +77,8 @@ public class FlexPmdReportMojo extends AbstractFlexPmdMojo
       final FlexPmdParameters parameters = new FlexPmdParameters( getExcludePackage(),
                                                                   getOutputDirectoryFile(),
                                                                   getRuleSet(),
-                                                                  getSourceDirectory() );
+                                                                  getSourceDirectory(),
+                                                                  null );
       final FlexPmdHtmlEngine flexPmdHtmlEngine = new FlexPmdHtmlEngine( getSink(),
                                                                          getBundle( locale ),
                                                                          aggregate,
