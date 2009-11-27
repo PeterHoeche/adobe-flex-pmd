@@ -71,7 +71,7 @@ public final class FlexCPD
    {
       LOGGER.setLevel( Level.SEVERE );
       startFlexCPD( args );
-      LOGGER.info( "FlexPMD terminated" );
+      LOGGER.info( "FlexCPD terminated" );
       System.exit( 0 );
    }
 

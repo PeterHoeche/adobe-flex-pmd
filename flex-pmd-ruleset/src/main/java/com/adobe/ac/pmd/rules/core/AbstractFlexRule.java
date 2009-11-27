@@ -111,6 +111,24 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violations;
    }
 
+   boolean isViolationIgnored( final String violatedLine )
+   {
+      final boolean containsNoPmd = violatedLine.contains( "// No PMD" )
+            || violatedLine.contains( "// NO PMD" );
+
+      if ( !containsNoPmd )
+      {
+         return false;
+      }
+      final String strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) );
+      final String ruleName = getName().contains( "." ) ? StringUtils.substringAfterLast( getName(),
+                                                                                          "." )
+                                                       : getName();
+      final boolean ignored = strippedLine.endsWith( "// No PMD" )
+            || strippedLine.endsWith( "// NO PMD" ) || strippedLine.contains( ruleName );
+      return ignored;
+   }
+
    protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
                                                 final ViolationPosition position )
    {
@@ -177,23 +195,6 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
     */
    protected void onRuleStart()
    {
-   }
-
-   private boolean isViolationIgnored( final String violatedLine )
-   {
-      final boolean containsNoPmd = violatedLine.contains( "// No PMD" )
-            || violatedLine.contains( "// NO PMD" );
-
-      if ( !containsNoPmd )
-      {
-         return false;
-      }
-      final String strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) );
-      final boolean ignored = strippedLine.endsWith( "// No PMD" )
-            || strippedLine.endsWith( "// NO PMD" )
-            || strippedLine.contains( StringUtils.substringAfterLast( getName(),
-                                                                      "." ) );
-      return ignored;
    }
 
    private final void prettyPrintMessage( final IFlexViolation violation )

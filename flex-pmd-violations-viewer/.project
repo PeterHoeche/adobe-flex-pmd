@@ -1,18 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>flex-pmd-violations-viewer</name>
-  <comment>Adobe Flex PMD Violations viewer</comment>
-  <projects/>
-  <buildSpec>
-    <buildCommand>
-      <name>com.adobe.flexbuilder.project.flexbuilder</name>
-    </buildCommand>
-    <buildCommand>
-      <name>org.maven.ide.eclipse.maven2Builder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>com.adobe.flexbuilder.project.flexnature</nature>
-    <nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
-    <nature>org.maven.ide.eclipse.maven2Nature</nature>
-  </natures>
+	<name>flex-pmd-violations-viewer</name>
+	<comment>Adobe Flex PMD Violations viewer</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.adobe.ac.pmd.eclipse.flexpmdbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.flexnature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+		<nature>com.adobe.ac.pmd.eclipse.flexpmdnature</nature>
+	</natures>
 </projectDescription>

@@ -71,6 +71,8 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
       try
       {
          LOGGER.finest( "Start writting XML report" );
+         LOGGER.info( "Creating report in <"
+               + filePath + ">" );
 
          writter = new OutputStreamWriter( new FileOutputStream( filePath ), "UTF-8" );
          writeReportHeader( writter );

@@ -31,6 +31,8 @@
 package com.adobe.ac.pmd.rules.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -69,6 +71,34 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          message = messageToBeSet;
          expectedLine = expectedLineToBeSet;
          actualLine = actualLineToBeSet;
+      }
+   }
+
+   private class IgnoredRule extends AbstractFlexRule
+   {
+
+      @Override
+      public String getName()
+      {
+         return "com.adobe.ac.Ignored";
+      }
+
+      @Override
+      protected List< IFlexViolation > findViolationsInCurrentFile()
+      {
+         return null;
+      }
+
+      @Override
+      protected ViolationPriority getDefaultPriority()
+      {
+         return ViolationPriority.LOW;
+      }
+
+      @Override
+      protected boolean isConcernedByTheCurrentFile()
+      {
+         return true;
       }
    }
 
@@ -143,6 +173,16 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          buffer.append( ")\n" );
       }
       return buffer;
+   }
+
+   @Test
+   public final void testIsViolationIgnored()
+   {
+      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD" ) );
+      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD AlertShow" ) );
+      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD Ignored" ) );
+      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD com.adobe.ac.Ignored" ) );
+      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int;" ) );
    }
 
    /**

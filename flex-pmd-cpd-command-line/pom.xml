@@ -61,6 +61,11 @@
 			<artifactId>as3-plugin-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
@@ -139,6 +144,7 @@
 								<copy file="${maven.dependency.com.adobe.ac.as3-plugin-utils.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<echo message="Copying Command line dependencies..." />
 								<copy file="${maven.dependency.pmd.pmd.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
+								<copy file="${maven.dependency.commons-lang.commons-lang.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<copy file="${maven.dependency.com.martiansoftware.jsap.jar.path}" todir="${project.build.directory}/release" overwrite="true" />
 								<echo message="Extracting license..." />
 								<copy file="../flex-pmd-parent/src/etc/header.txt" tofile="${project.build.directory}/release/LICENSE.txt" overwrite="true" />
