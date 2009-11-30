@@ -43,8 +43,6 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 public class MetaDataNodeTest extends FlexPmdTestBase
 {
-   private static final String       NAME_DAY_CHANGE_EVENT_NAME_EVENT = "name = \"dayChange\" ,"
-                                                                            + " type = 'DefaultNameEvent'";
    private final IMetaDataListHolder modelLocator;
    private final IMetaDataListHolder unboundMetaData;
 
@@ -86,7 +84,7 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    {
       assertEquals( "",
                     modelLocator.getMetaData( MetaData.BINDABLE ).get( 0 ).getParameter() );
-      assertEquals( NAME_DAY_CHANGE_EVENT_NAME_EVENT,
+      assertEquals( "name = \"dayChange\" , type = \'mx.events.StateChangeEvent\'",
                     unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getParameter() );
    }
 }

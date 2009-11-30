@@ -39,6 +39,7 @@ public enum MetaData
    DEPRECATED("Deprecated"),
    EMBED("Embed"),
    EVENT("Event"),
+   REMOTE_CLASS("RemoteClass"),
    OTHER("Other"),
    TEST("Test");
 
@@ -76,6 +77,10 @@ public enum MetaData
       else if ( MetaData.DEPRECATED.toString().equals( metaDataName ) )
       {
          metaData = MetaData.DEPRECATED;
+      }
+      else if ( MetaData.REMOTE_CLASS.toString().equals( metaDataName ) )
+      {
+         metaData = MetaData.REMOTE_CLASS;
       }
       else
       {
