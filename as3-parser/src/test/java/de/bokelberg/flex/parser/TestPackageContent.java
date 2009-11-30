@@ -55,7 +55,7 @@ public class TestPackageContent extends AbstractAs3ParserTest
                             "[Bindable(name=\"abc\", value=\"123\")] public class A { }",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"50\">"
                                   + "<name line=\"2\" column=\"50\">A</name><meta-list line=\"2\" column=\"52\">"
-                                  + "<meta line=\"2\" column=\"37\""
+                                  + "<meta line=\"1\" column=\"37\""
                                   + ">Bindable ( name = \"abc\" , value = \"123\" )</meta>"
                                   + "</meta-list><mod-list line=\"2\" column=\"52\">"
                                   + "<mod line=\"2\" column=\"52\">public"
@@ -69,7 +69,7 @@ public class TestPackageContent extends AbstractAs3ParserTest
                             "[Bindable] public class A { }",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"25\">"
                                   + "<name line=\"2\" column=\"25\">A</name><meta-list line=\"2\" column=\"27\">"
-                                  + "<meta line=\"2\" column=\"12\">Bindable</meta></meta-list>"
+                                  + "<meta line=\"1\" column=\"12\">Bindable</meta></meta-list>"
                                   + "<mod-list line=\"2\" column=\"27\"><mod line=\"2\" column=\"27\">public</mod>"
                                   + "</mod-list><content line=\"2\" column=\"29\"></content></class></content>" );
    }
