@@ -1453,7 +1453,7 @@ public class AS3Parser implements IAS3Parser
       }
       skip( Operators.RIGHT_SQUARE_BRACKET );
       return Node.create( NodeKind.META,
-                          tok.getLine(),
+                          tok.getLine() - 1,
                           tok.getColumn(),
                           buffer.toString() );
    }

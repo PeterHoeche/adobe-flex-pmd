@@ -42,10 +42,13 @@ public class UnboundTypeInMetadataRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                 "bug.Nico.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 36, 36 ) } ),
                        "UnboundMetadata.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39, 39 ) } );
+                       { new ViolationPosition( 38, 38 ) } );
    }
 
    @Override

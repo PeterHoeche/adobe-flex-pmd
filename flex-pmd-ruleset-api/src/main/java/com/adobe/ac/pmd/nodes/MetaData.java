@@ -35,6 +35,8 @@ public enum MetaData
    ARRAY_ELEMENT_TYPE("ArrayElementType"),
    BEFORE("Before"),
    BINDABLE("Bindable"),
+   DEFAULT_PROPERTY("DefaultProperty"),
+   DEPRECATED("Deprecated"),
    EMBED("Embed"),
    EVENT("Event"),
    OTHER("Other"),
@@ -66,6 +68,14 @@ public enum MetaData
       else if ( MetaData.TEST.toString().equals( metaDataName ) )
       {
          metaData = MetaData.TEST;
+      }
+      else if ( MetaData.DEFAULT_PROPERTY.toString().equals( metaDataName ) )
+      {
+         metaData = MetaData.DEFAULT_PROPERTY;
+      }
+      else if ( MetaData.DEPRECATED.toString().equals( metaDataName ) )
+      {
+         metaData = MetaData.DEPRECATED;
       }
       else
       {

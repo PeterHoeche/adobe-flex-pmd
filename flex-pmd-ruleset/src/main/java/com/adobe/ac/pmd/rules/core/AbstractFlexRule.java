@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import net.sourceforge.pmd.CommonAbstractRule;
 import net.sourceforge.pmd.PropertyDescriptor;
@@ -62,6 +63,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    private IFlexFile                currentFile;
    private IPackage                 currentPackageNode;
    private Map< String, IFlexFile > filesInSourcePath;
+   private static final Logger      LOGGER  = Logger.getLogger( AbstractFlexRule.class.getName() );
 
    public AbstractFlexRule()
    {
@@ -144,10 +146,17 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       {
          violations.add( violation );
       }
-      else if ( beginLine <= getCurrentFile().getLinesNb()
-            && !isViolationIgnored( getCurrentFile().getLineAt( beginLine ) ) )
+      else if ( beginLine <= getCurrentFile().getLinesNb() )
       {
-         violations.add( violation );
+         if ( isViolationIgnored( getCurrentFile().getLineAt( beginLine ) ) )
+         {
+            LOGGER.info( getName()
+                  + " has been ignored in " + getCurrentFile().getFilename() + " (" + beginLine + ")" );
+         }
+         else
+         {
+            violations.add( violation );
+         }
       }
 
       return violation;

@@ -28,29 +28,15 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.css;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class UseCssInsteadOfEmbedMetaDataRuleTest extends AbstractAstFlexRuleTest
-{
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "Title.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 38, 38 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UseCssInsteadOfEmbedMetaDataRule();
-   }
+package com.search.api.domain {
+	
+	import mx.collections.ArrayCollection;
+	import mx.messaging.channels.StreamingAMFChannel;
+	
+	[Event(name="MoveToOffline", type="com.search.api.application.event.MoveOnlineReportToOfflineEvent")]
+	[ManagedEvents("MoveToOffline")]
+	
+	public class Nico 
+	{
+	}
 }
