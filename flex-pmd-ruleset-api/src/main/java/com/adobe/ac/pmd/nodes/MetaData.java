@@ -37,56 +37,39 @@ public enum MetaData
    BINDABLE("Bindable"),
    DEFAULT_PROPERTY("DefaultProperty"),
    DEPRECATED("Deprecated"),
+   EFFECT("Effect"),
    EMBED("Embed"),
    EVENT("Event"),
-   REMOTE_CLASS("RemoteClass"),
+   EXCLUDE("Exclude"),
+   EXCLUDE_CLASS("Exclude"),
+   ICON_FILE("IconFile"),
+   INSPECTABLE("Inspectable"),
+   INSTANCE_TYPE("InstanceType"),
+   NON_COMITTING_CHANGE_EVENT("NonCommittingChangeEvent"),
    OTHER("Other"),
-   TEST("Test");
+   REMOTE_CLASS("RemoteClass"),
+   STYLE("Style"),
+   TEST("Test"),
+   TRANSIENT("Transient");
 
    public static MetaData create( final String metaDataName )
    {
       MetaData metaData = null;
-      if ( MetaData.ARRAY_ELEMENT_TYPE.toString().equals( metaDataName ) )
+
+      for ( final MetaData currentMetadata : values() )
       {
-         metaData = MetaData.ARRAY_ELEMENT_TYPE;
+         if ( currentMetadata.toString().compareTo( metaDataName ) == 0 )
+         {
+            metaData = currentMetadata;
+            break;
+         }
       }
-      else if ( MetaData.BEFORE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.BEFORE;
-      }
-      else if ( MetaData.BINDABLE.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.BINDABLE;
-      }
-      else if ( MetaData.EMBED.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.EMBED;
-      }
-      else if ( MetaData.EVENT.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.EVENT;
-      }
-      else if ( MetaData.TEST.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.TEST;
-      }
-      else if ( MetaData.DEFAULT_PROPERTY.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.DEFAULT_PROPERTY;
-      }
-      else if ( MetaData.DEPRECATED.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.DEPRECATED;
-      }
-      else if ( MetaData.REMOTE_CLASS.toString().equals( metaDataName ) )
-      {
-         metaData = MetaData.REMOTE_CLASS;
-      }
-      else
+      if ( metaData == null )
       {
          metaData = MetaData.OTHER;
          metaData._name = metaDataName;
       }
+
       return metaData;
    }
 

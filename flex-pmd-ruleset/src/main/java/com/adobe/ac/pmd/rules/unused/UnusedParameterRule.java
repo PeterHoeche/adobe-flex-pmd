@@ -46,12 +46,6 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitClass( final IParserNode classNode )
-   {
-      super.visitClass( classNode );
-   }
-
-   @Override
    protected void visitFunction( final IParserNode functionAst,
                                  final FunctionType type )
    {
