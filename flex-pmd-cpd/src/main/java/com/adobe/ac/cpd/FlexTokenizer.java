@@ -61,7 +61,7 @@ public class FlexTokenizer implements Tokenizer
                                                         { KeyWords.IMPORT.toString(),
                KeyWords.PACKAGE.toString()             };
 
-   private static boolean isIgnored( final String tokenText )
+   private static boolean isTokenIgnored( final String tokenText )
    {
       for ( final String ignoredToken : IGNORED_TOKENS )
       {
@@ -73,7 +73,7 @@ public class FlexTokenizer implements Tokenizer
       return false;
    }
 
-   private static boolean isIgnoringLine( final String tokenText )
+   private static boolean isTokenIgnoringLine( final String tokenText )
    {
       for ( final String ignoredToken : IGNORING_LINE_TOKENS )
       {
@@ -111,9 +111,9 @@ public class FlexTokenizer implements Tokenizer
          while ( currentToken != null
                && currentToken.getText().compareTo( KeyWords.EOF.toString() ) != 0 )
          {
-            if ( !isIgnored( currentToken.getText() ) )
+            if ( !isTokenIgnored( currentToken.getText() ) )
             {
-               if ( isIgnoringLine( currentToken.getText() ) )
+               if ( isTokenIgnoringLine( currentToken.getText() ) )
                {
                   inImportLine = currentToken.getLine();
                }
