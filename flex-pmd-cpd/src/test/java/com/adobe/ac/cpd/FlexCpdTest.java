@@ -70,19 +70,19 @@ public class FlexCpdTest extends FlexPmdTestBase
       final Match firstMatch = matchIterator.next();
 
       assertEquals( "",
-                    59,
+                    7,
                     firstMatch.getLineCount() );
 
       final Match secondMatch = matchIterator.next();
 
       assertEquals( "",
-                    19,
+                    17,
                     secondMatch.getLineCount() );
 
       final Match thirdMatch = matchIterator.next();
 
       assertEquals( "",
-                    16,
+                    6,
                     thirdMatch.getLineCount() );
    }
 

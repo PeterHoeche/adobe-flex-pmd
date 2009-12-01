@@ -41,13 +41,49 @@ import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.IMxmlFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.parser.KeyWords;
+import com.adobe.ac.pmd.parser.Operators;
 
 import de.bokelberg.flex.parser.AS3Scanner;
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class FlexTokenizer implements Tokenizer
 {
-   public static final Integer DEFAULT_MINIMUM_TOKENS = 75;
+   public static final Integer   DEFAULT_MINIMUM_TOKENS = 75;
+
+   private static final String[] IGNORED_TOKENS         = new String[]
+                                                        { "/**",
+               "\n",
+               Operators.SEMI_COLUMN.toString(),
+               Operators.LEFT_CURLY_BRACKET.toString(),
+               Operators.RIGHT_CURLY_BRACKET.toString() };
+
+   private static final String[] IGNORING_LINE_TOKENS   = new String[]
+                                                        { KeyWords.IMPORT.toString(),
+               KeyWords.PACKAGE.toString()             };
+
+   private static boolean isIgnored( final String tokenText )
+   {
+      for ( final String ignoredToken : IGNORED_TOKENS )
+      {
+         if ( tokenText.startsWith( ignoredToken ) )
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   private static boolean isIgnoringLine( final String tokenText )
+   {
+      for ( final String ignoredToken : IGNORING_LINE_TOKENS )
+      {
+         if ( tokenText.startsWith( ignoredToken ) )
+         {
+            return true;
+         }
+      }
+      return false;
+   }
 
    public void tokenize( final SourceCode tokens,
                          final Tokens tokenEntries )
@@ -70,13 +106,29 @@ public class FlexTokenizer implements Tokenizer
             scanner.setLines( tokens.getCode().toArray( new String[ tokens.getCode().size() ] ) );
          }
          Token currentToken = scanner.moveToNextToken();
+         int inImportLine = 0;
 
          while ( currentToken != null
                && currentToken.getText().compareTo( KeyWords.EOF.toString() ) != 0 )
          {
-            tokenEntries.add( new TokenEntry( currentToken.getText(),
-                                              tokens.getFileName(),
-                                              currentToken.getLine() ) );
+            if ( !isIgnored( currentToken.getText() ) )
+            {
+               if ( isIgnoringLine( currentToken.getText() ) )
+               {
+                  inImportLine = currentToken.getLine();
+               }
+               else
+               {
+                  if ( inImportLine == 0
+                        || inImportLine != currentToken.getLine() )
+                  {
+                     inImportLine = 0;
+                     tokenEntries.add( new TokenEntry( currentToken.getText(),
+                                                       tokens.getFileName(),
+                                                       currentToken.getLine() ) );
+                  }
+               }
+            }
             currentToken = scanner.moveToNextToken();
          }
       }
