@@ -43,8 +43,8 @@ package com.adobe.ac.pmd.view
     import flash.net.FileReference;
 
 	[Event( name="rootRulesetReceived", type = "flash.events.Event" )]
-    [Event( name="rulesetReceived", type = "com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset // NO PMD
+    [Event( name="rulesetReceived", type = "com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )] // NO PMD UnboundType
+    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset
     {
 		public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
 
