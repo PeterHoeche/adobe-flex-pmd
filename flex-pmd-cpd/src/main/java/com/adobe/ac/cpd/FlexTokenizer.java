@@ -31,6 +31,8 @@
 package com.adobe.ac.cpd;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.sourceforge.pmd.cpd.SourceCode;
 import net.sourceforge.pmd.cpd.TokenEntry;
@@ -43,46 +45,38 @@ import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.Operators;
 
+import de.bokelberg.flex.parser.AS3Parser;
 import de.bokelberg.flex.parser.AS3Scanner;
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class FlexTokenizer implements Tokenizer
 {
-   public static final Integer   DEFAULT_MINIMUM_TOKENS = 75;
+   public static final Integer        DEFAULT_MINIMUM_TOKENS = 25;
+   private static final Set< String > IGNORED_TOKENS;
+   private static final Set< String > IGNORING_LINE_TOKENS;
 
-   private static final String[] IGNORED_TOKENS         = new String[]
-                                                        { "/**",
-               "\n",
-               Operators.SEMI_COLUMN.toString(),
-               Operators.LEFT_CURLY_BRACKET.toString(),
-               Operators.RIGHT_CURLY_BRACKET.toString() };
-
-   private static final String[] IGNORING_LINE_TOKENS   = new String[]
-                                                        { KeyWords.IMPORT.toString(),
-               KeyWords.PACKAGE.toString()             };
+   static
+   {
+      IGNORED_TOKENS = new HashSet< String >();
+      IGNORED_TOKENS.add( Operators.SEMI_COLUMN.toString() );
+      IGNORED_TOKENS.add( Operators.LEFT_CURLY_BRACKET.toString() );
+      IGNORED_TOKENS.add( Operators.RIGHT_CURLY_BRACKET.toString() );
+      IGNORED_TOKENS.add( AS3Parser.NEW_LINE );
+      IGNORING_LINE_TOKENS = new HashSet< String >();
+      IGNORING_LINE_TOKENS.add( KeyWords.IMPORT.toString() );
+      IGNORING_LINE_TOKENS.add( KeyWords.PACKAGE.toString() );
+   }
 
    private static boolean isTokenIgnored( final String tokenText )
    {
-      for ( final String ignoredToken : IGNORED_TOKENS )
-      {
-         if ( tokenText.startsWith( ignoredToken ) )
-         {
-            return true;
-         }
-      }
-      return false;
+      return IGNORED_TOKENS.contains( tokenText )
+            || tokenText.startsWith( AS3Parser.MULTIPLE_LINES_COMMENT )
+            || tokenText.startsWith( AS3Parser.SINGLE_LINE_COMMENT );
    }
 
    private static boolean isTokenIgnoringLine( final String tokenText )
    {
-      for ( final String ignoredToken : IGNORING_LINE_TOKENS )
-      {
-         if ( tokenText.startsWith( ignoredToken ) )
-         {
-            return true;
-         }
-      }
-      return false;
+      return IGNORING_LINE_TOKENS.contains( tokenText );
    }
 
    public void tokenize( final SourceCode tokens,
@@ -90,42 +84,31 @@ public class FlexTokenizer implements Tokenizer
    {
       try
       {
-         final AS3Scanner scanner = new AS3Scanner();
-
-         final IFlexFile flexFile = FileUtils.create( new File( tokens.getFileName() ),
-                                                      new File( "" ) );
-
-         if ( flexFile instanceof IMxmlFile )
-         {
-            final IMxmlFile mxml = ( IMxmlFile ) flexFile;
-
-            scanner.setLines( mxml.getActualScriptBlock() );
-         }
-         else
-         {
-            scanner.setLines( tokens.getCode().toArray( new String[ tokens.getCode().size() ] ) );
-         }
+         final AS3Scanner scanner = initializeScanner( tokens );
          Token currentToken = scanner.moveToNextToken();
          int inImportLine = 0;
 
          while ( currentToken != null
                && currentToken.getText().compareTo( KeyWords.EOF.toString() ) != 0 )
          {
-            if ( !isTokenIgnored( currentToken.getText() ) )
+            final String currentTokenText = currentToken.getText();
+            final int currentTokenLine = currentToken.getLine();
+
+            if ( !isTokenIgnored( currentTokenText ) )
             {
-               if ( isTokenIgnoringLine( currentToken.getText() ) )
+               if ( isTokenIgnoringLine( currentTokenText ) )
                {
-                  inImportLine = currentToken.getLine();
+                  inImportLine = currentTokenLine;
                }
                else
                {
                   if ( inImportLine == 0
-                        || inImportLine != currentToken.getLine() )
+                        || inImportLine != currentTokenLine )
                   {
                      inImportLine = 0;
-                     tokenEntries.add( new TokenEntry( currentToken.getText(),
+                     tokenEntries.add( new TokenEntry( currentTokenText,
                                                        tokens.getFileName(),
-                                                       currentToken.getLine() ) );
+                                                       currentTokenLine ) );
                   }
                }
             }
@@ -139,5 +122,25 @@ public class FlexTokenizer implements Tokenizer
       {
          tokenEntries.add( TokenEntry.getEOF() );
       }
+   }
+
+   private AS3Scanner initializeScanner( final SourceCode tokens )
+   {
+      final AS3Scanner scanner = new AS3Scanner();
+
+      final IFlexFile flexFile = FileUtils.create( new File( tokens.getFileName() ),
+                                                   new File( "" ) );
+
+      if ( flexFile instanceof IMxmlFile )
+      {
+         final IMxmlFile mxml = ( IMxmlFile ) flexFile;
+
+         scanner.setLines( mxml.getActualScriptBlock() );
+      }
+      else
+      {
+         scanner.setLines( tokens.getCode().toArray( new String[ tokens.getCode().size() ] ) );
+      }
+      return scanner;
    }
 }

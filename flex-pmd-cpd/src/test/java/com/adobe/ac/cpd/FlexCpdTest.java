@@ -36,7 +36,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import net.sourceforge.pmd.cpd.CPD;
 import net.sourceforge.pmd.cpd.Match;
@@ -48,59 +47,90 @@ import com.adobe.ac.pmd.files.IFlexFile;
 
 public class FlexCpdTest extends FlexPmdTestBase
 {
-   private static final Logger LOGGER = Logger.getLogger( FlexCpdTest.class.getName() );
+   private class ExpectedMatchInformation
+   {
+      private final int lineCount;
+      private final int markCount;
+      private final int tokenCount;
+
+      public ExpectedMatchInformation( final int tokenCountToBeSet,
+                                       final int markCountToBeSet,
+                                       final int lineCountToBeSet )
+      {
+         lineCount = lineCountToBeSet;
+         tokenCount = tokenCountToBeSet;
+         markCount = markCountToBeSet;
+      }
+   }
+   final ExpectedMatchInformation[] EXPECTED = new ExpectedMatchInformation[]
+                                             { new ExpectedMatchInformation( 107, 2, 7 ),
+               new ExpectedMatchInformation( 79, 2, 17 ),
+               new ExpectedMatchInformation( 77, 2, 6 ),
+               new ExpectedMatchInformation( 64, 2, 7 ),
+               new ExpectedMatchInformation( 60, 3, 14 ),
+               new ExpectedMatchInformation( 57, 2, 7 ),
+               new ExpectedMatchInformation( 53, 2, 8 ),
+               new ExpectedMatchInformation( 48, 2, 18 ),
+               new ExpectedMatchInformation( 44, 2, 7 ),
+               new ExpectedMatchInformation( 44, 2, 13 ),
+               new ExpectedMatchInformation( 43, 2, 13 ),
+               new ExpectedMatchInformation( 41, 2, 16 ),
+               new ExpectedMatchInformation( 41, 2, 17 ),
+               new ExpectedMatchInformation( 40, 2, 14 ),
+               new ExpectedMatchInformation( 40, 2, 7 ),
+               new ExpectedMatchInformation( 40, 2, 15 ),
+               new ExpectedMatchInformation( 40, 2, 15 ),
+               new ExpectedMatchInformation( 38, 2, 3 ),
+               new ExpectedMatchInformation( 35, 2, 14 ),
+               new ExpectedMatchInformation( 35, 2, 16 ),
+               new ExpectedMatchInformation( 34, 2, 8 ),
+               new ExpectedMatchInformation( 34, 2, 6 ),
+               new ExpectedMatchInformation( 33, 2, 6 ),
+               new ExpectedMatchInformation( 32, 2, 15 ),
+               new ExpectedMatchInformation( 31, 2, 11 ),
+               new ExpectedMatchInformation( 30, 2, 2 ),
+               new ExpectedMatchInformation( 29, 2, 12 ),
+               new ExpectedMatchInformation( 28, 2, 13 ),
+               new ExpectedMatchInformation( 28, 2, 8 ),
+               new ExpectedMatchInformation( 27, 2, 10 ) };
 
    @Test
    public void tokenize() throws IOException
    {
-      final CPD cpd = new CPD( 50, new FlexLanguage() );
-      tokenizeFiles( cpd );
+      final Iterator< Match > matchIterator = getMatchIterator();
 
-      LOGGER.info( "Starting to analyze code" );
-      final long timeTaken = analyzeCode( cpd );
-      LOGGER.info( "Done analyzing code; that took "
-            + timeTaken + " milliseconds" );
+      for ( int currentIndex = 0; matchIterator.hasNext()
+            && currentIndex < EXPECTED.length; currentIndex++ )
+      {
+         final Match currentMatch = matchIterator.next();
 
-      final Iterator< Match > matchIterator = cpd.getMatches();
+         assertEquals( "The token count is not correct on the "
+                             + currentIndex + "th index",
+                       EXPECTED[ currentIndex ].tokenCount,
+                       currentMatch.getTokenCount() );
 
-      assertEquals( "",
-                    true,
-                    matchIterator.hasNext() );
+         assertEquals( "The mark count is not correct on the "
+                             + currentIndex + "th index",
+                       EXPECTED[ currentIndex ].markCount,
+                       currentMatch.getMarkCount() );
 
-      final Match firstMatch = matchIterator.next();
-
-      assertEquals( "",
-                    7,
-                    firstMatch.getLineCount() );
-
-      final Match secondMatch = matchIterator.next();
-
-      assertEquals( "",
-                    17,
-                    secondMatch.getLineCount() );
-
-      final Match thirdMatch = matchIterator.next();
-
-      assertEquals( "",
-                    6,
-                    thirdMatch.getLineCount() );
+         assertEquals( "The line count is not correct on the "
+                             + currentIndex + "th index",
+                       EXPECTED[ currentIndex ].lineCount,
+                       currentMatch.getLineCount() );
+      }
    }
 
-   private long analyzeCode( final CPD cpd )
+   private Iterator< Match > getMatchIterator() throws IOException
    {
-      final long start = System.currentTimeMillis();
-      cpd.go();
-      final long stop = System.currentTimeMillis();
-      return stop
-            - start;
-   }
+      final CPD cpd = new CPD( FlexTokenizer.DEFAULT_MINIMUM_TOKENS, new FlexLanguage() );
 
-   private void tokenizeFiles( final CPD cpd ) throws IOException
-   {
       for ( final Entry< String, IFlexFile > includedFile : getTestFiles().entrySet() )
       {
          cpd.add( new File( includedFile.getValue().getFilePath() ) );
       }
-   }
+      cpd.go();
 
+      return cpd.getMatches();
+   }
 }

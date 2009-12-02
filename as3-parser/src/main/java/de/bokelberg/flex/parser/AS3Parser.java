@@ -49,11 +49,13 @@ import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class AS3Parser implements IAS3Parser
 {
-   private static final String NEW_LINE = "\n";
-   private String              fileName;
-   private boolean             isInFor;
-   private AS3Scanner          scn;
-   private Token               tok;
+   public static final String MULTIPLE_LINES_COMMENT = "/*";
+   public static final String SINGLE_LINE_COMMENT = "//";
+   public static final String NEW_LINE = "\n";
+   private String             fileName;
+   private boolean            isInFor;
+   private AS3Scanner         scn;
+   private Token              tok;
 
    public AS3Parser()
    {
@@ -581,8 +583,8 @@ public class AS3Parser implements IAS3Parser
             throw new NullTokenException( fileName );
          }
       }
-      while ( tok.getText().startsWith( "//" )
-            || tok.getText().startsWith( "/*" ) );
+      while ( tok.getText().startsWith( SINGLE_LINE_COMMENT )
+            || tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) );
    }
 
    // ------------------------------------------------------------------------
