@@ -182,6 +182,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                                                 final IParserNode endNode,
                                                 final String... messageToReplace )
    {
+      if ( isAlreadyViolationAdded( beginningNode ) )
+      {
+         return null;
+      }
       final IFlexViolation violation = addViolation( ViolationPosition.create( beginningNode.getLine(),
                                                                                endNode.getLine(),
                                                                                beginningNode.getColumn(),
@@ -359,9 +363,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitCondition( doNode.getChild( 1 ) );
    }
 
-   protected void visitElse( final IParserNode elseNode )
+   protected void visitElse( final IParserNode ifNode )
    {
-      visitBlock( elseNode.getChild( 2 ) );
+      visitBlock( ifNode.getChild( 2 ) );
    }
 
    protected void visitEmptyStatetement( final IParserNode statementNode )
@@ -550,9 +554,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitBlock( defaultCaseNode );
    }
 
-   protected void visitThen( final IParserNode ast )
+   protected void visitThen( final IParserNode ifNode )
    {
-      visitBlock( ast.getChild( 1 ) );
+      visitBlock( ifNode.getChild( 1 ) );
    }
 
    protected void visitTry( final IParserNode ast )
@@ -589,6 +593,19 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       visitCondition( whileNode.getChild( 0 ) );
       visitBlock( whileNode.getChild( 1 ) );
+   }
+
+   private boolean isAlreadyViolationAdded( final IParserNode nodeToBeAdded )
+   {
+      for ( final IFlexViolation violation : violations )
+      {
+         if ( violation.getBeginLine() == nodeToBeAdded.getLine()
+               && violation.getBeginColumn() == nodeToBeAdded.getColumn() )
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    private boolean isNodeNavigable( final IParserNode node )

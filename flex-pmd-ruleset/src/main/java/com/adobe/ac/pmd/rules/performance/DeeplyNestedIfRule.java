@@ -55,13 +55,13 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected final void visitElse( final IParserNode ast )
+   protected final void visitElse( final IParserNode ifNode )
    {
       beforeVisitingIfBlock();
 
-      super.visitElse( ast );
+      super.visitElse( ifNode );
 
-      afterVisitingIfBlock( ast );
+      afterVisitingIfBlock( ifNode );
    }
 
    @Override
@@ -75,21 +75,21 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected final void visitThen( final IParserNode ast )
+   protected final void visitThen( final IParserNode ifNode )
    {
       beforeVisitingIfBlock();
 
-      super.visitThen( ast );
+      super.visitThen( ifNode );
 
-      afterVisitingIfBlock( ast );
+      afterVisitingIfBlock( ifNode );
    }
 
-   private void afterVisitingIfBlock( final IParserNode ast )
+   private void afterVisitingIfBlock( final IParserNode ifNode )
    {
       ifLevel--;
       if ( ifLevel >= getThreshold() )
       {
-         addViolation( ast );
+         addViolation( ifNode );
       }
    }
 

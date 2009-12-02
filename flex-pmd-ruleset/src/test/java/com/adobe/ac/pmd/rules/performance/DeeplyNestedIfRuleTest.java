@@ -50,8 +50,7 @@ public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
                        new ViolationPosition[]
                        { new ViolationPosition( 578, 578 ),
                                    new ViolationPosition( 576, 576 ),
-                                   new ViolationPosition( 584, 584 ),
-                                   new ViolationPosition( 576, 576 ) } );
+                                   new ViolationPosition( 584, 584 ) } );
    }
 
    @Override
