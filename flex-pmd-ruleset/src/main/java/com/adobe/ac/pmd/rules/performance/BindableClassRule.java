@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.performance;
 
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -48,7 +49,7 @@ public class BindableClassRule extends AbstractAstFlexRule
    {
       if ( classNode.isBindable() )
       {
-         addViolation( classNode );
+         addViolation( classNode.getMetaData( MetaData.BINDABLE ).get( 0 ) );
       }
    }
 
