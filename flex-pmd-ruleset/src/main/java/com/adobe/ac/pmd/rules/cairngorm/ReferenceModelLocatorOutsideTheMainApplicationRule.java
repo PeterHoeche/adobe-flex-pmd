@@ -30,8 +30,11 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
+import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+import de.bokelberg.flex.parser.AS3Parser;
 
 public class ReferenceModelLocatorOutsideTheMainApplicationRule extends AbstractRegexpBasedRule // NO_UCD
 {
@@ -57,6 +60,7 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRule extends Abstract
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
-      return !line.contains( "import" );
+      return !line.contains( KeyWords.IMPORT.toString() )
+            && !line.contains( AS3Parser.SINGLE_LINE_COMMENT );
    }
 }
