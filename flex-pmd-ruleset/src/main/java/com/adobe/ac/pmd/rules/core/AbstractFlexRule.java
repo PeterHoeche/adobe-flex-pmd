@@ -60,10 +60,10 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 {
    protected static final String    MAXIMUM = "maximum";
    protected static final String    MINIMUM = "minimum";
+   private static final Logger      LOGGER  = Logger.getLogger( AbstractFlexRule.class.getName() );
    private IFlexFile                currentFile;
    private IPackage                 currentPackageNode;
    private Map< String, IFlexFile > filesInSourcePath;
-   private static final Logger      LOGGER  = Logger.getLogger( AbstractFlexRule.class.getName() );
 
    public AbstractFlexRule()
    {
@@ -150,7 +150,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       {
          if ( isViolationIgnored( getCurrentFile().getLineAt( beginLine ) ) )
          {
-            LOGGER.info( getName()
+            LOGGER.info( getRuleName()
                   + " has been ignored in " + getCurrentFile().getFilename() + " (" + beginLine + ")" );
          }
          else
