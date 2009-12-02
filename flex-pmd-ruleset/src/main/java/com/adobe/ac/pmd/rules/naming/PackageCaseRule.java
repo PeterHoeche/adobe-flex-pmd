@@ -60,12 +60,12 @@ public class PackageCaseRule extends AbstractAstFlexRule
    {
       boolean found = false;
 
-      for ( int i = 0; i < packageName.length(); i++ )
+      for ( int i = 1; i < packageName.length(); i++ )
       {
          final char currentChar = packageName.charAt( i );
 
          if ( currentChar >= 'A'
-               && currentChar <= 'Z' )
+               && currentChar <= 'Z' && packageName.charAt( i - 1 ) == '.' )
          {
             found = true;
 

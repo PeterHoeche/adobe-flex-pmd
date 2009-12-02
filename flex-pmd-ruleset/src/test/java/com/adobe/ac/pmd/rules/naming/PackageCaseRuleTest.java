@@ -42,17 +42,8 @@ public class PackageCaseRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "schedule_internal.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( -1, -1 ) } ),
-                                           "cairngorm.FatController.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( -1, -1 ) } ),
-                                 "GenericType.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( -1, -1 ) } ),
-                       "AbstractRowData.as",
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                       "cairngorm.FatController.as",
                        new ViolationPosition[]
                        { new ViolationPosition( -1, -1 ) } );
    }
