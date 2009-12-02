@@ -42,21 +42,16 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends Abst
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                           "UnboundMetadata.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 33, 33 ),
-                                                       new ViolationPosition( 43, 43 ),
-                                                       new ViolationPosition( 45, 45 ),
-                                                       new ViolationPosition( 50, 50 ) } ),
-                                 "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                 "UnboundMetadata.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 41, 41 ),
-                                             new ViolationPosition( 91, 91 ),
-                                             new ViolationPosition( 93, 93 ) } ),
-                       "AbstractRowData.as",
+                                 { new ViolationPosition( 43, 43 ),
+                                             new ViolationPosition( 45, 45 ),
+                                             new ViolationPosition( 50, 50 ) } ),
+                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 91, 91 ),
+                                   new ViolationPosition( 93, 93 ) } );
    }
 
    @Override

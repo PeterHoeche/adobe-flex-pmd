@@ -57,6 +57,6 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRule extends Abstract
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
-      return true;
+      return !line.contains( "import" );
    }
 }
