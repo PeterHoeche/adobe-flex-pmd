@@ -36,6 +36,24 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class TestClassContent extends AbstractAs3ParserTest
 {
+   private void assertClassContent( final String message,
+                                    final String input,
+                                    final String expected ) throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  input,
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+      final String result = new ASTToXMLConverter().convert( asp.parseClassContent() );
+      assertEquals( message,
+                    "<content line=\"2\" column=\"1\">"
+                          + expected + "</content>",
+                    result );
+   }
+
    @Test
    public void testConstDeclarations() throws TokenException
    {
@@ -64,7 +82,7 @@ public class TestClassContent extends AbstractAs3ParserTest
       assertClassContent( "4",
                           "[Bindable] const a",
                           "<const-list line=\"2\" column=\"18\"><meta-list line=\"2\" column=\"18\">"
-                                + "<meta line=\"1\" column=\"12\">Bindable</meta></meta-list><mod-list line=\"2\" "
+                                + "<meta line=\"2\" column=\"1\">Bindable</meta></meta-list><mod-list line=\"2\" "
                                 + "column=\"18\"></mod-list><name-type-init line=\"2\" column=\"18\">"
                                 + "<name line=\"2\" column=\"18\">a</name><type line=\"3\" column=\"1\">"
                                 + "</type></name-type-init></const-list>" );
@@ -166,28 +184,10 @@ public class TestClassContent extends AbstractAs3ParserTest
       assertClassContent( "4",
                           "[Bindable] var a",
                           "<var-list line=\"2\" column=\"16\"><meta-list line=\"2\" column=\"16\">"
-                                + "<meta line=\"1\" column=\"12\">Bindable</meta></meta-list>"
+                                + "<meta line=\"2\" column=\"1\">Bindable</meta></meta-list>"
                                 + "<mod-list line=\"2\" column=\"16\"></mod-list>"
                                 + "<name-type-init line=\"2\" column=\"16\">"
                                 + "<name line=\"2\" column=\"16\">a</name><type line=\"3\" column=\"1\">"
                                 + "</type></name-type-init></var-list>" );
-   }
-
-   private void assertClassContent( final String message,
-                                    final String input,
-                                    final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { "{",
-                  input,
-                  "}",
-                  "__END__" } );
-      asp.nextToken(); // first call
-      asp.nextToken(); // skip {
-      final String result = new ASTToXMLConverter().convert( asp.parseClassContent() );
-      assertEquals( message,
-                    "<content line=\"2\" column=\"1\">"
-                          + expected + "</content>",
-                    result );
    }
 }

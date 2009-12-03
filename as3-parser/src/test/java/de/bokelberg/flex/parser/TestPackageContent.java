@@ -36,6 +36,23 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class TestPackageContent extends AbstractAs3ParserTest
 {
+   private void assertPackageContent( final String message,
+                                      final String input,
+                                      final String expected ) throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  input,
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+      final String result = new ASTToXMLConverter().convert( asp.parsePackageContent() );
+      assertEquals( message,
+                    expected,
+                    result );
+   }
+
    @Test
    public void testClass() throws TokenException
    {
@@ -55,7 +72,7 @@ public class TestPackageContent extends AbstractAs3ParserTest
                             "[Bindable(name=\"abc\", value=\"123\")] public class A { }",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"50\">"
                                   + "<name line=\"2\" column=\"50\">A</name><meta-list line=\"2\" column=\"52\">"
-                                  + "<meta line=\"1\" column=\"37\""
+                                  + "<meta line=\"2\" column=\"1\""
                                   + ">Bindable ( name = \"abc\" , value = \"123\" )</meta>"
                                   + "</meta-list><mod-list line=\"2\" column=\"52\">"
                                   + "<mod line=\"2\" column=\"52\">public"
@@ -69,7 +86,7 @@ public class TestPackageContent extends AbstractAs3ParserTest
                             "[Bindable] public class A { }",
                             "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"25\">"
                                   + "<name line=\"2\" column=\"25\">A</name><meta-list line=\"2\" column=\"27\">"
-                                  + "<meta line=\"1\" column=\"12\">Bindable</meta></meta-list>"
+                                  + "<meta line=\"2\" column=\"1\">Bindable</meta></meta-list>"
                                   + "<mod-list line=\"2\" column=\"27\"><mod line=\"2\" column=\"27\">public</mod>"
                                   + "</mod-list><content line=\"2\" column=\"29\"></content></class></content>" );
    }
@@ -107,23 +124,6 @@ public class TestPackageContent extends AbstractAs3ParserTest
                             "use myNamespace",
                             "<content line=\"2\" column=\"1\"><use line=\"2\" column=\"5\""
                                   + ">myNamespace</use></content>" );
-   }
-
-   private void assertPackageContent( final String message,
-                                      final String input,
-                                      final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { "{",
-                  input,
-                  "}",
-                  "__END__" } );
-      asp.nextToken(); // first call
-      asp.nextToken(); // skip {
-      final String result = new ASTToXMLConverter().convert( asp.parsePackageContent() );
-      assertEquals( message,
-                    expected,
-                    result );
    }
 
 }
