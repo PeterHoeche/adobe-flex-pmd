@@ -39,10 +39,65 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
+   private static String computeFunctionName( final IParserNode functionAst )
+   {
+      String functionName = "";
+      for ( final IParserNode node : functionAst.getChildren() )
+      {
+         if ( node.is( NodeKind.NAME ) )
+         {
+            functionName = node.getStringValue();
+            break;
+         }
+      }
+      return functionName;
+   }
+
+   private static boolean isClassImplementingIResponder( final IParserNode currentClass2 )
+   {
+      for ( final IParserNode node : currentClass2.getChildren() )
+      {
+         if ( node.is( NodeKind.IMPLEMENTS_LIST ) )
+         {
+            for ( final IParserNode implementation : node.getChildren() )
+            {
+               if ( implementation.getStringValue() != null
+                     && implementation.getStringValue().contains( "Responder" ) )
+               {
+                  return true;
+               }
+            }
+         }
+      }
+      return false;
+   }
+
+   private static boolean isResponderImplementation( final IParserNode currentClass,
+                                                     final IParserNode functionAst )
+   {
+      if ( !isClassImplementingIResponder( currentClass ) )
+      {
+         return false;
+      }
+      final String functionName = computeFunctionName( functionAst );
+
+      return "result".compareTo( functionName ) == 0
+            || "fault".compareTo( functionName ) == 0;
+   }
+
+   private IParserNode currentClass;
+
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
+   }
+
+   @Override
+   protected void visitClass( final IParserNode classNode )
+   {
+      currentClass = classNode;
+      super.visitClass( classNode );
    }
 
    @Override
@@ -52,7 +107,9 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
       variablesUnused = new LinkedHashMap< String, IParserNode >();
       final boolean isOverriden = isFunctionOverriden( functionAst );
 
-      if ( !isOverriden )
+      if ( !isOverriden
+            && !isResponderImplementation( currentClass,
+                                           functionAst ) )
       {
          super.visitFunction( functionAst,
                               type );
