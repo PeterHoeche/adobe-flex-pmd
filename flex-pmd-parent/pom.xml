@@ -188,6 +188,7 @@
 		<module>../flex-pmd-files</module>
 		<module>../flex-pmd-automator-workflow</module>
 		<module>../flexunit-theme</module>
+		<module>../flex-pmd-bundles</module>
 	</modules>
 
 	<build>
