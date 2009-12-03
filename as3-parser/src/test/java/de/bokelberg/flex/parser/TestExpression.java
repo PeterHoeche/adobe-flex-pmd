@@ -65,7 +65,7 @@ public class TestExpression extends AbstractStatementTest
                              + "</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" "
                              + "column=\"4\">6</primary></assign>" );
    }
-
+   
    @Test
    public void testBitwiseAndExpression() throws TokenException
    {

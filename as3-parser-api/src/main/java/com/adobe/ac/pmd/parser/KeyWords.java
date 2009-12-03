@@ -59,6 +59,7 @@ public enum KeyWords
    INTERFACE("interface"),
    INTERNAL("internal"),
    IS("is"),
+   NAMESPACE("namespace"),
    NEW("new"),
    OVERRIDE("override"),
    PACKAGE("package"),

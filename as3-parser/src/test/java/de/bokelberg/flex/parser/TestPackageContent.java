@@ -36,23 +36,6 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class TestPackageContent extends AbstractAs3ParserTest
 {
-   private void assertPackageContent( final String message,
-                                      final String input,
-                                      final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { "{",
-                  input,
-                  "}",
-                  "__END__" } );
-      asp.nextToken(); // first call
-      asp.nextToken(); // skip {
-      final String result = new ASTToXMLConverter().convert( asp.parsePackageContent() );
-      assertEquals( message,
-                    expected,
-                    result );
-   }
-
    @Test
    public void testClass() throws TokenException
    {
@@ -121,9 +104,34 @@ public class TestPackageContent extends AbstractAs3ParserTest
    public void testUse() throws TokenException
    {
       assertPackageContent( "1",
-                            "use myNamespace",
-                            "<content line=\"2\" column=\"1\"><use line=\"2\" column=\"5\""
+                            "use namespace myNamespace",
+                            "<content line=\"2\" column=\"1\"><use line=\"2\" column=\"15\""
                                   + ">myNamespace</use></content>" );
+   }
+
+   @Test
+   public void testUseNameSpace() throws TokenException
+   {
+      assertPackageContent( "FlexPMD-108",
+                            "use namespace mx_internal;",
+                            "<content line=\"2\" column=\"1\"><use line=\"2\" column=\"15\">mx_internal</use></content>" );
+   }
+
+   private void assertPackageContent( final String message,
+                                      final String input,
+                                      final String expected ) throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  input,
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+      final String result = new ASTToXMLConverter().convert( asp.parsePackageContent() );
+      assertEquals( message,
+                    expected,
+                    result );
    }
 
 }
