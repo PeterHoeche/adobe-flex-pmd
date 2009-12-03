@@ -38,13 +38,11 @@ package
     	
         public function result( event : Object ) : void
         { 
-        	event as Event;
         }
 
 
         public function fault( info : Object ) : void
         {
-        	info as Event;
         }
     }
 }
