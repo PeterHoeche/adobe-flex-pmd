@@ -6,41 +6,13 @@
 	<name>FlexUnit theme</name>
 	<description>Adobe FlexUnit theme</description>
 	<version>1.0-SNAPSHOT</version>
-
-	<properties>
-
-		<source.local.path>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd</source.local.path>
-
-		<!-- Plugin versions -->
-
-		<ant-run-plugin.version>1.2</ant-run-plugin.version>
-		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
-		<flex-mojos-plugin.version>3.2.0</flex-mojos-plugin.version>
-
-		<!-- Dependency versions -->
-
-		<flex.version>3.2.0.3958</flex.version>
-		<flash-player.version>10</flash-player.version>
-
-	</properties>
-
-	<distributionManagement>
-		<site>
-			<id>flexpmd_mvn_site</id>
-			<url>${source.local.path}/site/</url>
-		</site>
-		<repository>
-			<id>flexpmd_mvn_repository</id>
-			<name>Adobe OSS Repository</name>
-			<url>${source.local.path}/maven-repository/release</url>
-		</repository>
-		<snapshotRepository>
-			<id>flexpmd_mvn_repository_snapshot</id>
-			<name>Adobe OSS Snapshot Repository</name>
-			<url>${source.local.path}/maven-repository/snapshot</url>
-		</snapshotRepository>
-	</distributionManagement>
 	
+	<parent>
+		<artifactId>flex-pmd</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
 	<dependencies>
 
 		<!-- flex sdk dependencies -->
