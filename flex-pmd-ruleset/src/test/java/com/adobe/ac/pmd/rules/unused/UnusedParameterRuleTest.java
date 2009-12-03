@@ -42,17 +42,13 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 84, 84 ) } ),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "cairngorm.NonBindableModelLocator.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 43, 43 ) } ),
                                  "com.adobe.ac.ncss.BigImporterModel.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ),
                                              new ViolationPosition( 62, 62 ),
                                              new ViolationPosition( 62, 62 ) } ),
                        "Sorted.as",

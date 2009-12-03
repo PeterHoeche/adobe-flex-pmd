@@ -59,7 +59,7 @@ package com.adobe.ac
          return;
       }
 
-      public function foo( param1 : Number, param2 : Number, param3 : Number, param4 : Number, param5 : Number ) : void
+      public function foo( param1 : Number, param2 : Number, param3 : Number, param4 : Number, param5 : DataGridColumn ) : void
       {
          var iParam1 : int = param1;
       }

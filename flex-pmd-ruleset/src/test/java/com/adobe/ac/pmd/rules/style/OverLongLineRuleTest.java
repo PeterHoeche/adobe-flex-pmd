@@ -44,7 +44,10 @@ public class OverLongLineRuleTest extends AbstractFlexRuleTest
    {
       final Map< String, ViolationPosition[] > violatedFiles = new LinkedHashMap< String, ViolationPosition[] >();
 
-      addToMap( addToMap( violatedFiles,
+      addToMap( addToMap( addToMap( violatedFiles,
+                                    "com.adobe.ac.ncss.BigImporterModel.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 62, 62 ) } ),
                           "SkinStyles.as",
                           new ViolationPosition[]
                           { new ViolationPosition( 82, 82 ) } ),

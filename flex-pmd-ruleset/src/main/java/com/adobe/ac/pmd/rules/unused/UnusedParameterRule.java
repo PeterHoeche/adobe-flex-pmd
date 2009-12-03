@@ -39,6 +39,10 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
+   private static final String FAULT_FUNCTION_NAME      = "fault";
+   private static final String RESPONDER_INTERFACE_NAME = "Responder";
+   private static final String RESULT_FUNCTION_NAME     = "result";
+
    private static String computeFunctionName( final IParserNode functionAst )
    {
       String functionName = "";
@@ -62,7 +66,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
             for ( final IParserNode implementation : node.getChildren() )
             {
                if ( implementation.getStringValue() != null
-                     && implementation.getStringValue().contains( "Responder" ) )
+                     && implementation.getStringValue().contains( RESPONDER_INTERFACE_NAME ) )
                {
                   return true;
                }
@@ -81,8 +85,8 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
       }
       final String functionName = computeFunctionName( functionAst );
 
-      return "result".compareTo( functionName ) == 0
-            || "fault".compareTo( functionName ) == 0;
+      return RESULT_FUNCTION_NAME.compareTo( functionName ) == 0
+            || FAULT_FUNCTION_NAME.compareTo( functionName ) == 0;
    }
 
    private IParserNode currentClass;
@@ -140,8 +144,11 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
             if ( !isParameterAnEvent( parameterNode )
                   && parameterNode.numChildren() > 0 && parameterNode.getChild( 0 ).numChildren() > 0 )
             {
-               addVariable( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
-                            parameterNode );
+               if ( parameterNode.getChild( 0 ).getChild( 1 ).getStringValue().compareTo( "DataGridColumn" ) != 0 )
+               {
+                  addVariable( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
+                               parameterNode );
+               }
             }
          }
       }
