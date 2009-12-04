@@ -30,7 +30,10 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
+import java.util.List;
+
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -43,10 +46,19 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
       final int statementNbAtFirstLevelInBody = function.getStatementNbInBody();
 
       if ( function.getBody() != null
-            && function.isOverriden() && statementNbAtFirstLevelInBody == 1
-            && function.findPrimaryStatementsInBody( KeyWords.SUPER.toString() ).size() != 0 )
+            && function.isOverriden() && statementNbAtFirstLevelInBody == 1 )
       {
-         addViolation( function );
+         final List< IParserNode > statements = function.findPrimaryStatementsInBody( KeyWords.SUPER.toString() );
+
+         if ( statements.size() == 1 )
+         {
+            final IParserNode arg = function.getBody().getChild( 0 ).getChild( 1 ).getChild( 1 );
+
+            if ( !areArgumentsModified( arg ) )
+            {
+               addViolation( function );
+            }
+         }
       }
    }
 
@@ -54,5 +66,20 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
+   }
+
+   private boolean areArgumentsModified( final IParserNode args )
+   {
+      if ( args.getChildren() != null )
+      {
+         for ( final IParserNode arg : args.getChildren() )
+         {
+            if ( arg.getChildren() != null )
+            {
+               return true;
+            }
+         }
+      }
+      return false;
    }
 }

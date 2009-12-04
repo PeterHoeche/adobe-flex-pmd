@@ -139,5 +139,10 @@ package flexUnit.flexui.data
       {
          super.createChildren();
       }
+	  
+	  override protected function updateDisplayList( width : int, height : int ) : void
+	  {
+		  super.updateDisplayList( width * 2, height );
+	  }
    }
 }
