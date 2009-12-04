@@ -39,6 +39,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
+   private static final String DATA_GRID_COLUMN         = "DataGridColumn";
    private static final String FAULT_FUNCTION_NAME      = "fault";
    private static final String RESPONDER_INTERFACE_NAME = "Responder";
    private static final String RESULT_FUNCTION_NAME     = "result";
@@ -142,13 +143,12 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
          for ( final IParserNode parameterNode : ast.getChildren() )
          {
             if ( !isParameterAnEvent( parameterNode )
-                  && parameterNode.numChildren() > 0 && parameterNode.getChild( 0 ).numChildren() > 0 )
+                  && parameterNode.numChildren() > 0
+                  && parameterNode.getChild( 0 ).numChildren() > 1
+                  && parameterNode.getChild( 0 ).getChild( 1 ).getStringValue().compareTo( DATA_GRID_COLUMN ) != 0 )
             {
-               if ( parameterNode.getChild( 0 ).getChild( 1 ).getStringValue().compareTo( "DataGridColumn" ) != 0 )
-               {
-                  addVariable( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
-                               parameterNode );
-               }
+               addVariable( parameterNode.getChild( 0 ).getChild( 0 ).getStringValue(),
+                            parameterNode );
             }
          }
       }
