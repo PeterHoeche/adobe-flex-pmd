@@ -55,11 +55,12 @@ public final class PmdEngineUtils
          {
             if ( violation.getRule().getPriority() == Integer.parseInt( ViolationPriority.HIGH.toString() ) )
             {
-               buffer.append( form.format( new String[]
+               final String[] formatArgument = new String[]
                { violation.getFilename(),
                            String.valueOf( violation.getBeginLine() ),
                            violation.getRule().getRuleClass(),
-                           violation.getRuleMessage() } ) );
+                           violation.getRuleMessage() };
+               buffer.append( form.format( formatArgument ) );
                buffer.append( '\n' );
             }
          }

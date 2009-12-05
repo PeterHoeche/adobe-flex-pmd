@@ -164,7 +164,7 @@ class ClassNode extends AbstractNode implements IClass
       return name.toString();
    }
 
-   public boolean is( final Modifier modifier )
+   public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
    }

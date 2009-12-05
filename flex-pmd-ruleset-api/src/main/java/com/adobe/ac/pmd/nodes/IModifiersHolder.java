@@ -34,5 +34,5 @@ public interface IModifiersHolder
 {
    void add( Modifier modifier );
 
-   boolean is( Modifier modifier );
+   boolean is( Modifier modifier ); // NOPMD
 }

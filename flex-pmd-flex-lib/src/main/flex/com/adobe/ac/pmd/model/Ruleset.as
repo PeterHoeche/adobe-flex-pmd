@@ -42,13 +42,16 @@ package com.adobe.ac.pmd.model
     import mx.events.CollectionEvent;
 
     [Event( name="rulesetReceived",type="com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )]
-    [Bindable]
     public class Ruleset extends EventDispatcher implements IDomainModel, IGetRulesetContent // NO PMD BindableClass
     {
         private static const RULES_CHANGED : String = "rulesChange";
+		[Bindable]
         public var isRef : Boolean;
+		[Bindable]
         public var name : String;
+		[Bindable]
         public var description : String;
+		[Bindable]
         public var rules : ListCollectionView = new ArrayCollection();
 
         public function Ruleset()

@@ -55,7 +55,7 @@ final class ResourcesManagerTest
    private static ResourcesManagerTest instance = null;
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
-   public static synchronized ResourcesManagerTest getInstance()
+   public static synchronized ResourcesManagerTest getInstance() // NOPMD
    {
       if ( instance == null )
       {

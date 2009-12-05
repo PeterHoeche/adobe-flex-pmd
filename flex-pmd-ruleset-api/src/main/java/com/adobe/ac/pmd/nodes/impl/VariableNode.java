@@ -118,7 +118,7 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       return type;
    }
 
-   public boolean is( final Modifier modifier )
+   public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
    }

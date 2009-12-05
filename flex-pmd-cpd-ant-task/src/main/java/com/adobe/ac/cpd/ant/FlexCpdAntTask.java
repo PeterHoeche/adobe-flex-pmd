@@ -127,6 +127,17 @@ public class FlexCpdAntTask extends Task
             - start;
    }
 
+   private File getFile( final DirectoryScanner directoryScanner,
+                         final String includedFile )
+   {
+      final File file = new File( directoryScanner.getBasedir()
+            + System.getProperty( "file.separator" ) + includedFile );
+      log( "Tokenizing "
+                 + file.getAbsolutePath(),
+           Project.MSG_VERBOSE );
+      return file;
+   }
+
    private void report( final CPD cpd ) throws ReportException
    {
       if ( !cpd.getMatches().hasNext() )
@@ -160,12 +171,8 @@ public class FlexCpdAntTask extends Task
          final String[] includedFiles = directoryScanner.getIncludedFiles();
          for ( final String includedFile : includedFiles )
          {
-            final File file = new File( directoryScanner.getBasedir()
-                  + System.getProperty( "file.separator" ) + includedFile );
-            log( "Tokenizing "
-                       + file.getAbsolutePath(),
-                 Project.MSG_VERBOSE );
-            cpd.add( file );
+            cpd.add( getFile( directoryScanner,
+                              includedFile ) );
          }
       }
    }

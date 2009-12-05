@@ -58,7 +58,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
    public final String[] getActualScriptBlock()
    {
-      return actualScriptBlock;
+      return actualScriptBlock; // NOPMD
    }
 
    public int getBeginningScriptBlock()

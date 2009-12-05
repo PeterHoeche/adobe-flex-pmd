@@ -191,7 +191,7 @@ public final class FlexCPD
 
       for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
       {
-         cpd.add( new File( fileEntry.getValue().getFilePath() ) );
+         cpd.add( new File( fileEntry.getValue().getFilePath() ) ); // NOPMD
       }
    }
 

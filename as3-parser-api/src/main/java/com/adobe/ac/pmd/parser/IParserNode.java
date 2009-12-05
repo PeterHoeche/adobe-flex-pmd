@@ -92,7 +92,7 @@ public interface IParserNode
     * @param expectedType
     * @return true if the node's type is identical to the given name
     */
-   boolean is( final NodeKind expectedType );
+   boolean is( final NodeKind expectedType ); // NOPMD
 
    /**
     * @return the children number

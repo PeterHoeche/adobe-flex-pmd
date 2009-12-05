@@ -30,13 +30,15 @@
  */
 package com.adobe.ac.pmd.comparators;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.IFlexRule;
 
-public class DescendentSpeedRuleComparator implements Comparator< IFlexRule >
+public class DescendentSpeedRuleComparator implements Comparator< IFlexRule >, Serializable
 {
+   private static final long            serialVersionUID = 1879779636767696987L;
    private final Map< IFlexRule, Long > ruleSpeeds;
 
    public DescendentSpeedRuleComparator( final Map< IFlexRule, Long > ruleSpeedsToBeSet )

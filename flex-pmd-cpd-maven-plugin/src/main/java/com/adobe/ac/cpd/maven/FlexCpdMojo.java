@@ -132,7 +132,7 @@ public class FlexCpdMojo extends AbstractMavenReport
 
          for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
          {
-            cpd.add( new File( fileEntry.getValue().getFilePath() ) );
+            cpd.add( new File( fileEntry.getValue().getFilePath() ) ); // NOPMD
          }
 
          cpd.go();

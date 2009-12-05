@@ -106,7 +106,7 @@ public class FlexTokenizer implements Tokenizer
                         || inImportLine != currentTokenLine )
                   {
                      inImportLine = 0;
-                     tokenEntries.add( new TokenEntry( currentTokenText,
+                     tokenEntries.add( new TokenEntry( currentTokenText, // NOPMD
                                                        tokens.getFileName(),
                                                        currentTokenLine ) );
                   }

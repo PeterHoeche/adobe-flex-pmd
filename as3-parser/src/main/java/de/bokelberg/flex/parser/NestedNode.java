@@ -125,7 +125,7 @@ class NestedNode
                                           : lastChild;
    }
 
-   final public boolean is( final NodeKind expectedType )
+   final public boolean is( final NodeKind expectedType ) // NOPMD
    {
       return getId() == null
             && expectedType == null || getId().equals( expectedType );

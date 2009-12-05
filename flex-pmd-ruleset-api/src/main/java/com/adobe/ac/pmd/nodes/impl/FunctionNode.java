@@ -203,7 +203,7 @@ class FunctionNode extends AbstractNode implements IFunction
       return null;
    }
 
-   public boolean is( final Modifier modifier )
+   public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
    }

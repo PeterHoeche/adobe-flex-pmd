@@ -38,17 +38,22 @@ package com.adobe.ac.pmd.model
    import mx.collections.ArrayCollection;
    import mx.collections.ListCollectionView;
 
-   [Bindable]
    public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass
    {
       public static const NAME_CHANGE : String = "nameChange";
 
       public var since : String;
+	  [Bindable]
       public var message : String;
+	  [Bindable]
       public var examples : String;
+	  [Bindable]
       public var description : String;
+	  [Bindable]
       public var properties : ListCollectionView = new ArrayCollection();
+	  [Bindable]
       public var priority : ViolationPriority;
+	  [Bindable]
       public var ruleset : Ruleset;
 
       private var _name : String;
