@@ -67,22 +67,22 @@ public enum MetaData
       if ( metaData == null )
       {
          metaData = MetaData.OTHER;
-         metaData._name = metaDataName;
+         metaData.name = metaDataName;
       }
 
       return metaData;
    }
 
-   private String _name;
+   private String name;
 
-   private MetaData( final String name )
+   private MetaData( final String nameToBeSet )
    {
-      _name = name;
+      name = nameToBeSet;
    }
 
    @Override
    public String toString()
    {
-      return _name;
+      return name;
    }
 }

@@ -34,16 +34,16 @@ public enum ViolationPriority
 {
    HIGH("1"), LOW("5"), NORMAL("3");
 
-   private String _priority;
+   private String priority;
 
-   private ViolationPriority( final String priority )
+   private ViolationPriority( final String priorityToBeSet )
    {
-      _priority = priority;
+      priority = priorityToBeSet;
    }
 
    @Override
    public String toString()
    {
-      return _priority;
+      return priority;
    }
 }

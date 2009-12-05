@@ -44,6 +44,7 @@ import com.adobe.ac.pmd.parser.Operators;
 import com.adobe.ac.pmd.parser.exceptions.NullTokenException;
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 import com.adobe.ac.pmd.parser.exceptions.UnExpectedTokenException;
+import com.adobe.ac.pmd.parser.exceptions.UnExpectedTokenException.Position;
 
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
@@ -460,7 +461,10 @@ public class AS3Parser implements IAS3Parser
    {
       if ( !tokIs( text ) )
       {
-         throw new UnExpectedTokenException( tok.getText(), tok.getLine(), tok.getColumn(), fileName, text );
+         throw new UnExpectedTokenException( tok.getText(),
+                                             new Position( tok.getLine(), tok.getColumn() ),
+                                             fileName,
+                                             text );
       }
       nextToken();
    }

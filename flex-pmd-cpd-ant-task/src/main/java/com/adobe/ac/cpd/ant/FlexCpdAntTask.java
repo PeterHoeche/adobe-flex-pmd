@@ -55,7 +55,6 @@ public class FlexCpdAntTask extends Task
    private String                encoding          = System.getProperty( "file.encoding" );
    private final List< FileSet > filesets          = new ArrayList< FileSet >();
    private int                   minimumTokenCount = FlexTokenizer.DEFAULT_MINIMUM_TOKENS;
-
    private File                  outputFile;
 
    public void addFileset( final FileSet set )
@@ -98,7 +97,6 @@ public class FlexCpdAntTask extends Task
       }
       catch ( final ReportException re )
       {
-         re.printStackTrace();
          log( re.toString(),
               Project.MSG_ERR );
          throw new BuildException( "ReportException during task execution", re );
@@ -110,14 +108,14 @@ public class FlexCpdAntTask extends Task
       encoding = encodingValue;
    }
 
-   public void setMinimumTokenCount( final int minimumTokenCount )
+   public void setMinimumTokenCount( final int minimumTokenCountToBeSet )
    {
-      this.minimumTokenCount = minimumTokenCount;
+      minimumTokenCount = minimumTokenCountToBeSet;
    }
 
-   public void setOutputFile( final File outputFile )
+   public void setOutputFile( final File outputFileToBeSet )
    {
-      this.outputFile = outputFile;
+      outputFile = outputFileToBeSet;
    }
 
    private long analyzeCode( final CPD cpd )

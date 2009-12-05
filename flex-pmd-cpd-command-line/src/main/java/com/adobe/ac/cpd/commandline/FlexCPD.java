@@ -59,7 +59,7 @@ import com.martiansoftware.jsap.JSAPResult;
 public final class FlexCPD
 {
    private static JSAPResult        config;
-   private static final String      encoding = System.getProperty( "file.encoding" );
+   private static final String      ENCODING = System.getProperty( "file.encoding" );
    private static final Logger      LOGGER   = Logger.getLogger( FlexCPD.class.getName() );
    private static FlexCpdParameters parameters;
 
@@ -72,7 +72,6 @@ public final class FlexCPD
       LOGGER.setLevel( Level.SEVERE );
       startFlexCPD( args );
       LOGGER.info( "FlexCPD terminated" );
-      System.exit( 0 );
    }
 
    static boolean areCommandLineOptionsCorrect( final String[] args ) throws JSAPException
@@ -122,7 +121,7 @@ public final class FlexCPD
          LOGGER.info( "Tokenizing files" );
          final CPD cpd = new CPD( parameters.getMinimumTokenCount(), new FlexLanguage() );
 
-         cpd.setEncoding( encoding );
+         cpd.setEncoding( ENCODING );
          tokenizeFiles( cpd );
 
          LOGGER.info( "Starting to analyze code" );
@@ -173,14 +172,14 @@ public final class FlexCPD
          LOGGER.info( "No duplicates over "
                + parameters.getMinimumTokenCount() + " tokens found" );
       }
-      final Renderer renderer = new XMLRenderer( encoding );
+      final Renderer renderer = new XMLRenderer( ENCODING );
 
       if ( !parameters.getOutputFile().exists() )
       {
          parameters.getOutputFile().createNewFile();
       }
 
-      final FileReporter reporter = new FileReporter( parameters.getOutputFile(), encoding );
+      final FileReporter reporter = new FileReporter( parameters.getOutputFile(), ENCODING );
       reporter.report( renderer.render( cpd.getMatches() ) );
    }
 

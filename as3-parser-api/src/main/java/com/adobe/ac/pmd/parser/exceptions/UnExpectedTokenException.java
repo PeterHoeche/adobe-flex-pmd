@@ -33,14 +33,28 @@ package com.adobe.ac.pmd.parser.exceptions;
 @SuppressWarnings("serial")
 public class UnExpectedTokenException extends TokenException
 {
+   public static class Position
+   {
+      private final int column;
+      private final int line;
+
+      public Position( final int lineToBeSet,
+                       final int columnToBeSet )
+      {
+         super();
+         line = lineToBeSet;
+         column = columnToBeSet;
+      }
+   }
+
    public UnExpectedTokenException( final String tokenText,
-                                    final int tokenLine,
-                                    final int tokenColumn,
+                                    final Position tokenPosition,
                                     final String fileName,
                                     final String expected )
    {
       super( "Unexpected token: "
-            + tokenText + " in file (" + fileName + ") at " + tokenLine + ":" + tokenColumn + ". Expecting "
-            + expected );
+            + tokenText + " in file (" + fileName + ") at " + tokenPosition.line + ":" + tokenPosition.column
+            + ". Expecting " + expected );
    }
+
 }

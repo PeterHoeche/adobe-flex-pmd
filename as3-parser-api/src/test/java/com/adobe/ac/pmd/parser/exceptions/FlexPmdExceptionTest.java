@@ -34,6 +34,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.adobe.ac.pmd.parser.exceptions.UnExpectedTokenException.Position;
+
 public class FlexPmdExceptionTest
 {
    private static final String MY_FILE_NAME = "myFileName";
@@ -57,6 +59,6 @@ public class FlexPmdExceptionTest
    public void testUnexpectedTokenException()
    {
       assertEquals( "Unexpected token: tokenText in file (myFileName) at 1:1. Expecting token",
-                    new UnExpectedTokenException( "tokenText", 1, 1, MY_FILE_NAME, "token" ).getMessage() );
+                    new UnExpectedTokenException( "tokenText", new Position( 1, 1 ), MY_FILE_NAME, "token" ).getMessage() );
    }
 }
