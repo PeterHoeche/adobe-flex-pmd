@@ -50,18 +50,23 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class FunctionNode extends AbstractNode implements IFunction
 {
-   private IParserNode                        body;
-   private int                                cyclomaticComplexity;
-   private Map< String, IParserNode >         localVariables;
-   private Map< MetaData, List< IMetaData > > metaDataList;
-   private Set< Modifier >                    modifiers;
-   private IdentifierNode                     name;
-   private List< IParameter >                 parameters;
-   private IIdentifierNode                    returnType;
+   private IParserNode                              body;
+   private int                                      cyclomaticComplexity;
+   private final Map< String, IParserNode >         localVariables;
+   private final Map< MetaData, List< IMetaData > > metaDataList;
+   private final Set< Modifier >                    modifiers;
+   private IdentifierNode                           name;
+   private final List< IParameter >                 parameters;
+   private IIdentifierNode                          returnType;
 
    protected FunctionNode( final IParserNode node )
    {
       super( node );
+
+      modifiers = new HashSet< Modifier >();
+      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
+      localVariables = new LinkedHashMap< String, IParserNode >();
+      parameters = new ArrayList< IParameter >();
    }
 
    public void add( final IMetaData metaData )
@@ -79,6 +84,44 @@ class FunctionNode extends AbstractNode implements IFunction
    public void add( final Modifier modifier )
    {
       modifiers.add( modifier );
+   }
+
+   @Override
+   public FunctionNode compute()
+   {
+      if ( getInternalNode().numChildren() != 0 )
+      {
+         for ( final IParserNode node : getInternalNode().getChildren() )
+         {
+            if ( node.is( NodeKind.BLOCK ) )
+            {
+               computeFunctionContent( node );
+            }
+            else if ( node.is( NodeKind.NAME ) )
+            {
+               name = IdentifierNode.create( node );
+            }
+            else if ( node.is( NodeKind.MOD_LIST ) )
+            {
+               computeModifierList( this,
+                                    node );
+            }
+            else if ( node.is( NodeKind.PARAMETER_LIST ) )
+            {
+               computeParameterList( node );
+            }
+            else if ( node.is( NodeKind.TYPE ) )
+            {
+               returnType = IdentifierNode.create( node );
+            }
+            else if ( node.is( NodeKind.META_LIST ) )
+            {
+               MetaDataUtils.computeMetaDataList( this,
+                                                  node );
+            }
+         }
+      }
+      return this;
    }
 
    /*
@@ -238,48 +281,6 @@ class FunctionNode extends AbstractNode implements IFunction
    public boolean isSetter()
    {
       return getInternalNode().is( NodeKind.SET );
-   }
-
-   @Override
-   protected void compute()
-   {
-      modifiers = new HashSet< Modifier >();
-      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
-      localVariables = new LinkedHashMap< String, IParserNode >();
-      parameters = new ArrayList< IParameter >();
-
-      if ( getInternalNode().numChildren() != 0 )
-      {
-         for ( final IParserNode node : getInternalNode().getChildren() )
-         {
-            if ( node.is( NodeKind.BLOCK ) )
-            {
-               computeFunctionContent( node );
-            }
-            else if ( node.is( NodeKind.NAME ) )
-            {
-               name = IdentifierNode.create( node );
-            }
-            else if ( node.is( NodeKind.MOD_LIST ) )
-            {
-               computeModifierList( this,
-                                    node );
-            }
-            else if ( node.is( NodeKind.PARAMETER_LIST ) )
-            {
-               computeParameterList( node );
-            }
-            else if ( node.is( NodeKind.TYPE ) )
-            {
-               returnType = IdentifierNode.create( node );
-            }
-            else if ( node.is( NodeKind.META_LIST ) )
-            {
-               MetaDataUtils.computeMetaDataList( this,
-                                                  node );
-            }
-         }
-      }
    }
 
    private void computeCyclomaticComplexity()

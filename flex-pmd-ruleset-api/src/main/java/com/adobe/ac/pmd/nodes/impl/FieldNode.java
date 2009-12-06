@@ -47,18 +47,8 @@ class FieldNode extends VariableNode implements IField
       super( rootNode );
    }
 
-   public boolean isPublic()
-   {
-      return is( Modifier.PUBLIC );
-   }
-
-   public boolean isStatic()
-   {
-      return is( Modifier.STATIC );
-   }
-
    @Override
-   protected void compute()
+   public FieldNode compute()
    {
       super.compute();
 
@@ -73,5 +63,16 @@ class FieldNode extends VariableNode implements IField
             }
          }
       }
+      return this;
+   }
+
+   public boolean isPublic()
+   {
+      return is( Modifier.PUBLIC );
+   }
+
+   public boolean isStatic()
+   {
+      return is( Modifier.STATIC );
    }
 }

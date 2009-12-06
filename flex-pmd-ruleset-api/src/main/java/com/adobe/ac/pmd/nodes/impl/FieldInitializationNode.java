@@ -46,7 +46,8 @@ class FieldInitializationNode extends AbstractNode implements IFieldInitializati
    }
 
    @Override
-   protected void compute()
+   public FieldInitializationNode compute()
    {
+      return this;
    }
 }

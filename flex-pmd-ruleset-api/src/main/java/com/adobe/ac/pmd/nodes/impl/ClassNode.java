@@ -50,20 +50,27 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class ClassNode extends AbstractNode implements IClass
 {
-   private List< IAttribute >                 attributes;
-   private IParserNode                        block;
-   private List< IConstant >                  constants;
-   private IFunction                          constructor;
-   private String                             extensionName;
-   private List< IFunction >                  functions;
-   private List< IParserNode >                implementations;
-   private Map< MetaData, List< IMetaData > > metaDataList;
-   private Set< Modifier >                    modifiers;
-   private IdentifierNode                     name;
+   private final List< IAttribute >                 attributes;
+   private IParserNode                              block;
+   private final List< IConstant >                  constants;
+   private IFunction                                constructor;
+   private String                                   extensionName;
+   private final List< IFunction >                  functions;
+   private List< IParserNode >                      implementations;
+   private final Map< MetaData, List< IMetaData > > metaDataList;
+   private final Set< Modifier >                    modifiers;
+   private IdentifierNode                           name;
 
    protected ClassNode( final IParserNode node )
    {
       super( node );
+
+      modifiers = new HashSet< Modifier >();
+      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
+      implementations = new ArrayList< IParserNode >();
+      constants = new ArrayList< IConstant >();
+      attributes = new ArrayList< IAttribute >();
+      functions = new ArrayList< IFunction >();
    }
 
    public void add( final IMetaData metaData )
@@ -81,6 +88,45 @@ class ClassNode extends AbstractNode implements IClass
    public void add( final Modifier modifier )
    {
       modifiers.add( modifier );
+   }
+
+   @Override
+   public ClassNode compute()
+   {
+      if ( getInternalNode().numChildren() != 0 )
+      {
+         for ( final IParserNode node : getInternalNode().getChildren() )
+         {
+            if ( node.is( NodeKind.CONTENT ) )
+            {
+               computeClassContent( node );
+            }
+            else if ( node.is( NodeKind.MOD_LIST ) )
+            {
+               computeModifierList( this,
+                                    node );
+            }
+            else if ( node.is( NodeKind.NAME ) )
+            {
+               name = IdentifierNode.create( node );
+            }
+            else if ( node.is( NodeKind.META_LIST ) )
+            {
+               MetaDataUtils.computeMetaDataList( this,
+                                                  node );
+            }
+            detectImplementations( node );
+            detectExtensions( node );
+         }
+         for ( final IFunction function : functions )
+         {
+            if ( name.toString().equals( function.getName() ) )
+            {
+               constructor = function;
+            }
+         }
+      }
+      return this;
    }
 
    public List< IAttribute > getAttributes()
@@ -188,53 +234,8 @@ class ClassNode extends AbstractNode implements IClass
       return is( Modifier.PUBLIC );
    }
 
-   @Override
-   protected void compute()
-   {
-      modifiers = new HashSet< Modifier >();
-      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
-      implementations = new ArrayList< IParserNode >();
-
-      if ( getInternalNode().numChildren() != 0 )
-      {
-         for ( final IParserNode node : getInternalNode().getChildren() )
-         {
-            if ( node.is( NodeKind.CONTENT ) )
-            {
-               computeClassContent( node );
-            }
-            else if ( node.is( NodeKind.MOD_LIST ) )
-            {
-               computeModifierList( this,
-                                    node );
-            }
-            else if ( node.is( NodeKind.NAME ) )
-            {
-               name = IdentifierNode.create( node );
-            }
-            else if ( node.is( NodeKind.META_LIST ) )
-            {
-               MetaDataUtils.computeMetaDataList( this,
-                                                  node );
-            }
-            detectImplementations( node );
-            detectExtensions( node );
-         }
-         for ( final IFunction function : functions )
-         {
-            if ( name.toString().equals( function.getName() ) )
-            {
-               constructor = function;
-            }
-         }
-      }
-   }
-
    private void computeClassContent( final IParserNode classContentNode )
    {
-      constants = new ArrayList< IConstant >();
-      attributes = new ArrayList< IAttribute >();
-      functions = new ArrayList< IFunction >();
       if ( classContentNode.numChildren() != 0 )
       {
          for ( final IParserNode node : classContentNode.getChildren() )
@@ -251,7 +252,7 @@ class ClassNode extends AbstractNode implements IClass
    {
       if ( node.is( NodeKind.VAR_LIST ) )
       {
-         attributes.add( new AttributeNode( node ) );
+         attributes.add( new AttributeNode( node ).compute() );
       }
    }
 
@@ -267,7 +268,7 @@ class ClassNode extends AbstractNode implements IClass
    {
       if ( node.is( NodeKind.CONST_LIST ) )
       {
-         constants.add( new ConstantNode( node ) );
+         constants.add( new ConstantNode( node ).compute() );
       }
    }
 
@@ -284,7 +285,7 @@ class ClassNode extends AbstractNode implements IClass
       if ( node.is( NodeKind.FUNCTION )
             || node.is( NodeKind.GET ) || node.is( NodeKind.SET ) )
       {
-         functions.add( new FunctionNode( node ) );
+         functions.add( new FunctionNode( node ).compute() );
       }
    }
 

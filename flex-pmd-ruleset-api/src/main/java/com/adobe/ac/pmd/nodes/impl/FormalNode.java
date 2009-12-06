@@ -37,11 +37,17 @@ final class FormalNode extends VariableNode implements IParameter
 {
    static FormalNode create( final IParserNode node )
    {
-      return new FormalNode( node );
+      return new FormalNode( node ).compute();
    }
 
    private FormalNode( final IParserNode node )
    {
       super( node );
+   }
+
+   @Override
+   public FormalNode compute()
+   {
+      return ( FormalNode ) super.compute();
    }
 }

@@ -43,18 +43,8 @@ class MetaDataNode extends AbstractNode implements IMetaData
       super( node );
    }
 
-   public String getName()
-   {
-      return name;
-   }
-
-   public String getParameter()
-   {
-      return parameter;
-   }
-
    @Override
-   protected void compute()
+   public MetaDataNode compute()
    {
       final String stringValue = getInternalNode().getStringValue();
 
@@ -64,5 +54,16 @@ class MetaDataNode extends AbstractNode implements IMetaData
       parameter = stringValue.indexOf( "( " ) > -1 ? stringValue.substring( stringValue.indexOf( "( " ) + 2,
                                                                             stringValue.lastIndexOf( " )" ) )
                                                   : "";
+      return this;
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public String getParameter()
+   {
+      return parameter;
    }
 }

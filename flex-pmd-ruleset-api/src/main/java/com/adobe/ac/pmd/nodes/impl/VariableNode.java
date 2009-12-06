@@ -84,6 +84,37 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       modifiers.add( modifier );
    }
 
+   @Override
+   public VariableNode compute()
+   {
+      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
+      modifiers = new HashSet< Modifier >();
+
+      if ( getInternalNode().is( NodeKind.NAME_TYPE_INIT ) )
+      {
+         computeNameTypeInit( getInternalNode() );
+      }
+      else
+      {
+         if ( getInternalNode().numChildren() != 0 )
+         {
+            for ( final IParserNode child : getInternalNode().getChildren() )
+            {
+               if ( child.is( NodeKind.NAME_TYPE_INIT ) )
+               {
+                  computeNameTypeInit( child );
+               }
+               else if ( child.is( NodeKind.META_LIST ) )
+               {
+                  MetaDataUtils.computeMetaDataList( this,
+                                                     child );
+               }
+            }
+         }
+      }
+      return this;
+   }
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.nodes.IVariable#getInitializationExpression()
@@ -121,36 +152,6 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
    public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
-   }
-
-   @Override
-   protected void compute()
-   {
-      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
-      modifiers = new HashSet< Modifier >();
-
-      if ( getInternalNode().is( NodeKind.NAME_TYPE_INIT ) )
-      {
-         computeNameTypeInit( getInternalNode() );
-      }
-      else
-      {
-         if ( getInternalNode().numChildren() != 0 )
-         {
-            for ( final IParserNode child : getInternalNode().getChildren() )
-            {
-               if ( child.is( NodeKind.NAME_TYPE_INIT ) )
-               {
-                  computeNameTypeInit( child );
-               }
-               else if ( child.is( NodeKind.META_LIST ) )
-               {
-                  MetaDataUtils.computeMetaDataList( this,
-                                                     child );
-               }
-            }
-         }
-      }
    }
 
    private void computeNameTypeInit( final IParserNode nameTypeInit )

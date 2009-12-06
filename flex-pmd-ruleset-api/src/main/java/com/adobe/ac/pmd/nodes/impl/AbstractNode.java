@@ -60,14 +60,12 @@ abstract class AbstractNode implements INode
    protected AbstractNode( final IParserNode node )
    {
       internalNode = node;
-
-      compute();
    }
+
+   public abstract AbstractNode compute();
 
    public IParserNode getInternalNode()
    {
       return internalNode;
    }
-
-   protected abstract void compute();
 }

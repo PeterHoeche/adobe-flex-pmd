@@ -40,13 +40,52 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class PackageNode extends AbstractNode implements IPackage
 {
-   private IClass              classNode;
-   private List< IParserNode > imports;
-   private String              name;
+   private IClass                    classNode;
+   private final List< IParserNode > imports;
+   private String                    name;
 
    protected PackageNode( final IParserNode node )
    {
       super( node );
+
+      imports = new ArrayList< IParserNode >();
+   }
+
+   @Override
+   public PackageNode compute()
+   {
+      final IParserNode classWrapperNode = getClassNodeFromCompilationUnitNode( getInternalNode(),
+                                                                                3 );
+      final IParserNode firstChild = getInternalNode().getChild( 0 );
+
+      if ( firstChild.numChildren() > 0
+            && firstChild.getChild( 0 ).getStringValue() != null )
+      {
+         name = firstChild.getChild( 0 ).getStringValue();
+      }
+      else
+      {
+         name = "";
+      }
+      if ( classWrapperNode != null )
+      {
+         classNode = new ClassNode( classWrapperNode ).compute();
+      }
+
+      if ( firstChild.numChildren() > 1
+            && firstChild.getChild( 1 ).numChildren() != 0 )
+      {
+         final List< IParserNode > children = firstChild.getChild( 1 ).getChildren();
+
+         for ( final IParserNode node : children )
+         {
+            if ( node.is( NodeKind.IMPORT ) )
+            {
+               imports.add( node );
+            }
+         }
+      }
+      return this;
    }
 
    /*
@@ -85,44 +124,6 @@ class PackageNode extends AbstractNode implements IPackage
    public String getName()
    {
       return name;
-   }
-
-   @Override
-   protected void compute()
-   {
-      final IParserNode classWrapperNode = getClassNodeFromCompilationUnitNode( getInternalNode(),
-                                                                                3 );
-      final IParserNode firstChild = getInternalNode().getChild( 0 );
-
-      imports = new ArrayList< IParserNode >();
-
-      if ( firstChild.numChildren() > 0
-            && firstChild.getChild( 0 ).getStringValue() != null )
-      {
-         name = firstChild.getChild( 0 ).getStringValue();
-      }
-      else
-      {
-         name = "";
-      }
-      if ( classWrapperNode != null )
-      {
-         classNode = new ClassNode( classWrapperNode );
-      }
-
-      if ( firstChild.numChildren() > 1
-            && firstChild.getChild( 1 ).numChildren() != 0 )
-      {
-         final List< IParserNode > children = firstChild.getChild( 1 ).getChildren();
-
-         for ( final IParserNode node : children )
-         {
-            if ( node.is( NodeKind.IMPORT ) )
-            {
-               imports.add( node );
-            }
-         }
-      }
    }
 
    private IParserNode getClassNodeFromCompilationUnitNode( final IParserNode node,

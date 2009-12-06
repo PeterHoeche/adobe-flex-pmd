@@ -39,4 +39,10 @@ class AttributeNode extends FieldNode implements IAttribute
    {
       super( rootNode );
    }
+
+   @Override
+   public AttributeNode compute()
+   {
+      return ( AttributeNode ) super.compute();
+   }
 }

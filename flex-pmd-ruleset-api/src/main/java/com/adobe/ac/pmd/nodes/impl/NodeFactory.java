@@ -38,12 +38,12 @@ public final class NodeFactory
 {
    public static IMetaData createMetaData( final IParserNode metadataNode )
    {
-      return new MetaDataNode( metadataNode );
+      return new MetaDataNode( metadataNode ).compute();
    }
 
    public static IPackage createPackage( final IParserNode packageNode )
    {
-      return new PackageNode( packageNode );
+      return new PackageNode( packageNode ).compute();
    }
 
    private NodeFactory()

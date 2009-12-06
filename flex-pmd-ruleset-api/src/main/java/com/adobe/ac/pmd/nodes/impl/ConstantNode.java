@@ -39,4 +39,10 @@ class ConstantNode extends FieldNode implements IConstant
    {
       super( rootNode );
    }
+
+   @Override
+   public ConstantNode compute()
+   {
+      return ( ConstantNode ) super.compute();
+   }
 }

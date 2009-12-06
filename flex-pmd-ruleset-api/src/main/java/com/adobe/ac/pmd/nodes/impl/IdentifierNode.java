@@ -37,7 +37,7 @@ class IdentifierNode extends AbstractNode implements IIdentifierNode
 {
    static IdentifierNode create( final IParserNode node )
    {
-      return new IdentifierNode( node );
+      return new IdentifierNode( node ).compute();
    }
 
    protected IdentifierNode( final IParserNode node )
@@ -46,13 +46,14 @@ class IdentifierNode extends AbstractNode implements IIdentifierNode
    }
 
    @Override
-   public String toString()
+   public IdentifierNode compute()
    {
-      return getInternalNode().getStringValue();
+      return this;
    }
 
    @Override
-   protected void compute()
+   public String toString()
    {
+      return getInternalNode().getStringValue();
    }
 }
