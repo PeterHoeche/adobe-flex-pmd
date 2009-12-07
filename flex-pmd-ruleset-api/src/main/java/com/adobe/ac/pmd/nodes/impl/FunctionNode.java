@@ -67,6 +67,7 @@ class FunctionNode extends AbstractNode implements IFunction
       metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
       localVariables = new LinkedHashMap< String, IParserNode >();
       parameters = new ArrayList< IParameter >();
+      name = null;
    }
 
    public void add( final IMetaData metaData )

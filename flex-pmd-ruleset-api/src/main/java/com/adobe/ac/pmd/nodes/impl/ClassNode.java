@@ -71,6 +71,7 @@ class ClassNode extends AbstractNode implements IClass
       constants = new ArrayList< IConstant >();
       attributes = new ArrayList< IAttribute >();
       functions = new ArrayList< IFunction >();
+      name = null;
    }
 
    public void add( final IMetaData metaData )
@@ -132,6 +133,24 @@ class ClassNode extends AbstractNode implements IClass
    public List< IAttribute > getAttributes()
    {
       return attributes;
+   }
+
+   @Override
+   public double getAverageCyclomaticComplexity()
+   {
+      if ( functions.isEmpty() )
+      {
+         return 0;
+      }
+      int totalCcn = 0;
+
+      for ( final IFunction function : functions )
+      {
+         totalCcn += function.getCyclomaticComplexity();
+      }
+
+      return totalCcn
+            / functions.size();
    }
 
    public final IParserNode getBlock()

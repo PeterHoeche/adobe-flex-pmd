@@ -49,6 +49,7 @@ class PackageNode extends AbstractNode implements IPackage
       super( node );
 
       imports = new ArrayList< IParserNode >();
+      classNode = null;
    }
 
    @Override

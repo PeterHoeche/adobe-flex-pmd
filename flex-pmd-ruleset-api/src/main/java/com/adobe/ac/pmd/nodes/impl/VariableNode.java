@@ -57,15 +57,18 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
 {
-   private IFieldInitialization               initializationExpression;
-   private Map< MetaData, List< IMetaData > > metaDataList;
-   private Set< Modifier >                    modifiers;
-   private IdentifierNode                     name;
-   private IdentifierNode                     type;
+   private IFieldInitialization                     initializationExpression;
+   private final Map< MetaData, List< IMetaData > > metaDataList;
+   private final Set< Modifier >                    modifiers;
+   private IdentifierNode                           name;
+   private IdentifierNode                           type;
 
    protected VariableNode( final IParserNode rootNode )
    {
       super( rootNode );
+
+      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
+      modifiers = new HashSet< Modifier >();
    }
 
    public void add( final IMetaData metaData )
@@ -87,9 +90,6 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
    @Override
    public VariableNode compute()
    {
-      metaDataList = new LinkedHashMap< MetaData, List< IMetaData > >();
-      modifiers = new HashSet< Modifier >();
-
       if ( getInternalNode().is( NodeKind.NAME_TYPE_INIT ) )
       {
          computeNameTypeInit( getInternalNode() );

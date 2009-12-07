@@ -45,6 +45,8 @@ public interface IClass extends IVisible, IMetaDataListHolder, INamableNode
 {
    List< IAttribute > getAttributes();
 
+   double getAverageCyclomaticComplexity();
+
    IParserNode getBlock();
 
    List< IConstant > getConstants();

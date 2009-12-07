@@ -466,56 +466,45 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    protected void visitStatement( final IParserNode statementNode )
    {
-      if ( statementNode.is( NodeKind.FOR ) )
+      switch ( statementNode.getId() )
       {
-         visitFor( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.FOREACH ) )
-      {
-         visitForEach( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.DO ) )
-      {
-         visitDo( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.WHILE ) )
-      {
-         visitWhile( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.IF ) )
-      {
-         visitIf( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.SWITCH ) )
-      {
-         visitSwitch( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.TRY ) )
-      {
-         visitTry( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.CATCH ) )
-      {
-         visitCatch( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.FINALLY ) )
-      {
-         visitFinally( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.LEFT_CURLY_BRACKET ) )
-      {
+      case LEFT_CURLY_BRACKET:
          visitBlock( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.RETURN ) )
-      {
+         break;
+      case RETURN:
          visitReturn( statementNode );
-      }
-      else if ( statementNode.is( NodeKind.STMT_EMPTY ) )
-      {
+         break;
+      case IF:
+         visitIf( statementNode );
+         break;
+      case FOR:
+         visitFor( statementNode );
+         break;
+      case FOREACH:
+         visitForEach( statementNode );
+         break;
+      case DO:
+         visitDo( statementNode );
+         break;
+      case WHILE:
+         visitWhile( statementNode );
+         break;
+      case SWITCH:
+         visitSwitch( statementNode );
+         break;
+      case TRY:
+         visitTry( statementNode );
+         break;
+      case CATCH:
+         visitCatch( statementNode );
+         break;
+      case FINALLY:
+         visitFinally( statementNode );
+         break;
+      case STMT_EMPTY:
          visitEmptyStatetement( statementNode );
-      }
-      else
-      {
+         break;
+      default:
          visitExpressionList( statementNode );
       }
    }
@@ -979,91 +968,60 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    private void visitUnaryExpression( final IParserNode ast )
    {
-      if ( ast.is( NodeKind.PRE_INC ) )
+      switch ( ast.getId() )
       {
+      case PRE_INC:
+      case PRE_DEC:
+      case MINUS:
+      case PLUS:
          visitUnaryExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.PRE_DEC ) )
-      {
-         visitUnaryExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.MINUS ) )
-      {
-         visitUnaryExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.PLUS ) )
-      {
-         visitUnaryExpression( ast.getChild( 0 ) );
-      }
-      else
-      {
+         break;
+      default:
          visitUnaryExpressionNotPlusMinus( ast );
       }
    }
 
    private void visitUnaryExpressionNotPlusMinus( final IParserNode ast )
    {
-      if ( ast.is( NodeKind.DELETE ) )
+      switch ( ast.getId() )
       {
+      case DELETE:
+      case VOID:
+      case TYPEOF:
+      case NOT:
+      case B_NOT:
          visitExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.VOID ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.TYPEOF ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.NOT ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.B_NOT ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
-      else
-      {
+         break;
+      default:
          visitUnaryPostfixExpression( ast );
       }
    }
 
    private void visitUnaryPostfixExpression( final IParserNode ast )
    {
-      if ( ast.is( NodeKind.ARRAY_ACCESSOR ) )
+      switch ( ast.getId() )
       {
+      case ARRAY_ACCESSOR:
          visitArrayAccessor( ast );
-      }
-      else if ( ast.is( NodeKind.DOT ) )
-      {
+         break;
+      case DOT:
+      case E4X_FILTER:
          visitExpression( ast.getChild( 0 ) );
          visitExpression( ast.getChild( 1 ) );
-      }
-      else if ( ast.is( NodeKind.CALL ) )
-      {
+         break;
+      case POST_INC:
+      case POST_DEC:
+         visitPrimaryExpression( ast.getChild( 0 ) );
+         break;
+      case CALL:
          visitMethodCall( ast );
-      }
-      else if ( ast.is( NodeKind.POST_INC ) )
-      {
-         visitPrimaryExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.POST_DEC ) )
-      {
-         visitPrimaryExpression( ast.getChild( 0 ) );
-      }
-      else if ( ast.is( NodeKind.E4X_FILTER ) )
-      {
+         break;
+      case E4X_STAR:
          visitExpression( ast.getChild( 0 ) );
-         visitExpression( ast.getChild( 1 ) );
-      }
-      else if ( ast.is( NodeKind.E4X_STAR ) )
-      {
-         visitExpression( ast.getChild( 0 ) );
-      }
-      else
-      {
+         break;
+      default:
          visitPrimaryExpression( ast );
+         break;
       }
    }
 }
