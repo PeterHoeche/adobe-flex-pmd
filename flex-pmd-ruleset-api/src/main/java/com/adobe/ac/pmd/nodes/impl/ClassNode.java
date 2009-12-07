@@ -135,7 +135,6 @@ class ClassNode extends AbstractNode implements IClass
       return attributes;
    }
 
-   @Override
    public double getAverageCyclomaticComplexity()
    {
       if ( functions.isEmpty() )
