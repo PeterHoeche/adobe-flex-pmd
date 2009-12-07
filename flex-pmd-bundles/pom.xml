@@ -10,15 +10,12 @@
 	<name>Adobe Flex PMD All-in-one bundle</name>
 	<packaging>pom</packaging>
 	<dependencies>
+	
+		<!-- FlexPMD -->
+	
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-ant-task</artifactId>
-			<version>${project.parent.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-cpd-ant-task</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
@@ -30,17 +27,42 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-cpd-command-line</artifactId>
-			<version>${project.parent.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-automator</artifactId>
 			<version>${project.parent.version}</version>
 			<type>pom</type>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- FlexCPD -->
+
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-cpd-ant-task</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-cpd-command-line</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- FlexMetrics -->
+		
+	    <dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-metrics-ant-task</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-metrics-command-line</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -63,10 +85,16 @@
 									src="${project.build.directory}/../../${project.parent.artifactId}-cpd-ant-task/target/${project.parent.artifactId}-cpd-ant-task-${project.parent.version}.zip"
 									dest="${project.build.directory}/release" />
 								<unzip
+									src="${project.build.directory}/../../${project.parent.artifactId}-metrics-ant-task/target/${project.parent.artifactId}-metrics-ant-task-${project.parent.version}.zip"
+									dest="${project.build.directory}/release" />
+								<unzip
 									src="${project.build.directory}/../../${project.parent.artifactId}-command-line/target/${project.parent.artifactId}-command-line-${project.parent.version}.zip"
 									dest="${project.build.directory}/release" />
 								<unzip
 									src="${project.build.directory}/../../${project.parent.artifactId}-cpd-command-line/target/${project.parent.artifactId}-cpd-command-line-${project.parent.version}.zip"
+									dest="${project.build.directory}/release" />
+								<unzip
+									src="${project.build.directory}/../../${project.parent.artifactId}-metrics-command-line/target/${project.parent.artifactId}-metrics-command-line-${project.parent.version}.zip"
 									dest="${project.build.directory}/release" />
 								<unzip
 									src="${project.build.directory}/../../${project.parent.artifactId}-automator-workflow/target/${project.parent.artifactId}-automator-${project.parent.version}-workflow.zip"

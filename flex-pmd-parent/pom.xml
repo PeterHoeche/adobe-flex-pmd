@@ -186,6 +186,10 @@
 		<module>../flex-pmd-violations-viewer</module>
 		<module>../flex-pmd-flex-lib</module>
 		<module>../flex-pmd-files</module>
+		<module>../flex-pmd-metrics</module>
+		<module>../flex-pmd-metrics-command-line</module>
+		<module>../flex-pmd-metrics-ant-task</module>
+		<module>../flex-pmd-metrics-maven-plugin</module>
 		<module>../flex-pmd-automator-workflow</module>
 		<module>../flexunit-theme</module>
 		<module>../flex-pmd-bundles</module>
