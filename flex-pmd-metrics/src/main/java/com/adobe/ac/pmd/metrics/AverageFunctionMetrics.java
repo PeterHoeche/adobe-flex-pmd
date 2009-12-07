@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.metrics;
 
-public class AverageFunctionMetrics extends AbstractAverageMetrics
+public class AverageFunctionMetrics extends AverageMetricsBase
 {
    public AverageFunctionMetrics( final int nonCommentStatements,
                                   final int totalFunctions )

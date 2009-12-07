@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.metrics;
 
-public class AverageClassMetrics extends AbstractAverageMetrics
+public class AverageClassMetrics extends AverageMetricsBase
 {
    private final double averageFunctions;
 

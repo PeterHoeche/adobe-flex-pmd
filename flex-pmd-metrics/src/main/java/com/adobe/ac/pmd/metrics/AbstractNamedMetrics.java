@@ -34,10 +34,10 @@ public abstract class AbstractNamedMetrics extends AbstractPackagedMetrics
 {
    private final String name;
 
-   public AbstractNamedMetrics( final int nonCommentStatements,
-                                final String nameToBeSet,
-                                final String packageName,
-                                final double ccn )
+   protected AbstractNamedMetrics( final int nonCommentStatements,
+                                   final String nameToBeSet,
+                                   final String packageName,
+                                   final int ccn )
    {
       super( nonCommentStatements, packageName, ccn );
       name = nameToBeSet;

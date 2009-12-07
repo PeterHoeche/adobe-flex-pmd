@@ -54,35 +54,36 @@ import org.dom4j.Node;
  * Comparator for numeric xml node tag.
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
- * 
- * @version $Id: NumericNodeComparator.java 3286 2007-02-08 20:18:51Z jeanlaurent $
+ * @version $Id: NumericNodeComparator.java 3286 2007-02-08 20:18:51Z jeanlaurent
+ *          $
  */
 public class NumericNodeComparator implements Comparator
 {
-    /**
-     * the tag property used by this comparator
-     */
-    private String tagProperty;
+   /**
+    * the tag property used by this comparator
+    */
+   private final String tagProperty;
 
-    /**
-     * The numeric node tag property to used by this comparator.
-     * 
-     * @param property
-     *            the tag property used by this comparator.
-     */
-    public NumericNodeComparator( final String property )
-    {
-        this.tagProperty = property;
-    }
+   /**
+    * The numeric node tag property to used by this comparator.
+    * 
+    * @param property the tag property used by this comparator.
+    */
+   public NumericNodeComparator( final String property )
+   {
+      this.tagProperty = property;
+   }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int compare( final Object object1, final Object object2 )
-    {
-        final Node node1 = (Node) object1;
-        final Node node2 = (Node) object2;
-        return node2.numberValueOf( tagProperty ).intValue() - node1.numberValueOf( tagProperty ).intValue();
-    }
+   /**
+    * {@inheritDoc}
+    */
+   public int compare( final Object object1,
+                       final Object object2 )
+   {
+      final Node node1 = ( Node ) object1;
+      final Node node2 = ( Node ) object2;
+      return node2.numberValueOf( tagProperty ).intValue()
+            - node1.numberValueOf( tagProperty ).intValue();
+   }
 
 }

@@ -38,7 +38,7 @@ public class ClassMetrics extends AbstractNamedMetrics
                         final int functionsToBeSet,
                         final String name,
                         final String packageName,
-                        final double ccn )
+                        final int ccn )
    {
       super( nonCommentStatements, name, packageName, ccn );
 

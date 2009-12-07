@@ -30,33 +30,20 @@
  */
 package com.adobe.ac.pmd.metrics;
 
-public class FunctionMetrics extends AbstractNamedMetrics
+public class AverageMetricsBase
 {
-   public FunctionMetrics( final int nonCommentStatements,
-                           final String name,
-                           final String packageName,
-                           final int ccn )
+   private final double averageStatements;
+
+   protected AverageMetricsBase( final int total,
+                                 final double totalStatements )
    {
-      super( nonCommentStatements, name, packageName, ccn );
+      super();
+      this.averageStatements = totalStatements
+            / total;
    }
 
-   @Override
-   public String getContreteXml()
+   public double getAverageStatements()
    {
-      return "";
-   }
-
-   @Override
-   public String getFullName()
-   {
-      return getPackageName().compareTo( "" ) == 0 ? getName()
-                                                  : getPackageName()
-                                                        + "::" + getName();
-   }
-
-   @Override
-   public String getMetricsName()
-   {
-      return "function";
+      return averageStatements;
    }
 }

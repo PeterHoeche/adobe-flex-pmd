@@ -44,9 +44,8 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class FlexMetricsReportMojoTest extends FlexPmdTestBase
 {
-
    @Test
-   public void testExecute() throws MojoExecutionException
+   public void testExecuteSingleReport() throws MojoExecutionException
    {
       final File outputDirectoryToBeSet = new File( "target/pmd" );
 

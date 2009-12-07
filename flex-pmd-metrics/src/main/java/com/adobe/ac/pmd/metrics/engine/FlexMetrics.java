@@ -34,6 +34,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
 
@@ -54,6 +55,7 @@ import com.adobe.ac.pmd.nodes.IPackage;
 
 public class FlexMetrics extends AbstractMetrics
 {
+   private static final Logger LOGGER = Logger.getLogger( FlexMetrics.class.getName() );
 
    private static String getQualifiedName( final File sourceDirectory,
                                            final File file )
@@ -85,6 +87,7 @@ public class FlexMetrics extends AbstractMetrics
    public ProjectMetrics loadMetrics()
    {
       final ProjectMetrics metrics = new ProjectMetrics();
+      final FlexFilter flexFilter = new FlexFilter();
 
       try
       {
@@ -95,7 +98,7 @@ public class FlexMetrics extends AbstractMetrics
          for ( final File directory : nonEmptyDirectories )
          {
             final Collection< File > classesInPackage = FileUtils.listFiles( directory,
-                                                                             new FlexFilter(),
+                                                                             flexFilter,
                                                                              false );
 
             if ( directory.isDirectory()
@@ -118,20 +121,21 @@ public class FlexMetrics extends AbstractMetrics
                      classNode = asts.get( file.getFullyQualifiedName() ).getClassNode();
                      functionsInPackage += classNode.getFunctions().size();
                      ncssInClass = computeFunctionMetrics( metrics,
+                                                           packageFullName,
                                                            classNode );
                      ncssInPackage += ncssInClass;
                   }
                   metrics.getClassMetrics()
-                         .add( new ClassMetrics( ncssInClass,
+                         .add( new ClassMetrics( ncssInClass, // NOPMD
                                                  classNode == null ? 0
                                                                   : classNode.getFunctions().size(),
                                                  fileInPackage.getName().replace( ".as",
                                                                                   "" ),
                                                  packageFullName,
                                                  classNode == null ? 0
-                                                                  : classNode.getAverageCyclomaticComplexity() ) );
+                                                                  : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() ) ) );
                }
-               metrics.getPackageMetrics().add( new PackageMetrics( ncssInPackage,
+               metrics.getPackageMetrics().add( new PackageMetrics( ncssInPackage,// NOPMD
                                                                     functionsInPackage,
                                                                     classesInPackage.size(),
                                                                     packageFullName ) );
@@ -143,22 +147,28 @@ public class FlexMetrics extends AbstractMetrics
       }
       catch ( final PMDException e )
       {
-         e.printStackTrace();
+         LOGGER.warning( e.getMessage() );
       }
 
       return metrics;
    }
 
    private int computeFunctionMetrics( final ProjectMetrics metrics,
+                                       final String packageFullName,
                                        final IClass classNode )
    {
       int ncssInClass = 0;
       for ( final IFunction function : classNode.getFunctions() )
       {
          ncssInClass += function.getStatementNbInBody();
-         metrics.getFunctionMetrics().add( new FunctionMetrics( function.getStatementNbInBody(),
-                                                                function.getName(),
-                                                                function.getCyclomaticComplexity() ) );
+         metrics.getFunctionMetrics()
+                .add( new FunctionMetrics( function.getStatementNbInBody(), // NOPMD
+                                           function.getName(),
+                                           packageFullName.compareTo( "" ) == 0 ? classNode.getName()
+                                                                               : packageFullName
+                                                                                     + "."
+                                                                                     + classNode.getName(),
+                                           function.getCyclomaticComplexity() ) );
       }
       return ncssInClass;
    }

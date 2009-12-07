@@ -83,7 +83,6 @@ public class FlexMetricsMojo extends AbstractMojo
     * @parameter default-value="javancss-raw-report.xml"
     * @required
     */
-   // FIXME : same variable, same value in NCSSReportMojo...
    private String  tempFileName;
 
    /**
@@ -92,7 +91,6 @@ public class FlexMetricsMojo extends AbstractMojo
     * @parameter default-value="${project.build.directory}"
     * @required
     */
-   // FIXME : same variable, same value in NCSSReportMojo...
    private File    xmlOutputDirectory;
 
    public void execute() throws MojoExecutionException,
@@ -128,10 +126,28 @@ public class FlexMetricsMojo extends AbstractMojo
                        ncssLimit );
    }
 
+   public void setCcnLimit( final int ccnLimit )
+   {
+      this.ccnLimit = ccnLimit;
+   }
+
+   public void setNcssLimit( final int ncssLimit )
+   {
+      this.ncssLimit = ncssLimit;
+   }
+
+   public void setTempFileName( final String tempFileName )
+   {
+      this.tempFileName = tempFileName;
+   }
+
+   public void setXmlOutputDirectory( final File xmlOutputDirectory )
+   {
+      this.xmlOutputDirectory = xmlOutputDirectory;
+   }
+
    private Document loadDocument() throws MojoFailureException
    {
-      // FIXME: Building of File is strangely equivalent to method
-      // buildOutputFileName of NcssReportGenerator class...
       final File ncssXmlFile = new File( xmlOutputDirectory
             + File.separator + tempFileName );
       try
@@ -141,7 +157,7 @@ public class FlexMetricsMojo extends AbstractMojo
       catch ( final DocumentException de )
       {
          throw new MojoFailureException( "Can't read javancss xml output file : "
-               + ncssXmlFile );
+               + ncssXmlFile, de );
       }
    }
 

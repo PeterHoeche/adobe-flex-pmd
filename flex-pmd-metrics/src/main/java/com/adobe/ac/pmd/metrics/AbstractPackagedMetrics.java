@@ -32,13 +32,13 @@ package com.adobe.ac.pmd.metrics;
 
 public abstract class AbstractPackagedMetrics
 {
-   private final double ccn;
+   private final int    ccn;
    private final int    nonCommentStatements;
    private final String packageName;
 
-   public AbstractPackagedMetrics( final int nonCommentStatementsToBeSet,
-                                   final String packageNameToBeSet,
-                                   final double ccnToBeSet )
+   protected AbstractPackagedMetrics( final int nonCommentStatementsToBeSet,
+                                      final String packageNameToBeSet,
+                                      final int ccnToBeSet )
    {
       super();
       nonCommentStatements = nonCommentStatementsToBeSet;
