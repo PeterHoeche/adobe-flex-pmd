@@ -131,6 +131,11 @@ public class FlexMetricsMojo extends AbstractMojo
       ccnLimit = ccnLimitToBeSet;
    }
 
+   public void setFailOnViolation( final boolean failOnViolation )
+   {
+      this.failOnViolation = failOnViolation;
+   }
+
    public void setNcssLimit( final int ncssLimitToBeSet )
    {
       ncssLimit = ncssLimitToBeSet;
