@@ -64,14 +64,14 @@ public class FlexMetricsAntTask extends Task
       }
    }
 
-   public void setOutputFile( final File outputFile )
+   public void setOutputFile( final File outputFileToBeSet )
    {
-      this.outputFile = outputFile;
+      outputFile = outputFileToBeSet;
    }
 
-   public void setSourceDirectory( final File sourceDirectory )
+   public void setSourceDirectory( final File sourceDirectoryToBeSet )
    {
-      this.sourceDirectory = sourceDirectory;
+      sourceDirectory = sourceDirectoryToBeSet;
    }
 
    private void validateFields() throws BuildException

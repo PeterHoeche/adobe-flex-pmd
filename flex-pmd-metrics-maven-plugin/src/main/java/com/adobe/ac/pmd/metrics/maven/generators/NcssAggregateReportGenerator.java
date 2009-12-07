@@ -65,7 +65,7 @@ import com.adobe.ac.pmd.metrics.maven.utils.ModuleReport;
  * @version $Id: NcssAggregateReportGenerator.java 3286 2007-02-08 20:18:51Z
  *          jeanlaurent $
  */
-public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
+public class NcssAggregateReportGenerator extends NcssReportGeneratorBase
 {
 
    /**

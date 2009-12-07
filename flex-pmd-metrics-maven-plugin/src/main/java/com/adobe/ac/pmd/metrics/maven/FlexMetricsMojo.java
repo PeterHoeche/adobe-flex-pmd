@@ -126,24 +126,24 @@ public class FlexMetricsMojo extends AbstractMojo
                        ncssLimit );
    }
 
-   public void setCcnLimit( final int ccnLimit )
+   public void setCcnLimit( final int ccnLimitToBeSet )
    {
-      this.ccnLimit = ccnLimit;
+      ccnLimit = ccnLimitToBeSet;
    }
 
-   public void setNcssLimit( final int ncssLimit )
+   public void setNcssLimit( final int ncssLimitToBeSet )
    {
-      this.ncssLimit = ncssLimit;
+      ncssLimit = ncssLimitToBeSet;
    }
 
-   public void setTempFileName( final String tempFileName )
+   public void setTempFileName( final String tempFileNameToBeSet )
    {
-      this.tempFileName = tempFileName;
+      tempFileName = tempFileNameToBeSet;
    }
 
-   public void setXmlOutputDirectory( final File xmlOutputDirectory )
+   public void setXmlOutputDirectory( final File xmlOutputDirectoryToBeSet )
    {
-      this.xmlOutputDirectory = xmlOutputDirectory;
+      this.xmlOutputDirectory = xmlOutputDirectoryToBeSet;
    }
 
    private Document loadDocument() throws MojoFailureException

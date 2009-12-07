@@ -115,18 +115,18 @@ public class ProjectMetrics
       return totalPackages;
    }
 
-   public void setAverageFunctions( final AverageFunctionMetrics averageFunctions )
+   public void setAverageFunctions( final AverageFunctionMetrics averageFunctionsToBeSet )
    {
-      this.averageFunctions = averageFunctions;
+      averageFunctions = averageFunctionsToBeSet;
    }
 
-   public void setAverageObjects( final AverageClassMetrics averageObjects )
+   public void setAverageObjects( final AverageClassMetrics averageObjectsToBeSet )
    {
-      this.averageObjects = averageObjects;
+      averageObjects = averageObjectsToBeSet;
    }
 
-   public void setTotalPackages( final TotalPackageMetrics totalPackages )
+   public void setTotalPackages( final TotalPackageMetrics totalPackagesToBeSet )
    {
-      this.totalPackages = totalPackages;
+      totalPackages = totalPackagesToBeSet;
    }
 }

@@ -65,7 +65,7 @@ import com.adobe.ac.pmd.metrics.maven.utils.NumericNodeComparator;
  * @version $Id: NcssReportGenerator.java 3286 2007-02-08 20:18:51Z jeanlaurent
  *          $
  */
-public class NcssReportGenerator extends AbstractNcssReportGenerator
+public class NcssReportGenerator extends NcssReportGeneratorBase
 {
    private static final String REPORT_JAVANCSS_HEADER_JAVADOC = "report.javancss.header.javadoc";
    private static final String NAME = "name";
