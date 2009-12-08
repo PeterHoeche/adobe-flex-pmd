@@ -181,8 +181,9 @@ public abstract class AbstractMetrics
          buffer.append( classMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<averages><classes>0</classes><functions>{0}</functions>"
-                                                 + "<ncss>{1}</ncss><javadocs/></averages></objects>",
+      buffer.append( MessageFormat.format( "<averages><classes>{0}</classes><functions>{1}</functions>"
+                                                 + "<ncss>{2}</ncss><javadocs/></averages></objects>",
+                                           String.valueOf( metrics.getClasses().size() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageFunctions() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageStatements() ) ) );
       return buffer.toString();

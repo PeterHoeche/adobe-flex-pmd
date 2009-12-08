@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.metrics.engine;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -55,7 +56,8 @@ import com.adobe.ac.pmd.nodes.IPackage;
 
 public class FlexMetrics extends AbstractMetrics
 {
-   private static final Logger LOGGER = Logger.getLogger( FlexMetrics.class.getName() );
+   private static final FlexFilter FLEX_FILTER = new FlexFilter();
+   private static final Logger     LOGGER      = Logger.getLogger( FlexMetrics.class.getName() );
 
    private static String getQualifiedName( final File sourceDirectory,
                                            final File file )
@@ -78,72 +80,71 @@ public class FlexMetrics extends AbstractMetrics
       return qualifiedName;
    }
 
+   private Map< String, IPackage > asts;
+
    public FlexMetrics( final File sourceDirectoryPath )
    {
       super( sourceDirectoryPath );
+
+      asts = new HashMap< String, IPackage >();
+      try
+      {
+         asts = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
+                                                                                                  "" ) );
+      }
+      catch ( final PMDException e )
+      {
+         LOGGER.warning( e.getMessage() );
+      }
    }
 
    @Override
    public ProjectMetrics loadMetrics()
    {
       final ProjectMetrics metrics = new ProjectMetrics();
-      final FlexFilter flexFilter = new FlexFilter();
 
-      try
+      for ( final File directory : nonEmptyDirectories )
       {
-         final Map< String, IFlexFile > files = com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
-                                                                                                        "" );
-         final Map< String, IPackage > asts = FileSetUtils.computeAsts( files );
+         final Collection< File > classesInPackage = FileUtils.listFiles( directory,
+                                                                          FLEX_FILTER,
+                                                                          false );
 
-         for ( final File directory : nonEmptyDirectories )
+         if ( directory.isDirectory()
+               && !classesInPackage.isEmpty() )
          {
-            final Collection< File > classesInPackage = FileUtils.listFiles( directory,
-                                                                             flexFilter,
-                                                                             false );
+            final String packageFullName = getQualifiedName( sourceDirectory,
+                                                             directory );
+            int functionsInPackage = 0;
+            int ncssInPackage = 0;
 
-            if ( directory.isDirectory()
-                  && !classesInPackage.isEmpty() )
+            for ( final File fileInPackage : classesInPackage )
             {
-               final String packageFullName = getQualifiedName( sourceDirectory,
-                                                                directory );
-               int functionsInPackage = 0;
-               int ncssInPackage = 0;
-
-               for ( final File fileInPackage : classesInPackage )
+               int ncssInClass = 0;
+               IClass classNode = null;
+               final IFlexFile file = com.adobe.ac.pmd.files.impl.FileUtils.create( fileInPackage,
+                                                                                    sourceDirectory );
+               if ( asts.containsKey( file.getFullyQualifiedName() )
+                     && asts.get( file.getFullyQualifiedName() ).getClassNode() != null )
                {
-                  int ncssInClass = 0;
-                  IClass classNode = null;
-                  final IFlexFile file = com.adobe.ac.pmd.files.impl.FileUtils.create( fileInPackage,
-                                                                                       sourceDirectory );
-                  if ( asts.containsKey( file.getFullyQualifiedName() )
-                        && asts.get( file.getFullyQualifiedName() ).getClassNode() != null )
-                  {
-                     classNode = asts.get( file.getFullyQualifiedName() ).getClassNode();
-                     functionsInPackage += classNode.getFunctions().size();
-                     ncssInClass = computeFunctionMetrics( metrics,
-                                                           packageFullName,
-                                                           classNode );
-                     ncssInPackage += ncssInClass;
-                  }
-                  metrics.getClassMetrics().add( createClassMetrics( packageFullName,
-                                                                     fileInPackage,
-                                                                     ncssInClass,
-                                                                     classNode ) );
+                  classNode = asts.get( file.getFullyQualifiedName() ).getClassNode();
+                  functionsInPackage += classNode.getFunctions().size();
+                  ncssInClass = computeFunctionMetrics( metrics,
+                                                        packageFullName,
+                                                        classNode );
+                  ncssInPackage += ncssInClass;
                }
-               metrics.getPackageMetrics().add( new PackageMetrics( ncssInPackage,// NOPMD
-                                                                    functionsInPackage,
-                                                                    classesInPackage.size(),
-                                                                    packageFullName ) );
+               metrics.getClassMetrics().add( createClassMetrics( packageFullName,
+                                                                  fileInPackage,
+                                                                  ncssInClass,
+                                                                  classNode ) );
             }
+            metrics.getPackageMetrics().add( new PackageMetrics( ncssInPackage,// NOPMD
+                                                                 functionsInPackage,
+                                                                 classesInPackage.size(),
+                                                                 packageFullName ) );
          }
-         metrics.setTotalPackages( getTotalPackages( metrics.getPackageMetrics() ) );
-         metrics.setAverageFunctions( getAverageFunctions( metrics.getFunctionMetrics() ) );
-         metrics.setAverageObjects( getAverageObjects( metrics.getClassMetrics() ) );
       }
-      catch ( final PMDException e )
-      {
-         LOGGER.warning( e.getMessage() );
-      }
+      setFinalMetrics( metrics );
 
       return metrics;
    }
@@ -173,15 +174,15 @@ public class FlexMetrics extends AbstractMetrics
                                             final int ncssInClass,
                                             final IClass classNode )
    {
-      final int averageClassComplexity = classNode == null ? 0
-                                                          : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
+      final int average = classNode == null ? 0
+                                           : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
       final ClassMetrics classMetrics = new ClassMetrics( ncssInClass, // NOPMD
                                                           classNode == null ? 0
                                                                            : classNode.getFunctions().size(),
                                                           fileInPackage.getName().replace( ".as",
                                                                                            "" ),
                                                           packageFullName,
-                                                          averageClassComplexity );
+                                                          average );
       return classMetrics;
    }
 
@@ -223,5 +224,12 @@ public class FlexMetrics extends AbstractMetrics
          classes += metrics.getClasses();
       }
       return new TotalPackageMetrics( nonCommentStatement, functions, classes );
+   }
+
+   private void setFinalMetrics( final ProjectMetrics metrics )
+   {
+      metrics.setTotalPackages( getTotalPackages( metrics.getPackageMetrics() ) );
+      metrics.setAverageFunctions( getAverageFunctions( metrics.getFunctionMetrics() ) );
+      metrics.setAverageObjects( getAverageObjects( metrics.getClassMetrics() ) );
    }
 }

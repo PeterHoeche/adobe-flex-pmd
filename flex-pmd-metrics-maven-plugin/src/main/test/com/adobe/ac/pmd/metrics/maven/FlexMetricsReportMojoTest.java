@@ -55,6 +55,7 @@ public class FlexMetricsReportMojoTest extends FlexPmdTestBase
                                                                     getTestDirectory(),
                                                                     outputDirectoryToBeSet );
 
+      mojo.setLineThreshold( 5 );
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       mojo.setXmlOutputDirectory( outputDirectoryToBeSet );
       mojo.setTempFileName( "javancss-raw-report.xml" );

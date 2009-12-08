@@ -70,7 +70,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
     * Specifies the maximum number of lines to take into account into the
     * reports.
     * 
-    * @parameter default-value="30"
+    * @parameter default-value="5"
     * @required
     */
    private int                  lineThreshold;
@@ -206,6 +206,11 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
    public String getOutputName()
    {
       return OUTPUT_NAME;
+   }
+
+   public void setLineThreshold( final int lineThresholdToBeSet )
+   {
+      lineThreshold = lineThresholdToBeSet;
    }
 
    public void setSiteRenderer( final SiteRenderer siteRendererToBeSet )
