@@ -131,9 +131,9 @@ public class FlexMetricsMojo extends AbstractMojo
       ccnLimit = ccnLimitToBeSet;
    }
 
-   public void setFailOnViolation( final boolean failOnViolation )
+   public void setFailOnViolation( final boolean failOnViolationToBeSet )
    {
-      this.failOnViolation = failOnViolation;
+      failOnViolation = failOnViolationToBeSet;
    }
 
    public void setNcssLimit( final int ncssLimitToBeSet )
@@ -148,7 +148,7 @@ public class FlexMetricsMojo extends AbstractMojo
 
    public void setXmlOutputDirectory( final File xmlOutputDirectoryToBeSet )
    {
-      this.xmlOutputDirectory = xmlOutputDirectoryToBeSet;
+      xmlOutputDirectory = xmlOutputDirectoryToBeSet;
    }
 
    private Document loadDocument() throws MojoFailureException

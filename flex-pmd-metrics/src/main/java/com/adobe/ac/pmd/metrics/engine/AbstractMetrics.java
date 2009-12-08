@@ -161,7 +161,8 @@ public abstract class AbstractMetrics
          buffer.append( functionMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<function_averages><ncss>{0}</ncss><javadocs/></function_averages><ncss>{1}</ncss></functions>",
+      buffer.append( MessageFormat.format( "<function_averages><ncss>{0}</ncss><javadocs/>"
+                                                 + "</function_averages><ncss>{1}</ncss></functions>",
                                            String.valueOf( metrics.getAverageFunctions()
                                                                   .getAverageStatements() ),
                                            String.valueOf( metrics.getTotalPackages().getTotalStatements() ) ) );
@@ -180,7 +181,8 @@ public abstract class AbstractMetrics
          buffer.append( classMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<averages><classes>0</classes><functions>{0}</functions><ncss>{1}</ncss><javadocs/></averages></objects>",
+      buffer.append( MessageFormat.format( "<averages><classes>0</classes><functions>{0}</functions>"
+                                                 + "<ncss>{1}</ncss><javadocs/></averages></objects>",
                                            String.valueOf( metrics.getAverageObjects().getAverageFunctions() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageStatements() ) ) );
       return buffer.toString();

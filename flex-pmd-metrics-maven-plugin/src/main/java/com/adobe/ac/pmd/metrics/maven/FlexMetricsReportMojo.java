@@ -50,6 +50,11 @@ import com.adobe.ac.pmd.metrics.maven.generators.NcssReportGenerator;
 import com.adobe.ac.pmd.metrics.maven.utils.ModuleReport;
 import com.adobe.ac.pmd.metrics.maven.utils.NcssExecuter;
 
+/**
+ * Goal which touches a timestamp file.
+ * 
+ * @goal report
+ */
 public class FlexMetricsReportMojo extends AbstractMavenReport
 {
    private static final String OUTPUT_NAME = "javancss";
@@ -132,6 +137,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
                                  final File source,
                                  final File output )
    {
+      super();
       project = projectToBeSet;
       sourceDirectory = source;
       outputDirectory = output;
@@ -202,19 +208,19 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
       return OUTPUT_NAME;
    }
 
-   public void setSiteRenderer( final SiteRenderer siteRenderer )
+   public void setSiteRenderer( final SiteRenderer siteRendererToBeSet )
    {
-      this.siteRenderer = siteRenderer;
+      siteRenderer = siteRendererToBeSet;
    }
 
-   public void setTempFileName( final String tempFileName )
+   public void setTempFileName( final String tempFileNameToBeSet )
    {
-      this.tempFileName = tempFileName;
+      tempFileName = tempFileNameToBeSet;
    }
 
-   public void setXmlOutputDirectory( final File xmlOutputDirectory )
+   public void setXmlOutputDirectory( final File xmlOutputDirectoryToBeSet )
    {
-      this.xmlOutputDirectory = xmlOutputDirectory;
+      xmlOutputDirectory = xmlOutputDirectoryToBeSet;
    }
 
    /**

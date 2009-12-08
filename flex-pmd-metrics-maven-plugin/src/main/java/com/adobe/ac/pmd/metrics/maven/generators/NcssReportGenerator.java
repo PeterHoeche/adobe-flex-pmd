@@ -67,13 +67,13 @@ import com.adobe.ac.pmd.metrics.maven.utils.NumericNodeComparator;
  */
 public class NcssReportGenerator extends NcssReportGeneratorBase
 {
+   private static final String CLASSES                        = "classes";
+   private static final String FUNCTIONS                      = "functions";
+   private static final String JAVADOCS                       = "javadocs";
+   private static final String NAME                           = "name";
+   private static final String NCSS                           = "ncss";
    private static final String REPORT_JAVANCSS_HEADER_JAVADOC = "report.javancss.header.javadoc";
-   private static final String NAME = "name";
-   private static final String FUNCTIONS = "functions";
-   private static final String JAVADOCS = "javadocs";
-   private static final String CLASSES = "classes";
-   private static final String NCSS = "ncss";
-   private int lineThreshold;
+   private int                 lineThreshold;
 
    /**
     * build a new NcssReportGenerator.
@@ -92,12 +92,13 @@ public class NcssReportGenerator extends NcssReportGeneratorBase
     * Generates the JavaNcss reports.
     * 
     * @param document the javaNcss raw report as an XML document.
-    * @param lineThreshold the maximum number of lines to keep in major reports.
+    * @param lineThresholdToBeSet the maximum number of lines to keep in major
+    *           reports.
     */
    public void doReport( final Document document,
-                         final int lineThreshold )
+                         final int lineThresholdToBeSet )
    {
-      this.lineThreshold = lineThreshold;
+      lineThreshold = lineThresholdToBeSet;
       // HEADER
       getSink().head();
       getSink().title();

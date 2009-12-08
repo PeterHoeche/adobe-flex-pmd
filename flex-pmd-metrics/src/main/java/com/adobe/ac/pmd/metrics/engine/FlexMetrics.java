@@ -125,15 +125,10 @@ public class FlexMetrics extends AbstractMetrics
                                                            classNode );
                      ncssInPackage += ncssInClass;
                   }
-                  metrics.getClassMetrics()
-                         .add( new ClassMetrics( ncssInClass, // NOPMD
-                                                 classNode == null ? 0
-                                                                  : classNode.getFunctions().size(),
-                                                 fileInPackage.getName().replace( ".as",
-                                                                                  "" ),
-                                                 packageFullName,
-                                                 classNode == null ? 0
-                                                                  : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() ) ) );
+                  metrics.getClassMetrics().add( createClassMetrics( packageFullName,
+                                                                     fileInPackage,
+                                                                     ncssInClass,
+                                                                     classNode ) );
                }
                metrics.getPackageMetrics().add( new PackageMetrics( ncssInPackage,// NOPMD
                                                                     functionsInPackage,
@@ -171,6 +166,23 @@ public class FlexMetrics extends AbstractMetrics
                                            function.getCyclomaticComplexity() ) );
       }
       return ncssInClass;
+   }
+
+   private ClassMetrics createClassMetrics( final String packageFullName,
+                                            final File fileInPackage,
+                                            final int ncssInClass,
+                                            final IClass classNode )
+   {
+      final int averageClassComplexity = classNode == null ? 0
+                                                          : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
+      final ClassMetrics classMetrics = new ClassMetrics( ncssInClass, // NOPMD
+                                                          classNode == null ? 0
+                                                                           : classNode.getFunctions().size(),
+                                                          fileInPackage.getName().replace( ".as",
+                                                                                           "" ),
+                                                          packageFullName,
+                                                          averageClassComplexity );
+      return classMetrics;
    }
 
    private AverageFunctionMetrics getAverageFunctions( final List< FunctionMetrics > functionMetrics )
