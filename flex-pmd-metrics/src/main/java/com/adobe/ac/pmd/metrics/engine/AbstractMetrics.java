@@ -161,8 +161,10 @@ public abstract class AbstractMetrics
          buffer.append( functionMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<function_averages><ncss>{0}</ncss><javadocs/>"
-                                                 + "</function_averages><ncss>{1}</ncss></functions>",
+      buffer.append( MessageFormat.format( "<function_averages>"
+                                                 + "<ncss>{0}</ncss>"
+                                                 + "<javadocs/><javadoc_lines/><single_comment_lines/><multi_comment_lines/>"
+                                                 + "</function_averages><ncss>{1}</ncss>" + "</functions>",
                                            String.valueOf( metrics.getAverageFunctions()
                                                                   .getAverageStatements() ),
                                            String.valueOf( metrics.getTotalPackages().getTotalStatements() ) ) );
@@ -181,8 +183,12 @@ public abstract class AbstractMetrics
          buffer.append( classMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<averages><classes>{0}</classes><functions>{1}</functions>"
-                                                 + "<ncss>{2}</ncss><javadocs/></averages></objects>",
+      buffer.append( MessageFormat.format( "<averages>"
+                                                 + "<classes>{0}</classes>"
+                                                 + "<functions>{1}</functions>"
+                                                 + "<ncss>{2}</ncss>"
+                                                 + "<javadocs/><javadoc_lines/><single_comment_lines/><multi_comment_lines/>"
+                                                 + "</averages></objects>",
                                            String.valueOf( metrics.getClasses().size() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageFunctions() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageStatements() ) ) );
@@ -200,9 +206,12 @@ public abstract class AbstractMetrics
          buffer.append( packageMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<total><classes>{0}</classes><functions>{1}</functions><ncss>{2}</ncss>"
-                                                 + "<javadocs/><javadoc_lines/><single_comment_lines/>"
-                                                 + "<multi_comment_lines/></total></packages>",
+      buffer.append( MessageFormat.format( "<total>"
+                                                 + "<classes>{0}</classes>"
+                                                 + "<functions>{1}</functions>"
+                                                 + "<ncss>{2}</ncss>"
+                                                 + "<javadocs/><javadoc_lines/><single_comment_lines/><multi_comment_lines/>"
+                                                 + "</total></packages>",
                                            String.valueOf( metrics.getTotalPackages().getTotalClasses() ),
                                            String.valueOf( metrics.getTotalPackages().getTotalFunctions() ),
                                            String.valueOf( metrics.getTotalPackages().getTotalStatements() ) ) );

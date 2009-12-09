@@ -48,8 +48,7 @@ public class BadFormatLoggerRuleTest extends AbstractAstFlexRuleTest
                        { new ViolationPosition( 44, 44 ),
                                    new ViolationPosition( 45, 45 ),
                                    new ViolationPosition( 46, 46 ),
-                                   new ViolationPosition( 47, 47 ),
-                                   new ViolationPosition( 48, 48 ) } );
+                                   new ViolationPosition( 47, 47 ) } );
    }
 
    @Override

@@ -32,10 +32,7 @@ package com.adobe.ac.pmd.rules.style;
 
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IField;
-import com.adobe.ac.pmd.nodes.IFieldInitialization;
 import com.adobe.ac.pmd.nodes.IVariable;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -77,11 +74,6 @@ public class BadFormatLoggerRule extends AbstractAstFlexRule
                              field.getInternalNode(),
                              MESSAGE_NOT_INITIALIZED );
             }
-            else
-            {
-               lookupStringMethodArguments( field.getInitializationExpression(),
-                                            getCurrentPackageNode().getFullyQualifiedClassName() );
-            }
          }
       }
    }
@@ -90,38 +82,5 @@ public class BadFormatLoggerRule extends AbstractAstFlexRule
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
-   }
-
-   private void lookupStringMethodArguments( final IFieldInitialization initializationExpression,
-                                             final String fullyQualifiedClassName )
-   {
-      visitNode( initializationExpression.getInternalNode(),
-                 fullyQualifiedClassName );
-   }
-
-   private void visitNode( final IParserNode internalNode,
-                           final String fullyQualifiedClassName )
-   {
-      if ( internalNode.numChildren() > 0 )
-      {
-         for ( final IParserNode child : internalNode.getChildren() )
-         {
-            visitNode( child,
-                       fullyQualifiedClassName );
-         }
-      }
-      if ( internalNode.is( NodeKind.ARGUMENTS ) )
-      {
-         for ( final IParserNode argumentNode : internalNode.getChildren() )
-         {
-            if ( argumentNode.getStringValue() != null
-                  && !argumentNode.getStringValue().contains( fullyQualifiedClassName ) )
-            {
-               addViolation( internalNode,
-                             internalNode,
-                             MESSAGE_NOT_FULLY_QUALIFIED_NAME );
-            }
-         }
-      }
    }
 }
