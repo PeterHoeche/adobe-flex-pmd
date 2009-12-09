@@ -5,12 +5,12 @@
 	<packaging>swc</packaging>
 	<name>FlexUnit theme</name>
 	<description>Adobe FlexUnit theme</description>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>1.0</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
