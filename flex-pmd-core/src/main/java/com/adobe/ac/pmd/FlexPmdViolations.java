@@ -88,13 +88,16 @@ public class FlexPmdViolations
    {
       hasBeenComputed = true;
 
-      computeRules( ruleSet );
-      computeFiles( source,
-                    packageToExclude );
-      computeAsts();
-      processRules();
-      sortViolations();
-      displayRuleSpeeds();
+      if ( ruleSet != null )
+      {
+         computeRules( ruleSet );
+         computeFiles( source,
+                       packageToExclude );
+         computeAsts();
+         processRules();
+         sortViolations();
+         displayRuleSpeeds();
+      }
    }
 
    public final Map< IFlexFile, List< IFlexViolation >> getViolations()

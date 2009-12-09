@@ -128,15 +128,18 @@ public abstract class AbstractFlexPmdEngine
          throw new PMDException( "unspecified outputDirectory" );
       }
 
-      LOGGER.fine( "Search Flex files in "
-            + source.getPath() );
-
-      if ( !flexPmdViolations.hasViolationsBeenComputed() )
+      if ( ruleSet != null )
       {
-         computeViolations( flexPmdViolations );
+         LOGGER.fine( "Search Flex files in "
+               + source.getPath() );
+
+         if ( !flexPmdViolations.hasViolationsBeenComputed() )
+         {
+            computeViolations( flexPmdViolations );
+         }
+         computeViolationNumber( flexPmdViolations );
+         writeAnyReport( flexPmdViolations );
       }
-      computeViolationNumber( flexPmdViolations );
-      writeAnyReport( flexPmdViolations );
    }
 
    public final RuleSet getRuleSet()

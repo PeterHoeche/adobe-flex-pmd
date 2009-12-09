@@ -74,4 +74,19 @@ public class AllInOneRulesetTest extends TestCase
                     43,
                     engine.getRuleSet().size() );
    }
+
+   public void testLoadUncorrectRuleSet() throws URISyntaxException,
+                                         PMDException,
+                                         IOException
+   {
+      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
+      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
+
+      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( "",
+                                                                                   outputDirectory,
+                                                                                   new File( "nonExist" ),
+                                                                                   sourceDirectory ) );
+
+      engine.executeReport( new FlexPmdViolations() );
+   }
 }
