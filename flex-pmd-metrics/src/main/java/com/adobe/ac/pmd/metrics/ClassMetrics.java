@@ -45,7 +45,6 @@ public class ClassMetrics extends AbstractNamedMetrics
       functions = functionsToBeSet;
    }
 
-   @Override
    public String getContreteXml()
    {
       return "<functions>"

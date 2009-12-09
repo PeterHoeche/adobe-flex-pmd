@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.pmd.metrics;
 
+import java.text.MessageFormat;
+
 public class PackageMetrics extends AbstractPackagedMetrics
 {
    private final int classes;
@@ -50,14 +52,16 @@ public class PackageMetrics extends AbstractPackagedMetrics
       return classes;
    }
 
-   @Override
    public String getContreteXml()
    {
-      return "<functions>"
-            + functions
-            + "</functions><classes>"
-            + classes
-            + "</classes><javadoc_lines>0</javadoc_lines><single_comment_lines>0</single_comment_lines><multi_comment_lines>0</multi_comment_lines>";
+      return new StringBuffer().append( MessageFormat.format( "<functions>{0}</functions>"
+                                                                    + "<classes>{1}</classes>"
+                                                                    + "<javadoc_lines>0</javadoc_lines>"
+                                                                    + "<single_comment_lines>0</single_comment_lines>"
+                                                                    + "<multi_comment_lines>0</multi_comment_lines>",
+                                                              String.valueOf( functions ),
+                                                              String.valueOf( classes ) ) )
+                               .toString();
    }
 
    @Override

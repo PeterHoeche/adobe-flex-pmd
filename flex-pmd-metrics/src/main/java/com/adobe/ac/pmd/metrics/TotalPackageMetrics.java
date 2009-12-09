@@ -30,7 +30,9 @@
  */
 package com.adobe.ac.pmd.metrics;
 
-public class TotalPackageMetrics
+import java.text.MessageFormat;
+
+public class TotalPackageMetrics implements IMetrics
 {
    private final int totalClasses;
    private final int totalFunctions;
@@ -45,6 +47,23 @@ public class TotalPackageMetrics
       totalStatements = totalStatementsToBeSet;
       totalFunctions = totalFunctionsToBeSet;
       totalClasses = totalClassesToBeSet;
+   }
+
+   public String getContreteXml()
+   {
+      return new StringBuffer().append( MessageFormat.format( "<total>"
+                                                                    + "<classes>{0}</classes>"
+                                                                    + "<functions>{1}</functions>"
+                                                                    + "<ncss>{2}</ncss>"
+                                                                    + "<javadocs>0</javadocs>"
+                                                                    + "<javadoc_lines>0</javadoc_lines>"
+                                                                    + "<single_comment_lines>0</single_comment_lines>"
+                                                                    + "<multi_comment_lines>0</multi_comment_lines>"
+                                                                    + "</total>",
+                                                              String.valueOf( totalClasses ),
+                                                              String.valueOf( totalFunctions ),
+                                                              String.valueOf( totalStatements ) ) )
+                               .toString();
    }
 
    public int getTotalClasses()

@@ -30,7 +30,9 @@
  */
 package com.adobe.ac.pmd.metrics;
 
-public abstract class AbstractPackagedMetrics
+import java.text.MessageFormat;
+
+public abstract class AbstractPackagedMetrics implements IMetrics
 {
    private final int    ccn;
    private final int    nonCommentStatements;
@@ -45,8 +47,6 @@ public abstract class AbstractPackagedMetrics
       packageName = packageNameToBeSet;
       ccn = ccnToBeSet;
    }
-
-   abstract public String getContreteXml();
 
    abstract public String getFullName();
 
@@ -64,8 +64,17 @@ public abstract class AbstractPackagedMetrics
 
    public String toXmlString()
    {
-      return "<"
-            + getMetricsName() + "><name>" + getFullName() + "</name><ccn>" + ccn + "</ccn><ncss>"
-            + nonCommentStatements + "</ncss><javadocs/>" + getContreteXml() + "</" + getMetricsName() + ">";
+      return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss>"
+                                                                    + "<javadoc_lines>0</javadoc_lines>"
+                                                                    + "<single_comment_lines>0</single_comment_lines>"
+                                                                    + "<multi_comment_lines>0</multi_comment_lines>"
+                                                                    + "{4}</{5}>",
+                                                              getMetricsName(),
+                                                              getFullName(),
+                                                              String.valueOf( ccn ),
+                                                              String.valueOf( nonCommentStatements ),
+                                                              getContreteXml(),
+                                                              getMetricsName() ) )
+                               .toString();
    }
 }

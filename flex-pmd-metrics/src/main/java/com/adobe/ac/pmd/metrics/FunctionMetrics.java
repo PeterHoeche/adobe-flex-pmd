@@ -40,7 +40,6 @@ public class FunctionMetrics extends AbstractNamedMetrics
       super( nonCommentStatements, name, packageName, ccn );
    }
 
-   @Override
    public String getContreteXml()
    {
       return "";

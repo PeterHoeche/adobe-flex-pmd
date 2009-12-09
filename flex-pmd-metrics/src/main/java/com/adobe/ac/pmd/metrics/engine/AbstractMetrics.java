@@ -184,11 +184,12 @@ public abstract class AbstractMetrics
       }
 
       buffer.append( MessageFormat.format( "<averages>"
-                                                 + "<classes>{0}</classes>"
-                                                 + "<functions>{1}</functions>"
-                                                 + "<ncss>{2}</ncss>"
-                                                 + "<javadocs/><javadoc_lines/><single_comment_lines/><multi_comment_lines/>"
-                                                 + "</averages></objects>",
+                                                 + "<classes>{0}</classes>" + "<functions>{1}</functions>"
+                                                 + "<ncss>{2}</ncss>" + "<javadocs>0</javadocs>"
+                                                 + "<javadoc_lines>0</javadoc_lines>"
+                                                 + "<single_comment_lines>0</single_comment_lines>"
+                                                 + "<multi_comment_lines>0</multi_comment_lines>"
+                                                 + "</averages>" + "</objects>",
                                            String.valueOf( metrics.getClasses().size() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageFunctions() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageStatements() ) ) );
@@ -206,15 +207,8 @@ public abstract class AbstractMetrics
          buffer.append( packageMetrics.toXmlString() );
       }
 
-      buffer.append( MessageFormat.format( "<total>"
-                                                 + "<classes>{0}</classes>"
-                                                 + "<functions>{1}</functions>"
-                                                 + "<ncss>{2}</ncss>"
-                                                 + "<javadocs/><javadoc_lines/><single_comment_lines/><multi_comment_lines/>"
-                                                 + "</total></packages>",
-                                           String.valueOf( metrics.getTotalPackages().getTotalClasses() ),
-                                           String.valueOf( metrics.getTotalPackages().getTotalFunctions() ),
-                                           String.valueOf( metrics.getTotalPackages().getTotalStatements() ) ) );
+      buffer.append( metrics.getTotalPackages().getContreteXml()
+            + "</packages>" );
 
       return buffer.toString();
    }
