@@ -46,7 +46,6 @@ package com.adobe.ac.pmd.metrics.maven.generators;
  * limitations under the License.
  */
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -129,6 +128,60 @@ public class NcssAggregateReportGenerator extends NcssReportGeneratorBase
 
    private void doModuleAnalysis( final List< ModuleReport > reports )
    {
+      doModuleAnalysisHeader();
+
+      int packages = 0;
+      int classes = 0;
+      int methods = 0;
+      int ncss = 0;
+      int javadocs = 0;
+      int jdlines = 0;
+      int single = 0;
+      int multi = 0;
+      for ( final ModuleReport moduleReport : reports )
+      {
+         final ModuleReport report = moduleReport;
+         final Document document = report.getJavancssDocument();
+         getSink().tableRow();
+         getLog().debug( "Aggregating "
+               + report.getModule().getArtifactId() );
+         tableCellHelper( report.getModule().getArtifactId() );
+         final int packageSize = document.selectNodes( "//javancss/packages/package" ).size();
+         packages += packageSize;
+         tableCellHelper( String.valueOf( packageSize ) );
+
+         final Node node = document.selectSingleNode( "//javancss/packages/total" );
+
+         tableCellHelper( node.valueOf( "classes" ) );
+         classes += Integer.parseInt( node.valueOf( "classes" ) );
+         tableCellHelper( node.valueOf( "functions" ) );
+         methods += Integer.parseInt( node.valueOf( "functions" ) );
+         tableCellHelper( node.valueOf( "ncss" ) );
+         ncss += Integer.parseInt( node.valueOf( "ncss" ) );
+         tableCellHelper( node.valueOf( "javadocs" ) );
+         javadocs += Integer.parseInt( node.valueOf( "javadocs" ) );
+         tableCellHelper( node.valueOf( "javadoc_lines" ) );
+         jdlines += Integer.parseInt( node.valueOf( "javadoc_lines" ) );
+         tableCellHelper( node.valueOf( "single_comment_lines" ) );
+         single += Integer.parseInt( node.valueOf( "single_comment_lines" ) );
+         tableCellHelper( node.valueOf( "multi_comment_lines" ) );
+         multi += Integer.parseInt( node.valueOf( "multi_comment_lines" ) );
+
+         getSink().tableRow_();
+      }
+
+      doModuleAnalysisTotals( packages,
+                              classes,
+                              methods,
+                              ncss,
+                              javadocs,
+                              jdlines,
+                              single,
+                              multi );
+   }
+
+   private void doModuleAnalysisHeader()
+   {
       getSink().table();
       getSink().tableRow();
       headerCellHelper( getResourceBundle().getString( "report.javancss.header.module" ) );
@@ -141,61 +194,17 @@ public class NcssAggregateReportGenerator extends NcssReportGeneratorBase
       headerCellHelper( getResourceBundle().getString( "report.javancss.header.single_comment" ) );
       headerCellHelper( getResourceBundle().getString( "report.javancss.header.multi_comment" ) );
       getSink().tableRow_();
+   }
 
-      int packages = 0;
-      int classes = 0;
-      int methods = 0;
-      int ncss = 0;
-      int javadocs = 0;
-      int jdlines = 0;
-      int single = 0;
-      int multi = 0;
-      for ( final Iterator< ModuleReport > it = reports.iterator(); it.hasNext(); )
-      {
-         final ModuleReport report = ( ModuleReport ) it.next();
-         final Document document = report.getJavancssDocument();
-         getSink().tableRow();
-         getLog().debug( "Aggregating "
-               + report.getModule().getArtifactId() );
-         tableCellHelper( report.getModule().getArtifactId() );
-         final int packageSize = document.selectNodes( "//javancss/packages/package" ).size();
-         packages += packageSize;
-         tableCellHelper( String.valueOf( packageSize ) );
-
-         final Node node = document.selectSingleNode( "//javancss/packages/total" );
-
-         final String classSize = node.valueOf( "classes" );
-         tableCellHelper( classSize );
-         classes += Integer.parseInt( classSize );
-
-         final String methodSize = node.valueOf( "functions" );
-         tableCellHelper( methodSize );
-         methods += Integer.parseInt( methodSize );
-
-         final String ncssSize = node.valueOf( "ncss" );
-         tableCellHelper( ncssSize );
-         ncss += Integer.parseInt( ncssSize );
-
-         final String javadocSize = node.valueOf( "javadocs" );
-         tableCellHelper( javadocSize );
-         javadocs += Integer.parseInt( javadocSize );
-
-         final String jdlineSize = node.valueOf( "javadoc_lines" );
-         tableCellHelper( jdlineSize );
-         jdlines += Integer.parseInt( jdlineSize );
-
-         final String singleSize = node.valueOf( "single_comment_lines" );
-         tableCellHelper( singleSize );
-         single += Integer.parseInt( singleSize );
-
-         final String multiSize = node.valueOf( "multi_comment_lines" );
-         tableCellHelper( multiSize );
-         multi += Integer.parseInt( multiSize );
-
-         getSink().tableRow_();
-      }
-
-      // Totals row
+   private void doModuleAnalysisTotals( final int packages,
+                                        final int classes,
+                                        final int methods,
+                                        final int ncss,
+                                        final int javadocs,
+                                        final int jdlines,
+                                        final int single,
+                                        final int multi )
+   {
       getSink().tableRow();
       tableCellHelper( getResourceBundle().getString( "report.javancss.header.totals" ) );
       tableCellHelper( String.valueOf( packages ) );

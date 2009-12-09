@@ -59,7 +59,7 @@ import org.codehaus.doxia.sink.Sink;
  * @version $Id: AbstractNcssReportGenerator.java 3286 2007-02-08 20:18:51Z
  *          jeanlaurent $
  */
-public abstract class NcssReportGeneratorBase
+public class NcssReportGeneratorBase
 {
 
    private final ResourceBundle bundle;

@@ -46,6 +46,7 @@ package com.adobe.ac.pmd.metrics.maven.utils;
  * limitations under the License.
  */
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import org.dom4j.Node;
@@ -57,12 +58,13 @@ import org.dom4j.Node;
  * @version $Id: NumericNodeComparator.java 3286 2007-02-08 20:18:51Z
  *          jeanlaurent $
  */
-public class NumericNodeComparator implements Comparator< Node >
+public class NumericNodeComparator implements Comparator< Node >, Serializable
 {
+   private static final long serialVersionUID = -2728762615963337680L;
    /**
     * the tag property used by this comparator
     */
-   private final String tagProperty;
+   private final String      tagProperty;
 
    /**
     * The numeric node tag property to used by this comparator.

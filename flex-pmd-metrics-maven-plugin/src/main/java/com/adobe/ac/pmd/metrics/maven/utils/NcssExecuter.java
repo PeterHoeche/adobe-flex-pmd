@@ -59,11 +59,11 @@ public class NcssExecuter
    private final File outputDirectory;
    private final File sourceLocation;
 
-   public NcssExecuter( final File sourceDirectory,
-                        final File outputDirectory )
+   public NcssExecuter( final File sourceLocationToBeSet,
+                        final File outputDirectoryToBeSet )
    {
-      this.sourceLocation = sourceDirectory;
-      this.outputDirectory = outputDirectory;
+      sourceLocation = sourceLocationToBeSet;
+      outputDirectory = outputDirectoryToBeSet;
    }
 
    public void execute() throws MavenReportException,
