@@ -152,7 +152,7 @@ public abstract class AbstractMetrics
 
    private String addFunctions( final ProjectMetrics metrics )
    {
-      final StringBuffer buffer = new StringBuffer( 25 );
+      final StringBuffer buffer = new StringBuffer( 250 );
 
       buffer.append( "<functions>" );
 
@@ -176,7 +176,7 @@ public abstract class AbstractMetrics
 
    private String addObjects( final ProjectMetrics metrics )
    {
-      final StringBuffer buffer = new StringBuffer( 20 );
+      final StringBuffer buffer = new StringBuffer( 300 );
 
       buffer.append( "<objects>" );
 
@@ -210,8 +210,8 @@ public abstract class AbstractMetrics
          buffer.append( packageMetrics.toXmlString() );
       }
 
-      buffer.append( metrics.getTotalPackages().getContreteXml()
-            + "</packages>" );
+      buffer.append( metrics.getTotalPackages().getContreteXml() );
+      buffer.append( "</packages>" );
 
       return buffer.toString();
    }

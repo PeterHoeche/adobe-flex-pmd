@@ -134,6 +134,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
 
    public FlexMetricsReportMojo()
    {
+      super();
    }
 
    public FlexMetricsReportMojo( final MavenProject projectToBeSet,

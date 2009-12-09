@@ -145,110 +145,8 @@ public class NcssReportGenerator extends NcssReportGeneratorBase
 
    private void doExplanation()
    {
-      subtitleHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.title" ) );
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph1" ) );
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph2" ) );
-      getSink().table();
-
-      getSink().tableRow();
-      headerCellHelper( "" );
-      headerCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.examples" ) );
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.package" ) );
-      codeCellHelper( "package com.adobe.ac {}" );
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.import" ) );
-      codeCellHelper( "import com.adobe.ac.*;" );
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.class" ) );
-      getSink().tableCell();
-      getSink().list();
-      codeItemListHelper( "public class Foo {" );
-      codeItemListHelper( "public class Foo extends Bla {" );
-      getSink().list_();
-      getSink().tableCell_();
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.interface" ) );
-      codeCellHelper( "public interface Able {" );
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.field" ) );
-      getSink().tableCell();
-      getSink().list();
-      codeItemListHelper( "var a : Number;" );
-      codeItemListHelper( "var a : Number = 1;" );
-      getSink().list_();
-      getSink().tableCell_();
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.method" ) );
-      getSink().tableCell();
-      getSink().list();
-      codeItemListHelper( "public function cry() : void{}" );
-      codeItemListHelper( "public function gib() : DeadResult {}" );
-      getSink().list_();
-      getSink().tableCell_();
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.constructorD" ) );
-      codeCellHelper( "public Foo() {" );
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.constructorI" ) );
-      getSink().tableCell();
-      getSink().list();
-      codeItemListHelper( "super();" );
-      getSink().list_();
-      getSink().tableCell_();
-      getSink().tableRow_();
-
-      getSink().tableRow();
-      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.statement" ) );
-      getSink().tableCell();
-      getSink().list();
-      codeItemListHelper( "i = 0;" );
-      codeItemListHelper( "if (ok)" );
-      codeItemListHelper( "if (exit) {" );
-      codeItemListHelper( "if (3 == 4);" );
-      codeItemListHelper( "if (4 == 4) { ;" );
-      codeItemListHelper( "} else {" );
-      getSink().list_();
-      getSink().tableCell_();
-      getSink().tableRow_();
-      getSink().table_();
-
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph3" ) );
-
-      // CCN Explanation
-      subtitleHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.title" ) );
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph1" ) );
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph2" ) );
-      getSink().list();
-      codeItemListHelper( "if" );
-      codeItemListHelper( "for" );
-      codeItemListHelper( "while" );
-      codeItemListHelper( "case" );
-      codeItemListHelper( "catch" );
-      getSink().list_();
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph3" ) );
-      getSink().list();
-      codeItemListHelper( "if" );
-      codeItemListHelper( "for" );
-      getSink().list_();
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph4" ) );
-      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph5" ) );
+      explainNcss();
+      explainCcn();
    }
 
    @SuppressWarnings("unchecked")
@@ -431,6 +329,138 @@ public class NcssReportGenerator extends NcssReportGeneratorBase
       tableCellHelper( node.valueOf( NCSS ) );
       getSink().tableRow_();
       getSink().table_();
+   }
+
+   private void explainCcn()
+   {
+      subtitleHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.title" ) );
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph1" ) );
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph2" ) );
+      getSink().list();
+      codeItemListHelper( "if" );
+      codeItemListHelper( "for" );
+      codeItemListHelper( "while" );
+      codeItemListHelper( "case" );
+      codeItemListHelper( "catch" );
+      getSink().list_();
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph3" ) );
+      getSink().list();
+      codeItemListHelper( "if" );
+      codeItemListHelper( "for" );
+      getSink().list_();
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph4" ) );
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph5" ) );
+   }
+
+   private void explainClasses()
+   {
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.class" ) );
+      getSink().tableCell();
+      getSink().list();
+      codeItemListHelper( "public class Foo {" );
+      codeItemListHelper( "public class Foo extends Bla {" );
+      getSink().list_();
+      getSink().tableCell_();
+      getSink().tableRow_();
+
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.interface" ) );
+      codeCellHelper( "public interface Able {" );
+      getSink().tableRow_();
+   }
+
+   private void explainFunction()
+   {
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.method" ) );
+      getSink().tableCell();
+      getSink().list();
+      codeItemListHelper( "public function cry() : void{}" );
+      codeItemListHelper( "public function gib() : DeadResult {}" );
+      getSink().list_();
+      getSink().tableCell_();
+      getSink().tableRow_();
+
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.constructorD" ) );
+      codeCellHelper( "public Foo() {" );
+      getSink().tableRow_();
+
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.constructorI" ) );
+      getSink().tableCell();
+      getSink().list();
+      codeItemListHelper( "super();" );
+      getSink().list_();
+      getSink().tableCell_();
+      getSink().tableRow_();
+   }
+
+   private void explainNcss()
+   {
+      subtitleHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.title" ) );
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph1" ) );
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph2" ) );
+      getSink().table();
+
+      getSink().tableRow();
+      headerCellHelper( "" );
+      headerCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.examples" ) );
+      getSink().tableRow_();
+
+      explainPackage();
+      explainClasses();
+      explainVariable();
+      explainFunction();
+      explainStatement();
+
+      getSink().table_();
+
+      paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph3" ) );
+   }
+
+   private void explainPackage()
+   {
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.package" ) );
+      codeCellHelper( "package com.adobe.ac {}" );
+      getSink().tableRow_();
+
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.import" ) );
+      codeCellHelper( "import com.adobe.ac.*;" );
+      getSink().tableRow_();
+   }
+
+   private void explainStatement()
+   {
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.statement" ) );
+      getSink().tableCell();
+      getSink().list();
+      codeItemListHelper( "i = 0;" );
+      codeItemListHelper( "if (ok)" );
+      codeItemListHelper( "if (exit) {" );
+      codeItemListHelper( "if (3 == 4);" );
+      codeItemListHelper( "if (4 == 4) { ;" );
+      codeItemListHelper( "} else {" );
+      getSink().list_();
+      getSink().tableCell_();
+      getSink().tableRow_();
+   }
+
+   private void explainVariable()
+   {
+      getSink().tableRow();
+      tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.field" ) );
+      getSink().tableCell();
+      getSink().list();
+      codeItemListHelper( "var a : Number;" );
+      codeItemListHelper( "var a : Number = 1;" );
+      getSink().list_();
+      getSink().tableCell_();
+      getSink().tableRow_();
    }
 
    // print out the navigation bar
