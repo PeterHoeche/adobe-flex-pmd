@@ -30,9 +30,11 @@
  */
 package com.adobe.ac.pmd.services.translators
 {
+	import com.adobe.ac.pmd.model.RootRuleset;
 	import com.adobe.ac.pmd.model.Rule;
 	import com.adobe.ac.pmd.model.Ruleset;
-	import com.adobe.ac.pmd.model.RootRuleset;
+	
+	import mx.collections.ArrayCollection;
 
 	public class RootRulesetTranslator
 	{
@@ -54,6 +56,29 @@ package com.adobe.ac.pmd.services.translators
 					childRuleset.isRef = true;
 					childRuleset.getRulesetContent( ruleXml.@ref );
 					ruleset.rulesets.addItem( childRuleset );
+				}
+				else
+				{
+					if ( ! ruleset.rulesets )
+					{
+						ruleset.rulesets = new ArrayCollection();
+					}
+					var nestingRuleset : Ruleset;
+					if ( ruleset.rulesets.length == 0 )
+					{
+						nestingRuleset = new Ruleset(); // NO PMD AvoidInstanciationInLoop
+						
+						nestingRuleset.name = "Custom ruleset";
+						ruleset.rulesets.addItem( nestingRuleset );
+					}
+					else
+					{
+						nestingRuleset = Ruleset( ruleset.rulesets.getItemAt( 0 ) );
+					}
+					var newRule : Rule = RuleTranslator.deserialize( ruleXml );
+
+					newRule.ruleset = nestingRuleset;
+					nestingRuleset.rules.addItem( newRule );
 				}
 			}
 			

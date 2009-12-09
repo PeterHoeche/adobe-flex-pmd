@@ -37,7 +37,7 @@ package com.adobe.ac.pmd.control.events
 
    public class GetRootRulesetEvent extends CairngormEvent
    {
-      public static const EVENT_NAME : String = "ruleset.getRoot";
+      public static const EVENT_NAME : String = "ruleset.getCustom";
 
       private var _invoker : IGetRootRuleset;
 

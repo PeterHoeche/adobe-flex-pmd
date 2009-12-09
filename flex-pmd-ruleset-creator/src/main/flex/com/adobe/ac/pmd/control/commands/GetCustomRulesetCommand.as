@@ -28,27 +28,44 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.maven;
-
-import org.apache.maven.project.MavenProject;
-
-import com.adobe.ac.pmd.FlexPmdParameters;
-
-/**
- * @goal check
- * @phase verify
- * @execute goal="report"
- */
-public class FlexPmdMojo extends AbstractFlexPmdMojo // NO_UCD
+package com.adobe.ac.pmd.control.commands
 {
-   public FlexPmdMojo()
-   {
-      super();
-   }
+   import com.adobe.ac.pmd.api.IGetCustomRuleset;
+   import com.adobe.ac.pmd.control.events.GetCustomRulesetEvent;
+   import com.adobe.ac.pmd.services.rulesets.RulesetDelegate;
+   import com.adobe.ac.pmd.services.translators.RootRulesetTranslator;
+   import com.adobe.cairngorm.commands.ICommand;
+   import com.adobe.cairngorm.control.CairngormEvent;
+   
+   import mx.controls.Alert;
+   import mx.logging.ILogger;
+   import mx.logging.Log;
+   import mx.rpc.IResponder;
+   import mx.rpc.events.ResultEvent;
 
-   public FlexPmdMojo( final MavenProject projectToBeSet,
-                       final FlexPmdParameters parameters )
+   public class GetCustomRulesetCommand implements ICommand, IResponder
    {
-      super( projectToBeSet, parameters );
+      private static const LOG : ILogger = Log.getLogger( "com.adobe.ac.pmd.control.commands.GetCustomRulesetCommand" );
+
+      private var invoker : IGetCustomRuleset;
+
+      public function execute( event : CairngormEvent ) : void
+      {
+         invoker = GetCustomRulesetEvent( event ).invoker;
+         new RulesetDelegate().getCustomRuleset( this );
+      }
+
+      public function result( data : Object ) : void // NO PMD
+      {
+         var xml : XML = XML( ResultEvent( data ).result );
+
+         invoker.onReceiveCustomRuleset( RootRulesetTranslator.deserialize( xml ) );
+      }
+
+      public function fault( info : Object ) : void // NO PMD
+      {
+		  Alert.show( info.toString() ); // NO PMD
+          LOG.error( info.toString() );
+      }
    }
 }

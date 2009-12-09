@@ -149,7 +149,7 @@
 
 			<plugin>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>flex-pmd-maven-plugin</artifactId>
+				<artifactId>${project.parent.artifactId}-maven-plugin</artifactId>
 				<version>${project.version}</version>
 				<executions>
 					<execution>
@@ -163,7 +163,21 @@
 
 			<plugin>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>flex-pmd-cpd-maven-plugin</artifactId>
+				<artifactId>${project.parent.artifactId}-cpd-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>${project.parent.artifactId}-metrics-maven-plugin</artifactId>
 				<version>${project.version}</version>
 				<executions>
 					<execution>

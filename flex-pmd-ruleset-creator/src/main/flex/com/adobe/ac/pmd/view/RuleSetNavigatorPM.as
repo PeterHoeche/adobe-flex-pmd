@@ -31,7 +31,9 @@
 package com.adobe.ac.pmd.view
 {
     import com.adobe.ac.model.IPresentationModel;
+    import com.adobe.ac.pmd.api.IGetCustomRuleset;
     import com.adobe.ac.pmd.api.IGetRootRuleset;
+    import com.adobe.ac.pmd.control.events.GetCustomRulesetEvent;
     import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
     import com.adobe.ac.pmd.model.RootRuleset;
     import com.adobe.ac.pmd.model.Ruleset;
@@ -44,7 +46,7 @@ package com.adobe.ac.pmd.view
 
 	[Event( name="rootRulesetReceived", type = "flash.events.Event" )]
     [Event( name="rulesetReceived", type = "com.adobe.ac.pmd.model.events.RulesetReceivedEvent" )] // NO PMD UnboundType
-    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset
+    public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset, IGetCustomRuleset
     {
 		public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
 
@@ -61,7 +63,19 @@ package com.adobe.ac.pmd.view
         {
             new GetRootRulesetEvent( this ).dispatch();
         }
+		
+		public function getCustomRuleset() : void
+		{
+			new GetCustomRulesetEvent( this ).dispatch();
+		}
+		
+		public function onReceiveCustomRuleset( ruleset : RootRuleset ) : void
+		{
+			onReceiveRootRuleset( ruleset );
+			dispatchEvent( new RulesetReceivedEvent( ruleset.rulesets.getItemAt( 0 ) as Ruleset ) );			
+		}
 
+		
         public function onReceiveRootRuleset( ruleset : RootRuleset ) : void
         {
 			rulesetReceived = 0;

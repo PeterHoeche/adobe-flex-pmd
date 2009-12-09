@@ -28,27 +28,13 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.maven;
-
-import org.apache.maven.project.MavenProject;
-
-import com.adobe.ac.pmd.FlexPmdParameters;
-
-/**
- * @goal check
- * @phase verify
- * @execute goal="report"
- */
-public class FlexPmdMojo extends AbstractFlexPmdMojo // NO_UCD
+package com.adobe.ac.pmd.api
 {
-   public FlexPmdMojo()
-   {
-      super();
-   }
+   import com.adobe.ac.pmd.model.RootRuleset;
 
-   public FlexPmdMojo( final MavenProject projectToBeSet,
-                       final FlexPmdParameters parameters )
+   public interface IGetCustomRuleset
    {
-      super( projectToBeSet, parameters );
+      function getCustomRuleset() : void;
+	  function onReceiveCustomRuleset( ruleset : RootRuleset ) : void;
    }
 }

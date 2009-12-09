@@ -28,27 +28,33 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.maven;
-
-import org.apache.maven.project.MavenProject;
-
-import com.adobe.ac.pmd.FlexPmdParameters;
-
-/**
- * @goal check
- * @phase verify
- * @execute goal="report"
- */
-public class FlexPmdMojo extends AbstractFlexPmdMojo // NO_UCD
+package com.adobe.ac.pmd.control.events
 {
-   public FlexPmdMojo()
-   {
-      super();
-   }
+   import com.adobe.ac.pmd.api.IGetCustomRuleset;
+   import com.adobe.cairngorm.control.CairngormEvent;
+   
+   import flash.events.Event;
 
-   public FlexPmdMojo( final MavenProject projectToBeSet,
-                       final FlexPmdParameters parameters )
+   public class GetCustomRulesetEvent extends CairngormEvent
    {
-      super( projectToBeSet, parameters );
+      public static const EVENT_NAME : String = "ruleset.getRoot";
+
+      private var _invoker : IGetCustomRuleset;
+
+      public function GetCustomRulesetEvent( invoker : IGetCustomRuleset )
+      {
+         super( EVENT_NAME );
+         _invoker = invoker;
+      }
+
+      public function get invoker() : IGetCustomRuleset
+      {
+         return _invoker;
+      }
+
+      override public function clone() : Event
+      {
+         return new GetCustomRulesetEvent( _invoker );
+      }
    }
 }
