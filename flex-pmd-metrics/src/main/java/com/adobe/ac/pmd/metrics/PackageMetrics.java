@@ -56,6 +56,7 @@ public class PackageMetrics extends AbstractPackagedMetrics
    {
       return new StringBuffer().append( MessageFormat.format( "<functions>{0}</functions>"
                                                                     + "<classes>{1}</classes>"
+                                                                    + "<javadocs>0</javadocs>"
                                                                     + "<javadoc_lines>0</javadoc_lines>"
                                                                     + "<single_comment_lines>0</single_comment_lines>"
                                                                     + "<multi_comment_lines>0</multi_comment_lines>",
