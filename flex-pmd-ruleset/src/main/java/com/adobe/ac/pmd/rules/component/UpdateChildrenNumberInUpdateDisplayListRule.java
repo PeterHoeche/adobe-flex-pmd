@@ -37,16 +37,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlexRule // NO_UCD
 {
-   private static final String[] METHOD_NAMES =
-                                              { "addChild",
+   private static final String[] METHOD_NAMES        =
+                                                     { "addChild",
                "addChildAt",
                "removeChild",
-               "removeChildAt"               };
+               "removeChildAt"                      };
+   private static final String   UPDATE_DISPLAY_LIST = "updateDisplayList";
 
    @Override
    protected final void findViolations( final IFunction function )
    {
-      if ( function.getName().equals( "updateDisplayList" ) )
+      if ( function.getName().equals( UPDATE_DISPLAY_LIST ) )
       {
          for ( final String methodName : METHOD_NAMES )
          {
