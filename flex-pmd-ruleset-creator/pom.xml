@@ -37,7 +37,7 @@
 	<parent>
 		<artifactId>flex-pmd</artifactId>
 		<groupId>com.adobe.ac</groupId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 
 	<dependencies>
@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>flexunit-theme</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0</version>
 			<type>swc</type>
 			<scope>theme</scope>
 		</dependency>
