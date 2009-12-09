@@ -51,9 +51,8 @@ import com.adobe.ac.pmd.metrics.maven.utils.ModuleReport;
 import com.adobe.ac.pmd.metrics.maven.utils.NcssExecuter;
 
 /**
- * Goal which touches a timestamp file.
- * 
- * @goal report
+ * @author xagnetti
+ * @goal metrics
  */
 public class FlexMetricsReportMojo extends AbstractMavenReport
 {

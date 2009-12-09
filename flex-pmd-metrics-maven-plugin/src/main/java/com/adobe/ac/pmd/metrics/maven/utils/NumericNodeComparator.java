@@ -54,10 +54,10 @@ import org.dom4j.Node;
  * Comparator for numeric xml node tag.
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
- * @version $Id: NumericNodeComparator.java 3286 2007-02-08 20:18:51Z jeanlaurent
- *          $
+ * @version $Id: NumericNodeComparator.java 3286 2007-02-08 20:18:51Z
+ *          jeanlaurent $
  */
-public class NumericNodeComparator implements Comparator
+public class NumericNodeComparator implements Comparator< Node >
 {
    /**
     * the tag property used by this comparator
@@ -77,11 +77,9 @@ public class NumericNodeComparator implements Comparator
    /**
     * {@inheritDoc}
     */
-   public int compare( final Object object1,
-                       final Object object2 )
+   public int compare( final Node node1,
+                       final Node node2 )
    {
-      final Node node1 = ( Node ) object1;
-      final Node node2 = ( Node ) object2;
       return node2.numberValueOf( tagProperty ).intValue()
             - node1.numberValueOf( tagProperty ).intValue();
    }

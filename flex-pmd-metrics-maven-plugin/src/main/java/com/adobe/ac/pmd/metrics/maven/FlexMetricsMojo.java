@@ -47,7 +47,7 @@ import org.dom4j.io.SAXReader;
 /**
  * @author xagnetti
  * @goal check
- * @phase verify
+ * @execute goal="metrics"
  */
 public class FlexMetricsMojo extends AbstractMojo
 {
@@ -93,31 +93,25 @@ public class FlexMetricsMojo extends AbstractMojo
     */
    private File    xmlOutputDirectory;
 
+   @SuppressWarnings("unchecked")
    public void execute() throws MojoExecutionException,
                         MojoFailureException
    {
       final Set< String > ccnViolation = new HashSet< String >();
       final Set< String > ncssViolation = new HashSet< String >();
-      final List methodList = loadDocument().selectNodes( "//javancss/functions/function" );
-      // Count ccn & ncss violations
-      final Iterator nodeIterator = methodList.iterator();
-      while ( nodeIterator.hasNext() )
+      final List< Node > methodList = loadDocument().selectNodes( "//javancss/functions/function" );
+
+      for ( final Node node : methodList )
       {
-         final Node node = ( Node ) nodeIterator.next();
-         // count ccn violation
-         final int ccn = Integer.valueOf( node.valueOf( "ccn" ) );
-         if ( ccn > ccnLimit )
+         if ( Integer.valueOf( node.valueOf( "ccn" ) ) > ccnLimit )
          {
             ccnViolation.add( node.valueOf( "name" ) );
          }
-         // count ncss violation
-         final int ncss = Integer.valueOf( node.valueOf( "ncss" ) );
-         if ( ncss > ncssLimit )
+         if ( Integer.valueOf( node.valueOf( "ncss" ) ) > ncssLimit )
          {
             ncssViolation.add( node.valueOf( "name" ) );
          }
       }
-      // crappy....
       reportViolation( "ccn",
                        ccnViolation,
                        ccnLimit );
