@@ -48,6 +48,7 @@ public class TestAS3Parser extends AbstractAs3ParserTest
                              TokenException
    {
       asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
+      asp.buildAst( getClass().getResource( "/examples/FlexPMD115.as" ).toURI().getPath() );
       final String titlePath = getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath();
 
       asp.buildAst( titlePath );

@@ -72,6 +72,7 @@ public final class FlexCPD
       LOGGER.setLevel( Level.SEVERE );
       startFlexCPD( args );
       LOGGER.info( "FlexCPD terminated" );
+      System.exit( 0 );
    }
 
    static boolean areCommandLineOptionsCorrect( final String[] args ) throws JSAPException

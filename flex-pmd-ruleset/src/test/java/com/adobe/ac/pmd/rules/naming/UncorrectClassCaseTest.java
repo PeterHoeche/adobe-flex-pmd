@@ -33,22 +33,16 @@ package com.adobe.ac.pmd.rules.naming;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class UncorrectClassCaseTest extends AbstractFlexRuleTest
+public class UncorrectClassCaseTest extends AbstractAstFlexRuleTest
 {
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                           "schedule_internal.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 1, 34 ) } ),
-                                 "sprintf.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 1, 358 ) } ),
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.foo.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 1, 34 ) } );

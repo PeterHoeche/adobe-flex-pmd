@@ -231,7 +231,7 @@ public class AS3Parser implements IAS3Parser
       final Node result = Node.create( NodeKind.CONTENT,
                                        tok.getLine(),
                                        tok.getColumn() );
-      final List< Token > modifier = new ArrayList< Token >();
+      final List< Token > modifiers = new ArrayList< Token >();
       final List< Node > meta = new ArrayList< Node >();
 
       while ( !tokIs( Operators.RIGHT_CURLY_BRACKET )
@@ -252,21 +252,27 @@ public class AS3Parser implements IAS3Parser
          else if ( tokIs( KeyWords.CLASS ) )
          {
             result.addChild( parseClass( meta,
-                                         modifier ) );
+                                         modifiers ) );
 
-            modifier.clear();
+            modifiers.clear();
             meta.clear();
          }
          else if ( tokIs( KeyWords.INTERFACE ) )
          {
             result.addChild( parseInterface( meta,
-                                             modifier ) );
-            modifier.clear();
+                                             modifiers ) );
+            modifiers.clear();
             meta.clear();
+         }
+         else if ( tokIs( KeyWords.FUNCTION ) )
+         {
+            parseClassFunctions( result,
+                                 modifiers,
+                                 meta );
          }
          else
          {
-            modifier.add( tok );
+            modifiers.add( tok );
             nextToken();
          }
       }

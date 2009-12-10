@@ -30,40 +30,28 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UncorrectClassCase extends AbstractFlexRule
+public class UncorrectClassCase extends AbstractAstFlexRule
 {
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected void findViolations( final IClass classNode )
    {
-      return true;
+      final char firstChar = classNode.getName().charAt( 0 );
+
+      if ( firstChar < 'A'
+            || firstChar > 'Z' )
+      {
+         addViolation( new ViolationPosition( 1, getCurrentFile().getLinesNb() ) );
+      }
    }
 
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
-   }
-
-   @Override
-   protected final List< IFlexViolation > findViolationsInCurrentFile()
-   {
-      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
-      final char firstChar = getCurrentFile().getClassName().charAt( 0 );
-
-      if ( firstChar < 'A'
-            || firstChar > 'Z' )
-      {
-         addViolation( violations,
-                       new ViolationPosition( 1, getCurrentFile().getLinesNb() ) );
-      }
-      return violations;
    }
 }

@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
@@ -41,6 +42,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
 class PackageNode extends AbstractNode implements IPackage
 {
    private IClass                    classNode;
+   private final List< IFunction >   functions;
    private final List< IParserNode > imports;
    private String                    name;
 
@@ -49,6 +51,7 @@ class PackageNode extends AbstractNode implements IPackage
       super( node );
 
       imports = new ArrayList< IParserNode >();
+      functions = new ArrayList< IFunction >();
       classNode = null;
    }
 
@@ -111,6 +114,12 @@ class PackageNode extends AbstractNode implements IPackage
       }
       return classNode == null ? ""
                               : classNode.getName();
+   }
+
+   @Override
+   public List< IFunction > getFunctions()
+   {
+      return functions;
    }
 
    /*

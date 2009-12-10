@@ -101,6 +101,18 @@ public class TestPackageContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testMethodPackages() throws TokenException
+   {
+      assertPackageContent( "1",
+                            "public function a() : void { }",
+                            "<content line=\"2\" column=\"1\"><function line=\"2\" column=\"28\">"
+                                  + "<mod-list line=\"2\" column=\"28\"><mod line=\"2\" column=\"28\">public</mod>"
+                                  + "</mod-list><name line=\"2\" column=\"17\">a</name><parameter-list line=\"2\" "
+                                  + "column=\"19\"></parameter-list><type line=\"2\" column=\"23\">void</type>"
+                                  + "<block line=\"2\" column=\"30\"></block></function></content>" );
+   }
+
+   @Test
    public void testUse() throws TokenException
    {
       assertPackageContent( "1",

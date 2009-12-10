@@ -68,6 +68,7 @@ public final class FlexPMD // NO_UCD
       LOGGER.setLevel( Level.SEVERE );
       startFlexPMD( args );
       LOGGER.info( "FlexPMD terminated" );
+      System.exit( 0 );
    }
 
    static boolean areCommandLineOptionsCorrect( final String[] args ) throws JSAPException
