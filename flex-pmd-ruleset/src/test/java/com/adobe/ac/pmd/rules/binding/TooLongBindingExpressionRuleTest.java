@@ -40,6 +40,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                       "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 54, 54 ) } );
+   }
+
+   @Override
    protected String[] getMatchableLines()
    {
       return new String[]
@@ -59,15 +68,7 @@ public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTes
    {
       return new String[]
       { " text=\"\"/>",
-                  "lala()" };
-   }
-
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 54, 54 ) } );
+                  "lala()",
+                  "<mx:Label text=\"{'a.b.c.d.e.f'}\" /> " };
    }
 }
