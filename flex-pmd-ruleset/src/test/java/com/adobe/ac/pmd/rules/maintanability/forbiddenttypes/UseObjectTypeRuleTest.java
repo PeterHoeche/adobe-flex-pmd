@@ -46,6 +46,17 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
    {
       final HashMap< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
 
+      addToMap( addToMap( addToMap( violations,
+                                    "flexpmd114.a.Test.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 42, 42 ) } ),
+                          "flexpmd114.b.Test.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 42, 42 ) } ),
+                "flexpmd114.c.Test.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 42, 42 ) } );
+
       addToMap( addToMap( violations,
                           "Looping.as",
                           new ViolationPosition[]

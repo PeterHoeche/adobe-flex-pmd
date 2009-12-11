@@ -42,7 +42,20 @@ public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      final Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
+
+      addToMap( addToMap( addToMap( violations,
+                                    "flexpmd114.a.Test.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 43, 43 ) } ),
+                          "flexpmd114.b.Test.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 43, 43 ) } ),
+                "flexpmd114.c.Test.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 43, 43 ) } );
+
+      return addToMap( violations,
                        "com.adobe.ac.ncss.ConfigProxy.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 48, 48 ) } );

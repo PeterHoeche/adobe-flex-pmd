@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.files;
 
 import java.util.Set;
 
-public interface IFlexFile extends Comparable< IFlexFile >
+public interface IFlexFile
 {
    boolean contains( final String stringToLookup,
                      final Set< Integer > linesToBeIgnored );
@@ -65,12 +65,12 @@ public interface IFlexFile extends Comparable< IFlexFile >
 
    int getLinesNb();
 
+   String getPackageName();
+
    /**
     * @return the token for one line comment
     */
    String getSingleLineComment();
-
-   String getPackageName();
 
    /**
     * @return true if the file is a main MXML file

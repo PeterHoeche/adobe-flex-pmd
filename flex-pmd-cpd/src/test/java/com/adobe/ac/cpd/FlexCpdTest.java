@@ -90,9 +90,12 @@ public class FlexCpdTest extends FlexPmdTestBase
                new ExpectedMatchInformation( 31, 2, 11 ),
                new ExpectedMatchInformation( 30, 2, 2 ),
                new ExpectedMatchInformation( 29, 2, 12 ),
+               new ExpectedMatchInformation( 28, 3, 9 ),
                new ExpectedMatchInformation( 28, 2, 13 ),
                new ExpectedMatchInformation( 28, 2, 8 ),
-               new ExpectedMatchInformation( 27, 2, 10 ) };
+               new ExpectedMatchInformation( 27, 2, 10 ),
+               new ExpectedMatchInformation( 27, 2, 2 ),
+               new ExpectedMatchInformation( 27, 2, 14 ) };
 
    @Test
    public void tokenize() throws IOException

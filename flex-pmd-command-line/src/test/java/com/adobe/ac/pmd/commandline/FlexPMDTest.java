@@ -41,6 +41,9 @@ import java.net.URISyntaxException;
 
 import net.sourceforge.pmd.PMDException;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.CommandLineOptions;
@@ -77,6 +80,26 @@ public class FlexPMDTest extends FlexPmdTestBase
                   "sourceDirectory",
                   "-o",
                   "target" } ) );
+   }
+
+   @Test
+   public void testFlexPMD114() throws JSAPException,
+                               PMDException,
+                               URISyntaxException,
+                               IOException,
+                               DocumentException
+   {
+      final String[] args = new String[]
+      { "-s",
+                  getTestDirectory().getAbsolutePath()
+                        + File.separatorChar + "flexpmd114",
+                  "-o",
+                  new File( "target/test2" ).getAbsolutePath() };
+
+      FlexPMD.startFlexPMD( args );
+
+      assertEquals( 3,
+                    loadDocument( new File( "target/test2/pmd.xml" ) ).selectNodes( "//pmd/file" ).size() );
    }
 
    @Test
@@ -132,5 +155,10 @@ public class FlexPMDTest extends FlexPmdTestBase
                   "cairngorm." };
 
       FlexPMD.startFlexPMD( args );
+   }
+
+   private Document loadDocument( final File outputFile ) throws DocumentException
+   {
+      return new SAXReader().read( outputFile );
    }
 }

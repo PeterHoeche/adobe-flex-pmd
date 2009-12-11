@@ -42,7 +42,20 @@ public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      final Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
+
+      addToMap( addToMap( addToMap( violations,
+                                    "flexpmd114.a.Test.as",
+                                    new ViolationPosition[]
+                                    { new ViolationPosition( 42, 42 ) } ),
+                          "flexpmd114.b.Test.as",
+                          new ViolationPosition[]
+                          { new ViolationPosition( 42, 42 ) } ),
+                "flexpmd114.c.Test.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 42, 42 ) } );
+
+      return addToMap( addToMap( violations,
                                  "PngEncoder.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 47, 47 ) } ),

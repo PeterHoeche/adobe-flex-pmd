@@ -36,8 +36,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +46,6 @@ import net.sourceforge.pmd.RuleReference;
 import net.sourceforge.pmd.RuleSet;
 
 import com.adobe.ac.pmd.comparators.DescendentSpeedRuleComparator;
-import com.adobe.ac.pmd.comparators.FlexFileComparator;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
@@ -59,7 +56,7 @@ import com.adobe.ac.utils.StackTraceUtils;
 
 public class FlexPmdViolations
 {
-   private static final Logger                                  LOGGER;
+   private static final Logger                            LOGGER;
 
    static
    {
@@ -67,16 +64,16 @@ public class FlexPmdViolations
       LOGGER.setLevel( Level.WARNING );
    }
 
-   private Map< String, IPackage >                              asts;
-   private Map< String, IFlexFile >                             files;
-   private boolean                                              hasBeenComputed;
-   private final Map< String, IFlexRule >                       rules;
-   private final Map< IFlexRule, Long >                         ruleSpeeds;
-   private final SortedMap< IFlexFile, List< IFlexViolation > > violations;
+   private Map< String, IPackage >                        asts;
+   private Map< String, IFlexFile >                       files;
+   private boolean                                        hasBeenComputed;
+   private final Map< String, IFlexRule >                 rules;
+   private final Map< IFlexRule, Long >                   ruleSpeeds;
+   private final Map< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()
    {
-      violations = new TreeMap< IFlexFile, List< IFlexViolation > >( new FlexFileComparator() );
+      violations = new LinkedHashMap< IFlexFile, List< IFlexViolation > >();
       rules = new LinkedHashMap< String, IFlexRule >();
       ruleSpeeds = new LinkedHashMap< IFlexRule, Long >();
       hasBeenComputed = false;

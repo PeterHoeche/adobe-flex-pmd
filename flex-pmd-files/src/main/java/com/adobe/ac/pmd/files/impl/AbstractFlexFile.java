@@ -90,16 +90,6 @@ abstract class AbstractFlexFile implements IFlexFile
 
    /*
     * (non-Javadoc)
-    * @seecom.adobe.ac.pmd.files.IFlexFile#compareTo(com.adobe.ac.pmd.files.
-    * AbstractFlexFile)
-    */
-   public final int compareTo( final IFlexFile otherViolation )
-   {
-      return getFilename().compareTo( otherViolation.getFilename() );
-   }
-
-   /*
-    * (non-Javadoc)
     * @see com.adobe.ac.pmd.files.IFlexFile#contains(java.lang.String, int)
     */
    public final boolean contains( final String stringToLookup,
@@ -120,6 +110,12 @@ abstract class AbstractFlexFile implements IFlexFile
          lineIndex++;
       }
       return found;
+   }
+
+   @Override
+   public final boolean equals( final Object obj )
+   {
+      return getFullyQualifiedName().compareTo( ( ( AbstractFlexFile ) obj ).getFullyQualifiedName() ) == 0;
    }
 
    /*
