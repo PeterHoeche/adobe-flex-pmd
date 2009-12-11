@@ -92,19 +92,11 @@ class PackageNode extends AbstractNode implements IPackage
       return this;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IPackage#getClassNode()
-    */
    public IClass getClassNode()
    {
       return classNode;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IPackage#getFullyQualifiedClassName()
-    */
    public String getFullyQualifiedClassName()
    {
       if ( !"".equals( name ) )
@@ -116,16 +108,11 @@ class PackageNode extends AbstractNode implements IPackage
                               : classNode.getName();
    }
 
-   @Override
    public List< IFunction > getFunctions()
    {
       return functions;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IPackage#getImports()
-    */
    public List< IParserNode > getImports()
    {
       return imports;
