@@ -41,8 +41,8 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule 
    private static final String ALERT_CLASS_NAME           = "Alert";
    private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
    private static final String MODEL_CLASS_SUFFIX         = "model";
-   private static final String MODEL_PACKAGE_NAME         = "model";
-   private static final String VIEW_PACKAGE_NAME          = "view";
+   private static final String MODEL_PACKAGE_NAME         = ".model";
+   private static final String VIEW_PACKAGE_NAME          = ".view";
 
    @Override
    protected final ViolationPriority getDefaultPriority()
