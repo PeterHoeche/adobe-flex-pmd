@@ -98,6 +98,23 @@ public class FlexCpdTest extends FlexPmdTestBase
                new ExpectedMatchInformation( 27, 2, 14 ) };
 
    @Test
+   public void test119() throws IOException
+   {
+      final CPD cpd = new CPD( FlexTokenizer.DEFAULT_MINIMUM_TOKENS, new FlexLanguage() );
+
+      cpd.add( new File( "src/test/resources/test/FlexPMD119.mxml" ) );
+      cpd.go();
+
+      final Iterator< Match > matchIterator = cpd.getMatches();
+      final Match match = matchIterator.next();
+
+      assertEquals( 9,
+                    match.getFirstMark().getBeginLine() );
+      assertEquals( 49,
+                    match.getSecondMark().getBeginLine() );
+   }
+
+   @Test
    public void tokenize() throws IOException
    {
       final Iterator< Match > matchIterator = getMatchIterator();

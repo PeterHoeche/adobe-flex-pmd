@@ -135,7 +135,7 @@ public class FlexTokenizer implements Tokenizer
       {
          final IMxmlFile mxml = ( IMxmlFile ) flexFile;
 
-         scanner.setLines( mxml.getActualScriptBlock() );
+         scanner.setLines( mxml.getScriptBlock() );
       }
       else
       {
