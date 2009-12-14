@@ -94,6 +94,7 @@ final class ResourcesManagerTest
       {
          testRootDirectory = new File( resource.toURI().getPath() );
          testFiles = FileUtils.computeFilesList( testRootDirectory,
+                                                 null,
                                                  "" );
       }
    }

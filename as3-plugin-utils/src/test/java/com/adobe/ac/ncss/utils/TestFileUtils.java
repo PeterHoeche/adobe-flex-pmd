@@ -32,6 +32,8 @@ package com.adobe.ac.ncss.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -61,8 +63,18 @@ public class TestFileUtils extends TestCase
    @Test
    public void testListFiles()
    {
-      assertEquals( 24,
-                    FileUtils.listFiles( new File( "." ),
+      assertEquals( 12,
+                    FileUtils.listFiles( new File( "src/test/resources" ),
+                                         new FlexFilter(),
+                                         true ).size() );
+
+      final List< File > sourceDirectory = new ArrayList< File >();
+
+      sourceDirectory.add( new File( "src/test/resources/com/adobe/ac/ncss/flexunit" ) );
+      sourceDirectory.add( new File( "src/test/resources/com/adobe/ac/ncss/mxml" ) );
+
+      assertEquals( 12,
+                    FileUtils.listFiles( sourceDirectory,
                                          new FlexFilter(),
                                          true ).size() );
 

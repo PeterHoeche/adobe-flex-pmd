@@ -31,24 +31,28 @@
 package com.adobe.ac.cpd.commandline;
 
 import java.io.File;
+import java.util.List;
 
 public class FlexCpdParameters
 {
-   private final String  excludePackage;
-   private final Integer minimumTokenCount;
-   private final File    outputFile;
-   private final File    sourceDirectory;
+   private final String       excludePackage;
+   private final Integer      minimumTokenCount;
+   private final File         outputFile;
+   private final File         sourceDirectory;
+   private final List< File > sourceList;
 
    public FlexCpdParameters( final String excludePackageToBeSet,
                              final File outputFileToBeSet,
                              final Integer minimumTokenCountToBeSet,
-                             final File sourceDirectoryToBeSet )
+                             final File sourceDirectoryToBeSet,
+                             final List< File > sourceListToBeSet )
    {
       super();
       excludePackage = excludePackageToBeSet;
       minimumTokenCount = minimumTokenCountToBeSet;
       outputFile = outputFileToBeSet;
       sourceDirectory = sourceDirectoryToBeSet;
+      sourceList = sourceListToBeSet;
    }
 
    public final String getExcludePackage()
@@ -69,5 +73,10 @@ public class FlexCpdParameters
    public final File getSourceDirectory()
    {
       return sourceDirectory;
+   }
+
+   public List< File > getSourceList()
+   {
+      return sourceList;
    }
 }

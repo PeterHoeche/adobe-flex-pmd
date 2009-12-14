@@ -64,6 +64,21 @@ public final class FileUtils
                                recurse );
    }
 
+   public static Collection< File > listFiles( final List< File > sourceDirectory,
+                                               final FilenameFilter filter,
+                                               final boolean recurse )
+   {
+      final Collection< File > files = new ArrayList< File >();
+
+      for ( final File topDirectory : sourceDirectory )
+      {
+         files.addAll( listFilesRecurse( topDirectory,
+                                         filter,
+                                         recurse ) );
+      }
+      return files;
+   }
+
    public static List< String > readFile( final File file )
    {
       final List< String > result = new ArrayList< String >();

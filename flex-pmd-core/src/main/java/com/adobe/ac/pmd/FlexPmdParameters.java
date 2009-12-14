@@ -31,14 +31,16 @@
 package com.adobe.ac.pmd;
 
 import java.io.File;
+import java.util.List;
 
 public class FlexPmdParameters
 {
-   private final String  excludePackage;
-   private final boolean failOnError;
-   private final File    outputDirectory;
-   private final File    ruleSet;
-   private final File    source;
+   private final String       excludePackage;
+   private final boolean      failOnError;
+   private final File         outputDirectory;
+   private final File         ruleSet;
+   private final File         source;
+   private final List< File > sourceList;
 
    public FlexPmdParameters( final String excludePackageToBeSet,
                              final boolean failOnErrorToBeSet,
@@ -46,12 +48,28 @@ public class FlexPmdParameters
                              final File ruleSetToBeSet,
                              final File sourceToBeSet )
    {
+      this( excludePackageToBeSet,
+            failOnErrorToBeSet,
+            outputDirectoryToBeSet,
+            ruleSetToBeSet,
+            sourceToBeSet,
+            null );
+   }
+
+   public FlexPmdParameters( final String excludePackageToBeSet,
+                             final boolean failOnErrorToBeSet,
+                             final File outputDirectoryToBeSet,
+                             final File ruleSetToBeSet,
+                             final File sourceToBeSet,
+                             final List< File > sourceListToBeSet )
+   {
       super();
       excludePackage = excludePackageToBeSet;
       failOnError = failOnErrorToBeSet;
       outputDirectory = outputDirectoryToBeSet;
       ruleSet = ruleSetToBeSet;
       source = sourceToBeSet;
+      sourceList = sourceListToBeSet;
    }
 
    public FlexPmdParameters( final String excludePackageToBeSet,
@@ -59,7 +77,21 @@ public class FlexPmdParameters
                              final File ruleSetToBeSet,
                              final File sourceToBeSet )
    {
-      this( excludePackageToBeSet, false, outputDirectoryToBeSet, ruleSetToBeSet, sourceToBeSet );
+      this( excludePackageToBeSet, false, outputDirectoryToBeSet, ruleSetToBeSet, sourceToBeSet, null );
+   }
+
+   public FlexPmdParameters( final String excludePackageToBeSet,
+                             final File outputDirectoryToBeSet,
+                             final File ruleSetToBeSet,
+                             final File sourceToBeSet,
+                             final List< File > sourceListToBeSet )
+   {
+      this( excludePackageToBeSet,
+            false,
+            outputDirectoryToBeSet,
+            ruleSetToBeSet,
+            sourceToBeSet,
+            sourceListToBeSet );
    }
 
    public final String getExcludePackage()
@@ -80,6 +112,11 @@ public class FlexPmdParameters
    public final File getSource()
    {
       return source;
+   }
+
+   public List< File > getSourceList()
+   {
+      return sourceList;
    }
 
    public final boolean isFailOnError()

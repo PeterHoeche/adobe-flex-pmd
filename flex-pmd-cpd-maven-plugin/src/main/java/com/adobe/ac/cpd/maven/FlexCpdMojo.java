@@ -128,6 +128,7 @@ public class FlexCpdMojo extends AbstractMavenReport
       try
       {
          final Map< String, IFlexFile > files = FileUtils.computeFilesList( sourceDirectory,
+                                                                            null,
                                                                             "" );
 
          for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )

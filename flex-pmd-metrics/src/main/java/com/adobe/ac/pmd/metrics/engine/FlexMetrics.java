@@ -90,6 +90,7 @@ public class FlexMetrics extends AbstractMetrics
       try
       {
          asts = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
+                                                                                                  null,
                                                                                                   "" ) );
       }
       catch ( final PMDException e )

@@ -157,6 +157,24 @@ public class FlexPMDTest extends FlexPmdTestBase
       FlexPMD.startFlexPMD( args );
    }
 
+   @Test
+   public void testStartFlexPMDOnSeveralFolders() throws JSAPException,
+                                                 PMDException,
+                                                 URISyntaxException,
+                                                 IOException
+   {
+      final String filePath = getTestFiles().get( "AbstractRowData.as" ).getFilePath();
+
+      final String[] args = new String[]
+      { "-s",
+                  filePath,
+                  "-o",
+                  new File( "target/test/bug" ).getAbsolutePath()
+                        + "," + new File( "target/test/cairngorm" ).getAbsolutePath(), };
+
+      FlexPMD.startFlexPMD( args );
+   }
+
    private Document loadDocument( final File outputFile ) throws DocumentException
    {
       return new SAXReader().read( outputFile );

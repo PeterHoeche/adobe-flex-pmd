@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.commandline;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -101,15 +102,18 @@ public final class FlexPMD // NO_UCD
       {
          final String rulesetRef = getParameterValue( CommandLineOptions.RULE_SET );
          final String excludePackage = getParameterValue( CommandLineOptions.EXLUDE_PACKAGE );
-
-         final File sourceDirectory = new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
+         final String source = getParameterValue( CommandLineOptions.SOURCE_DIRECTORY );
+         final File sourceDirectory = source.contains( "," ) ? null
+                                                            : new File( source );
+         final List< File > sourceList = CommandLineUtils.computeSourceList( source );
          final File outputDirectory = new File( getParameterValue( CommandLineOptions.OUTPUT ) );
          final FlexPmdParameters parameters = new FlexPmdParameters( excludePackage == null ? ""
                                                                                            : excludePackage,
                                                                      outputDirectory,
                                                                      rulesetRef == null ? null
                                                                                        : new File( rulesetRef ),
-                                                                     sourceDirectory );
+                                                                     sourceDirectory,
+                                                                     sourceList );
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( parameters );
 
          engine.executeReport( new FlexPmdViolations() );

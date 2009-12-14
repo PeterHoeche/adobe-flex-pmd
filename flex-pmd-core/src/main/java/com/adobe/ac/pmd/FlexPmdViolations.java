@@ -80,6 +80,7 @@ public class FlexPmdViolations
    }
 
    public final void computeViolations( final File source,
+                                        final List< File > sourceList,
                                         final RuleSet ruleSet,
                                         final String packageToExclude ) throws PMDException
    {
@@ -89,6 +90,7 @@ public class FlexPmdViolations
       {
          computeRules( ruleSet );
          computeFiles( source,
+                       sourceList,
                        packageToExclude );
          computeAsts();
          processRules();
@@ -119,6 +121,7 @@ public class FlexPmdViolations
    }
 
    private void computeFiles( final File source,
+                              final List< File > sourceList,
                               final String packageToExclude ) throws PMDException
    {
       LOGGER.info( "computing FilesList" );
@@ -126,6 +129,7 @@ public class FlexPmdViolations
       final long startTime = System.currentTimeMillis();
 
       files = FileUtils.computeFilesList( source,
+                                          sourceList,
                                           packageToExclude );
       LOGGER.info( "computed FilesList in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );

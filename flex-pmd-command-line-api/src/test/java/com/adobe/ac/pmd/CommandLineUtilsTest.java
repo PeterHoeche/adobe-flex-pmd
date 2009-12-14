@@ -30,43 +30,43 @@
  */
 package com.adobe.ac.pmd;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import com.martiansoftware.jsap.FlaggedOption;
+import org.junit.Test;
+
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 
-public final class CommandLineUtils
+public class CommandLineUtilsTest
 {
-   public static List< File > computeSourceList( final String source )
+   @Test
+   public void testComputeSourceList()
    {
-      if ( !source.contains( "," ) )
-      {
-         return null;
-      }
-      final List< File > sourceList = new ArrayList< File >();
-      for ( int i = 0; i < source.split( "," ).length; i++ )
-      {
-         sourceList.add( new File( source.split( "," )[ i ] ) );
-      }
-      return sourceList;
+      assertEquals( 3,
+                    CommandLineUtils.computeSourceList( "lala,toto,tyty" ).size() );
+      assertNull( CommandLineUtils.computeSourceList( "lala" ) );
    }
 
-   public static void registerParameter( final JSAP jsap,
-                                         final ICommandLineOptions option,
-                                         final boolean required ) throws JSAPException
+   @Test
+   public void testRegisterParameter() throws JSAPException
    {
-      final String optionName = option.toString();
+      final JSAP jsap = new JSAP();
 
-      jsap.registerParameter( new FlaggedOption( optionName ).setStringParser( JSAP.STRING_PARSER )
-                                                             .setRequired( required )
-                                                             .setShortFlag( optionName.charAt( 0 ) )
-                                                             .setLongFlag( optionName ) );
+      CommandLineUtils.registerParameter( jsap,
+                                          new ICommandLineOptions()
+                                          {
+                                             @Override
+                                             public String toString()
+                                             {
+                                                return "name";
+                                             }
+                                          },
+                                          true );
+
+      assertTrue( jsap.getByShortFlag( 'n' ) != null );
+      assertNull( jsap.getByShortFlag( 'm' ) );
    }
 
-   private CommandLineUtils()
-   {
-   }
 }

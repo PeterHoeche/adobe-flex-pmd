@@ -33,6 +33,7 @@ package com.adobe.ac.cpd.commandline;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -106,8 +107,10 @@ public final class FlexCPD
       {
          final String minimumTokens = getParameterValue( CpdCommandLineOptions.MINIMUM_TOKENS );
          final String excludePackage = getParameterValue( CommandLineOptions.EXLUDE_PACKAGE );
-
-         final File sourceDirectory = new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
+         final String source = getParameterValue( CommandLineOptions.SOURCE_DIRECTORY );
+         final File sourceDirectory = source.contains( "," ) ? null
+                                                            : new File( source );
+         final List< File > sourceList = CommandLineUtils.computeSourceList( source );
          final File outputDirectory = new File( getParameterValue( CpdCommandLineOptions.OUTPUT_FILE ) );
 
          parameters = new FlexCpdParameters( excludePackage == null ? ""
@@ -115,7 +118,8 @@ public final class FlexCPD
                                              outputDirectory,
                                              minimumTokens == null ? FlexTokenizer.DEFAULT_MINIMUM_TOKENS
                                                                   : Integer.valueOf( minimumTokens ),
-                                             sourceDirectory );
+                                             sourceDirectory,
+                                             sourceList );
          LOGGER.info( "Starting run, minimumTokenCount is "
                + parameters.getMinimumTokenCount() );
 
@@ -188,6 +192,7 @@ public final class FlexCPD
                                                      PMDException
    {
       final Map< String, IFlexFile > files = FileUtils.computeFilesList( parameters.getSourceDirectory(),
+                                                                         parameters.getSourceList(),
                                                                          "" );
 
       for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
