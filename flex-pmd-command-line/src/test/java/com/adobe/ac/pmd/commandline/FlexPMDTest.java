@@ -163,14 +163,12 @@ public class FlexPMDTest extends FlexPmdTestBase
                                                  URISyntaxException,
                                                  IOException
    {
-      final String filePath = getTestFiles().get( "AbstractRowData.as" ).getFilePath();
-
       final String[] args = new String[]
       { "-s",
-                  filePath,
-                  "-o",
                   new File( "target/test/bug" ).getAbsolutePath()
-                        + "," + new File( "target/test/cairngorm" ).getAbsolutePath(), };
+                        + "," + new File( "target/test/cairngorm" ).getAbsolutePath(),
+                  "-o",
+                  new File( "target/test" ).getAbsolutePath(), };
 
       FlexPMD.startFlexPMD( args );
    }
