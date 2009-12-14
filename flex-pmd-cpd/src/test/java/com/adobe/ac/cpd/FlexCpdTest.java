@@ -108,9 +108,9 @@ public class FlexCpdTest extends FlexPmdTestBase
       final Iterator< Match > matchIterator = cpd.getMatches();
       final Match match = matchIterator.next();
 
-      assertEquals( 9,
+      assertEquals( 41,
                     match.getFirstMark().getBeginLine() );
-      assertEquals( 49,
+      assertEquals( 81,
                     match.getSecondMark().getBeginLine() );
    }
 
