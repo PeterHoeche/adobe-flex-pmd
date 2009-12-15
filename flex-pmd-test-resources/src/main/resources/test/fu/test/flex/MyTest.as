@@ -39,5 +39,20 @@ package
 		{
 			assertThat(true);
 		}
+
+		private static var eventDispatcher:EventDispatcher = new EventDispatcher();
+		
+		[Test(async)]
+		public function dummyTestFlexPMD132Async():void
+		{
+			Async.handleEvent(this, eventDispatcher, "myEvent", eventHandler);
+			eventDispatcher.dispatchEvent(new Event("myEvent")); // NO PMD DispatchHardCodedEventName
+		}
+		
+		private function eventHandler(event:Event, ptd:*):void // NO PMD UnusedParameter,UseGenericType
+		{
+			Assert.assertTrue(true);
+		}
+
 	}
 }

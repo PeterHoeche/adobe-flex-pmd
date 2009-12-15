@@ -53,6 +53,7 @@ public class EmptyUnitTest extends AbstractAstFlexRule
                "assertUndefined",
                "assertNotUndefined",
                "assertThat",
+               "handleEvent",
                "assertEvents",
                "fail"                      };
 
