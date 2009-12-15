@@ -49,7 +49,11 @@ package com.adobe.ac.pmd.control.commands
 
       private var invoker : IGetCustomRuleset;
 
-      public function execute( event : CairngormEvent ) : void
+	  public function GetCustomRulesetCommand()
+	  {
+	  }
+
+	  public function execute( event : CairngormEvent ) : void
       {
          invoker = GetCustomRulesetEvent( event ).invoker;
          new RulesetDelegate().getCustomRuleset( this );

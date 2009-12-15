@@ -49,7 +49,11 @@ package com.adobe.ac.pmd.services.rulesets
 	   private var _responder : IResponder;
 	   private var _fileReference : FileReference;
 	   
-      public function getRuleset( responder : IResponder, ref : String ) : void
+	   public function RulesetDelegate()
+	   {
+	   }
+
+	   public function getRuleset( responder : IResponder, ref : String ) : void
       {
          rulesetService.url = MyServiceLocator.RULESETS_PREFIX + ref;
          rulesetService.send().addResponder( responder );
