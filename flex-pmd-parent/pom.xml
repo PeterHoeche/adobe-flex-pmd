@@ -79,6 +79,7 @@
 		<maven-plugin-api.version>3.0-alpha-2</maven-plugin-api.version>
 		<maven-plugin-testing-harness.version>1.0-beta-1</maven-plugin-testing-harness.version>
 		<ant.version>1.7.0</ant.version>
+		<dom4j.version>1.6.1</dom4j.version>
 
 		<!-- Reporting versions -->
 		<maven-pmd-plugin.version>2.4</maven-pmd-plugin.version>
