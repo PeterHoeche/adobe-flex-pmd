@@ -1,6 +1,76 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties includeAllClasses="true" version="3">
   <includeClasses/>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="assets/cancelledIcon.png" sourcePath="assets/cancelledIcon.png"/>
+    <resourceEntry destPath="assets/export.png" sourcePath="assets/export.png"/>
+    <resourceEntry destPath="assets/icon_tool_trash.png" sourcePath="assets/icon_tool_trash.png"/>
+    <resourceEntry destPath="assets/icon_tool_trash2.png" sourcePath="assets/icon_tool_trash2.png"/>
+    <resourceEntry destPath="assets/todoLogo.png" sourcePath="assets/todoLogo.png"/>
+    <resourceEntry destPath="assets/todoLogo_big.png" sourcePath="assets/todoLogo_big.png"/>
+    <resourceEntry destPath="css/default.css" sourcePath="css/default.css"/>
+    <resourceEntry destPath="fonts/fonts.fla" sourcePath="fonts/fonts.fla"/>
+    <resourceEntry destPath="fonts/fonts.swf" sourcePath="fonts/fonts.swf"/>
+    <resourceEntry destPath="skins/ButtonBarButton_disabledSkin.png" sourcePath="skins/ButtonBarButton_disabledSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarButton_downSkin.png" sourcePath="skins/ButtonBarButton_downSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarButton_overSkin.png" sourcePath="skins/ButtonBarButton_overSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarButton_selectedDisabledSkin.png" sourcePath="skins/ButtonBarButton_selectedDisabledSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarButton_selectedUpSkin.png" sourcePath="skins/ButtonBarButton_selectedUpSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarButton_upSkin.png" sourcePath="skins/ButtonBarButton_upSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarFirstButton_disabledSkin.png" sourcePath="skins/ButtonBarFirstButton_disabledSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarFirstButton_downSkin.png" sourcePath="skins/ButtonBarFirstButton_downSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarFirstButton_overSkin.png" sourcePath="skins/ButtonBarFirstButton_overSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarFirstButton_selectedDisabledSkin.png" sourcePath="skins/ButtonBarFirstButton_selectedDisabledSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarFirstButton_selectedUpSkin.png" sourcePath="skins/ButtonBarFirstButton_selectedUpSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarFirstButton_upSkin.png" sourcePath="skins/ButtonBarFirstButton_upSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarLastButton_disabledSkin.png" sourcePath="skins/ButtonBarLastButton_disabledSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarLastButton_downSkin.png" sourcePath="skins/ButtonBarLastButton_downSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarLastButton_overSkin.png" sourcePath="skins/ButtonBarLastButton_overSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarLastButton_selectedDisabledSkin.png" sourcePath="skins/ButtonBarLastButton_selectedDisabledSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarLastButton_selectedUpSkin.png" sourcePath="skins/ButtonBarLastButton_selectedUpSkin.png"/>
+    <resourceEntry destPath="skins/ButtonBarLastButton_upSkin.png" sourcePath="skins/ButtonBarLastButton_upSkin.png"/>
+    <resourceEntry destPath="skins/Button_disabledSkin.png" sourcePath="skins/Button_disabledSkin.png"/>
+    <resourceEntry destPath="skins/Button_downSkin.png" sourcePath="skins/Button_downSkin.png"/>
+    <resourceEntry destPath="skins/Button_overSkin.png" sourcePath="skins/Button_overSkin.png"/>
+    <resourceEntry destPath="skins/Button_upSkin.png" sourcePath="skins/Button_upSkin.png"/>
+    <resourceEntry destPath="skins/CursorManager_busyCursor.png" sourcePath="skins/CursorManager_busyCursor.png"/>
+    <resourceEntry destPath="skins/DataGrid_borderSkin.png" sourcePath="skins/DataGrid_borderSkin.png"/>
+    <resourceEntry destPath="skins/DataGrid_columnDropIndicatorSkin.png" sourcePath="skins/DataGrid_columnDropIndicatorSkin.png"/>
+    <resourceEntry destPath="skins/DataGrid_columnResizeSkin.png" sourcePath="skins/DataGrid_columnResizeSkin.png"/>
+    <resourceEntry destPath="skins/DataGrid_headerBackgroundSkin.png" sourcePath="skins/DataGrid_headerBackgroundSkin.png"/>
+    <resourceEntry destPath="skins/DataGrid_headerSeparatorSkin.png" sourcePath="skins/DataGrid_headerSeparatorSkin.png"/>
+    <resourceEntry destPath="skins/DataGrid_sortArrowSkin.png" sourcePath="skins/DataGrid_sortArrowSkin.png"/>
+    <resourceEntry destPath="skins/DataGrid_stretchCursor.png" sourcePath="skins/DataGrid_stretchCursor.png"/>
+    <resourceEntry destPath="skins/FormItem_indicatorSkin.png" sourcePath="skins/FormItem_indicatorSkin.png"/>
+    <resourceEntry destPath="skins/HScrollArrowLeft_disabledSkin.png" sourcePath="skins/HScrollArrowLeft_disabledSkin.png"/>
+    <resourceEntry destPath="skins/HScrollArrowRight_disabledSkin.png" sourcePath="skins/HScrollArrowRight_disabledSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_leftArrowDownSkin.png" sourcePath="skins/HScrollBar_leftArrowDownSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_leftArrowOverSkin.png" sourcePath="skins/HScrollBar_leftArrowOverSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_leftArrowUpSkin.png" sourcePath="skins/HScrollBar_leftArrowUpSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_rightArrowDownSkin.png" sourcePath="skins/HScrollBar_rightArrowDownSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_rightArrowOverSkin.png" sourcePath="skins/HScrollBar_rightArrowOverSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_rightArrowUpSkin.png" sourcePath="skins/HScrollBar_rightArrowUpSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_thumbDownSkin.png" sourcePath="skins/HScrollBar_thumbDownSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_thumbIcon.png" sourcePath="skins/HScrollBar_thumbIcon.png"/>
+    <resourceEntry destPath="skins/HScrollBar_thumbOverSkin.png" sourcePath="skins/HScrollBar_thumbOverSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_thumbUpSkin.png" sourcePath="skins/HScrollBar_thumbUpSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_trackDisabledSkin.png" sourcePath="skins/HScrollBar_trackDisabledSkin.png"/>
+    <resourceEntry destPath="skins/HScrollBar_trackSkin.png" sourcePath="skins/HScrollBar_trackSkin.png"/>
+    <resourceEntry destPath="skins/Panel_borderSkin.png" sourcePath="skins/Panel_borderSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_downArrowDisabledSkin.png" sourcePath="skins/VScrollBar_downArrowDisabledSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_downArrowDownSkin.png" sourcePath="skins/VScrollBar_downArrowDownSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_downArrowOverSkin.png" sourcePath="skins/VScrollBar_downArrowOverSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_downArrowUpSkin.png" sourcePath="skins/VScrollBar_downArrowUpSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_thumbDownSkin.png" sourcePath="skins/VScrollBar_thumbDownSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_thumbIcon.png" sourcePath="skins/VScrollBar_thumbIcon.png"/>
+    <resourceEntry destPath="skins/VScrollBar_thumbOverSkin.png" sourcePath="skins/VScrollBar_thumbOverSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_thumbUpSkin.png" sourcePath="skins/VScrollBar_thumbUpSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_trackDisabledSkin.png" sourcePath="skins/VScrollBar_trackDisabledSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_trackSkin.png" sourcePath="skins/VScrollBar_trackSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_upArrowDisabledSkin.png" sourcePath="skins/VScrollBar_upArrowDisabledSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_upArrowDownSkin.png" sourcePath="skins/VScrollBar_upArrowDownSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_upArrowOverSkin.png" sourcePath="skins/VScrollBar_upArrowOverSkin.png"/>
+    <resourceEntry destPath="skins/VScrollBar_upArrowUpSkin.png" sourcePath="skins/VScrollBar_upArrowUpSkin.png"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>
