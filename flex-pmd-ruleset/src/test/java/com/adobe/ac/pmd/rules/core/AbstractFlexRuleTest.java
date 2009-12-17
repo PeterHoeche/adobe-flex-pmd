@@ -180,8 +180,8 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    {
       assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD" ) );
       assertFalse( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD AlertShow" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD Ignored" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD com.adobe.ac.Ignored" ) );
+      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD AbstractFlexTest$Ignored" ) );
+      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD adobe.ac.pmd.rules.core.AbstractFlexTest$Ignored" ) );
       assertFalse( new IgnoredRule().isViolationIgnored( "var i : int;" ) );
    }
 

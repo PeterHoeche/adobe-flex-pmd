@@ -103,6 +103,27 @@ public class FlexPMDTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testFlexPMD88() throws JSAPException,
+                              PMDException,
+                              URISyntaxException,
+                              IOException,
+                              DocumentException
+   {
+      final String[] args = new String[]
+      { "-s",
+                  getTestDirectory().getAbsolutePath()
+                        + File.separatorChar + "bug" + File.separatorChar + "FlexPMD88.as",
+                  "-o",
+                  new File( "target/test3" ).getAbsolutePath() };
+
+      FlexPMD.startFlexPMD( args );
+
+      assertEquals( 5,
+                    loadDocument( new File( "target/test3/pmd.xml" ) ).selectNodes( "//pmd/file[1]/violation" )
+                                                                      .size() );
+   }
+
+   @Test
    public void testGetCommandLineValue() throws JSAPException
    {
       FlexPMD.areCommandLineOptionsCorrect( new String[]

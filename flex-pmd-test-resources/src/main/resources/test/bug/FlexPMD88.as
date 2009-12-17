@@ -39,10 +39,10 @@ package
 		{
 			var paragraph : ParagraphElement = new ParagraphElement();
 			paragraph.addChild(new BreakElement());
-			paragraph.addChild(new BreakElement()); // NO PMD AlertShow
-			paragraph.addChild(new BreakElement()); // NO PMD AlertShowRule
-			paragraph.addChild(new BreakElement()); // NO PMD com.adobe.ac.pmd.rules.maintanability.AlertShow
-			paragraph.addChild(new BreakElement()); // NO PMD com.adobe.ac.pmd.rules.maintanability.AlertShowRule
+			var iii : int = 0; // NO PMD AlertShow
+			var iiii : int = 0; // NO PMD AlertShowRule
+			var iiiii : int = 0; // NO PMD com.adobe.ac.pmd.rules.maintanability.AlertShow
+			var iiiiii : int = 0; // NO PMD com.adobe.ac.pmd.rules.maintanability.AlertShowRule
 			
 			for (var i:int = 0; i < 2; i++)
           		for (var j:int = 0; j < 2; j++)

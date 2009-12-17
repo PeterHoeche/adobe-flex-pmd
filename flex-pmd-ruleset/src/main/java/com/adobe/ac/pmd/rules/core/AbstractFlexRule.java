@@ -123,8 +123,8 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
          return false;
       }
       final String strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) );
-      final String name = getName().replaceAll( "Rule",
-                                                "" );
+      final String name = getRuleName().replaceAll( "Rule",
+                                                    "" );
       final String ruleName = name.contains( "." ) ? StringUtils.substringAfterLast( name,
                                                                                      "." )
                                                   : name;
