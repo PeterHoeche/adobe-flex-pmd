@@ -35,9 +35,10 @@ public class FunctionMetrics extends AbstractNamedMetrics
    public FunctionMetrics( final int nonCommentStatements,
                            final String name,
                            final String packageName,
-                           final int ccn )
+                           final int ccn,
+                           final int asDocs )
    {
-      super( nonCommentStatements, name, packageName, ccn );
+      super( nonCommentStatements, name, packageName, ccn, asDocs );
    }
 
    public String getContreteXml()

@@ -53,6 +53,7 @@ public class AS3Parser implements IAS3Parser
    public static final String MULTIPLE_LINES_COMMENT = "/*";
    public static final String NEW_LINE               = "\n";
    public static final String SINGLE_LINE_COMMENT    = "//";
+   private Node               currentAsDoc;
    private String             fileName;
    private boolean            isInFor;
    private AS3Scanner         scn;
@@ -147,10 +148,18 @@ public class AS3Parser implements IAS3Parser
                                  modifiers,
                                  meta );
          }
+         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            currentAsDoc = Node.create( NodeKind.AS_DOC,
+                                        tok.getLine(),
+                                        tok.getColumn(),
+                                        tok.getText() );
+            nextToken();
+         }
          else
          {
             modifiers.add( tok );
-            nextToken();
+            nextTokenIgnoringAsDoc();
          }
       }
       return result;
@@ -167,7 +176,7 @@ public class AS3Parser implements IAS3Parser
                                        -1,
                                        -1 );
 
-      nextToken();
+      nextTokenIgnoringAsDoc();
       if ( tokIs( KeyWords.PACKAGE ) )
       {
          result.addChild( parsePackage() );
@@ -213,9 +222,17 @@ public class AS3Parser implements IAS3Parser
             }
             nextToken();
          }
+         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            currentAsDoc = Node.create( NodeKind.AS_DOC,
+                                        tok.getLine(),
+                                        tok.getColumn(),
+                                        tok.getText() );
+            nextToken();
+         }
          else
          {
-            nextToken();
+            nextTokenIgnoringAsDoc();
          }
       }
       return result;
@@ -270,10 +287,18 @@ public class AS3Parser implements IAS3Parser
                                  modifiers,
                                  meta );
          }
+         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            currentAsDoc = Node.create( NodeKind.AS_DOC,
+                                        tok.getLine(),
+                                        tok.getColumn(),
+                                        tok.getText() );
+            nextToken();
+         }
          else
          {
             modifiers.add( tok );
-            nextToken();
+            nextTokenIgnoringAsDoc();
          }
       }
       return result;
@@ -593,8 +618,16 @@ public class AS3Parser implements IAS3Parser
             throw new NullTokenException( fileName );
          }
       }
-      while ( tok.getText().startsWith( SINGLE_LINE_COMMENT )
-            || tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) );
+      while ( tok.getText().startsWith( SINGLE_LINE_COMMENT ) );
+   }
+
+   private void nextTokenIgnoringAsDoc() throws TokenException
+   {
+      do
+      {
+         nextToken();
+      }
+      while ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) );
    }
 
    // ------------------------------------------------------------------------
@@ -837,6 +870,11 @@ public class AS3Parser implements IAS3Parser
       final Node result = Node.create( NodeKind.CLASS,
                                        tok.getLine(),
                                        tok.getColumn() );
+
+      if ( currentAsDoc != null )
+      {
+         result.addChild( currentAsDoc );
+      }
       result.addChild( NodeKind.NAME,
                        tok.getLine(),
                        tok.getColumn(),
@@ -1219,6 +1257,10 @@ public class AS3Parser implements IAS3Parser
                                        tok.getColumn(),
                                        signature[ 0 ].getStringValue() );
 
+      if ( currentAsDoc != null )
+      {
+         result.addChild( currentAsDoc );
+      }
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
       result.addChild( signature[ 1 ] );
@@ -1387,6 +1429,10 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn() );
 
+      if ( currentAsDoc != null )
+      {
+         result.addChild( currentAsDoc );
+      }
       result.addChild( NodeKind.NAME,
                        tok.getLine(),
                        tok.getColumn(),

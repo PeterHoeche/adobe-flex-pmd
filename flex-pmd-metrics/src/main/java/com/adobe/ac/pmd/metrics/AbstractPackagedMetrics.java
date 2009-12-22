@@ -34,18 +34,26 @@ import java.text.MessageFormat;
 
 public abstract class AbstractPackagedMetrics implements IMetrics
 {
+   private final int    asDocs;
    private final int    ccn;
    private final int    nonCommentStatements;
    private final String packageName;
 
    protected AbstractPackagedMetrics( final int nonCommentStatementsToBeSet,
                                       final String packageNameToBeSet,
-                                      final int ccnToBeSet )
+                                      final int ccnToBeSet,
+                                      final int asDocsToBeSet )
    {
       super();
       nonCommentStatements = nonCommentStatementsToBeSet;
       packageName = packageNameToBeSet;
       ccn = ccnToBeSet;
+      asDocs = asDocsToBeSet;
+   }
+
+   public int getAsDocs()
+   {
+      return asDocs;
    }
 
    abstract public String getFullName();
@@ -64,12 +72,13 @@ public abstract class AbstractPackagedMetrics implements IMetrics
 
    public String toXmlString()
    {
-      return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss>"
-                                                                    + "{4}</{5}>",
+      return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss><javadocs>{4}</javadocs>"
+                                                                    + "{5}</{6}>",
                                                               getMetricsName(),
                                                               getFullName(),
                                                               String.valueOf( ccn ),
                                                               String.valueOf( nonCommentStatements ),
+                                                              String.valueOf( asDocs ),
                                                               getContreteXml(),
                                                               getMetricsName() ) )
                                .toString();

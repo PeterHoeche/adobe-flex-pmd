@@ -42,7 +42,7 @@ public class PackageMetrics extends AbstractPackagedMetrics
                           final int classesToBeSet,
                           final String packageName )
    {
-      super( nonCommentStatements, packageName, 0 );
+      super( nonCommentStatements, packageName, 0, 0 );
       functions = functionsToBeSet;
       classes = classesToBeSet;
    }
@@ -56,12 +56,13 @@ public class PackageMetrics extends AbstractPackagedMetrics
    {
       return new StringBuffer().append( MessageFormat.format( "<functions>{0}</functions>"
                                                                     + "<classes>{1}</classes>"
-                                                                    + "<javadocs>0</javadocs>"
+                                                                    + "<javadocs>{2}</javadocs>"
                                                                     + "<javadoc_lines>0</javadoc_lines>"
                                                                     + "<single_comment_lines>0</single_comment_lines>"
                                                                     + "<multi_comment_lines>0</multi_comment_lines>",
                                                               String.valueOf( functions ),
-                                                              String.valueOf( classes ) ) )
+                                                              String.valueOf( classes ),
+                                                              String.valueOf( getAsDocs() ) ) )
                                .toString();
    }
 

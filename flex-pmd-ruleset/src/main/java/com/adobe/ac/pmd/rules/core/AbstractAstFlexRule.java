@@ -397,7 +397,7 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       IParserNode currentNode = iterator.next();
 
       while ( currentNode.is( NodeKind.META_LIST )
-            || currentNode.is( NodeKind.MOD_LIST ) )
+            || currentNode.is( NodeKind.MOD_LIST ) || currentNode.is( NodeKind.AS_DOC ) )
       {
          currentNode = iterator.next();
       }
@@ -855,7 +855,8 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    private void visitNameTypeInit( final IParserNode ast )
    {
-      if ( ast.numChildren() != 0 )
+      if ( ast != null
+            && ast.numChildren() != 0 )
       {
          final Iterator< IParserNode > iterator = ast.getChildren().iterator();
          IParserNode node;

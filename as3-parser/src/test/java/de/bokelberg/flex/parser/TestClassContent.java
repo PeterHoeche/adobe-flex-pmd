@@ -36,24 +36,6 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class TestClassContent extends AbstractAs3ParserTest
 {
-   private void assertClassContent( final String message,
-                                    final String input,
-                                    final String expected ) throws TokenException
-   {
-      scn.setLines( new String[]
-      { "{",
-                  input,
-                  "}",
-                  "__END__" } );
-      asp.nextToken(); // first call
-      asp.nextToken(); // skip {
-      final String result = new ASTToXMLConverter().convert( asp.parseClassContent() );
-      assertEquals( message,
-                    "<content line=\"2\" column=\"1\">"
-                          + expected + "</content>",
-                    result );
-   }
-
    @Test
    public void testConstDeclarations() throws TokenException
    {
@@ -141,6 +123,26 @@ public class TestClassContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testMethodsWithAsDoc() throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  "/** AsDoc */public function a(){}",
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+
+      assertEquals( "<content line=\"2\" column=\"12\"><function line=\"2\" column=\"32\">"
+                          + "<as-doc line=\"2\" column=\"12\">/** AsDoc */</as-doc><mod-list "
+                          + "line=\"2\" column=\"32\"><mod line=\"2\" column=\"32\">public</mod>"
+                          + "</mod-list><name line=\"2\" column=\"29\">a</name><parameter-list "
+                          + "line=\"2\" column=\"31\"></parameter-list><type line=\"2\" column=\"32\">"
+                          + "</type><block line=\"2\" column=\"33\"></block></function></content>",
+                    new ASTToXMLConverter().convert( asp.parseClassContent() ) );
+   }
+
+   @Test
    public void testRestParameter() throws TokenException
    {
       assertClassContent( "",
@@ -189,5 +191,23 @@ public class TestClassContent extends AbstractAs3ParserTest
                                 + "<name-type-init line=\"2\" column=\"16\">"
                                 + "<name line=\"2\" column=\"16\">a</name><type line=\"3\" column=\"1\">"
                                 + "</type></name-type-init></var-list>" );
+   }
+
+   private void assertClassContent( final String message,
+                                    final String input,
+                                    final String expected ) throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  input,
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+      final String result = new ASTToXMLConverter().convert( asp.parseClassContent() );
+      assertEquals( message,
+                    "<content line=\"2\" column=\"1\">"
+                          + expected + "</content>",
+                    result );
    }
 }

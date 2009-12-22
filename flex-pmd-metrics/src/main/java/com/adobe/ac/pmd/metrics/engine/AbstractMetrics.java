@@ -162,13 +162,14 @@ public abstract class AbstractMetrics
       }
 
       buffer.append( MessageFormat.format( "<function_averages>"
-                                                 + "<ncss>{0}</ncss>" + "<javadocs>0</javadocs>"
+                                                 + "<ncss>{0}</ncss>" + "<javadocs>{1}</javadocs>"
                                                  + "<javadoc_lines>0</javadoc_lines>"
                                                  + "<single_comment_lines>0</single_comment_lines>"
                                                  + "<multi_comment_lines>0</multi_comment_lines>"
-                                                 + "</function_averages><ncss>{1}</ncss>" + "</functions>",
+                                                 + "</function_averages><ncss>{2}</ncss>" + "</functions>",
                                            String.valueOf( metrics.getAverageFunctions()
                                                                   .getAverageStatements() ),
+                                           String.valueOf( metrics.getAverageFunctions().getAverageDocs() ),
                                            String.valueOf( metrics.getTotalPackages().getTotalStatements() ) ) );
 
       return buffer.toString();
@@ -187,14 +188,15 @@ public abstract class AbstractMetrics
 
       buffer.append( MessageFormat.format( "<averages>"
                                                  + "<classes>{0}</classes>" + "<functions>{1}</functions>"
-                                                 + "<ncss>{2}</ncss>" + "<javadocs>0</javadocs>"
+                                                 + "<ncss>{2}</ncss>" + "<javadocs>{3}</javadocs>"
                                                  + "<javadoc_lines>0</javadoc_lines>"
                                                  + "<single_comment_lines>0</single_comment_lines>"
                                                  + "<multi_comment_lines>0</multi_comment_lines>"
-                                                 + "</averages><ncss>{3}</ncss>" + "</objects>",
+                                                 + "</averages><ncss>{4}</ncss>" + "</objects>",
                                            String.valueOf( metrics.getClasses().size() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageFunctions() ),
                                            String.valueOf( metrics.getAverageObjects().getAverageStatements() ),
+                                           String.valueOf( metrics.getAverageObjects().getAverageDocs() ),
                                            String.valueOf( metrics.getTotalPackages().getTotalStatements() ) ) );
       return buffer.toString();
    }

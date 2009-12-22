@@ -50,6 +50,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class FunctionNode extends AbstractNode implements IFunction
 {
+   private IParserNode                              asDoc;
    private IParserNode                              body;
    private int                                      cyclomaticComplexity;
    private final Map< String, IParserNode >         localVariables;
@@ -120,6 +121,10 @@ class FunctionNode extends AbstractNode implements IFunction
                MetaDataUtils.computeMetaDataList( this,
                                                   node );
             }
+            else if ( node.is( NodeKind.AS_DOC ) )
+            {
+               asDoc = node;
+            }
          }
       }
       return this;
@@ -146,6 +151,12 @@ class FunctionNode extends AbstractNode implements IFunction
       return body == null ? new ArrayList< IParserNode >()
                          : body.findPrimaryStatementsFromNameInChildren( new String[]
                          { primaryName } );
+   }
+
+   @Override
+   public IParserNode getAsDoc()
+   {
+      return asDoc;
    }
 
    /*

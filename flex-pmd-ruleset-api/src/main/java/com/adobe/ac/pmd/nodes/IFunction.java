@@ -41,10 +41,10 @@ import com.adobe.ac.pmd.parser.IParserNode;
  * 
  * @author xagnetti
  */
-public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode
+public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode, IAsDocHolder
 {
    /**
-    * Finds recursivly a statement in the function body from a list of names
+    * Finds recursively a statement in the function body from a list of names
     * 
     * @param primaryNames statement name
     * @return corresponding node
@@ -52,7 +52,7 @@ public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode
    List< IParserNode > findPrimaryStatementInBody( final String[] primaryNames );
 
    /**
-    * Finds recursivly a statement in the function body from its name
+    * Finds recursively a statement in the function body from its name
     * 
     * @param primaryName statement name
     * @return corresponding node

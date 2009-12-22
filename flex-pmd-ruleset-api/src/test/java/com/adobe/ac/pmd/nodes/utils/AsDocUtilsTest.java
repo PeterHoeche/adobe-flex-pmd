@@ -28,45 +28,35 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.nodes.utils;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.adobe.ac.pmd.files.impl.FileUtils;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.exceptions.TokenException;
+import com.adobe.ac.pmd.nodes.asdoc.impl.ClassAsDocNode;
 
-public class TestAS3Parser extends AbstractAs3ParserTest
+public class AsDocUtilsTest
 {
-   @Test
-   public void testBuildAst() throws IOException,
-                             URISyntaxException,
-                             TokenException
-   {
-      asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
-      asp.buildAst( getClass().getResource( "/examples/FlexPMD115.as" ).toURI().getPath() );
-      final String titlePath = getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath();
 
-      asp.buildAst( titlePath );
-      asp.buildAst( titlePath,
-                    FileUtils.readLines( new File( titlePath ) ) );
+   @Test
+   public void testComputeClassDoc()
+   {
+      final ClassAsDocNode emptyDoc = AsDocUtils.computeClassDoc( "" );
+
+      assertEquals( "",
+                    emptyDoc.getDescription() );
+
+      AsDocUtils.computeClassDoc( "/** description \n        * description2\n @see mx.kjnerkjlef.btbt*/" );
+
+      // assertEquals( "description",
+      // firstDoc.getDescription() );
    }
 
    @Test
-   public void testBuildAst2() throws IOException,
-                              TokenException,
-                              URISyntaxException
+   public void testComputeFunctionDoc()
    {
-      final IParserNode flexPmd62 = asp.buildAst( getClass().getResource( "/examples/FlexPMD62.as" )
-                                                            .toURI()
-                                                            .getPath() );
-
-      assertEquals( "com.test.testy.ui.components",
-                    flexPmd62.getChild( 0 ).getChild( 0 ).getStringValue() );
-
+      // fail( "Not yet implemented" );
    }
+
 }

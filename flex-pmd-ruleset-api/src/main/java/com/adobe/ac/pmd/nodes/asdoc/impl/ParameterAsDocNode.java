@@ -28,45 +28,28 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.bokelberg.flex.parser;
+package com.adobe.ac.pmd.nodes.asdoc.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.files.impl.FileUtils;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.exceptions.TokenException;
-
-public class TestAS3Parser extends AbstractAs3ParserTest
+public class ParameterAsDocNode
 {
-   @Test
-   public void testBuildAst() throws IOException,
-                             URISyntaxException,
-                             TokenException
-   {
-      asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
-      asp.buildAst( getClass().getResource( "/examples/FlexPMD115.as" ).toURI().getPath() );
-      final String titlePath = getClass().getResource( "/examples/unformatted/Title.as" ).toURI().getPath();
+   private final String description;
+   private final String name;
 
-      asp.buildAst( titlePath );
-      asp.buildAst( titlePath,
-                    FileUtils.readLines( new File( titlePath ) ) );
+   public ParameterAsDocNode( final String name,
+                              final String description )
+   {
+      super();
+      this.name = name;
+      this.description = description;
    }
 
-   @Test
-   public void testBuildAst2() throws IOException,
-                              TokenException,
-                              URISyntaxException
+   public String getDescription()
    {
-      final IParserNode flexPmd62 = asp.buildAst( getClass().getResource( "/examples/FlexPMD62.as" )
-                                                            .toURI()
-                                                            .getPath() );
+      return description;
+   }
 
-      assertEquals( "com.test.testy.ui.components",
-                    flexPmd62.getChild( 0 ).getChild( 0 ).getStringValue() );
-
+   public String getName()
+   {
+      return name;
    }
 }

@@ -36,9 +36,10 @@ public class AverageClassMetrics extends AverageMetricsBase
 
    public AverageClassMetrics( final int nonCommentStatements,
                                final int functions,
+                               final int asDocs,
                                final int totalClassNumber )
    {
-      super( totalClassNumber, nonCommentStatements );
+      super( totalClassNumber, asDocs, nonCommentStatements );
       averageFunctions = totalClassNumber > 0 ? functions
                                                    / totalClassNumber
                                              : 0;

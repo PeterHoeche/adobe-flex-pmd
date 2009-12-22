@@ -59,6 +59,11 @@ public class FlexMetrics extends AbstractMetrics
    private static final FlexFilter FLEX_FILTER = new FlexFilter();
    private static final Logger     LOGGER      = Logger.getLogger( FlexMetrics.class.getName() );
 
+   private static int computeNbOfLines( final String lines )
+   {
+      return lines.split( "\\n" ).length;
+   }
+
    private static String getQualifiedName( final File sourceDirectory,
                                            final File file )
    {
@@ -165,7 +170,10 @@ public class FlexMetrics extends AbstractMetrics
                                                                                : packageFullName
                                                                                      + "."
                                                                                      + classNode.getName(),
-                                           function.getCyclomaticComplexity() ) );
+                                           function.getCyclomaticComplexity(),
+                                           function.getAsDoc() != null ? computeNbOfLines( function.getAsDoc()
+                                                                                                   .getStringValue() )
+                                                                      : 0 ) );
       }
       return ncssInClass;
    }
@@ -177,39 +185,47 @@ public class FlexMetrics extends AbstractMetrics
    {
       final int average = classNode == null ? 0
                                            : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
+      final int asDocs = classNode != null
+            && classNode.getAsDoc() != null ? computeNbOfLines( classNode.getAsDoc().getStringValue() )
+                                           : 0;
       final ClassMetrics classMetrics = new ClassMetrics( ncssInClass, // NOPMD
                                                           classNode == null ? 0
                                                                            : classNode.getFunctions().size(),
                                                           fileInPackage.getName().replace( ".as",
                                                                                            "" ),
                                                           packageFullName,
-                                                          average );
+                                                          average,
+                                                          asDocs );
       return classMetrics;
    }
 
    private AverageFunctionMetrics getAverageFunctions( final List< FunctionMetrics > functionMetrics )
    {
       int nonCommentStatement = 0;
+      int asDocs = 0;
 
       for ( final FunctionMetrics metrics : functionMetrics )
       {
          nonCommentStatement += metrics.getNonCommentStatements();
+         asDocs += metrics.getAsDocs();
       }
 
-      return new AverageFunctionMetrics( nonCommentStatement, functionMetrics.size() );
+      return new AverageFunctionMetrics( nonCommentStatement, asDocs, functionMetrics.size() );
    }
 
    private AverageClassMetrics getAverageObjects( final List< ClassMetrics > classMetrics )
    {
       int nonCommentStatement = 0;
       int functions = 0;
+      int asDocs = 0;
 
       for ( final ClassMetrics metrics : classMetrics )
       {
          nonCommentStatement += metrics.getNonCommentStatements();
          functions += metrics.getFunctions();
+         asDocs += metrics.getAsDocs();
       }
-      return new AverageClassMetrics( nonCommentStatement, functions, classMetrics.size() );
+      return new AverageClassMetrics( nonCommentStatement, functions, asDocs, classMetrics.size() );
    }
 
    private TotalPackageMetrics getTotalPackages( final List< PackageMetrics > packageMetrics )

@@ -50,6 +50,7 @@ import com.adobe.ac.pmd.parser.NodeKind;
 
 class ClassNode extends AbstractNode implements IClass
 {
+   private IParserNode                              asDoc;
    private final List< IAttribute >                 attributes;
    private IParserNode                              block;
    private final List< IConstant >                  constants;
@@ -72,6 +73,7 @@ class ClassNode extends AbstractNode implements IClass
       attributes = new ArrayList< IAttribute >();
       functions = new ArrayList< IFunction >();
       name = null;
+      asDoc = null;
    }
 
    public void add( final IMetaData metaData )
@@ -116,6 +118,10 @@ class ClassNode extends AbstractNode implements IClass
                MetaDataUtils.computeMetaDataList( this,
                                                   node );
             }
+            else if ( node.is( NodeKind.AS_DOC ) )
+            {
+               asDoc = node;
+            }
             detectImplementations( node );
             detectExtensions( node );
          }
@@ -128,6 +134,11 @@ class ClassNode extends AbstractNode implements IClass
          }
       }
       return this;
+   }
+
+   public IParserNode getAsDoc()
+   {
+      return asDoc;
    }
 
    public List< IAttribute > getAttributes()

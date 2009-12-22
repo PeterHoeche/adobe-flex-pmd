@@ -49,6 +49,18 @@ public class TestPackageContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testClassWithAsDoc() throws TokenException
+   {
+      assertPackageContent( "1",
+                            "/** AsDoc */ public class A { }",
+                            "<content line=\"2\" column=\"12\"><class line=\"2\" column=\"27\">"
+                                  + "<as-doc line=\"2\" column=\"12\">/** AsDoc */</as-doc><name line=\"2\" "
+                                  + "column=\"27\">A</name><mod-list line=\"2\" column=\"29\"><mod line=\"2\" "
+                                  + "column=\"29\">public</mod></mod-list><content line=\"2\" column=\"31\">"
+                                  + "</content></class></content>" );
+   }
+
+   @Test
    public void testClassWithMetadata() throws TokenException
    {
       assertPackageContent( "1",
@@ -145,5 +157,4 @@ public class TestPackageContent extends AbstractAs3ParserTest
                     expected,
                     result );
    }
-
 }
