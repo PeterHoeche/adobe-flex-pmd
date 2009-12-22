@@ -173,7 +173,7 @@ package org.encoding
 					RGB2YUV(image, xpos, ypos);
 					DCY = processDU(YDU, fdtbl_Y, DCY, YDC_HT, YAC_HT);
 					DCU = processDU(UDU, fdtbl_UV, DCU, UVDC_HT, UVAC_HT);
-					DCV = processDU(VDU, fdtbl_UV, DCV, UVDC_HT, UVAC_HT);
+					return DCV = processDU(VDU, fdtbl_UV, DCV, UVDC_HT, UVAC_HT);
 				}
 			}
 	

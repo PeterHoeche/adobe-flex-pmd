@@ -40,6 +40,10 @@
       The Maintanability ruleset contains a collection of good practices around Maintanability.
 	</description>
 	
+	<rule since="1.1" class="com.adobe.ac.pmd.rules.maintanability.OnlyOneReturnRule" message="A method should have only one exit point, and that should be the last statement in the method">
+		<priority>3</priority>
+	</rule>
+
 	<rule class="com.adobe.ac.pmd.rules.maintanability.AlertShowRule" message="Do not call Alert.show directly">
 		<description>You should not Alert.show() directly. If an error occurred in the system, you should probably use an ErrorManager to have a consistent way to manage those errors.</description>
 		<priority>1</priority>
