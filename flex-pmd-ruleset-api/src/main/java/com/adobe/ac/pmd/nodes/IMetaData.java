@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-public interface IMetaData extends INamable, INode
+public interface IMetaData extends INamable, INode, IAsDocHolder
 {
    String getParameter();
 }

@@ -32,11 +32,13 @@ package com.adobe.ac.pmd.nodes.impl;
 
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 
 class MetaDataNode extends AbstractNode implements IMetaData
 {
-   private String name;
-   private String parameter;
+   private IParserNode asDoc;
+   private String      name;
+   private String      parameter;
 
    protected MetaDataNode( final IParserNode node )
    {
@@ -54,7 +56,25 @@ class MetaDataNode extends AbstractNode implements IMetaData
       parameter = stringValue.indexOf( "( " ) > -1 ? stringValue.substring( stringValue.indexOf( "( " ) + 2,
                                                                             stringValue.lastIndexOf( " )" ) )
                                                   : "";
+
+      if ( getInternalNode().getChildren() != null )
+      {
+         for ( final IParserNode child : getInternalNode().getChildren() )
+         {
+            if ( child.is( NodeKind.AS_DOC ) )
+            {
+               asDoc = child;
+               break;
+            }
+         }
+      }
       return this;
+   }
+
+   @Override
+   public IParserNode getAsDoc()
+   {
+      return asDoc;
    }
 
    public String getName()

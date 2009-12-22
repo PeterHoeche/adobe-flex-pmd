@@ -101,6 +101,19 @@ public class TestPackageContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testClassWithMetadataComment() throws TokenException
+   {
+      assertPackageContent( "1",
+                            "/* Comment */ [Bindable] public class A { }",
+                            "<content line=\"2\" column=\"13\"><class line=\"2\" column=\"39\">"
+                                  + "<name line=\"2\" column=\"39\">A</name><meta-list line=\"2\" "
+                                  + "column=\"41\"><meta line=\"2\" column=\"15\"><as-doc line=\"2\" "
+                                  + "column=\"13\">/* Comment */</as-doc></meta></meta-list>"
+                                  + "<mod-list line=\"2\" column=\"41\"><mod line=\"2\" column=\"41\">"
+                                  + "public</mod></mod-list><content line=\"2\" column=\"43\"></content></class></content>" );
+   }
+
+   @Test
    public void testClassWithSimpleMetadata() throws TokenException
    {
       assertPackageContent( "1",

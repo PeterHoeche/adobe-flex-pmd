@@ -874,6 +874,7 @@ public class AS3Parser implements IAS3Parser
       if ( currentAsDoc != null )
       {
          result.addChild( currentAsDoc );
+         currentAsDoc = null;
       }
       result.addChild( NodeKind.NAME,
                        tok.getLine(),
@@ -1521,10 +1522,18 @@ public class AS3Parser implements IAS3Parser
          nextToken();
       }
       skip( Operators.RIGHT_SQUARE_BRACKET );
-      return Node.create( NodeKind.META,
-                          line,
-                          column,
-                          buffer.toString() );
+      final Node metaDataNode = Node.create( NodeKind.META,
+                                             line,
+                                             column,
+                                             buffer.toString() );
+
+      if ( currentAsDoc != null )
+      {
+         metaDataNode.addChild( currentAsDoc );
+         currentAsDoc = null;
+      }
+
+      return metaDataNode;
    }
 
    private IParserNode parseMultiplicativeExpression() throws TokenException

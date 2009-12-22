@@ -143,6 +143,28 @@ public class TestClassContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testMethodWithMetadataComment() throws TokenException
+   {
+      scn.setLines( new String[]
+      { "{",
+                  "/* Comment */ [Bindable] public function a () : void { }",
+                  "}",
+                  "__END__" } );
+      asp.nextToken(); // first call
+      asp.nextToken(); // skip {
+
+      assertEquals( "1",
+                    "<content line=\"2\" column=\"13\"><function line=\"2\" column=\"54\">"
+                          + "<meta-list line=\"2\" column=\"54\"><meta line=\"2\" column=\"15\">"
+                          + "<as-doc line=\"2\" column=\"13\">/* Comment */</as-doc></meta></meta-list>"
+                          + "<mod-list line=\"2\" column=\"54\"><mod line=\"2\" column=\"54\">public</mod>"
+                          + "</mod-list><name line=\"2\" column=\"42\">a</name><parameter-list "
+                          + "line=\"2\" column=\"45\"></parameter-list><type line=\"2\" column=\"49\">"
+                          + "void</type><block line=\"2\" column=\"56\"></block></function></content>",
+                    new ASTToXMLConverter().convert( asp.parseClassContent() ) );
+   }
+
+   @Test
    public void testRestParameter() throws TokenException
    {
       assertClassContent( "",
