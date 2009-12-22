@@ -71,7 +71,6 @@ class MetaDataNode extends AbstractNode implements IMetaData
       return this;
    }
 
-   @Override
    public IParserNode getAsDoc()
    {
       return asDoc;
