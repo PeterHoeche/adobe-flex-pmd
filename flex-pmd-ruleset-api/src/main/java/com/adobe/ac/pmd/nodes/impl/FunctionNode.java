@@ -130,22 +130,12 @@ class FunctionNode extends AbstractNode implements IFunction
       return this;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
-    * .String[])
-    */
    public List< IParserNode > findPrimaryStatementInBody( final String[] primaryNames )
    {
       return body == null ? null
                          : body.findPrimaryStatementsFromNameInChildren( primaryNames );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang
-    * .String)
-    */
    public List< IParserNode > findPrimaryStatementsInBody( final String primaryName )
    {
       return body == null ? new ArrayList< IParserNode >()
@@ -153,34 +143,21 @@ class FunctionNode extends AbstractNode implements IFunction
                          { primaryName } );
    }
 
-   @Override
    public IParserNode getAsDoc()
    {
       return asDoc;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getBody()
-    */
    public IParserNode getBody()
    {
       return body;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getCyclomaticComplexity()
-    */
    public int getCyclomaticComplexity()
    {
       return cyclomaticComplexity;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getLocalVariables()
-    */
    public Map< String, IParserNode > getLocalVariables()
    {
       return localVariables;
@@ -208,19 +185,11 @@ class FunctionNode extends AbstractNode implements IFunction
       return name.toString();
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getParameters()
-    */
    public List< IParameter > getParameters()
    {
       return parameters;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getReturnType()
-    */
    public IIdentifierNode getReturnType()
    {
       return returnType;
@@ -231,10 +200,6 @@ class FunctionNode extends AbstractNode implements IFunction
       return 1 + getStatementInNode( body );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#getSuperCall()
-    */
    public IParserNode getSuperCall()
    {
       if ( body != null
@@ -263,19 +228,11 @@ class FunctionNode extends AbstractNode implements IFunction
       return modifiers.contains( modifier );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#isGetter()
-    */
    public boolean isGetter()
    {
       return getInternalNode().is( NodeKind.GET );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#isOverriden()
-    */
    public boolean isOverriden()
    {
       return is( Modifier.OVERRIDE );
@@ -286,10 +243,6 @@ class FunctionNode extends AbstractNode implements IFunction
       return is( Modifier.PUBLIC );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IFunction#isSetter()
-    */
    public boolean isSetter()
    {
       return getInternalNode().is( NodeKind.SET );
