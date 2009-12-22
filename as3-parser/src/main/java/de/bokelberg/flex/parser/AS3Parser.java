@@ -922,8 +922,14 @@ public class AS3Parser implements IAS3Parser
                                  final List< Token > modifiers,
                                  final List< Node > meta ) throws TokenException
    {
-      result.addChild( parseVarList( meta,
-                                     modifiers ) );
+      final Node varList = parseVarList( meta,
+                                         modifiers );
+      result.addChild( varList );
+      if ( currentAsDoc != null )
+      {
+         varList.addChild( currentAsDoc );
+         currentAsDoc = null;
+      }
       if ( tokIs( Operators.SEMI_COLUMN ) )
       {
          nextToken();
@@ -1260,6 +1266,7 @@ public class AS3Parser implements IAS3Parser
       if ( currentAsDoc != null )
       {
          result.addChild( currentAsDoc );
+         currentAsDoc = null;
       }
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
@@ -1432,6 +1439,7 @@ public class AS3Parser implements IAS3Parser
       if ( currentAsDoc != null )
       {
          result.addChild( currentAsDoc );
+         currentAsDoc = null;
       }
       result.addChild( NodeKind.NAME,
                        tok.getLine(),

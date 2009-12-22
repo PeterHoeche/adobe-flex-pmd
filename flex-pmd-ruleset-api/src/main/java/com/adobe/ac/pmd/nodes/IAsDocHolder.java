@@ -32,9 +32,7 @@ package com.adobe.ac.pmd.nodes;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
-interface IAsDocHolder
+public interface IAsDocHolder
 {
-
    IParserNode getAsDoc();
-
 }

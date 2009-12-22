@@ -61,6 +61,32 @@ public class TestPackageContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testClassWithAsDocComplex() throws TokenException
+   {
+      assertPackageContent( "1",
+                            "/** AsDoc */ public class A { "
+                                  + "/** Member */ " + "public var tmp : Number; "
+                                  + "private var tmp2 : int; " + "/** Function */ "
+                                  + "protected function foo() : void { } }",
+                            "<content line=\"2\" column=\"12\"><class line=\"2\" column=\"27\"><as-doc line=\"2\""
+                                  + " column=\"12\">/** AsDoc */</as-doc><name line=\"2\" column=\"27\">A</name>"
+                                  + "<mod-list line=\"2\" column=\"29\"><mod line=\"2\" column=\"29\">public</mod>"
+                                  + "</mod-list><content line=\"2\" column=\"43\"><var-list line=\"2\" column=\"56\">"
+                                  + "<mod-list line=\"2\" column=\"56\"><mod line=\"2\" column=\"56\">public</mod>"
+                                  + "</mod-list><name-type-init line=\"2\" column=\"56\"><name line=\"2\" column=\"56\">tmp</name>"
+                                  + "<type line=\"2\" column=\"62\">Number</type></name-type-init><as-doc line=\"2\" "
+                                  + "column=\"43\">/** Member */</as-doc></var-list><var-list line=\"2\" column=\"82\">"
+                                  + "<mod-list line=\"2\" column=\"82\"><mod line=\"2\" column=\"82\">private</mod></mod-list>"
+                                  + "<name-type-init line=\"2\" column=\"82\"><name line=\"2\" column=\"82\">tmp2</name>"
+                                  + "<type line=\"2\" column=\"89\">int</type></name-type-init></var-list><function "
+                                  + "line=\"2\" column=\"142\"><as-doc line=\"2\" column=\"108\">/** Function */</as-doc>"
+                                  + "<mod-list line=\"2\" column=\"142\"><mod line=\"2\" column=\"142\">protected</mod></mod-list>"
+                                  + "<name line=\"2\" column=\"129\">foo</name><parameter-list line=\"2\" column=\"133\">"
+                                  + "</parameter-list><type line=\"2\" column=\"137\">void</type><block line=\"2\" "
+                                  + "column=\"144\"></block></function></content></class></content>" );
+   }
+
+   @Test
    public void testClassWithMetadata() throws TokenException
    {
       assertPackageContent( "1",

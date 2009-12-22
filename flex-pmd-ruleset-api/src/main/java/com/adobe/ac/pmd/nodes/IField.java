@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.nodes;
 
-public interface IField extends IVariable, IVisible
+public interface IField extends IVariable, IVisible, IAsDocHolder
 {
    boolean isStatic();
 }

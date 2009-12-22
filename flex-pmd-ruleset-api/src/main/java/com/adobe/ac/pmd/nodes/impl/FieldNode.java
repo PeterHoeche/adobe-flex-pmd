@@ -42,6 +42,8 @@ import com.adobe.ac.pmd.parser.NodeKind;
  */
 class FieldNode extends VariableNode implements IField
 {
+   private IParserNode asDocs;
+
    protected FieldNode( final IParserNode rootNode )
    {
       super( rootNode );
@@ -61,9 +63,19 @@ class FieldNode extends VariableNode implements IField
                computeModifierList( this,
                                     child );
             }
+            else if ( child.is( NodeKind.AS_DOC ) )
+            {
+               asDocs = child;
+            }
          }
       }
       return this;
+   }
+
+   @Override
+   public IParserNode getAsDoc()
+   {
+      return asDocs;
    }
 
    public boolean isPublic()
