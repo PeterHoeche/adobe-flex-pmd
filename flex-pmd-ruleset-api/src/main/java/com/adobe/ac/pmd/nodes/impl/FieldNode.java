@@ -72,7 +72,6 @@ class FieldNode extends VariableNode implements IField
       return this;
    }
 
-   @Override
    public IParserNode getAsDoc()
    {
       return asDocs;
