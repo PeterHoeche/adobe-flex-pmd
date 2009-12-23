@@ -153,6 +153,9 @@ public class FlexMetrics extends AbstractMetrics
       for ( final IFunction function : classNode.getFunctions() )
       {
          ncssInClass += function.getStatementNbInBody();
+         int asDocs = function.getAsDoc() == null ? 0
+                                     : computeNbOfLines( function.getAsDoc()
+                                                                 .getStringValue() );
          metrics.getFunctionMetrics()
                 .add( new FunctionMetrics( function.getStatementNbInBody(), // NOPMD
                                            function.getName(),
@@ -161,9 +164,7 @@ public class FlexMetrics extends AbstractMetrics
                                                                                      + "."
                                                                                      + classNode.getName(),
                                            function.getCyclomaticComplexity(),
-                                           function.getAsDoc() == null ? 0
-                                                                      : computeNbOfLines( function.getAsDoc()
-                                                                                                  .getStringValue() ) ) );
+                                           asDocs ) );
       }
       return ncssInClass;
    }
@@ -235,10 +236,10 @@ public class FlexMetrics extends AbstractMetrics
 
    private Map< String, IPackage > initAst()
    {
-      Map< String, IPackage > asts = new HashMap< String, IPackage >();
+      Map< String, IPackage > result = new HashMap< String, IPackage >();
       try
       {
-         asts = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
+         result = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
                                                                                                   null,
                                                                                                   "" ) );
       }
@@ -246,7 +247,7 @@ public class FlexMetrics extends AbstractMetrics
       {
          LOGGER.warning( e.getMessage() );
       }
-      return asts;
+      return result;
    }
 
    private void setFinalMetrics( final ProjectMetrics metrics )
