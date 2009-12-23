@@ -80,6 +80,7 @@ public enum Operators
    TIMES_EQUAL("*="),
    TRIPLE_SHIFT_LEFT("<<<"),
    TRIPLE_SHIFT_RIGHT(">>>"),
+   VECTOR_START(".<"),
    XOR_EQUAL("^=");
 
    private String symbol;

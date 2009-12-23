@@ -123,6 +123,7 @@ public enum NodeKind
    VALUE("value"),
    VAR("var"),
    VAR_LIST("var-list"),
+   VECTOR("vector"),
    VOID("void"),
    WHILE("while");
 

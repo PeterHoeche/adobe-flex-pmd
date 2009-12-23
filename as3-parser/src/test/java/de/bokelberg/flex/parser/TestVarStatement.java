@@ -99,4 +99,41 @@ public class TestVarStatement extends AbstractStatementTest
                              + "<name line=\"1\" column=\"5\">a</name><type line=\"1\" column=\"9\">Object</type>"
                              + "</name-type-init></var-list>" );
    }
+
+   @Test
+   public void testVector() throws TokenException
+   {
+      assertStatement( "vector",
+                       "var v:Vector.<DisplayObject> = new Vector.<Sprite>();",
+                       "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\"><name line=\"1\" "
+                             + "column=\"5\">v</name><vector line=\"1\" column=\"7\"><type line=\"1\" column=\"15\">"
+                             + "DisplayObject</type></vector><init line=\"1\" column=\"32\"><new line=\"1\" "
+                             + "column=\"36\">"
+                             + "<primary line=\"1\" column=\"36\">Vector</primary></new></init>"
+                             + "</name-type-init></var-list>" );
+
+      assertStatement( "vector",
+                       "var v:Vector.< Vector.< String > >",
+                       "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                             + "<name line=\"1\" column=\"5\">"
+                             + "v</name><vector line=\"1\" column=\"7\"><vector line=\"1\" "
+                             + "column=\"16\"><type line=\"1\" "
+                             + "column=\"25\">String</type></vector></vector></name-type-init></var-list>" );
+
+      assertStatement( "vector",
+                       "var v:Vector.<Vector.<String>>;",
+                       "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                             + "<name line=\"1\" column=\"5\">"
+                             + "v</name><vector line=\"1\" column=\"7\"><vector line=\"1\" column=\"15\"><type line=\"1\" "
+                             + "column=\"23\">String</type></vector></vector></name-type-init></var-list>" );
+
+      assertStatement( "",
+                       "var HT:Vector.<BitString> = new Vector.<BitString>(251, true);",
+                       "<var-list line=\"1\" column=\"5\"><name-type-init line=\"1\" column=\"5\">"
+                             + "<name line=\"1\" "
+                             + "column=\"5\">HT</name><vector line=\"1\" column=\"8\"><type line=\"1\" "
+                             + "column=\"16\">BitString</type></vector><init line=\"1\" column=\"29\"><new "
+                             + "line=\"1\" column=\"33\"><primary line=\"1\" column=\"33\">Vector</primary>"
+                             + "</new></init></name-type-init></var-list>" );
+   }
 }

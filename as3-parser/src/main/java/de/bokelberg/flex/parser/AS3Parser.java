@@ -50,14 +50,15 @@ import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class AS3Parser implements IAS3Parser
 {
-   public static final String MULTIPLE_LINES_COMMENT = "/*";
-   public static final String NEW_LINE               = "\n";
-   public static final String SINGLE_LINE_COMMENT    = "//";
-   private Node               currentAsDoc;
-   private String             fileName;
-   private boolean            isInFor;
-   private AS3Scanner         scn;
-   private Token              tok;
+   public static final String  MULTIPLE_LINES_COMMENT = "/*";
+   public static final String  NEW_LINE               = "\n";
+   public static final String  SINGLE_LINE_COMMENT    = "//";
+   private static final String VECTOR                 = "Vector";
+   private Node                currentAsDoc;
+   private String              fileName;
+   private boolean             isInFor;
+   private AS3Scanner          scn;
+   private Token               tok;
 
    public AS3Parser()
    {
@@ -1125,7 +1126,8 @@ public class AS3Parser implements IAS3Parser
       final Node result = Node.create( NodeKind.ENCAPSULATED,
                                        tok.getLine(),
                                        tok.getColumn() );
-      result.addChild( parseExpression() );
+      result.addChild( parseExpressionList() );
+
       consume( Operators.RIGHT_PARENTHESIS );
       return result;
    }
@@ -1667,11 +1669,7 @@ public class AS3Parser implements IAS3Parser
       if ( tokIs( Operators.COLUMN ) )
       {
          nextToken();
-         result = Node.create( NodeKind.TYPE,
-                               tok.getLine(),
-                               tok.getColumn(),
-                               tok.getText() );
-         nextToken();
+         result = parseType();
       }
       return result;
    }
@@ -2020,6 +2018,24 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   private Node parseType() throws TokenException
+   {
+      Node result;
+      if ( tok.getText().equals( VECTOR ) )
+      {
+         result = parseVector();
+      }
+      else
+      {
+         result = Node.create( NodeKind.TYPE,
+                               tok.getLine(),
+                               tok.getColumn(),
+                               tok.getText() );
+         nextToken();
+      }
+      return result;
+   }
+
    private Node parseUnaryExpressionNotPlusMinus() throws TokenException
    {
       Node result;
@@ -2136,6 +2152,22 @@ public class AS3Parser implements IAS3Parser
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
       collectVarListContent( result );
+      return result;
+   }
+
+   private Node parseVector() throws TokenException
+   {
+      final Node result = Node.create( NodeKind.VECTOR,
+                                       tok.getLine(),
+                                       tok.getColumn(),
+                                       "" );
+      nextToken();
+      consume( Operators.VECTOR_START );
+
+      result.addChild( parseType() );
+
+      consume( Operators.SUPERIOR );
+
       return result;
    }
 

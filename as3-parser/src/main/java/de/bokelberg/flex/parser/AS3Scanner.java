@@ -53,8 +53,6 @@ import com.adobe.ac.utils.StackTraceUtils;
  */
 public class AS3Scanner
 {
-   private static final String END = "__END__";
-
    static public final class Token
    {
       private static Token create( final String textContent,
@@ -155,6 +153,8 @@ public class AS3Scanner
       }
    }
 
+   private static final String END    = "__END__";
+
    private static final Logger LOGGER = Logger.getLogger( AS3Scanner.class.getName() );
 
    protected static boolean isDecimalChar( final char currentCharacter )
@@ -164,7 +164,9 @@ public class AS3Scanner
    }
 
    private int      column;
+   private boolean  inVector;
    private int      line;
+
    private String[] lines = null;
 
    public Token moveToNextToken()
@@ -298,13 +300,20 @@ public class AS3Scanner
       // String[]{"<<=","<<","<="}, 3);
       if ( currentCharacter == '>' )
       {
-         return scanCharacterSequence( currentCharacter,
-                                       new String[]
-                                       { ">>>=",
-                                                   ">>>",
-                                                   ">>=",
-                                                   ">>",
-                                                   ">=" } );
+         if ( !inVector )
+         {
+            return scanCharacterSequence( currentCharacter,
+                                          new String[]
+                                          { ">>>=",
+                                                      ">>>",
+                                                      ">>=",
+                                                      ">>",
+                                                      ">=" } );
+         }
+         else
+         {
+            inVector = false;
+         }
       }
       if ( currentCharacter == '=' )
       {
@@ -554,6 +563,15 @@ public class AS3Scanner
 
          skipChars( text.length() - 1 );
 
+         return result;
+      }
+      else if ( secondCharacter == '<' )
+      {
+         final Token result = new Token( ".<", line, column );
+
+         skipChars( 1 );
+
+         inVector = true;
          return result;
       }
       return null;
