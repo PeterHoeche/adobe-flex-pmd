@@ -65,4 +65,26 @@ public class FlexMetricsReportMojoTest extends FlexPmdTestBase
 
       mojo.execute();
    }
+
+   @Test
+   public void testExecuteSingleReportOnNonExistingFolder() throws MojoExecutionException
+   {
+      final File outputDirectoryToBeSet = new File( "target/pmd" );
+
+      outputDirectoryToBeSet.mkdirs();
+
+      final FlexMetricsReportMojo mojo = new FlexMetricsReportMojo( new MavenProjectStub(),
+                                                                    new File( "nonExisting" ),
+                                                                    outputDirectoryToBeSet );
+
+      mojo.setLineThreshold( 5 );
+      mojo.setSiteRenderer( new DefaultSiteRenderer() );
+      mojo.setXmlOutputDirectory( outputDirectoryToBeSet );
+      mojo.setTempFileName( "javancss-raw-report.xml" );
+
+      assertNotNull( "",
+                     mojo.getName( Locale.ENGLISH ) );
+
+      mojo.execute();
+   }
 }

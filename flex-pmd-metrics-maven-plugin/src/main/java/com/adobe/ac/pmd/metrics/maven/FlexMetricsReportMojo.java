@@ -167,7 +167,8 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
          throw new MavenReportException( "Cannot generate report " );
       }
 
-      if ( canGenerateSingleReport() )
+      if ( sourceDirectory.exists()
+            && canGenerateSingleReport() )
       {
          try
          {
@@ -292,8 +293,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
 
    private boolean canGenerateSingleReport()
    {
-      return sourceDirectory != null
-            && sourceDirectory.exists();
+      return sourceDirectory != null;
    }
 
    private void generateAggregateReport( final Locale locale ) throws MavenReportException
