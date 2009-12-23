@@ -85,23 +85,13 @@ public class FlexMetrics extends AbstractMetrics
       return qualifiedName;
    }
 
-   private Map< String, IPackage > asts;
+   private final Map< String, IPackage > asts;
 
    public FlexMetrics( final File sourceDirectoryPath )
    {
       super( sourceDirectoryPath );
 
-      asts = new HashMap< String, IPackage >();
-      try
-      {
-         asts = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
-                                                                                                  null,
-                                                                                                  "" ) );
-      }
-      catch ( final PMDException e )
-      {
-         LOGGER.warning( e.getMessage() );
-      }
+      asts = initAst();
    }
 
    @Override
@@ -171,9 +161,9 @@ public class FlexMetrics extends AbstractMetrics
                                                                                      + "."
                                                                                      + classNode.getName(),
                                            function.getCyclomaticComplexity(),
-                                           function.getAsDoc() != null ? computeNbOfLines( function.getAsDoc()
-                                                                                                   .getStringValue() )
-                                                                      : 0 ) );
+                                           function.getAsDoc() == null ? 0
+                                                                      : computeNbOfLines( function.getAsDoc()
+                                                                                                  .getStringValue() ) ) );
       }
       return ncssInClass;
    }
@@ -185,9 +175,9 @@ public class FlexMetrics extends AbstractMetrics
    {
       final int average = classNode == null ? 0
                                            : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
-      final int asDocs = classNode != null
-            && classNode.getAsDoc() != null ? computeNbOfLines( classNode.getAsDoc().getStringValue() )
-                                           : 0;
+      final int asDocs = classNode == null
+            || classNode.getAsDoc() == null ? 0
+                                           : computeNbOfLines( classNode.getAsDoc().getStringValue() );
       final ClassMetrics classMetrics = new ClassMetrics( ncssInClass, // NOPMD
                                                           classNode == null ? 0
                                                                            : classNode.getFunctions().size(),
@@ -241,6 +231,22 @@ public class FlexMetrics extends AbstractMetrics
          classes += metrics.getClasses();
       }
       return new TotalPackageMetrics( nonCommentStatement, functions, classes );
+   }
+
+   private Map< String, IPackage > initAst()
+   {
+      Map< String, IPackage > asts = new HashMap< String, IPackage >();
+      try
+      {
+         asts = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
+                                                                                                  null,
+                                                                                                  "" ) );
+      }
+      catch ( final PMDException e )
+      {
+         LOGGER.warning( e.getMessage() );
+      }
+      return asts;
    }
 
    private void setFinalMetrics( final ProjectMetrics metrics )

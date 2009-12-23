@@ -296,11 +296,13 @@ public class AS3Scanner
                                        new String[]
                                        { "^=" } );
       }
-      // called by scanXML if( c == '<' ) return scanCharacterSequence( c, new
-      // String[]{"<<=","<<","<="}, 3);
       if ( currentCharacter == '>' )
       {
-         if ( !inVector )
+         if ( inVector )
+         {
+            inVector = false;
+         }
+         else
          {
             return scanCharacterSequence( currentCharacter,
                                           new String[]
@@ -309,10 +311,6 @@ public class AS3Scanner
                                                       ">>=",
                                                       ">>",
                                                       ">=" } );
-         }
-         else
-         {
-            inVector = false;
          }
       }
       if ( currentCharacter == '=' )

@@ -62,7 +62,7 @@ public final class FlexMetrics
       LOGGER.setLevel( Level.SEVERE );
       startFlexMetrics( args );
       LOGGER.info( "FlexMetrics terminated" );
-      System.exit( 0 );
+      System.exit( 0 ); // NOPMD
    }
 
    static boolean areCommandLineOptionsCorrect( final String[] args ) throws JSAPException

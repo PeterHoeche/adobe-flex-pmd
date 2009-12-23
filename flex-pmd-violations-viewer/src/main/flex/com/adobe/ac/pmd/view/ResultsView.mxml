@@ -59,14 +59,17 @@
 
             private function groupLabelFunction( item : Object, column : AdvancedDataGridColumn ) : String // NO PMD
             {
+				var label : String;
+				
                 if ( item && item.children )
                 {
-                    return item[ gc.grouping.label ] + " (" + item.children.length + ")";
+					label = item[ gc.grouping.label ] + " (" + item.children.length + ")";
                 }
                 else
                 {
-                    return item[ column.dataField ];
+					label = item[ column.dataField ];
                 }
+				return label;
             }
         ]]>
     </mx:Script>

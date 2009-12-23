@@ -38,7 +38,7 @@ package com.adobe.ac.pmd.model
    import mx.collections.ArrayCollection;
    import mx.collections.ListCollectionView;
 
-   public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass
+   public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass TooManyFields
    {
       public static const NAME_CHANGE : String = "nameChange";
 

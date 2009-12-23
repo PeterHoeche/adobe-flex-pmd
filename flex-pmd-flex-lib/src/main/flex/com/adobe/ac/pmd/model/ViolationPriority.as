@@ -50,17 +50,23 @@ package com.adobe.ac.pmd.model
 
       public static function create( level : int ) : ViolationPriority
       {
+         var result : ViolationPriority = null;
+		 
          switch( level )
          {
             case 1:
-               return ERROR;
+				result = ERROR;
+				break;
             case 3:
-               return WARNING;
+				result = WARNING;
+				break;
             case 5:
-               return INFO;
+				result = INFO;
+				break;
             default:
                throw new Error( "Unknown violation level (" + level + ")" );
          }
+		 return result;
       }
 
       public static function get values() : Array

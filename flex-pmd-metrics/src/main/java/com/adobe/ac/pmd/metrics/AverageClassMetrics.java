@@ -41,7 +41,7 @@ public class AverageClassMetrics extends AverageMetricsBase
    {
       super( totalClassNumber, asDocs, nonCommentStatements );
       averageFunctions = totalClassNumber > 0 ? functions
-                                                   / totalClassNumber
+                                                   / ( double ) totalClassNumber
                                              : 0;
    }
 

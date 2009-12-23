@@ -37,14 +37,12 @@ public final class AsDocUtils
 {
    public static ClassAsDocNode computeClassDoc( final String doc )
    {
-      final String description = "";
-      final ClassAsDocNode classDoc = new ClassAsDocNode( description );
-      return classDoc;
+      return new ClassAsDocNode( doc );
    }
 
    public static FunctionAsDocNode computeFunctionDoc( final String doc )
    {
-      return null;
+      return new FunctionAsDocNode( doc );
    }
 
    private AsDocUtils()

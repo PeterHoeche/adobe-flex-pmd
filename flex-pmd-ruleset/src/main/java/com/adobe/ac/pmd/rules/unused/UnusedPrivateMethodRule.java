@@ -113,8 +113,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
    {
       if ( body != null )
       {
-         if ( body.getStringValue() != null
-               && !privateFunctions.isEmpty() )
+         if ( body.getStringValue() != null )
          {
             for ( final String functionName : privateFunctions.keySet() )
             {

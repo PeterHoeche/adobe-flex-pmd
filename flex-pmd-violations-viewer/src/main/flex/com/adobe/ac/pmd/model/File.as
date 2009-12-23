@@ -47,13 +47,14 @@ package com.adobe.ac.pmd.model
         public function get shortPath() : String
         {
             var srcIndex : int = path.indexOf( "src" );
+			var result : String = path;
 
             if ( srcIndex != -1 )
             {
                 var regexp : RegExp = new RegExp( "/", "g" );
-                return path.substr( srcIndex + 4 ).replace( regexp, "." );
+				result = path.substr( srcIndex + 4 ).replace( regexp, "." );
             }
-            return path;
+            return result;
         }
     }
 }

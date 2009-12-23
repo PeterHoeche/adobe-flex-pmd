@@ -35,12 +35,13 @@ public class ParameterAsDocNode
    private final String description;
    private final String name;
 
-   public ParameterAsDocNode( final String name,
-                              final String description )
+   public ParameterAsDocNode( final String nameToBeSet,
+                              final String descriptionToBeSet )
    {
       super();
-      this.name = name;
-      this.description = description;
+
+      name = nameToBeSet;
+      description = descriptionToBeSet;
    }
 
    public String getDescription()

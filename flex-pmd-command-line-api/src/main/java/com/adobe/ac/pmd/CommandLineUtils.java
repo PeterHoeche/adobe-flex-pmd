@@ -49,7 +49,7 @@ public final class CommandLineUtils
       final List< File > sourceList = new ArrayList< File >();
       for ( int i = 0; i < source.split( "," ).length; i++ )
       {
-         sourceList.add( new File( source.split( "," )[ i ] ) );
+         sourceList.add( new File( source.split( "," )[ i ] ) ); // NOPMD
       }
       return sourceList;
    }

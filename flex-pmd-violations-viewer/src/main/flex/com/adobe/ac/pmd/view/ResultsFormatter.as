@@ -31,7 +31,7 @@
 package com.adobe.ac.pmd.view
 {
     import com.adobe.ac.pmd.model.Violation;
-
+    
     import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
 
     public final class ResultsFormatter
@@ -41,12 +41,13 @@ package com.adobe.ac.pmd.view
         							column : AdvancedDataGridColumn ) : String // NO PMD
         {
             var violation : Violation = item as Violation;
-
+			var result : String = "";
+			
             if ( violation )
             {
-                return violation.position.begin.line.toString();
+				result = violation.position.begin.line.toString();
             }
-            return "";
+            return result;
         }
     }
 }

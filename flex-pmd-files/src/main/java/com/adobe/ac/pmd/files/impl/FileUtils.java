@@ -105,7 +105,13 @@ public final class FileUtils
          throw new PMDException( "sourceDirectory is empty", null );
       }
       Collection< File > foundFiles;
-      if ( source != null )
+      if ( source == null )
+      {
+         foundFiles = com.adobe.ac.ncss.utils.FileUtils.listFiles( sourceList,
+                                                                   flexFilter,
+                                                                   true );
+      }
+      else
       {
          if ( source.isDirectory() )
          {
@@ -118,12 +124,6 @@ public final class FileUtils
             foundFiles = new ArrayList< File >();
             foundFiles.add( source );
          }
-      }
-      else
-      {
-         foundFiles = com.adobe.ac.ncss.utils.FileUtils.listFiles( sourceList,
-                                                                   flexFilter,
-                                                                   true );
       }
       if ( foundFiles.isEmpty() )
       {

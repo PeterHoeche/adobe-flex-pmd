@@ -72,7 +72,8 @@ public abstract class AbstractPackagedMetrics implements IMetrics
 
    public String toXmlString()
    {
-      return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss><javadocs>{4}</javadocs>"
+      return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss>"
+                                                                    + "<javadocs>{4}</javadocs>"
                                                                     + "{5}</{6}>",
                                                               getMetricsName(),
                                                               getFullName(),

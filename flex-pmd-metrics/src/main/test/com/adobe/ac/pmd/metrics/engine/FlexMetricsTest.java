@@ -61,8 +61,8 @@ public class FlexMetricsTest extends FlexPmdTestBase
 
       assertEquals( 4,
                     Math.round( projectMetrics.getAverageFunctions().getAverageStatements() ) );
-      assertEquals( 2.0,
-                    projectMetrics.getAverageObjects().getAverageFunctions() );
+      assertEquals( 2,
+                    Math.round( projectMetrics.getAverageObjects().getAverageFunctions() ) );
       assertEquals( 9,
                     Math.round( projectMetrics.getAverageObjects().getAverageStatements() ) );
       assertEquals( 0.4339622641509434,

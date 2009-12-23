@@ -38,13 +38,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class BadFormatLoggerRule extends AbstractAstFlexRule
 {
-   private static final String CORRECT_LOGGER_NAME              = "LOG";
-   private static final String LOGGER_INTERFACE                 = "ILogger";
-   private static final String MESSAGE_LOGGER_NAME_IS_NOT_LOG   = "The logger name is not LOG";
-   private static final String MESSAGE_NOT_FULLY_QUALIFIED_NAME = "The logger is not initialized with "
-                                                                      + "the fully qualified class name";
-   private static final String MESSAGE_NOT_INITIALIZED          = "The logger is not initialized";
-   private static final String MESSAGE_SHOULD_BE_CONSTANT       = "A logger should be constant";
+   private static final String CORRECT_LOGGER_NAME            = "LOG";
+   private static final String LOGGER_INTERFACE               = "ILogger";
+   private static final String MESSAGE_LOGGER_NAME_IS_NOT_LOG = "The logger name is not LOG";
+   private static final String MESSAGE_NOT_INITIALIZED        = "The logger is not initialized";
+   private static final String MESSAGE_SHOULD_BE_CONSTANT     = "A logger should be constant";
 
    @Override
    protected final void findViolations( final IClass classNode )
