@@ -153,9 +153,9 @@ public class FlexMetrics extends AbstractMetrics
       for ( final IFunction function : classNode.getFunctions() )
       {
          ncssInClass += function.getStatementNbInBody();
-         int asDocs = function.getAsDoc() == null ? 0
-                                     : computeNbOfLines( function.getAsDoc()
-                                                                 .getStringValue() );
+         final int asDocs = function.getAsDoc() == null ? 0
+                                                       : computeNbOfLines( function.getAsDoc()
+                                                                                   .getStringValue() );
          metrics.getFunctionMetrics()
                 .add( new FunctionMetrics( function.getStatementNbInBody(), // NOPMD
                                            function.getName(),
@@ -240,8 +240,8 @@ public class FlexMetrics extends AbstractMetrics
       try
       {
          result = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
-                                                                                                  null,
-                                                                                                  "" ) );
+                                                                                                    null,
+                                                                                                    "" ) );
       }
       catch ( final PMDException e )
       {
