@@ -123,7 +123,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       int currentLineIndex = startingLineIndex + 1;
       while ( getLines().get( currentLineIndex ).contains( "CDATA[" )
             || getLines().get( currentLineIndex ).contains( "/*" )
-            || getLines().get( currentLineIndex ).trim().isEmpty() )
+            || getLines().get( currentLineIndex ).trim().equals( "" ) )
       {
          currentLineIndex++;
       }
