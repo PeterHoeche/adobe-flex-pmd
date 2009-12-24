@@ -118,6 +118,19 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       }
    }
 
+   private int computeScriptOffSet( final int startingLineIndex )
+   {
+      int currentLineIndex = startingLineIndex + 1;
+      while ( getLines().get( currentLineIndex ).contains( "CDATA[" )
+            || getLines().get( currentLineIndex ).contains( "/*" )
+            || getLines().get( currentLineIndex ).trim().isEmpty() )
+      {
+         currentLineIndex++;
+      }
+      return currentLineIndex
+            - startingLineIndex;
+   }
+
    private void copyScriptLinesKeepingOriginalLineIndices()
    {
       final List< String > scriptLines = fillMxmlLine();
@@ -153,7 +166,8 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
             }
             else if ( line.contains( "<" ) )
             {
-               startLine = currentLineIndex + 2;
+               startLine = currentLineIndex
+                     + computeScriptOffSet( currentLineIndex );
             }
          }
          currentLineIndex++;

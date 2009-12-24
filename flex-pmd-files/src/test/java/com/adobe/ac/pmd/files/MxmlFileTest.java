@@ -39,6 +39,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class MxmlFileTest extends FlexPmdTestBase
 {
+   private IMxmlFile bug141;
    private IMxmlFile deleteRenderer;
    private IMxmlFile iterationsList;
    private IMxmlFile nestedComponent;
@@ -46,6 +47,7 @@ public class MxmlFileTest extends FlexPmdTestBase
    @Before
    public void setUp()
    {
+      bug141 = ( IMxmlFile ) getTestFiles().get( "bug.FlexPMD141a.mxml" );
       iterationsList = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
       nestedComponent = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
       deleteRenderer = ( IMxmlFile ) getTestFiles().get( "DeleteButtonRenderer.mxml" );
@@ -58,6 +60,29 @@ public class MxmlFileTest extends FlexPmdTestBase
                     iterationsList.getCommentOpeningTag() );
       assertEquals( "-->",
                     iterationsList.getCommentClosingTag() );
+   }
+
+   @Test
+   public void testFlexPMD141()
+   {
+      final String[] lines = bug141.getScriptBlock();
+
+      assertEquals( "package bug{",
+                    lines[ 0 ] );
+      assertEquals( "class FlexPMD141a{",
+                    lines[ 1 ] );
+      assertEquals( 46,
+                    lines.length );
+      assertEquals( "",
+                    lines[ 36 ] );
+      assertEquals( "",
+                    lines[ 37 ] );
+      assertEquals( "",
+                    lines[ 38 ] );
+      assertEquals( "private var object:List = new List();",
+                    lines[ 39 ].trim() );
+      assertEquals( "}}",
+                    lines[ lines.length - 1 ] );
    }
 
    @Test
