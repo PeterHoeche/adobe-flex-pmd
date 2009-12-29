@@ -34,11 +34,11 @@
 	
 	public class Link extends Sprite {
 		
-		protected var _linkText:String = '';
+		protected var _linkText:String = ''; // NO PMD
 		protected var _style:String;
 		
-		public function Link(text:String = '', style:String = null) {
-			
+		public function Link(text:String = '', style:String = null) // NO PMD
+		{
 			_style = style;
 			_linkText = text;
 		}

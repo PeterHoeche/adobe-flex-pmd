@@ -59,6 +59,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
    private IFunction drawHighlightIndicator;
    private IFunction drawRowBackground;
    private IFunction drawSelectionIndicator;
+   private IFunction fDCTQuant;
    private IFunction flexunit4Test;
    private IFunction flexunit4TestSetUp;
    private IFunction getHeight;
@@ -84,11 +85,13 @@ public class FunctionNodeTest extends FlexPmdTestBase
             + "RaoulTest.as" ) );
       final IParserNode bug888Ast = FileSetUtils.buildAst( getTestFiles().get( "bug."
             + "FlexPMD88.as" ) );
+      final IParserNode pngEncoderAst = FileSetUtils.buildAst( getTestFiles().get( "PngEncoder.as" ) );
 
       final IClass radonDataGrid = NodeFactory.createPackage( dataGridAst ).getClassNode();
       final IClass nonBindableModelLocator = NodeFactory.createPackage( modelLocatorAst ).getClassNode();
       final IClass flexUnit4TestCase = NodeFactory.createPackage( flexUnit4TestCaseAst ).getClassNode();
       final IClass bug88 = NodeFactory.createPackage( bug888Ast ).getClassNode();
+      final IClass pngEncoder = NodeFactory.createPackage( pngEncoderAst ).getClassNode();
 
       constructor = radonDataGrid.getFunctions().get( 0 );
       drawHighlightIndicator = radonDataGrid.getFunctions().get( 1 );
@@ -101,6 +104,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
       flexunit4Test = flexUnit4TestCase.getFunctions().get( 1 );
       flexunit4TestSetUp = flexUnit4TestCase.getFunctions().get( 0 );
       bug88Constructor = bug88.getConstructor();
+      fDCTQuant = pngEncoder.getFunctions().get( 9 );
    }
 
    @Test
@@ -119,6 +123,9 @@ public class FunctionNodeTest extends FlexPmdTestBase
    {
       assertEquals( 1,
                     flexunit4TestSetUp.getBody().numChildren() );
+
+      assertEquals( 38,
+                    fDCTQuant.getBody().numChildren() );
    }
 
    @Test

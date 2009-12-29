@@ -28,39 +28,13 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.unused;
+package com.adobe.ac.pmd.nodes;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
+public interface ICommentHolder
 {
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      final LinkedHashMap< String, ViolationPosition[] > files = new LinkedHashMap< String, ViolationPosition[] >();
-
-      return addToMap( addToMap( addToMap( files,
-                                           "cairngorm.NonBindableModelLocator.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 43, 43 ) } ),
-                                 "com.adobe.ac.ncss.BigImporterModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ) } ),
-                       "Sorted.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 67, 67 ) } );
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UnusedParameterRule();
-   }
+   List< IParserNode > getMultiLinesComment();
 }

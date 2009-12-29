@@ -41,11 +41,11 @@ public class TestReturnStatement extends AbstractStatementTest
    {
       assertStatement( "1",
                        "return",
-                       "<return line=\"2\" column=\"1\"></return>" );
+                       "<return line=\"2\"></return>" );
 
       assertStatement( "2",
                        "return;",
-                       "<return line=\"2\" column=\"1\"></return>" );
+                       "<return line=\"2\"></return>" );
    }
 
    @Test
@@ -53,11 +53,11 @@ public class TestReturnStatement extends AbstractStatementTest
    {
       assertStatement( "1",
                        "return []",
-                       "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                             + "<array line=\"1\" column=\"8\"></array></primary></return>" );
+                       "<return line=\"1\"><primary line=\"1\">"
+                             + "<array line=\"1\"></array></primary></return>" );
       assertStatement( "2",
                        "return [];",
-                       "<return line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                             + "<array line=\"1\" column=\"8\"></array></primary></return>" );
+                       "<return line=\"1\"><primary line=\"1\">"
+                             + "<array line=\"1\"></array></primary></return>" );
    }
 }

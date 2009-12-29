@@ -41,9 +41,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5+6",
-                       "<add line=\"1\" column=\"1\"><primary line=\"1\" "
-                             + "column=\"1\">5</primary><op line=\"1\" "
-                             + "column=\"2\">+</op><primary line=\"1\" column=\"3\">6</primary></add>" );
+                       "<add line=\"1\"><primary line=\"1\""
+                             + ">5</primary><op line=\"1\">+</op>" + "<primary line=\"1\">6</primary></add>" );
    }
 
    @Test
@@ -51,9 +50,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5&&6",
-                       "<and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5</primary>"
-                             + "<op line=\"1\" column=\"2\">&&</op>"
-                             + "<primary line=\"1\" column=\"4\">6</primary></and>" );
+                       "<and line=\"1\"><primary line=\"1\">5</primary>"
+                             + "<op line=\"1\">&&</op>" + "<primary line=\"1\">6</primary></and>" );
    }
 
    @Test
@@ -61,19 +59,18 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "x+=6",
-                       "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">x"
-                             + "</primary><op line=\"1\" column=\"2\">+=</op><primary line=\"1\" "
-                             + "column=\"4\">6</primary></assign>" );
+                       "<assign line=\"1\"><primary line=\"1\">x"
+                             + "</primary><op line=\"1\">+=</op><primary line=\"1\""
+                             + ">6</primary></assign>" );
    }
-   
+
    @Test
    public void testBitwiseAndExpression() throws TokenException
    {
       assertStatement( "1",
                        "5&6",
-                       "<b-and line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">&</op><primary line=\"1\" "
-                             + "column=\"3\">6</primary></b-and>" );
+                       "<b-and line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">&</op><primary line=\"1\">6</primary></b-and>" );
    }
 
    @Test
@@ -81,9 +78,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5|6",
-                       "<b-or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">|</op><primary line=\"1\" "
-                             + "column=\"3\">6</primary></b-or>" );
+                       "<b-or line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">|</op><primary line=\"1\">6</primary></b-or>" );
    }
 
    @Test
@@ -91,9 +87,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5^6",
-                       "<b-xor line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">^</op><primary line=\"1\" "
-                             + "column=\"3\">6</primary></b-xor>" );
+                       "<b-xor line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">^</op><primary line=\"1\">6</primary></b-xor>" );
    }
 
    @Test
@@ -101,9 +96,9 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "true?5:6",
-                       "<conditional line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">"
-                             + "true</primary><primary line=\"1\" column=\"6\">5"
-                             + "</primary><primary line=\"1\" column=\"8\">6" + "</primary></conditional>" );
+                       "<conditional line=\"1\"><primary line=\"1\">"
+                             + "true</primary><primary line=\"1\">5" + "</primary><primary line=\"1\">6"
+                             + "</primary></conditional>" );
    }
 
    @Test
@@ -111,13 +106,12 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "",
                        "(dataProvider as ArrayCollection) = null",
-                       "<assign line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">"
-                             + "<encapsulated line=\"1\" column=\"2\"><relation line=\"1\" column=\"2\">"
-                             + "<primary line=\"1\" column=\"2\">dataProvider</primary>"
-                             + "<op line=\"1\" column=\"15\">as</op><primary line=\"1\" column=\"18\">"
+                       "<assign line=\"1\"><primary line=\"1\">"
+                             + "<encapsulated line=\"1\"><relation line=\"1\">"
+                             + "<primary line=\"1\">dataProvider</primary>"
+                             + "<op line=\"1\">as</op><primary line=\"1\">"
                              + "ArrayCollection</primary></relation></encapsulated></primary>"
-                             + "<op line=\"1\" column=\"35\">=</op><primary line=\"1\" column=\"37\">"
-                             + "null</primary></assign>" );
+                             + "<op line=\"1\">=</op><primary line=\"1\">" + "null</primary></assign>" );
    }
 
    @Test
@@ -125,9 +119,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5!==6",
-                       "<equality line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">!==</op><primary line=\"1\" "
-                             + "column=\"5\">6</primary></equality>" );
+                       "<equality line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">!==</op><primary line=\"1\">6</primary></equality>" );
    }
 
    @Test
@@ -135,11 +128,11 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5&&6,5&&9",
-                       "<expr-list line=\"1\" column=\"1\"><and line=\"1\" column=\"1\">"
-                             + "<primary line=\"1\" column=\"1\">5</primary><op line=\"1\" column=\"2\">"
-                             + "&&</op><primary line=\"1\" column=\"4\">6</primary></and><and line=\"1\" "
-                             + "column=\"6\"><primary line=\"1\" column=\"6\">5</primary><op line=\"1\" "
-                             + "column=\"7\">&&</op><primary line=\"1\" column=\"9\">9</primary></and></expr-list>" );
+                       "<expr-list line=\"1\"><and line=\"1\">"
+                             + "<primary line=\"1\">5</primary><op line=\"1\">"
+                             + "&&</op><primary line=\"1\">6</primary></and><and line=\"1\""
+                             + "><primary line=\"1\">5</primary><op line=\"1\""
+                             + ">&&</op><primary line=\"1\">9</primary></and></expr-list>" );
    }
 
    @Test
@@ -147,9 +140,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5/6",
-                       "<mul line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">/</op><primary line=\"1\" "
-                             + "column=\"3\">6</primary></mul>" );
+                       "<mul line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">/</op><primary line=\"1\">6</primary></mul>" );
    }
 
    @Test
@@ -157,15 +149,15 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "",
                        "new Event()",
-                       "<new line=\"1\" column=\"5\"><call line=\"1\" column=\"10\">"
-                             + "<primary line=\"1\" column=\"5\">Event</primary>"
-                             + "<arguments line=\"1\" column=\"11\"></arguments></call></new>" );
+                       "<new line=\"1\"><call line=\"1\">"
+                             + "<primary line=\"1\">Event</primary>"
+                             + "<arguments line=\"1\"></arguments></call></new>" );
 
       assertStatement( "",
                        "new Event(\"lala\")",
-                       "<new line=\"1\" column=\"5\"><call line=\"1\" column=\"10\">"
-                             + "<primary line=\"1\" column=\"5\">Event</primary>"
-                             + "<arguments line=\"1\" column=\"11\"><primary line=\"1\" column=\"11\">"
+                       "<new line=\"1\"><call line=\"1\">"
+                             + "<primary line=\"1\">Event</primary>"
+                             + "<arguments line=\"1\"><primary line=\"1\">"
                              + "\"lala\"</primary></arguments></call></new>" );
 
    }
@@ -175,9 +167,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5||6",
-                       "<or line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">||</op><primary line=\"1\" "
-                             + "column=\"4\">6</primary></or>" );
+                       "<or line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">||</op><primary line=\"1\">6</primary></or>" );
    }
 
    @Test
@@ -185,9 +176,9 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5<=6",
-                       "<relation line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">&lt;=</op><primary line=\"1\" "
-                             + "column=\"4\">6</primary></relation>" );
+                       "<relation line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">&lt;=</op><primary line=\"1\""
+                             + ">6</primary></relation>" );
    }
 
    @Test
@@ -195,8 +186,8 @@ public class TestExpression extends AbstractStatementTest
    {
       assertStatement( "1",
                        "5<<6",
-                       "<shift line=\"1\" column=\"1\"><primary line=\"1\" column=\"1\">5"
-                             + "</primary><op line=\"1\" column=\"2\">&lt;&lt;</op><primary line=\"1\" "
-                             + "column=\"4\">6</primary></shift>" );
+                       "<shift line=\"1\"><primary line=\"1\">5"
+                             + "</primary><op line=\"1\">&lt;&lt;</op><primary line=\"1\""
+                             + ">6</primary></shift>" );
    }
 }

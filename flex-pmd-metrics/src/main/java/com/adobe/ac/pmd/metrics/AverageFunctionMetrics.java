@@ -30,12 +30,40 @@
  */
 package com.adobe.ac.pmd.metrics;
 
+import java.util.List;
+
 public class AverageFunctionMetrics extends AverageMetricsBase
 {
-   public AverageFunctionMetrics( final int nonCommentStatements,
-                                  final int asDocs,
-                                  final int totalFunctions )
+   public static AverageClassMetrics create( final List< ClassMetrics > classMetrics,
+                                             final TotalPackageMetrics totalPackageMetrics )
    {
-      super( totalFunctions, asDocs, nonCommentStatements );
+      int functions = 0;
+
+      for ( final ClassMetrics metrics : classMetrics )
+      {
+         functions += metrics.getFunctions();
+      }
+      return new AverageClassMetrics( totalPackageMetrics.getTotalStatements(),
+                                      functions,
+                                      totalPackageMetrics.getTotalAsDocs(),
+                                      totalPackageMetrics.getTotalMultiLineComment(),
+                                      classMetrics.size() );
+   }
+
+   public static AverageFunctionMetrics createAverageFunctions( final List< FunctionMetrics > functionMetrics,
+                                                                final TotalPackageMetrics totalPackageMetrics )
+   {
+      return new AverageFunctionMetrics( totalPackageMetrics.getTotalStatements(),
+                                         totalPackageMetrics.getTotalAsDocs(),
+                                         totalPackageMetrics.getTotalMultiLineComment(),
+                                         functionMetrics.size() );
+   }
+
+   public AverageFunctionMetrics( final double nonCommentStatements,
+                                  final double asDocs,
+                                  final double multipleComments,
+                                  final double totalFunctions )
+   {
+      super( totalFunctions, asDocs, nonCommentStatements, multipleComments );
    }
 }

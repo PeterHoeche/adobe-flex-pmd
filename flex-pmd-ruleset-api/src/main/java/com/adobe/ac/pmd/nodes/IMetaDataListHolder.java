@@ -36,6 +36,8 @@ public interface IMetaDataListHolder
 {
    void add( IMetaData metaData );
 
+   List< IMetaData > getAllMetaData();
+
    List< IMetaData > getMetaData( MetaData metaDataName );
 
    int getMetaDataCount();

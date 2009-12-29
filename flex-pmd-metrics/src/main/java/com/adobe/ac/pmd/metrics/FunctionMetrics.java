@@ -30,15 +30,35 @@
  */
 package com.adobe.ac.pmd.metrics;
 
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+
 public class FunctionMetrics extends AbstractNamedMetrics
 {
+   static FunctionMetrics create( final String packageFullName,
+                                  final IClass classNode,
+                                  final IFunction function,
+                                  final int asDocs,
+                                  final int multipleDoc )
+   {
+      return new FunctionMetrics( function.getStatementNbInBody(), // NOPMD
+                                  function.getName(),
+                                  packageFullName.compareTo( "" ) == 0 ? classNode.getName()
+                                                                      : packageFullName
+                                                                            + "." + classNode.getName(),
+                                  function.getCyclomaticComplexity(),
+                                  asDocs,
+                                  multipleDoc );
+   }
+
    public FunctionMetrics( final int nonCommentStatements,
                            final String name,
                            final String packageName,
                            final int ccn,
-                           final int asDocs )
+                           final int asDocs,
+                           final int multiLineCommentsToBeSet )
    {
-      super( nonCommentStatements, name, packageName, ccn, asDocs );
+      super( nonCommentStatements, name, packageName, ccn, asDocs, multiLineCommentsToBeSet );
    }
 
    public String getContreteXml()

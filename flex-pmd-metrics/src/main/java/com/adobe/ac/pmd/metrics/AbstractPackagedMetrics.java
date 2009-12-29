@@ -36,19 +36,22 @@ public abstract class AbstractPackagedMetrics implements IMetrics
 {
    private final int    asDocs;
    private final int    ccn;
+   private final int    multiLineComments;
    private final int    nonCommentStatements;
    private final String packageName;
 
    protected AbstractPackagedMetrics( final int nonCommentStatementsToBeSet,
                                       final String packageNameToBeSet,
                                       final int ccnToBeSet,
-                                      final int asDocsToBeSet )
+                                      final int asDocsToBeSet,
+                                      final int multiLineCommentsToBeSet )
    {
       super();
       nonCommentStatements = nonCommentStatementsToBeSet;
       packageName = packageNameToBeSet;
       ccn = ccnToBeSet;
       asDocs = asDocsToBeSet;
+      multiLineComments = multiLineCommentsToBeSet;
    }
 
    public int getAsDocs()
@@ -59,6 +62,11 @@ public abstract class AbstractPackagedMetrics implements IMetrics
    abstract public String getFullName();
 
    abstract public String getMetricsName();
+
+   public int getMultiLineComments()
+   {
+      return multiLineComments;
+   }
 
    public int getNonCommentStatements()
    {
@@ -74,12 +82,14 @@ public abstract class AbstractPackagedMetrics implements IMetrics
    {
       return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss>"
                                                                     + "<javadocs>{4}</javadocs>"
-                                                                    + "{5}</{6}>",
+                                                                    + "<multi_comment_lines>{5}</multi_comment_lines>"
+                                                                    + "{6}</{7}>",
                                                               getMetricsName(),
                                                               getFullName(),
                                                               String.valueOf( ccn ),
                                                               String.valueOf( nonCommentStatements ),
                                                               String.valueOf( asDocs ),
+                                                              String.valueOf( multiLineComments ),
                                                               getContreteXml(),
                                                               getMetricsName() ) )
                                .toString();

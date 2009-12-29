@@ -36,6 +36,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
@@ -60,6 +61,7 @@ class ClassNode extends AbstractNode implements IClass
    private List< IParserNode >                      implementations;
    private final Map< MetaData, List< IMetaData > > metaDataList;
    private final Set< Modifier >                    modifiers;
+   private final List< IParserNode >                multiLinesComments;
    private IdentifierNode                           name;
 
    protected ClassNode( final IParserNode node )
@@ -72,6 +74,7 @@ class ClassNode extends AbstractNode implements IClass
       constants = new ArrayList< IConstant >();
       attributes = new ArrayList< IAttribute >();
       functions = new ArrayList< IFunction >();
+      multiLinesComments = new ArrayList< IParserNode >();
       name = null;
       asDoc = null;
    }
@@ -122,6 +125,10 @@ class ClassNode extends AbstractNode implements IClass
             {
                asDoc = node;
             }
+            else if ( node.is( NodeKind.MULTI_LINE_COMMENT ) )
+            {
+               multiLinesComments.add( node );
+            }
             detectImplementations( node );
             detectExtensions( node );
          }
@@ -134,6 +141,18 @@ class ClassNode extends AbstractNode implements IClass
          }
       }
       return this;
+   }
+
+   public List< IMetaData > getAllMetaData()
+   {
+      final List< IMetaData > list = new ArrayList< IMetaData >();
+
+      for ( final Entry< MetaData, List< IMetaData > > entry : metaDataList.entrySet() )
+      {
+         list.addAll( entry.getValue() );
+      }
+
+      return list;
    }
 
    public IParserNode getAsDoc()
@@ -228,6 +247,11 @@ class ClassNode extends AbstractNode implements IClass
    public int getMetaDataCount()
    {
       return metaDataList.size();
+   }
+
+   public List< IParserNode > getMultiLinesComment()
+   {
+      return multiLinesComments;
    }
 
    /*

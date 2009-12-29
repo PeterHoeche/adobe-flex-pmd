@@ -38,9 +38,10 @@ public abstract class AbstractNamedMetrics extends AbstractPackagedMetrics
                                    final String nameToBeSet,
                                    final String packageName,
                                    final int ccn,
-                                   final int asDocs )
+                                   final int asDocs,
+                                   final int multiLineCommentsToBeSet )
    {
-      super( nonCommentStatements, packageName, ccn, asDocs );
+      super( nonCommentStatements, packageName, ccn, asDocs, multiLineCommentsToBeSet );
       name = nameToBeSet;
    }
 

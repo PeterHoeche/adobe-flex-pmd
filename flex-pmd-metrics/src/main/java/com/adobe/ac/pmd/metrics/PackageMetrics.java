@@ -30,19 +30,38 @@
  */
 package com.adobe.ac.pmd.metrics;
 
+import java.io.File;
 import java.text.MessageFormat;
+import java.util.Collection;
 
 public class PackageMetrics extends AbstractPackagedMetrics
 {
+   public static PackageMetrics create( final Collection< File > classesInPackage,
+                                        final String packageFullName,
+                                        final int functionsInPackage,
+                                        final int ncssInPackage,
+                                        final int asDocsInPackage,
+                                        final int multipleLineCommentInPackage )
+   {
+      return new PackageMetrics( ncssInPackage,// NOPMD
+                                 functionsInPackage,
+                                 classesInPackage.size(),
+                                 packageFullName,
+                                 asDocsInPackage,
+                                 multipleLineCommentInPackage );
+   }
+
    private final int classes;
    private final int functions;
 
    public PackageMetrics( final int nonCommentStatements,
                           final int functionsToBeSet,
                           final int classesToBeSet,
-                          final String packageName )
+                          final String packageName,
+                          final int asDocs,
+                          final int multiLineComments )
    {
-      super( nonCommentStatements, packageName, 0, 0 );
+      super( nonCommentStatements, packageName, 0, asDocs, multiLineComments );
       functions = functionsToBeSet;
       classes = classesToBeSet;
    }
@@ -59,10 +78,11 @@ public class PackageMetrics extends AbstractPackagedMetrics
                                                                     + "<javadocs>{2}</javadocs>"
                                                                     + "<javadoc_lines>0</javadoc_lines>"
                                                                     + "<single_comment_lines>0</single_comment_lines>"
-                                                                    + "<multi_comment_lines>0</multi_comment_lines>",
+                                                                    + "<multi_comment_lines>{3}</multi_comment_lines>",
                                                               String.valueOf( functions ),
                                                               String.valueOf( classes ),
-                                                              String.valueOf( getAsDocs() ) ) )
+                                                              String.valueOf( getAsDocs() ),
+                                                              String.valueOf( getMultiLineComments() ) ) )
                                .toString();
    }
 

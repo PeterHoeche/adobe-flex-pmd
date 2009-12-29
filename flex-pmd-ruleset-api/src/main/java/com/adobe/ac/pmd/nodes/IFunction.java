@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
  * 
  * @author xagnetti
  */
-public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode, IAsDocHolder
+public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode, IAsDocHolder, ICommentHolder
 {
    /**
     * Finds recursively a statement in the function body from a list of names

@@ -42,9 +42,9 @@ public class TestInterfaceContent extends AbstractAs3ParserTest
       assertInterfaceContent( "with conditional compilation",
 
                               "CONFIG::DEBUG { function output():String; } ",
-                              "<function line=\"2\" column=\"43\"><name line=\"2\" column=\"26\">"
-                                    + "output</name><parameter-list line=\"2\" column=\"33\"></parameter-list>"
-                                    + "<type line=\"2\" column=\"35\">String</type></function>" );
+                              "<function line=\"2\"><name line=\"2\">"
+                                    + "output</name><parameter-list line=\"2\"></parameter-list>"
+                                    + "<type line=\"2\">String</type></function>" );
 
    }
 
@@ -53,12 +53,12 @@ public class TestInterfaceContent extends AbstractAs3ParserTest
    {
       assertInterfaceContent( "1",
                               "import a.b.c;",
-                              "<import line=\"2\" column=\"8\">a.b.c</import>" );
+                              "<import line=\"2\">a.b.c</import>" );
 
       assertInterfaceContent( "2",
                               "import a.b.c import x.y.z",
-                              "<import line=\"2\" column=\"8\">a.b.c</import>"
-                                    + "<import line=\"2\" column=\"21\">x.y.z</import>" );
+                              "<import line=\"2\">a.b.c</import>"
+                                    + "<import line=\"2\">x.y.z</import>" );
    }
 
    @Test
@@ -66,28 +66,28 @@ public class TestInterfaceContent extends AbstractAs3ParserTest
    {
       assertInterfaceContent( "1",
                               "function a()",
-                              "<function line=\"3\" column=\"1\">"
-                                    + "<name line=\"2\" column=\"10\">a</name>"
-                                    + "<parameter-list line=\"2\" column=\"12\">"
-                                    + "</parameter-list><type line=\"3\" column=\"1\">"
+                              "<function line=\"3\">"
+                                    + "<name line=\"2\">a</name>"
+                                    + "<parameter-list line=\"2\">"
+                                    + "</parameter-list><type line=\"3\">"
                                     + "</type></function>" );
 
       assertInterfaceContent( "2",
                               "function set a( value : int ) : void",
-                              "<set line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a"
-                                    + "</name><parameter-list line=\"2\" column=\"17\">"
-                                    + "<parameter line=\"2\" column=\"17\">"
-                                    + "<name-type-init line=\"2\" column=\"17\">"
-                                    + "<name line=\"2\" column=\"17\">value</name>"
-                                    + "<type line=\"2\" column=\"25\">int</type>"
+                              "<set line=\"3\"><name line=\"2\">a"
+                                    + "</name><parameter-list line=\"2\">"
+                                    + "<parameter line=\"2\">"
+                                    + "<name-type-init line=\"2\">"
+                                    + "<name line=\"2\">value</name>"
+                                    + "<type line=\"2\">int</type>"
                                     + "</name-type-init></parameter></parameter-list>"
-                                    + "<type line=\"2\" column=\"33\">void</type></set>" );
+                                    + "<type line=\"2\">void</type></set>" );
 
       assertInterfaceContent( "3",
                               "function get a() : int",
-                              "<get line=\"3\" column=\"1\"><name line=\"2\" column=\"14\">a"
-                                    + "</name><parameter-list line=\"2\" column=\"16\">"
-                                    + "</parameter-list><type line=\"2\" column=\"20\">int" + "</type></get>" );
+                              "<get line=\"3\"><name line=\"2\">a"
+                                    + "</name><parameter-list line=\"2\">"
+                                    + "</parameter-list><type line=\"2\">int" + "</type></get>" );
    }
 
    private void assertInterfaceContent( final String message,
@@ -103,7 +103,7 @@ public class TestInterfaceContent extends AbstractAs3ParserTest
       asp.nextToken(); // skip {
       final String result = new ASTToXMLConverter().convert( asp.parseInterfaceContent() );
       assertEquals( message,
-                    "<content line=\"2\" column=\"1\">"
+                    "<content line=\"2\">"
                           + expected + "</content>",
                     result );
    }

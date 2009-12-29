@@ -79,7 +79,7 @@ public abstract class AbstractAs3ParserTest extends TestCase
                                    final int level )
    {
       result.append( "<"
-            + ast.getId() + " line=\"" + ast.getLine() + "\" column=\"" + ast.getColumn() + "\">" );
+            + ast.getId() + " line=\"" + ast.getLine() + "\">" );
 
       final int numChildren = ast.numChildren();
       if ( numChildren > 0 )

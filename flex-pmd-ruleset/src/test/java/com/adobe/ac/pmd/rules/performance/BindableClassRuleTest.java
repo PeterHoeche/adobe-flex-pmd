@@ -42,7 +42,10 @@ public class BindableClassRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                 "bug.FlexPMD60.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 19, 19 ) } ),
                        "cairngorm.BindableModelLocator.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 32, 32 ) } );

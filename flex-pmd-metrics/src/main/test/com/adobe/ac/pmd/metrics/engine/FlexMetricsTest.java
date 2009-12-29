@@ -65,8 +65,10 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     Math.round( projectMetrics.getAverageObjects().getAverageFunctions() ) );
       assertEquals( 9,
                     Math.round( projectMetrics.getAverageObjects().getAverageStatements() ) );
-      assertEquals( 0.4339622641509434,
-                    projectMetrics.getAverageObjects().getAverageDocs() );
+      assertEquals( 2,
+                    Math.round( projectMetrics.getAverageObjects().getAverageDocs() ) );
+      assertEquals( 1,
+                    Math.round( projectMetrics.getAverageObjects().getAverageMultipleComments() + 0.95 ) );
       assertEquals( 53,
                     projectMetrics.getClasses().size() );
       assertEquals( 0,
@@ -79,37 +81,42 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getClasses().get( 2 ).getNonCommentStatements() );
       assertEquals( 3,
                     projectMetrics.getClasses().get( 9 ).getAsDocs() );
-      assertEquals( 119,
+      assertEquals( 120,
                     projectMetrics.getFunctions().size() );
       assertEquals( 2,
-                    projectMetrics.getFunctions().get( 0 ).getNonCommentStatements() );
-      assertEquals( "TestEvent",
-                    projectMetrics.getFunctions().get( 0 ).getName() );
-      assertEquals( 1,
                     projectMetrics.getFunctions().get( 1 ).getNonCommentStatements() );
-      assertEquals( "clone",
+      assertEquals( "TestEvent",
                     projectMetrics.getFunctions().get( 1 ).getName() );
+      assertEquals( 1,
+                    projectMetrics.getFunctions().get( 2 ).getNonCommentStatements() );
+      assertEquals( "clone",
+                    projectMetrics.getFunctions().get( 2 ).getName() );
       assertEquals( 9,
-                    projectMetrics.getFunctions().get( 4 ).getNonCommentStatements() );
+                    projectMetrics.getFunctions().get( 5 ).getNonCommentStatements() );
       assertEquals( "BugDemo",
-                    projectMetrics.getFunctions().get( 4 ).getName() );
+                    projectMetrics.getFunctions().get( 5 ).getName() );
       assertEquals( 22,
                     projectMetrics.getPackages().size() );
       assertEquals( 7,
                     projectMetrics.getPackages().get( 0 ).getClasses() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 0 ).getFullName() );
-      assertEquals( 6,
+      assertEquals( 7,
                     projectMetrics.getPackages().get( 0 ).getFunctions() );
-      assertEquals( 16,
+      assertEquals( 17,
                     projectMetrics.getPackages().get( 0 ).getNonCommentStatements() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 0 ).getPackageName() );
       assertEquals( 53,
                     projectMetrics.getTotalPackages().getTotalClasses() );
-      assertEquals( 119,
+      assertEquals( 120,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 498,
+      assertEquals( 489,
                     projectMetrics.getTotalPackages().getTotalStatements() );
+      assertEquals( 102,
+                    projectMetrics.getTotalPackages().getTotalAsDocs() );
+      assertEquals( 13,
+                    projectMetrics.getTotalPackages().getTotalMultiLineComment() );
+
    }
 }

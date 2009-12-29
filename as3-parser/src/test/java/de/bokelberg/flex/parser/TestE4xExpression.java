@@ -41,20 +41,20 @@ public class TestE4xExpression extends AbstractStatementTest
    {
       assertStatement( "",
                        "myXml.(lala=\"lala\")",
-                       "<e4x-filter line=\"1\" column=\"8\"><primary line=\"1\" column=\"1\">myXml"
-                             + "</primary><assign line=\"1\" column=\"8\"><primary line=\"1\" column=\"8\">"
-                             + "lala</primary><op line=\"1\" column=\"12\">=</op><primary line=\"1\" column=\"13\">"
+                       "<e4x-filter line=\"1\"><primary line=\"1\">myXml"
+                             + "</primary><assign line=\"1\"><primary line=\"1\">"
+                             + "lala</primary><op line=\"1\">=</op><primary line=\"1\">"
                              + "\"lala\"</primary></assign></e4x-filter>" );
 
       assertStatement( "",
                        "doc.*.worm[1]",
-                       "<mul line=\"1\" column=\"1\"><e4x-star line=\"1\" column=\"5\"><primary line=\"1\" "
-                             + "column=\"1\">doc</primary></e4x-star><op line=\"1\" column=\"5\">*</op><primary "
-                             + "line=\"1\" column=\"6\">.</primary></mul>" );
+                       "<mul line=\"1\"><e4x-star line=\"1\"><primary line=\"1\""
+                             + ">doc</primary></e4x-star><op line=\"1\">*</op><primary "
+                             + "line=\"1\">.</primary></mul>" );
 
       assertStatement( "",
                        "doc.@worm",
-                       "<dot line=\"1\" column=\"5\"><primary line=\"1\" column=\"1\">doc</primary><primary "
-                             + "line=\"1\" column=\"5\">@worm</primary></dot>" );
+                       "<dot line=\"1\"><primary line=\"1\">doc</primary><primary "
+                             + "line=\"1\">@worm</primary></dot>" );
    }
 }

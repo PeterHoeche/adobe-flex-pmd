@@ -31,22 +31,48 @@
 package com.adobe.ac.pmd.metrics;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 public class TotalPackageMetrics implements IMetrics
 {
+   public static TotalPackageMetrics create( final List< PackageMetrics > packageMetrics )
+   {
+      int nonCommentStatement = 0;
+      int functions = 0;
+      int classes = 0;
+      int asDocs = 0;
+      int multipleLineComments = 0;
+
+      for ( final PackageMetrics metrics : packageMetrics )
+      {
+         nonCommentStatement += metrics.getNonCommentStatements();
+         functions += metrics.getFunctions();
+         classes += metrics.getClasses();
+         asDocs += metrics.getAsDocs();
+         multipleLineComments += metrics.getMultiLineComments();
+      }
+      return new TotalPackageMetrics( nonCommentStatement, functions, classes, asDocs, multipleLineComments );
+   }
+
+   private final int totalAsDocs;
    private final int totalClasses;
    private final int totalFunctions;
+   private final int totalMultiLineComment;
    private final int totalStatements;
 
    public TotalPackageMetrics( final int totalStatementsToBeSet,
                                final int totalFunctionsToBeSet,
-                               final int totalClassesToBeSet )
+                               final int totalClassesToBeSet,
+                               final int totalAsDocsToBeSet,
+                               final int totalMultiLineCommentToBeSet )
    {
       super();
 
       totalStatements = totalStatementsToBeSet;
       totalFunctions = totalFunctionsToBeSet;
       totalClasses = totalClassesToBeSet;
+      totalAsDocs = totalAsDocsToBeSet;
+      totalMultiLineComment = totalMultiLineCommentToBeSet;
    }
 
    public String getContreteXml()
@@ -55,15 +81,22 @@ public class TotalPackageMetrics implements IMetrics
                                                                     + "<classes>{0}</classes>"
                                                                     + "<functions>{1}</functions>"
                                                                     + "<ncss>{2}</ncss>"
-                                                                    + "<javadocs>0</javadocs>"
+                                                                    + "<javadocs>{3}</javadocs>"
                                                                     + "<javadoc_lines>0</javadoc_lines>"
                                                                     + "<single_comment_lines>0</single_comment_lines>"
-                                                                    + "<multi_comment_lines>0</multi_comment_lines>"
+                                                                    + "<multi_comment_lines>{4}</multi_comment_lines>"
                                                                     + "</total>",
                                                               String.valueOf( totalClasses ),
                                                               String.valueOf( totalFunctions ),
-                                                              String.valueOf( totalStatements ) ) )
+                                                              String.valueOf( totalStatements ),
+                                                              String.valueOf( totalAsDocs ),
+                                                              String.valueOf( totalMultiLineComment ) ) )
                                .toString();
+   }
+
+   public int getTotalAsDocs()
+   {
+      return totalAsDocs;
    }
 
    public int getTotalClasses()
@@ -74,6 +107,11 @@ public class TotalPackageMetrics implements IMetrics
    public int getTotalFunctions()
    {
       return totalFunctions;
+   }
+
+   public int getTotalMultiLineComment()
+   {
+      return totalMultiLineComment;
    }
 
    public int getTotalStatements()

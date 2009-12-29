@@ -89,6 +89,7 @@ public enum NodeKind
    MINUS("minus"),
    MOD_LIST("mod-list"),
    MODIFIER("mod"),
+   MULTI_LINE_COMMENT("multi-line-comment"),
    MULTIPLICATION("mul"),
    NAME("name"),
    NAME_TYPE_INIT("name-type-init"),

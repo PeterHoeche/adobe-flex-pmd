@@ -36,6 +36,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import com.adobe.ac.pmd.nodes.IFieldInitialization;
 import com.adobe.ac.pmd.nodes.IIdentifierNode;
@@ -113,6 +114,18 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
          }
       }
       return this;
+   }
+
+   public List< IMetaData > getAllMetaData()
+   {
+      final List< IMetaData > list = new ArrayList< IMetaData >();
+
+      for ( final Entry< MetaData, List< IMetaData > > entry : metaDataList.entrySet() )
+      {
+         list.addAll( entry.getValue() );
+      }
+
+      return list;
    }
 
    /*

@@ -41,19 +41,19 @@ public class TestInterface extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "public interface A extends B { } ",
-                            "<content line=\"2\" column=\"1\"><interface line=\"2\" column=\"18\">"
-                                  + "<name line=\"2\" column=\"18\">A</name><mod-list line=\"2\" column=\"20\">"
-                                  + "<mod line=\"2\" column=\"20\">public</mod>"
-                                  + "</mod-list><extends line=\"2\" column=\"28\">B</extends>"
-                                  + "<content line=\"2\" column=\"32\"></content></interface></content>" );
+                            "<content line=\"2\"><interface line=\"2\">"
+                                  + "<name line=\"2\">A</name><mod-list line=\"2\">"
+                                  + "<mod line=\"2\">public</mod>"
+                                  + "</mod-list><extends line=\"2\">B</extends>"
+                                  + "<content line=\"2\"></content></interface></content>" );
 
       assertPackageContent( "",
                             "   public interface ITimelineEntryRenderer extends IFlexDisplayObject, IDataRenderer{}",
-                            "<content line=\"2\" column=\"4\"><interface line=\"2\" column=\"21\"><name line=\"2\" "
-                                  + "column=\"21\">ITimelineEntryRenderer</name><mod-list line=\"2\" column=\"44\">"
-                                  + "<mod line=\"2\" column=\"44\">public</mod></mod-list><extends line=\"2\" "
-                                  + "column=\"52\">IFlexDisplayObject</extends><extends line=\"2\" column=\"72\">"
-                                  + "IDataRenderer</extends><content line=\"2\" column=\"86\">"
+                            "<content line=\"2\"><interface line=\"2\"><name line=\"2\""
+                                  + ">ITimelineEntryRenderer</name><mod-list line=\"2\">"
+                                  + "<mod line=\"2\">public</mod></mod-list><extends line=\"2\""
+                                  + ">IFlexDisplayObject</extends><extends line=\"2\">"
+                                  + "IDataRenderer</extends><content line=\"2\">"
                                   + "</content></interface></content>" );
    }
 
@@ -62,12 +62,11 @@ public class TestInterface extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "public interface A extends B { include \"ITextFieldInterface.asz\" } ",
-                            "<content line=\"2\" column=\"1\"><interface line=\"2\" column=\"18\">"
-                                  + "<name line=\"2\" column=\"18\">A</name><mod-list line=\"2\" column=\"20\">"
-                                  + "<mod line=\"2\" column=\"20\">public</mod></mod-list>"
-                                  + "<extends line=\"2\" column=\"28\">"
-                                  + "B</extends><content line=\"2\" column=\"32\"><include line=\"2\" column=\"32\">"
-                                  + "<primary line=\"2\" column=\"40\">\"ITextFieldInterface.asz\"</primary>"
+                            "<content line=\"2\"><interface line=\"2\">"
+                                  + "<name line=\"2\">A</name><mod-list line=\"2\">"
+                                  + "<mod line=\"2\">public</mod></mod-list>" + "<extends line=\"2\">"
+                                  + "B</extends><content line=\"2\"><include line=\"2\">"
+                                  + "<primary line=\"2\">\"ITextFieldInterface.asz\"</primary>"
                                   + "</include></content></interface></content>" );
    }
 

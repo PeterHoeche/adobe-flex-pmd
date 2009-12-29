@@ -41,19 +41,17 @@ public class TestClass extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "public class A extends B { } ",
-                            "<content line=\"2\" column=\"1\">"
-                                  + "<class line=\"2\" column=\"14\">"
-                                  + "<name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\">"
-                                  + "<mod line=\"2\" column=\"16\">public</mod></mod-list><extends line=\"2\" "
-                                  + "column=\"24\">B</extends><content line=\"2\" column=\"28\"></content>"
-                                  + "</class></content>" );
+                            "<content line=\"2\">"
+                                  + "<class line=\"2\">" + "<name line=\"2\">A</name><mod-list line=\"2\">"
+                                  + "<mod line=\"2\">public</mod></mod-list><extends line=\"2\""
+                                  + ">B</extends><content line=\"2\"></content>" + "</class></content>" );
 
       assertPackageContent( "1",
                             "public class A extends com.adobe::B { } ",
-                            "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\"><name line=\"2\" "
-                                  + "column=\"14\">A</name><mod-list line=\"2\" column=\"16\"><mod line=\"2\" "
-                                  + "column=\"16\">public</mod></mod-list><extends line=\"2\" column=\"24\""
-                                  + ">com.adobe::B</extends><content line=\"2\" column=\"39\"></content>"
+                            "<content line=\"2\"><class line=\"2\"><name line=\"2\""
+                                  + ">A</name><mod-list line=\"2\"><mod line=\"2\""
+                                  + ">public</mod></mod-list><extends line=\"2\""
+                                  + ">com.adobe::B</extends><content line=\"2\"></content>"
                                   + "</class></content>" );
    }
 
@@ -62,14 +60,11 @@ public class TestClass extends AbstractAs3ParserTest
    {
       assertPackageContent( "",
                             "public final class Title{ }",
-                            "<content line=\"2\" column=\"1\">"
-                                  + "<class line=\"2\" column=\"20\">"
-                                  + "<name line=\"2\" column=\"20\">Title</name>"
-                                  + "<mod-list line=\"2\" column=\"25\">"
-                                  + "<mod line=\"2\" column=\"25\">public</mod>"
-                                  + "<mod line=\"2\" column=\"25\">final</mod></mod-list>"
-                                  + "<content line=\"2\" " + "column=\"27\"></content>" + "</class>"
-                                  + "</content>" );
+                            "<content line=\"2\">"
+                                  + "<class line=\"2\">" + "<name line=\"2\">Title</name>"
+                                  + "<mod-list line=\"2\">" + "<mod line=\"2\">public</mod>"
+                                  + "<mod line=\"2\">final</mod></mod-list>" + "<content line=\"2\""
+                                  + "></content>" + "</class>" + "</content>" );
    }
 
    @Test
@@ -81,12 +76,12 @@ public class TestClass extends AbstractAs3ParserTest
 
       assertPackageContent( "1",
                             "public class A extends B implements C,D { } ",
-                            "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\">"
-                                  + "<name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\">"
-                                  + "<mod line=\"2\" column=\"16\">public</mod></mod-list><extends line=\"2\" "
-                                  + "column=\"24\">B</extends><implements-list line=\"2\" column=\"37\">"
-                                  + "<implements line=\"2\" column=\"37\">C</implements><implements line=\"2\" "
-                                  + "column=\"39\">D</implements></implements-list><content line=\"2\" column=\"43\">"
+                            "<content line=\"2\"><class line=\"2\">"
+                                  + "<name line=\"2\">A</name><mod-list line=\"2\">"
+                                  + "<mod line=\"2\">public</mod></mod-list><extends line=\"2\""
+                                  + ">B</extends><implements-list line=\"2\">"
+                                  + "<implements line=\"2\">C</implements><implements line=\"2\""
+                                  + ">D</implements></implements-list><content line=\"2\">"
                                   + "</content></class></content>" );
    }
 
@@ -95,12 +90,12 @@ public class TestClass extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "public class A implements B,C { } ",
-                            "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\">"
-                                  + "<name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" "
-                                  + "column=\"16\"><mod line=\"2\" column=\"16\">public</mod></mod-list>"
-                                  + "<implements-list line=\"2\" column=\"27\"><implements line=\"2\" "
-                                  + "column=\"27\">B</implements><implements line=\"2\" column=\"29\">"
-                                  + "C</implements></implements-list><content line=\"2\" column=\"33\">"
+                            "<content line=\"2\"><class line=\"2\">"
+                                  + "<name line=\"2\">A</name><mod-list line=\"2\""
+                                  + "><mod line=\"2\">public</mod></mod-list>"
+                                  + "<implements-list line=\"2\"><implements line=\"2\""
+                                  + ">B</implements><implements line=\"2\">"
+                                  + "C</implements></implements-list><content line=\"2\">"
                                   + "</content></class></content>" );
    }
 
@@ -109,12 +104,12 @@ public class TestClass extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "public class A implements B { } ",
-                            "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\">"
-                                  + "<name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" "
-                                  + "column=\"16\"><mod line=\"2\" column=\"16\">public</mod></mod-list>"
-                                  + "<implements-list line=\"2\" column=\"27\"><implements line=\"2\" "
-                                  + "column=\"27\">B</implements></implements-list><content line=\"2\" "
-                                  + "column=\"31\"></content></class></content>" );
+                            "<content line=\"2\"><class line=\"2\">"
+                                  + "<name line=\"2\">A</name><mod-list line=\"2\""
+                                  + "><mod line=\"2\">public</mod></mod-list>"
+                                  + "<implements-list line=\"2\"><implements line=\"2\""
+                                  + ">B</implements></implements-list><content line=\"2\""
+                                  + "></content></class></content>" );
    }
 
    @Test
@@ -122,14 +117,12 @@ public class TestClass extends AbstractAs3ParserTest
    {
       assertPackageContent( "",
                             "public final class Title{ import lala.lala; }",
-                            "<content line=\"2\" column=\"1\">"
-                                  + "<class line=\"2\" column=\"20\">"
-                                  + "<name line=\"2\" column=\"20\">Title</name>"
-                                  + "<mod-list line=\"2\" column=\"25\">"
-                                  + "<mod line=\"2\" column=\"25\">public</mod>"
-                                  + "<mod line=\"2\" column=\"25\">final</mod>" + "</mod-list>"
-                                  + "<content line=\"2\" column=\"27\"><import line=\"2\" "
-                                  + "column=\"34\">lala.lala</import></content>" + "</class>" + "</content>" );
+                            "<content line=\"2\">"
+                                  + "<class line=\"2\"><name line=\"2\">Title</name>"
+                                  + "<mod-list line=\"2\"><mod line=\"2\">public</mod>"
+                                  + "<mod line=\"2\">final</mod></mod-list>"
+                                  + "<content line=\"2\"><import line=\"2\""
+                                  + ">lala.lala</import></content></class></content>" );
 
    }
 
@@ -138,11 +131,11 @@ public class TestClass extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "public class A extends B { include \"ITextFieldInterface.asz\" } ",
-                            "<content line=\"2\" column=\"1\"><class line=\"2\" column=\"14\">"
-                                  + "<name line=\"2\" column=\"14\">A</name><mod-list line=\"2\" column=\"16\">"
-                                  + "<mod line=\"2\" column=\"16\">public</mod></mod-list>"
-                                  + "<extends line=\"2\" column=\"24\">B</extends>"
-                                  + "<content line=\"2\" column=\"28\"></content></class></content>" );
+                            "<content line=\"2\"><class line=\"2\">"
+                                  + "<name line=\"2\">A</name><mod-list line=\"2\">"
+                                  + "<mod line=\"2\">public</mod></mod-list>"
+                                  + "<extends line=\"2\">B</extends>"
+                                  + "<content line=\"2\"></content></class></content>" );
    }
 
    private void assertPackageContent( final String message,

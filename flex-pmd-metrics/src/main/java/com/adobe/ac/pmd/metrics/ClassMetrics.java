@@ -30,8 +30,41 @@
  */
 package com.adobe.ac.pmd.metrics;
 
+import java.io.File;
+
+import com.adobe.ac.pmd.nodes.IClass;
+
 public class ClassMetrics extends AbstractNamedMetrics
 {
+   public static ClassMetrics create( final String packageFullName,
+                                      final File fileInPackage,
+                                      final InternalFunctionMetrics functionMetrics,
+                                      final IClass classNode )
+   {
+      final int average = classNode == null ? 0
+                                           : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
+      final int asDocs = ( classNode == null
+            || classNode.getAsDoc() == null ? 0
+                                           : MetricUtils.computeNbOfLines( classNode.getAsDoc()
+                                                                                    .getStringValue() ) )
+            + ( functionMetrics == null ? 0
+                                       : functionMetrics.getAsDocsInClass() );
+      final int multiLineComments = ( classNode == null ? 0
+                                                       : MetricUtils.computeMultiLineComments( classNode ) )
+            + ( functionMetrics == null ? 0
+                                       : functionMetrics.getMultipleLineCommentInClass() );
+      return new ClassMetrics( functionMetrics == null ? 0
+                                                      : functionMetrics.getNcssInClass(), // NOPMD
+                               classNode == null ? 0
+                                                : classNode.getFunctions().size(),
+                               fileInPackage.getName().replace( ".as",
+                                                                "" ),
+                               packageFullName,
+                               average,
+                               asDocs,
+                               multiLineComments );
+   }
+
    private final int functions;
 
    public ClassMetrics( final int nonCommentStatements,
@@ -39,9 +72,10 @@ public class ClassMetrics extends AbstractNamedMetrics
                         final String name,
                         final String packageName,
                         final int ccn,
-                        final int asDocs )
+                        final int asDocs,
+                        final int multiLineCommentsToBeSet )
    {
-      super( nonCommentStatements, name, packageName, ccn, asDocs );
+      super( nonCommentStatements, name, packageName, ccn, asDocs, multiLineCommentsToBeSet );
 
       functions = functionsToBeSet;
    }

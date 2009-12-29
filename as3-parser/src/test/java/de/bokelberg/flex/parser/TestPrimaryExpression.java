@@ -40,9 +40,9 @@ public class TestPrimaryExpression extends AbstractAs3ParserTest
    public void testArrayLiteral() throws TokenException
    {
       assertPrimary( "[1,2,3]",
-                     "<array line=\"1\" column=\"1\"><primary line=\"1\" column=\"2\">1"
-                           + "</primary><primary line=\"1\" column=\"4\">2</primary>"
-                           + "<primary line=\"1\" column=\"6\">3</primary></array>" );
+                     "<array line=\"1\"><primary line=\"1\">1"
+                           + "</primary><primary line=\"1\">2</primary>"
+                           + "<primary line=\"1\">3</primary></array>" );
    }
 
    @Test
@@ -56,13 +56,13 @@ public class TestPrimaryExpression extends AbstractAs3ParserTest
    public void testFunctionLiteral() throws TokenException
    {
       assertPrimary( "function ( a : Object ) : * { trace('test'); }",
-                     "<lambda line=\"1\" column=\"10\"><parameter-list line=\"1\" column=\"12\">"
-                           + "<parameter line=\"1\" column=\"12\"><name-type-init line=\"1\" column=\"12\">"
-                           + "<name line=\"1\" column=\"12\">a</name><type line=\"1\" column=\"16\">"
+                     "<lambda line=\"1\"><parameter-list line=\"1\">"
+                           + "<parameter line=\"1\"><name-type-init line=\"1\">"
+                           + "<name line=\"1\">a</name><type line=\"1\">"
                            + "Object</type></name-type-init></parameter></parameter-list>"
-                           + "<type line=\"1\" column=\"27\">*</type><block line=\"1\" column=\"31\">"
-                           + "<call line=\"1\" column=\"36\"><primary line=\"1\" column=\"31\">trace</primary>"
-                           + "<arguments line=\"1\" column=\"37\"><primary line=\"1\" column=\"37\">'test'"
+                           + "<type line=\"1\">*</type><block line=\"1\">"
+                           + "<call line=\"1\"><primary line=\"1\">trace</primary>"
+                           + "<arguments line=\"1\"><primary line=\"1\">'test'"
                            + "</primary></arguments></call></block></lambda>" );
    }
 
@@ -85,11 +85,11 @@ public class TestPrimaryExpression extends AbstractAs3ParserTest
    public void testObjectLiteral() throws TokenException
    {
       assertPrimary( "{a:1,b:2}",
-                     "<object line=\"1\" column=\"1\"><prop line=\"1\" column=\"2\">"
-                           + "<name line=\"1\" column=\"2\">a</name><value line=\"1\" column=\"4\">"
-                           + "<primary line=\"1\" column=\"4\">1</primary></value></prop><prop line=\"1\" column=\"6\">"
-                           + "<name line=\"1\" column=\"6\">b</name><value line=\"1\" column=\"8\">"
-                           + "<primary line=\"1\" column=\"8\">2</primary></value></prop></object>" );
+                     "<object line=\"1\"><prop line=\"1\">"
+                           + "<name line=\"1\">a</name><value line=\"1\">"
+                           + "<primary line=\"1\">1</primary></value></prop><prop line=\"1\">"
+                           + "<name line=\"1\">b</name><value line=\"1\">"
+                           + "<primary line=\"1\">2</primary></value></prop></object>" );
    }
 
    @Test
@@ -120,7 +120,7 @@ public class TestPrimaryExpression extends AbstractAs3ParserTest
       asp.nextToken();
       final String result = new ASTToXMLConverter().convert( asp.parsePrimaryExpression() );
       assertEquals( "unexpected",
-                    "<primary line=\"1\" column=\"1\">"
+                    "<primary line=\"1\">"
                           + expected + "</primary>",
                     result );
    }

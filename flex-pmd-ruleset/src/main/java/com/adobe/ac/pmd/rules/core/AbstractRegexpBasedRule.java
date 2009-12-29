@@ -57,7 +57,8 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
          final String line = getCurrentFile().getLineAt( i );
 
          if ( isCurrentLineConcerned( line )
-               && doesCurrentLineMacthes( line ) && isViolationDetectedOnThisMatchingLine( line ) )
+               && doesCurrentLineMacthes( line ) && isViolationDetectedOnThisMatchingLine( line )
+               && !line.contains( "/*" ) && !line.contains( "//" ) )
          {
             addViolation( violations,
                           ViolationPosition.create( i,

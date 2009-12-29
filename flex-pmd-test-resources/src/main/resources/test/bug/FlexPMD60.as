@@ -10,7 +10,33 @@
 /////////////////////////////////////////////////////////////////////////////// /
 package
 {
+	/*
+	 * comment
+	 */
+	/**
+	 * AsDoc metadata
+	 */ 
+	[Bindable]
+	/**
+	 * AsDoc class
+	 */
 	public class A
 	{
+		/**
+		 * AsDoc attribute
+		 */
+		public var lala;
+
+/*		public function foo() : void
+		{
+		}*/
+		/**
+		 * AsDoc method
+		 */
+		public function resolve() : void
+		{
+//			comment
+/*			var i : int = 0;*/
+		}
 	}
 }

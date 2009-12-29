@@ -33,22 +33,31 @@ package com.adobe.ac.pmd.metrics;
 public class AverageMetricsBase
 {
    private final double averageDocs;
+   private final double averageMultipleComments;
    private final double averageStatements;
 
-   protected AverageMetricsBase( final int total,
+   protected AverageMetricsBase( final double total,
                                  final double asDocs,
-                                 final double totalStatements )
+                                 final double totalStatements,
+                                 final double mutlipleComments )
    {
       super();
       this.averageStatements = totalStatements
             / total;
       this.averageDocs = asDocs
             / total;
+      this.averageMultipleComments = mutlipleComments
+            / total;
    }
 
    public double getAverageDocs()
    {
       return averageDocs;
+   }
+
+   public double getAverageMultipleComments()
+   {
+      return averageMultipleComments;
    }
 
    public double getAverageStatements()

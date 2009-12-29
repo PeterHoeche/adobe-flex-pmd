@@ -397,7 +397,8 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       IParserNode currentNode = iterator.next();
 
       while ( currentNode.is( NodeKind.META_LIST )
-            || currentNode.is( NodeKind.MOD_LIST ) || currentNode.is( NodeKind.AS_DOC ) )
+            || currentNode.is( NodeKind.MOD_LIST ) || currentNode.is( NodeKind.AS_DOC )
+            || currentNode.is( NodeKind.MULTI_LINE_COMMENT ) )
       {
          currentNode = iterator.next();
       }

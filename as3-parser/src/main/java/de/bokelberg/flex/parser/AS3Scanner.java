@@ -235,10 +235,8 @@ public class AS3Scanner
       }
       if ( currentCharacter == '{'
             || currentCharacter == '}' || currentCharacter == '(' || currentCharacter == ')'
-            || currentCharacter == '[' || currentCharacter == ']'
-            // a number can start with a dot as well, see number || c == '.'
-            || currentCharacter == ';' || currentCharacter == ',' || currentCharacter == '?'
-            || currentCharacter == '~' )
+            || currentCharacter == '[' || currentCharacter == ']' || currentCharacter == ';'
+            || currentCharacter == ',' || currentCharacter == '?' || currentCharacter == '~' )
       {
          return scanSingleCharacterToken( currentCharacter );
       }
@@ -268,8 +266,6 @@ public class AS3Scanner
                                        { "--",
                                                    "-=" } );
       }
-      // called by scanCommentOrRegExp if( c == '/' ) return
-      // scanCharacterSequence( c, new String[]{"/="}, 2);
       if ( currentCharacter == '%' )
       {
          return scanCharacterSequence( currentCharacter,
@@ -341,11 +337,6 @@ public class AS3Scanner
                          possibleMatch.length() );
       }
       return max;
-   }
-
-   private String getRemainingLine()
-   {
-      return lines[ line ].substring( column );
    }
 
    private boolean isIdentifierCharacter( final char currentCharacter )
@@ -487,14 +478,12 @@ public class AS3Scanner
          return result;
       }
 
-      // it is not a regular expression
       if ( firstCharacter == '=' )
       {
          result = new Token( "/=", line, column );
          skipChars( 1 );
          return result;
       }
-      // it is a simple divide symbol
       result = new Token( "/", line, column );
       return result;
    }
@@ -509,24 +498,24 @@ public class AS3Scanner
       char currentChar = currentCharacter;
       final StringBuffer buffer = new StringBuffer();
       int peekPos = 1;
-      // before dot
+
       while ( isDecimalChar( currentChar ) )
       {
          buffer.append( currentChar );
          currentChar = peekChar( peekPos++ );
       }
-      // the optional dot
+
       if ( currentChar == '.' )
       {
          buffer.append( currentChar );
          currentChar = peekChar( peekPos++ );
-         // after the dot
+
          while ( isDecimalChar( currentChar ) )
          {
             buffer.append( currentChar );
             currentChar = peekChar( peekPos++ );
          }
-         // the optional exponent
+
          if ( currentChar == 'E' )
          {
             buffer.append( currentChar );
@@ -683,7 +672,7 @@ public class AS3Scanner
     */
    private Token scanSingleLineComment()
    {
-      final Token result = new Token( getRemainingLine(), line, column );
+      final Token result = new Token( lines[ line ].substring( column ), line, column );
       skipChars( result.text.length() - 1 );
       return result;
    }

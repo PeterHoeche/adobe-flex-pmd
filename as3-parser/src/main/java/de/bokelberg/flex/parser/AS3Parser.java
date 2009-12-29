@@ -50,11 +50,14 @@ import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class AS3Parser implements IAS3Parser
 {
+   public static final String  ASDOC_COMMENT          = "/**";
    public static final String  MULTIPLE_LINES_COMMENT = "/*";
    public static final String  NEW_LINE               = "\n";
    public static final String  SINGLE_LINE_COMMENT    = "//";
    private static final String VECTOR                 = "Vector";
    private Node                currentAsDoc;
+   private Node                currentFunctionNode;
+   private Node                currentMultiLineComment;
    private String              fileName;
    private boolean             isInFor;
    private AS3Scanner          scn;
@@ -149,7 +152,7 @@ public class AS3Parser implements IAS3Parser
                                  modifiers,
                                  meta );
          }
-         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         else if ( tok.getText().startsWith( ASDOC_COMMENT ) )
          {
             currentAsDoc = Node.create( NodeKind.AS_DOC,
                                         tok.getLine(),
@@ -157,10 +160,18 @@ public class AS3Parser implements IAS3Parser
                                         tok.getText() );
             nextToken();
          }
+         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            result.addChild( Node.create( NodeKind.MULTI_LINE_COMMENT,
+                                          tok.getLine(),
+                                          tok.getColumn(),
+                                          tok.getText() ) );
+            nextToken();
+         }
          else
          {
             modifiers.add( tok );
-            nextTokenIgnoringAsDoc();
+            nextTokenIgnoringDocumentation();
          }
       }
       return result;
@@ -177,7 +188,7 @@ public class AS3Parser implements IAS3Parser
                                        -1,
                                        -1 );
 
-      nextTokenIgnoringAsDoc();
+      nextTokenIgnoringDocumentation();
       if ( tokIs( KeyWords.PACKAGE ) )
       {
          result.addChild( parsePackage() );
@@ -223,7 +234,7 @@ public class AS3Parser implements IAS3Parser
             }
             nextToken();
          }
-         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         else if ( tok.getText().startsWith( ASDOC_COMMENT ) )
          {
             currentAsDoc = Node.create( NodeKind.AS_DOC,
                                         tok.getLine(),
@@ -231,9 +242,17 @@ public class AS3Parser implements IAS3Parser
                                         tok.getText() );
             nextToken();
          }
+         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            result.addChild( Node.create( NodeKind.MULTI_LINE_COMMENT,
+                                          tok.getLine(),
+                                          tok.getColumn(),
+                                          tok.getText() ) );
+            nextToken();
+         }
          else
          {
-            nextTokenIgnoringAsDoc();
+            nextTokenIgnoringDocumentation();
          }
       }
       return result;
@@ -288,7 +307,7 @@ public class AS3Parser implements IAS3Parser
                                  modifiers,
                                  meta );
          }
-         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         else if ( tok.getText().startsWith( ASDOC_COMMENT ) )
          {
             currentAsDoc = Node.create( NodeKind.AS_DOC,
                                         tok.getLine(),
@@ -296,10 +315,18 @@ public class AS3Parser implements IAS3Parser
                                         tok.getText() );
             nextToken();
          }
+         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            currentMultiLineComment = Node.create( NodeKind.MULTI_LINE_COMMENT,
+                                                   tok.getLine(),
+                                                   tok.getColumn(),
+                                                   tok.getText() );
+            nextToken();
+         }
          else
          {
             modifiers.add( tok );
-            nextTokenIgnoringAsDoc();
+            nextTokenIgnoringDocumentation();
          }
       }
       return result;
@@ -332,17 +359,6 @@ public class AS3Parser implements IAS3Parser
       {
          result.addChild( parseEncapsulatedExpression() );
       }
-      // else if ( tok.isNum()
-      // || tokIs( KeyWords.TRUE ) || tokIs( KeyWords.FALSE ) || tokIs(
-      // KeyWords.NULL )
-      // || tok.getText().startsWith( Operators.DOUBLE_QUOTE.toString() )
-      // || tok.getText().startsWith( Operators.SIMPLE_QUOTE.toString() )
-      // || tok.getText().startsWith( Operators.SLASH.toString() )
-      // || tok.getText().startsWith( Operators.INFERIOR.toString() ) || tokIs(
-      // KeyWords.UNDEFINED ) )
-      // {
-      // nextToken();
-      // }
       else
       {
          nextToken();
@@ -491,6 +507,11 @@ public class AS3Parser implements IAS3Parser
     */
    private void consume( final String text ) throws TokenException
    {
+      while ( tok.getText().startsWith( "//" ) )
+      {
+         nextToken();
+      }
+
       if ( !tokIs( text ) )
       {
          throw new UnExpectedTokenException( tok.getText(),
@@ -603,12 +624,7 @@ public class AS3Parser implements IAS3Parser
       do
       {
          tok = scn.nextToken();
-         /*
-          * try { throw new Exception(); } catch( Exception e) {
-          * StackTraceElement[] st = e.getStackTrace(); StackTraceElement ste =
-          * st[ 1 ]; System.out.println( ste.getMethodName() + ":" +
-          * tok.getText() ); }
-          */
+
          if ( tok == null )
          {
             throw new NullTokenException( fileName );
@@ -622,7 +638,7 @@ public class AS3Parser implements IAS3Parser
       while ( tok.getText().startsWith( SINGLE_LINE_COMMENT ) );
    }
 
-   private void nextTokenIgnoringAsDoc() throws TokenException
+   private void nextTokenIgnoringDocumentation() throws TokenException
    {
       do
       {
@@ -805,21 +821,31 @@ public class AS3Parser implements IAS3Parser
                                      : result.getChild( 0 );
    }
 
-   /**
-    * tok is { exit tok is the first tok after }
-    * 
-    * @throws TokenException
-    */
    private Node parseBlock() throws TokenException
+   {
+      return parseBlock( Node.create( NodeKind.BLOCK,
+                                      tok.getLine(),
+                                      tok.getColumn() ) );
+   }
+
+   private Node parseBlock( final Node result ) throws TokenException
    {
       consume( Operators.LEFT_CURLY_BRACKET );
 
-      final Node result = Node.create( NodeKind.BLOCK,
-                                       tok.getLine(),
-                                       tok.getColumn() );
       while ( !tokIs( Operators.RIGHT_CURLY_BRACKET ) )
       {
-         result.addChild( parseStatement() );
+         if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+         {
+            currentFunctionNode.addChild( Node.create( NodeKind.MULTI_LINE_COMMENT,
+                                                       tok.getLine(),
+                                                       tok.getColumn(),
+                                                       tok.getText() ) );
+            nextToken();
+         }
+         else
+         {
+            result.addChild( parseStatement() );
+         }
       }
       consume( Operators.RIGHT_CURLY_BRACKET );
       return result;
@@ -877,6 +903,11 @@ public class AS3Parser implements IAS3Parser
          result.addChild( currentAsDoc );
          currentAsDoc = null;
       }
+      if ( currentMultiLineComment != null )
+      {
+         result.addChild( currentMultiLineComment );
+         currentMultiLineComment = null;
+      }
       result.addChild( NodeKind.NAME,
                        tok.getLine(),
                        tok.getColumn(),
@@ -931,6 +962,11 @@ public class AS3Parser implements IAS3Parser
       {
          varList.addChild( currentAsDoc );
          currentAsDoc = null;
+      }
+      if ( currentMultiLineComment != null )
+      {
+         result.addChild( currentMultiLineComment );
+         currentMultiLineComment = null;
       }
       if ( tokIs( Operators.SEMI_COLUMN ) )
       {
@@ -1079,6 +1115,17 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   private Node parseEmptyStatement() throws TokenException
+   {
+      Node result;
+      result = Node.create( NodeKind.STMT_EMPTY,
+                            tok.getLine(),
+                            tok.getColumn(),
+                            Operators.SEMI_COLUMN.toString() );
+      nextToken();
+      return result;
+   }
+
    // private Node parseE4XAttributeIdentifier() throws TokenException
    // {
    // consume( Operators.AT );
@@ -1108,17 +1155,6 @@ public class AS3Parser implements IAS3Parser
    // }
    // return result;
    // }
-
-   private Node parseEmptyStatement() throws TokenException
-   {
-      Node result;
-      result = Node.create( NodeKind.STMT_EMPTY,
-                            tok.getLine(),
-                            tok.getColumn(),
-                            Operators.SEMI_COLUMN.toString() );
-      nextToken();
-      return result;
-   }
 
    private Node parseEncapsulatedExpression() throws TokenException
    {
@@ -1271,13 +1307,39 @@ public class AS3Parser implements IAS3Parser
          result.addChild( currentAsDoc );
          currentAsDoc = null;
       }
+      if ( currentMultiLineComment != null )
+      {
+         result.addChild( currentMultiLineComment );
+         currentMultiLineComment = null;
+      }
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifiers ) );
       result.addChild( signature[ 1 ] );
       result.addChild( signature[ 2 ] );
       result.addChild( signature[ 3 ] );
-      result.addChild( parseBlock() );
+      result.addChild( parseFunctionBlock() );
+      currentFunctionNode = null;
       return result;
+   }
+
+   /**
+    * tok is { exit tok is the first tok after }
+    * 
+    * @throws TokenException
+    * @throws TokenException
+    */
+
+   private Node parseFunctionBlock() throws TokenException
+   {
+      final Node block = Node.create( NodeKind.BLOCK,
+                                      tok.getLine(),
+                                      tok.getColumn() );
+
+      currentFunctionNode = block;
+
+      parseBlock( block );
+
+      return block;
    }
 
    private Node parseFunctionCall( final Node node ) throws TokenException
@@ -1443,6 +1505,11 @@ public class AS3Parser implements IAS3Parser
       {
          result.addChild( currentAsDoc );
          currentAsDoc = null;
+      }
+      if ( currentMultiLineComment != null )
+      {
+         result.addChild( currentMultiLineComment );
+         currentMultiLineComment = null;
       }
       result.addChild( NodeKind.NAME,
                        tok.getLine(),

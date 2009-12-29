@@ -28,39 +28,61 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.unused;
+package com.adobe.ac.pmd.metrics;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.io.File;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.nodes.IAsDocHolder;
+import com.adobe.ac.pmd.nodes.ICommentHolder;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
+public final class MetricUtils
 {
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   public static int computeAsDocs( final IAsDocHolder attribute )
    {
-      final LinkedHashMap< String, ViolationPosition[] > files = new LinkedHashMap< String, ViolationPosition[] >();
-
-      return addToMap( addToMap( addToMap( files,
-                                           "cairngorm.NonBindableModelLocator.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 43, 43 ) } ),
-                                 "com.adobe.ac.ncss.BigImporterModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ) } ),
-                       "Sorted.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 67, 67 ) } );
+      return attribute.getAsDoc() == null ? 0
+                                         : computeNbOfLines( attribute.getAsDoc().getStringValue() );
    }
 
-   @Override
-   protected AbstractFlexRule getRule()
+   public static int computeMultiLineComments( final ICommentHolder function )
    {
-      return new UnusedParameterRule();
+      int lines = 0;
+
+      for ( final IParserNode comment : function.getMultiLinesComment() )
+      {
+         lines += comment.getStringValue() == null ? 0
+                                                  : MetricUtils.computeNbOfLines( comment.getStringValue() );
+      }
+      return lines;
+   }
+
+   public static int computeNbOfLines( final String lines )
+   {
+      return lines.split( "\\n" ).length;
+   }
+
+   public static String getQualifiedName( final File sourceDirectory,
+                                          final File file )
+   {
+      final String qualifiedName = file.getAbsolutePath()
+                                       .replace( sourceDirectory.getAbsolutePath(),
+                                                 "" )
+                                       .replace( "/",
+                                                 "." )
+                                       .replace( "\\",
+                                                 "." )
+                                       .replace( ".as",
+                                                 "" );
+
+      if ( qualifiedName.charAt( 0 ) == '.' )
+      {
+         return qualifiedName.substring( 1 );
+      }
+
+      return qualifiedName;
+   }
+
+   private MetricUtils()
+   {
    }
 }

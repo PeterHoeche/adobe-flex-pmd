@@ -36,6 +36,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IIdentifierNode;
@@ -56,6 +57,7 @@ class FunctionNode extends AbstractNode implements IFunction
    private final Map< String, IParserNode >         localVariables;
    private final Map< MetaData, List< IMetaData > > metaDataList;
    private final Set< Modifier >                    modifiers;
+   private final List< IParserNode >                multiLinesComments;
    private IdentifierNode                           name;
    private final List< IParameter >                 parameters;
    private IIdentifierNode                          returnType;
@@ -69,6 +71,7 @@ class FunctionNode extends AbstractNode implements IFunction
       localVariables = new LinkedHashMap< String, IParserNode >();
       parameters = new ArrayList< IParameter >();
       name = null;
+      multiLinesComments = new ArrayList< IParserNode >();
    }
 
    public void add( final IMetaData metaData )
@@ -143,6 +146,18 @@ class FunctionNode extends AbstractNode implements IFunction
                          { primaryName } );
    }
 
+   public List< IMetaData > getAllMetaData()
+   {
+      final List< IMetaData > list = new ArrayList< IMetaData >();
+
+      for ( final Entry< MetaData, List< IMetaData > > entry : metaDataList.entrySet() )
+      {
+         list.addAll( entry.getValue() );
+      }
+
+      return list;
+   }
+
    public IParserNode getAsDoc()
    {
       return asDoc;
@@ -178,6 +193,11 @@ class FunctionNode extends AbstractNode implements IFunction
    public int getMetaDataCount()
    {
       return metaDataList.size();
+   }
+
+   public List< IParserNode > getMultiLinesComment()
+   {
+      return multiLinesComments;
    }
 
    public String getName()
@@ -258,6 +278,16 @@ class FunctionNode extends AbstractNode implements IFunction
       body = functionBodyNode;
 
       computeCyclomaticComplexity();
+      if ( body.numChildren() > 0 )
+      {
+         for ( final IParserNode node : body.getChildren() )
+         {
+            if ( node.is( NodeKind.MULTI_LINE_COMMENT ) )
+            {
+               multiLinesComments.add( node );
+            }
+         }
+      }
       computeVariableList( body );
    }
 
