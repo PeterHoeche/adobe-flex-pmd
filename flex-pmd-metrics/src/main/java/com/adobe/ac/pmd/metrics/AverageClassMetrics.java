@@ -30,15 +30,33 @@
  */
 package com.adobe.ac.pmd.metrics;
 
+import java.util.List;
+
 public class AverageClassMetrics extends AverageMetricsBase
 {
+   public static AverageClassMetrics create( final List< ClassMetrics > classMetrics,
+                                             final TotalPackageMetrics totalPackageMetrics )
+   {
+      int functions = 0;
+
+      for ( final ClassMetrics metrics : classMetrics )
+      {
+         functions += metrics.getFunctions();
+      }
+      return new AverageClassMetrics( totalPackageMetrics.getTotalStatements(),
+                                      functions,
+                                      totalPackageMetrics.getTotalAsDocs(),
+                                      totalPackageMetrics.getTotalMultiLineComment(),
+                                      classMetrics.size() );
+   }
+
    private final double averageFunctions;
 
-   public AverageClassMetrics( final double nonCommentStatements,
-                               final double functions,
-                               final double asDocs,
-                               final double multipleComments,
-                               final double totalClassNumber )
+   private AverageClassMetrics( final double nonCommentStatements,
+                                final double functions,
+                                final double asDocs,
+                                final double multipleComments,
+                                final double totalClassNumber )
    {
       super( totalClassNumber, asDocs, nonCommentStatements, multipleComments );
       averageFunctions = totalClassNumber > 0 ? functions

@@ -54,12 +54,12 @@ public class PackageMetrics extends AbstractPackagedMetrics
    private final int classes;
    private final int functions;
 
-   public PackageMetrics( final int nonCommentStatements,
-                          final int functionsToBeSet,
-                          final int classesToBeSet,
-                          final String packageName,
-                          final int asDocs,
-                          final int multiLineComments )
+   private PackageMetrics( final int nonCommentStatements,
+                           final int functionsToBeSet,
+                           final int classesToBeSet,
+                           final String packageName,
+                           final int asDocs,
+                           final int multiLineComments )
    {
       super( nonCommentStatements, packageName, 0, asDocs, multiLineComments );
       functions = functionsToBeSet;

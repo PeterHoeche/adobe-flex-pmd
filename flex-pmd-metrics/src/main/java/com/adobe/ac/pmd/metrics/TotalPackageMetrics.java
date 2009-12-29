@@ -60,11 +60,11 @@ public class TotalPackageMetrics implements IMetrics
    private final int totalMultiLineComment;
    private final int totalStatements;
 
-   public TotalPackageMetrics( final int totalStatementsToBeSet,
-                               final int totalFunctionsToBeSet,
-                               final int totalClassesToBeSet,
-                               final int totalAsDocsToBeSet,
-                               final int totalMultiLineCommentToBeSet )
+   private TotalPackageMetrics( final int totalStatementsToBeSet,
+                                final int totalFunctionsToBeSet,
+                                final int totalClassesToBeSet,
+                                final int totalAsDocsToBeSet,
+                                final int totalMultiLineCommentToBeSet )
    {
       super();
 

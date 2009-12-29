@@ -51,12 +51,12 @@ public class FunctionMetrics extends AbstractNamedMetrics
                                   multipleDoc );
    }
 
-   public FunctionMetrics( final int nonCommentStatements,
-                           final String name,
-                           final String packageName,
-                           final int ccn,
-                           final int asDocs,
-                           final int multiLineCommentsToBeSet )
+   private FunctionMetrics( final int nonCommentStatements,
+                            final String name,
+                            final String packageName,
+                            final int ccn,
+                            final int asDocs,
+                            final int multiLineCommentsToBeSet )
    {
       super( nonCommentStatements, name, packageName, ccn, asDocs, multiLineCommentsToBeSet );
    }

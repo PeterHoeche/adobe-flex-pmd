@@ -34,24 +34,8 @@ import java.util.List;
 
 public class AverageFunctionMetrics extends AverageMetricsBase
 {
-   public static AverageClassMetrics create( final List< ClassMetrics > classMetrics,
-                                             final TotalPackageMetrics totalPackageMetrics )
-   {
-      int functions = 0;
-
-      for ( final ClassMetrics metrics : classMetrics )
-      {
-         functions += metrics.getFunctions();
-      }
-      return new AverageClassMetrics( totalPackageMetrics.getTotalStatements(),
-                                      functions,
-                                      totalPackageMetrics.getTotalAsDocs(),
-                                      totalPackageMetrics.getTotalMultiLineComment(),
-                                      classMetrics.size() );
-   }
-
-   public static AverageFunctionMetrics createAverageFunctions( final List< FunctionMetrics > functionMetrics,
-                                                                final TotalPackageMetrics totalPackageMetrics )
+   public static AverageFunctionMetrics create( final List< FunctionMetrics > functionMetrics,
+                                                final TotalPackageMetrics totalPackageMetrics )
    {
       return new AverageFunctionMetrics( totalPackageMetrics.getTotalStatements(),
                                          totalPackageMetrics.getTotalAsDocs(),
@@ -59,10 +43,10 @@ public class AverageFunctionMetrics extends AverageMetricsBase
                                          functionMetrics.size() );
    }
 
-   public AverageFunctionMetrics( final double nonCommentStatements,
-                                  final double asDocs,
-                                  final double multipleComments,
-                                  final double totalFunctions )
+   private AverageFunctionMetrics( final double nonCommentStatements,
+                                   final double asDocs,
+                                   final double multipleComments,
+                                   final double totalFunctions )
    {
       super( totalFunctions, asDocs, nonCommentStatements, multipleComments );
    }

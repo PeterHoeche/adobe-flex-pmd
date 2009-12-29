@@ -42,6 +42,7 @@ import com.adobe.ac.ncss.filters.FlexFilter;
 import com.adobe.ac.ncss.utils.FileUtils;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.metrics.AverageClassMetrics;
 import com.adobe.ac.pmd.metrics.AverageFunctionMetrics;
 import com.adobe.ac.pmd.metrics.ClassMetrics;
 import com.adobe.ac.pmd.metrics.InternalFunctionMetrics;
@@ -54,8 +55,8 @@ import com.adobe.ac.pmd.nodes.IPackage;
 
 public class FlexMetrics extends AbstractMetrics
 {
-   private static final FlexFilter FLEX_FILTER = new FlexFilter();
-   private static final Logger     LOGGER      = Logger.getLogger( FlexMetrics.class.getName() );
+   private static final FlexFilter       FLEX_FILTER = new FlexFilter();
+   private static final Logger           LOGGER      = Logger.getLogger( FlexMetrics.class.getName() );
 
    private final Map< String, IPackage > asts;
 
@@ -114,11 +115,11 @@ public class FlexMetrics extends AbstractMetrics
                metrics.getClassMetrics().add( classMetrics );
             }
             metrics.getPackageMetrics().add( PackageMetrics.create( classesInPackage,
-                                                     packageFullName,
-                                                     functionsInPackage,
-                                                     ncssInPackage,
-                                                     asDocsInPackage,
-                                                     multipleLineCommentInPackage ) );
+                                                                    packageFullName,
+                                                                    functionsInPackage,
+                                                                    ncssInPackage,
+                                                                    asDocsInPackage,
+                                                                    multipleLineCommentInPackage ) );
          }
       }
       setFinalMetrics( metrics );
@@ -145,9 +146,9 @@ public class FlexMetrics extends AbstractMetrics
    private void setFinalMetrics( final ProjectMetrics metrics )
    {
       metrics.setTotalPackages( TotalPackageMetrics.create( metrics.getPackageMetrics() ) );
-      metrics.setAverageFunctions( AverageFunctionMetrics.createAverageFunctions( metrics.getFunctionMetrics(),
-                                                                                  metrics.getTotalPackages() ) );
-      metrics.setAverageObjects( AverageFunctionMetrics.create( metrics.getClassMetrics(),
-                                                                metrics.getTotalPackages() ) );
+      metrics.setAverageFunctions( AverageFunctionMetrics.create( metrics.getFunctionMetrics(),
+                                                                  metrics.getTotalPackages() ) );
+      metrics.setAverageObjects( AverageClassMetrics.create( metrics.getClassMetrics(),
+                                                             metrics.getTotalPackages() ) );
    }
 }

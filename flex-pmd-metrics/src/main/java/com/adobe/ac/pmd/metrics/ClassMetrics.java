@@ -67,13 +67,13 @@ public class ClassMetrics extends AbstractNamedMetrics
 
    private final int functions;
 
-   public ClassMetrics( final int nonCommentStatements,
-                        final int functionsToBeSet,
-                        final String name,
-                        final String packageName,
-                        final int ccn,
-                        final int asDocs,
-                        final int multiLineCommentsToBeSet )
+   private ClassMetrics( final int nonCommentStatements,
+                         final int functionsToBeSet,
+                         final String name,
+                         final String packageName,
+                         final int ccn,
+                         final int asDocs,
+                         final int multiLineCommentsToBeSet )
    {
       super( nonCommentStatements, name, packageName, ccn, asDocs, multiLineCommentsToBeSet );
 
