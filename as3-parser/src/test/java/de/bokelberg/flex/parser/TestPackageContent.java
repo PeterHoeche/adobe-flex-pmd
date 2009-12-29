@@ -89,8 +89,7 @@ public class TestPackageContent extends AbstractAs3ParserTest
    public void testClassWithComment() throws TokenException
    {
       assertPackageContent( "1",
-                            "/* lala */ /** asDoc */ "
-                                  + System.getProperty( "line.separator" ) + "public class A { }",
+                            "/* lala */ /** asDoc */ public class A { }",
                             "<content line=\"2\"><class line=\"2\">"
                                   + "<as-doc line=\"2\">/** asDoc */</as-doc><multi-line-comment "
                                   + "line=\"2\">/* lala */</multi-line-comment><name line=\"2\""
@@ -142,8 +141,7 @@ public class TestPackageContent extends AbstractAs3ParserTest
    public void testClassWithMetadataWithComment() throws TokenException
    {
       assertPackageContent( "1",
-                            "/* lala */ /** asDoc */ [Bindable]"
-                                  + System.getProperty( "line.separator" ) + "public class A { }",
+                            "/* lala */ /** asDoc */ [Bindable] public class A { }",
                             "<content line=\"2\"><class line=\"2\">"
                                   + "<multi-line-comment line=\"2\">/* lala */"
                                   + "</multi-line-comment><name line=\"2\">A</name>"
