@@ -87,11 +87,11 @@ public abstract class AbstractMetrics
       return files;
    }
 
-   private static Collection< File > listNonEmptyDirectories( final File directory,
+   private static Collection< File > listNonEmptyDirectories( final File rootDirectory,
                                                               final boolean recurse )
    {
       final Collection< File > files = new ArrayList< File >();
-      final File[] entries = directory.listFiles( new DirectoryFilter() );
+      final File[] entries = rootDirectory.listFiles( new DirectoryFilter() );
       final FlexFilter flexFilter = new FlexFilter();
 
       for ( final File entry : entries )
@@ -127,6 +127,7 @@ public abstract class AbstractMetrics
                                                true );
          this.nonEmptyDirectories = listNonEmptyDirectories( sourceDirectoryPath,
                                                              true );
+         this.nonEmptyDirectories.add( sourceDirectoryPath );
          this.sourceDirectory = sourceDirectoryPath;
       }
    }
@@ -163,7 +164,7 @@ public abstract class AbstractMetrics
 
       buffer.append( MessageFormat.format( "<function_averages>"
                                                  + "<ncss>{0}</ncss>" + "<javadocs>{1}</javadocs>"
-                                                 + "<javadoc_lines>0</javadoc_lines>"
+                                                 + "<javadoc_lines>{1}</javadoc_lines>"
                                                  + "<single_comment_lines>0</single_comment_lines>"
                                                  + "<multi_comment_lines>0</multi_comment_lines>"
                                                  + "</function_averages><ncss>{2}</ncss>" + "</functions>",
@@ -189,7 +190,7 @@ public abstract class AbstractMetrics
       buffer.append( MessageFormat.format( "<averages>"
                                                  + "<classes>{0}</classes>" + "<functions>{1}</functions>"
                                                  + "<ncss>{2}</ncss>" + "<javadocs>{3}</javadocs>"
-                                                 + "<javadoc_lines>0</javadoc_lines>"
+                                                 + "<javadoc_lines>{3}</javadoc_lines>"
                                                  + "<single_comment_lines>0</single_comment_lines>"
                                                  + "<multi_comment_lines>0</multi_comment_lines>"
                                                  + "</averages><ncss>{4}</ncss>" + "</objects>",

@@ -34,7 +34,7 @@ import java.io.File;
 
 import com.adobe.ac.pmd.nodes.IClass;
 
-public class ClassMetrics extends AbstractNamedMetrics
+public final class ClassMetrics extends AbstractNamedMetrics
 {
    public static ClassMetrics create( final String packageFullName,
                                       final File fileInPackage,

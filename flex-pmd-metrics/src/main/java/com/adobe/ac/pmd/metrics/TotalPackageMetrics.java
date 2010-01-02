@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.metrics;
 import java.text.MessageFormat;
 import java.util.List;
 
-public class TotalPackageMetrics implements IMetrics
+public final class TotalPackageMetrics implements IMetrics
 {
    public static TotalPackageMetrics create( final List< PackageMetrics > packageMetrics )
    {
@@ -82,7 +82,7 @@ public class TotalPackageMetrics implements IMetrics
                                                                     + "<functions>{1}</functions>"
                                                                     + "<ncss>{2}</ncss>"
                                                                     + "<javadocs>{3}</javadocs>"
-                                                                    + "<javadoc_lines>0</javadoc_lines>"
+                                                                    + "<javadoc_lines>{3}</javadoc_lines>"
                                                                     + "<single_comment_lines>0</single_comment_lines>"
                                                                     + "<multi_comment_lines>{4}</multi_comment_lines>"
                                                                     + "</total>",

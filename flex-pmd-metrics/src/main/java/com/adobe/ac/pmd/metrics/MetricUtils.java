@@ -74,7 +74,8 @@ public final class MetricUtils
                                        .replace( ".as",
                                                  "" );
 
-      if ( qualifiedName.charAt( 0 ) == '.' )
+      if ( qualifiedName.length() > 0
+            && qualifiedName.charAt( 0 ) == '.' )
       {
          return qualifiedName.substring( 1 );
       }

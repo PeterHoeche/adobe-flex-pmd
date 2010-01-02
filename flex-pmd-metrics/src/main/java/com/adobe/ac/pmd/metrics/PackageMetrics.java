@@ -34,7 +34,7 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.Collection;
 
-public class PackageMetrics extends AbstractPackagedMetrics
+public final class PackageMetrics extends AbstractPackagedMetrics
 {
    public static PackageMetrics create( final Collection< File > classesInPackage,
                                         final String packageFullName,
@@ -76,7 +76,7 @@ public class PackageMetrics extends AbstractPackagedMetrics
       return new StringBuffer().append( MessageFormat.format( "<functions>{0}</functions>"
                                                                     + "<classes>{1}</classes>"
                                                                     + "<javadocs>{2}</javadocs>"
-                                                                    + "<javadoc_lines>0</javadoc_lines>"
+                                                                    + "<javadoc_lines>{2}</javadoc_lines>"
                                                                     + "<single_comment_lines>0</single_comment_lines>"
                                                                     + "<multi_comment_lines>{3}</multi_comment_lines>",
                                                               String.valueOf( functions ),

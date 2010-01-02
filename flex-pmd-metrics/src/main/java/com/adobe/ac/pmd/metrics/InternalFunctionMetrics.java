@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaData;
 
-public class InternalFunctionMetrics
+public final class InternalFunctionMetrics
 {
    public static InternalFunctionMetrics create( final ProjectMetrics metrics,
                                                  final String packageFullName,
@@ -91,9 +91,9 @@ public class InternalFunctionMetrics
    private final int multipleLineCommentInClass;
    private final int ncssInClass;
 
-   public InternalFunctionMetrics( final int ncssInClassToBeSet,
-                                   final int asDocsInClassToBeSet,
-                                   final int multipleLineCommentInClassToBeSet )
+   private InternalFunctionMetrics( final int ncssInClassToBeSet,
+                                    final int asDocsInClassToBeSet,
+                                    final int multipleLineCommentInClassToBeSet )
    {
       ncssInClass = ncssInClassToBeSet;
       asDocsInClass = asDocsInClassToBeSet;

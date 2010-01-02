@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.metrics;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 
-public class FunctionMetrics extends AbstractNamedMetrics
+public final class FunctionMetrics extends AbstractNamedMetrics
 {
    static FunctionMetrics create( final String packageFullName,
                                   final IClass classNode,

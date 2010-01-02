@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.metrics;
 
 import java.util.List;
 
-public class AverageFunctionMetrics extends AverageMetricsBase
+public final class AverageFunctionMetrics extends AverageMetricsBase
 {
    public static AverageFunctionMetrics create( final List< FunctionMetrics > functionMetrics,
                                                 final TotalPackageMetrics totalPackageMetrics )
