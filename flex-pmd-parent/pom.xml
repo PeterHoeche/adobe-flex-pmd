@@ -63,7 +63,7 @@
 		<pmd.version>4.2.5</pmd.version>
 		<compileSource>1.5</compileSource>
 		<cobertura.version>2.2</cobertura.version>
-		<junit.version>4.0</junit.version>
+		<junit.version>4.7</junit.version>
 		<commons-lang.version>2.4</commons-lang.version>
 		<findbugs.version>2.1</findbugs.version>
 		<checkstyle.version>2.2</checkstyle.version>
