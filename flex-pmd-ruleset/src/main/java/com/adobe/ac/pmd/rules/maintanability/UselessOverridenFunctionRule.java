@@ -51,7 +51,8 @@ public class UselessOverridenFunctionRule extends AbstractAstFlexRule
          final List< IParserNode > statements = function.findPrimaryStatementsInBody( KeyWords.SUPER.toString() );
 
          if ( statements != null
-               && statements.size() == 1
+               && statements.size() == 1 && function.getBody().getChild( 0 ).getChild( 1 ) != null
+               && function.getBody().getChild( 0 ).getChild( 1 ).getChild( 1 ) != null
                && !areArgumentsModified( function.getBody().getChild( 0 ).getChild( 1 ).getChild( 1 ) ) )
          {
             addViolation( function );
