@@ -44,13 +44,15 @@ import com.adobe.ac.pmd.metrics.ProjectMetrics;
 
 public class FlexMetricsTest extends FlexPmdTestBase
 {
+   private final FlexMetrics    flexMetrics;
    private final ProjectMetrics projectMetrics;
 
    public FlexMetricsTest()
    {
       super();
 
-      projectMetrics = new FlexMetrics( getTestDirectory() ).loadMetrics();
+      flexMetrics = new FlexMetrics( getTestDirectory() );
+      projectMetrics = flexMetrics.loadMetrics();
    }
 
    @Test
@@ -58,7 +60,8 @@ public class FlexMetricsTest extends FlexPmdTestBase
                         IOException
    {
       final File outputFile = new File( "target/javancss.xml" );
-      new FlexMetrics( getTestDirectory() ).execute( outputFile );
+
+      flexMetrics.execute( outputFile );
 
       assertTrue( outputFile.exists() );
    }

@@ -45,7 +45,13 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 public class FlexMetricsReportMojoTest extends FlexPmdTestBase
 {
    @Test
-   public void testExecuteSingleReport() throws MojoExecutionException
+   public void assertTrue()
+   {
+      assertNotNull( new Object() );
+   }
+
+   @Test
+   public void executeSingleReport() throws MojoExecutionException
    {
       final File outputDirectoryToBeSet = new File( "target/pmd" );
 
@@ -67,7 +73,7 @@ public class FlexMetricsReportMojoTest extends FlexPmdTestBase
    }
 
    @Test
-   public void testExecuteSingleReportOnNonExistingFolder() throws MojoExecutionException
+   public void executeSingleReportOnNonExistingFolder() throws MojoExecutionException
    {
       final File outputDirectoryToBeSet = new File( "target/pmd" );
 
