@@ -121,7 +121,7 @@ public class ViolationTest extends FlexPmdTestBase
    public void testGetDefaultThreshold()
    {
       assertEquals( Integer.valueOf( ViolationPriority.LOW.toString() ),
-                    new Violation( position, INFO_RULE, null ).getRule().getPriority() );
+                    Integer.valueOf( new Violation( position, INFO_RULE, null ).getRule().getPriority() ) );
    }
 
    @Test
