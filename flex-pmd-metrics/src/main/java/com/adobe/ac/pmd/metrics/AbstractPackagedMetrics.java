@@ -82,10 +82,12 @@ public abstract class AbstractPackagedMetrics implements IMetrics
    {
       return new StringBuffer().append( MessageFormat.format( "<{0}><name>{1}</name><ccn>{2}</ccn><ncss>{3}</ncss>"
                                                                     + "<javadocs>{4}</javadocs>"
+                                                                    + "<javadoc_lines>{4}</javadoc_lines>"
                                                                     + "<multi_comment_lines>{5}</multi_comment_lines>"
                                                                     + "{6}</{7}>",
                                                               getMetricsName(),
-                                                              getFullName(),
+                                                              getFullName().equals( "" ) ? "."
+                                                                                        : getFullName(),
                                                               String.valueOf( ccn ),
                                                               String.valueOf( nonCommentStatements ),
                                                               String.valueOf( asDocs ),
