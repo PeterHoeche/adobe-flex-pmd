@@ -62,7 +62,7 @@ public class ClassMetricsTest extends FlexPmdTestBase
 
       assertEquals( "<object><name>com.adobe.ac.RadonDataGrid</name><ccn>3</ccn><ncss>79</ncss><javadocs>0</javadocs>"
                           + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
-                          + "<functions>7</functions></object>",
+                          + "<single_comment_lines>0</single_comment_lines><functions>7</functions></object>",
                     classMetrics.toXmlString() );
    }
 
@@ -81,7 +81,7 @@ public class ClassMetricsTest extends FlexPmdTestBase
 
       assertEquals( "<object><name>bug.FlexPMD60</name><ccn>1</ccn><ncss>1</ncss><javadocs>12</javadocs>"
                           + "<javadoc_lines>12</javadoc_lines><multi_comment_lines>7</multi_comment_lines>"
-                          + "<functions>1</functions></object>",
+                          + "<single_comment_lines>0</single_comment_lines><functions>1</functions></object>",
                     classMetrics.toXmlString() );
    }
 }

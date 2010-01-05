@@ -84,6 +84,7 @@ public abstract class AbstractPackagedMetrics implements IMetrics
                                                                     + "<javadocs>{4}</javadocs>"
                                                                     + "<javadoc_lines>{4}</javadoc_lines>"
                                                                     + "<multi_comment_lines>{5}</multi_comment_lines>"
+                                                                    + "<single_comment_lines>0</single_comment_lines>"
                                                                     + "{6}</{7}>",
                                                               getMetricsName(),
                                                               getFullName().equals( "" ) ? "."
