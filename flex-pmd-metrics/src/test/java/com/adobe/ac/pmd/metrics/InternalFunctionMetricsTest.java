@@ -30,60 +30,31 @@
  */
 package com.adobe.ac.pmd.metrics;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.pmd.nodes.IAsDocHolder;
-import com.adobe.ac.pmd.nodes.ICommentHolder;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
 import com.adobe.ac.pmd.parser.IParserNode;
 
-public final class MetricUtils
+public class InternalFunctionMetricsTest extends FlexPmdTestBase
 {
-   public static int computeAsDocs( final IAsDocHolder attribute )
+   @Test
+   public void testCreate() throws PMDException
    {
-      return attribute.getAsDoc() == null ? 0
-                                         : computeNbOfLines( attribute.getAsDoc().getStringValue() );
-   }
+      final IFlexFile file = getTestFiles().get( "bug.FlexPMD60.as" );
+      final IParserNode ast = FileSetUtils.buildAst( file );
+      final IClass classNode = NodeFactory.createPackage( ast ).getClassNode();
+      final InternalFunctionMetrics classMetrics = InternalFunctionMetrics.create( new ProjectMetrics(),
+                                                                                   "bug",
+                                                                                   classNode );
 
-   public static int computeMultiLineComments( final ICommentHolder commentHolder )
-   {
-      int lines = 0;
-
-      for ( final IParserNode comment : commentHolder.getMultiLinesComment() )
-      {
-         lines += comment.getStringValue() == null ? 0
-                                                  : MetricUtils.computeNbOfLines( comment.getStringValue() );
-      }
-      return lines;
-   }
-
-   public static int computeNbOfLines( final String lines )
-   {
-      return lines.split( "\\n" ).length;
-   }
-
-   public static String getQualifiedName( final File sourceDirectory,
-                                          final File file )
-   {
-      final String qualifiedName = file.getAbsolutePath()
-                                       .replace( sourceDirectory.getAbsolutePath(),
-                                                 "" )
-                                       .replace( "/",
-                                                 "." )
-                                       .replace( "\\",
-                                                 "." )
-                                       .replace( ".as",
-                                                 "" );
-
-      if ( qualifiedName.length() > 0
-            && qualifiedName.charAt( 0 ) == '.' )
-      {
-         return qualifiedName.substring( 1 );
-      }
-
-      return qualifiedName;
-   }
-
-   private MetricUtils()
-   {
+      assertEquals( 1,
+                    classMetrics.getMultipleLineCommentInClass() );
    }
 }

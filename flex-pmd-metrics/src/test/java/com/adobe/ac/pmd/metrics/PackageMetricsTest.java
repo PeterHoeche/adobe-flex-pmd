@@ -61,13 +61,9 @@ public class PackageMetricsTest
    @Test
    public void testGetContreteXml()
    {
-      assertEquals( "<functions>2</functions><classes>0</classes><javadocs>4</javadocs>"
-                          + "<javadoc_lines>4</javadoc_lines><single_comment_lines>0"
-                          + "</single_comment_lines><multi_comment_lines>5</multi_comment_lines>",
+      assertEquals( "<functions>2</functions><classes>0</classes>",
                     comAdobePackage.getContreteXml() );
-      assertEquals( "<functions>2</functions><classes>0</classes><javadocs>4</javadocs>"
-                          + "<javadoc_lines>4</javadoc_lines><single_comment_lines>0</single_comment_lines>"
-                          + "<multi_comment_lines>5</multi_comment_lines>",
+      assertEquals( "<functions>2</functions><classes>0</classes>",
                     emptyPackage.getContreteXml() );
    }
 
@@ -76,15 +72,11 @@ public class PackageMetricsTest
    {
       assertEquals( "<package><name>com.adobe.ac</name><ccn>0</ccn><ncss>3</ncss><javadocs>4</javadocs>"
                           + "<javadoc_lines>4</javadoc_lines><multi_comment_lines>5</multi_comment_lines>"
-                          + "<functions>2</functions><classes>0</classes><javadocs>4</javadocs>"
-                          + "<javadoc_lines>4</javadoc_lines><single_comment_lines>0</single_comment_lines>"
-                          + "<multi_comment_lines>5</multi_comment_lines></package>",
+                          + "<functions>2</functions><classes>0</classes></package>",
                     comAdobePackage.toXmlString() );
       assertEquals( "<package><name>.</name><ccn>0</ccn><ncss>3</ncss><javadocs>4</javadocs>"
                           + "<javadoc_lines>4</javadoc_lines><multi_comment_lines>5</multi_comment_lines>"
-                          + "<functions>2</functions><classes>0</classes><javadocs>4</javadocs>"
-                          + "<javadoc_lines>4</javadoc_lines><single_comment_lines>0</single_comment_lines>"
-                          + "<multi_comment_lines>5</multi_comment_lines></package>",
+                          + "<functions>2</functions><classes>0</classes></package>",
                     emptyPackage.toXmlString() );
    }
 }

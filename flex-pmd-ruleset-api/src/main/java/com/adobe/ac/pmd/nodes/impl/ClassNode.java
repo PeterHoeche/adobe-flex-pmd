@@ -297,6 +297,10 @@ class ClassNode extends AbstractNode implements IClass
             detectFunction( node );
             detectAttribute( node );
             detectConstant( node );
+            if ( node.is( NodeKind.MULTI_LINE_COMMENT ) )
+            {
+               multiLinesComments.add( node );
+            }
          }
       }
    }

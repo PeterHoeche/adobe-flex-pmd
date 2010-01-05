@@ -88,6 +88,10 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getClasses().size() );
       assertEquals( 0,
                     projectMetrics.getClasses().get( 0 ).getFunctions() );
+      assertEquals( "bug.FlexPMD60",
+                    projectMetrics.getClasses().get( 3 ).getFullName() );
+      assertEquals( 7,
+                    projectMetrics.getClasses().get( 3 ).getMultiLineComments() );
       assertEquals( "bug.FlexPMD61",
                     projectMetrics.getClasses().get( 4 ).getFullName() );
       assertEquals( 3,
@@ -151,7 +155,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 212,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
-      assertEquals( 77,
+      assertEquals( 94,
                     projectMetrics.getTotalPackages().getTotalMultiLineComment() );
    }
 }

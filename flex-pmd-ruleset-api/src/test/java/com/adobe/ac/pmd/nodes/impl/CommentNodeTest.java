@@ -69,7 +69,7 @@ public class CommentNodeTest extends FlexPmdTestBase
                                     .replaceAll( "  ",
                                                  " " ) );
 
-      assertEquals( 1,
+      assertEquals( 2,
                     flexPMD60Package.getClassNode().getMultiLinesComment().size() );
 
       assertNotNull( flexPMD60Package.getClassNode().getMultiLinesComment().get( 0 ) );
@@ -125,7 +125,7 @@ public class CommentNodeTest extends FlexPmdTestBase
                                     .replaceAll( "  ",
                                                  " " ) );
 
-      assertEquals( 1,
+      assertEquals( 2,
                     flexPMD60Package.getClassNode().getMultiLinesComment().size() );
 
       assertEquals( "/*   * comment   */",

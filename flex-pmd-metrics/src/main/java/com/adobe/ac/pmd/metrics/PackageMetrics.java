@@ -74,16 +74,9 @@ public final class PackageMetrics extends AbstractPackagedMetrics
    public String getContreteXml()
    {
       return new StringBuffer().append( MessageFormat.format( "<functions>{0}</functions>"
-                                                                    + "<classes>{1}</classes>"
-                                                                    + "<javadocs>{2}</javadocs>"
-                                                                    + "<javadoc_lines>{2}</javadoc_lines>"
-                                                                    + "<single_comment_lines>0</single_comment_lines>"
-                                                                    + "<multi_comment_lines>{3}</multi_comment_lines>",
+                                                                    + "<classes>{1}</classes>",
                                                               String.valueOf( functions ),
-                                                              String.valueOf( classes ),
-                                                              String.valueOf( getAsDocs() ),
-                                                              String.valueOf( getMultiLineComments() ) ) )
-                               .toString();
+                                                              String.valueOf( classes ) ) ).toString();
    }
 
    @Override

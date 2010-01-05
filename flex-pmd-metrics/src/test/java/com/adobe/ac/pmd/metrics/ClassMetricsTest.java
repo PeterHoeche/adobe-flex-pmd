@@ -47,27 +47,41 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 public class ClassMetricsTest extends FlexPmdTestBase
 {
-   private final ClassMetrics classMetrics;
-
-   public ClassMetricsTest() throws PMDException
+   @Test
+   public void testToXmlString() throws PMDException
    {
       final IFlexFile file = getTestFiles().get( "RadonDataGrid.as" );
       final IParserNode ast = FileSetUtils.buildAst( file );
       final IClass classNode = NodeFactory.createPackage( ast ).getClassNode();
-      classMetrics = ClassMetrics.create( "com.adobe.ac",
-                                          new File( file.getFilePath() ),
-                                          InternalFunctionMetrics.create( new ProjectMetrics(),
-                                                                          file.getFullyQualifiedName(),
-                                                                          classNode ),
-                                          classNode );
-   }
+      final ClassMetrics classMetrics = ClassMetrics.create( "com.adobe.ac",
+                                                             new File( file.getFilePath() ),
+                                                             InternalFunctionMetrics.create( new ProjectMetrics(),
+                                                                                             file.getFullyQualifiedName(),
+                                                                                             classNode ),
+                                                             classNode );
 
-   @Test
-   public void testToXmlString()
-   {
       assertEquals( "<object><name>com.adobe.ac.RadonDataGrid</name><ccn>3</ccn><ncss>79</ncss><javadocs>0</javadocs>"
                           + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
                           + "<functions>7</functions></object>",
+                    classMetrics.toXmlString() );
+   }
+
+   @Test
+   public void testToXmlStringWithMultiLineComments() throws PMDException
+   {
+      final IFlexFile file = getTestFiles().get( "bug.FlexPMD60.as" );
+      final IParserNode ast = FileSetUtils.buildAst( file );
+      final IClass classNode = NodeFactory.createPackage( ast ).getClassNode();
+      final ClassMetrics classMetrics = ClassMetrics.create( "bug",
+                                                             new File( file.getFilePath() ),
+                                                             InternalFunctionMetrics.create( new ProjectMetrics(),
+                                                                                             file.getFullyQualifiedName(),
+                                                                                             classNode ),
+                                                             classNode );
+
+      assertEquals( "<object><name>bug.FlexPMD60</name><ccn>1</ccn><ncss>1</ncss><javadocs>12</javadocs>"
+                          + "<javadoc_lines>12</javadoc_lines><multi_comment_lines>7</multi_comment_lines>"
+                          + "<functions>1</functions></object>",
                     classMetrics.toXmlString() );
    }
 }
