@@ -270,29 +270,6 @@ public class TestAS3Scanner extends AbstractAs3ParserTest
    }
 
    @Test
-   public void testRegExp()
-   {
-      final String[] lines = new String[]
-      { "/a/",
-                  "/[+-.]/",
-                  "/[+-.\\/]/",
-                  "/[+-.]\\\\//" };
-      scn.setLines( lines );
-
-      assertText( "1",
-                  lines[ 0 ] );
-      assertText( "\n" );
-      assertText( "2",
-                  lines[ 1 ] );
-      assertText( "\n" );
-      assertText( "3",
-                  lines[ 2 ] );
-      assertText( "\n" );
-      assertText( "4",
-                  "/[+-.]\\\\/" );
-   }
-
-   @Test
    public void testSingleCharacterSymbols()
    {
       final String[] lines = "{}()[]:;,?~".split( "" );

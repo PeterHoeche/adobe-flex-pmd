@@ -102,6 +102,21 @@ public class TestExpression extends AbstractStatementTest
    }
 
    @Test
+   public void testDivision() throws TokenException
+   {
+      assertStatement( "",
+                       "offset = ( this[ axis.unscaled ] / 2 - ( rightPos ) / 2 );",
+                       "<assign line=\"1\"><primary line=\"1\">offset</primary><op line=\"1\">=</op>"
+                             + "<primary line=\"1\"><encapsulated line=\"1\"><add line=\"1\"><mul line=\"1\">"
+                             + "<arr-acc line=\"1\"><primary line=\"1\">this</primary><dot line=\"1\"><primary "
+                             + "line=\"1\">axis</primary><primary line=\"1\">unscaled</primary></dot></arr-acc>"
+                             + "<op line=\"1\">/</op><primary line=\"1\">2</primary></mul><op line=\"1\">-</op>"
+                             + "<mul line=\"1\"><primary line=\"1\"><encapsulated line=\"1\"><primary line=\"1\">"
+                             + "rightPos</primary></encapsulated></primary><op line=\"1\">/</op><primary line=\"1\">"
+                             + "2</primary></mul></add></encapsulated></primary></assign>" );
+   }
+
+   @Test
    public void testEncapsulated() throws TokenException
    {
       assertStatement( "",

@@ -339,6 +339,18 @@ public class AS3Scanner
       return max;
    }
 
+   private char getPreviousCharacter()
+   {
+      int i = -1;
+      char currentChar;
+      do
+      {
+         currentChar = peekChar( i-- );
+      }
+      while ( currentChar == ' ' );
+      return currentChar;
+   }
+
    private boolean isIdentifierCharacter( final char currentCharacter )
    {
       return currentCharacter >= 'A'
@@ -409,6 +421,10 @@ public class AS3Scanner
       final String currentLine = lines[ line ];
       final int index = column
             + offset;
+      if ( index == -1 )
+      {
+         return '\0';
+      }
       if ( index >= currentLine.length() )
       {
          return '\n';
@@ -471,11 +487,16 @@ public class AS3Scanner
          return scanMultiLineComment();
       }
 
-      Token result = scanRegExp();
+      Token result;
 
-      if ( result != null )
+      if ( getPreviousCharacter() == '=' )
       {
-         return result;
+         result = scanRegExp();
+
+         if ( result != null )
+         {
+            return result;
+         }
       }
 
       if ( firstCharacter == '=' )
