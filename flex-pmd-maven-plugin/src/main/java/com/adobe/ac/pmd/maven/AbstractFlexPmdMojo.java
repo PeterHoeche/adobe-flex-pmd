@@ -62,7 +62,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    /**
     * Location of the file.
     * 
-    * @parameter
+    * @parameter expression="${flexpmd.excludePackage}"
     */
    private final String excludePackage;
 
