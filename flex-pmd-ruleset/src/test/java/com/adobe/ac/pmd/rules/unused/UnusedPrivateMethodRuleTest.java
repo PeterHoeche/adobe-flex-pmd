@@ -42,7 +42,10 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                                               "bug.Duane.mxml",
+                                                               new ViolationPosition[]
+                                                               { new ViolationPosition( 66, 66 ) } ),
                                                      "Sorted.as",
                                                      new ViolationPosition[]
                                                      { new ViolationPosition( 71, 71 ) } ),

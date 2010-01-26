@@ -48,7 +48,10 @@ public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                           "bug.Duane.mxml",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 42, 142 ) } ),
                                  "DeleteButtonRenderer.mxml",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 49, 103 ) } ),

@@ -42,7 +42,12 @@ public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                                     "bug.Duane.mxml",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 91, 91 ),
+                                                                 new ViolationPosition( 87, 87 ),
+                                                                 new ViolationPosition( 83, 83 ) } ),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 578, 578 ),

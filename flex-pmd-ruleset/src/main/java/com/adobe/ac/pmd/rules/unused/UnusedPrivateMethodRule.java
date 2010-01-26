@@ -84,7 +84,7 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       {
          final IFunction function = privateFunctions.get( functionName );
          ignoredLines.clear();
-         ignoredLines.add( function.getInternalNode().getLine() );
+         ignoredLines.add( getNameFromFunctionDeclaration( function.getInternalNode() ).getLine() );
 
          if ( getCurrentFile() instanceof IAs3File
                || !getCurrentFile().contains( functionName,

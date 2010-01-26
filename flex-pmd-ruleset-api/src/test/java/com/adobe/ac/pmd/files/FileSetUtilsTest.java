@@ -39,6 +39,12 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 public class FileSetUtilsTest extends FlexPmdTestBase
 {
    @Test
+   public void buildAst() throws PMDException
+   {
+      FileSetUtils.buildAst( getTestFiles().get( "bug.Duane.mxml" ) );
+   }
+
+   @Test
    public void testComputeAsts() throws PMDException
    {
       FileSetUtils.computeAsts( getTestFiles() );

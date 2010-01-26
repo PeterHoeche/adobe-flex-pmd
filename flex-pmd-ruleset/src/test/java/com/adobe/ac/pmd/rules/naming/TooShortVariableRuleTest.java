@@ -44,7 +44,10 @@ public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
    {
       final Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
 
-      addToMap( addToMap( addToMap( violations,
+      addToMap( addToMap( addToMap( addToMap( violations,
+                                              "bug.Duane.mxml",
+                                              new ViolationPosition[]
+                                              { new ViolationPosition( 68, 68 ) } ),
                                     "flexpmd114.a.Test.as",
                                     new ViolationPosition[]
                                     { new ViolationPosition( 42, 42 ) } ),

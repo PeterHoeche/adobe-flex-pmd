@@ -42,7 +42,12 @@ public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                           "bug.Duane.mxml",
+                                           new ViolationPosition[]
+                                           { new ViolationPosition( 87, 87 ),
+                                                       new ViolationPosition( 91, 91 ),
+                                                       new ViolationPosition( 96, 96 ) } ),
                                  "com.adobe.ac.AbstractRowData.as",
                                  new ViolationPosition[]
                                  { new ViolationPosition( 59, 59 ) } ),

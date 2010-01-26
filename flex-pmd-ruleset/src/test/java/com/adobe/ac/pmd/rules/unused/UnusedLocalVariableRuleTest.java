@@ -45,7 +45,10 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
    {
       final HashMap< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
 
-      addToMap( addToMap( addToMap( addToMap( violations,
+      addToMap( addToMap( addToMap( addToMap( addToMap( violations,
+                                                        "bug.Duane.mxml",
+                                                        new ViolationPosition[]
+                                                        { new ViolationPosition( 68, 68 ) } ),
                                               "bug.FlexPMD88.as",
                                               new ViolationPosition[]
                                               { new ViolationPosition( 42, 42 ),
