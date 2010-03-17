@@ -91,7 +91,8 @@ public class FlexPmdViolations
          computeRules( ruleSet );
          computeFiles( source,
                        sourceList,
-                       packageToExclude );
+                       packageToExclude,
+                       ruleSet.getExcludePatterns() );
          computeAsts();
          processRules();
          sortViolations();
@@ -122,7 +123,8 @@ public class FlexPmdViolations
 
    private void computeFiles( final File source,
                               final List< File > sourceList,
-                              final String packageToExclude ) throws PMDException
+                              final String packageToExclude,
+                              final List< String > excludePatterns ) throws PMDException
    {
       LOGGER.info( "computing FilesList" );
 
@@ -130,7 +132,8 @@ public class FlexPmdViolations
 
       files = FileUtils.computeFilesList( source,
                                           sourceList,
-                                          packageToExclude );
+                                          packageToExclude,
+                                          excludePatterns );
       LOGGER.info( "computed FilesList in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );
    }

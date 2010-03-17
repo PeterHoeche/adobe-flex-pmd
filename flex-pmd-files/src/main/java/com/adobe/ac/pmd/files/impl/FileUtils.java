@@ -47,7 +47,8 @@ public final class FileUtils
 {
    public static Map< String, IFlexFile > computeFilesList( final File source,
                                                             final List< File > sourceList,
-                                                            final String packageToExclude ) throws PMDException
+                                                            final String packageToExclude,
+                                                            final List< String > excludePatterns ) throws PMDException
    {
       final Map< String, IFlexFile > files = new LinkedHashMap< String, IFlexFile >();
       final FlexFilter flexFilter = new FlexFilter();
@@ -60,8 +61,9 @@ public final class FileUtils
          final AbstractFlexFile file = create( sourceFile,
                                                source );
 
-         if ( "".equals( packageToExclude )
-               || !file.getFullyQualifiedName().startsWith( packageToExclude ) )
+         if ( ( "".equals( packageToExclude ) || !file.getFullyQualifiedName().startsWith( packageToExclude ) )
+               && !currentPackageIncludedInExcludePatterns( file.getFullyQualifiedName(),
+                                                            excludePatterns ) )
          {
             files.put( file.getFullyQualifiedName(),
                        file );
@@ -93,6 +95,22 @@ public final class FileUtils
       final List< String > lines = com.adobe.ac.ncss.utils.FileUtils.readFile( file );
 
       return lines.toArray( new String[ lines.size() ] );
+   }
+
+   private static boolean currentPackageIncludedInExcludePatterns( final String fullyQualifiedName,
+                                                                   final List< String > excludePatterns )
+   {
+      if ( excludePatterns != null )
+      {
+         for ( final String excludePattern : excludePatterns )
+         {
+            if ( fullyQualifiedName.startsWith( excludePattern ) )
+            {
+               return true;
+            }
+         }
+      }
+      return false;
    }
 
    private static Collection< File > getFlexFiles( final File source,
