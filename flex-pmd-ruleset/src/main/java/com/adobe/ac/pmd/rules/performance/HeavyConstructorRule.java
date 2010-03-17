@@ -31,24 +31,38 @@
 package com.adobe.ac.pmd.rules.performance;
 
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class HeavyConstructorRule extends AbstractAstFlexRule
+public class HeavyConstructorRule extends AbstractMaximizedAstFlexRule
 {
+   private IFunction currentConstructor = null;
+   
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().isMxml();
    }
+   
+   public final int getActualValueForTheCurrentViolation()
+   {
+      return currentConstructor.getCyclomaticComplexity();
+   }
+
+   public final int getDefaultThreshold()
+   {
+      return 1;
+   }
 
    @Override
    protected final void findViolationsFromConstructor( final IFunction constructor )
    {
-      if ( constructor.getCyclomaticComplexity() > 1 )
+      currentConstructor = constructor;
+      int cyclomaticComplexity = constructor.getCyclomaticComplexity();
+      if ( cyclomaticComplexity > getThreshold() )
       {
          addViolation( constructor,
-                       String.valueOf( constructor.getCyclomaticComplexity() ) );
+                       String.valueOf( cyclomaticComplexity ) );
       }
    }
 
