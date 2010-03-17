@@ -136,7 +136,8 @@ public class FlexMetrics extends AbstractMetrics
       {
          result = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
                                                                                                     null,
-                                                                                                    "" ) );
+                                                                                                    "",
+                                                                                                    null ) );
       }
       catch ( final PMDException e )
       {

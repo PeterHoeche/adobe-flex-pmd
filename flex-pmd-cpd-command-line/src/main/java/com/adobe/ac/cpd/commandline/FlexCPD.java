@@ -193,7 +193,8 @@ public final class FlexCPD
    {
       final Map< String, IFlexFile > files = FileUtils.computeFilesList( parameters.getSourceDirectory(),
                                                                          parameters.getSourceList(),
-                                                                         "" );
+                                                                         "",
+                                                                         null );
 
       for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )
       {
