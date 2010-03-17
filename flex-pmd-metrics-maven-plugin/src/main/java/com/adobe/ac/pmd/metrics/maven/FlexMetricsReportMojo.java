@@ -60,9 +60,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
 
    private static ResourceBundle getBundle( final Locale locale )
    {
-      return ResourceBundle.getBundle( "flexMetrics",
-                                       locale,
-                                       FlexMetricsReportMojo.class.getClassLoader() ); // NOPMD
+      return ResourceBundle.getBundle( "flexMetrics" ); // NOPMD
    }
 
    /**
@@ -148,42 +146,35 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
    }
 
    /**
-    * @see org.apache.maven.reporting.MavenReport#canGenerateReport()
-    */
-   public boolean canGenerateReport()
-   {
-      return canGenerateSingleReport()
-            || canGenerateAggregateReport();
-   }
-
-   /**
     * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
     */
    @Override
    public void executeReport( final Locale locale ) throws MavenReportException
    {
-      if ( !canGenerateReport() )
+      if ( sourceDirectory != null )
       {
-         throw new MavenReportException( "Cannot generate report " );
+         if ( sourceDirectory.exists() )
+         {
+            try
+            {
+               generateSingleReport( locale );
+            }
+            catch ( final DocumentException e )
+            {
+               throw new MavenReportException( e.getMessage(), e );
+            }
+            catch ( final IOException e )
+            {
+               throw new MavenReportException( e.getMessage(), e );
+            }
+         }
+         else
+         {
+            getLog().error( "The source directory is not found "
+                  + sourceDirectory.getAbsolutePath() );
+         }
       }
-
-      if ( sourceDirectory.exists()
-            && canGenerateSingleReport() )
-      {
-         try
-         {
-            generateSingleReport( locale );
-         }
-         catch ( final DocumentException e )
-         {
-            throw new MavenReportException( e.getMessage(), e );
-         }
-         catch ( final IOException e )
-         {
-            throw new MavenReportException( e.getMessage(), e );
-         }
-      }
-      if ( canGenerateAggregateReport() )
+      else
       {
          generateAggregateReport( locale );
       }
@@ -286,16 +277,6 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
       return xmlOutputDirectory.getAbsolutePath();
    }
 
-   private boolean canGenerateAggregateReport()
-   {
-      return !project.getModules().isEmpty();
-   }
-
-   private boolean canGenerateSingleReport()
-   {
-      return sourceDirectory != null;
-   }
-
    private void generateAggregateReport( final Locale locale ) throws MavenReportException
    {
       final String basedir = project.getBasedir().toString();
@@ -321,27 +302,31 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
       getLog().debug( "relative: "
             + relative );
       final List< ModuleReport > reports = new ArrayList< ModuleReport >();
-      for ( final MavenProject mavenProject : reactorProjects )
-      {
-         final MavenProject child = mavenProject;
-         final File xmlReport = new File( child.getBasedir() // NOPMD
-               + File.separator + relative, tempFileName );
-         if ( xmlReport.exists() )
-         {
-            reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) ); // NOPMD
-         }
-         else
-         {
-            getLog().debug( "xml file not found: "
-                  + xmlReport );
-         }
-      }
-      getLog().debug( "Aggregating "
-            + reports.size() + " JavaNCSS reports" );
 
-      new NcssAggregateReportGenerator( getSink(), getBundle( locale ), getLog() ).doReport( locale,
-                                                                                             reports,
-                                                                                             lineThreshold );
+      if ( reactorProjects != null )
+      {
+         for ( final MavenProject mavenProject : reactorProjects )
+         {
+            final MavenProject child = mavenProject;
+            final File xmlReport = new File( child.getBasedir() // NOPMD
+                  + File.separator + relative, tempFileName );
+            if ( xmlReport.exists() )
+            {
+               reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) ); // NOPMD
+            }
+            else
+            {
+               getLog().debug( "xml file not found: "
+                     + xmlReport );
+            }
+         }
+         getLog().debug( "Aggregating "
+               + reports.size() + " JavaNCSS reports" );
+
+         new NcssAggregateReportGenerator( getSink(), getBundle( locale ), getLog() ).doReport( locale,
+                                                                                                reports,
+                                                                                                lineThreshold );
+      }
    }
 
    private void generateSingleReport( final Locale locale ) throws MavenReportException,

@@ -87,6 +87,7 @@ public class FlexMetrics extends AbstractMetrics
             int ncssInPackage = 0;
             int asDocsInPackage = 0;
             int multipleLineCommentInPackage = 0;
+            final int importsInPackage = 0;
 
             for ( final File fileInPackage : classesInPackage )
             {
@@ -119,7 +120,8 @@ public class FlexMetrics extends AbstractMetrics
                                                                     functionsInPackage,
                                                                     ncssInPackage,
                                                                     asDocsInPackage,
-                                                                    multipleLineCommentInPackage ) );
+                                                                    multipleLineCommentInPackage,
+                                                                    importsInPackage ) );
          }
       }
       setFinalMetrics( metrics );

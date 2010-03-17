@@ -41,29 +41,34 @@ public final class PackageMetrics extends AbstractPackagedMetrics
                                         final int functionsInPackage,
                                         final int ncssInPackage,
                                         final int asDocsInPackage,
-                                        final int multipleLineCommentInPackage )
+                                        final int multipleLineCommentInPackage,
+                                        final int imports )
    {
       return new PackageMetrics( ncssInPackage,// NOPMD
                                  functionsInPackage,
                                  classesInPackage.size(),
                                  packageFullName,
                                  asDocsInPackage,
-                                 multipleLineCommentInPackage );
+                                 multipleLineCommentInPackage,
+                                 imports );
    }
 
    private final int classes;
    private final int functions;
+   private final int imports;
 
    private PackageMetrics( final int nonCommentStatements,
                            final int functionsToBeSet,
                            final int classesToBeSet,
                            final String packageName,
                            final int asDocs,
-                           final int multiLineComments )
+                           final int multiLineComments,
+                           final int importsToBeSet )
    {
       super( nonCommentStatements, packageName, 0, asDocs, multiLineComments );
       functions = functionsToBeSet;
       classes = classesToBeSet;
+      imports = importsToBeSet;
    }
 
    public int getClasses()
@@ -94,5 +99,11 @@ public final class PackageMetrics extends AbstractPackagedMetrics
    public String getMetricsName()
    {
       return "package";
+   }
+
+   @Override
+   protected int getNcss()
+   {
+      return imports + 1;
    }
 }

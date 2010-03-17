@@ -79,4 +79,10 @@ public final class FunctionMetrics extends AbstractNamedMetrics
    {
       return "function";
    }
+
+   @Override
+   protected int getNcss()
+   {
+      return 1;
+   }
 }

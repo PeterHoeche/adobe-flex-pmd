@@ -70,7 +70,8 @@ public abstract class AbstractPackagedMetrics implements IMetrics
 
    public int getNonCommentStatements()
    {
-      return nonCommentStatements;
+      return getNcss()
+            + nonCommentStatements;
    }
 
    public String getPackageName()
@@ -90,11 +91,13 @@ public abstract class AbstractPackagedMetrics implements IMetrics
                                                               getFullName().equals( "" ) ? "."
                                                                                         : getFullName(),
                                                               String.valueOf( ccn ),
-                                                              String.valueOf( nonCommentStatements ),
+                                                              String.valueOf( getNonCommentStatements() ),
                                                               String.valueOf( asDocs ),
                                                               String.valueOf( multiLineComments ),
                                                               getContreteXml(),
                                                               getMetricsName() ) )
                                .toString();
    }
+
+   abstract protected int getNcss();
 }

@@ -45,9 +45,25 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 public class FlexMetricsReportMojoTest extends FlexPmdTestBase
 {
    @Test
-   public void assertTrue()
+   public void executeMultipleReport() throws MojoExecutionException
    {
-      assertNotNull( new Object() );
+      final MavenProjectStub project = new MavenProjectStub();
+      final File outputDirectoryToBeSet = new File( project.getBasedir().getAbsolutePath()
+            + "/target/pmd" );
+      final FlexMetricsReportMojo mojo = new FlexMetricsReportMojo( project, null, outputDirectoryToBeSet );
+
+      outputDirectoryToBeSet.mkdirs();
+      project.addProjectReference( new MavenProjectStub() );
+      project.addProjectReference( new MavenProjectStub() );
+      mojo.setLineThreshold( 5 );
+      mojo.setSiteRenderer( new DefaultSiteRenderer() );
+      mojo.setXmlOutputDirectory( outputDirectoryToBeSet );
+      mojo.setTempFileName( "javancss-raw-report.xml" );
+
+      assertNotNull( "",
+                     mojo.getName( Locale.ENGLISH ) );
+
+      mojo.execute();
    }
 
    @Test

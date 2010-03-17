@@ -49,13 +49,15 @@ public class PackageMetricsTest
                                                2,
                                                3,
                                                4,
-                                               5 );
+                                               5,
+                                               1 );
       emptyPackage = PackageMetrics.create( new ArrayList< File >(),
                                             "",
                                             2,
                                             3,
                                             4,
-                                            5 );
+                                            5,
+                                            2 );
    }
 
    @Test
@@ -70,12 +72,12 @@ public class PackageMetricsTest
    @Test
    public void testToXmlString()
    {
-      assertEquals( "<package><name>com.adobe.ac</name><ccn>0</ccn><ncss>3</ncss><javadocs>4</javadocs>"
+      assertEquals( "<package><name>com.adobe.ac</name><ccn>0</ccn><ncss>5</ncss><javadocs>4</javadocs>"
                           + "<javadoc_lines>4</javadoc_lines><multi_comment_lines>5</multi_comment_lines>"
                           + "<single_comment_lines>0</single_comment_lines>"
                           + "<functions>2</functions><classes>0</classes></package>",
                     comAdobePackage.toXmlString() );
-      assertEquals( "<package><name>.</name><ccn>0</ccn><ncss>3</ncss><javadocs>4</javadocs>"
+      assertEquals( "<package><name>.</name><ccn>0</ccn><ncss>6</ncss><javadocs>4</javadocs>"
                           + "<javadoc_lines>4</javadoc_lines><multi_comment_lines>5</multi_comment_lines>"
                           + "<single_comment_lines>0</single_comment_lines>"
                           + "<functions>2</functions><classes>0</classes></package>",

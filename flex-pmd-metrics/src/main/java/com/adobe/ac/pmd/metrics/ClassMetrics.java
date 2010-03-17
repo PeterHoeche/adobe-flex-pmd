@@ -39,33 +39,35 @@ public final class ClassMetrics extends AbstractNamedMetrics
    public static ClassMetrics create( final String packageFullName,
                                       final File fileInPackage,
                                       final InternalFunctionMetrics functionMetrics,
-                                      final IClass classNode )
+                                      final IClass classNodeToBeSet )
    {
-      final int average = classNode == null ? 0
-                                           : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
-      final int asDocs = ( classNode == null
-            || classNode.getAsDoc() == null ? 0
-                                           : MetricUtils.computeNbOfLines( classNode.getAsDoc()
-                                                                                    .getStringValue() ) )
+      final int average = classNodeToBeSet == null ? 0
+                                                  : ( int ) Math.round( classNodeToBeSet.getAverageCyclomaticComplexity() );
+      final int asDocs = ( classNodeToBeSet == null
+            || classNodeToBeSet.getAsDoc() == null ? 0
+                                                  : MetricUtils.computeNbOfLines( classNodeToBeSet.getAsDoc()
+                                                                                                  .getStringValue() ) )
             + ( functionMetrics == null ? 0
                                        : functionMetrics.getAsDocsInClass() );
-      final int multiLineComments = ( classNode == null ? 0
-                                                       : MetricUtils.computeMultiLineComments( classNode ) )
+      final int multiLineComments = ( classNodeToBeSet == null ? 0
+                                                              : MetricUtils.computeMultiLineComments( classNodeToBeSet ) )
             + ( functionMetrics == null ? 0
                                        : functionMetrics.getMultipleLineCommentInClass() );
       return new ClassMetrics( functionMetrics == null ? 0
                                                       : functionMetrics.getNcssInClass(), // NOPMD
-                               classNode == null ? 0
-                                                : classNode.getFunctions().size(),
+                               classNodeToBeSet == null ? 0
+                                                       : classNodeToBeSet.getFunctions().size(),
                                fileInPackage.getName().replace( ".as",
                                                                 "" ),
                                packageFullName,
                                average,
                                asDocs,
-                               multiLineComments );
+                               multiLineComments,
+                               classNodeToBeSet );
    }
 
-   private final int functions;
+   private final IClass classNode;
+   private final int    functions;
 
    private ClassMetrics( final int nonCommentStatements,
                          final int functionsToBeSet,
@@ -73,11 +75,13 @@ public final class ClassMetrics extends AbstractNamedMetrics
                          final String packageName,
                          final int ccn,
                          final int asDocs,
-                         final int multiLineCommentsToBeSet )
+                         final int multiLineCommentsToBeSet,
+                         final IClass classNodeToBeSet )
    {
       super( nonCommentStatements, name, packageName, ccn, asDocs, multiLineCommentsToBeSet );
 
       functions = functionsToBeSet;
+      this.classNode = classNodeToBeSet;
    }
 
    public String getContreteXml()
@@ -103,5 +107,16 @@ public final class ClassMetrics extends AbstractNamedMetrics
    public String getMetricsName()
    {
       return "object";
+   }
+
+   @Override
+   protected int getNcss()
+   {
+      if ( classNode == null )
+      {
+         return 1;
+      }
+      return 1
+            + classNode.getAttributes().size() + classNode.getConstants().size() + functions;
    }
 }
