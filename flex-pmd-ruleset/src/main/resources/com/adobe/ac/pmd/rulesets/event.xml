@@ -135,7 +135,7 @@ public class Foo
 	
 	<rule
 		class="com.adobe.ac.pmd.rules.event.UnboundTypeInMetadataRule"
-		message="This type ({0}) is not found in the source path">
+		message="This type ({0}) was not found within the scope against which PMD was run">
 		<priority>1</priority>
 		<example>
 [Event(name="myTypeEvent",type="UnknownType")] // VIOLATION
