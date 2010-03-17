@@ -44,6 +44,12 @@ public class ArrayFieldWithNoArrayElementTypeRule extends AbstractAstFlexRule
    private static final String ARRAY_TYPE = "Array";
 
    @Override
+   public boolean isConcernedByTheCurrentFile()
+   {
+      return getCurrentFile().isMxml();
+   }
+
+   @Override
    protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
       findViolationFromFieds( variables );

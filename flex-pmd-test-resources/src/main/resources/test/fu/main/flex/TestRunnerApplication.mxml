@@ -44,7 +44,7 @@
             import org.sonatype.flexmojos.unitestingsupport.ControlSocket;
             import org.sonatype.flexmojos.unitestingsupport.SocketReporter;
 
-            [ArrayElementType("Object")]
+
             private var suites:Array = [MySuite];
 
             private static var socketReporter:SocketReporter = SocketReporter.getInstance();

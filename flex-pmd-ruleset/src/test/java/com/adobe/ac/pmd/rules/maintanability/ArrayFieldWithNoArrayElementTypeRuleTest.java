@@ -42,35 +42,10 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRul
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 47, 47 ),
-                                             new ViolationPosition( 49, 49 ),
-                                             new ViolationPosition( 60, 60 ),
-                                             new ViolationPosition( 61, 61 ),
-                                             new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 63, 63 ),
-                                             new ViolationPosition( 64, 64 ),
-                                             new ViolationPosition( 65, 65 ),
-                                             new ViolationPosition( 66, 66 ),
-                                             new ViolationPosition( 67, 67 ),
-                                             new ViolationPosition( 68, 68 ),
-                                             new ViolationPosition( 69, 69 ),
-                                             new ViolationPosition( 70, 70 ),
-                                             new ViolationPosition( 71, 71 ),
-                                             new ViolationPosition( 95, 95 ),
-                                             new ViolationPosition( 96, 96 ),
-                                             new ViolationPosition( 97, 97 ),
-                                             new ViolationPosition( 98, 98 ),
-                                             new ViolationPosition( 121, 121 ),
-                                             new ViolationPosition( 122, 122 ),
-                                             new ViolationPosition( 126, 126 ),
-                                             new ViolationPosition( 127, 127 ),
-                                             new ViolationPosition( 128, 128 ) } ),
-                       "com.adobe.ac.ncss.ArrayVO.as",
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                       "fu.main.flex.TestRunnerApplication.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 34, 34 ) } );
+                       { new ViolationPosition( 48, 48 ) } );
    }
 
    @Override
