@@ -44,7 +44,6 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
-import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
@@ -121,8 +120,8 @@ class FunctionNode extends AbstractNode implements IFunction
             }
             else if ( node.is( NodeKind.META_LIST ) )
             {
-               MetaDataUtils.computeMetaDataList( this,
-                                                  node );
+               computeMetaDataList( this,
+                                    node );
             }
             else if ( node.is( NodeKind.AS_DOC ) )
             {

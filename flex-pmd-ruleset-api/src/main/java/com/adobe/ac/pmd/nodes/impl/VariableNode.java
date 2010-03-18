@@ -45,7 +45,6 @@ import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
-import com.adobe.ac.pmd.nodes.utils.MetaDataUtils;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
@@ -107,8 +106,8 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
                }
                else if ( child.is( NodeKind.META_LIST ) )
                {
-                  MetaDataUtils.computeMetaDataList( this,
-                                                     child );
+                  computeMetaDataList( this,
+                                       child );
                }
             }
          }

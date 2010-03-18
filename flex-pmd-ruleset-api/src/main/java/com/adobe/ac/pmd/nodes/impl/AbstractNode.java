@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.logging.Logger;
 
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.IModifiersHolder;
 import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.nodes.Modifier;
@@ -40,6 +41,18 @@ import com.adobe.ac.pmd.parser.IParserNode;
 abstract class AbstractNode implements INode
 {
    protected static final Logger LOGGER = Logger.getLogger( "Node" );
+
+   protected static void computeMetaDataList( final IMetaDataListHolder metaDataHolder,
+                                              final IParserNode child )
+   {
+      if ( child.numChildren() != 0 )
+      {
+         for ( final IParserNode metadataNode : child.getChildren() )
+         {
+            metaDataHolder.add( NodeFactory.createMetaData( metadataNode ) );
+         }
+      }
+   }
 
    protected static final void computeModifierList( final IModifiersHolder modifiable,
                                                     final IParserNode child )
@@ -54,7 +67,6 @@ abstract class AbstractNode implements INode
          }
       }
    }
-
    private final IParserNode internalNode;
 
    protected AbstractNode( final IParserNode node )
