@@ -152,26 +152,10 @@ public class AS3Parser implements IAS3Parser
                                  modifiers,
                                  meta );
          }
-         else if ( tok.getText().startsWith( ASDOC_COMMENT ) )
-         {
-            currentAsDoc = Node.create( NodeKind.AS_DOC,
-                                        tok.getLine(),
-                                        tok.getColumn(),
-                                        tok.getText() );
-            nextToken();
-         }
-         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
-         {
-            result.addChild( Node.create( NodeKind.MULTI_LINE_COMMENT,
-                                          tok.getLine(),
-                                          tok.getColumn(),
-                                          tok.getText() ) );
-            nextToken();
-         }
          else
          {
-            modifiers.add( tok );
-            nextTokenIgnoringDocumentation();
+            tryToParseCommentNode( result,
+                                   modifiers );
          }
       }
       return result;
@@ -234,25 +218,10 @@ public class AS3Parser implements IAS3Parser
             }
             nextToken();
          }
-         else if ( tok.getText().startsWith( ASDOC_COMMENT ) )
-         {
-            currentAsDoc = Node.create( NodeKind.AS_DOC,
-                                        tok.getLine(),
-                                        tok.getColumn(),
-                                        tok.getText() );
-            nextToken();
-         }
-         else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
-         {
-            result.addChild( Node.create( NodeKind.MULTI_LINE_COMMENT,
-                                          tok.getLine(),
-                                          tok.getColumn(),
-                                          tok.getText() ) );
-            nextToken();
-         }
          else
          {
-            nextTokenIgnoringDocumentation();
+            tryToParseCommentNode( result,
+                                   null );
          }
       }
       return result;
@@ -647,10 +616,6 @@ public class AS3Parser implements IAS3Parser
       while ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) );
    }
 
-   // ------------------------------------------------------------------------
-   // language specific recursive descent parsing
-   // ------------------------------------------------------------------------
-
    private IParserNode parseAdditiveExpression() throws TokenException
    {
       final Node result = Node.create( NodeKind.ADD,
@@ -670,6 +635,10 @@ public class AS3Parser implements IAS3Parser
       return result.numChildren() > 1 ? result
                                      : result.getChild( 0 );
    }
+
+   // ------------------------------------------------------------------------
+   // language specific recursive descent parsing
+   // ------------------------------------------------------------------------
 
    private IParserNode parseAndExpression() throws TokenException
    {
@@ -2263,5 +2232,34 @@ public class AS3Parser implements IAS3Parser
    private boolean tokIs( final String text )
    {
       return tok.getText().equals( text );
+   }
+
+   private void tryToParseCommentNode( final Node result,
+                                       final List< Token > modifiers ) throws TokenException
+   {
+      if ( tok.getText().startsWith( ASDOC_COMMENT ) )
+      {
+         currentAsDoc = Node.create( NodeKind.AS_DOC,
+                                     tok.getLine(),
+                                     tok.getColumn(),
+                                     tok.getText() );
+         nextToken();
+      }
+      else if ( tok.getText().startsWith( MULTIPLE_LINES_COMMENT ) )
+      {
+         result.addChild( Node.create( NodeKind.MULTI_LINE_COMMENT,
+                                       tok.getLine(),
+                                       tok.getColumn(),
+                                       tok.getText() ) );
+         nextToken();
+      }
+      else
+      {
+         if ( modifiers != null )
+         {
+            modifiers.add( tok );
+         }
+         nextTokenIgnoringDocumentation();
+      }
    }
 }

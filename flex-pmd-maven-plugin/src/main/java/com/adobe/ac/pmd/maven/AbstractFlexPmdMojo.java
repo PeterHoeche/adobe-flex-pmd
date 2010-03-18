@@ -69,7 +69,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    /**
     * Build fails if an violation error occurs.
     * 
-    * @parameter
+    * @parameter expression="${flexpmd.failOnError}"
     */
    private boolean      failOnError;
 
@@ -149,7 +149,13 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    @Override
    protected final void executeReport( final Locale locale ) throws MavenReportException
    {
-      LOGGER.info( "FlexPmdMojo starts" );
+      getLog().info( "FlexPmdMojo starts" );
+      getLog().info( "   failOnError     "
+            + failOnError );
+      getLog().info( "   ruleSet         "
+            + ruleSet );
+      getLog().info( "   sourceDirectory "
+            + sourceDirectory );
       try
       {
          final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( excludePackage,
