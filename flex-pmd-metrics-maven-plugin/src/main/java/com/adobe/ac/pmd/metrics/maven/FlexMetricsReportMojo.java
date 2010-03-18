@@ -58,7 +58,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
 {
    private static final String OUTPUT_NAME = "javancss";
 
-   private static ResourceBundle getBundle( final Locale locale )
+   private static ResourceBundle getBundle()
    {
       return ResourceBundle.getBundle( "flexMetrics" ); // NOPMD
    }
@@ -185,7 +185,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
     */
    public String getDescription( final Locale locale )
    {
-      return getBundle( locale ).getString( "report.ncss.description" );
+      return getBundle().getString( "report.ncss.description" );
    }
 
    /**
@@ -193,7 +193,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
     */
    public String getName( final Locale locale )
    {
-      return getBundle( locale ).getString( "report.ncss.name" );
+      return getBundle().getString( "report.ncss.name" );
    }
 
    /**
@@ -323,9 +323,9 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
          getLog().debug( "Aggregating "
                + reports.size() + " JavaNCSS reports" );
 
-         new NcssAggregateReportGenerator( getSink(), getBundle( locale ), getLog() ).doReport( locale,
-                                                                                                reports,
-                                                                                                lineThreshold );
+         new NcssAggregateReportGenerator( getSink(), getBundle(), getLog() ).doReport( locale,
+                                                                                        reports,
+                                                                                        lineThreshold );
       }
    }
 
@@ -347,9 +347,7 @@ public class FlexMetricsReportMojo extends AbstractMavenReport
          throw new MavenReportException( "Can't process temp ncss xml file." );
       }
       // parse the freshly generated file and write the report
-      final NcssReportGenerator reportGenerator = new NcssReportGenerator( getSink(),
-                                                                           getBundle( locale ),
-                                                                           getLog() );
+      final NcssReportGenerator reportGenerator = new NcssReportGenerator( getSink(), getBundle(), getLog() );
       reportGenerator.doReport( loadDocument(),
                                 lineThreshold );
    }

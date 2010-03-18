@@ -61,7 +61,7 @@ public class FlexPmdXmlEngine extends AbstractFlexPmdEngine
    @Override
    protected final void writeReport( final FlexPmdViolations pmd ) throws PMDException
    {
-      final File realOutputDirectory = outputDirectory;
+      final File realOutputDirectory = getOutputDirectory();
       final String filePath = realOutputDirectory.getAbsoluteFile()
             + File.separator + FlexPMDFormat.XML.toString();
 

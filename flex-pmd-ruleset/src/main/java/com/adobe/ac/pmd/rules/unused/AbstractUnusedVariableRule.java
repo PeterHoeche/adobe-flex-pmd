@@ -38,13 +38,23 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
 abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
 {
-   protected Map< String, IParserNode > variablesUnused;
+   private Map< String, IParserNode > variablesUnused;
 
    protected final void addVariable( final String variableName,
                                      final IParserNode ast )
    {
       variablesUnused.put( variableName,
                            ast );
+   }
+
+   protected Map< String, IParserNode > getVariablesUnused()
+   {
+      return variablesUnused;
+   }
+
+   protected void setVariablesUnused( final Map< String, IParserNode > variablesUnused )
+   {
+      this.variablesUnused = variablesUnused;
    }
 
    protected final void tryToAddVariableNodeInChildren( final IParserNode ast )
@@ -76,7 +86,7 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
       tryToMarkVariableAsUsed( ast );
    }
 
-   private final void markVariableAsUsed( final IParserNode ast )
+   private void markVariableAsUsed( final IParserNode ast )
    {
       if ( ast.numChildren() == 0 )
       {

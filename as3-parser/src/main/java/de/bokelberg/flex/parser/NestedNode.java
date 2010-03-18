@@ -53,7 +53,7 @@ class NestedNode
       addChild( childToBeSet );
    }
 
-   final public int computeCyclomaticComplexity()
+   public final int computeCyclomaticComplexity()
    {
       int cyclomaticComplexity = 0;
 
@@ -81,7 +81,7 @@ class NestedNode
       return cyclomaticComplexity;
    }
 
-   final public int countNodeFromType( final NodeKind type )
+   public final int countNodeFromType( final NodeKind type )
    {
       int count = 0;
 
@@ -99,7 +99,7 @@ class NestedNode
       return count;
    }
 
-   final public IParserNode getChild( final int index )
+   public final IParserNode getChild( final int index )
    {
       return getChildren() == null
             || getChildren().size() <= index ? null
@@ -125,13 +125,13 @@ class NestedNode
                                           : lastChild;
    }
 
-   final public boolean is( final NodeKind expectedType ) // NOPMD
+   public final boolean is( final NodeKind expectedType ) // NOPMD
    {
       return getId() == null
             && expectedType == null || getId().equals( expectedType );
    }
 
-   final public int numChildren()
+   public final int numChildren()
    {
       return getChildren() == null ? 0
                                   : getChildren().size();

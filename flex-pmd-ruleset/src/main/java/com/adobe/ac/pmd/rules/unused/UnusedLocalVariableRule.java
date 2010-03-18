@@ -47,13 +47,13 @@ public class UnusedLocalVariableRule extends AbstractUnusedVariableRule
    protected void visitFunction( final IParserNode ast,
                                  final FunctionType type )
    {
-      variablesUnused = new LinkedHashMap< String, IParserNode >();
+      setVariablesUnused( new LinkedHashMap< String, IParserNode >() );
 
       super.visitFunction( ast,
                            type );
-      for ( final String variableName : variablesUnused.keySet() )
+      for ( final String variableName : getVariablesUnused().keySet() )
       {
-         final IParserNode variable = variablesUnused.get( variableName );
+         final IParserNode variable = getVariablesUnused().get( variableName );
 
          addViolation( variable,
                        variable,

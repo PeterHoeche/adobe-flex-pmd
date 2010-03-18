@@ -54,13 +54,13 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
    @Override
    protected void visitClass( final IParserNode classNode )
    {
-      variablesUnused = new LinkedHashMap< String, IParserNode >();
+      setVariablesUnused( new LinkedHashMap< String, IParserNode >() );
 
       super.visitClass( classNode );
 
-      for ( final String variableName : variablesUnused.keySet() )
+      for ( final String variableName : getVariablesUnused().keySet() )
       {
-         final IParserNode variable = variablesUnused.get( variableName );
+         final IParserNode variable = getVariablesUnused().get( variableName );
 
          addViolation( variable,
                        variable,

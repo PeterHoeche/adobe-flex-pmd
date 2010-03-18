@@ -36,7 +36,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
 public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 {
-   private int paramsNb;
+   public static final int DEFAULT_THRESHOLD = 4;
+   private int             paramsNb;
 
    public final int getActualValueForTheCurrentViolation()
    {
@@ -45,7 +46,7 @@ public class TooManyParametersRule extends AbstractMaximizedAstFlexRule
 
    public final int getDefaultThreshold()
    {
-      return 4;
+      return DEFAULT_THRESHOLD;
    }
 
    @Override

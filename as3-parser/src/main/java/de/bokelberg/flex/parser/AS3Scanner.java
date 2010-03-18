@@ -54,7 +54,7 @@ import com.adobe.ac.utils.StackTraceUtils;
  */
 public class AS3Scanner
 {
-   static public final class Token
+   public static final class Token
    {
       private static Token create( final String textContent,
                                    final int tokenLine,

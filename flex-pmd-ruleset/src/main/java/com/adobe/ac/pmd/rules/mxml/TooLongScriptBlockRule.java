@@ -41,7 +41,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
 public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
 {
-   private int linesInScriptBlock;
+   public static final int DEFAULT_THRESHOLD = 50;
+   private int             linesInScriptBlock;
 
    public final int getActualValueForTheCurrentViolation()
    {
@@ -50,19 +51,13 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
 
    public final int getDefaultThreshold()
    {
-      return 50;
+      return DEFAULT_THRESHOLD;
    }
 
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return getCurrentFile().isMxml();
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.NORMAL;
    }
 
    @Override
@@ -80,5 +75,11 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
                        new ViolationPosition( mxml.getBeginningScriptBlock(), mxml.getEndingScriptBlock() ) );
       }
       return violations;
+   }
+
+   @Override
+   protected final ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
    }
 }

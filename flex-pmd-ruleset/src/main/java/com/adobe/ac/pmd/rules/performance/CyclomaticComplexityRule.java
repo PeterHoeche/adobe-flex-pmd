@@ -36,7 +36,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
 public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule
 {
-   private IFunction currentFunction = null;
+   public static final int DEFAULT_THRESHOLD = 10;
+   private IFunction       currentFunction   = null;
 
    public final int getActualValueForTheCurrentViolation()
    {
@@ -45,7 +46,7 @@ public class CyclomaticComplexityRule extends AbstractMaximizedAstFlexRule
 
    public final int getDefaultThreshold()
    {
-      return 10;
+      return DEFAULT_THRESHOLD;
    }
 
    @Override

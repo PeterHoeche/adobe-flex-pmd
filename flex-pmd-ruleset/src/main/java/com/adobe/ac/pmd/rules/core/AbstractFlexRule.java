@@ -205,7 +205,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    {
    }
 
-   private final void prettyPrintMessage( final IFlexViolation violation )
+   private void prettyPrintMessage( final IFlexViolation violation )
    {
       final int nbOfBraces = violation.getRuleMessage().split( "\\{" ).length - 1;
 

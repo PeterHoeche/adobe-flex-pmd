@@ -83,7 +83,7 @@ public abstract class AbstractFlexPmdEngine
       return temporaryRuleset;
    }
 
-   protected final File       outputDirectory;
+   private final File         outputDirectory;
    private final String       packageToExclude;
    private RuleSet            ruleSet;
    private final File         source;
@@ -145,6 +145,11 @@ public abstract class AbstractFlexPmdEngine
    public final RuleSet getRuleSet()
    {
       return ruleSet;
+   }
+
+   protected File getOutputDirectory()
+   {
+      return outputDirectory;
    }
 
    protected abstract void writeReport( final FlexPmdViolations pmd ) throws PMDException;

@@ -72,7 +72,7 @@ public class FlexMetrics extends AbstractMetrics
    {
       final ProjectMetrics metrics = new ProjectMetrics();
 
-      for ( final File directory : nonEmptyDirectories )
+      for ( final File directory : getNonEmptyDirectories() )
       {
          final Collection< File > classesInPackage = FileUtils.listFiles( directory,
                                                                           FLEX_FILTER,
@@ -81,7 +81,7 @@ public class FlexMetrics extends AbstractMetrics
          if ( directory.isDirectory()
                && !classesInPackage.isEmpty() )
          {
-            final String packageFullName = MetricUtils.getQualifiedName( sourceDirectory,
+            final String packageFullName = MetricUtils.getQualifiedName( getSourceDirectory(),
                                                                          directory );
             int functionsInPackage = 0;
             int ncssInPackage = 0;
@@ -94,7 +94,7 @@ public class FlexMetrics extends AbstractMetrics
                IClass classNode = null;
                InternalFunctionMetrics functionMetrics = null;
                final IFlexFile file = com.adobe.ac.pmd.files.impl.FileUtils.create( fileInPackage,
-                                                                                    sourceDirectory );
+                                                                                    getSourceDirectory() );
                if ( asts.containsKey( file.getFullyQualifiedName() )
                      && asts.get( file.getFullyQualifiedName() ).getClassNode() != null )
                {
@@ -134,7 +134,7 @@ public class FlexMetrics extends AbstractMetrics
       Map< String, IPackage > result = new HashMap< String, IPackage >();
       try
       {
-         result = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( sourceDirectory,
+         result = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( getSourceDirectory(),
                                                                                                     null,
                                                                                                     "",
                                                                                                     null ) );

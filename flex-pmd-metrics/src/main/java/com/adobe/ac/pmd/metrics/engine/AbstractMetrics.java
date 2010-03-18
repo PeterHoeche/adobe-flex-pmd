@@ -46,7 +46,6 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
 import com.adobe.ac.ncss.filters.FlexFilter;
-import com.adobe.ac.ncss.utils.FileUtils;
 import com.adobe.ac.pmd.metrics.ClassMetrics;
 import com.adobe.ac.pmd.metrics.FunctionMetrics;
 import com.adobe.ac.pmd.metrics.PackageMetrics;
@@ -113,18 +112,14 @@ public abstract class AbstractMetrics
       return files;
    }
 
-   protected Collection< File > filePaths           = null;
-   protected Collection< File > nonEmptyDirectories = null;
-   protected File               sourceDirectory     = null;
+   private Collection< File > nonEmptyDirectories = null;
+   private File               sourceDirectory     = null;
 
    public AbstractMetrics( final File sourceDirectoryPath )
    {
       super();
       if ( sourceDirectoryPath != null )
       {
-         this.filePaths = FileUtils.listFiles( sourceDirectoryPath,
-                                               new FlexFilter(),
-                                               true );
          this.nonEmptyDirectories = listNonEmptyDirectories( sourceDirectoryPath,
                                                              true );
          this.nonEmptyDirectories.add( sourceDirectoryPath );
@@ -150,6 +145,16 @@ public abstract class AbstractMetrics
    }
 
    public abstract ProjectMetrics loadMetrics();
+
+   protected Collection< File > getNonEmptyDirectories()
+   {
+      return nonEmptyDirectories;
+   }
+
+   protected File getSourceDirectory()
+   {
+      return sourceDirectory;
+   }
 
    private String addFunctions( final ProjectMetrics metrics )
    {

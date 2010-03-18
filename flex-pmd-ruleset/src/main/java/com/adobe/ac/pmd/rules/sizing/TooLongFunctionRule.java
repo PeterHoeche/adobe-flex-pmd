@@ -37,7 +37,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
 public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
 {
-   private int functionLength;
+   public static final int DEFAULT_THRESHOLD = 20;
+   private int             functionLength;
 
    public final int getActualValueForTheCurrentViolation()
    {
@@ -46,7 +47,7 @@ public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
 
    public final int getDefaultThreshold()
    {
-      return 20;
+      return DEFAULT_THRESHOLD;
    }
 
    @Override

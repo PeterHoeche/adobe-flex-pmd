@@ -109,7 +109,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    protected void visitFunction( final IParserNode functionAst,
                                  final FunctionType type )
    {
-      variablesUnused = new LinkedHashMap< String, IParserNode >();
+      setVariablesUnused( new LinkedHashMap< String, IParserNode >() );
       final boolean isOverriden = isFunctionOverriden( functionAst );
 
       if ( !isOverriden
@@ -121,9 +121,9 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
          if ( !functionIsEventHandler( functionAst ) )
          {
-            for ( final String variableName : variablesUnused.keySet() )
+            for ( final String variableName : getVariablesUnused().keySet() )
             {
-               final IParserNode variable = variablesUnused.get( variableName );
+               final IParserNode variable = getVariablesUnused().get( variableName );
 
                addViolation( variable,
                              variable,

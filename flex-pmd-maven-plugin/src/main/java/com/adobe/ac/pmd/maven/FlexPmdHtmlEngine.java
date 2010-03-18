@@ -77,7 +77,7 @@ class FlexPmdHtmlEngine extends AbstractFlexPmdEngine
    @Override
    protected final void writeReport( final FlexPmdViolations pmd ) throws PMDException
    {
-      writeReport( outputDirectory,
+      writeReport( getOutputDirectory(),
                    computeReport( pmd ) );
    }
 

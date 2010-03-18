@@ -59,9 +59,9 @@ public abstract class AbstractPackagedMetrics implements IMetrics
       return asDocs;
    }
 
-   abstract public String getFullName();
+   public abstract String getFullName();
 
-   abstract public String getMetricsName();
+   public abstract String getMetricsName();
 
    public int getMultiLineComments()
    {

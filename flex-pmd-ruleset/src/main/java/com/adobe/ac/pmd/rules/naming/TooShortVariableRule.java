@@ -41,7 +41,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class TooShortVariableRule extends AbstractRegexpBasedRule implements IThresholdedRule
 {
-   private int length;
+   public static final int DEFAULT_THRESHOLD = 3;
+   private int             length;
 
    public final int getActualValueForTheCurrentViolation()
    {
@@ -50,7 +51,7 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
 
    public final int getDefaultThreshold()
    {
-      return 3;
+      return DEFAULT_THRESHOLD;
    }
 
    public final int getThreshold()

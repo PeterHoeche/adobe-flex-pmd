@@ -41,7 +41,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule implements IThresholdedRule
 {
-   private int switchCases;
+   public static final int DEFAULT_THRESHOLD = 3;
+   private int             switchCases;
 
    public final int getActualValueForTheCurrentViolation()
    {
@@ -50,7 +51,7 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
 
    public final int getDefaultThreshold()
    {
-      return 3;
+      return DEFAULT_THRESHOLD;
    }
 
    public final int getThreshold()

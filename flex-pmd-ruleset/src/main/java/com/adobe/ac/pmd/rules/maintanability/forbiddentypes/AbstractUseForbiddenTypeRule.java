@@ -66,7 +66,7 @@ public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
       findViolationInVariableLists( function.getParameters() );
    }
 
-   abstract protected String getForbiddenType();
+   protected abstract String getForbiddenType();
 
    private < E extends IVariable > void findViolationInVariableLists( final List< E > variables )
    {
