@@ -45,7 +45,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.impl.ViolationFactory;
+import com.adobe.ac.pmd.impl.Violation;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
@@ -136,9 +136,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
                                                 final ViolationPosition position )
    {
-      final IFlexViolation violation = ViolationFactory.create( position,
-                                                                this,
-                                                                getCurrentFile() );
+      final IFlexViolation violation = new Violation( position, this, getCurrentFile() );
       final int beginLine = position.getBeginLine();
 
       prettyPrintMessage( violation );

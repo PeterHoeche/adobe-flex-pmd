@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-final class Violation implements IFlexViolation
+public final class Violation implements IFlexViolation
 {
    private final int       beginColumn;
    private final int       beginLine;
@@ -47,9 +47,9 @@ final class Violation implements IFlexViolation
    private final IFlexRule rule;
    private String          ruleMessage = "";
 
-   protected Violation( final ViolationPosition position,
-                        final IFlexRule violatedRule,
-                        final IFlexFile violatedFile )
+   public Violation( final ViolationPosition position,
+                     final IFlexRule violatedRule,
+                     final IFlexFile violatedFile )
    {
       beginLine = position.getBeginLine();
       endLine = position.getEndLine();

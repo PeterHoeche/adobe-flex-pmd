@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.impl.ViolationFactory;
+import com.adobe.ac.pmd.impl.Violation;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -102,12 +102,12 @@ public class PmdEngineUtilsTest extends FlexPmdTestBase
 
       final IFlexFile abstractRowDataFlexFile = getTestFiles().get( "AbstractRowData.as" );
 
-      abstractRowDataViolations.add( ViolationFactory.create( new ViolationPosition( 0, 0 ),
-                                                              new ErrorRule(),
-                                                              abstractRowDataFlexFile ) );
-      abstractRowDataViolations.add( ViolationFactory.create( new ViolationPosition( 0, 0 ),
-                                                              new WarningRule(),
-                                                              abstractRowDataFlexFile ) );
+      abstractRowDataViolations.add( new Violation( new ViolationPosition( 0, 0 ),
+                                                    new ErrorRule(),
+                                                    abstractRowDataFlexFile ) );
+      abstractRowDataViolations.add( new Violation( new ViolationPosition( 0, 0 ),
+                                                    new WarningRule(),
+                                                    abstractRowDataFlexFile ) );
       violations.getViolations().put( abstractRowDataFlexFile,
                                       abstractRowDataViolations );
       assertEquals( "An error violation has been found on the file AbstractRowData.as at line 0, with the rule"

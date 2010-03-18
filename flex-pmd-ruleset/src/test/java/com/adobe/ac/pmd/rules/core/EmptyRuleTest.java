@@ -42,7 +42,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.impl.EmptyRule;
-import com.adobe.ac.pmd.impl.ViolationFactory;
+import com.adobe.ac.pmd.impl.Violation;
 import com.adobe.ac.pmd.impl.WarningRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest.AssertPosition;
 
@@ -108,9 +108,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
       { new ViolationPosition( 0, 0 ) };
       final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-      violations.add( ViolationFactory.create( new ViolationPosition( 1, 1 ),
-                                               new EmptyRule(),
-                                               null ) );
+      violations.add( new Violation( new ViolationPosition( 1, 1 ), new EmptyRule(), null ) );
 
       final List< AssertPosition > positions = AbstractFlexRuleTest.buildFailureViolations( "",
                                                                                             expectedPositions,
@@ -142,9 +140,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
 
       final ArrayList< IFlexViolation > oneItemList = new ArrayList< IFlexViolation >();
 
-      oneItemList.add( ViolationFactory.create( new ViolationPosition( 0, 0 ),
-                                                new EmptyRule(),
-                                                null ) );
+      oneItemList.add( new Violation( new ViolationPosition( 0, 0 ), new EmptyRule(), null ) );
       violatedFiles.put( "file2",
                          oneItemList );
 
