@@ -47,24 +47,24 @@ public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
       addToMap( addToMap( addToMap( addToMap( violations,
                                               "bug.Duane.mxml",
                                               new ViolationPosition[]
-                                              { new ViolationPosition( 68, 68 ) } ),
+                                              { new ViolationPosition( 68 ) } ),
                                     "flexpmd114.a.Test.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 42, 42 ) } ),
+                                    { new ViolationPosition( 42 ) } ),
                           "flexpmd114.b.Test.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 42, 42 ) } ),
+                          { new ViolationPosition( 42 ) } ),
                 "flexpmd114.c.Test.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 42, 42 ) } );
+                { new ViolationPosition( 42 ) } );
 
       return addToMap( addToMap( violations,
                                  "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 47, 47 ) } ),
+                                 { new ViolationPosition( 47 ) } ),
                        "Looping.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 63, 63 ) } );
+                       { new ViolationPosition( 63 ) } );
    }
 
    @Override

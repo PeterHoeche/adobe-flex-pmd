@@ -45,7 +45,7 @@ public class TooLongBindingExpressionRuleTest extends AbstractRegExpBasedRuleTes
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 54, 54 ) } );
+                       { new ViolationPosition( 54 ) } );
    }
 
    @Override

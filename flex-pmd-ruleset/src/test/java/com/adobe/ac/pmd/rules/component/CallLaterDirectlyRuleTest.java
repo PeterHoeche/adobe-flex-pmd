@@ -46,7 +46,7 @@ public class CallLaterDirectlyRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "GenericType.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ) } );
+                       { new ViolationPosition( 41 ) } );
    }
 
    @Override

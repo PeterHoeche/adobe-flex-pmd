@@ -45,7 +45,7 @@ public class MonkeyPatchingRuleTest extends AbstractFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "mx.controls.DateChooser2.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 0, 0 ) } );
+                       { new ViolationPosition( 0 ) } );
    }
 
    @Override

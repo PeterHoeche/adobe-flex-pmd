@@ -49,29 +49,29 @@ public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
       addToMap( addToMap( addToMap( violations,
                                     "flexpmd114.a.Test.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 42, 42 ) } ),
+                                    { new ViolationPosition( 42 ) } ),
                           "flexpmd114.b.Test.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 42, 42 ) } ),
+                          { new ViolationPosition( 42 ) } ),
                 "flexpmd114.c.Test.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 42, 42 ) } );
+                { new ViolationPosition( 42 ) } );
 
       addToMap( addToMap( violations,
                           "Looping.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 63, 63 ) } ),
+                          { new ViolationPosition( 63 ) } ),
                 "com.adobe.ac.ncss.ConfigProxy.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 42, 42 ) } );
+                { new ViolationPosition( 42 ) } );
 
       addToMap( addToMap( violations,
                           "Sorted.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 67, 67 ) } ),
+                          { new ViolationPosition( 67 ) } ),
                 "AbstractRowData.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 52, 52 ) } );
+                { new ViolationPosition( 52 ) } );
 
       return violations;
    }

@@ -45,7 +45,7 @@ public class PackageCaseRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "cairngorm.FatController.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( -1, -1 ) } );
+                       { new ViolationPosition( -1 ) } );
    }
 
    @Override

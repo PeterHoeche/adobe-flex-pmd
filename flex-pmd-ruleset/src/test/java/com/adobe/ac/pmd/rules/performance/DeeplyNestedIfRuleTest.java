@@ -45,17 +45,17 @@ public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "bug.Duane.mxml",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 87, 87 ),
-                                                       new ViolationPosition( 91, 91 ),
-                                                       new ViolationPosition( 96, 96 ) } ),
+                                           { new ViolationPosition( 87 ),
+                                                       new ViolationPosition( 91 ),
+                                                       new ViolationPosition( 96 ) } ),
                                  "com.adobe.ac.AbstractRowData.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 59, 59 ) } ),
+                                 { new ViolationPosition( 59 ) } ),
                        "PngEncoder.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 578, 578 ),
-                                   new ViolationPosition( 576, 576 ),
-                                   new ViolationPosition( 584, 584 ) } );
+                       { new ViolationPosition( 578 ),
+                                   new ViolationPosition( 576 ),
+                                   new ViolationPosition( 584 ) } );
    }
 
    @Override

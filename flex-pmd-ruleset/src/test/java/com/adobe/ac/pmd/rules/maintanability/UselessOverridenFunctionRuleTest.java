@@ -45,10 +45,10 @@ public class UselessOverridenFunctionRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "GoodComponent.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 38, 38 ) } ),
+                                 { new ViolationPosition( 38 ) } ),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 138, 138 ) } );
+                       { new ViolationPosition( 138 ) } );
    }
 
    @Override

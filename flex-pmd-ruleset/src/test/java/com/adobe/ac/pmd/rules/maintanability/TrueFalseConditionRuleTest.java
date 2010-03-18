@@ -48,33 +48,33 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
       addToMap( addToMap( addToMap( violatingFiles,
                                     "PngEncoder.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 574, 574 ),
-                                                new ViolationPosition( 576, 576 ),
-                                                new ViolationPosition( 578, 578 ),
-                                                new ViolationPosition( 584, 584 ) } ),
+                                    { new ViolationPosition( 574 ),
+                                                new ViolationPosition( 576 ),
+                                                new ViolationPosition( 578 ),
+                                                new ViolationPosition( 584 ) } ),
                           "Looping.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 44, 44 ),
-                                      new ViolationPosition( 57, 57 ),
-                                      new ViolationPosition( 66, 66 ),
-                                      new ViolationPosition( 69, 69 ) } ),
+                          { new ViolationPosition( 44 ),
+                                      new ViolationPosition( 57 ),
+                                      new ViolationPosition( 66 ),
+                                      new ViolationPosition( 69 ) } ),
                 "RadonDataGrid.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 63, 63 ),
-                            new ViolationPosition( 190, 190 ),
-                            new ViolationPosition( 194, 194 ) } );
+                { new ViolationPosition( 63 ),
+                            new ViolationPosition( 190 ),
+                            new ViolationPosition( 194 ) } );
 
       return addToMap( addToMap( addToMap( violatingFiles,
                                            "AbstractRowData.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 106, 106 ),
-                                                       new ViolationPosition( 113, 113 ) } ),
+                                           { new ViolationPosition( 106 ),
+                                                       new ViolationPosition( 113 ) } ),
                                  "com.adobe.ac.AbstractRowData.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 59, 59 ) } ),
+                                 { new ViolationPosition( 59 ) } ),
                        "com.adobe.ac.ncss.TestResult.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 208, 208 ) } );
+                       { new ViolationPosition( 208 ) } );
    }
 
    @Override

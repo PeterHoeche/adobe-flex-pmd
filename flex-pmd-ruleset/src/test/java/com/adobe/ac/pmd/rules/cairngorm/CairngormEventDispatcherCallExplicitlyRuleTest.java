@@ -45,8 +45,8 @@ public class CairngormEventDispatcherCallExplicitlyRuleTest extends AbstractAstF
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 110, 110 ),
-                                   new ViolationPosition( 114, 114 ) } );
+                       { new ViolationPosition( 110 ),
+                                   new ViolationPosition( 114 ) } );
    }
 
    @Override

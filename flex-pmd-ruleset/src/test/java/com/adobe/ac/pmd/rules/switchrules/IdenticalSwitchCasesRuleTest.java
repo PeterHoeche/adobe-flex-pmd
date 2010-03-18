@@ -45,7 +45,7 @@ public class IdenticalSwitchCasesRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 58, 58 ) } );
+                       { new ViolationPosition( 58 ) } );
    }
 
    @Override

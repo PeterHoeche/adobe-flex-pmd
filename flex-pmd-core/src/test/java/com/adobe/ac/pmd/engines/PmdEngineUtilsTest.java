@@ -102,10 +102,10 @@ public class PmdEngineUtilsTest extends FlexPmdTestBase
 
       final IFlexFile abstractRowDataFlexFile = getTestFiles().get( "AbstractRowData.as" );
 
-      abstractRowDataViolations.add( new Violation( new ViolationPosition( 0, 0 ),
+      abstractRowDataViolations.add( new Violation( new ViolationPosition( 0 ),
                                                     new ErrorRule(),
                                                     abstractRowDataFlexFile ) );
-      abstractRowDataViolations.add( new Violation( new ViolationPosition( 0, 0 ),
+      abstractRowDataViolations.add( new Violation( new ViolationPosition( 0 ),
                                                     new WarningRule(),
                                                     abstractRowDataFlexFile ) );
       violations.getViolations().put( abstractRowDataFlexFile,

@@ -45,7 +45,7 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRul
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "fu.main.flex.TestRunnerApplication.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 48, 48 ) } );
+                       { new ViolationPosition( 48 ) } );
    }
 
    @Override

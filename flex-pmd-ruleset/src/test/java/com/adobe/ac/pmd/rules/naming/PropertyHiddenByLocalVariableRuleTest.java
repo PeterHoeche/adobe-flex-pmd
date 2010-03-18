@@ -45,7 +45,7 @@ public class PropertyHiddenByLocalVariableRuleTest extends AbstractAstFlexRuleTe
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.VoidConstructor.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 40, 40 ) } );
+                       { new ViolationPosition( 40 ) } );
    }
 
    @Override

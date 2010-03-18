@@ -45,7 +45,7 @@ public class ListenForHardCodedEventNameRuleTest extends AbstractRegExpBasedRule
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 109, 109 ) } );
+                       { new ViolationPosition( 109 ) } );
    }
 
    @Override

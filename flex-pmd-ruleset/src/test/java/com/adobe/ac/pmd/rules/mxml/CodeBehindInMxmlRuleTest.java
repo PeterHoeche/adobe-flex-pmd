@@ -45,7 +45,7 @@ public class CodeBehindInMxmlRuleTest extends AbstractRegExpBasedRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "Main.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 55, 55 ) } );
+                       { new ViolationPosition( 55 ) } );
    }
 
    @Override

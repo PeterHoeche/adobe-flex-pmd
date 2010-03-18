@@ -47,15 +47,15 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( files,
                                            "cairngorm.NonBindableModelLocator.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 43, 43 ) } ),
+                                           { new ViolationPosition( 43 ) } ),
                                  "com.adobe.ac.ncss.BigImporterModel.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ),
-                                             new ViolationPosition( 62, 62 ) } ),
+                                 { new ViolationPosition( 62 ),
+                                             new ViolationPosition( 62 ),
+                                             new ViolationPosition( 62 ) } ),
                        "Sorted.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 67, 67 ) } );
+                       { new ViolationPosition( 67 ) } );
    }
 
    @Override

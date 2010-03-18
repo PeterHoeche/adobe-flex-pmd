@@ -45,11 +45,11 @@ public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "filters.MyPopup.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 37, 37 ) } ),
+                                 { new ViolationPosition( 37 ) } ),
                        "filters.MyPopup.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ),
-                                   new ViolationPosition( 44, 44 ) } );
+                       { new ViolationPosition( 41 ),
+                                   new ViolationPosition( 44 ) } );
    }
 
    @Override

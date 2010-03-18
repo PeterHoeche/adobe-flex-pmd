@@ -45,11 +45,11 @@ public class DispatchHardCodedEventNameRuleTest extends AbstractRegExpBasedRuleT
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.ncss.BigImporterModel.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 58, 58 ) } ),
+                                 { new ViolationPosition( 58 ) } ),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 110, 110 ),
-                                   new ViolationPosition( 111, 111 ) } );
+                       { new ViolationPosition( 110 ),
+                                   new ViolationPosition( 111 ) } );
    }
 
    @Override

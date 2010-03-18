@@ -45,19 +45,19 @@ public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                                "bug.FlexPMD88.as",
                                                                new ViolationPosition[]
-                                                               { new ViolationPosition( 38, 38 ) } ),
+                                                               { new ViolationPosition( 38 ) } ),
                                                      "flexunit.RaoulTest.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 71, 71 ) } ),
+                                                     { new ViolationPosition( 71 ) } ),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 130, 130 ) } ),
+                                           { new ViolationPosition( 130 ) } ),
                                  "Looping.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 39, 39 ) } ),
+                                 { new ViolationPosition( 39 ) } ),
                        "RadonDataGrid.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 53, 53 ) } );
+                       { new ViolationPosition( 53 ) } );
    }
 
    @Override

@@ -45,7 +45,7 @@ public class DynamicClassRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.event.DynamicCustomEvent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 33 ) } );
    }
 
    @Override

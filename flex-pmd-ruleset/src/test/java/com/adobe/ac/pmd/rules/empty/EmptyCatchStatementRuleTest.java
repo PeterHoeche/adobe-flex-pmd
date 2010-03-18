@@ -45,7 +45,7 @@ public class EmptyCatchStatementRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.ConfigProxy.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 57, 57 ) } );
+                       { new ViolationPosition( 57 ) } );
    }
 
    @Override

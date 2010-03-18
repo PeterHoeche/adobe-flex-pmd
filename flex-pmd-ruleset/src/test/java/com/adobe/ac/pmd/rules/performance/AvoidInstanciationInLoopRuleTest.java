@@ -45,20 +45,20 @@ public class AvoidInstanciationInLoopRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 255, 255 ),
-                                             new ViolationPosition( 282, 282 ),
-                                             new ViolationPosition( 289, 289 ) } ),
+                                 { new ViolationPosition( 255 ),
+                                             new ViolationPosition( 282 ),
+                                             new ViolationPosition( 289 ) } ),
                        "Looping.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 43, 43 ),
-                                   new ViolationPosition( 46, 46 ),
-                                   new ViolationPosition( 50, 50 ),
-                                   new ViolationPosition( 56, 56 ),
-                                   new ViolationPosition( 59, 59 ),
-                                   new ViolationPosition( 63, 63 ),
-                                   new ViolationPosition( 68, 68 ),
-                                   new ViolationPosition( 71, 71 ),
-                                   new ViolationPosition( 75, 75 ) } );
+                       { new ViolationPosition( 43 ),
+                                   new ViolationPosition( 46 ),
+                                   new ViolationPosition( 50 ),
+                                   new ViolationPosition( 56 ),
+                                   new ViolationPosition( 59 ),
+                                   new ViolationPosition( 63 ),
+                                   new ViolationPosition( 68 ),
+                                   new ViolationPosition( 71 ),
+                                   new ViolationPosition( 75 ) } );
    }
 
    @Override

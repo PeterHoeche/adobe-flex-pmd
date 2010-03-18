@@ -39,11 +39,16 @@ public final class ViolationPosition
    {
       return new ViolationPosition( beginLineToBeSet, endLineToBeSet, beginColumnToBeSet, endColumnToBeSet );
    }
+
    private final int beginColumn;
    private final int beginLine;
    private final int endColumn;
-
    private final int endLine;
+
+   public ViolationPosition( final int lineToBeSet )
+   {
+      this( lineToBeSet, lineToBeSet, 0, 0 );
+   }
 
    public ViolationPosition( final int beginLineToBeSet,
                              final int endLineToBeSet )

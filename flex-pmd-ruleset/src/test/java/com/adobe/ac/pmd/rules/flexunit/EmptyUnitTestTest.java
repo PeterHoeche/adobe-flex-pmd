@@ -45,11 +45,11 @@ public class EmptyUnitTestTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "flexunit.RaoulTest.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 54, 54 ),
-                                             new ViolationPosition( 60, 60 ) } ),
+                                 { new ViolationPosition( 54 ),
+                                             new ViolationPosition( 60 ) } ),
                        "flexunit.RulesetTest.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 48, 48 ) } );
+                       { new ViolationPosition( 48 ) } );
    }
 
    @Override

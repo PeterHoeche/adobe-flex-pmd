@@ -48,55 +48,55 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
       addToMap( addToMap( addToMap( addToMap( addToMap( violations,
                                                         "bug.Duane.mxml",
                                                         new ViolationPosition[]
-                                                        { new ViolationPosition( 68, 68 ) } ),
+                                                        { new ViolationPosition( 68 ) } ),
                                               "bug.FlexPMD88.as",
                                               new ViolationPosition[]
-                                              { new ViolationPosition( 42, 42 ),
-                                                          new ViolationPosition( 43, 43 ),
-                                                          new ViolationPosition( 44, 44 ),
-                                                          new ViolationPosition( 45, 45 ) } ),
+                                              { new ViolationPosition( 42 ),
+                                                          new ViolationPosition( 43 ),
+                                                          new ViolationPosition( 44 ),
+                                                          new ViolationPosition( 45 ) } ),
                                     "flexpmd114.a.Test.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 42, 42 ) } ),
+                                    { new ViolationPosition( 42 ) } ),
                           "flexpmd114.b.Test.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 42, 42 ) } ),
+                          { new ViolationPosition( 42 ) } ),
                 "flexpmd114.c.Test.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 42, 42 ) } );
+                { new ViolationPosition( 42 ) } );
 
       addToMap( addToMap( addToMap( addToMap( violations,
                                               "UnboundMetadata.as",
                                               new ViolationPosition[]
-                                              { new ViolationPosition( 50, 50 ) } ),
+                                              { new ViolationPosition( 50 ) } ),
                                     "com.adobe.ac.ncss.BigImporterModel.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 64, 64 ) } ),
+                                    { new ViolationPosition( 64 ) } ),
                           "GenericType.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 46, 46 ) } ),
+                          { new ViolationPosition( 46 ) } ),
                 "ErrorToltipSkin.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 163, 163 ),
-                            new ViolationPosition( 165, 165 ),
-                            new ViolationPosition( 166, 166 ),
-                            new ViolationPosition( 183, 183 ),
-                            new ViolationPosition( 184, 184 ) } );
+                { new ViolationPosition( 163 ),
+                            new ViolationPosition( 165 ),
+                            new ViolationPosition( 166 ),
+                            new ViolationPosition( 183 ),
+                            new ViolationPosition( 184 ) } );
 
       return addToMap( addToMap( addToMap( addToMap( violations,
                                                      "DeleteButtonRenderer.mxml",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 69, 69 ) } ),
+                                                     { new ViolationPosition( 69 ) } ),
                                            "com.adobe.ac.ncss.VoidConstructor.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 40, 40 ) } ),
+                                           { new ViolationPosition( 40 ) } ),
                                  "RadonDataGrid.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 100, 100 ),
-                                             new ViolationPosition( 101, 101 ) } ),
+                                 { new ViolationPosition( 100 ),
+                                             new ViolationPosition( 101 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 47, 47 ) } );
+                       { new ViolationPosition( 47 ) } );
    }
 
    @Override

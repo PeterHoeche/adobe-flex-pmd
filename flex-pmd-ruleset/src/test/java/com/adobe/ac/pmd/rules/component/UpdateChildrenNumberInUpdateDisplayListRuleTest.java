@@ -45,10 +45,10 @@ public class UpdateChildrenNumberInUpdateDisplayListRuleTest extends AbstractAst
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "BadComponent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 42, 42 ),
-                                   new ViolationPosition( 43, 43 ),
-                                   new ViolationPosition( 44, 44 ),
-                                   new ViolationPosition( 45, 45 ) } );
+                       { new ViolationPosition( 42 ),
+                                   new ViolationPosition( 43 ),
+                                   new ViolationPosition( 44 ),
+                                   new ViolationPosition( 45 ) } );
    }
 
    @Override

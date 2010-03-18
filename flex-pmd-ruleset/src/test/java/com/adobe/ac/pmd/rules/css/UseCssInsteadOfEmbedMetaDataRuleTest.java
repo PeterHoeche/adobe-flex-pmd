@@ -45,7 +45,7 @@ public class UseCssInsteadOfEmbedMetaDataRuleTest extends AbstractAstFlexRuleTes
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "Title.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 38, 38 ) } );
+                       { new ViolationPosition( 38 ) } );
    }
 
    @Override

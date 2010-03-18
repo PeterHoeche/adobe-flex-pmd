@@ -45,10 +45,10 @@ public class BadFormatLoggerRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 44, 44 ),
-                                   new ViolationPosition( 45, 45 ),
-                                   new ViolationPosition( 46, 46 ),
-                                   new ViolationPosition( 47, 47 ) } );
+                       { new ViolationPosition( 44 ),
+                                   new ViolationPosition( 45 ),
+                                   new ViolationPosition( 46 ),
+                                   new ViolationPosition( 47 ) } );
    }
 
    @Override

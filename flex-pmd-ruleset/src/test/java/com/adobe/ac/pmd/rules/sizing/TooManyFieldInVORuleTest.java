@@ -45,7 +45,7 @@ public class TooManyFieldInVORuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 33 ) } );
    }
 
    @Override

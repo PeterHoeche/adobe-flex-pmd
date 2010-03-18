@@ -45,7 +45,7 @@ public class ViewComponentReferencedInModelRuleTest extends AbstractRegExpBasedR
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
+                       { new ViolationPosition( 35 ) } );
    }
 
    @Override

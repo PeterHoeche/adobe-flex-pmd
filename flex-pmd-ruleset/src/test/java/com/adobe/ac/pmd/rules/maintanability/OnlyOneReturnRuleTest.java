@@ -45,11 +45,11 @@ public class OnlyOneReturnRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 189, 189 ),
-                                             new ViolationPosition( 609, 609 ) } ),
+                                 { new ViolationPosition( 189 ),
+                                             new ViolationPosition( 609 ) } ),
                        "com.adobe.ac.AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 66, 66 ) } );
+                       { new ViolationPosition( 66 ) } );
    }
 
    @Override

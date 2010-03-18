@@ -45,10 +45,10 @@ public class TooFewBrancheInSwitchStatementRuleTest extends AbstractAstFlexRuleT
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.ncss.LongSwitch.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 53, 53 ) } ),
+                                 { new ViolationPosition( 53 ) } ),
                        "com.adobe.ac.ncss.NestedSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 43, 43 ) } );
+                       { new ViolationPosition( 43 ) } );
    }
 
    @Override

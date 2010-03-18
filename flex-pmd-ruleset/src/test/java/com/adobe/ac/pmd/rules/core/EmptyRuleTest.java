@@ -105,10 +105,10 @@ public class EmptyRuleTest extends FlexPmdTestBase
    public void testBuildFailureViolations()
    {
       final ViolationPosition[] expectedPositions = new ViolationPosition[]
-      { new ViolationPosition( 0, 0 ) };
+      { new ViolationPosition( 0 ) };
       final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-      violations.add( new Violation( new ViolationPosition( 1, 1 ), new EmptyRule(), null ) );
+      violations.add( new Violation( new ViolationPosition( 1 ), new EmptyRule(), null ) );
 
       final List< AssertPosition > positions = AbstractFlexRuleTest.buildFailureViolations( "",
                                                                                             expectedPositions,
@@ -140,7 +140,7 @@ public class EmptyRuleTest extends FlexPmdTestBase
 
       final ArrayList< IFlexViolation > oneItemList = new ArrayList< IFlexViolation >();
 
-      oneItemList.add( new Violation( new ViolationPosition( 0, 0 ), new EmptyRule(), null ) );
+      oneItemList.add( new Violation( new ViolationPosition( 0 ), new EmptyRule(), null ) );
       violatedFiles.put( "file2",
                          oneItemList );
 

@@ -50,7 +50,7 @@ public class MonkeyPatchingRule extends AbstractFlexRule
             && !getCurrentFile().getClassName().endsWith( "Style.as" ) )
       {
          addViolation( violations,
-                       new ViolationPosition( 0, 0 ) );
+                       new ViolationPosition( 0 ) );
       }
       return violations;
    }

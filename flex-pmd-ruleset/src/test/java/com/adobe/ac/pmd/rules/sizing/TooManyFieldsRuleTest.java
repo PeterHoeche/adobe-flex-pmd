@@ -45,16 +45,16 @@ public class TooManyFieldsRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "com.adobe.ac.ncss.TestResult.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 46, 46 ) } ),
+                                                     { new ViolationPosition( 46 ) } ),
                                            "Sorted.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 37, 37 ) } ),
+                                           { new ViolationPosition( 37 ) } ),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 42, 42 ) } ),
+                                 { new ViolationPosition( 42 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
+                       { new ViolationPosition( 35 ) } );
    }
 
    @Override

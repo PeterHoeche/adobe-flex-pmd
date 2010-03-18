@@ -47,25 +47,25 @@ public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
       violations = addToMap( addToMap( addToMap( violations,
                                                  "ErrorToltipSkin.as",
                                                  new ViolationPosition[]
-                                                 { new ViolationPosition( 156, 156 ) } ),
+                                                 { new ViolationPosition( 156 ) } ),
                                        "PngEncoder.as",
                                        new ViolationPosition[]
-                                       { new ViolationPosition( 150, 150 ),
-                                                   new ViolationPosition( 335, 335 ),
-                                                   new ViolationPosition( 548, 548 ) } ),
+                                       { new ViolationPosition( 150 ),
+                                                   new ViolationPosition( 335 ),
+                                                   new ViolationPosition( 548 ) } ),
                              "RadonDataGrid.as",
                              new ViolationPosition[]
-                             { new ViolationPosition( 84, 84 ) } );
+                             { new ViolationPosition( 84 ) } );
       return addToMap( addToMap( addToMap( violations,
                                            "cairngorm.FatController.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 97, 97 ) } ),
+                                           { new ViolationPosition( 97 ) } ),
                                  "com.adobe.ac.ncss.NestedSwitch.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 35, 35 ) } ),
+                                 { new ViolationPosition( 35 ) } ),
                        "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39, 39 ) } );
+                       { new ViolationPosition( 39 ) } );
    }
 
    @Override

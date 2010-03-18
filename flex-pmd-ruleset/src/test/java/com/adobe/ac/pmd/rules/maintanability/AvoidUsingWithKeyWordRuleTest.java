@@ -45,7 +45,7 @@ public class AvoidUsingWithKeyWordRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "GoodComponent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 54, 54 ) } );
+                       { new ViolationPosition( 54 ) } );
    }
 
    @Override

@@ -45,10 +45,10 @@ public class UnboundTypeInMetadataRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "bug.Nico.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 36, 36 ) } ),
+                                 { new ViolationPosition( 36 ) } ),
                        "UnboundMetadata.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 38, 38 ) } );
+                       { new ViolationPosition( 38 ) } );
    }
 
    @Override

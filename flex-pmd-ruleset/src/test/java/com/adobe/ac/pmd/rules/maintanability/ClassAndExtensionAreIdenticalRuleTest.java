@@ -45,7 +45,7 @@ public class ClassAndExtensionAreIdenticalRuleTest extends AbstractAstFlexRuleTe
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "GenericType.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 33 ) } );
    }
 
    @Override

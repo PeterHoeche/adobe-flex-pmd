@@ -45,7 +45,7 @@ public class UntypedEventMetadataRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "UnboundMetadata.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39, 39 ) } );
+                       { new ViolationPosition( 39 ) } );
    }
 
    @Override

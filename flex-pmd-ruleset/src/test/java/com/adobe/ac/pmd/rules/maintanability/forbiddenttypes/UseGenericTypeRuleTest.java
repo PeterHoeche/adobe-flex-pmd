@@ -46,11 +46,11 @@ public class UseGenericTypeRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "GenericType.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39, 39 ),
-                                   new ViolationPosition( 46, 46 ),
-                                   new ViolationPosition( 35, 35 ),
-                                   new ViolationPosition( 36, 36 ),
-                                   new ViolationPosition( 37, 37 ) } );
+                       { new ViolationPosition( 39 ),
+                                   new ViolationPosition( 46 ),
+                                   new ViolationPosition( 35 ),
+                                   new ViolationPosition( 36 ),
+                                   new ViolationPosition( 37 ) } );
    }
 
    @Override

@@ -48,22 +48,22 @@ public class UseInternalClassOutsideApiClassTest extends AbstractAstFlexRuleTest
       addToMap( addToMap( addToMap( addToMap( violatedFiles,
                                               "functional.func2.restricted.Func2RestrictedClass.as",
                                               new ViolationPosition[]
-                                              { new ViolationPosition( 34, 34 ) } ),
+                                              { new ViolationPosition( 34 ) } ),
                                     "functional.func1.restricted.Func1RestrictedClass.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 35, 35 ) } ),
+                                    { new ViolationPosition( 35 ) } ),
                           "functional.func2.api.Func2ExposedClass.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 34, 34 ) } ),
+                          { new ViolationPosition( 34 ) } ),
                 "functional.func1.api.Func1ExposedClass.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 36, 36 ) } );
+                { new ViolationPosition( 36 ) } );
 
       addToMap( violatedFiles,
                 "functional.FunctionalClient.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 34, 34 ),
-                            new ViolationPosition( 36, 36 ) } );
+                { new ViolationPosition( 34 ),
+                            new ViolationPosition( 36 ) } );
 
       return violatedFiles;
    }

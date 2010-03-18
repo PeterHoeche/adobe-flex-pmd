@@ -45,7 +45,7 @@ public class ChangeWatcherRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
+                       { new ViolationPosition( 35 ) } );
    }
 
    @Override

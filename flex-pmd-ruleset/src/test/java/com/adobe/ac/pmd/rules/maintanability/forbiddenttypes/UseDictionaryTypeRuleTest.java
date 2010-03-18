@@ -46,7 +46,7 @@ public class UseDictionaryTypeRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "Responder.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 36, 36 ) } );
+                       { new ViolationPosition( 36 ) } );
    }
 
    @Override

@@ -45,7 +45,7 @@ public class StaticMethodInMxmlRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 48, 48 ) } );
+                       { new ViolationPosition( 48 ) } );
    }
 
    @Override

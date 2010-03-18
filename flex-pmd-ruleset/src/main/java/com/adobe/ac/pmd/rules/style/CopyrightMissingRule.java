@@ -85,6 +85,6 @@ public class CopyrightMissingRule extends AbstractFlexRule
    private void addViolation( final List< IFlexViolation > violations )
    {
       addViolation( violations,
-                    new ViolationPosition( -1, -1 ) );
+                    new ViolationPosition( -1 ) );
    }
 }

@@ -45,10 +45,10 @@ public class CopyrightMissingRuleTest extends AbstractFlexRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "Simple.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( -1, -1 ) } ),
+                                 { new ViolationPosition( -1 ) } ),
                        "MainWithNoCopyright.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( -1, -1 ) } );
+                       { new ViolationPosition( -1 ) } );
    }
 
    @Override

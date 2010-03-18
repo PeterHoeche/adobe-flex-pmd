@@ -47,18 +47,18 @@ public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
       addToMap( addToMap( addToMap( violations,
                                     "flexpmd114.a.Test.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 43, 43 ) } ),
+                                    { new ViolationPosition( 43 ) } ),
                           "flexpmd114.b.Test.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 43, 43 ) } ),
+                          { new ViolationPosition( 43 ) } ),
                 "flexpmd114.c.Test.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 43, 43 ) } );
+                { new ViolationPosition( 43 ) } );
 
       return addToMap( violations,
                        "com.adobe.ac.ncss.ConfigProxy.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 48, 48 ) } );
+                       { new ViolationPosition( 48 ) } );
    }
 
    @Override

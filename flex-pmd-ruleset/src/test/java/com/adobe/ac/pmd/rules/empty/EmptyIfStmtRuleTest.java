@@ -45,21 +45,21 @@ public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "bug.Duane.mxml",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 91, 91 ),
-                                                                 new ViolationPosition( 87, 87 ),
-                                                                 new ViolationPosition( 83, 83 ) } ),
+                                                     { new ViolationPosition( 91 ),
+                                                                 new ViolationPosition( 87 ),
+                                                                 new ViolationPosition( 83 ) } ),
                                            "PngEncoder.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 578, 578 ),
-                                                       new ViolationPosition( 584, 584 ) } ),
+                                           { new ViolationPosition( 578 ),
+                                                       new ViolationPosition( 584 ) } ),
                                  "RadonDataGrid.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 63, 63 ),
-                                             new ViolationPosition( 190, 190 ) } ),
+                                 { new ViolationPosition( 63 ),
+                                             new ViolationPosition( 190 ) } ),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 106, 106 ),
-                                   new ViolationPosition( 113, 113 ) } );
+                       { new ViolationPosition( 106 ),
+                                   new ViolationPosition( 113 ) } );
    }
 
    @Override

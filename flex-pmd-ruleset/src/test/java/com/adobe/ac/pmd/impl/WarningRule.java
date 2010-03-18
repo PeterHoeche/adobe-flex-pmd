@@ -64,7 +64,7 @@ public class WarningRule extends AbstractFlexRule
       final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       addViolation( violations,
-                    new ViolationPosition( 0, 0 ) );
+                    new ViolationPosition( 0 ) );
 
       return violations;
    }

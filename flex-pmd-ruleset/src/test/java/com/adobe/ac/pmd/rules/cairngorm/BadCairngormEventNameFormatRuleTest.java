@@ -43,7 +43,7 @@ public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
       final ViolationPosition[] positions =
-      { new ViolationPosition( 38, 38 ) };
+      { new ViolationPosition( 38 ) };
 
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "cairngorm.events.UncorrectConstructorEvent.as",

@@ -75,19 +75,19 @@ public class EmptyRule extends AbstractMaximizedFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.LOW;
-   }
-
-   @Override
    protected List< IFlexViolation > findViolationsInCurrentFile()
    {
       final ArrayList< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       addViolation( violations,
-                    new ViolationPosition( 0, 0 ) );
+                    new ViolationPosition( 0 ) );
 
       return violations;
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.LOW;
    }
 }

@@ -45,7 +45,7 @@ public class BindableModelLocatorRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "cairngorm.BindableModelLocator.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 33 ) } );
    }
 
    @Override

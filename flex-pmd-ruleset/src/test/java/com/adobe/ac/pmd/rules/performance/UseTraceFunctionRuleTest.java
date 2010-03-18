@@ -45,14 +45,14 @@ public class UseTraceFunctionRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "com.adobe.ac.ncss.LongSwitch.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 125, 125 ) } ),
+                                           { new ViolationPosition( 125 ) } ),
                                  "Simple.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 1, 1 ) } ),
+                                 { new ViolationPosition( 1 ) } ),
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 74, 74 ),
-                                   new ViolationPosition( 75, 75 ) } );
+                       { new ViolationPosition( 74 ),
+                                   new ViolationPosition( 75 ) } );
    }
 
    @Override

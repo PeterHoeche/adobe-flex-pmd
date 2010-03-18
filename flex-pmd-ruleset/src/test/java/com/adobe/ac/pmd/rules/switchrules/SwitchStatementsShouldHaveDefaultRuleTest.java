@@ -45,12 +45,12 @@ public class SwitchStatementsShouldHaveDefaultRuleTest extends AbstractAstFlexRu
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.ncss.LongSwitch.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 53, 53 ),
-                                             new ViolationPosition( 41, 41 ),
-                                             new ViolationPosition( 92, 92 ) } ),
+                                 { new ViolationPosition( 53 ),
+                                             new ViolationPosition( 41 ),
+                                             new ViolationPosition( 92 ) } ),
                        "com.adobe.ac.ncss.NestedSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 43, 43 ) } );
+                       { new ViolationPosition( 43 ) } );
    }
 
    @Override

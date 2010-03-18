@@ -45,13 +45,13 @@ public class TooManyPublicRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "com.adobe.ac.ncss.ArrayVO.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 33, 33 ) } ),
+                                           { new ViolationPosition( 33 ) } ),
                                  "com.adobe.ac.ncss.TestResult.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 46, 46 ) } ),
+                                 { new ViolationPosition( 46 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 35, 35 ) } );
+                       { new ViolationPosition( 35 ) } );
    }
 
    @Override

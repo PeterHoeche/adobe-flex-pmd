@@ -45,10 +45,10 @@ public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "com.adobe.ac.ncss.SearchBarEvent.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 35, 35 ) } ),
+                                 { new ViolationPosition( 35 ) } ),
                        "com.adobe.ac.ncss.event.FirstCustomEvent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 33, 33 ) } );
+                       { new ViolationPosition( 33 ) } );
    }
 
    @Override

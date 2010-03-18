@@ -45,13 +45,13 @@ public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "com.adobe.ac.ncss.LongSwitch.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 39, 39 ) } ),
+                                           { new ViolationPosition( 39 ) } ),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 548, 548 ) } ),
+                                 { new ViolationPosition( 548 ) } ),
                        "RadonDataGrid.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 160, 160 ) } );
+                       { new ViolationPosition( 160 ) } );
    }
 
    @Override

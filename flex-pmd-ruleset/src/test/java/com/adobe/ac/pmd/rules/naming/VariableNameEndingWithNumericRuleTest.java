@@ -45,31 +45,31 @@ public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTe
       return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "PngEncoder.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 405, 405 ),
-                                                                 new ViolationPosition( 441, 441 ),
-                                                                 new ViolationPosition( 459, 459 ) } ),
+                                                     { new ViolationPosition( 405 ),
+                                                                 new ViolationPosition( 441 ),
+                                                                 new ViolationPosition( 459 ) } ),
                                            "com.adobe.ac.ncss.BigModel.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 82, 82 ),
-                                                       new ViolationPosition( 86, 86 ),
-                                                       new ViolationPosition( 90, 90 ),
-                                                       new ViolationPosition( 94, 94 ),
-                                                       new ViolationPosition( 98, 98 ) } ),
+                                           { new ViolationPosition( 82 ),
+                                                       new ViolationPosition( 86 ),
+                                                       new ViolationPosition( 90 ),
+                                                       new ViolationPosition( 94 ),
+                                                       new ViolationPosition( 98 ) } ),
                                  "cairngorm.LightController.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 115, 115 ),
-                                             new ViolationPosition( 134, 134 ),
-                                             new ViolationPosition( 153, 153 ),
-                                             new ViolationPosition( 172, 172 ),
-                                             new ViolationPosition( 191, 191 ) } ),
+                                 { new ViolationPosition( 115 ),
+                                             new ViolationPosition( 134 ),
+                                             new ViolationPosition( 153 ),
+                                             new ViolationPosition( 172 ),
+                                             new ViolationPosition( 191 ) } ),
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 62, 62 ),
-                                   new ViolationPosition( 62, 62 ),
-                                   new ViolationPosition( 62, 62 ),
-                                   new ViolationPosition( 62, 62 ),
-                                   new ViolationPosition( 62, 62 ),
-                                   new ViolationPosition( 64, 64 ) } );
+                       { new ViolationPosition( 62 ),
+                                   new ViolationPosition( 62 ),
+                                   new ViolationPosition( 62 ),
+                                   new ViolationPosition( 62 ),
+                                   new ViolationPosition( 62 ),
+                                   new ViolationPosition( 64 ) } );
    }
 
    @Override

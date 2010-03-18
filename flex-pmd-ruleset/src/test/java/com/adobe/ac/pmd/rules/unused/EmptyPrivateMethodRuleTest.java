@@ -45,21 +45,21 @@ public class EmptyPrivateMethodRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "bug.FlexPMD97.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 39, 39 ) } ),
+                                                     { new ViolationPosition( 39 ) } ),
                                            "Sorted.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 62, 62 ),
-                                                       new ViolationPosition( 71, 71 ) } ),
+                                           { new ViolationPosition( 62 ),
+                                                       new ViolationPosition( 71 ) } ),
                                  "com.adobe.ac.ncss.BigModel.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 82, 82 ),
-                                             new ViolationPosition( 86, 86 ),
-                                             new ViolationPosition( 90, 90 ),
-                                             new ViolationPosition( 94, 94 ),
-                                             new ViolationPosition( 98, 98 ) } ),
+                                 { new ViolationPosition( 82 ),
+                                             new ViolationPosition( 86 ),
+                                             new ViolationPosition( 90 ),
+                                             new ViolationPosition( 94 ),
+                                             new ViolationPosition( 98 ) } ),
                        "cairngorm.events.CorrectConstantEvent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 53, 53 ) } );
+                       { new ViolationPosition( 53 ) } );
    }
 
    @Override

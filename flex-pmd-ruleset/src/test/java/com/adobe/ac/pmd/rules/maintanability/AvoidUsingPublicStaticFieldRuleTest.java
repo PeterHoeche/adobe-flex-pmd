@@ -45,7 +45,7 @@ public class AvoidUsingPublicStaticFieldRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "Sorted.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 47, 47 ) } );
+                       { new ViolationPosition( 47 ) } );
    }
 
    @Override

@@ -45,22 +45,22 @@ public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                                "bug.Duane.mxml",
                                                                new ViolationPosition[]
-                                                               { new ViolationPosition( 66, 66 ) } ),
+                                                               { new ViolationPosition( 66 ) } ),
                                                      "Sorted.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 71, 71 ) } ),
+                                                     { new ViolationPosition( 71 ) } ),
                                            "cairngorm.LightController.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 191, 191 ) } ),
+                                           { new ViolationPosition( 191 ) } ),
                                  "RadonDataGrid.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 207, 207 ) } ),
+                                 { new ViolationPosition( 207 ) } ),
                        "com.adobe.ac.ncss.BigModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 86, 86 ),
-                                   new ViolationPosition( 90, 90 ),
-                                   new ViolationPosition( 94, 94 ),
-                                   new ViolationPosition( 98, 98 ) } );
+                       { new ViolationPosition( 86 ),
+                                   new ViolationPosition( 90 ),
+                                   new ViolationPosition( 94 ),
+                                   new ViolationPosition( 98 ) } );
    }
 
    @Override

@@ -45,7 +45,7 @@ public class CreationPolicySetToAllRuleTest extends AbstractRegExpBasedRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "Main.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 37, 37 ) } );
+                       { new ViolationPosition( 37 ) } );
    }
 
    @Override

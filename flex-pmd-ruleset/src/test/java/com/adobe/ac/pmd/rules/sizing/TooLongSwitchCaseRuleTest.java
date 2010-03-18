@@ -45,18 +45,18 @@ public class TooLongSwitchCaseRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "ErrorToltipSkin.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 189, 189 ),
-                                                       new ViolationPosition( 214, 214 ),
-                                                       new ViolationPosition( 252, 252 ),
-                                                       new ViolationPosition( 290, 290 ) } ),
+                                           { new ViolationPosition( 189 ),
+                                                       new ViolationPosition( 214 ),
+                                                       new ViolationPosition( 252 ),
+                                                       new ViolationPosition( 290 ) } ),
                                  "com.adobe.ac.ncss.NestedSwitch.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 38, 38 ),
-                                             new ViolationPosition( 58, 58 ) } ),
+                                 { new ViolationPosition( 38 ),
+                                             new ViolationPosition( 58 ) } ),
                        "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 47, 47 ),
-                                   new ViolationPosition( 52, 52 ) } );
+                       { new ViolationPosition( 47 ),
+                                   new ViolationPosition( 52 ) } );
    }
 
    @Override

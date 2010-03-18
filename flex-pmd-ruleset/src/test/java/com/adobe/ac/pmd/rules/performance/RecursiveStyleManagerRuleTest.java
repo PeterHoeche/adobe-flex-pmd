@@ -45,8 +45,8 @@ public class RecursiveStyleManagerRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "GoodComponent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 59, 59 ),
-                                   new ViolationPosition( 60, 60 ) } );
+                       { new ViolationPosition( 59 ),
+                                   new ViolationPosition( 60 ) } );
    }
 
    @Override

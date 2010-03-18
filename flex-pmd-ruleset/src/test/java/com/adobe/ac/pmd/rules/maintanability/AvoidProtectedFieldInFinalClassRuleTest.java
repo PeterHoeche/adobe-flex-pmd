@@ -45,8 +45,8 @@ public class AvoidProtectedFieldInFinalClassRuleTest extends AbstractAstFlexRule
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "AbstractRowData.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 44, 44 ),
-                                   new ViolationPosition( 89, 89 ) } );
+                       { new ViolationPosition( 44 ),
+                                   new ViolationPosition( 89 ) } );
    }
 
    @Override

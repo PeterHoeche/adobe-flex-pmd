@@ -45,7 +45,7 @@ public class DefaultEventNameRuleTest extends AbstractAstFlexRuleTest
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "DefaultNameEvent.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 38, 38 ) } );
+                       { new ViolationPosition( 38 ) } );
    }
 
    @Override

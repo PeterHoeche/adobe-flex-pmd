@@ -47,28 +47,28 @@ public class OverLongLineRuleTest extends AbstractFlexRuleTest
       addToMap( addToMap( addToMap( violatedFiles,
                                     "com.adobe.ac.ncss.BigImporterModel.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 62, 62 ) } ),
+                                    { new ViolationPosition( 62 ) } ),
                           "SkinStyles.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 82, 82 ) } ),
+                          { new ViolationPosition( 82 ) } ),
                 "com.adobe.ac.ncss.mxml.IterationsList2.mxml",
                 new ViolationPosition[]
-                { new ViolationPosition( 54, 54 ) } );
+                { new ViolationPosition( 54 ) } );
 
       addToMap( addToMap( addToMap( violatedFiles,
                                     "RadonDataGrid.as",
                                     new ViolationPosition[]
-                                    { new ViolationPosition( 68, 68 ),
-                                                new ViolationPosition( 84, 84 ),
-                                                new ViolationPosition( 117, 117 ) } ),
+                                    { new ViolationPosition( 68 ),
+                                                new ViolationPosition( 84 ),
+                                                new ViolationPosition( 117 ) } ),
                           "Simple.as",
                           new ViolationPosition[]
-                          { new ViolationPosition( 1, 1 ) } ),
+                          { new ViolationPosition( 1 ) } ),
                 "AbstractRowData.as",
                 new ViolationPosition[]
-                { new ViolationPosition( 46, 46 ),
-                            new ViolationPosition( 47, 47 ),
-                            new ViolationPosition( 49, 49 ) } );
+                { new ViolationPosition( 46 ),
+                            new ViolationPosition( 47 ),
+                            new ViolationPosition( 49 ) } );
 
       return violatedFiles;
    }

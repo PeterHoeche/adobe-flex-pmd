@@ -45,7 +45,7 @@ public class ModelLocatorReferencedMoreThanOncePerClassRuleTest extends
       return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "UnboundMetadata.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 50, 50 ) } );
+                       { new ViolationPosition( 50 ) } );
    }
 
    @Override

@@ -45,20 +45,20 @@ public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "AbstractRowData.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 45, 45 ),
-                                                                 new ViolationPosition( 46, 46 ),
-                                                                 new ViolationPosition( 47, 47 ),
-                                                                 new ViolationPosition( 48, 48 ),
-                                                                 new ViolationPosition( 50, 50 ) } ),
+                                                     { new ViolationPosition( 45 ),
+                                                                 new ViolationPosition( 46 ),
+                                                                 new ViolationPosition( 47 ),
+                                                                 new ViolationPosition( 48 ),
+                                                                 new ViolationPosition( 50 ) } ),
                                            "Sorted.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 43, 43 ) } ),
+                                           { new ViolationPosition( 43 ) } ),
                                  "GenericType.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 36, 36 ) } ),
+                                 { new ViolationPosition( 36 ) } ),
                        "com.adobe.ac.ncss.ArrayVO.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39, 39 ) } );
+                       { new ViolationPosition( 39 ) } );
    }
 
    @Override

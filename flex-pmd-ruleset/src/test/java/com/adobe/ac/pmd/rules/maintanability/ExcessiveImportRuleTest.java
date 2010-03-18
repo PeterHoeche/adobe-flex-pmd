@@ -45,13 +45,13 @@ public class ExcessiveImportRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "cairngorm.LightController.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( -1, -1 ) } ),
+                                           { new ViolationPosition( -1 ) } ),
                                  "cairngorm.FatController.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( -1, -1 ) } ),
+                                 { new ViolationPosition( -1 ) } ),
                        "com.adobe.ac.ncss.BigImporterModel.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( -1, -1 ) } );
+                       { new ViolationPosition( -1 ) } );
    }
 
    @Override

@@ -45,13 +45,13 @@ public class EmptyStatementRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                            "AbstractRowData.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 113, 113 ) } ),
+                                           { new ViolationPosition( 113 ) } ),
                                  "PngEncoder.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 569, 569 ) } ),
+                                 { new ViolationPosition( 569 ) } ),
                        "com.adobe.ac.ncss.LongSwitch.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 114, 114 ) } );
+                       { new ViolationPosition( 114 ) } );
    }
 
    @Override

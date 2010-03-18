@@ -45,13 +45,13 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends Abst
       return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                  "UnboundMetadata.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 43, 43 ),
-                                             new ViolationPosition( 45, 45 ),
-                                             new ViolationPosition( 50, 50 ) } ),
+                                 { new ViolationPosition( 43 ),
+                                             new ViolationPosition( 45 ),
+                                             new ViolationPosition( 50 ) } ),
                        "com.adobe.ac.ncss.mxml.IterationsList.mxml",
                        new ViolationPosition[]
-                       { new ViolationPosition( 91, 91 ),
-                                   new ViolationPosition( 93, 93 ) } );
+                       { new ViolationPosition( 91 ),
+                                   new ViolationPosition( 93 ) } );
    }
 
    @Override

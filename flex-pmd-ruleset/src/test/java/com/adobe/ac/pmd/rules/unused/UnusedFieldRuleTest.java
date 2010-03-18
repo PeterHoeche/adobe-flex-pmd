@@ -45,17 +45,17 @@ public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
       return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                                                      "Responder.as",
                                                      new ViolationPosition[]
-                                                     { new ViolationPosition( 37, 37 ) } ),
+                                                     { new ViolationPosition( 37 ) } ),
                                            "Sorted.as",
                                            new ViolationPosition[]
-                                           { new ViolationPosition( 54, 54 ) } ),
+                                           { new ViolationPosition( 54 ) } ),
 
                                  "com.adobe.ac.ncss.BigModel.as",
                                  new ViolationPosition[]
-                                 { new ViolationPosition( 42, 42 ) } ),
+                                 { new ViolationPosition( 42 ) } ),
                        "Title.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 41, 41 ) } );
+                       { new ViolationPosition( 41 ) } );
    }
 
    @Override
