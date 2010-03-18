@@ -115,7 +115,7 @@ abstract class AbstractFlexFile implements IFlexFile
    @Override
    public final boolean equals( final Object obj )
    {
-      return getFullyQualifiedName().compareTo( ( ( AbstractFlexFile ) obj ).getFullyQualifiedName() ) == 0;
+      return hashCode() == ( ( AbstractFlexFile ) obj ).hashCode();
    }
 
    /*
@@ -195,6 +195,12 @@ abstract class AbstractFlexFile implements IFlexFile
    public final String getPackageName()
    {
       return packageName;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return getFilePath().hashCode();
    }
 
    /*

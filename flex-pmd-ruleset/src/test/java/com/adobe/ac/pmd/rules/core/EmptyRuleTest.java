@@ -41,9 +41,6 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.IFlexViolation;
-import com.adobe.ac.pmd.impl.EmptyRule;
-import com.adobe.ac.pmd.impl.Violation;
-import com.adobe.ac.pmd.impl.WarningRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest.AssertPosition;
 
 public class EmptyRuleTest extends FlexPmdTestBase

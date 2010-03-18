@@ -28,50 +28,34 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.impl;
+package com.adobe.ac.pmd.rules.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
-public class EmptyRule extends AbstractMaximizedFlexRule
+public class WarningRule extends AbstractFlexRule
 {
-   public int getActualValueForTheCurrentViolation()
-   {
-      return 0;
-   }
-
-   public int getDefaultThreshold()
-   {
-      return 10;
-   }
-
-   @Override
-   public String getDescription()
-   {
-      return "description";
-   }
-
    @Override
    public String getMessage()
    {
-      return "emptyMessage";
-   }
-
-   @Override
-   public int getThreshold()
-   {
-      return getDefaultThreshold();
+      return "warning message.";
    }
 
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return true;
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
    }
 
    @Override
@@ -83,11 +67,5 @@ public class EmptyRule extends AbstractMaximizedFlexRule
                     new ViolationPosition( 0 ) );
 
       return violations;
-   }
-
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.LOW;
    }
 }

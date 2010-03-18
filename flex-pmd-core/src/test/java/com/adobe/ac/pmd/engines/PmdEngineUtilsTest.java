@@ -41,9 +41,9 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.FlexPmdViolations;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.impl.Violation;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
+import com.adobe.ac.pmd.rules.core.Violation;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 

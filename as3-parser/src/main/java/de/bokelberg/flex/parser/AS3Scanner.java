@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -341,11 +342,11 @@ public class AS3Scanner
 
    private char getPreviousCharacter()
    {
-      int i = -1;
+      int currentIndex = -1;
       char currentChar;
       do
       {
-         currentChar = peekChar( i-- );
+         currentChar = peekChar( currentIndex-- );
       }
       while ( currentChar == ' ' );
       return currentChar;
@@ -370,7 +371,7 @@ public class AS3Scanner
       {
          Pattern.compile( pattern );
       }
-      catch ( final Throwable t )
+      catch ( final PatternSyntaxException t )
       {
          return false;
       }

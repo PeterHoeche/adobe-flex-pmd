@@ -45,7 +45,6 @@ import org.apache.commons.lang.StringUtils;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.impl.Violation;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 

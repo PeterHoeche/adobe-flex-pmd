@@ -28,7 +28,7 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.impl;
+package com.adobe.ac.pmd.rules.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -42,6 +42,7 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
+import com.adobe.ac.pmd.rules.core.Violation;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
