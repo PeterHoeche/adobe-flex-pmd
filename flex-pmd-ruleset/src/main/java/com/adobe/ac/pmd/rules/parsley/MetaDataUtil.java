@@ -87,20 +87,21 @@ public final class MetaDataUtil
 
          if ( pairSplit[ 0 ].trim().equals( property ) )
          {
-            pairSplit[ 1 ] = pairSplit[ 1 ].trim();
+            String firstPart = pairSplit[ 1 ];
+            firstPart = firstPart.trim();
 
-            if ( pairSplit[ 1 ].indexOf( '"' ) == 0 )
+            if ( firstPart.indexOf( '"' ) == 0 )
             {
-               pairSplit[ 1 ] = pairSplit[ 1 ].substring( 1 );
+               firstPart = firstPart.substring( 1 );
             }
 
-            if ( pairSplit[ 1 ].lastIndexOf( '"' ) == pairSplit[ 1 ].length() - 1 )
+            if ( firstPart.lastIndexOf( '"' ) == firstPart.length() - 1 )
             {
-               pairSplit[ 1 ] = pairSplit[ 1 ].substring( 0,
-                                          pairSplit[ 1 ].length() - 1 );
+               firstPart = firstPart.substring( 0,
+                                                firstPart.length() - 1 );
             }
 
-            return pairSplit[ 1 ];
+            return firstPart;
          }
       }
       return null;
