@@ -28,42 +28,50 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+package parsley
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   [Inject] // VIOLATION
+   [MessageBinding(type="a.b.MyMessage", messageProperty="a")] // VIOLATION
+   [MessageDispatcher] // VIOLATION
+   [MessageError] // VIOLATION
+   [MessageHandler] // VIOLATION
+   [MessageInterceptor] // VIOLATION
+   [Init] // VIOLATION
+   [Destroy] // VIOLATION
+   [ResourceBinding(key="a")] // VIOLATION
+   [Factory] // VIOLATION
+   [ObjectDefinition] // VIOLATION
+   [Target] // VIOLATION
+   [Internal] // VIOLATION
+   public class MisplacedMetaData
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
-
-      Assert.assertEquals( 90,
-                           files.size() );
-
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
-
-      Assert.assertEquals( 79,
-                           files.size() );
+      [InjectConstructor] // VIOLATION
+      [ManagedEvents(names="a")] // VIOLATION
+      [MessageError] // VIOLATION
+      [MessageHandler] // VIOLATION
+      [MessageInterceptor] // VIOLATION
+      [Init] // VIOLATION
+      [Destroy] // VIOLATION
+      [Factory] // VIOLATION
+      public var property : String;
+      
+      [InjectConstructor] // VIOLATION
+      public function MisplacedMetaData()
+      {
+      }
+      
+      [ManagedEvents(names="a")] // VIOLATION
+      [MessageBinding(type="a.b.MyMessage", messageProperty="a")] // VIOLATION
+      [MessageDispatcher] // VIOLATION
+      [AsyncInit] // VIOLATION
+      [ResourceBinding(key="a")] // VIOLATION
+      [ObjectDefinition] // VIOLATION
+      [Target] // VIOLATION
+      [Internal] // VIOLATION
+      public function doSomething( message : MyMessage ) : void
+      {
+         message.toString();
+         property.toString();
+      }
    }
 }

@@ -28,42 +28,65 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.core;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected void findViolations( final IClass classNode )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      super.findViolations( classNode );
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      if ( classNode.getMetaDataCount() > 0 )
+      {
+         findViolationsFromMetaDataList( classNode );
+         findViolationsFromClassMetaData( classNode );
+      }
+   }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+   @Override
+   protected void findViolations( final IFunction function )
+   {
+      if ( function.getMetaDataCount() > 0 )
+      {
+         findViolationsFromMetaDataList( function );
+         findViolationsFromFunctionMetaData( function );
+      }
+   }
 
-      Assert.assertEquals( 79,
-                           files.size() );
+   protected void findViolationsFromAttributeMetaData( final IAttribute function )
+   {
+   }
+
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+      for ( final IAttribute attribute : variables )
+      {
+         if ( attribute.getMetaDataCount() > 0 )
+         {
+            findViolationsFromMetaDataList( attribute );
+            findViolationsFromAttributeMetaData( attribute );
+         }
+      }
+   }
+
+   protected void findViolationsFromClassMetaData( final IClass classNode )
+   {
+   }
+
+   protected void findViolationsFromFunctionMetaData( final IFunction attribute )
+   {
+   }
+
+   protected void findViolationsFromMetaDataList( final IMetaDataListHolder holder )
+   {
    }
 }

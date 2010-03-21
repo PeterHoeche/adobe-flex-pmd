@@ -28,42 +28,32 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+package parsley
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   public class MessageInterceptorSignature
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      [MessageInterceptor(type="a.b.MyMessage")]
+      public function messageInterceptor( processor : MessageProcessor ) : void
+      {
+         processor.proceed();
+      }
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      [MessageInterceptor(type="a.b.MyMessage")]
+      public function messageInterceptor() : void // VIOLATION
+      {
+      }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+      [MessageInterceptor(type="a.b.MyMessage")]
+      public function messageInterceptor( type : MyMessage ) : void // VIOLATION
+      {
+         type.something();
+      }
 
-      Assert.assertEquals( 79,
-                           files.size() );
+      [MessageInterceptor(type="a.b.MyMessage")]
+      public function messageInterceptor( processor : MessageProcessor, type : MyMessage ) : void // VIOLATION
+      {
+         processor.proceed();
+         type.something();
+      }
    }
 }

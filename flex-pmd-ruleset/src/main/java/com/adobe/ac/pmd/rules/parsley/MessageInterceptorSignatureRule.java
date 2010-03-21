@@ -28,42 +28,48 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IParameter;
+import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected void findViolationsFromFunctionMetaData( final IFunction function )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      final List< IMetaData > interceptors = ParsleyMetaData.MESSAGE_INTERCEPTOR.getMetaDataList( function );
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      if ( interceptors.size() == 0 )
+      {
+         return;
+      }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+      if ( function.getParameters().size() != 1 )
+      {
+         addViolation( function );
+      }
+      else if ( hasMessageProcessorParameter( function ) == false )
+      {
+         addViolation( function );
+      }
+   }
 
-      Assert.assertEquals( 79,
-                           files.size() );
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
+
+   private boolean hasMessageProcessorParameter( final IFunction function )
+   {
+      final IParameter param = function.getParameters().get( 0 );
+      final String type = param.getType().toString();
+      return type.equals( "MessageProcessor" );
    }
 }

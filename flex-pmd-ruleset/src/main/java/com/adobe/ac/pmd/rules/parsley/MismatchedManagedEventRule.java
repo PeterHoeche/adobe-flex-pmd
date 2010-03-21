@@ -28,42 +28,65 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.MetaData;
+import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected void findViolationsFromClassMetaData( final IClass classNode )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      final List< IMetaData > managedEvents = ParsleyMetaData.MANAGED_EVENTS.getMetaDataList( classNode );
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      final List< String > eventTypes = getEventTypes( classNode );
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+      for ( final IMetaData data : managedEvents )
+      {
+         final List< String > types = MetaDataUtil.getPropertyStringList( data,
+                                                                    "names" );
 
-      Assert.assertEquals( 79,
-                           files.size() );
+         for ( final String type : types )
+         {
+            if ( !eventTypes.contains( type ) )
+            {
+               addViolation( data,
+                             type );
+            }
+         }
+      }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
+
+   private List< String > getEventTypes( final IClass classNode )
+   {
+      final ArrayList< String > types = new ArrayList< String >();
+
+      for ( final IMetaData data : classNode.getMetaData( MetaData.EVENT ) )
+      {
+         String name = MetaDataUtil.getPropertyString( data,
+                                                       "name" );
+
+         if ( name == null )
+         {
+            name = data.getInternalNode().getStringValue();
+         }
+
+         types.add( name );
+      }
+
+      return types;
    }
 }

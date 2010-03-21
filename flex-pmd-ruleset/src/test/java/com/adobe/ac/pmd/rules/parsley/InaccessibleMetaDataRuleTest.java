@@ -28,42 +28,40 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class InaccessibleMetaDataRuleTest extends AbstractAstFlexRuleTest
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      final Map< String, ViolationPosition[] > expectedViolations = new LinkedHashMap< String, ViolationPosition[] >();
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      addToMap( expectedViolations,
+                "parsley.InaccessibleMetaData.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 38, 38 ),
+                            new ViolationPosition( 47, 47 ),
+                            new ViolationPosition( 59, 59 ) } );
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+      addToMap( expectedViolations,
+                "parsley.InaccessibleMetaDataInternalClass.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 33, 33 ) } );
 
-      Assert.assertEquals( 79,
-                           files.size() );
+      return expectedViolations;
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new InaccessibleMetaDataRule();
    }
 }

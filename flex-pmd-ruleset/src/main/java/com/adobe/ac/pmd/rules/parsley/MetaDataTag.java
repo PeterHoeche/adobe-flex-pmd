@@ -28,42 +28,65 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
+import com.adobe.ac.pmd.nodes.MetaData;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class MetaDataTag
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   public enum Location
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      ATTRIBUTE, CLASS_DECLARATION, FUNCTION
+   };
 
-      Assert.assertEquals( 90,
-                           files.size() );
+   private final String[] attributes;
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+   private final String name;
 
-      Assert.assertEquals( 79,
-                           files.size() );
+   private final Location[] placedOn;
+
+   public MetaDataTag( final String name,
+                       final String[] attributes,
+                       final Location[] placedOn )
+   {
+      this.name = name;
+      this.attributes = attributes;
+      this.placedOn = placedOn;
+   }
+
+   public List< String > getAttributes()
+   {
+      return Arrays.asList( attributes );
+   }
+
+   public List< IMetaData > getMetaDataList( final IMetaDataListHolder holder )
+   {
+      final List< IMetaData > list = new ArrayList< IMetaData >();
+
+      for ( final IMetaData metaData : holder.getMetaData( MetaData.OTHER ) )
+      {
+         if ( metaData.getName().equals( name ) )
+         {
+            list.add( metaData );
+         }
+      }
+
+      return list;
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public List< Location > getPlacedOn()
+   {
+      return Arrays.asList( placedOn );
    }
 }

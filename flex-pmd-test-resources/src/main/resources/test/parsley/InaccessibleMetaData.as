@@ -28,42 +28,38 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+package parsley
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   [Event(name="message", type="flash.events.Event")]
+   public class InaccessibleMetaData
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      public var publicVar;
+	  
+      [Inject] // VIOLATION
+      private var privateVar : String;
+      
+      [Inject]
+      public function set publicSetter( value : String ) : void
+      {
+         privateSetter = value;
+      }
+	  
+      [Inject] // VIOLATION
+      private function set privateSetter( value : String ) : void
+      {
+         publicVar = value;
+      }
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      [MessageHandler]
+	   public function publicFunction( event : MyEvent ) : void
+	   {
+         privateFunction( event );
+	   }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
-
-      Assert.assertEquals( 79,
-                           files.size() );
+	   [MessageHandler] // VIOLATION
+      private function privateFunction( event : MyEvent ) : void
+      {
+         privateVar = event.toString();
+      }
    }
 }

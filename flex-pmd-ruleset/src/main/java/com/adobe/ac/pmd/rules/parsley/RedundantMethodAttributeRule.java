@@ -28,42 +28,53 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.MetaData;
+import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class RedundantMethodAttributeRule extends AbstractFlexMetaDataRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected void findViolationsFromFunctionMetaData( final IFunction function )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      final List< IMetaData > metaData = function.getMetaData( MetaData.OTHER );
+      final List< String > parsleyTags = getTagsForFunctions();
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      for ( final IMetaData md : metaData )
+      {
+         if ( parsleyTags.contains( md.getName() )
+               && MetaDataUtil.getAttributeNames( md ).contains( "method" ) )
+         {
+            addViolation( md );
+         }
+      }
+   }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
 
-      Assert.assertEquals( 79,
-                           files.size() );
+   private List< String > getTagsForFunctions()
+   {
+      final List< String > tags = new ArrayList< String >();
+
+      for ( final MetaDataTag tag : ParsleyMetaData.ALL_TAGS )
+      {
+         if ( tag.getPlacedOn().contains( MetaDataTag.Location.FUNCTION ) )
+         {
+            tags.add( tag.getName() );
+         }
+      }
+
+      return tags;
    }
 }

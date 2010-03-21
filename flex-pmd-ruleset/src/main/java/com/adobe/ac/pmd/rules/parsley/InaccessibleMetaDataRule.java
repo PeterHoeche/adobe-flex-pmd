@@ -28,42 +28,64 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
+import com.adobe.ac.pmd.nodes.IVisible;
+import com.adobe.ac.pmd.nodes.MetaData;
+import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected void findViolationsFromAttributeMetaData( final IAttribute attribute )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      findInaccessibleNodes( attribute,
+                             attribute );
+   }
 
-      Assert.assertEquals( 90,
-                           files.size() );
+   @Override
+   protected void findViolationsFromClassMetaData( final IClass classNode )
+   {
+      findInaccessibleNodes( classNode,
+                             classNode );
+   }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+   @Override
+   protected void findViolationsFromFunctionMetaData( final IFunction function )
+   {
+      findInaccessibleNodes( function,
+                             function );
+   }
 
-      Assert.assertEquals( 79,
-                           files.size() );
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
+
+   private void findInaccessibleNodes( final IMetaDataListHolder holder,
+                                       final IVisible visibility )
+   {
+      final List< IMetaData > allMetaData = holder.getMetaData( MetaData.OTHER );
+
+      if ( allMetaData != null )
+      {
+         for ( final IMetaData metaData : allMetaData )
+         {
+            if ( ParsleyMetaData.isParsleyMetaData( metaData.getName() )
+                  && visibility.isPublic() == false )
+            {
+               addViolation( metaData );
+            }
+         }
+      }
    }
 }

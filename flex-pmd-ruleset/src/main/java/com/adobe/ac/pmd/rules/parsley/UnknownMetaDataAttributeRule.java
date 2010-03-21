@@ -28,42 +28,52 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IMetaData;
+import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
+import com.adobe.ac.pmd.nodes.MetaData;
+import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public class UnknownMetaDataAttributeRule extends AbstractFlexMetaDataRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   @Override
+   protected void findViolationsFromMetaDataList( final IMetaDataListHolder holder )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      final List< IMetaData > items = holder.getMetaData( MetaData.OTHER );
 
-      Assert.assertEquals( 90,
-                           files.size() );
+      if ( items == null )
+      {
+         return;
+      }
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+      for ( final IMetaData metaData : items )
+      {
+         final MetaDataTag tag = ParsleyMetaData.getTag( metaData.getName() );
 
-      Assert.assertEquals( 79,
-                           files.size() );
+         if ( tag != null )
+         {
+            final List< String > known = tag.getAttributes();
+            final List< String > actual = MetaDataUtil.getAttributeNames( metaData );
+
+            for ( final String actualAttribute : actual )
+            {
+               if ( !known.contains( actualAttribute ) )
+               {
+                  addViolation( metaData,
+                                actualAttribute );
+               }
+            }
+         }
+      }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.HIGH;
    }
 }
