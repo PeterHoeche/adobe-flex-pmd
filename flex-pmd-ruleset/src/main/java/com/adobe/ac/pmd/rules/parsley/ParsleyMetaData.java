@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.rules.parsley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParsleyMetaData
+public final class ParsleyMetaData
 {
    private ParsleyMetaData()
    {
@@ -72,7 +72,7 @@ public class ParsleyMetaData
 
    private static final String                     NAMES                = "names";
 
-   private static final String                     ID                   = "id";
+   private static final String                     ID_PROPERTY          = "id";
 
    private static final String                     METHOD               = "method";
 
@@ -112,7 +112,7 @@ public class ParsleyMetaData
 
    public static final MetaDataTag                 INJECT               = new MetaDataTag( "Inject",
                                                                                            new String[]
-                                                                                           { ID,
+                                                                                           { ID_PROPERTY,
                REQUIRED                                                                   },
                                                                                            ATTR_FCTION_LOCATION );
 
@@ -176,7 +176,7 @@ public class ParsleyMetaData
                                                                                            new String[]
                                                                                            { LAZY,
                SINGLETON,
-               ID,
+               ID_PROPERTY,
                ORDER                                                                      },
                                                                                            ATTRIBUTE_LOCATION );
 
