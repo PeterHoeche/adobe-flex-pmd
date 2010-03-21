@@ -45,18 +45,16 @@ public class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
    {
       final List< IMetaData > interceptors = ParsleyMetaData.MESSAGE_INTERCEPTOR.getMetaDataList( function );
 
-      if ( interceptors.size() == 0 )
+      if ( !interceptors.isEmpty() )
       {
-         return;
-      }
-
-      if ( function.getParameters().size() != 1 )
-      {
-         addViolation( function );
-      }
-      else if ( hasMessageProcessorParameter( function ) == false )
-      {
-         addViolation( function );
+         if ( function.getParameters().size() != 1 )
+         {
+            addViolation( function );
+         }
+         else if ( !hasMessageProcessorParameter( function ) )
+         {
+            addViolation( function );
+         }
       }
    }
 
@@ -70,6 +68,6 @@ public class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
    {
       final IParameter param = function.getParameters().get( 0 );
       final String type = param.getType().toString();
-      return type.equals( "MessageProcessor" );
+      return "MessageProcessor".equals( type );
    }
 }

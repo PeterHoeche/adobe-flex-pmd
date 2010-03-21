@@ -81,7 +81,7 @@ public class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
          for ( final IMetaData metaData : allMetaData )
          {
             if ( ParsleyMetaData.isParsleyMetaData( metaData.getName() )
-                  && visibility.isPublic() == false )
+                  && !visibility.isPublic() )
             {
                addViolation( metaData );
             }

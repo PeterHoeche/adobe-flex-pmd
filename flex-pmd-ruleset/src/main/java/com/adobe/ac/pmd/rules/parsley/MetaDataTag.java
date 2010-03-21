@@ -45,19 +45,19 @@ public class MetaDataTag
       ATTRIBUTE, CLASS_DECLARATION, FUNCTION
    };
 
-   private final String[] attributes;
+   private final String[]   attributes;
 
-   private final String name;
+   private final String     name;
 
    private final Location[] placedOn;
 
-   public MetaDataTag( final String name,
-                       final String[] attributes,
-                       final Location[] placedOn )
+   public MetaDataTag( final String nameToBeSet,
+                       final String[] attributesToBeSet,
+                       final Location[] placedOnToBeSet )
    {
-      this.name = name;
-      this.attributes = attributes;
-      this.placedOn = placedOn;
+      name = nameToBeSet;
+      attributes = attributesToBeSet;
+      placedOn = placedOnToBeSet;
    }
 
    public List< String > getAttributes()

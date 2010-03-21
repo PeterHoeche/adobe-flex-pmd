@@ -52,9 +52,9 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
       return variablesUnused;
    }
 
-   protected void setVariablesUnused( final Map< String, IParserNode > variablesUnused )
+   protected void setVariablesUnused( final Map< String, IParserNode > variablesUnusedToBeSet )
    {
-      this.variablesUnused = variablesUnused;
+      variablesUnused = variablesUnusedToBeSet;
    }
 
    protected final void tryToAddVariableNodeInChildren( final IParserNode ast )

@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.MetaData;
 
-public class MetaDataUtil
+public final class MetaDataUtil
 {
    public static List< String > getAttributeNames( final IMetaData metaData )
    {
@@ -48,11 +48,11 @@ public class MetaDataUtil
 
       for ( final String pair : pairs )
       {
-         final String[] p = pair.split( "=" );
+         final String[] pairSplit = pair.split( "=" );
 
-         if ( p.length == 2 )
+         if ( pairSplit.length == 2 )
          {
-            names.add( p[ 0 ].trim() );
+            names.add( pairSplit[ 0 ].trim() );
          }
       }
 
@@ -83,24 +83,24 @@ public class MetaDataUtil
 
       for ( final String pair : pairs )
       {
-         final String[] p = pair.split( "=" );
+         final String[] pairSplit = pair.split( "=" );
 
-         if ( p[ 0 ].trim().equals( property ) )
+         if ( pairSplit[ 0 ].trim().equals( property ) )
          {
-            p[ 1 ] = p[ 1 ].trim();
+            pairSplit[ 1 ] = pairSplit[ 1 ].trim();
 
-            if ( p[ 1 ].indexOf( '"' ) == 0 )
+            if ( pairSplit[ 1 ].indexOf( '"' ) == 0 )
             {
-               p[ 1 ] = p[ 1 ].substring( 1 );
+               pairSplit[ 1 ] = pairSplit[ 1 ].substring( 1 );
             }
 
-            if ( p[ 1 ].lastIndexOf( '"' ) == p[ 1 ].length() - 1 )
+            if ( pairSplit[ 1 ].lastIndexOf( '"' ) == pairSplit[ 1 ].length() - 1 )
             {
-               p[ 1 ] = p[ 1 ].substring( 0,
-                                          p[ 1 ].length() - 1 );
+               pairSplit[ 1 ] = pairSplit[ 1 ].substring( 0,
+                                          pairSplit[ 1 ].length() - 1 );
             }
 
-            return p[ 1 ];
+            return pairSplit[ 1 ];
          }
       }
       return null;
@@ -110,7 +110,7 @@ public class MetaDataUtil
                                                   final String property )
    {
       final String value = getPropertyString( data,
-                                        property );
+                                              property );
       return value == null ? new String[]
                           {}
                           : value.split( "," );
@@ -134,5 +134,9 @@ public class MetaDataUtil
                                   value.lastIndexOf( ')' ) );
       }
       return value.split( "," );
+   }
+
+   private MetaDataUtil()
+   {
    }
 }

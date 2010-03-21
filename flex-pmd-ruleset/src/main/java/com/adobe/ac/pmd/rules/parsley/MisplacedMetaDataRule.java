@@ -98,7 +98,7 @@ public class MisplacedMetaDataRule extends AbstractFlexMetaDataRule
 
       for ( final MetaDataTag tag : ParsleyMetaData.ALL_TAGS )
       {
-         if ( tag.getPlacedOn().contains( location ) == false )
+         if ( !tag.getPlacedOn().contains( location ) )
          {
             tags.add( tag.getName() );
          }

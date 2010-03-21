@@ -35,134 +35,170 @@ import java.util.Map;
 
 public class ParsleyMetaData
 {
-   public static final MetaDataTag                 ASYNC_INIT          = new MetaDataTag( "AsyncInit",
-                                                                                          new String[]
-                                                                                          { "completeEvent",
-               "errorEvent"                                                              },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.CLASS_DECLARATION } );
+   private ParsleyMetaData()
+   {
+      super();
+   }
 
-   public static final MetaDataTag                 DESTROY             = new MetaDataTag( "Destroy",
-                                                                                          new String[]
-                                                                                          { "method" },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.FUNCTION } );
+   private static final String                     KEY                  = "key";
 
-   public static final MetaDataTag                 FACTORY             = new MetaDataTag( "Factory",
-                                                                                          new String[]
-                                                                                          { "method" },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.FUNCTION } );
+   private static final String                     BUNDLE               = "bundle";
 
-   public static final MetaDataTag                 INIT                = new MetaDataTag( "Init",
-                                                                                          new String[]
-                                                                                          { "method" },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.FUNCTION } );
+   private static final String                     ORDER                = "order";
 
-   public static final MetaDataTag                 INJECT              = new MetaDataTag( "Inject",
-                                                                                          new String[]
-                                                                                          { "id",
-               "required"                                                                },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE,
-               MetaDataTag.Location.FUNCTION                                             } );
+   private static final String                     SINGLETON            = "singleton";
 
-   public static final MetaDataTag                 INJECT_CONSTRUCTOR  = new MetaDataTag( "InjectConstructor",
-                                                                                          new String[]
-                                                                                          {},
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.CLASS_DECLARATION } );
+   private static final String                     LAZY                 = "lazy";
 
-   public static final MetaDataTag                 INTERNAL            = new MetaDataTag( "Internal",
-                                                                                          new String[]
-                                                                                          {},
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     MESSAGE_PROPERTIES   = "messageProperties";
 
-   public static final MetaDataTag                 MANAGED_EVENTS      = new MetaDataTag( "ManagedEvents",
-                                                                                          new String[]
-                                                                                          { "names",
-               "scope"                                                                   },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.CLASS_DECLARATION } );
+   private static final String                     PROPERTY             = "property";
 
-   public static final MetaDataTag                 MESSAGE_BINDING     = new MetaDataTag( "MessageBinding",
-                                                                                          new String[]
-                                                                                          { "type",
-               "messageProperty",
-               "selector",
-               "scope",
-               "targetProperty"                                                          },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     TARGET_PROPERTY      = "targetProperty";
 
-   public static final MetaDataTag                 MESSAGE_DISPATCHER  = new MetaDataTag( "MessageDispatcher",
-                                                                                          new String[]
-                                                                                          { "property",
-               "scope"                                                                   },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     SCOPE                = "scope";
 
-   public static final MetaDataTag                 MESSAGE_ERROR       = new MetaDataTag( "MessageError",
-                                                                                          new String[]
-                                                                                          { "type",
-               "selector",
-               "scope",
-               "method"                                                                  },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.FUNCTION } );
+   private static final String                     REQUIRED             = "required";
 
-   public static final MetaDataTag                 MESSAGE_HANDLER     = new MetaDataTag( "MessageHandler",
-                                                                                          new String[]
-                                                                                          { "type",
-               "messageProperties",
-               "selector",
-               "scope",
-               "method"                                                                  },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.FUNCTION } );
+   private static final String                     ERROR_EVENT          = "errorEvent";
 
-   public static final MetaDataTag                 MESSAGE_INTERCEPTOR = new MetaDataTag( "MessageInterceptor",
-                                                                                          new String[]
-                                                                                          { "type",
-               "selector",
-               "scope",
-               "method"                                                                  },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.FUNCTION } );
+   private static final String                     COMPLETE_EVENT       = "completeEvent";
 
-   public static final MetaDataTag                 OBJECT_DEFINITION   = new MetaDataTag( "ObjectDefinition",
-                                                                                          new String[]
-                                                                                          { "lazy",
-               "singleton",
-               "id",
-               "order"                                                                   },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     SELECTOR2            = "selector";
 
-   public static final MetaDataTag                 RESOURCE_BINDING    = new MetaDataTag( "ResourceBinding",
-                                                                                          new String[]
-                                                                                          { "bundle",
-               "key",
-               "property"                                                                },
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     MESSAGE_PROPERTY     = "messageProperty";
 
-   public static final MetaDataTag                 SELECTOR            = new MetaDataTag( "Selector",
-                                                                                          new String[]
-                                                                                          {},
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     TYPE                 = "type";
 
-   public static final MetaDataTag                 TARGET              = new MetaDataTag( "Target",
-                                                                                          new String[]
-                                                                                          {},
-                                                                                          new MetaDataTag.Location[]
-                                                                                          { MetaDataTag.Location.ATTRIBUTE } );
+   private static final String                     NAMES                = "names";
 
-   public static final MetaDataTag[]               ALL_TAGS            =
-                                                                       { INJECT,
+   private static final String                     ID                   = "id";
+
+   private static final String                     METHOD               = "method";
+
+   private static final MetaDataTag.Location[]     CLASS_LOCATION       = new MetaDataTag.Location[]
+                                                                        { MetaDataTag.Location.CLASS_DECLARATION };
+
+   private static final MetaDataTag.Location[]     FUNCTION_LOCATION    = new MetaDataTag.Location[]
+                                                                        { MetaDataTag.Location.FUNCTION };
+
+   private static final MetaDataTag.Location[]     ATTR_FCTION_LOCATION = new MetaDataTag.Location[]
+                                                                        { MetaDataTag.Location.ATTRIBUTE,
+               MetaDataTag.Location.FUNCTION                           };
+
+   private static final MetaDataTag.Location[]     ATTRIBUTE_LOCATION   = new MetaDataTag.Location[]
+                                                                        { MetaDataTag.Location.ATTRIBUTE };
+
+   public static final MetaDataTag                 ASYNC_INIT           = new MetaDataTag( "AsyncInit",
+                                                                                           new String[]
+                                                                                           { COMPLETE_EVENT,
+               ERROR_EVENT                                                                },
+                                                                                           CLASS_LOCATION );
+
+   public static final MetaDataTag                 DESTROY              = new MetaDataTag( "Destroy",
+                                                                                           new String[]
+                                                                                           { METHOD },
+                                                                                           FUNCTION_LOCATION );
+
+   public static final MetaDataTag                 FACTORY              = new MetaDataTag( "Factory",
+                                                                                           new String[]
+                                                                                           { METHOD },
+                                                                                           FUNCTION_LOCATION );
+
+   public static final MetaDataTag                 INIT                 = new MetaDataTag( "Init",
+                                                                                           new String[]
+                                                                                           { METHOD },
+                                                                                           FUNCTION_LOCATION );
+
+   public static final MetaDataTag                 INJECT               = new MetaDataTag( "Inject",
+                                                                                           new String[]
+                                                                                           { ID,
+               REQUIRED                                                                   },
+                                                                                           ATTR_FCTION_LOCATION );
+
+   public static final MetaDataTag                 INJECT_CONSTRUCTOR   = new MetaDataTag( "InjectConstructor",
+                                                                                           new String[]
+                                                                                           {},
+                                                                                           CLASS_LOCATION );
+
+   public static final MetaDataTag                 INTERNAL             = new MetaDataTag( "Internal",
+                                                                                           new String[]
+                                                                                           {},
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag                 MANAGED_EVENTS       = new MetaDataTag( "ManagedEvents",
+                                                                                           new String[]
+                                                                                           { NAMES,
+               SCOPE                                                                      },
+                                                                                           CLASS_LOCATION );
+
+   public static final MetaDataTag                 MESSAGE_BINDING      = new MetaDataTag( "MessageBinding",
+                                                                                           new String[]
+                                                                                           { TYPE,
+               MESSAGE_PROPERTY,
+               SELECTOR2,
+               SCOPE,
+               TARGET_PROPERTY                                                            },
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag                 MESSAGE_DISPATCHER   = new MetaDataTag( "MessageDispatcher",
+                                                                                           new String[]
+                                                                                           { PROPERTY,
+               SCOPE                                                                      },
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag                 MESSAGE_ERROR        = new MetaDataTag( "MessageError",
+                                                                                           new String[]
+                                                                                           { TYPE,
+               SELECTOR2,
+               SCOPE,
+               METHOD                                                                     },
+                                                                                           FUNCTION_LOCATION );
+
+   public static final MetaDataTag                 MESSAGE_HANDLER      = new MetaDataTag( "MessageHandler",
+                                                                                           new String[]
+                                                                                           { TYPE,
+               MESSAGE_PROPERTIES,
+               SELECTOR2,
+               SCOPE,
+               METHOD                                                                     },
+                                                                                           FUNCTION_LOCATION );
+
+   public static final MetaDataTag                 MESSAGE_INTERCEPTOR  = new MetaDataTag( "MessageInterceptor",
+                                                                                           new String[]
+                                                                                           { TYPE,
+               SELECTOR2,
+               SCOPE,
+               METHOD                                                                     },
+                                                                                           FUNCTION_LOCATION );
+
+   public static final MetaDataTag                 OBJECT_DEFINITION    = new MetaDataTag( "ObjectDefinition",
+                                                                                           new String[]
+                                                                                           { LAZY,
+               SINGLETON,
+               ID,
+               ORDER                                                                      },
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag                 RESOURCE_BINDING     = new MetaDataTag( "ResourceBinding",
+                                                                                           new String[]
+                                                                                           { BUNDLE,
+               KEY,
+               PROPERTY                                                                   },
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag                 SELECTOR             = new MetaDataTag( "Selector",
+                                                                                           new String[]
+                                                                                           {},
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag                 TARGET               = new MetaDataTag( "Target",
+                                                                                           new String[]
+                                                                                           {},
+                                                                                           ATTRIBUTE_LOCATION );
+
+   public static final MetaDataTag[]               ALL_TAGS             =
+                                                                        { INJECT,
                INJECT_CONSTRUCTOR,
                MANAGED_EVENTS,
                MESSAGE_BINDING,
@@ -177,9 +213,9 @@ public class ParsleyMetaData
                FACTORY,
                OBJECT_DEFINITION,
                TARGET,
-               INTERNAL                                               };
+               INTERNAL                                                };
 
-   private static final Map< String, MetaDataTag > TAG_MAP             = new HashMap< String, MetaDataTag >();
+   private static final Map< String, MetaDataTag > TAG_MAP              = new HashMap< String, MetaDataTag >();
 
    static
    {
