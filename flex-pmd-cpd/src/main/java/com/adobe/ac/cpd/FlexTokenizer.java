@@ -51,7 +51,7 @@ import de.bokelberg.flex.parser.AS3Scanner.Token;
 
 public class FlexTokenizer implements Tokenizer
 {
-   public static final Integer        DEFAULT_MINIMUM_TOKENS = 25;
+   public static final int            DEFAULT_MINIMUM_TOKENS = 25;
    private static final Set< String > IGNORED_TOKENS;
    private static final Set< String > IGNORING_LINE_TOKENS;
 

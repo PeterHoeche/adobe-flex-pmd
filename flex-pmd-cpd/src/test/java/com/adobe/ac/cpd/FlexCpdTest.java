@@ -100,7 +100,7 @@ public class FlexCpdTest extends FlexPmdTestBase
    @Test
    public void test119() throws IOException
    {
-      final CPD cpd = new CPD( FlexTokenizer.DEFAULT_MINIMUM_TOKENS, new FlexLanguage() );
+      final CPD cpd = new CPD( 25, new FlexLanguage() );
 
       cpd.add( new File( "src/test/resources/test/FlexPMD119.mxml" ) );
       cpd.go();
@@ -143,7 +143,7 @@ public class FlexCpdTest extends FlexPmdTestBase
 
    private Iterator< Match > getMatchIterator() throws IOException
    {
-      final CPD cpd = new CPD( FlexTokenizer.DEFAULT_MINIMUM_TOKENS, new FlexLanguage() );
+      final CPD cpd = new CPD( 25, new FlexLanguage() );
 
       for ( final Entry< String, IFlexFile > includedFile : getTestFiles().entrySet() )
       {

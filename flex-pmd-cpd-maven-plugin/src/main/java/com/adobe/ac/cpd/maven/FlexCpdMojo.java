@@ -50,7 +50,6 @@ import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
 
 import com.adobe.ac.cpd.FlexLanguage;
-import com.adobe.ac.cpd.FlexTokenizer;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
 
@@ -70,9 +69,15 @@ public class FlexCpdMojo extends AbstractMavenReport
                                        FlexCpdMojo.class.getClassLoader() ); // NOPMD
    }
 
-   private final String encoding          = System.getProperty( "file.encoding" );
+   private final String encoding = System.getProperty( "file.encoding" );
 
-   private final int    minimumTokenCount = FlexTokenizer.DEFAULT_MINIMUM_TOKENS;
+   /**
+    * Location of the file.
+    * 
+    * @parameter expression="25"
+    * @required
+    */
+   private int          minimumTokenCount;
 
    /**
     * Location of the file.
