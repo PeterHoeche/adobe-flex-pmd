@@ -43,7 +43,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.parsley.MetaDataTag.Location;
 
-public class MisplacedMetaDataRule extends AbstractFlexMetaDataRule
+public final class MisplacedMetaDataRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromAttributeMetaData( final IAttribute attribute )

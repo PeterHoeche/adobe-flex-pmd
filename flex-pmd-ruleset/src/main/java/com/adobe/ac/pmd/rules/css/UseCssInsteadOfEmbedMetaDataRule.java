@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
+public final class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
 {
    @Override
    protected void findViolationsFromAttributes( final List< IAttribute > variables )

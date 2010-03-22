@@ -64,15 +64,10 @@ public final class MetricUtils
    public static String getQualifiedName( final File sourceDirectory,
                                           final File file )
    {
-      final String qualifiedName = file.getAbsolutePath()
-                                       .replace( sourceDirectory.getAbsolutePath(),
-                                                 "" )
-                                       .replace( "/",
-                                                 "." )
-                                       .replace( "\\",
-                                                 "." )
-                                       .replace( ".as",
-                                                 "" );
+      final String qualifiedName = file.getAbsolutePath().replace( sourceDirectory.getAbsolutePath(),
+                                                                   "" ).replace( "/",
+                                                                                 "." ).replace( "\\",
+                                                                                                "." ).trim();
 
       if ( qualifiedName.length() > 0
             && qualifiedName.charAt( 0 ) == '.' )

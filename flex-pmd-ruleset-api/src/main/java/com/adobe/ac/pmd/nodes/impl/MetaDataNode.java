@@ -30,15 +30,23 @@
  */
 package com.adobe.ac.pmd.nodes.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
 class MetaDataNode extends AbstractNode implements IMetaData
 {
-   private IParserNode asDoc;
-   private String      name;
-   private String      parameter;
+   private IParserNode             asDoc;
+   private List< String >          attributeNames;
+   private String                  name;
+   private String                  parameter;
+   private Map< String, String[] > parameters;
 
    protected MetaDataNode( final IParserNode node )
    {
@@ -57,6 +65,7 @@ class MetaDataNode extends AbstractNode implements IMetaData
                                                                             stringValue.lastIndexOf( " )" ) )
                                                   : "";
 
+      computeAttributeNames();
       if ( getInternalNode().getChildren() != null )
       {
          for ( final IParserNode child : getInternalNode().getChildren() )
@@ -76,13 +85,60 @@ class MetaDataNode extends AbstractNode implements IMetaData
       return asDoc;
    }
 
+   @Override
+   public List< String > getAttributeNames()
+   {
+      return attributeNames;
+   }
+
    public String getName()
    {
       return name;
    }
 
-   public String getParameter()
+   public String getDefaultValue()
    {
       return parameter;
+   }
+
+   @Override
+   public String[] getProperty( final String property )
+   {
+      return parameters.containsKey( property ) ? parameters.get( property )
+                                               : new String[]
+                                               {};
+   }
+
+   @Override
+   public List< String > getPropertyAsList( final String property )
+   {
+      return Arrays.asList( getProperty( property ) );
+   }
+
+   private void computeAttributeNames()
+   {
+      attributeNames = new ArrayList< String >();
+      parameters = new HashMap< String, String[] >();
+
+      final String[] pairs = getPairs();
+
+      for ( final String pair : pairs )
+      {
+         final String[] pairSplit = pair.split( "=" );
+
+         if ( pairSplit.length == 2 )
+         {
+            attributeNames.add( pairSplit[ 0 ].trim() );
+            parameters.put( pairSplit[ 0 ].trim(),
+                            pairSplit[ 1 ].trim().replaceAll( "\'",
+                                                              "" ).replaceAll( "\"",
+                                                                               "" ).split( "," ) );
+         }
+      }
+   }
+
+   private String[] getPairs()
+   {
+      return parameter.split( "," );
    }
 }

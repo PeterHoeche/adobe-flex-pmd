@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
+public final class PropertyHiddenByLocalVariableRule extends AbstractAstFlexRule
 {
    @Override
    protected final void findViolations( final IClass classNode )

@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedParameterRule extends AbstractUnusedVariableRule
+public final class UnusedParameterRule extends AbstractUnusedVariableRule
 {
    private static final String DATA_GRID_COLUMN         = "DataGridColumn";
    private static final String FAULT_FUNCTION_NAME      = "fault";

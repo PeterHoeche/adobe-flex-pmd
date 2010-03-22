@@ -54,7 +54,7 @@ import org.dom4j.DocumentException;
 
 import com.adobe.ac.pmd.metrics.engine.FlexMetrics;
 
-public class NcssExecuter
+public final class NcssExecuter
 {
    private final File outputDirectory;
    private final File sourceLocation;

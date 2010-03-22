@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.rules.css;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class StyleBlockInMxmlRule extends AbstractRegexpBasedRule
+public final class StyleBlockInMxmlRule extends AbstractRegexpBasedRule
 {
    @Override
    public final boolean isConcernedByTheCurrentFile()

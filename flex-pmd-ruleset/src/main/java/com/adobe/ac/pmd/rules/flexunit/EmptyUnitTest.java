@@ -36,7 +36,7 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EmptyUnitTest extends AbstractAstFlexRule
+public final class EmptyUnitTest extends AbstractAstFlexRule
 {
    private static final String[] ASSERTIONS = new String[]
                                             { "assertEquals",

@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class RedundantMethodAttributeRule extends AbstractFlexMetaDataRule
+public final class RedundantMethodAttributeRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromFunctionMetaData( final IFunction function )
@@ -50,7 +50,7 @@ public class RedundantMethodAttributeRule extends AbstractFlexMetaDataRule
       for ( final IMetaData md : metaData )
       {
          if ( parsleyTags.contains( md.getName() )
-               && MetaDataUtil.getAttributeNames( md ).contains( "method" ) )
+               && md.getAttributeNames().contains( "method" ) )
          {
             addViolation( md );
          }

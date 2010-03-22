@@ -30,8 +30,8 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-public class ModelLocatorReferencedMoreThanOncePerClassRule extends
-                                                           ReferenceModelLocatorOutsideTheMainApplicationRule
+public final class ModelLocatorReferencedMoreThanOncePerClassRule extends
+                                                                 ReferenceModelLocatorOutsideTheMainApplicationRule
 {
    private int referencesPerFile;
 

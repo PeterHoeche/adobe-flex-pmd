@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
+public final class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromClassMetaData( final IClass classNode )
@@ -50,8 +50,7 @@ public class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
 
       for ( final IMetaData data : managedEvents )
       {
-         final List< String > types = MetaDataUtil.getPropertyStringList( data,
-                                                                    "names" );
+         final List< String > types = data.getPropertyAsList( "names" );
 
          for ( final String type : types )
          {
@@ -76,15 +75,11 @@ public class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
 
       for ( final IMetaData data : classNode.getMetaData( MetaData.EVENT ) )
       {
-         String name = MetaDataUtil.getPropertyString( data,
-                                                       "name" );
+         final String[] name = data.getProperty( "name" );
+         final String eventName = name.length == 0 ? data.getDefaultValue()
+                                                  : name[ 0 ];
 
-         if ( name == null )
-         {
-            name = data.getInternalNode().getStringValue();
-         }
-
-         types.add( name );
+         types.add( eventName );
       }
 
       return types;

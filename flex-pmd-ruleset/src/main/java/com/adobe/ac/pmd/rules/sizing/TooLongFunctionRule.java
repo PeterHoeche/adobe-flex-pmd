@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
+public final class TooLongFunctionRule extends AbstractMaximizedAstFlexRule
 {
    public static final int DEFAULT_THRESHOLD = 20;
    private int             functionLength;

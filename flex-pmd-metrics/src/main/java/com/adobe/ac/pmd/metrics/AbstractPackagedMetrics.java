@@ -99,5 +99,5 @@ public abstract class AbstractPackagedMetrics implements IMetrics
                                .toString();
    }
 
-   abstract protected int getNcss();
+   protected abstract int getNcss();
 }

@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
-public class TooShortVariableRule extends AbstractRegexpBasedRule implements IThresholdedRule
+public final class TooShortVariableRule extends AbstractRegexpBasedRule implements IThresholdedRule
 {
    public static final int DEFAULT_THRESHOLD = 3;
    private int             length;

@@ -46,7 +46,7 @@ public class FlexMetricsAntTask extends Task
    private File sourceDirectory;
 
    @Override
-   public void execute() throws BuildException
+   public final void execute()
    {
       validateFields();
 
@@ -64,17 +64,17 @@ public class FlexMetricsAntTask extends Task
       }
    }
 
-   public void setOutputFile( final File outputFileToBeSet )
+   public final void setOutputFile( final File outputFileToBeSet )
    {
       outputFile = outputFileToBeSet;
    }
 
-   public void setSourceDirectory( final File sourceDirectoryToBeSet )
+   public final void setSourceDirectory( final File sourceDirectoryToBeSet )
    {
       sourceDirectory = sourceDirectoryToBeSet;
    }
 
-   private void validateFields() throws BuildException
+   private void validateFields()
    {
       if ( outputFile == null )
       {

@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class RedundantMessageHandlerTypeAttributeRule extends AbstractFlexMetaDataRule
+public final class RedundantMessageHandlerTypeAttributeRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromFunctionMetaData( final IFunction function )
@@ -80,12 +80,13 @@ public class RedundantMessageHandlerTypeAttributeRule extends AbstractFlexMetaDa
 
    private String getMessageHandlerType( final IMetaData handler )
    {
-      String type = MetaDataUtil.getPropertyString( handler,
-                                                    "type" );
+      final String[] types = handler.getProperty( "type" );
+      String type = "";
 
-      if ( type != null
-            && type.contains( "." ) )
+      if ( types.length > 0
+            && types[ 0 ].contains( "." ) )
       {
+         type = types[ 0 ];
          final int index = type.lastIndexOf( '.' ) + 1;
 
          if ( index < type.length() )

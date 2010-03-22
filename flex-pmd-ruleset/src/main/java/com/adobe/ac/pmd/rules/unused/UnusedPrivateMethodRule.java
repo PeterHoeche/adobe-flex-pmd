@@ -44,7 +44,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedPrivateMethodRule extends AbstractAstFlexRule
+public final class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
    private Map< String, IFunction > privateFunctions = null;
 

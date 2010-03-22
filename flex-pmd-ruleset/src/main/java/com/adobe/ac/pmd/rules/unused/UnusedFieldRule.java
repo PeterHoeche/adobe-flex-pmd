@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnusedFieldRule extends AbstractUnusedVariableRule
+public final class UnusedFieldRule extends AbstractUnusedVariableRule
 {
    @Override
    public boolean isConcernedByTheCurrentFile()

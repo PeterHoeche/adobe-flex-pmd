@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class ChangeWatcherRule extends AbstractAstFlexRule // NO_UCD
+public final class ChangeWatcherRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
    protected void findViolations( final IPackage packageNode )

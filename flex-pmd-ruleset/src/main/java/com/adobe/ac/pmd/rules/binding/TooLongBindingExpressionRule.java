@@ -35,7 +35,7 @@ import java.util.regex.Matcher;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedRegexpBasedRule;
 
-public class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRule // NO_UCD
+public final class TooLongBindingExpressionRule extends AbstractMaximizedRegexpBasedRule // NO_UCD
 {
    private int currentCount;
 

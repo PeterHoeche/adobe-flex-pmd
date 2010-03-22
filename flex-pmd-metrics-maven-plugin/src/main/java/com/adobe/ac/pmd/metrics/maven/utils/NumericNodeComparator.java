@@ -58,7 +58,7 @@ import org.dom4j.Node;
  * @version $Id: NumericNodeComparator.java 3286 2007-02-08 20:18:51Z
  *          jeanlaurent $
  */
-public class NumericNodeComparator implements Comparator< Node >, Serializable
+public final class NumericNodeComparator implements Comparator< Node >, Serializable
 {
    private static final long serialVersionUID = -2728762615963337680L;
    /**

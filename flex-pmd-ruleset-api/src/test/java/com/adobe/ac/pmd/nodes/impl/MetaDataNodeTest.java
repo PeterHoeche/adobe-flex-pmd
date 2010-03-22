@@ -71,6 +71,26 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetAttributeNames()
+   {
+      assertEquals( 2,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getAttributeNames().size() );
+      assertEquals( "name",
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getAttributeNames().get( 0 ) );
+      assertEquals( "type",
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getAttributeNames().get( 1 ) );
+   }
+
+   @Test
+   public void testGetDefaultValue()
+   {
+      assertEquals( "",
+                    modelLocator.getMetaData( MetaData.BINDABLE ).get( 0 ).getDefaultValue() );
+      assertEquals( "name = \"dayChange\" , type = \'mx.events.StateChangeEvent\'",
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getDefaultValue() );
+   }
+
+   @Test
    public void testGetMetaDataName()
    {
       assertEquals( MetaData.BINDABLE.toString(),
@@ -80,11 +100,34 @@ public class MetaDataNodeTest extends FlexPmdTestBase
    }
 
    @Test
-   public void testGetMetaDataParameter()
+   public void testGetProperty()
    {
-      assertEquals( "",
-                    modelLocator.getMetaData( MetaData.BINDABLE ).get( 0 ).getParameter() );
-      assertEquals( "name = \"dayChange\" , type = \'mx.events.StateChangeEvent\'",
-                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getParameter() );
+      assertEquals( 1,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getProperty( "name" ).length );
+      assertEquals( "dayChange",
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getProperty( "name" )[ 0 ] );
+      assertEquals( 1,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getProperty( "type" ).length );
+      assertEquals( "mx.events.StateChangeEvent",
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getProperty( "type" )[ 0 ] );
+   }
+
+   @Test
+   public void testGetPropertyAsList()
+   {
+      assertEquals( 1,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getPropertyAsList( "name" ).size() );
+      assertEquals( "dayChange",
+                    unboundMetaData.getMetaData( MetaData.EVENT )
+                                   .get( 0 )
+                                   .getPropertyAsList( "name" )
+                                   .get( 0 ) );
+      assertEquals( 1,
+                    unboundMetaData.getMetaData( MetaData.EVENT ).get( 0 ).getPropertyAsList( "type" ).size() );
+      assertEquals( "mx.events.StateChangeEvent",
+                    unboundMetaData.getMetaData( MetaData.EVENT )
+                                   .get( 0 )
+                                   .getPropertyAsList( "type" )
+                                   .get( 0 ) );
    }
 }

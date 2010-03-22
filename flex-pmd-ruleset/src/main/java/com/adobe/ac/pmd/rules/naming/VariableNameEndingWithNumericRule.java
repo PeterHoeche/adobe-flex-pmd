@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.nodes.INamableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
+public final class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
 {
    @Override
    protected void findViolations( final IClass classNode )

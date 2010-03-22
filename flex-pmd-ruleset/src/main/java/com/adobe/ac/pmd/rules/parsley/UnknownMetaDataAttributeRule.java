@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UnknownMetaDataAttributeRule extends AbstractFlexMetaDataRule
+public final class UnknownMetaDataAttributeRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromMetaDataList( final IMetaDataListHolder holder )
@@ -57,7 +57,7 @@ public class UnknownMetaDataAttributeRule extends AbstractFlexMetaDataRule
          if ( tag != null )
          {
             final List< String > known = tag.getAttributes();
-            final List< String > actual = MetaDataUtil.getAttributeNames( metaData );
+            final List< String > actual = metaData.getAttributeNames();
 
             for ( final String actualAttribute : actual )
             {

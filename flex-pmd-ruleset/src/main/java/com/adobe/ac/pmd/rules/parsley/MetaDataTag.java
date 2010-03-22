@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.MetaData;
 
-public class MetaDataTag
+public final class MetaDataTag
 {
    public enum Location
    {

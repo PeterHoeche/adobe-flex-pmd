@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class FatControllerRule extends AbstractAstFlexRule // NO_UCD
+public final class FatControllerRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
    public final boolean isConcernedByTheCurrentFile()

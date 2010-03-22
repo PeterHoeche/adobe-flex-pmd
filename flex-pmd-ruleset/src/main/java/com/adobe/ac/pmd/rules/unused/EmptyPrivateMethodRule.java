@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class EmptyPrivateMethodRule extends AbstractAstFlexRule
+public final class EmptyPrivateMethodRule extends AbstractAstFlexRule
 {
    @Override
    protected void findViolations( final IFunction function )

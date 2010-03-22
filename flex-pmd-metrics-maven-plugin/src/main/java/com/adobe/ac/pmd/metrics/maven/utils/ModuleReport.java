@@ -49,41 +49,42 @@ package com.adobe.ac.pmd.metrics.maven.utils;
 import org.apache.maven.project.MavenProject;
 import org.dom4j.Document;
 
-public class ModuleReport
+public final class ModuleReport
 {
-    /**
-     * The MavenProject associated with the report.
-     */
-    private MavenProject module;
+   /**
+    * The MavenProject associated with the report.
+    */
+   private MavenProject module;
 
-    /**
-     * The Report associated with the MavenProject
-     */
-    private Document report;
+   /**
+    * The Report associated with the MavenProject
+    */
+   private Document     report;
 
-    public ModuleReport( final MavenProject project, final Document document )
-    {
-        module = project;
-        report = document;
-    }
+   public ModuleReport( final MavenProject project,
+                        final Document document )
+   {
+      module = project;
+      report = document;
+   }
 
-    public Document getJavancssDocument()
-    {
-        return report;
-    }
+   public Document getJavancssDocument()
+   {
+      return report;
+   }
 
-    public void setReport( final Document javancssDocument )
-    {
-        this.report = javancssDocument;
-    }
+   public MavenProject getModule()
+   {
+      return module;
+   }
 
-    public MavenProject getModule()
-    {
-        return module;
-    }
+   public void setModule( final MavenProject project )
+   {
+      this.module = project;
+   }
 
-    public void setModule( final MavenProject project )
-    {
-        this.module = project;
-    }
+   public void setReport( final Document javancssDocument )
+   {
+      this.report = javancssDocument;
+   }
 }

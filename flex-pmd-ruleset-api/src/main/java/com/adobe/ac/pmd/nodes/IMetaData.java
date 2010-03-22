@@ -30,7 +30,15 @@
  */
 package com.adobe.ac.pmd.nodes;
 
+import java.util.List;
+
 public interface IMetaData extends INamable, INode, IAsDocHolder
 {
-   String getParameter();
+   List< String > getAttributeNames();
+
+   String getDefaultValue();
+
+   String[] getProperty( final String property );
+
+   List< String > getPropertyAsList( final String property );
 }

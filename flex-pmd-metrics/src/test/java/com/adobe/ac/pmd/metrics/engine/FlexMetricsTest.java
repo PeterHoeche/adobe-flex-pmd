@@ -84,7 +84,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadClassMetrics()
    {
-      assertEquals( 90,
+      assertEquals( 91,
                     projectMetrics.getClasses().size() );
       assertEquals( 0,
                     projectMetrics.getClasses().get( 1 ).getFunctions() );
@@ -107,7 +107,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadFunctionMetrics()
    {
-      assertEquals( 221,
+      assertEquals( 222,
                     projectMetrics.getFunctions().size() );
       assertEquals( "TestEvent",
                     projectMetrics.getFunctions().get( 9 ).getName() );
@@ -126,7 +126,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadPackageMetrics()
    {
-      assertEquals( 24,
+      assertEquals( 25,
                     projectMetrics.getPackages().size() );
       assertEquals( "",
                     projectMetrics.getPackages()
@@ -147,15 +147,23 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadTotalPackageMetrics()
    {
-      assertEquals( 90,
+      assertEquals( 91,
                     projectMetrics.getTotalPackages().getTotalClasses() );
-      assertEquals( 221,
+      assertEquals( 222,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1211,
+      assertEquals( 1213,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 212,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
       assertEquals( 94,
                     projectMetrics.getTotalPackages().getTotalMultiLineComment() );
+   }
+
+   @Test
+   public void testBug157()
+   {
+      assertEquals( "org.as3commons.concurrency.thread",
+                    projectMetrics.getPackageMetrics().get( 22 ).getFullName() );
+
    }
 }

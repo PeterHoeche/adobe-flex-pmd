@@ -54,7 +54,7 @@ import com.adobe.ac.pmd.metrics.maven.utils.NcssExecuter;
  * @author xagnetti
  * @goal metrics
  */
-public class FlexMetricsReportMojo extends AbstractMavenReport
+public final class FlexMetricsReportMojo extends AbstractMavenReport
 {
    private static final String OUTPUT_NAME = "javancss";
 

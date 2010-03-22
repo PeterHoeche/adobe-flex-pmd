@@ -63,7 +63,7 @@ public class FlexCpdAntTask extends Task
    }
 
    @Override
-   public void execute() throws BuildException
+   public void execute()
    {
       try
       {
@@ -177,7 +177,7 @@ public class FlexCpdAntTask extends Task
       }
    }
 
-   private void validateFields() throws BuildException
+   private void validateFields()
    {
       if ( minimumTokenCount == 0 )
       {

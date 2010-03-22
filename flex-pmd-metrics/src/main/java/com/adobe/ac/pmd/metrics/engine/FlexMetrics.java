@@ -53,7 +53,7 @@ import com.adobe.ac.pmd.metrics.TotalPackageMetrics;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IPackage;
 
-public class FlexMetrics extends AbstractMetrics
+public final class FlexMetrics extends AbstractMetrics
 {
    private static final FlexFilter       FLEX_FILTER = new FlexFilter();
    private static final Logger           LOGGER      = Logger.getLogger( FlexMetrics.class.getName() );

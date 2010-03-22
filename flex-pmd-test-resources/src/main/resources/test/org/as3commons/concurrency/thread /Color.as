@@ -28,33 +28,10 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.component;
-
-import java.util.List;
-
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-
-public final class CallLaterDirectlyRule extends AbstractAstFlexRule // NO_UCD
+package org.as3commons.concurrency.threads
 {
-   @Override
-   protected void findViolations( final IFunction function )
-   {
-      final List< IParserNode > callLaterStatements = function.findPrimaryStatementsInBody( "callLater" );
-      if ( !callLaterStatements.isEmpty() )
-      {
-         for ( final IParserNode callLaterStatement : callLaterStatements )
-         {
-            addViolation( callLaterStatement );
-         }
-      }
-   }
-
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.HIGH;
-   }
+	public interface Color
+	{
+		function foo() : void;
+	}
 }

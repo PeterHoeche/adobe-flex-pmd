@@ -49,7 +49,7 @@ import org.dom4j.io.SAXReader;
  * @goal check
  * @execute goal="metrics"
  */
-public class FlexMetricsMojo extends AbstractMojo
+public final class FlexMetricsMojo extends AbstractMojo
 {
    /**
     * CCN Limit, any code with a ccn greater than this number will generate a

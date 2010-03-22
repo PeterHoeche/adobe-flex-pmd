@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
+public final class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromFunctionMetaData( final IFunction function )

@@ -42,7 +42,7 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
+public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
 {
    @Override
    protected void findViolationsFromAttributeMetaData( final IAttribute attribute )

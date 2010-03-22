@@ -39,7 +39,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
-public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
+public final class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
 {
    public static final int DEFAULT_THRESHOLD = 50;
    private int             linesInScriptBlock;

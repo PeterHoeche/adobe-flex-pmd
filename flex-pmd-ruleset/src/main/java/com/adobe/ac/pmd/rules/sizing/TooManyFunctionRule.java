@@ -37,24 +37,24 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
+public final class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
 {
    public static final int DEFAULT_THRESHOLD = 10;
    private IClass          classNode         = null;
    private int             functionNb;
 
-   public final int getActualValueForTheCurrentViolation()
+   public int getActualValueForTheCurrentViolation()
    {
       return functionNb;
    }
 
-   public final int getDefaultThreshold()
+   public int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
    @Override
-   protected final void findViolations( final IClass classNodeToSet )
+   protected void findViolations( final IClass classNodeToSet )
    {
       functionNb = 0;
       classNode = classNodeToSet;
@@ -63,7 +63,7 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected final void findViolations( final List< IFunction > functions )
+   protected void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction functionNode : functions )
       {
@@ -80,7 +80,7 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }

@@ -37,13 +37,7 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 public class HeavyConstructorRule extends AbstractMaximizedAstFlexRule
 {
    private IFunction currentConstructor = null;
-   
-   @Override
-   public final boolean isConcernedByTheCurrentFile()
-   {
-      return !getCurrentFile().isMxml();
-   }
-   
+
    public final int getActualValueForTheCurrentViolation()
    {
       return currentConstructor.getCyclomaticComplexity();
@@ -55,10 +49,16 @@ public class HeavyConstructorRule extends AbstractMaximizedAstFlexRule
    }
 
    @Override
+   public final boolean isConcernedByTheCurrentFile()
+   {
+      return !getCurrentFile().isMxml();
+   }
+
+   @Override
    protected final void findViolationsFromConstructor( final IFunction constructor )
    {
       currentConstructor = constructor;
-      int cyclomaticComplexity = constructor.getCyclomaticComplexity();
+      final int cyclomaticComplexity = constructor.getCyclomaticComplexity();
       if ( cyclomaticComplexity > getThreshold() )
       {
          addViolation( constructor,

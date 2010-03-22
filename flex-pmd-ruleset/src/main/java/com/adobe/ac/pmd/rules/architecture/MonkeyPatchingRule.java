@@ -38,7 +38,7 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class MonkeyPatchingRule extends AbstractFlexRule
+public final class MonkeyPatchingRule extends AbstractFlexRule
 {
    @Override
    protected List< IFlexViolation > findViolationsInCurrentFile()

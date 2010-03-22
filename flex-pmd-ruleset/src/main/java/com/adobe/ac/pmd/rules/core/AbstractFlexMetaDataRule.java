@@ -40,7 +40,7 @@ import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       super.findViolations( classNode );
 
@@ -52,7 +52,7 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolations( final IFunction function )
+   protected final void findViolations( final IFunction function )
    {
       if ( function.getMetaDataCount() > 0 )
       {
@@ -66,7 +66,7 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
       for ( final IAttribute attribute : variables )
       {
