@@ -37,10 +37,10 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class UnusedFieldRule extends AbstractUnusedVariableRule
+public class UnusedFieldRule extends AbstractUnusedVariableRule
 {
    @Override
-   public boolean isConcernedByTheCurrentFile()
+   public final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().isMxml();
    }
@@ -52,7 +52,7 @@ public final class UnusedFieldRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitClass( final IParserNode classNode )
+   protected final void visitClass( final IParserNode classNode )
    {
       setVariablesUnused( new LinkedHashMap< String, IParserNode >() );
 
@@ -69,7 +69,7 @@ public final class UnusedFieldRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitVariableInitialization( final IParserNode node )
+   protected final void visitVariableInitialization( final IParserNode node )
    {
       super.visitVariableInitialization( node );
 
@@ -77,9 +77,9 @@ public final class UnusedFieldRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitVarOrConstList( final IParserNode ast,
-                                       final VariableOrConstant varOrConst,
-                                       final VariableScope scope )
+   protected final void visitVarOrConstList( final IParserNode ast,
+                                             final VariableOrConstant varOrConst,
+                                             final VariableScope scope )
    {
       if ( scope.equals( VariableScope.IN_CLASS ) )
       {

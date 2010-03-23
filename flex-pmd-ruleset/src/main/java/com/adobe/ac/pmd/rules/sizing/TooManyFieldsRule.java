@@ -48,13 +48,13 @@ public class TooManyFieldsRule extends AbstractMaximizedAstFlexRule
       return attributesNb;
    }
 
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
    @Override
-   public boolean isConcernedByTheCurrentFile()
+   public final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().getClassName().endsWith( "VO.as" );
    }

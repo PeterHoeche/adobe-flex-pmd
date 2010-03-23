@@ -40,10 +40,10 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
+public class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
       super.findViolationsFromAttributes( variables );
 
@@ -51,7 +51,7 @@ public final class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromConstants( final List< IConstant > constants )
+   protected final void findViolationsFromConstants( final List< IConstant > constants )
    {
       super.findViolationsFromConstants( constants );
 
@@ -59,7 +59,7 @@ public final class UseCssInsteadOfEmbedMetaDataRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
    }

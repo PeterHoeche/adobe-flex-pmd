@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class StaticMethodInMxmlRule extends AbstractAstFlexRule
+public class StaticMethodInMxmlRule extends AbstractAstFlexRule
 {
    @Override
    public final boolean isConcernedByTheCurrentFile()

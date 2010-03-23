@@ -37,14 +37,14 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class UseInternalClassOutsideApiClass extends AbstractAstFlexRule
+public class UseInternalClassOutsideApiClass extends AbstractAstFlexRule
 {
    private static final String API_PACKAGE_NAME      = "api";
    private static final String INTERNAL_PACKAGE_NAME = "restricted";
    private static final String PACKAGE_SEPARATOR     = ".";
 
    @Override
-   protected void findViolations( final IPackage packageNode )
+   protected final void findViolations( final IPackage packageNode )
    {
       final String packageName = packageNode.getName();
       final boolean isApiClass = isApiClass( packageName );
@@ -75,7 +75,7 @@ public final class UseInternalClassOutsideApiClass extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }

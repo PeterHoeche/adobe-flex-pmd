@@ -44,12 +44,12 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class UnusedPrivateMethodRule extends AbstractAstFlexRule
+public class UnusedPrivateMethodRule extends AbstractAstFlexRule
 {
    private Map< String, IFunction > privateFunctions = null;
 
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       fillPrivateFunctions( classNode.getFunctions() );
       findUnusedFunction( classNode.getBlock() );

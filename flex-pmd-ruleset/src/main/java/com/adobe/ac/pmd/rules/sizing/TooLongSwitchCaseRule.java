@@ -34,7 +34,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
-public final class TooLongSwitchCaseRule extends AbstractMaximizedAstFlexRule
+public class TooLongSwitchCaseRule extends AbstractMaximizedAstFlexRule
 {
    private int length;
 

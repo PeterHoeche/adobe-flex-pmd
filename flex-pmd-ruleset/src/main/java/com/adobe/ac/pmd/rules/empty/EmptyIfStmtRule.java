@@ -33,7 +33,7 @@ package com.adobe.ac.pmd.rules.empty;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class EmptyIfStmtRule extends AbstractEmptyBlockRule
+public class EmptyIfStmtRule extends AbstractEmptyBlockRule
 {
    @Override
    protected final ViolationPriority getDefaultPriority()

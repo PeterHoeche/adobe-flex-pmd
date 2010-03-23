@@ -37,10 +37,10 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class CallLaterDirectlyRule extends AbstractAstFlexRule // NO_UCD
+public class CallLaterDirectlyRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
-   protected void findViolations( final IFunction function )
+   protected final void findViolations( final IFunction function )
    {
       final List< IParserNode > callLaterStatements = function.findPrimaryStatementsInBody( "callLater" );
       if ( !callLaterStatements.isEmpty() )

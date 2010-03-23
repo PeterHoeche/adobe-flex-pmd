@@ -42,7 +42,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class WronglyNamedVariableRule extends AbstractAstFlexRule
+public class WronglyNamedVariableRule extends AbstractAstFlexRule
 {
    private static final String[] FORBIDDEN_NAMES =
                                                  { "tmp",
@@ -51,7 +51,7 @@ public final class WronglyNamedVariableRule extends AbstractAstFlexRule
                "bar"                            };
 
    @Override
-   protected void findViolations( final List< IFunction > functions )
+   protected final void findViolations( final List< IFunction > functions )
    {
       for ( final IFunction function : functions )
       {
@@ -67,19 +67,19 @@ public final class WronglyNamedVariableRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolationsFromAttributes( final List< IAttribute > attributes )
+   protected final void findViolationsFromAttributes( final List< IAttribute > attributes )
    {
       findViolationsInVariables( attributes );
    }
 
    @Override
-   protected void findViolationsFromConstants( final List< IConstant > constants )
+   protected final void findViolationsFromConstants( final List< IConstant > constants )
    {
       findViolationsInVariables( constants );
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }

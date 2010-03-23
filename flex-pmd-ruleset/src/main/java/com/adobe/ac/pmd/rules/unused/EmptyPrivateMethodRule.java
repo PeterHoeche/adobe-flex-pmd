@@ -35,10 +35,10 @@ import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class EmptyPrivateMethodRule extends AbstractAstFlexRule
+public class EmptyPrivateMethodRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IFunction function )
+   protected final void findViolations( final IFunction function )
    {
       if ( function.is( Modifier.PRIVATE )
             && function.getBody().numChildren() == 0 )
@@ -48,7 +48,7 @@ public final class EmptyPrivateMethodRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }

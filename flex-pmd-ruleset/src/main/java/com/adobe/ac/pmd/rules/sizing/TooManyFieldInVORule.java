@@ -30,12 +30,12 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-public final class TooManyFieldInVORule extends TooManyFieldsRule
+public class TooManyFieldInVORule extends TooManyFieldsRule
 {
    public static final int DEFAULT_THRESHOLD_FOR_VO = 15;
 
    @Override
-   public int getDefaultThreshold()
+   public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD_FOR_VO;
    }

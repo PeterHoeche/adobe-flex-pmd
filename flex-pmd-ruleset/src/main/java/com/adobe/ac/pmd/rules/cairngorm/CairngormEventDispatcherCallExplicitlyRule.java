@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexRule // NO_UCD
+public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexRule // NO_UCD
 {
    private static final String ADD_EVENT_LISTENER_MESSAGE = "The Cairngorm event is listened directly. "
                                                                 + "The Controller is then avoided, and "
@@ -47,7 +47,7 @@ public final class CairngormEventDispatcherCallExplicitlyRule extends AbstractAs
    private static final String EVENT_DISPATCHER           = "CairngormEventDispatcher";
 
    @Override
-   protected void findViolations( final IFunction function )
+   protected final void findViolations( final IFunction function )
    {
       final List< IParserNode > primaries = function.findPrimaryStatementsInBody( EVENT_DISPATCHER );
 
@@ -63,7 +63,7 @@ public final class CairngormEventDispatcherCallExplicitlyRule extends AbstractAs
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }

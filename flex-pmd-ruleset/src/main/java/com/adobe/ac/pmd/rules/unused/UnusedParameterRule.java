@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class UnusedParameterRule extends AbstractUnusedVariableRule
+public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
    private static final String DATA_GRID_COLUMN         = "DataGridColumn";
    private static final String FAULT_FUNCTION_NAME      = "fault";
@@ -99,15 +99,15 @@ public final class UnusedParameterRule extends AbstractUnusedVariableRule
    }
 
    @Override
-   protected void visitClass( final IParserNode classNode )
+   protected final void visitClass( final IParserNode classNode )
    {
       currentClass = classNode;
       super.visitClass( classNode );
    }
 
    @Override
-   protected void visitFunction( final IParserNode functionAst,
-                                 final FunctionType type )
+   protected final void visitFunction( final IParserNode functionAst,
+                                       final FunctionType type )
    {
       setVariablesUnused( new LinkedHashMap< String, IParserNode >() );
       final boolean isOverriden = isFunctionOverriden( functionAst );

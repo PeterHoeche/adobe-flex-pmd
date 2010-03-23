@@ -157,7 +157,7 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
          {
             try
             {
-               generateSingleReport( locale );
+               generateSingleReport();
             }
             catch ( final DocumentException e )
             {
@@ -329,9 +329,9 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
       }
    }
 
-   private void generateSingleReport( final Locale locale ) throws MavenReportException,
-                                                           DocumentException,
-                                                           IOException
+   private void generateSingleReport() throws MavenReportException,
+                                      DocumentException,
+                                      IOException
    {
       if ( getLog().isDebugEnabled() )
       {

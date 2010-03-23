@@ -38,10 +38,10 @@ import com.adobe.ac.pmd.nodes.INamableNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
+public class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       super.findViolations( classNode );
 
@@ -51,7 +51,7 @@ public final class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected void findViolations( final IFunction function )
+   protected final void findViolations( final IFunction function )
    {
       findViolationsInNamableList( function.getParameters() );
 
@@ -66,7 +66,7 @@ public final class VariableNameEndingWithNumericRule extends AbstractAstFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }

@@ -30,13 +30,13 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-public final class ModelLocatorReferencedMoreThanOncePerClassRule extends
-                                                                 ReferenceModelLocatorOutsideTheMainApplicationRule
+public class ModelLocatorReferencedMoreThanOncePerClassRule extends
+                                                           ReferenceModelLocatorOutsideTheMainApplicationRule
 {
    private int referencesPerFile;
 
    @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line )
+   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       if ( !line.contains( "import" )
             && !line.contains( "return" ) )
@@ -47,7 +47,7 @@ public final class ModelLocatorReferencedMoreThanOncePerClassRule extends
    }
 
    @Override
-   protected void onRuleStart()
+   protected final void onRuleStart()
    {
       referencesPerFile = 0;
    }

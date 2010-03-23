@@ -35,10 +35,10 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class BindingUtilsRule extends AbstractAstFlexRule // NO_UCD
+public class BindingUtilsRule extends AbstractAstFlexRule // NO_UCD
 {
    @Override
-   protected void findViolations( final IPackage packageNode )
+   protected final void findViolations( final IPackage packageNode )
    {
       for ( final IParserNode importNode : packageNode.getImports() )
       {

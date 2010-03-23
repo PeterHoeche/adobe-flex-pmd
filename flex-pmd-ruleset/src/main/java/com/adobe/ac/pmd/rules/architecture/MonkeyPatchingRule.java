@@ -38,10 +38,10 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class MonkeyPatchingRule extends AbstractFlexRule
+public class MonkeyPatchingRule extends AbstractFlexRule
 {
    @Override
-   protected List< IFlexViolation > findViolationsInCurrentFile()
+   protected final List< IFlexViolation > findViolationsInCurrentFile()
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
@@ -56,13 +56,13 @@ public final class MonkeyPatchingRule extends AbstractFlexRule
    }
 
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
    @Override
-   protected boolean isConcernedByTheCurrentFile()
+   protected final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().isMxml();
    }

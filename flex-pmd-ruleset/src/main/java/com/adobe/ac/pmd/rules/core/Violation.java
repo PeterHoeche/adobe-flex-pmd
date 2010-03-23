@@ -34,7 +34,6 @@ import java.util.Formatter;
 
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.IFlexRule;
 
 public final class Violation implements IFlexViolation
 {

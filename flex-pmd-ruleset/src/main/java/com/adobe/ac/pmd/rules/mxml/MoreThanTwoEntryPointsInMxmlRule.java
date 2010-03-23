@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.rules.mxml;
 
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class MoreThanTwoEntryPointsInMxmlRule extends AbstractMoreThanEntryPointInMxmlRule
+public class MoreThanTwoEntryPointsInMxmlRule extends AbstractMoreThanEntryPointInMxmlRule
 {
    @Override
    public final int getThreshold()

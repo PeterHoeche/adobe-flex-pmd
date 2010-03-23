@@ -35,10 +35,10 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class UncorrectClassCase extends AbstractAstFlexRule
+public class UncorrectClassCase extends AbstractAstFlexRule
 {
    @Override
-   protected void findViolations( final IClass classNode )
+   protected final void findViolations( final IClass classNode )
    {
       final char firstChar = classNode.getName().charAt( 0 );
 

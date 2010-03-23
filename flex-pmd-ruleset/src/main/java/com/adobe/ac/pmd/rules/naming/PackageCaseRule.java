@@ -35,7 +35,7 @@ import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class PackageCaseRule extends AbstractAstFlexRule
+public class PackageCaseRule extends AbstractAstFlexRule
 {
    @Override
    protected final void findViolations( final IPackage packageNode )

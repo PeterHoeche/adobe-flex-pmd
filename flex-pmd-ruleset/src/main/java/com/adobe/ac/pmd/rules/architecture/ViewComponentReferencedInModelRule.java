@@ -36,7 +36,7 @@ import java.util.regex.Matcher;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public final class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule // NO_UCD
+public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule // NO_UCD
 {
    private static final String ALERT_CLASS_NAME           = "Alert";
    private static final String FLEX_CONTROLS_PACKAGE_NAME = "mx.controls";
@@ -57,7 +57,7 @@ public final class ViewComponentReferencedInModelRule extends AbstractRegexpBase
    }
 
    @Override
-   protected boolean isConcernedByTheCurrentFile()
+   protected final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().isMxml()
             && getCurrentFile().getFullyQualifiedName()
