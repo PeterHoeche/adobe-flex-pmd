@@ -58,7 +58,7 @@ public class ReferenceModelLocatorOutsideTheMainApplicationRule extends Abstract
    }
 
    @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return !line.contains( KeyWords.IMPORT.toString() )
             && !line.contains( AS3Parser.SINGLE_LINE_COMMENT );
