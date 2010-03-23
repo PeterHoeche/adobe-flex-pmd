@@ -85,15 +85,9 @@ class MetaDataNode extends AbstractNode implements IMetaData
       return asDoc;
    }
 
-   @Override
    public List< String > getAttributeNames()
    {
       return attributeNames;
-   }
-
-   public String getName()
-   {
-      return name;
    }
 
    public String getDefaultValue()
@@ -101,7 +95,11 @@ class MetaDataNode extends AbstractNode implements IMetaData
       return parameter;
    }
 
-   @Override
+   public String getName()
+   {
+      return name;
+   }
+
    public String[] getProperty( final String property )
    {
       return parameters.containsKey( property ) ? parameters.get( property )
@@ -109,7 +107,6 @@ class MetaDataNode extends AbstractNode implements IMetaData
                                                {};
    }
 
-   @Override
    public List< String > getPropertyAsList( final String property )
    {
       return Arrays.asList( getProperty( property ) );
