@@ -35,6 +35,7 @@ import java.util.List;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IParameter;
+import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
@@ -44,16 +45,31 @@ public final class MessageInterceptorSignatureRule extends AbstractFlexMetaDataR
    protected void findViolationsFromFunctionMetaData( final IFunction function )
    {
       final List< IMetaData > interceptors = ParsleyMetaData.MESSAGE_INTERCEPTOR.getMetaDataList( function );
+      final IParserNode name = getNameFromFunctionDeclaration( function.getInternalNode() );
 
       if ( !interceptors.isEmpty() )
       {
+
+         if ( !function.isPublic() )
+         {
+            addViolation( name,
+                          name,
+                          name.getStringValue(),
+                          "It is not public" );
+         }
          if ( function.getParameters().size() != 1 )
          {
-            addViolation( function );
+            addViolation( name,
+                          name,
+                          name.getStringValue(),
+                          "Its argument number is not 1" );
          }
          else if ( !hasMessageProcessorParameter( function ) )
          {
-            addViolation( function );
+            addViolation( name,
+                          name,
+                          name.getStringValue(),
+                          "The argument type should be MessageProcessor" );
          }
       }
    }

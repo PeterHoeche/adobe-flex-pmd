@@ -72,16 +72,38 @@ public class MyClass
 
 	<rule 
 		class="com.adobe.ac.pmd.rules.parsley.MessageInterceptorSignatureRule"
-		message="">
+		message="The signature of the message interceptor {0} is not correct. {1}.">
 		<description></description>
 		<priority>1</priority>
 		<example>
-        </example>
+		<![CDATA[
+[MessageInterceptor(type="a.b.MyMessage")]
+public function messageInterceptor( processor : MessageProcessor ) : void
+{
+   processor.proceed();
+}
+
+[MessageInterceptor(type="a.b.MyMessage")]
+public function messageInterceptor() : void // VIOLATION
+{
+}
+
+[MessageInterceptor(type="a.b.MyMessage")]
+public function messageInterceptor( type : MyMessage ) : void // VIOLATION
+{
+   type.something();
+}
+
+[MessageInterceptor(type="a.b.MyMessage")]
+public function messageInterceptor( processor : MessageProcessor, type : MyMessage ) : void // VIOLATION
+{
+}]]>
+              </example>
 	</rule>
 
 	<rule 
 		class="com.adobe.ac.pmd.rules.parsley.MisplacedMetaDataRule"
-		message="">
+		message="This metadata {0} is misplaced">
 		<description></description>
 		<priority>1</priority>
 		<example>
@@ -90,28 +112,50 @@ public class MyClass
 
 	<rule 
 		class="com.adobe.ac.pmd.rules.parsley.RedundantMessageHandlerTypeAttributeRule"
-		message="">
+		message="This type metadata argument is redundant with the handler argument type">
 		<description></description>
-		<priority>1</priority>
+		<priority>3</priority>
 		<example>
+		<![CDATA[
+[MessageHandler(type="a.b.MyMessage")] // VIOLATION
+public function doSomething( message : MyMessage ) : void
+{
+   message.toString();
+}]]>
         </example>
 	</rule>
 
 	<rule 
 		class="com.adobe.ac.pmd.rules.parsley.RedundantMethodAttributeRule"
-		message="">
-		<description></description>
-		<priority>1</priority>
-		<example>
+		message="This method metadata argument is redundant with the handler name">
+		<priority>3</priority>
+		<example> <![CDATA[
+[MessageHandler(method="doSomething")] // VIOLATION
+public function doSomething( message : MyMessage ) : void
+{
+   message.toString();
+}]]>
         </example>
 	</rule>
 
 	<rule 
 		class="com.adobe.ac.pmd.rules.parsley.UnknownMetaDataAttributeRule"
-		message="">
+		message="This metadata attribute {0} is unknown">
 		<description></description>
 		<priority>1</priority>
 		<example>
+		<![CDATA[
+[AsyncInit(x="y")] // VIOLATION
+public class UnknownMetaDataAttribute
+{
+   [Inject(x="y")] // VIOLATION
+   public var inject;
+
+   [MessageHandler(x="y")] // VIOLATION
+   public function messageHandler() : void
+   {
+   }
+}]]>
         </example>
 	</rule>
 

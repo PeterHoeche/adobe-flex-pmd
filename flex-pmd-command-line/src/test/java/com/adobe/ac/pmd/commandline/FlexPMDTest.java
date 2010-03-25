@@ -73,7 +73,7 @@ public class FlexPMDTest extends FlexPmdTestBase
                   "-o",
                   "target",
                   "-r",
-                  "all_flex.xml" } ) );
+                  "valid.xml" } ) );
 
       assertTrue( FlexPMD.areCommandLineOptionsCorrect( new String[]
       { "-s",
@@ -132,13 +132,13 @@ public class FlexPMDTest extends FlexPmdTestBase
                   "-o",
                   "target",
                   "-r",
-                  "all_flex.xml" } );
+                  "valid.xml" } );
 
       assertEquals( "sourceDirectory",
                     FlexPMD.getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
       assertEquals( "target",
                     FlexPMD.getParameterValue( CommandLineOptions.OUTPUT ) );
-      assertEquals( "all_flex.xml",
+      assertEquals( "valid.xml",
                     FlexPMD.getParameterValue( CommandLineOptions.RULE_SET ) );
    }
 

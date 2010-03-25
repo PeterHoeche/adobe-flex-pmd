@@ -28,42 +28,23 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+package foo.bar 
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
-   {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+	public class MyClass
+	{
+		public var order : int;
 
-      Assert.assertEquals( 93,
-                           files.size() );
+		public function foo() : void
+		{
+		}
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+		protected function foo() : void
+		{
+		}
 
-      Assert.assertEquals( 82,
-                           files.size() );
-   }
-}
+		public function set foo( value : Boolean) : void
+		{
+			value = value;
+		}
+	}
+} 

@@ -50,7 +50,7 @@ import com.adobe.ac.utils.StackTraceUtils;
  * 
  * @author xagnetti
  */
-final class ResourcesManagerTest
+public final class ResourcesManagerTest
 {
    private static ResourcesManagerTest instance = null;
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
@@ -62,7 +62,7 @@ final class ResourcesManagerTest
          try
          {
             LOGGER.setLevel( Level.WARNING );
-            instance = new ResourcesManagerTest();
+            instance = new ResourcesManagerTest( "/test" );
          }
          catch ( final URISyntaxException e )
          {
@@ -79,10 +79,10 @@ final class ResourcesManagerTest
    private final Map< String, IFlexFile > testFiles;
    private final File                     testRootDirectory;
 
-   private ResourcesManagerTest() throws URISyntaxException,
-                                 PMDException
+   private ResourcesManagerTest( final String directory ) throws URISyntaxException,
+                                                         PMDException
    {
-      final URL resource = this.getClass().getResource( "/test" );
+      final URL resource = this.getClass().getResource( directory );
 
       if ( resource == null )
       {

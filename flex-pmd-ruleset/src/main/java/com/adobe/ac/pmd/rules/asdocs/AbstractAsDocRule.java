@@ -28,42 +28,18 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.asdocs;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.adobe.ac.pmd.nodes.IAsDocHolder;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+abstract class AbstractAsDocRule extends AbstractAstFlexRule
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   protected void addViolationIfAsDocMissing( final IAsDocHolder asDocHolder )
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
-
-      Assert.assertEquals( 93,
-                           files.size() );
-
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
-
-      Assert.assertEquals( 82,
-                           files.size() );
+      if ( asDocHolder.getAsDoc() == null )
+      {
+         addViolation( asDocHolder );
+      }
    }
 }

@@ -28,42 +28,54 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
+package com.adobe.ac.pmd.rules.asdocs;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.logging.Logger;
 
-import junit.framework.Assert;
 import net.sourceforge.pmd.PMDException;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.files.impl.FileUtils;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+public abstract class AbstractAsDocRuleTest extends AbstractAstFlexRuleTest
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
+   protected static final Logger LOGGER      = Logger.getLogger( AbstractAsDocRuleTest.class.getName() );
+   protected static final String TEST_FOLDER = "/asDocs";
+
+   public AbstractAsDocRuleTest()
    {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+      super();
 
-      Assert.assertEquals( 93,
-                           files.size() );
+      final URL resource = this.getClass().getResource( "/test"
+            + TEST_FOLDER );
 
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
+      if ( resource != null )
+      {
+         try
+         {
+            setTestFiles( FileUtils.computeFilesList( new File( resource.toURI().getPath() ),
+                                                      null,
+                                                      "",
+                                                      null ) );
+         }
+         catch ( final PMDException e )
+         {
+            LOGGER.warning( e.getLocalizedMessage() );
+         }
+         catch ( final URISyntaxException e )
+         {
+            LOGGER.warning( e.getLocalizedMessage() );
+         }
+      }
+   }
 
-      Assert.assertEquals( 82,
-                           files.size() );
+   @Override
+   protected File getTestDirectory() // NO_UCD
+   {
+      return new File( super.getTestDirectory().getAbsolutePath()
+            + TEST_FOLDER );
    }
 }

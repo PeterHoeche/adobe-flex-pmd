@@ -43,7 +43,7 @@
 
    <mx:HTTPService id="rootRulesetService"
       resultFormat="e4x"
-      url="{ RULESETS_PREFIX }com/adobe/ac/pmd/rulesets/all_flex.xml"
+      url="{ RULESETS_PREFIX }com/adobe/ac/pmd/all_flex.xml"
       />
 
    <mx:HTTPService id="rulesetService"

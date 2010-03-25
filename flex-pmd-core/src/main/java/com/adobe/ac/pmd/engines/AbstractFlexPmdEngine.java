@@ -70,9 +70,9 @@ public abstract class AbstractFlexPmdEngine
    private static File extractDefaultRuleSet() throws URISyntaxException,
                                               IOException
    {
-      final String rulesetURI = "/com/adobe/ac/pmd/rulesets/all_flex.xml";
+      final String rulesetURI = "/com/adobe/ac/pmd/default_flex.xml";
       final InputStream resourceAsStream = AbstractFlexPmdEngine.class.getResourceAsStream( rulesetURI );
-      final File temporaryRuleset = File.createTempFile( "all_flex",
+      final File temporaryRuleset = File.createTempFile( "default_flex",
                                                          ".xml" );
       temporaryRuleset.deleteOnExit();
       final FileOutputStream writter = new FileOutputStream( temporaryRuleset );

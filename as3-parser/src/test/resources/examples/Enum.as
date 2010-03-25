@@ -28,42 +28,69 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
-{
-   @Test
-   public void testComputeFilesList() throws PMDException
-   {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
-
-      Assert.assertEquals( 93,
-                           files.size() );
-
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
-
-      Assert.assertEquals( 82,
-                           files.size() );
-   }
+package org.granite.util 
+{	
+	import flash.utils.IDataInput;
+	import flash.utils.IDataOutput;
+	import flash.utils.IExternalizable;
+	import flash.utils.getQualifiedClassName;
+	
+	public class Enum implements IExternalizable
+	{
+		private var _name:String;
+		
+		public function Enum(name:String, restrictor:Restrictor) {
+			_name = (restrictor is Restrictor ? name : constantOf(name).name);
+		}
+		
+		public function get name():String {
+			return _name;
+		}
+		
+		protected function getConstants():Array {
+			throw new Error("Should be overriden");
+		}
+		
+		protected function constantOf(name:String):Enum {
+			for each (var o:* in getConstants()) {
+				var enum:Enum = Enum(o);
+				if (enum.name == name)
+					return enum;
+			}
+			throw new ArgumentError("Invalid " + getQualifiedClassName(this) + " value: " + name);
+		}
+		
+		public function readExternal(input:IDataInput):void {
+			_name = constantOf(input.readObject() as String).name;
+		}
+		
+		public function writeExternal(output:IDataOutput):void {
+			output.writeObject(_name);
+		}
+		
+		public static function normalize(enum:Enum):Enum {
+			return (enum == null ? null : enum.constantOf(enum.name));
+		}
+		
+		public static function readEnum(input:IDataInput):Enum {
+			return normalize(input.readObject() as Enum);
+		}
+		
+		public function toString():String {
+			return name;
+		}
+		
+		public function equals(other:Enum):Boolean {
+			return other === this || (
+				other != null &&
+				getQualifiedClassName(this) == getQualifiedClassName(other) &&
+				other.name == this.name
+			);
+		}
+		
+		protected static function get _():Restrictor { // NO PMD ProtectedStaticMethod
+			return new Restrictor();
+		}
+	}
 }
+class Restrictor {}
