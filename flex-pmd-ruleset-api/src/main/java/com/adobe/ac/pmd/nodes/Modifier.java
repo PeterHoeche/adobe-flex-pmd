@@ -32,10 +32,17 @@ package com.adobe.ac.pmd.nodes;
 
 import com.adobe.ac.pmd.parser.KeyWords;
 
+/**
+ * @author xagnetti
+ */
 public enum Modifier
 {
    DYNAMIC, FINAL, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, STATIC;
 
+   /**
+    * @param name
+    * @return
+    */
    public static Modifier create( final String name )
    {
       Modifier modifier = null;

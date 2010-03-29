@@ -1,14 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<artifactId>flex-pmd</artifactId>
-		<groupId>com.adobe.ac</groupId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-cpd-ant-task</artifactId>
 	<name>Adobe Flex CPD Ant task</name>
 	<packaging>jar</packaging>
+
+  <parent>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
+  </parent>
+  
 
 	<dependencies>
 
@@ -33,7 +36,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
+			<artifactId>flex-pmd-files</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -48,11 +51,6 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>as3-parser-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-plugin-utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

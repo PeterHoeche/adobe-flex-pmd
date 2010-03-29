@@ -30,8 +30,18 @@
  */
 package com.adobe.ac.pmd.rules.core;
 
+/**
+ * @author xagnetti
+ */
 public final class ViolationPosition
 {
+   /**
+    * @param beginLineToBeSet
+    * @param endLineToBeSet
+    * @param beginColumnToBeSet
+    * @param endColumnToBeSet
+    * @return
+    */
    public static ViolationPosition create( final int beginLineToBeSet,
                                            final int endLineToBeSet,
                                            final int beginColumnToBeSet,
@@ -45,11 +55,18 @@ public final class ViolationPosition
    private final int endColumn;
    private final int endLine;
 
+   /**
+    * @param lineToBeSet
+    */
    public ViolationPosition( final int lineToBeSet )
    {
       this( lineToBeSet, lineToBeSet, 0, 0 );
    }
 
+   /**
+    * @param beginLineToBeSet
+    * @param endLineToBeSet
+    */
    public ViolationPosition( final int beginLineToBeSet,
                              final int endLineToBeSet )
    {
@@ -69,21 +86,33 @@ public final class ViolationPosition
       endColumn = endColumnToBeSet;
    }
 
+   /**
+    * @return
+    */
    public int getBeginColumn()
    {
       return beginColumn;
    }
 
+   /**
+    * @return
+    */
    public int getBeginLine()
    {
       return beginLine;
    }
 
+   /**
+    * @return
+    */
    public int getEndColumn()
    {
       return endColumn;
    }
 
+   /**
+    * @return
+    */
    public int getEndLine()
    {
       return endLine;

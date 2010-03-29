@@ -54,6 +54,9 @@ import com.adobe.ac.utils.StackTraceUtils;
  */
 public class AS3Scanner
 {
+   /**
+    * @author xagnetti
+    */
    public static final class Token
    {
       private static Token create( final String textContent,
@@ -68,6 +71,11 @@ public class AS3Scanner
       private final int     line;
       private final String  text;
 
+      /**
+       * @param textContent
+       * @param tokenLine
+       * @param tokenColumn
+       */
       protected Token( final String textContent,
                        final int tokenLine,
                        final int tokenColumn )
@@ -75,6 +83,12 @@ public class AS3Scanner
          this( textContent, tokenLine, tokenColumn, false );
       }
 
+      /**
+       * @param textContent
+       * @param tokenLine
+       * @param tokenColumn
+       * @param isNumToSet
+       */
       protected Token( final String textContent,
                        final int tokenLine,
                        final int tokenColumn,
@@ -86,21 +100,33 @@ public class AS3Scanner
          isNumeric = isNumToSet;
       }
 
+      /**
+       * @return
+       */
       public int getColumn()
       {
          return column;
       }
 
+      /**
+       * @return
+       */
       public int getLine()
       {
          return line;
       }
 
+      /**
+       * @return
+       */
       public String getText()
       {
          return text;
       }
 
+      /**
+       * @return
+       */
       public boolean isNum()
       {
          return isNumeric;
@@ -170,11 +196,17 @@ public class AS3Scanner
 
    private String[] lines = null;
 
+   /**
+    * @return
+    */
    public Token moveToNextToken()
    {
       return nextToken();
    }
 
+   /**
+    * @param linesToBeSet
+    */
    public void setLines( final String[] linesToBeSet )
    {
       lines = linesToBeSet;
@@ -195,6 +227,9 @@ public class AS3Scanner
             || isLower || isUpper;
    }
 
+   /**
+    * @return
+    */
    protected Token nextToken()
    {
       char currentCharacter;

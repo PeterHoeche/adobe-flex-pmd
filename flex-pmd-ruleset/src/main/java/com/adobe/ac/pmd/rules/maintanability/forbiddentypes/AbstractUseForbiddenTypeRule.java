@@ -39,8 +39,17 @@ import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected void findViolations( final IClass classNode )
    {
@@ -50,6 +59,12 @@ public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
       findViolationInVariableLists( classNode.getConstants() );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void findViolations( final IFunction function )
    {
@@ -61,11 +76,17 @@ public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
       findViolationsInLocalVariables( function );
    }
 
+   /**
+    * @param function
+    */
    protected void findViolationsInParametersList( final IFunction function )
    {
       findViolationInVariableLists( function.getParameters() );
    }
 
+   /**
+    * @return
+    */
    protected abstract String getForbiddenType();
 
    private < E extends IVariable > void findViolationInVariableLists( final List< E > variables )

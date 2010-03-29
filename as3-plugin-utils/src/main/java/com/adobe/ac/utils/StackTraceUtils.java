@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.utils;
 
+/**
+ * @author xagnetti
+ */
 public final class StackTraceUtils
 {
    /**

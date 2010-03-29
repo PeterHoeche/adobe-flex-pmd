@@ -34,11 +34,24 @@ import java.util.List;
 
 public interface IMetaDataListHolder
 {
+   /**
+    * @param metaData
+    */
    void add( IMetaData metaData );
 
+   /**
+    * @return
+    */
    List< IMetaData > getAllMetaData();
 
+   /**
+    * @param metaDataName
+    * @return
+    */
    List< IMetaData > getMetaData( MetaData metaDataName );
 
+   /**
+    * @return
+    */
    int getMetaDataCount();
 }

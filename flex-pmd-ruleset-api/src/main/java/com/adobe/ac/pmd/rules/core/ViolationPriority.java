@@ -36,11 +36,18 @@ public enum ViolationPriority
 
    private String priority;
 
+   /**
+    * @param priorityToBeSet
+    */
    private ViolationPriority( final String priorityToBeSet )
    {
       priority = priorityToBeSet;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Enum#toString()
+    */
    @Override
    public String toString()
    {

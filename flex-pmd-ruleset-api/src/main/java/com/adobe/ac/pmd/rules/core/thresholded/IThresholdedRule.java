@@ -34,11 +34,23 @@ import com.adobe.ac.pmd.rules.core.IFlexRule;
 
 public interface IThresholdedRule extends IFlexRule
 {
+   /**
+    * @return
+    */
    int getActualValueForTheCurrentViolation();
 
+   /**
+    * @return
+    */
    int getDefaultThreshold();
 
+   /**
+    * @return
+    */
    int getThreshold();
 
+   /**
+    * @return
+    */
    String getThresholdName();
 }

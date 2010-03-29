@@ -34,8 +34,15 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public abstract class AbstractEmptyBlockRule extends AbstractAstFlexRule
 {
+   /**
+    * @param block
+    * @return
+    */
    protected static boolean isBlockEmpty( final IParserNode block )
    {
       return block.is( NodeKind.BLOCK )

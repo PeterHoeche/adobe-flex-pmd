@@ -4,12 +4,15 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-command-line</artifactId>
 	<name>Adobe Flex PMD Command line</name>
-	<parent>
-		<artifactId>flex-pmd</artifactId>
-		<groupId>com.adobe.ac</groupId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
-	<description />
+
+  <parent>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
+  </parent>
+  
+  	<description />
 	<packaging>jar</packaging>
 
 	<properties>
@@ -20,7 +23,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-core</artifactId>
+			<artifactId>flex-pmd-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -30,11 +33,11 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-ruleset</artifactId>
+			<artifactId>flex-pmd-ruleset</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
+			<artifactId>flex-pmd-test-resources</artifactId>
 			<version>${project.parent.version}</version>
 			<classifier>resources</classifier>
 			<type>zip</type>
@@ -46,12 +49,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
+			<artifactId>flex-pmd-files</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-ruleset-api</artifactId>
+			<artifactId>flex-pmd-ruleset-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

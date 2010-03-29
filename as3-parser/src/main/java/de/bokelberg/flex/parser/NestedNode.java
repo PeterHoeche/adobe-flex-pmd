@@ -36,16 +36,26 @@ import java.util.List;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
+/**
+ * @author xagnetti
+ */
 class NestedNode
 {
    private List< IParserNode > children;
    private NodeKind            nodeId;
 
+   /**
+    * @param idToBeSet
+    */
    protected NestedNode( final NodeKind idToBeSet )
    {
       nodeId = idToBeSet;
    }
 
+   /**
+    * @param idToBeSet
+    * @param childToBeSet
+    */
    protected NestedNode( final NodeKind idToBeSet,
                          final IParserNode childToBeSet )
    {
@@ -53,6 +63,9 @@ class NestedNode
       addChild( childToBeSet );
    }
 
+   /**
+    * @return
+    */
    public final int computeCyclomaticComplexity()
    {
       int cyclomaticComplexity = 0;
@@ -81,6 +94,10 @@ class NestedNode
       return cyclomaticComplexity;
    }
 
+   /**
+    * @param type
+    * @return
+    */
    public final int countNodeFromType( final NodeKind type )
    {
       int count = 0;
@@ -99,6 +116,10 @@ class NestedNode
       return count;
    }
 
+   /**
+    * @param index
+    * @return
+    */
    public final IParserNode getChild( final int index )
    {
       return getChildren() == null
@@ -106,16 +127,25 @@ class NestedNode
                                             : getChildren().get( index );
    }
 
+   /**
+    * @return
+    */
    public List< IParserNode > getChildren()
    {
       return children;
    }
 
+   /**
+    * @return
+    */
    public NodeKind getId()
    {
       return nodeId;
    }
 
+   /**
+    * @return
+    */
    public IParserNode getLastChild()
    {
       final IParserNode lastChild = getChild( numChildren() - 1 );
@@ -125,18 +155,29 @@ class NestedNode
                                           : lastChild;
    }
 
+   /**
+    * @param expectedType
+    * @return
+    */
    public final boolean is( final NodeKind expectedType ) // NOPMD
    {
       return getId() == null
             && expectedType == null || getId().equals( expectedType );
    }
 
+   /**
+    * @return
+    */
    public final int numChildren()
    {
       return getChildren() == null ? 0
                                   : getChildren().size();
    }
 
+   /**
+    * @param child
+    * @return
+    */
    final IParserNode addChild( final IParserNode child )
    {
       if ( child == null )
@@ -152,6 +193,13 @@ class NestedNode
       return child;
    }
 
+   /**
+    * @param childId
+    * @param childLine
+    * @param childColumn
+    * @param nephew
+    * @return
+    */
    final IParserNode addChild( final NodeKind childId,
                                final int childLine,
                                final int childColumn,
@@ -163,6 +211,13 @@ class NestedNode
                                     nephew ) );
    }
 
+   /**
+    * @param childId
+    * @param childLine
+    * @param childColumn
+    * @param value
+    * @return
+    */
    final IParserNode addChild( final NodeKind childId,
                                final int childLine,
                                final int childColumn,
@@ -174,6 +229,9 @@ class NestedNode
                                     value ) );
    }
 
+   /**
+    * @param idToBeSet
+    */
    final void setId( final NodeKind idToBeSet )
    {
       nodeId = idToBeSet;

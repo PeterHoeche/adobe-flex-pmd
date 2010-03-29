@@ -36,18 +36,36 @@ import net.sourceforge.pmd.PropertyDescriptor;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public abstract class AbstractMaximizedFlexRule extends AbstractFlexRule implements IThresholdedRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThreshold()
+    */
    public int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThresholdName
+    * ()
+    */
    public final String getThresholdName()
    {
       return MAXIMUM;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
+    */
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {

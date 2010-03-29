@@ -6,12 +6,13 @@
 	<name>Adobe Flex CPD Maven plugin</name>
 	<packaging>maven-plugin</packaging>
 
-	<parent>
-		<groupId>com.adobe.ac</groupId>
-		<artifactId>flex-pmd</artifactId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
-
+  <parent>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
+  </parent>
+  
 	<dependencies>
 		<dependency>
 			<groupId>pmd</groupId>
@@ -37,17 +38,17 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-core</artifactId>
+			<artifactId>flex-pmd-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-cpd</artifactId>
+			<artifactId>flex-pmd-cpd</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
+			<artifactId>flex-pmd-files</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 

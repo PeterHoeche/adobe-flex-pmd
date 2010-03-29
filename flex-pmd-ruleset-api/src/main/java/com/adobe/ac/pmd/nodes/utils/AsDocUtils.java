@@ -33,13 +33,24 @@ package com.adobe.ac.pmd.nodes.utils;
 import com.adobe.ac.pmd.nodes.asdoc.impl.ClassAsDocNode;
 import com.adobe.ac.pmd.nodes.asdoc.impl.FunctionAsDocNode;
 
+/**
+ * @author xagnetti
+ */
 public final class AsDocUtils
 {
+   /**
+    * @param doc
+    * @return
+    */
    public static ClassAsDocNode computeClassDoc( final String doc )
    {
       return new ClassAsDocNode( doc );
    }
 
+   /**
+    * @param doc
+    * @return
+    */
    public static FunctionAsDocNode computeFunctionDoc( final String doc )
    {
       return new FunctionAsDocNode( doc );

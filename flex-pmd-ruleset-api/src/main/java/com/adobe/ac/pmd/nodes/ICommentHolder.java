@@ -34,7 +34,13 @@ import java.util.List;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 public interface ICommentHolder
 {
+   /**
+    * @return
+    */
    List< IParserNode > getMultiLinesComment();
 }

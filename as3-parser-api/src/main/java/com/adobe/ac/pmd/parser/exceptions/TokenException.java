@@ -30,9 +30,15 @@
  */
 package com.adobe.ac.pmd.parser.exceptions;
 
+/**
+ * @author xagnetti
+ */
 @SuppressWarnings("serial")
 public class TokenException extends Exception
 {
+   /**
+    * @param message
+    */
    protected TokenException( final String message )
    {
       super( message );

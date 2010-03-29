@@ -87,20 +87,9 @@
 		<!-- Flex project versions -->
 		<!-- Plugin versions -->
 
+		<flex-mojos-plugin.version>3.5.0</flex-mojos-plugin.version>
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
-		<flex-mojos-plugin.version>3.5.0</flex-mojos-plugin.version>
-
-		<!-- Dependency versions -->
-
-		<flex.version>3.2.0.3958</flex.version>
-		<flash-player.version>10</flash-player.version>
-		<flexunit.version>0.9</flexunit.version>
-		<event-source.version>1.1</event-source.version>
-		<flexunit-optional.version>0.85</flexunit-optional.version>
-		<event-source.version>1.1</event-source.version>
-		<cairngorm.version>2.2.1</cairngorm.version>
-		<flexunit-theme.version>1.0</flexunit-theme.version>
 
 	</properties>
 
@@ -168,32 +157,9 @@
 	</dependencies>
 
 	<modules>
-		<module>../as3-parser</module>
-		<module>../as3-parser-api</module>
-		<module>../as3-plugin-utils</module>
-		<module>../flex-pmd-test-resources</module>
-		<module>../flex-pmd-ruleset</module>
-		<module>../flex-pmd-cpd</module>
-		<module>../flex-pmd-cpd-ant-task</module>
-		<module>../flex-pmd-cpd-maven-plugin</module>
-		<module>../flex-pmd-cpd-command-line</module>
-		<module>../flex-pmd-ruleset-api</module>
-		<module>../flex-pmd-core</module>
-		<module>../flex-pmd-ant-task</module>
-		<module>../flex-pmd-maven-plugin</module>
-		<module>../flex-pmd-command-line</module>
-		<module>../flex-pmd-command-line-api</module>
-		<module>../flex-pmd-ruleset-creator</module>
-		<module>../flex-pmd-violations-viewer</module>
-		<module>../flex-pmd-flex-lib</module>
-		<module>../flex-pmd-files</module>
-		<module>../flex-pmd-metrics</module>
-		<module>../flex-pmd-metrics-command-line</module>
-		<module>../flex-pmd-metrics-ant-task</module>
-		<module>../flex-pmd-metrics-maven-plugin</module>
-		<module>../flex-pmd-automator-workflow</module>
-		<module>../flexunit-theme</module>
-		<module>../flex-pmd-bundles</module>
+		<module>../flex-pmd-flex-parent</module>
+		<module>../flex-pmd-hybrid-parent</module>
+		<module>../flex-pmd-java-parent</module>
 	</modules>
 
 	<build>
@@ -322,31 +288,16 @@
 			<url>http://dist.codehaus.org/</url>
 		</repository>
 		<repository>
-			<id>apache-snapshots</id>
-			<name>Snapshot repository</name>
-			<url>http://people.apache.org/maven-snapshot-repository/</url>
-		</repository>
-		<repository>
 			<id>apache</id>
 			<name>Apache repository</name>
 			<layout>legacy</layout>
 			<url>http://cvs.apache.org/repository/</url>
 		</repository>
 		<repository>
-			<id>snapshot-codehaus</id>
-			<url>http://snapshots.repository.codehaus.org</url>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup</url>
 			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
 				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>snapshot-fna</id>
-			<url>http://fna-v2.googlecode.com/svn/trunk/fna_m2_repository/</url>
-			<snapshots>
-				<enabled>true</enabled>
 				<checksumPolicy>ignore</checksumPolicy>
 			</snapshots>
 			<releases>
@@ -391,20 +342,6 @@
 				<enabled>true</enabled>
 			</releases>
 		</pluginRepository>
-		<pluginRepository>
-			<id>fna-repository</id>
-			<name>fna-repository</name>
-			<url>http://fna-v2.googlecode.com/svn/trunk/fna/fna_m2_repository/</url>
-			<releases>
-				<enabled>true</enabled>
-				<checksumPolicy>ignore</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<checksumPolicy>ignore</checksumPolicy>
-			</snapshots>
-		</pluginRepository>
-
 	</pluginRepositories>
 
 	<reporting>

@@ -32,5 +32,8 @@ package com.adobe.ac.pmd.rules.core;
 
 public interface IFlexAstRule extends IFlexRule
 {
+   /**
+    * @return true if the current file is concerned
+    */
    boolean isConcernedByTheCurrentFile();
 }

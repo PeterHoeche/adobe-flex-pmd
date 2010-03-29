@@ -7,10 +7,12 @@
 	<description>Adobe FlexUnit theme</description>
 	
 	<parent>
-		<artifactId>flex-pmd</artifactId>
+		<artifactId>flex-pmd-flex-parent</artifactId>
 		<groupId>com.adobe.ac</groupId>
 		<version>1.2-SNAPSHOT</version>
+		<relativePath>../flex-pmd-flex-parent/pom.xml</relativePath>
 	</parent>
+
 
 	<dependencies>
 
@@ -33,7 +35,6 @@
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>playerglobal</artifactId>
 			<version>${flash-player.version}-${flex.version}</version>
-			<!--            <classifier>${flash-player.version}</classifier>-->
 			<type>swc</type>
 		</dependency>
 
@@ -60,18 +61,5 @@
 
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>flexmojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>flexmojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 </project>

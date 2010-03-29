@@ -55,6 +55,9 @@ public final class ResourcesManagerTest
    private static ResourcesManagerTest instance = null;
    private static final Logger         LOGGER   = Logger.getLogger( ResourcesManagerTest.class.getName() );
 
+   /**
+    * @return
+    */
    public static synchronized ResourcesManagerTest getInstance() // NOPMD
    {
       if ( instance == null )
@@ -100,6 +103,9 @@ public final class ResourcesManagerTest
       }
    }
 
+   /**
+    * @return
+    */
    public Map< String, IFlexFile > getTestFiles()
    {
       return testFiles;

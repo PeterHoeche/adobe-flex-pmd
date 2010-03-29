@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.parser;
 
+/**
+ * @author xagnetti
+ */
 public enum KeyWords
 {
    AS("as"),
@@ -85,6 +88,10 @@ public enum KeyWords
       name = nameToBeSet;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Enum#toString()
+    */
    @Override
    public String toString()
    {

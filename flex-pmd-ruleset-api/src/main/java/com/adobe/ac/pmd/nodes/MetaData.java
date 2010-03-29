@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.nodes;
 
+/**
+ * @author xagnetti
+ */
 public enum MetaData
 {
    ARRAY_ELEMENT_TYPE("ArrayElementType"),
@@ -52,6 +55,10 @@ public enum MetaData
    TEST("Test"),
    TRANSIENT("Transient");
 
+   /**
+    * @param metaDataName
+    * @return
+    */
    public static MetaData create( final String metaDataName )
    {
       MetaData metaData = null;
@@ -80,6 +87,10 @@ public enum MetaData
       name = nameToBeSet;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Enum#toString()
+    */
    @Override
    public String toString()
    {

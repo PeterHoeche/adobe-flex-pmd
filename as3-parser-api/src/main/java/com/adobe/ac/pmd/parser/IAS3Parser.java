@@ -34,11 +34,27 @@ import java.io.IOException;
 
 import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
+/**
+ * @author xagnetti
+ */
 public interface IAS3Parser
 {
+   /**
+    * @param filePath
+    * @return
+    * @throws IOException
+    * @throws TokenException
+    */
    IParserNode buildAst( final String filePath ) throws IOException,
                                                 TokenException;
 
+   /**
+    * @param filePath
+    * @param scriptBlockLines
+    * @return
+    * @throws IOException
+    * @throws TokenException
+    */
    IParserNode buildAst( final String filePath,
                          final String[] scriptBlockLines ) throws IOException,
                                                           TokenException;

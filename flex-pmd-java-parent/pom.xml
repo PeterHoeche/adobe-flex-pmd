@@ -1,0 +1,39 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Adobe Flex PMD Java Parent</name>
+
+	<parent>
+		<groupId>com.adobe.ac</groupId>
+		<artifactId>flex-pmd</artifactId>
+		<version>1.2-SNAPSHOT</version>
+		<relativePath>../flex-pmd-parent/pom.xml</relativePath>
+	</parent>
+
+	<modules>
+		<module>../as3-parser</module>
+		<module>../as3-parser-api</module>
+		<module>../as3-plugin-utils</module>
+		<module>../flex-pmd-test-resources</module>
+		<module>../flex-pmd-ruleset</module>
+		<module>../flex-pmd-cpd</module>
+		<module>../flex-pmd-cpd-ant-task</module>
+		<module>../flex-pmd-cpd-maven-plugin</module>
+		<module>../flex-pmd-cpd-command-line</module>
+		<module>../flex-pmd-ruleset-api</module>
+		<module>../flex-pmd-core</module>
+		<module>../flex-pmd-ant-task</module>
+		<module>../flex-pmd-maven-plugin</module>
+		<module>../flex-pmd-command-line</module>
+		<module>../flex-pmd-command-line-api</module>
+		<module>../flex-pmd-files</module>
+		<module>../flex-pmd-metrics</module>
+		<module>../flex-pmd-metrics-command-line</module>
+		<module>../flex-pmd-metrics-ant-task</module>
+		<module>../flex-pmd-metrics-maven-plugin</module>
+	</modules>
+
+</project>

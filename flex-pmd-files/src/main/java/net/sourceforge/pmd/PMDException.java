@@ -49,11 +49,18 @@ public class PMDException extends Exception
 
    private int               severity;
 
+   /**
+    * @param message
+    */
    public PMDException( final String message )
    {
       super( message );
    }
 
+   /**
+    * @param message
+    * @param reason
+    */
    public PMDException( final String message,
                         final Exception reason )
    {
@@ -72,11 +79,17 @@ public class PMDException extends Exception
       return ( Exception ) getCause();
    }
 
+   /**
+    * @return
+    */
    public int getSeverity()
    {
       return severity;
    }
 
+   /**
+    * @param severityToBeSet
+    */
    public void setSeverity( final int severityToBeSet )
    {
       severity = severityToBeSet;

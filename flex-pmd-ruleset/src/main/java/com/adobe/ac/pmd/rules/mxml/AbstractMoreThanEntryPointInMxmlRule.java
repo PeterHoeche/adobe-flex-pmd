@@ -38,19 +38,37 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
+/**
+ * @author xagnetti
+ */
 abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
 {
    private int lastPublicVarLine = 0;
    private int publicVarCount    = 0;
 
+   /**
+    * @return
+    */
    public abstract int getThreshold();
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#isConcernedByTheCurrentFile
+    * ()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return getCurrentFile().isMxml();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected void findViolations( final IClass classNode )
    {
@@ -68,6 +86,12 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected final void findViolations( final IFunction function )
    {
@@ -79,6 +103,12 @@ abstract class AbstractMoreThanEntryPointInMxmlRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromAttributes
+    * (java.util.List)
+    */
    @Override
    protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {

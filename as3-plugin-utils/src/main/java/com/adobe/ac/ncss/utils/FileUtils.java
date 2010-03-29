@@ -44,10 +44,17 @@ import java.util.logging.Logger;
 
 import com.adobe.ac.utils.StackTraceUtils;
 
+/**
+ * @author xagnetti
+ */
 public final class FileUtils
 {
    public static final Logger LOGGER = Logger.getLogger( FileUtils.class.getName() );
 
+   /**
+    * @param line
+    * @return
+    */
    public static boolean isLineACorrectStatement( final String line )
    {
       return line.compareTo( "" ) != 0
@@ -55,6 +62,12 @@ public final class FileUtils
             && line.endsWith( ";" );
    }
 
+   /**
+    * @param directory
+    * @param filter
+    * @param recurse
+    * @return
+    */
    public static Collection< File > listFiles( final File directory,
                                                final FilenameFilter filter,
                                                final boolean recurse )
@@ -64,6 +77,12 @@ public final class FileUtils
                                recurse );
    }
 
+   /**
+    * @param sourceDirectory
+    * @param filter
+    * @param recurse
+    * @return
+    */
    public static Collection< File > listFiles( final List< File > sourceDirectory,
                                                final FilenameFilter filter,
                                                final boolean recurse )
@@ -79,6 +98,10 @@ public final class FileUtils
       return files;
    }
 
+   /**
+    * @param file
+    * @return
+    */
    public static List< String > readFile( final File file )
    {
       final List< String > result = new ArrayList< String >();

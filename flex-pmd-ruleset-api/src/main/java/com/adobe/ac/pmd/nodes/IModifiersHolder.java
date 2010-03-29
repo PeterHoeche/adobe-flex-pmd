@@ -30,9 +30,19 @@
  */
 package com.adobe.ac.pmd.nodes;
 
+/**
+ * @author xagnetti
+ */
 public interface IModifiersHolder
 {
+   /**
+    * @param modifier
+    */
    void add( Modifier modifier );
 
+   /**
+    * @param modifier
+    * @return
+    */
    boolean is( Modifier modifier ); // NOPMD
 }

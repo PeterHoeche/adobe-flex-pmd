@@ -4,13 +4,16 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-cpd-command-line</artifactId>
 	<name>Adobe Flex CPD Command line</name>
-	<parent>
-		<artifactId>flex-pmd</artifactId>
-		<groupId>com.adobe.ac</groupId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
 	<description />
 	<packaging>jar</packaging>
+
+  <parent>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
+  </parent>
+  
 
 	<properties>
 		<maven.jar.plugin.version>2.2</maven.jar.plugin.version>
@@ -39,7 +42,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
+			<artifactId>flex-pmd-files</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -57,11 +60,6 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-plugin-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang.version}</version>
@@ -69,7 +67,7 @@
 
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
+			<artifactId>flex-pmd-test-resources</artifactId>
 			<version>${project.parent.version}</version>
 			<classifier>resources</classifier>
 			<type>zip</type>

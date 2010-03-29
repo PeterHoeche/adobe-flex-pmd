@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.parser;
 
+/**
+ * @author xagnetti
+ */
 public enum Operators
 {
    AND("&&"),
@@ -90,6 +93,10 @@ public enum Operators
       symbol = symbolToBeSet;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Enum#toString()
+    */
    @Override
    public String toString()
    {

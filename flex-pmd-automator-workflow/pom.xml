@@ -1,14 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<artifactId>flex-pmd</artifactId>
-		<groupId>com.adobe.ac</groupId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-automator</artifactId>
 	<packaging>pom</packaging>
 	<name>Adobe Flex PMD Mac OSX Automator workflow</name>
+
+	<parent>
+		<artifactId>flex-pmd-hybrid-parent</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>1.2-SNAPSHOT</version>
+		<relativePath>../flex-pmd-hybrid-parent/pom.xml</relativePath>
+	</parent>
 
 	<build>
 		<plugins>

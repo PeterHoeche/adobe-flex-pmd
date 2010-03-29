@@ -36,10 +36,17 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
 {
    private Map< String, IParserNode > variablesUnused;
 
+   /**
+    * @param variableName
+    * @param ast
+    */
    protected final void addVariable( final String variableName,
                                      final IParserNode ast )
    {
@@ -47,16 +54,25 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
                            ast );
    }
 
+   /**
+    * @return
+    */
    protected Map< String, IParserNode > getVariablesUnused()
    {
       return variablesUnused;
    }
 
+   /**
+    * @param variablesUnusedToBeSet
+    */
    protected void setVariablesUnused( final Map< String, IParserNode > variablesUnusedToBeSet )
    {
       variablesUnused = variablesUnusedToBeSet;
    }
 
+   /**
+    * @param ast
+    */
    protected final void tryToAddVariableNodeInChildren( final IParserNode ast )
    {
       if ( ast != null
@@ -69,6 +85,9 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
       }
    }
 
+   /**
+    * @param ast
+    */
    protected final void tryToMarkVariableAsUsed( final IParserNode ast )
    {
       if ( variablesUnused != null
@@ -78,6 +97,12 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitStatement(com.adobe
+    * .ac.pmd.parser.IParserNode)
+    */
    @Override
    protected void visitStatement( final IParserNode ast )
    {

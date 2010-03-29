@@ -42,11 +42,23 @@ import com.adobe.ac.pmd.parser.IParserNode;
  */
 public interface IPackage extends INamable, INode
 {
+   /**
+    * @return
+    */
    IClass getClassNode();
 
+   /**
+    * @return
+    */
    String getFullyQualifiedClassName();
 
+   /**
+    * @return
+    */
    List< IFunction > getFunctions();
 
+   /**
+    * @return
+    */
    List< IParserNode > getImports();
 }

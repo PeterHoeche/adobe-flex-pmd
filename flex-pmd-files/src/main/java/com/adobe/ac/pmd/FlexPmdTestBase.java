@@ -52,25 +52,40 @@ public class FlexPmdTestBase // NO_UCD
    private Map< String, IFlexFile > testFiles                     = ResourcesManagerTest.getInstance()
                                                                                         .getTestFiles();
 
+   /**
+    * 
+    */
    protected FlexPmdTestBase()
    {
    }
 
+   /**
+    * @return
+    */
    protected String getLineSeparator()
    {
       return System.getProperty( "line.separator" );
    }
 
+   /**
+    * @return
+    */
    protected File getTestDirectory() // NO_UCD
    {
       return ResourcesManagerTest.getInstance().getTestRootDirectory();
    }
 
+   /**
+    * @return
+    */
    protected final Map< String, IFlexFile > getTestFiles() // NO_UCD
    {
       return testFiles;
    }
 
+   /**
+    * @param testFilesToBeSet
+    */
    protected final void setTestFiles( final Map< String, IFlexFile > testFilesToBeSet )
    {
       testFiles = testFilesToBeSet;

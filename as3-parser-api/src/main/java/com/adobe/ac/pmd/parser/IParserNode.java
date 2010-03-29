@@ -32,6 +32,9 @@ package com.adobe.ac.pmd.parser;
 
 import java.util.List;
 
+/**
+ * @author xagnetti
+ */
 public interface IParserNode
 {
    /**

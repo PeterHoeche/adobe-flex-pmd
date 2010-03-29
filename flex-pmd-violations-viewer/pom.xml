@@ -7,10 +7,12 @@
 	<description>Adobe Flex PMD Violations viewer</description>
 
 	<parent>
-		<artifactId>flex-pmd</artifactId>
+		<artifactId>flex-pmd-flex-parent</artifactId>
 		<groupId>com.adobe.ac</groupId>
 		<version>1.2-SNAPSHOT</version>
+		<relativePath>../flex-pmd-flex-parent/pom.xml</relativePath>
 	</parent>
+
 	
 	<dependencies>
 
@@ -120,17 +122,7 @@
 					<defaultSizeWidth>1000</defaultSizeWidth>
 					<defaultSizeHeight>700</defaultSizeHeight>
 					<useNetwork>false</useNetwork>
-					<licenses>
-			          <flexbuilder3>${flexbuilder3.version}</flexbuilder3>
-			        </licenses>
 				</configuration>
-				<dependencies>
-					<dependency>
-			        	<groupId>com.adobe.flex</groupId>
-			        	<artifactId>license</artifactId>
-			        	<version>${flex.version}</version>
-			        </dependency>
-				</dependencies>
 			</plugin>
 
 			<plugin>
@@ -148,48 +140,6 @@
 				<configuration>
 					<templateURI>folder:html-template</templateURI>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${project.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>flex-pmd-cpd-maven-plugin</artifactId>
-				<version>${project.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>${project.parent.artifactId}-metrics-maven-plugin</artifactId>
-				<version>${project.version}</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			
 		</plugins>
@@ -219,27 +169,5 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<configuration>
-					<reportsDirectory>surefire-reports</reportsDirectory>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>flex-pmd-maven-plugin</artifactId>
-				<version>${project.parent.version}</version>
-				<configuration>
-					<failOnError>true</failOnError>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</reporting>
 
 </project>

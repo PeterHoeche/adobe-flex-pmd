@@ -34,37 +34,64 @@ import java.io.File;
 
 import com.adobe.ac.pmd.files.IAs3File;
 
+/**
+ * @author xagnetti
+ */
 class As3File extends AbstractFlexFile implements IAs3File
 {
+   /**
+    * @param file
+    * @param rootDirectory
+    */
    protected As3File( final File file,
                       final File rootDirectory )
    {
       super( file, rootDirectory );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentClosingTag()
+    */
    @Override
    public final String getCommentClosingTag()
    {
       return "*/";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentOpeningTag()
+    */
    @Override
    public final String getCommentOpeningTag()
    {
       return "/*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getSingleLineComment()
+    */
    public String getSingleLineComment()
    {
       return "//";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMainApplication()
+    */
    @Override
    public final boolean isMainApplication()
    {
       return false;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMxml()
+    */
    @Override
    public final boolean isMxml()
    {

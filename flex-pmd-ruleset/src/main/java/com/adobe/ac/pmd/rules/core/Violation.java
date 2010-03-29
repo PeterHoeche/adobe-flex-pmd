@@ -35,6 +35,9 @@ import java.util.Formatter;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 
+/**
+ * @author xagnetti
+ */
 public final class Violation implements IFlexViolation
 {
    private final int       beginColumn;
@@ -45,6 +48,11 @@ public final class Violation implements IFlexViolation
    private final IFlexRule rule;
    private String          ruleMessage = "";
 
+   /**
+    * @param position
+    * @param violatedRule
+    * @param violatedFile
+    */
    public Violation( final ViolationPosition position,
                      final IFlexRule violatedRule,
                      final IFlexFile violatedFile )
@@ -63,11 +71,19 @@ public final class Violation implements IFlexViolation
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.IFlexViolation#appendToMessage(java.lang.String)
+    */
    public void appendToMessage( final String messageToAppend )
    {
       ruleMessage += messageToAppend;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Comparable#compareTo(java.lang.Object)
+    */
    public int compareTo( final IFlexViolation otherViolation ) // NO_UCD
    {
       int res;
@@ -84,51 +100,91 @@ public final class Violation implements IFlexViolation
       return res;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getBeginColumn()
+    */
    public int getBeginColumn()
    {
       return beginColumn;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getBeginLine()
+    */
    public int getBeginLine()
    {
       return beginLine;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getClassName()
+    */
    public String getClassName()
    {
       return "";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getDescription()
+    */
    public String getDescription()
    {
       return ruleMessage;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getEndColumn()
+    */
    public int getEndColumn()
    {
       return endColumn;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getEndLine()
+    */
    public int getEndLine()
    {
       return endLine;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getFilename()
+    */
    public String getFilename()
    {
       return file.getFullyQualifiedName();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getMethodName()
+    */
    public String getMethodName()
    {
       return "";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getPackageName()
+    */
    public String getPackageName()
    {
       return file.getPackageName();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getRule()
+    */
    public IFlexRule getRule()
    {
       return rule;
@@ -145,11 +201,19 @@ public final class Violation implements IFlexViolation
                                         : ruleMessage;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#getVariableName()
+    */
    public String getVariableName()
    {
       return "";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.IRuleViolation#isSuppressed()
+    */
    public boolean isSuppressed()
    {
       return false;

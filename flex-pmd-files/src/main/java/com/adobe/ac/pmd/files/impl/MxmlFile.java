@@ -36,6 +36,9 @@ import java.util.List;
 
 import com.adobe.ac.pmd.files.IMxmlFile;
 
+/**
+ * @author xagnetti
+ */
 class MxmlFile extends AbstractFlexFile implements IMxmlFile
 {
    private String[] actualScriptBlock;
@@ -44,6 +47,10 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
    private String[] scriptBlock;
    private int      startLine;
 
+   /**
+    * @param file
+    * @param rootDirectory
+    */
    protected MxmlFile( final File file,
                        final File rootDirectory )
    {
@@ -56,49 +63,85 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getActualScriptBlock()
+    */
    public final String[] getActualScriptBlock()
    {
       return actualScriptBlock; // NOPMD
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getBeginningScriptBlock()
+    */
    public int getBeginningScriptBlock()
    {
       return startLine;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentClosingTag()
+    */
    @Override
    public final String getCommentClosingTag()
    {
       return "-->";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentOpeningTag()
+    */
    @Override
    public final String getCommentOpeningTag()
    {
       return "<!--";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getEndingScriptBlock()
+    */
    public int getEndingScriptBlock()
    {
       return endLine;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getScriptBlock()
+    */
    public final String[] getScriptBlock()
    {
       return scriptBlock; // NOPMD by xagnetti on 7/7/09 3:15 PM
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getSingleLineComment()
+    */
    public String getSingleLineComment()
    {
       return getCommentOpeningTag();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMainApplication()
+    */
    @Override
    public final boolean isMainApplication()
    {
       return mainApplication;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMxml()
+    */
    @Override
    public final boolean isMxml()
    {

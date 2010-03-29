@@ -62,6 +62,10 @@ abstract class AbstractFlexFile implements IFlexFile
    private final List< String > lines;
    private final String         packageName;
 
+   /**
+    * @param underlyingFile
+    * @param rootDirectory
+    */
    protected AbstractFlexFile( final File underlyingFile,
                                final File rootDirectory )
    {
@@ -112,6 +116,10 @@ abstract class AbstractFlexFile implements IFlexFile
       return found;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Object#equals(java.lang.Object)
+    */
    @Override
    public final boolean equals( final Object obj )
    {
@@ -183,6 +191,10 @@ abstract class AbstractFlexFile implements IFlexFile
       return lines;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getLinesNb()
+    */
    public int getLinesNb()
    {
       return lines.size();
@@ -197,6 +209,10 @@ abstract class AbstractFlexFile implements IFlexFile
       return packageName;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Object#hashCode()
+    */
    @Override
    public int hashCode()
    {

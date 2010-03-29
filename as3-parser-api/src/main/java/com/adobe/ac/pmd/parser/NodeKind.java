@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.parser;
 
+/**
+ * @author xagnetti
+ */
 public enum NodeKind
 {
    ADD("add"),
@@ -135,6 +138,10 @@ public enum NodeKind
       name = nameToBeSet;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Enum#toString()
+    */
    @Override
    public String toString()
    {

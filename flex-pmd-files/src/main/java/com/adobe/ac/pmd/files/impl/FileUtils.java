@@ -43,8 +43,19 @@ import net.sourceforge.pmd.PMDException;
 import com.adobe.ac.ncss.filters.FlexFilter;
 import com.adobe.ac.pmd.files.IFlexFile;
 
+/**
+ * @author xagnetti
+ */
 public final class FileUtils
 {
+   /**
+    * @param source
+    * @param sourceList
+    * @param packageToExclude
+    * @param excludePatterns
+    * @return
+    * @throws PMDException
+    */
    public static Map< String, IFlexFile > computeFilesList( final File source,
                                                             final List< File > sourceList,
                                                             final String packageToExclude,
@@ -73,6 +84,11 @@ public final class FileUtils
       return files;
    }
 
+   /**
+    * @param sourceFile
+    * @param sourceDirectory
+    * @return
+    */
    public static AbstractFlexFile create( final File sourceFile,
                                           final File sourceDirectory )
    {
@@ -90,6 +106,11 @@ public final class FileUtils
       return file;
    }
 
+   /**
+    * @param file
+    * @return
+    * @throws IOException
+    */
    public static String[] readLines( final File file ) throws IOException
    {
       final List< String > lines = com.adobe.ac.ncss.utils.FileUtils.readFile( file );

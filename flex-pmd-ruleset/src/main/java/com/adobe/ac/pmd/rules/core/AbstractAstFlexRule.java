@@ -78,6 +78,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    private static final Logger LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
 
+   /**
+    * @param functionNode
+    * @return
+    */
    protected static IParserNode getNameFromFunctionDeclaration( final IParserNode functionNode )
    {
       IParserNode nameChild = null;
@@ -93,6 +97,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       return nameChild;
    }
 
+   /**
+    * @param fieldNode
+    * @return
+    */
    protected static IParserNode getTypeFromFieldDeclaration( final IParserNode fieldNode )
    {
       return fieldNode.getChild( 0 ).getChild( 1 );
@@ -100,6 +108,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    private final List< IFlexViolation > violations;
 
+   /**
+    * 
+    */
    public AbstractAstFlexRule()
    {
       super();
@@ -107,6 +118,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       violations = new ArrayList< IFlexViolation >();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public boolean isConcernedByTheCurrentFile()
    {
@@ -126,6 +142,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                            name.getStringValue() );
    }
 
+   /**
+    * @param function
+    * @param messageToReplace
+    * @return
+    */
    protected final IFlexViolation addViolation( final IFunction function,
                                                 final String messageToReplace )
    {
@@ -327,12 +348,18 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       return copy;
    }
 
+   /**
+    * @param catchNode
+    */
    protected void visitCatch( final IParserNode catchNode )
    {
       visitNameTypeInit( catchNode.getChild( 0 ) );
       visitBlock( catchNode.getChild( 1 ) );
    }
 
+   /**
+    * @param classNode
+    */
    protected void visitClass( final IParserNode classNode )
    {
       IParserNode content = null;
@@ -357,12 +384,18 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitExpression( condition );
    }
 
+   /**
+    * @param doNode
+    */
    protected void visitDo( final IParserNode doNode )
    {
       visitBlock( doNode.getChild( 0 ) );
       visitCondition( doNode.getChild( 1 ) );
    }
 
+   /**
+    * @param ifNode
+    */
    protected void visitElse( final IParserNode ifNode )
    {
       visitBlock( ifNode.getChild( 2 ) );
@@ -372,6 +405,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
    }
 
+   /**
+    * @param finallyNode
+    */
    protected void visitFinally( final IParserNode finallyNode )
    {
       if ( isNodeNavigable( finallyNode ) )
@@ -380,16 +416,26 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param forNode
+    */
    protected void visitFor( final IParserNode forNode )
    {
       visitBlock( forNode.getChild( 3 ) );
    }
 
+   /**
+    * @param foreachNode
+    */
    protected void visitForEach( final IParserNode foreachNode )
    {
       visitBlock( foreachNode.getChild( 2 ) );
    }
 
+   /**
+    * @param functionNode
+    * @param type
+    */
    protected void visitFunction( final IParserNode functionNode,
                                  final FunctionType type )
    {
@@ -410,11 +456,17 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitFunctionBody( currentNode );
    }
 
+   /**
+    * @param functionReturnTypeNode
+    */
    protected void visitFunctionReturnType( final IParserNode functionReturnTypeNode )
    {
       visitBlock( functionReturnTypeNode );
    }
 
+   /**
+    * @param ifNode
+    */
    protected void visitIf( final IParserNode ifNode )
    {
       visitCondition( ifNode.getChild( 0 ) );
@@ -425,10 +477,16 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param interfaceNode
+    */
    protected void visitInterface( final IParserNode interfaceNode )
    {
    }
 
+   /**
+    * @param methodCallNode
+    */
    protected void visitMethodCall( final IParserNode methodCallNode )
    {
       final Iterator< IParserNode > iterator = methodCallNode.getChildren().iterator();
@@ -440,12 +498,18 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       while ( iterator.hasNext() );
    }
 
+   /**
+    * @param newExpression
+    */
    protected void visitNewExpression( final IParserNode newExpression )
    {
       visitExpression( newExpression.getChild( 0 ) );
       visitExpressionList( newExpression.getChild( 1 ) );
    }
 
+   /**
+    * @param functionParametersNode
+    */
    protected void visitParameters( final IParserNode functionParametersNode )
    {
       if ( isNodeNavigable( functionParametersNode ) )
@@ -457,6 +521,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param ast
+    */
    protected void visitReturn( final IParserNode ast )
    {
       if ( isNodeNavigable( ast ) )
@@ -465,6 +532,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param statementNode
+    */
    protected void visitStatement( final IParserNode statementNode )
    {
       switch ( statementNode.getId() )
@@ -510,6 +580,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param switchNode
+    */
    protected void visitSwitch( final IParserNode switchNode )
    {
       final Iterator< IParserNode > iterator = switchNode.getChildren().iterator();
@@ -534,31 +607,51 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param switchCaseNode
+    */
    protected void visitSwitchCase( final IParserNode switchCaseNode )
    {
       visitBlock( switchCaseNode );
    }
 
+   /**
+    * @param defaultCaseNode
+    */
    protected void visitSwitchDefaultCase( final IParserNode defaultCaseNode )
    {
       visitBlock( defaultCaseNode );
    }
 
+   /**
+    * @param ifNode
+    */
    protected void visitThen( final IParserNode ifNode )
    {
       visitBlock( ifNode.getChild( 1 ) );
    }
 
+   /**
+    * @param ast
+    */
    protected void visitTry( final IParserNode ast )
    {
       visitBlock( ast.getChild( 0 ) );
    }
 
+   /**
+    * @param node
+    */
    protected void visitVariableInitialization( final IParserNode node )
    {
       visitExpression( node );
    }
 
+   /**
+    * @param variableNode
+    * @param varOrConst
+    * @param scope
+    */
    protected void visitVarOrConstList( final IParserNode variableNode,
                                        final VariableOrConstant varOrConst,
                                        final VariableScope scope )
@@ -579,6 +672,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * @param whileNode
+    */
    protected void visitWhile( final IParserNode whileNode )
    {
       visitCondition( whileNode.getChild( 0 ) );

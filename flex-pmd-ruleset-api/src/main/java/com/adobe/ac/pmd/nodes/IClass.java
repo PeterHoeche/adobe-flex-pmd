@@ -43,23 +43,53 @@ import com.adobe.ac.pmd.parser.IParserNode;
  */
 public interface IClass extends IVisible, IMetaDataListHolder, INamableNode, IAsDocHolder, ICommentHolder
 {
+   /**
+    * @return
+    */
    List< IAttribute > getAttributes();
 
+   /**
+    * @return
+    */
    double getAverageCyclomaticComplexity();
 
+   /**
+    * @return
+    */
    IParserNode getBlock();
 
+   /**
+    * @return
+    */
    List< IConstant > getConstants();
 
+   /**
+    * @return
+    */
    IFunction getConstructor();
 
+   /**
+    * @return
+    */
    String getExtensionName();
 
+   /**
+    * @return
+    */
    List< IFunction > getFunctions();
 
+   /**
+    * @return
+    */
    List< IParserNode > getImplementations();
 
+   /**
+    * @return
+    */
    boolean isBindable();
 
+   /**
+    * @return
+    */
    boolean isFinal();
 }

@@ -6,9 +6,10 @@
   <url>http://maven.apache.org</url>
   
   <parent>
-    <artifactId>flex-pmd</artifactId>
-    <groupId>com.adobe.ac</groupId>
-    <version>1.2-SNAPSHOT</version>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
   </parent>
-
+  
 </project>

@@ -37,8 +37,17 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 
+/**
+ * @author xagnetti
+ */
 public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected final void findViolations( final IClass classNode )
    {
@@ -51,6 +60,12 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected final void findViolations( final IFunction function )
    {
@@ -61,10 +76,19 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
       }
    }
 
+   /**
+    * @param function
+    */
    protected void findViolationsFromAttributeMetaData( final IAttribute function )
    {
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromAttributes
+    * (java.util.List)
+    */
    @Override
    protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
@@ -78,14 +102,23 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
       }
    }
 
+   /**
+    * @param classNode
+    */
    protected void findViolationsFromClassMetaData( final IClass classNode )
    {
    }
 
+   /**
+    * @param attribute
+    */
    protected void findViolationsFromFunctionMetaData( final IFunction attribute )
    {
    }
 
+   /**
+    * @param holder
+    */
    protected void findViolationsFromMetaDataList( final IMetaDataListHolder holder )
    {
    }

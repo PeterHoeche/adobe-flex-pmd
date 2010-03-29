@@ -7,12 +7,13 @@
 	<description />
 	<packaging>jar</packaging>
 
-	<parent>
-		<artifactId>flex-pmd</artifactId>
-		<groupId>com.adobe.ac</groupId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
-
+  <parent>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
+  </parent>
+  
 	<properties>
 		<doxia-core.version>1.0-alpha-4</doxia-core.version>
 	</properties>
@@ -25,13 +26,13 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-ruleset-api</artifactId>
+			<artifactId>flex-pmd-ruleset-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
+			<artifactId>flex-pmd-test-resources</artifactId>
 			<version>${project.version}</version>
 			<classifier>resources</classifier>
 			<type>zip</type>
@@ -39,7 +40,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-ruleset</artifactId>
+			<artifactId>flex-pmd-ruleset</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>test</scope>
 		</dependency>

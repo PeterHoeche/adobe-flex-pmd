@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.nodes;
 
+/**
+ * @author xagnetti
+ */
 public interface IParameter extends IVariable
 {
 }

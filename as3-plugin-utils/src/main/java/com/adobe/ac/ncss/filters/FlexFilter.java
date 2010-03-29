@@ -34,8 +34,15 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Locale;
 
+/**
+ * @author xagnetti
+ */
 public class FlexFilter implements FilenameFilter
 {
+   /*
+    * (non-Javadoc)
+    * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
+    */
    public boolean accept( final File dir,
                           final String name )
    {

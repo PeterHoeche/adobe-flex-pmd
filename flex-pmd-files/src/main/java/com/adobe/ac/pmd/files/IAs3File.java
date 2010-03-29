@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.files;
 
+/**
+ * @author xagnetti
+ */
 public interface IAs3File extends IFlexFile
 {
 }

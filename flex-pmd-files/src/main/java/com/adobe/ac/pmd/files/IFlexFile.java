@@ -32,11 +32,22 @@ package com.adobe.ac.pmd.files;
 
 import java.util.Set;
 
+/**
+ * @author xagnetti
+ */
 public interface IFlexFile
 {
+   /**
+    * @param stringToLookup
+    * @param linesToBeIgnored
+    * @return
+    */
    boolean contains( final String stringToLookup,
                      final Set< Integer > linesToBeIgnored );
 
+   /**
+    * @return
+    */
    String getClassName();
 
    /**
@@ -59,12 +70,25 @@ public interface IFlexFile
     */
    String getFilePath();
 
+   /**
+    * @return
+    */
    String getFullyQualifiedName();
 
+   /**
+    * @param lineIndex
+    * @return
+    */
    String getLineAt( int lineIndex );
 
+   /**
+    * @return
+    */
    int getLinesNb();
 
+   /**
+    * @return
+    */
    String getPackageName();
 
    /**

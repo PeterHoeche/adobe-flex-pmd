@@ -33,8 +33,14 @@ package com.adobe.ac.pmd.rules.asdocs;
 import com.adobe.ac.pmd.nodes.IAsDocHolder;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 abstract class AbstractAsDocRule extends AbstractAstFlexRule
 {
+   /**
+    * @param asDocHolder
+    */
    protected void addViolationIfAsDocMissing( final IAsDocHolder asDocHolder )
    {
       if ( asDocHolder.getAsDoc() == null )

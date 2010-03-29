@@ -64,6 +64,11 @@ public final class FileSetUtils
    private static final ThreadPoolExecutor EXECUTOR = ( ThreadPoolExecutor ) Executors.newFixedThreadPool( 5 );
    private static final Logger             LOGGER   = Logger.getLogger( FileSetUtils.class.getName() );
 
+   /**
+    * @param file
+    * @return
+    * @throws PMDException
+    */
    public static IParserNode buildAst( final IFlexFile file ) throws PMDException
    {
       IParserNode rootNode = null;
@@ -85,6 +90,11 @@ public final class FileSetUtils
       return rootNode;
    }
 
+   /**
+    * @param files
+    * @return
+    * @throws PMDException
+    */
    public static Map< String, IPackage > computeAsts( final Map< String, IFlexFile > files ) throws PMDException
    {
       LOGGER.setLevel( Level.SEVERE );

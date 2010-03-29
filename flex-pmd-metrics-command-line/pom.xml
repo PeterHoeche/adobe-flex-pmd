@@ -3,13 +3,14 @@
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-metrics-command-line</artifactId>
 	<name>Adobe Flex Metrics command line</name>
-	<parent>
-		<groupId>com.adobe.ac</groupId>
-		<artifactId>flex-pmd</artifactId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
 
-
+  <parent>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-java-parent</artifactId>
+	<version>1.2-SNAPSHOT</version>
+	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
+  </parent>
+  
 	<properties>
 		<maven.jar.plugin.version>2.2</maven.jar.plugin.version>
 	</properties>
@@ -31,19 +32,19 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.parent.version}</version>
-			<artifactId>${project.parent.artifactId}-metrics</artifactId>
+			<artifactId>flex-pmd-metrics</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.parent.version}</version>
-			<artifactId>${project.parent.artifactId}-core</artifactId>
+			<artifactId>flex-pmd-core</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
+			<artifactId>flex-pmd-files</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -61,28 +62,13 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-plugin-utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>as3-plugin-utils</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-files</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-ruleset-api</artifactId>
+			<artifactId>flex-pmd-ruleset-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
@@ -94,7 +80,7 @@
 
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-test-resources</artifactId>
+			<artifactId>flex-pmd-test-resources</artifactId>
 			<version>${project.parent.version}</version>
 			<classifier>resources</classifier>
 			<type>zip</type>

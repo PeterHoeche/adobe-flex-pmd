@@ -59,16 +59,34 @@ public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode, 
     */
    List< IParserNode > findPrimaryStatementsInBody( final String primaryName );
 
+   /**
+    * @return
+    */
    IParserNode getBody();
 
+   /**
+    * @return
+    */
    int getCyclomaticComplexity();
 
+   /**
+    * @return
+    */
    Map< String, IParserNode > getLocalVariables();
 
+   /**
+    * @return
+    */
    List< IParameter > getParameters();
 
+   /**
+    * @return
+    */
    IIdentifierNode getReturnType();
 
+   /**
+    * @return
+    */
    int getStatementNbInBody();
 
    /**
@@ -77,9 +95,18 @@ public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode, 
     */
    IParserNode getSuperCall();
 
+   /**
+    * @return
+    */
    boolean isGetter();
 
+   /**
+    * @return
+    */
    boolean isOverriden();
 
+   /**
+    * @return
+    */
    boolean isSetter();
 }

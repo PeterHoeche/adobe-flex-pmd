@@ -30,9 +30,15 @@
  */
 package com.adobe.ac.pmd.parser.exceptions;
 
+/**
+ * @author xagnetti
+ */
 @SuppressWarnings("serial")
 public class NullTokenException extends TokenException
 {
+   /**
+    * @param fileName
+    */
    public NullTokenException( final String fileName )
    {
       super( "null token in "

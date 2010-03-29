@@ -36,6 +36,11 @@ import com.adobe.ac.pmd.parser.IParserNode;
 
 public final class FunctionUtils
 {
+   /**
+    * @param currentFile
+    * @param block
+    * @return
+    */
    public static int computeFunctionLength( final IFlexFile currentFile,
                                             final IParserNode block )
    {

@@ -48,11 +48,26 @@ import com.adobe.ac.pmd.parser.exceptions.UnExpectedTokenException.Position;
 
 import de.bokelberg.flex.parser.AS3Scanner.Token;
 
+/**
+ * @author xagnetti
+ */
 public class AS3Parser implements IAS3Parser
 {
+   /**
+    * 
+    */
    public static final String  ASDOC_COMMENT          = "/**";
+   /**
+    * 
+    */
    public static final String  MULTIPLE_LINES_COMMENT = "/*";
+   /**
+    * 
+    */
    public static final String  NEW_LINE               = "\n";
+   /**
+    * 
+    */
    public static final String  SINGLE_LINE_COMMENT    = "//";
    private static final String VECTOR                 = "Vector";
    private Node                currentAsDoc;
@@ -63,6 +78,9 @@ public class AS3Parser implements IAS3Parser
    private AS3Scanner          scn;
    private Token               tok;
 
+   /**
+    * 
+    */
    public AS3Parser()
    {
       this.scn = new AS3Scanner();
@@ -80,6 +98,11 @@ public class AS3Parser implements IAS3Parser
                          FileUtils.readLines( new File( filePath ) ) );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.parser.IAS3Parser#buildAst(java.lang.String,
+    * java.lang.String[])
+    */
    public final IParserNode buildAst( final String filePath,
                                       final String[] scriptBlockLines ) throws TokenException
    {
@@ -87,6 +110,9 @@ public class AS3Parser implements IAS3Parser
                          scriptBlockLines );
    }
 
+   /**
+    * @return
+    */
    final AS3Scanner getScn()
    {
       return scn;
@@ -181,6 +207,10 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   /**
+    * @return
+    * @throws TokenException
+    */
    final IParserNode parseExpression() throws TokenException
    {
       return parseAssignmentExpression();
@@ -301,6 +331,10 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   /**
+    * @return
+    * @throws TokenException
+    */
    final Node parsePrimaryExpression() throws TokenException
    {
       Node result = Node.create( NodeKind.PRIMARY,
@@ -404,6 +438,10 @@ public class AS3Parser implements IAS3Parser
       return result;
    }
 
+   /**
+    * @return
+    * @throws TokenException
+    */
    final Node parseUnaryExpression() throws TokenException
    {
       Node result;

@@ -36,15 +36,33 @@ import com.adobe.ac.pmd.files.IFlexFile;
 
 public interface IFlexViolation extends Comparable< IFlexViolation >, IRuleViolation
 {
+   /**
+    * @param messageToAppend
+    */
    void appendToMessage( final String messageToAppend );
 
+   /**
+    * @return the rule message
+    */
    String getRuleMessage();
 
+   /**
+    * @param replacement
+    * @param index
+    */
    void replacePlaceholderInMessage( final String replacement,
                                      final int index );
 
+   /**
+    * @param column
+    */
    void setEndColumn( final int column );
 
+   /**
+    * @param violatedFile
+    * @param ruleSetName
+    * @return
+    */
    String toXmlString( final IFlexFile violatedFile,
                        final String ruleSetName );
 }

@@ -41,8 +41,17 @@ import com.adobe.ac.pmd.nodes.IPackage;
 
 public interface IFlexRule extends Rule
 {
+   /**
+    * @return ruleName
+    */
    String getRuleName();
 
+   /**
+    * @param file
+    * @param rootNode
+    * @param files
+    * @return
+    */
    List< IFlexViolation > processFile( final IFlexFile file,
                                        final IPackage rootNode,
                                        final Map< String, IFlexFile > files );

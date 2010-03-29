@@ -93,6 +93,12 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
                                 "" );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.IFlexRule#processFile(com.adobe.ac.pmd.files
+    * .IFlexFile, com.adobe.ac.pmd.nodes.IPackage, java.util.Map)
+    */
    public final List< IFlexViolation > processFile( final IFlexFile file,
                                                     final IPackage packageNode,
                                                     final Map< String, IFlexFile > files )
@@ -196,6 +202,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return properties;
    }
 
+   /**
+    * @return
+    */
    protected abstract boolean isConcernedByTheCurrentFile();
 
    /**

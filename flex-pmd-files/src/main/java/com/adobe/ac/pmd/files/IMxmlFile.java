@@ -30,13 +30,28 @@
  */
 package com.adobe.ac.pmd.files;
 
+/**
+ * @author xagnetti
+ */
 public interface IMxmlFile extends IFlexFile
 {
+   /**
+    * @return
+    */
    String[] getActualScriptBlock();
 
+   /**
+    * @return
+    */
    int getBeginningScriptBlock();
 
+   /**
+    * @return
+    */
    int getEndingScriptBlock();
 
+   /**
+    * @return
+    */
    String[] getScriptBlock();
 }

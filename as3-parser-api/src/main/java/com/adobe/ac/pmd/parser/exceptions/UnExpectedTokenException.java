@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.parser.exceptions;
 
+/**
+ * @author xagnetti
+ */
 @SuppressWarnings("serial")
 public class UnExpectedTokenException extends TokenException
 {
@@ -47,6 +50,12 @@ public class UnExpectedTokenException extends TokenException
       }
    }
 
+   /**
+    * @param tokenText
+    * @param tokenPosition
+    * @param fileName
+    * @param expected
+    */
    public UnExpectedTokenException( final String tokenText,
                                     final Position tokenPosition,
                                     final String fileName,
