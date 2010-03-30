@@ -98,8 +98,8 @@ public class ClassMetricsTest extends FlexPmdTestBase
                                                                                              classNode ),
                                                              classNode );
 
-      assertEquals( "<object><name>bug.FlexPMD60</name><ccn>1</ccn><ncss>4</ncss><javadocs>12</javadocs>"
-                          + "<javadoc_lines>12</javadoc_lines><multi_comment_lines>7</multi_comment_lines>"
+      assertEquals( "<object><name>bug.FlexPMD60</name><ccn>1</ccn><ncss>4</ncss><javadocs>9</javadocs>"
+                          + "<javadoc_lines>9</javadoc_lines><multi_comment_lines>7</multi_comment_lines>"
                           + "<single_comment_lines>0</single_comment_lines><functions>1</functions></object>",
                     classMetrics.toXmlString() );
    }

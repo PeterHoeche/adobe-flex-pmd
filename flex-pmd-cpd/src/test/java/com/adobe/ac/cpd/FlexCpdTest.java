@@ -80,8 +80,7 @@ public class FlexCpdTest extends FlexPmdTestBase
                new ExpectedMatchInformation( 40, 2, 14 ),
                new ExpectedMatchInformation( 40, 2, 15 ),
                new ExpectedMatchInformation( 40, 2, 15 ),
-               new ExpectedMatchInformation( 38, 2, 3 ),
-               new ExpectedMatchInformation( 36, 2, 24 ) };
+               new ExpectedMatchInformation( 38, 2, 3 ) };
 
    @Test
    public void test119() throws IOException

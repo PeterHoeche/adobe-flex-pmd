@@ -81,6 +81,8 @@
 		<ant.version>1.7.0</ant.version>
 		<dom4j.version>1.6.1</dom4j.version>
 
+		<jsap.version>2.1</jsap.version>
+
 		<!-- Reporting versions -->
 		<maven-pmd-plugin.version>2.4</maven-pmd-plugin.version>
 

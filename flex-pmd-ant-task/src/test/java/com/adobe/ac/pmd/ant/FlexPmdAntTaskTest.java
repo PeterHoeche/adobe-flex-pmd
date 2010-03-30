@@ -42,8 +42,8 @@ public class FlexPmdAntTaskTest extends FlexPmdTestBase
    public void testExecuteWithoutSettingParameters()
    {
       final FlexPmdAntTask task = new FlexPmdAntTask();
-
       final Project project = new Project();
+
       task.setProject( project );
       task.execute();
    }

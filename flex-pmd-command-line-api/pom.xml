@@ -12,17 +12,12 @@
 	<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
   </parent>
   
-	<properties>
-		<jsap.version>2.1</jsap.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.martiansoftware</groupId>
 			<artifactId>jsap</artifactId>
 			<version>${jsap.version}</version>
 		</dependency>
-
 	</dependencies>
 
 </project>

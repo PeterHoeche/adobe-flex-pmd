@@ -39,7 +39,6 @@ import org.junit.Test;
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.parser.IParserNode;
 
 public class CommentNodeTest extends FlexPmdTestBase
@@ -161,12 +160,10 @@ public class CommentNodeTest extends FlexPmdTestBase
    @Test
    public void testMetadataComment()
    {
-      assertNotNull( flexPMD60Package.getClassNode().getMetaData( MetaData.BINDABLE ).get( 0 ).getAsDoc() );
+      assertNotNull( flexPMD60Package.getClassNode().getAsDoc() );
 
-      assertEquals( "/**   * AsDoc metadata   */",
+      assertEquals( "/**   * AsDoc class   */",
                     flexPMD60Package.getClassNode()
-                                    .getMetaData( MetaData.BINDABLE )
-                                    .get( 0 )
                                     .getAsDoc()
                                     .getStringValue()
                                     .replace( "\t",

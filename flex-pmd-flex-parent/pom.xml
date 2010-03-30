@@ -34,6 +34,7 @@
 	</modules>
 	
 	<build>
+		<sourceDirectory>.</sourceDirectory>
 		<plugins>
 		
 			<plugin>

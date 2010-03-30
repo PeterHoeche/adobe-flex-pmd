@@ -75,7 +75,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     Math.round( projectMetrics.getAverageObjects().getAverageFunctions() ) );
       assertEquals( 13,
                     Math.round( projectMetrics.getAverageObjects().getAverageStatements() ) );
-      assertEquals( 3,
+      assertEquals( 2,
                     Math.round( projectMetrics.getAverageObjects().getAverageDocs() ) );
       assertEquals( 2,
                     Math.round( projectMetrics.getAverageObjects().getAverageMultipleComments() + 0.95 ) );
@@ -153,7 +153,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getTotalPackages().getTotalFunctions() );
       assertEquals( 1220,
                     projectMetrics.getTotalPackages().getTotalStatements() );
-      assertEquals( 233,
+      assertEquals( 227,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
       assertEquals( 94,
                     projectMetrics.getTotalPackages().getTotalMultiLineComment() );

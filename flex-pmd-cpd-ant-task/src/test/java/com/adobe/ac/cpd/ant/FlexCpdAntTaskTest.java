@@ -28,36 +28,26 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package foo.bar 
+package com.adobe.ac.cpd.ant;
+
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.FileSet;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.FlexPmdTestBase;
+
+public class FlexCpdAntTaskTest extends FlexPmdTestBase
 {
-	/**
-	 * My Class
-	 */
-	public class MyClass
-	{
-		/**
-		 * order of the class
-		 */
-		[Bindable]
-		public var order : int;
-		
-		/**
-		 * foo
-		 */
-		public function foo() : void
-		{
-		}
-		
-		/**
-		 * foo
-		 */
-		protected function foo() : void
-		{
-		}
-		
-		public function set foo( value : Boolean) : void
-		{
-			value = value;
-		}
-	}
-} 
+   @Test
+   public void testExecute()
+   {
+      final FlexCpdAntTask task = new FlexCpdAntTask();
+      final FileSet set = new FileSet();
+      final Project project = new Project();
+
+      set.setDir( getTestDirectory() );
+      task.setProject( project );
+      task.addFileset( set );
+      task.execute();
+   }
+}

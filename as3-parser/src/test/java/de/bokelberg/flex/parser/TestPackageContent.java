@@ -115,12 +115,11 @@ public class TestPackageContent extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "/** Comment */ [Bindable] public class A { }",
-                            "<content line=\"2\"><class line=\"2\">"
-                                  + "<name line=\"2\">A</name><meta-list line=\"2\">"
-                                  + "<meta line=\"2\"><as-doc line=\"2\">"
-                                  + "/** Comment */</as-doc></meta></meta-list><mod-list line=\"2\""
-                                  + "><mod line=\"2\">public</mod></mod-list>"
-                                  + "<content line=\"2\"></content></class></content>" );
+                            "<content line=\"2\"><class line=\"2\"><as-doc line=\"2\">"
+                                  + "/** Comment */</as-doc><name line=\"2\">A</name><meta-list "
+                                  + "line=\"2\"><meta line=\"2\">Bindable</meta></meta-list><mod-list "
+                                  + "line=\"2\"><mod line=\"2\">public</mod></mod-list><content "
+                                  + "line=\"2\"></content></class></content>" );
    }
 
    @Test
@@ -142,14 +141,12 @@ public class TestPackageContent extends AbstractAs3ParserTest
    {
       assertPackageContent( "1",
                             "/* lala */ /** asDoc */ [Bindable] public class A { }",
-                            "<content line=\"2\"><class line=\"2\">"
-                                  + "<multi-line-comment line=\"2\">/* lala */"
-                                  + "</multi-line-comment><name line=\"2\">A</name>"
-                                  + "<meta-list line=\"2\"><meta line=\"2\">"
-                                  + "<as-doc line=\"2\">/** asDoc */</as-doc></meta>"
-                                  + "</meta-list><mod-list line=\"2\"><mod line=\"2\""
-                                  + ">public</mod></mod-list><content line=\"2\">"
-                                  + "</content></class></content>" );
+                            "<content line=\"2\"><class line=\"2\"><as-doc line=\"2\">"
+                                  + "/** asDoc */</as-doc><multi-line-comment line=\"2\">"
+                                  + "/* lala */</multi-line-comment><name line=\"2\">A</name>"
+                                  + "<meta-list line=\"2\"><meta line=\"2\">Bindable</meta>"
+                                  + "</meta-list><mod-list line=\"2\"><mod line=\"2\">public"
+                                  + "</mod></mod-list><content line=\"2\"></content></class></content>" );
    }
 
    @Test

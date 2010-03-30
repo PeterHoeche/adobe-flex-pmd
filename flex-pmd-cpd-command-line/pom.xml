@@ -21,6 +21,13 @@
 
 	<dependencies>
 
+
+		<dependency>
+			<groupId>com.martiansoftware</groupId>
+			<artifactId>jsap</artifactId>
+			<version>${jsap.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>

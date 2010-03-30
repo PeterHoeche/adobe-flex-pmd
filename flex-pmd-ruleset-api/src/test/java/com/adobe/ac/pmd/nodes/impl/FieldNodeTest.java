@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.nodes.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import junit.framework.Assert;
 import net.sourceforge.pmd.PMDException;
 
 import org.junit.Before;
@@ -49,15 +50,29 @@ public class FieldNodeTest extends FlexPmdTestBase
    private IAttribute first;
    private IAttribute second;
    private IAttribute third;
+   private IAttribute withAsDoc;
 
    @Before
    public void setup() throws PMDException
    {
-      final IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
-      final IClass nonBindableModelLocator = NodeFactory.createPackage( ast ).getClassNode();
+      final IParserNode nonBindableModelLocatorAst = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
+      final IClass nonBindableModelLocator = NodeFactory.createPackage( nonBindableModelLocatorAst )
+                                                        .getClassNode();
       first = nonBindableModelLocator.getAttributes().get( 0 );
       second = nonBindableModelLocator.getAttributes().get( 1 );
       third = nonBindableModelLocator.getAttributes().get( 2 );
+      final IParserNode asDocsAst = FileSetUtils.buildAst( getTestFiles().get( "asDocs.EmptyWithDocClass.as" ) );
+      final IClass asDocs = NodeFactory.createPackage( asDocsAst ).getClassNode();
+      withAsDoc = asDocs.getAttributes().get( 0 );
+
+   }
+
+   @Test
+   public void testBug167()
+   {
+      Assert.assertNotNull( withAsDoc.getAsDoc() );
+      Assert.assertEquals( 1,
+                           withAsDoc.getMetaDataCount() );
    }
 
    @Test

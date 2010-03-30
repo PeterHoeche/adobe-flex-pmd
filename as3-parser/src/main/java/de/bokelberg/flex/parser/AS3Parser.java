@@ -1522,9 +1522,23 @@ public class AS3Parser implements IAS3Parser
    private Node parseLambdaExpression() throws TokenException
    {
       consume( KeyWords.FUNCTION );
-      final Node result = Node.create( NodeKind.LAMBDA,
-                                       tok.getLine(),
-                                       tok.getColumn() );
+      Node result;
+
+      if ( tok.getText().compareTo( "(" ) == 0 )
+      {
+         result = Node.create( NodeKind.LAMBDA,
+                               tok.getLine(),
+                               tok.getColumn() );
+      }
+      else
+      {
+         result = Node.create( NodeKind.FUNCTION,
+                               tok.getLine(),
+                               tok.getColumn(),
+                               tok.getText() );
+         nextToken();
+
+      }
       result.addChild( parseParameterList() );
       result.addChild( parseOptionalType() );
       result.addChild( parseBlock() );
@@ -1568,12 +1582,6 @@ public class AS3Parser implements IAS3Parser
                                              line,
                                              column,
                                              buffer.toString() );
-
-      if ( currentAsDoc != null )
-      {
-         metaDataNode.addChild( currentAsDoc );
-         currentAsDoc = null;
-      }
 
       return metaDataNode;
    }
