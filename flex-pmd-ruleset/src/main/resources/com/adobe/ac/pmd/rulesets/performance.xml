@@ -93,4 +93,28 @@
 		<priority>3</priority>
 	</rule>
 
+	<rule class="com.adobe.ac.pmd.rules.performance.AvoidUsingMathFloorRule"
+		message="VM will automatically do the rounding when using an int, so it should be : var position:int = floatingValue;">
+		<priority>5</priority>
+		<example>
+var position:Number = Math.floor ( floatingValue ); 
+		</example>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.performance.AvoidUsingMathCeilRule"
+		message="VM will automatically do the rounding when using an int, so should be : var position:int = floatingValue + 1;">
+		<priority>5</priority>
+		<example>
+var position:Number = Math.ceil ( floatingValue );
+		</example>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.performance.AvoidUsingMathRoundRule"
+		message="manual calculation will be much faster : var position:int = (floatingValue > 0.0) ? int(floatingValue + 0.5) : int(floatingValue - 0.5);">
+		<priority>5</priority>
+		<example>
+var position:Number = Math.round ( floatingValue );
+		</example>
+	</rule>
+
 </ruleset>
