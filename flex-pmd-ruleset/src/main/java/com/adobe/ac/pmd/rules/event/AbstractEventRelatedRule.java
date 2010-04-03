@@ -35,7 +35,6 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
 public abstract class AbstractEventRelatedRule extends AbstractAstFlexRule
 {
-
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
@@ -51,5 +50,4 @@ public abstract class AbstractEventRelatedRule extends AbstractAstFlexRule
          super.findViolations( classNode );
       }
    }
-
 }
