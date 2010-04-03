@@ -13,6 +13,13 @@
 
 	<dependencies>
 	
+
+		<dependency>
+			<groupId>com.martiansoftware</groupId>
+			<artifactId>jsap</artifactId>
+			<version>${jsap.version}</version>
+		</dependency>
+		
 		<!-- FlexPMD -->
 	
 		<dependency>
