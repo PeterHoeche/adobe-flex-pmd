@@ -31,17 +31,10 @@
 package com.adobe.ac.pmd.rules.event;
 
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class DefaultEventNameRule extends AbstractAstFlexRule
+public class DefaultEventNameRule extends AbstractEventRelatedRule
 {
-   @Override
-   public final boolean isConcernedByTheCurrentFile()
-   {
-      return getCurrentFile().getClassName().endsWith( "Event.as" );
-   }
-
    @Override
    protected final void findViolationsFromConstructor( final IFunction constructor )
    {

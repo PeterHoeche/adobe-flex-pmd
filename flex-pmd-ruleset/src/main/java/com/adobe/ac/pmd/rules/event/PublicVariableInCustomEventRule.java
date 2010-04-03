@@ -33,17 +33,10 @@ package com.adobe.ac.pmd.rules.event;
 import java.util.List;
 
 import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class PublicVariableInCustomEventRule extends AbstractAstFlexRule
+public class PublicVariableInCustomEventRule extends AbstractEventRelatedRule
 {
-   @Override
-   public final boolean isConcernedByTheCurrentFile()
-   {
-      return getCurrentFile().getClassName().endsWith( "Event.as" );
-   }
-
    @Override
    protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
