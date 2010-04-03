@@ -484,6 +484,16 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
    }
 
+   protected void visitLambda( final IParserNode statementNode )
+   {
+      visitExpressionList( statementNode );
+   }
+
+   protected void visitLocalFunction( final IParserNode statementNode )
+   {
+      visitExpressionList( statementNode );
+   }
+
    /**
     * @param methodCallNode
     */
@@ -1035,6 +1045,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          {
             visitExpression( node );
          }
+      }
+      else if ( ast.is( NodeKind.LAMBDA ) )
+      {
+         visitLambda( ast );
       }
    }
 

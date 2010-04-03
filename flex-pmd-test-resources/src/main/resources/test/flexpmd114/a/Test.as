@@ -41,6 +41,10 @@ package a
 		public function alert():void {
 			var o:Object = new Object();
 			Alert.show("A");
+			function localFunction(): void {}
+			var functionVarFunction:Function = function(): void { }
+				
+			functionVarFunction();
 		}
 
 	}

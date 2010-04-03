@@ -151,7 +151,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getTotalPackages().getTotalClasses() );
       assertEquals( 228,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1220,
+      assertEquals( 1223,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 227,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );

@@ -250,7 +250,10 @@ public class FlexPmdViolations
    {
       for ( final Entry< String, IFlexFile > entry : files.entrySet() )
       {
-         Collections.sort( violations.get( entry.getValue() ) );
+         if ( violations.containsKey( entry.getValue() ) )
+         {
+            Collections.sort( violations.get( entry.getValue() ) );
+         }
       }
    }
 }
