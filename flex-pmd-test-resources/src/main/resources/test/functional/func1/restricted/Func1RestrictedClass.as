@@ -34,7 +34,8 @@ package functional.func1.restricted
 	import functional.func2.api.Func2ExposedClass;
 	import functional.func2.restricted.Func2RestrictedClass; // VIOLATION
 	
-	public class Func1RestrictedClass
+	public class Func1RestrictedClass extends EventDispatcher
 	{
+		public var publicVar : Boolan;
 	}
 }

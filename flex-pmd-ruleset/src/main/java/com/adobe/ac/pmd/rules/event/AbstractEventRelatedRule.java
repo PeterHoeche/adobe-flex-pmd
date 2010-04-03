@@ -45,7 +45,7 @@ public abstract class AbstractEventRelatedRule extends AbstractAstFlexRule
    protected void findViolations( final IClass classNode )
    {
       if ( classNode.getExtensionName() != null
-            && classNode.getExtensionName().contains( "Event" ) )
+            && classNode.getExtensionName().endsWith( "Event" ) )
       {
          super.findViolations( classNode );
       }
