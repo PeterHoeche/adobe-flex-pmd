@@ -52,6 +52,47 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-test-resources</artifactId>
+			<version>${project.parent.version}</version>
+			<classifier>resources</classifier>
+			<type>zip</type>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
+
+	<build>
+
+		<testResources>
+			<testResource>
+				<directory>${project.build.directory}/test/generated-resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-test-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>${project.groupId}</includeGroupIds>
+							<includes>**/*.as,**/*.mxml</includes>
+							<outputDirectory>${project.build.directory}/test/generated-resources</outputDirectory>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

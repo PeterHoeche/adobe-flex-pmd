@@ -101,6 +101,7 @@ public class FlexCpdMojo extends AbstractMavenReport
     * @readonly
     */
    private SiteRenderer siteRenderer;
+
    /**
     * Specifies the location of the source files to be used.
     * 
@@ -109,6 +110,22 @@ public class FlexCpdMojo extends AbstractMavenReport
     * @readonly
     */
    private File         sourceDirectory;
+
+   public FlexCpdMojo()
+   {
+      super();
+   }
+
+   public FlexCpdMojo( final File outputDirectoryToBeSet,
+                       final File sourceDirectoryToBeSet,
+                       final MavenProject projectToBeSet )
+   {
+      super();
+      outputDirectory = outputDirectoryToBeSet;
+      sourceDirectory = sourceDirectoryToBeSet;
+      project = projectToBeSet;
+      minimumTokenCount = 25;
+   }
 
    public String getDescription( final Locale locale )
    {
@@ -123,6 +140,11 @@ public class FlexCpdMojo extends AbstractMavenReport
    public final String getOutputName()
    {
       return OUTPUT_NAME;
+   }
+
+   void setSiteRenderer( final SiteRenderer site )
+   {
+      siteRenderer = site;
    }
 
    @Override
