@@ -51,6 +51,31 @@ abstract class AbstractFlexFile implements IFlexFile
 {
    private static final Logger LOGGER = Logger.getLogger( AbstractFlexFile.class.getName() );
 
+   protected static String computePackageName( final String filePath,
+                                               final CharSequence rootPath,
+                                               final String className,
+                                               final String fileSeparator )
+   {
+      String temporaryPackage;
+
+      temporaryPackage = filePath.replace( className,
+                                           "" ).replace( rootPath,
+                                                         "" ).replace( fileSeparator,
+                                                                       "." );
+      if ( temporaryPackage.endsWith( "." ) )
+      {
+         temporaryPackage = temporaryPackage.substring( 0,
+                                                        temporaryPackage.length() - 1 );
+      }
+      if ( temporaryPackage.length() > 0
+            && temporaryPackage.charAt( 0 ) == '.' )
+      {
+         temporaryPackage = temporaryPackage.substring( 1,
+                                                        temporaryPackage.length() );
+      }
+      return temporaryPackage;
+   }
+
    private static boolean doesCurrentLineContain( final String line,
                                                   final String search )
    {
@@ -75,7 +100,9 @@ abstract class AbstractFlexFile implements IFlexFile
       file = underlyingFile;
       className = underlyingFile.getName();
       packageName = computePackageName( filePath,
-                                        rootPath );
+                                        rootPath,
+                                        className,
+                                        System.getProperty( "file.separator" ) );
       lines = new ArrayList< String >();
       try
       {
@@ -230,29 +257,4 @@ abstract class AbstractFlexFile implements IFlexFile
     * @see com.adobe.ac.pmd.files.IFlexFile#isMxml()
     */
    public abstract boolean isMxml();
-
-   private String computePackageName( final String filePath,
-                                      final CharSequence rootPath )
-   {
-      String temporaryPackage;
-
-      temporaryPackage = filePath.replace( className,
-                                           "" )
-                                 .replace( rootPath,
-                                           "" )
-                                 .replace( System.getProperty( "file.separator" ),
-                                           "." );
-      if ( temporaryPackage.endsWith( "." ) )
-      {
-         temporaryPackage = temporaryPackage.substring( 0,
-                                                        temporaryPackage.length() - 1 );
-      }
-      if ( temporaryPackage.length() > 0
-            && temporaryPackage.charAt( 0 ) == '.' )
-      {
-         temporaryPackage = temporaryPackage.substring( 1,
-                                                        temporaryPackage.length() );
-      }
-      return temporaryPackage;
-   }
 }

@@ -28,7 +28,7 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files;
+package com.adobe.ac.pmd.files.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,10 +40,14 @@ import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.IAs3File;
+import com.adobe.ac.pmd.files.IMxmlFile;
 
 public class AbstractFlexFileTest extends FlexPmdTestBase
 {
@@ -64,14 +68,28 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    public void testContains()
    {
       assertTrue( as3.contains( "logger",
-                                buildSetContaining( 0,
-                                                    -1 ) ) );
+                                buildSetContaining( 0 ) ) );
       assertFalse( as3.contains( "loggerr",
-                                 buildSetContaining( 0,
-                                                     -1 ) ) );
+                                 buildSetContaining( 0 ) ) );
       assertFalse( as3.contains( "addEventListener",
                                  buildSetContaining( 109,
                                                      114 ) ) );
+   }
+
+   @Test
+   public void testFlexPMD152()
+   {
+      Assert.assertEquals( "com.something",
+                           AbstractFlexFile.computePackageName( "C:/somePath/ProjectName/com/something/Test.mxml",
+                                                                "C:/somePath/ProjectName",
+                                                                "Test.mxml",
+                                                                "/" ) );
+
+      Assert.assertEquals( "com.something",
+                           AbstractFlexFile.computePackageName( "C:/somePath/ProjectName/com/something/Test.mxml",
+                                                                "C:/somePath/ProjectName/",
+                                                                "Test.mxml",
+                                                                "/" ) );
    }
 
    @Test
@@ -124,19 +142,14 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
       assertTrue( mxml.isMxml() );
    }
 
-   private Set< Integer > buildSetContaining( final int firstLine,
-                                              final int secondLine )
+   private Set< Integer > buildSetContaining( final int... lines )
    {
 
       final HashSet< Integer > hashSet = new HashSet< Integer >();
 
-      if ( firstLine != -1 )
+      for ( final int line : lines )
       {
-         hashSet.add( firstLine );
-      }
-      if ( secondLine != -1 )
-      {
-         hashSet.add( secondLine );
+         hashSet.add( line );
       }
       return hashSet;
    }
