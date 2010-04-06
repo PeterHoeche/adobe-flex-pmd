@@ -41,6 +41,7 @@ import com.adobe.ac.pmd.files.IMxmlFile;
  */
 class MxmlFile extends AbstractFlexFile implements IMxmlFile
 {
+   private static final String METADATA_TAG = "Metadata>";
    private String[] actualScriptBlock;
    private int      endLine;
    private boolean  mainApplication = false;
@@ -176,20 +177,69 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
    private void copyScriptLinesKeepingOriginalLineIndices()
    {
-      final List< String > scriptLines = fillMxmlLine();
-      final String firstLine = "package "
+      final List< String > scriptLines = extractScriptLines();
+      final List< String > metaDataLines = extractMetaDataLines();
+      final String packageLine = "package "
             + getPackageName() + "{";
-      final String secondLine = "class "
+      final String classLine = "class "
             + getClassName().split( "\\." )[ 0 ] + "{";
 
       scriptLines.set( 0,
-                       firstLine );
-      scriptLines.set( 1,
-                       secondLine );
+                       packageLine );
+
+      if ( metaDataLines.isEmpty() )
+      {
+
+         scriptLines.set( 1,
+                          classLine );
+      }
+      else
+      {
+         final int firstMetaDataLine = getFirstMetaDataLine( getLines() );
+
+         for ( int i = firstMetaDataLine; i < firstMetaDataLine
+               + metaDataLines.size(); i++ )
+         {
+            scriptLines.set( i,
+                             metaDataLines.get( i
+                                   - firstMetaDataLine ) );
+         }
+         scriptLines.set( firstMetaDataLine
+                                + metaDataLines.size(),
+                          classLine );
+      }
+
       scriptLines.set( scriptLines.size() - 1,
                        "}}" );
-
       scriptBlock = scriptLines.toArray( new String[ scriptLines.size() ] );
+   }
+
+   private List< String > extractMetaDataLines()
+   {
+      final ArrayList< String > metaDataLines = new ArrayList< String >();
+      int currentLineIndex = 0;
+      int startLine = 0;
+      int endLine = 0;
+
+      for ( final String line : getLines() )
+      {
+         if ( line.contains( METADATA_TAG ) )
+         {
+            if ( line.contains( "</" ) )
+            {
+               endLine = currentLineIndex;
+               break;
+            }
+            else if ( line.contains( "<" ) )
+            {
+               startLine = currentLineIndex + 1;
+            }
+         }
+         currentLineIndex++;
+      }
+      metaDataLines.addAll( getLines().subList( startLine,
+                                                endLine ) );
+      return metaDataLines;
    }
 
    private void extractScriptBlock()
@@ -219,7 +269,7 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       copyScriptLinesKeepingOriginalLineIndices();
    }
 
-   private List< String > fillMxmlLine()
+   private List< String > extractScriptLines()
    {
       final List< String > scriptLines = new ArrayList< String >();
 
@@ -241,4 +291,34 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       }
       return scriptLines;
    }
+
+   private int getFirstMetaDataLine( final List< String > lines )
+   {
+      for ( int i = 0; i < lines.size(); i++ )
+      {
+         final String line = lines.get( i );
+
+         if ( line.contains( METADATA_TAG )
+               && line.contains( "<" ) )
+         {
+            return i;
+         }
+      }
+      return 0;
+   }
+
+   // private String printMetaData( final List< String > metaDataLines )
+   // {
+   // final StringBuffer buffer = new StringBuffer();
+   // if ( metaDataLines == null
+   // || metaDataLines.isEmpty() )
+   // {
+   // return "";
+   // }
+   // for ( final String line : metaDataLines )
+   // {
+   // buffer.append( line );
+   // }
+   // return buffer + " ";
+   // }
 }

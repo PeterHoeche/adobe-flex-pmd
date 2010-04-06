@@ -181,7 +181,6 @@ public class AS3Scanner
    }
 
    private static final String END    = "__END__";
-
    private static final Logger LOGGER = Logger.getLogger( AS3Scanner.class.getName() );
 
    protected static boolean isDecimalChar( final char currentCharacter )
@@ -193,7 +192,6 @@ public class AS3Scanner
    private int      column;
    private boolean  inVector;
    private int      line;
-
    private String[] lines = null;
 
    /**

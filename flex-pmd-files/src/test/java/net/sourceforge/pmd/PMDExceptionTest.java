@@ -69,7 +69,7 @@ public class PMDExceptionTest
       final PMDException exception = new PMDException( "message" );
 
       exception.setSeverity( 1 );
-      assertEquals( 1,
-                    exception.getSeverity() );
+      assertEquals( Integer.valueOf( 1 ),
+                    Integer.valueOf( exception.getSeverity() ) );
    }
 }

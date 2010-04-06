@@ -71,8 +71,8 @@ public class MxmlFileTest extends FlexPmdTestBase
                     lines[ 0 ] );
       assertEquals( "class FlexPMD141a{",
                     lines[ 1 ] );
-      assertEquals( 46,
-                    lines.length );
+      assertEquals( Integer.valueOf( 46 ),
+                    Integer.valueOf( lines.length ) );
       assertEquals( "",
                     lines[ 36 ] );
       assertEquals( "",
@@ -92,10 +92,12 @@ public class MxmlFileTest extends FlexPmdTestBase
 
       assertEquals( "package {",
                     deleteRendererLines[ 0 ] );
+      assertEquals( "       [Event(name=\"ruleRemoved\", type=\"flash.events.Event\")]",
+                    deleteRendererLines[ 43 ] );
       assertEquals( "class DeleteButtonRenderer{",
-                    deleteRendererLines[ 1 ] );
-      assertEquals( 107,
-                    deleteRendererLines.length );
+                    deleteRendererLines[ 44 ] );
+      assertEquals( Integer.valueOf( 107 ),
+                    Integer.valueOf( deleteRendererLines.length ) );
       assertEquals( "            import com.adobe.ac.pmd.model.Rule;",
                     deleteRendererLines[ 49 ] );
       assertEquals( "}}",
@@ -115,8 +117,8 @@ public class MxmlFileTest extends FlexPmdTestBase
                     iterationsListLines[ 40 ] );
       assertEquals( "}}",
                     iterationsListLines[ iterationsListLines.length - 1 ] );
-      assertEquals( 104,
-                    iterationsListLines.length );
+      assertEquals( Integer.valueOf( 104 ),
+                    Integer.valueOf( iterationsListLines.length ) );
    }
 
    @Test
@@ -128,8 +130,8 @@ public class MxmlFileTest extends FlexPmdTestBase
                     nestedLines[ 0 ] );
       assertEquals( "class NestedComponent{",
                     nestedLines[ 1 ] );
-      assertEquals( 57,
-                    nestedLines.length );
+      assertEquals( Integer.valueOf( 57 ),
+                    Integer.valueOf( nestedLines.length ) );
       assertEquals( "}}",
                     nestedLines[ nestedLines.length - 1 ] );
    }
@@ -137,9 +139,9 @@ public class MxmlFileTest extends FlexPmdTestBase
    @Test
    public void testScriptBlockLines()
    {
-      assertEquals( 40,
-                    iterationsList.getBeginningScriptBlock() );
-      assertEquals( 94,
-                    iterationsList.getEndingScriptBlock() );
+      assertEquals( Integer.valueOf( 40 ),
+                    Integer.valueOf( iterationsList.getBeginningScriptBlock() ) );
+      assertEquals( Integer.valueOf( 94 ),
+                    Integer.valueOf( iterationsList.getEndingScriptBlock() ) );
    }
 }
