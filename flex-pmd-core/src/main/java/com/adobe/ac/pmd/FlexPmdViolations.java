@@ -55,9 +55,9 @@ import com.adobe.ac.pmd.rules.core.IFlexAstRule;
 import com.adobe.ac.pmd.rules.core.IFlexRule;
 import com.adobe.ac.utils.StackTraceUtils;
 
-public class FlexPmdViolations
+public class FlexPmdViolations implements Serializable
 {
-   private class DescendentSpeedRuleComparator implements Comparator< IFlexRule >, Serializable
+   private static class DescendentSpeedRuleComparator implements Comparator< IFlexRule >, Serializable
    {
       private static final long            serialVersionUID = 1879779636767696987L;
       private final Map< IFlexRule, Long > ruleSpeeds;
@@ -78,6 +78,11 @@ public class FlexPmdViolations
    }
 
    private static final Logger                            LOGGER;
+
+   /**
+    * 
+    */
+   private static final long                              serialVersionUID = -3683680443330143504L;
 
    static
    {
