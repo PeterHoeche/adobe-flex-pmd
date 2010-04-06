@@ -31,8 +31,10 @@
 package com.adobe.ac.pmd;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +47,6 @@ import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleReference;
 import net.sourceforge.pmd.RuleSet;
 
-import com.adobe.ac.pmd.comparators.DescendentSpeedRuleComparator;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
@@ -56,6 +57,26 @@ import com.adobe.ac.utils.StackTraceUtils;
 
 public class FlexPmdViolations
 {
+   private class DescendentSpeedRuleComparator implements Comparator< IFlexRule >, Serializable
+   {
+      private static final long            serialVersionUID = 1879779636767696987L;
+      private final Map< IFlexRule, Long > ruleSpeeds;
+
+      public DescendentSpeedRuleComparator( final Map< IFlexRule, Long > ruleSpeedsToBeSet )
+      {
+         ruleSpeeds = ruleSpeedsToBeSet;
+      }
+
+      public int compare( final IFlexRule firstRule,
+                          final IFlexRule secondRule )
+      {
+
+         final Long firstValue = ruleSpeeds.get( firstRule );
+         final Long secondValue = ruleSpeeds.get( secondRule );
+         return firstValue.compareTo( secondValue );
+      }
+   }
+
    private static final Logger                            LOGGER;
 
    static
@@ -63,12 +84,12 @@ public class FlexPmdViolations
       LOGGER = Logger.getLogger( FlexPmdViolations.class.getName() );
       LOGGER.setLevel( Level.WARNING );
    }
-
    private Map< String, IPackage >                        asts;
    private Map< String, IFlexFile >                       files;
    private boolean                                        hasBeenComputed;
    private final Map< String, IFlexRule >                 rules;
    private final Map< IFlexRule, Long >                   ruleSpeeds;
+
    private final Map< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()
