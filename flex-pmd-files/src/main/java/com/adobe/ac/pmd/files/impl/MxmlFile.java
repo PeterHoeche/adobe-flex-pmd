@@ -218,8 +218,8 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
    {
       final ArrayList< String > metaDataLines = new ArrayList< String >();
       int currentLineIndex = 0;
-      int startLine = 0;
-      int endLine = 0;
+      int start = 0;
+      int end = 0;
 
       for ( final String line : getLines() )
       {
@@ -227,18 +227,18 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
          {
             if ( line.contains( "</" ) )
             {
-               endLine = currentLineIndex;
+               end = currentLineIndex;
                break;
             }
             else if ( line.contains( "<" ) )
             {
-               startLine = currentLineIndex + 1;
+               start = currentLineIndex + 1;
             }
          }
          currentLineIndex++;
       }
-      metaDataLines.addAll( getLines().subList( startLine,
-                                                endLine ) );
+      metaDataLines.addAll( getLines().subList( start,
+                                                end ) );
       return metaDataLines;
    }
 
