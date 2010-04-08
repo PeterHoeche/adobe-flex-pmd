@@ -43,16 +43,6 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
 {
    private int currentLineLength;
 
-   public final int getActualValueForTheCurrentViolation()
-   {
-      return currentLineLength;
-   }
-
-   public final int getDefaultThreshold()
-   {
-      return 120;
-   }
-
    @Override
    public final List< IFlexViolation > findViolationsInCurrentFile()
    {
@@ -67,7 +57,7 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
             final String line = currentFile.getLineAt( i );
 
             if ( !line.trim().startsWith( "import" )
-                  && line.length() >= getThreshold() )
+                  && line.length() > getThreshold() )
             {
                currentLineLength = line.length();
                final ViolationPosition position = ViolationPosition.create( i,
@@ -81,6 +71,16 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
          }
       }
       return violations;
+   }
+
+   public final int getActualValueForTheCurrentViolation()
+   {
+      return currentLineLength;
+   }
+
+   public final int getDefaultThreshold()
+   {
+      return 120;
    }
 
    @Override
