@@ -37,6 +37,7 @@ public class FlexPmdParameters
 {
    private final String       excludePackage;
    private final boolean      failOnError;
+   private final boolean      failOnRuleViolation;
    private final File         outputDirectory;
    private final File         ruleSet;
    private final File         source;
@@ -44,12 +45,14 @@ public class FlexPmdParameters
 
    public FlexPmdParameters( final String excludePackageToBeSet,
                              final boolean failOnErrorToBeSet,
+                             final boolean failOnRuleViolationToBeSet,
                              final File outputDirectoryToBeSet,
                              final File ruleSetToBeSet,
                              final File sourceToBeSet )
    {
       this( excludePackageToBeSet,
             failOnErrorToBeSet,
+            failOnRuleViolationToBeSet,
             outputDirectoryToBeSet,
             ruleSetToBeSet,
             sourceToBeSet,
@@ -58,6 +61,7 @@ public class FlexPmdParameters
 
    public FlexPmdParameters( final String excludePackageToBeSet,
                              final boolean failOnErrorToBeSet,
+                             final boolean failOnRuleViolationToBeSet,
                              final File outputDirectoryToBeSet,
                              final File ruleSetToBeSet,
                              final File sourceToBeSet,
@@ -66,6 +70,7 @@ public class FlexPmdParameters
       super();
       excludePackage = excludePackageToBeSet;
       failOnError = failOnErrorToBeSet;
+      failOnRuleViolation = failOnRuleViolationToBeSet;
       outputDirectory = outputDirectoryToBeSet;
       ruleSet = ruleSetToBeSet;
       source = sourceToBeSet;
@@ -77,7 +82,7 @@ public class FlexPmdParameters
                              final File ruleSetToBeSet,
                              final File sourceToBeSet )
    {
-      this( excludePackageToBeSet, false, outputDirectoryToBeSet, ruleSetToBeSet, sourceToBeSet, null );
+      this( excludePackageToBeSet, false, false, outputDirectoryToBeSet, ruleSetToBeSet, sourceToBeSet, null );
    }
 
    public FlexPmdParameters( final String excludePackageToBeSet,
@@ -87,6 +92,7 @@ public class FlexPmdParameters
                              final List< File > sourceListToBeSet )
    {
       this( excludePackageToBeSet,
+            false,
             false,
             outputDirectoryToBeSet,
             ruleSetToBeSet,
@@ -122,5 +128,10 @@ public class FlexPmdParameters
    public final boolean isFailOnError()
    {
       return failOnError;
+   }
+
+   public boolean isFailOnRuleViolation()
+   {
+      return failOnRuleViolation;
    }
 }

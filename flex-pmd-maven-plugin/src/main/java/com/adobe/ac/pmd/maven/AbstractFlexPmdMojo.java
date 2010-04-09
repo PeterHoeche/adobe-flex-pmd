@@ -74,6 +74,13 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    private boolean      failOnError;
 
    /**
+    * Build fails if an violation error occurs.
+    * 
+    * @parameter expression="${flexpmd.failOnRuleViolation}"
+    */
+   private boolean      failOnRuleViolation;
+
+   /**
     * Location of the file.
     * 
     * @parameter expression="${project.build.directory}"
@@ -128,6 +135,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       ruleSet = parameters.getRuleSet();
       sourceDirectory = parameters.getSource();
       failOnError = parameters.isFailOnError();
+      failOnRuleViolation = parameters.isFailOnRuleViolation();
       excludePackage = parameters.getExcludePackage();
    }
 
@@ -160,6 +168,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
       {
          final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( excludePackage,
                                                                                            failOnError,
+                                                                                           failOnRuleViolation,
                                                                                            outputDirectory,
                                                                                            ruleSet,
                                                                                            sourceDirectory ) );
@@ -224,6 +233,11 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
          {
             throw new MavenReportException( message );
          }
+      }
+      if ( failOnRuleViolation
+            && !violations.getViolations().isEmpty() )
+      {
+         throw new MavenReportException( "At least one violation has been found" );
       }
    }
 

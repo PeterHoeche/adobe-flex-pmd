@@ -67,6 +67,7 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
       final FlexPmdMojo mojo = new FlexPmdMojo( new MavenProjectStub(),
                                                 new FlexPmdParameters( "",
                                                                        failOnError,
+                                                                       false,
                                                                        outputDirectoryToBeSet,
                                                                        null,
                                                                        getTestDirectory() ) );

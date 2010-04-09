@@ -43,6 +43,7 @@ import com.adobe.ac.pmd.engines.PmdEngineUtils;
 public class FlexPmdAntTask extends Task // NO_UCD
 {
    private boolean failOnError;
+   private boolean failOnRuleViolation;
    private File    outputDirectory;
    private String  packageToExclude;
    private File    ruleSet;
@@ -71,6 +72,11 @@ public class FlexPmdAntTask extends Task // NO_UCD
             {
                throw new BuildException( message );
             }
+         }
+         if ( failOnRuleViolation
+               && !violations.getViolations().isEmpty() )
+         {
+            throw new BuildException( "At least one violation has been found" );
          }
       }
       catch ( final Exception e )
@@ -107,6 +113,11 @@ public class FlexPmdAntTask extends Task // NO_UCD
    final String getPackageToExclude()
    {
       return packageToExclude;
+   }
+
+   protected void setFailOnRuleViolation( final boolean failOnRuleViolation )
+   {
+      this.failOnRuleViolation = failOnRuleViolation;
    }
 
    private void presetParameters()

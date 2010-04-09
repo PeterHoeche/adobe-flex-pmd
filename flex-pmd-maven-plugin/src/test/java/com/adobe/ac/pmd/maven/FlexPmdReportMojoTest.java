@@ -53,6 +53,7 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
       final FlexPmdReportMojo mojo = new FlexPmdReportMojo( new MavenProjectStub(),
                                                             new FlexPmdParameters( "",
                                                                                    false,
+                                                                                   false,
                                                                                    new File( "target" ),
                                                                                    null,
                                                                                    getTestDirectory() ) );
@@ -70,6 +71,7 @@ public class FlexPmdReportMojoTest extends FlexPmdTestBase
       new File( "target/site" ).mkdirs();
       final FlexPmdReportMojo mojo = new FlexPmdReportMojo( new MavenProjectStub(),
                                                             new FlexPmdParameters( "",
+                                                                                   false,
                                                                                    false,
                                                                                    new File( "target" ),
                                                                                    null,
