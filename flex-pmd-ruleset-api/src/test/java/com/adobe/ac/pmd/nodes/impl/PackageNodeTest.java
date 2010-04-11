@@ -130,10 +130,4 @@ public class PackageNodeTest extends FlexPmdTestBase
       assertEquals( "com.test.testy.ui.components",
                     FlexPMD62Package.getName() );
    }
-
-   @Test
-   public void testPackageFunction()
-   {
-      assertNull( FlexPMD115Package.getClassNode() );
-   }
 }

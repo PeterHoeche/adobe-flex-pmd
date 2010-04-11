@@ -30,44 +30,30 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
+public class ReferenceToVariableBindingFromItsInitializerRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                               "bug.FlexPMD115.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 38 ),
-                                                                           new ViolationPosition( 40 ) } ),
-                                                     "AbstractRowData.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 45 ),
-                                                                 new ViolationPosition( 46 ),
-                                                                 new ViolationPosition( 47 ),
-                                                                 new ViolationPosition( 48 ),
-                                                                 new ViolationPosition( 50 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 43 ) } ),
-                                 "GenericType.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 36 ) } ),
-                       "com.adobe.ac.ncss.ArrayVO.as",
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "bug.FlexPMD115.as",
                        new ViolationPosition[]
-                       { new ViolationPosition( 39 ) } );
+                       { new ViolationPosition( 36 ),
+                                   new ViolationPosition( 39 ),
+                                   new ViolationPosition( 35 ),
+                                   new ViolationPosition( 38 ) } );
    }
 
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new NonStaticConstantFieldRule();
+      return new ReferenceToVariableBindingFromItsInitializerRule();
    }
 }

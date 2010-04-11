@@ -30,53 +30,23 @@
  */
 package com.adobe.ac.pmd;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import junit.framework.TestCase;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
-
-public class AllInOneWithExclusionRulesetTest extends TestCase
+public class AllInOneWithExclusionRulesetTest extends AbstractEntireRulesetTest
 {
-   static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
-
-   @Test
-   public void testLoadRuleSet() throws URISyntaxException,
-                                PMDException,
-                                IOException
+   @Override
+   protected String getRuleSetPath()
    {
-      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource( "/allInOneWithExclusionRuleset.xml" );
+      return "/allInOneWithExclusionRuleset.xml";
+   }
 
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl );
+   @Override
+   protected int getRulesNb()
+   {
+      return 43;
+   }
 
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl.toURI() );
-
-      assertNotNull( "RuleSet has not been found",
-                     ruleSetUrl.toURI().getPath() );
-
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-      final File ruleSetFile = new File( ruleSetUrl.toURI().getPath() );
-      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( "",
-                                                                                   outputDirectory,
-                                                                                   ruleSetFile,
-                                                                                   sourceDirectory ) );
-      final FlexPmdViolations flexPmdViolations = new FlexPmdViolations();
-
-      engine.executeReport( flexPmdViolations );
-
-      assertEquals( "Number of rules found is not correct",
-                    43,
-                    engine.getRuleSet().size() );
-      assertEquals( 26,
-                    flexPmdViolations.getViolations().size() );
+   @Override
+   protected int getViolatedFilesNb()
+   {
+      return 27;
    }
 }

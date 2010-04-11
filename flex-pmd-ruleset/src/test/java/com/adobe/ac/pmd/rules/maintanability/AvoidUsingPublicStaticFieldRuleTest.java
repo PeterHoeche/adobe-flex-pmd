@@ -42,7 +42,10 @@ public class AvoidUsingPublicStaticFieldRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+                                 "bug.FlexPMD115.as",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 36 ) } ),
                        "Sorted.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 47 ) } );

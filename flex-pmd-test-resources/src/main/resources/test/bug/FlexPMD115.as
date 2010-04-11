@@ -30,4 +30,13 @@
  */
 package foo.bar {
 	public function baz(): void { }
+	public class A
+	{
+		public static const XYZ:String = XYZ; // meant to be "xyz" 
+		public static var a:String = a; // meant to be "a" 
+		public static const XYZA:String = "XYZA";
+		public const XYZ:String = XYZ; // meant to be "xyz" 
+		public var a:String = a; // meant to be "a" 
+		public const XYZA:String = "XYZA";
+	}
 } 

@@ -28,51 +28,59 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd;
+package com.adobe.ac.pmd.rules.maintanability;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.List;
 
-import net.sourceforge.pmd.PMDException;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IConstant;
+import com.adobe.ac.pmd.nodes.IField;
+import com.adobe.ac.pmd.nodes.IFieldInitialization;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-import org.junit.Test;
-
-import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
-
-public class AllInOneRulesetTest extends AbstractEntireRulesetTest
+public class ReferenceToVariableBindingFromItsInitializerRule extends AbstractAstFlexRule
 {
-   @Test
-   public void testLoadUncorrectRuleSet() throws URISyntaxException,
-                                         PMDException,
-                                         IOException
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {
-      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-
-      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( "",
-                                                                                   outputDirectory,
-                                                                                   new File( "nonExist" ),
-                                                                                   sourceDirectory ) );
-
-      engine.executeReport( new FlexPmdViolations() );
+      for ( final IAttribute attribute : variables )
+      {
+         findViolation( attribute );
+      }
    }
 
    @Override
-   protected String getRuleSetPath()
+   protected void findViolationsFromConstants( final List< IConstant > constants )
    {
-      return "/allInOneRuleset.xml";
+      for ( final IConstant constant : constants )
+      {
+         findViolation( constant );
+      }
    }
 
    @Override
-   protected int getRulesNb()
+   protected ViolationPriority getDefaultPriority()
    {
-      return 43;
+      return ViolationPriority.HIGH;
    }
 
-   @Override
-   protected int getViolatedFilesNb()
+   private void findViolation( final IField attribute )
    {
-      return 41;
+      final IFieldInitialization initializationExpression = attribute.getInitializationExpression();
+      final String name = attribute.getName();
+
+      if ( initializationExpression != null )
+      {
+         final List< IParserNode > statements = initializationExpression.getInternalNode()
+                                                                        .findPrimaryStatementsFromNameInChildren( new String[]
+                                                                        { name } );
+         if ( statements != null
+               && !statements.isEmpty() )
+         {
+            addViolation( attribute );
+         }
+      }
    }
 }

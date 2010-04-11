@@ -230,4 +230,17 @@ protected function foo() : void
 		</example>
 	</rule>
 	
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingPublicStaticFieldRule"
+		message="The initializer refers to its variable. Its value will be null.">
+		<priority>1</priority>
+		<example>
+package
+{
+	public class Foo
+	{
+		public static const XYZ:String = XYZ; // meant to be "xyz"
+	}
+} 		
+		</example>
+	</rule>
 </ruleset>
