@@ -123,7 +123,6 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violations;
    }
 
-   @Override
    public void setExcludes( final Set< String > excludesToBeSet )
    {
       excludes = excludesToBeSet;
