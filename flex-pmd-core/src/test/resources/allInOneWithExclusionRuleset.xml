@@ -30,11 +30,12 @@
        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<ruleset name="All Flex Rules"
+<ruleset name="All Flex Rules Without AsDocs folder"
 	xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
 	xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
 	xmlns="http://pmd.sf.net/ruleset/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<description />
+	<exclude-pattern>.*/com/.*</exclude-pattern>
 	<rule since="0.1"
 		class="com.adobe.ac.pmd.rules.mxml.MoreThanTwoEntryPointsInMxmlRule"
 		message="There are more than 2 public variables in this MXML component">

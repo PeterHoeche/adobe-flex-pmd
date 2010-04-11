@@ -34,12 +34,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import net.sourceforge.pmd.CommonAbstractRule;
 import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.properties.IntegerProperty;
+import net.sourceforge.pmd.rules.regex.RegexHelper;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -62,6 +65,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    private static final Logger      LOGGER  = Logger.getLogger( AbstractFlexRule.class.getName() );
    private IFlexFile                currentFile;
    private IPackage                 currentPackageNode;
+   private Set< String >            excludes;
    private Map< String, IFlexFile > filesInSourcePath;
 
    public AbstractFlexRule()
@@ -109,13 +113,20 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       filesInSourcePath = files;
       currentPackageNode = packageNode;
 
-      if ( isConcernedByTheCurrentFile() )
+      if ( isConcernedByTheCurrentFile()
+            && !isFileExcluded( file ) )
       {
          onRuleStart();
          violations = findViolationsInCurrentFile();
       }
 
       return violations;
+   }
+
+   @Override
+   public void setExcludes( final Set< String > excludesToBeSet )
+   {
+      excludes = excludesToBeSet;
    }
 
    boolean isViolationIgnored( final String violatedLine )
@@ -203,7 +214,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    }
 
    /**
-    * @return
+    * @return is this rule concerned by the current file
     */
    protected abstract boolean isConcernedByTheCurrentFile();
 
@@ -212,6 +223,24 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
     */
    protected void onRuleStart()
    {
+   }
+
+   private boolean isFileExcluded( final IFlexFile file )
+   {
+      if ( excludes != null )
+      {
+         for ( final String exclusion : excludes )
+         {
+            final Pattern pattern = Pattern.compile( exclusion );
+
+            if ( RegexHelper.isMatch( pattern,
+                                      file.getFilePath() ) )
+            {
+               return true;
+            }
+         }
+      }
+      return false;
    }
 
    private void prettyPrintMessage( final IFlexViolation violation )

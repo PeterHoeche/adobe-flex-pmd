@@ -58,9 +58,9 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       {
          return new AssertPosition( message, expectedLine, actualLine );
       }
+
       public int    actualLine;
       public int    expectedLine;
-
       public String message;
 
       private AssertPosition( final String messageToBeSet,

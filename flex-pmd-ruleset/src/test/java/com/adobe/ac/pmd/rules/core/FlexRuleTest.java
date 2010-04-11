@@ -30,35 +30,42 @@
  */
 package com.adobe.ac.pmd.rules.core;
 
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
-import net.sourceforge.pmd.Rule;
+import junit.framework.Assert;
+import net.sourceforge.pmd.PMDException;
 
-import com.adobe.ac.pmd.IFlexViolation;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule;
 
-public interface IFlexRule extends Rule
+public class FlexRuleTest extends FlexPmdTestBase
 {
-   /**
-    * @return ruleName
-    */
-   String getRuleName();
+   @Test
+   public void testExclusions() throws PMDException
+   {
+      final EmptyIfStmtRule rule = new EmptyIfStmtRule();
+      final IFlexFile duaneMxml = getTestFiles().get( "bug.Duane.mxml" );
+      final Set< String > excludes = new HashSet< String >();
 
-   /**
-    * @param file
-    * @param rootNode
-    * @param files
-    * @return
-    */
-   List< IFlexViolation > processFile( final IFlexFile file,
-                                       final IPackage rootNode,
-                                       final Map< String, IFlexFile > files );
+      excludes.add( "" );
 
-   /**
-    * @param excludes
-    */
-   void setExcludes( final Set< String > excludes );
+      final int noExclusionViolationsLength = rule.processFile( duaneMxml,
+                                                                NodeFactory.createPackage( FileSetUtils.buildAst( duaneMxml ) ),
+                                                                getTestFiles() )
+                                                  .size();
+
+      rule.setExcludes( excludes );
+      final int exclusionViolationsLength = rule.processFile( duaneMxml,
+                                                              NodeFactory.createPackage( FileSetUtils.buildAst( duaneMxml ) ),
+                                                              getTestFiles() )
+                                                .size();
+
+      Assert.assertTrue( noExclusionViolationsLength > exclusionViolationsLength );
+   }
 }

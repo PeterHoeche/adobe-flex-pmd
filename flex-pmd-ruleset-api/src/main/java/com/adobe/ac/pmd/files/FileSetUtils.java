@@ -90,6 +90,24 @@ public final class FileSetUtils
       return rootNode;
    }
 
+   public static IParserNode buildThreadedAst( final IFlexFile file ) throws PMDException,
+                                                                     InterruptedException,
+                                                                     ExecutionException
+   {
+      final List< Callable< Object >> toRun = new ArrayList< Callable< Object >>();
+      toRun.add( new Callable< Object >()
+      {
+         public Object call() throws PMDException
+         {
+            return buildAst( file );
+         }
+      } );
+      final List< Future< Object >> futures = EXECUTOR.invokeAll( toRun,
+                                                                  5,
+                                                                  TimeUnit.SECONDS );
+      return ( IParserNode ) futures.get( 0 ).get();
+   }
+
    /**
     * @param files
     * @return
@@ -140,24 +158,6 @@ public final class FileSetUtils
    {
       return "while building AST on "
             + file.getFullyQualifiedName() + ", an error occured: " + message;
-   }
-
-   private static IParserNode buildThreadedAst( final IFlexFile file ) throws PMDException,
-                                                                      InterruptedException,
-                                                                      ExecutionException
-   {
-      final List< Callable< Object >> toRun = new ArrayList< Callable< Object >>();
-      toRun.add( new Callable< Object >()
-      {
-         public Object call() throws PMDException
-         {
-            return buildAst( file );
-         }
-      } );
-      final List< Future< Object >> futures = EXECUTOR.invokeAll( toRun,
-                                                                  5,
-                                                                  TimeUnit.SECONDS );
-      return ( IParserNode ) futures.get( 0 ).get();
    }
 
    private static IParserNode tryToBuildAst( final IFlexFile file ) throws IOException,

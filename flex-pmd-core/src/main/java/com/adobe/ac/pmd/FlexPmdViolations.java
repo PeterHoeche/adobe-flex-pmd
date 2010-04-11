@@ -35,9 +35,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -89,12 +91,12 @@ public class FlexPmdViolations implements Serializable
       LOGGER = Logger.getLogger( FlexPmdViolations.class.getName() );
       LOGGER.setLevel( Level.WARNING );
    }
+
    private Map< String, IPackage >                        asts;
    private Map< String, IFlexFile >                       files;
    private boolean                                        hasBeenComputed;
    private final Map< String, IFlexRule >                 rules;
    private final Map< IFlexRule, Long >                   ruleSpeeds;
-
    private final Map< IFlexFile, List< IFlexViolation > > violations;
 
    public FlexPmdViolations()
@@ -169,15 +171,22 @@ public class FlexPmdViolations implements Serializable
       LOGGER.info( "computing RulesList" );
 
       final long startTime = System.currentTimeMillis();
+      Set< String > excludes = new HashSet< String >( ruleSet.getExcludePatterns() );
 
       for ( Rule rule : ruleSet.getRules() )
       {
          while ( rule instanceof RuleReference )
          {
+            excludes = ( ( RuleReference ) rule ).getRuleSetReference().getExcludes();
             rule = ( ( RuleReference ) rule ).getRule();
          }
          final IFlexRule flexRule = ( IFlexRule ) rule;
 
+         if ( excludes != null
+               && !excludes.isEmpty() )
+         {
+            flexRule.setExcludes( excludes );
+         }
          rules.put( flexRule.getRuleName(),
                     flexRule );
       }
@@ -213,14 +222,17 @@ public class FlexPmdViolations implements Serializable
                                                                                  ast,
                                                                                  files );
 
-         if ( violations.containsKey( currentFile ) )
+         if ( !foundViolations.isEmpty() )
          {
-            violations.get( currentFile ).addAll( foundViolations );
-         }
-         else
-         {
-            violations.put( currentFile,
-                            foundViolations );
+            if ( violations.containsKey( currentFile ) )
+            {
+               violations.get( currentFile ).addAll( foundViolations );
+            }
+            else
+            {
+               violations.put( currentFile,
+                               foundViolations );
+            }
          }
       }
       catch ( final Exception e )

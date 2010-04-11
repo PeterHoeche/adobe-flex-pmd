@@ -42,7 +42,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 
-public class AllInOneRulesetTest extends TestCase
+public class AllInOneWithExclusionRulesetTest extends TestCase
 {
    static protected final String OUTPUT_DIRECTORY_URL = "target/report/";
 
@@ -52,7 +52,7 @@ public class AllInOneRulesetTest extends TestCase
                                 IOException
    {
       final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
-      final URL ruleSetUrl = getClass().getResource( "/allInOneRuleset.xml" );
+      final URL ruleSetUrl = getClass().getResource( "/allInOneWithExclusionRuleset.xml" );
 
       assertNotNull( "RuleSet has not been found",
                      ruleSetUrl );
@@ -76,23 +76,7 @@ public class AllInOneRulesetTest extends TestCase
       assertEquals( "Number of rules found is not correct",
                     43,
                     engine.getRuleSet().size() );
-      assertEquals( 40,
+      assertEquals( 26,
                     flexPmdViolations.getViolations().size() );
-   }
-
-   @Test
-   public void testLoadUncorrectRuleSet() throws URISyntaxException,
-                                         PMDException,
-                                         IOException
-   {
-      final File sourceDirectory = new File( getClass().getResource( "/test" ).toURI().getPath() );
-      final File outputDirectory = new File( OUTPUT_DIRECTORY_URL );
-
-      final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( "",
-                                                                                   outputDirectory,
-                                                                                   new File( "nonExist" ),
-                                                                                   sourceDirectory ) );
-
-      engine.executeReport( new FlexPmdViolations() );
    }
 }
