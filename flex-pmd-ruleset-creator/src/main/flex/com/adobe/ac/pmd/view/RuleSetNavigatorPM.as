@@ -36,6 +36,7 @@ package com.adobe.ac.pmd.view
     import com.adobe.ac.pmd.control.events.GetCustomRulesetEvent;
     import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
     import com.adobe.ac.pmd.model.RootRuleset;
+    import com.adobe.ac.pmd.model.Rule;
     import com.adobe.ac.pmd.model.Ruleset;
     import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
     import com.adobe.ac.pmd.services.translators.RootRulesetTranslator;
@@ -50,8 +51,11 @@ package com.adobe.ac.pmd.view
     {
 		public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
 
-        [Bindable]
-        public var rootRuleset : RootRuleset;
+		[Bindable]
+		public var rootRuleset : RootRuleset;
+		
+		[Bindable]
+		public var customRuleset : RootRuleset;
 		
 		private var rulesetReceived : int;
 
@@ -71,10 +75,44 @@ package com.adobe.ac.pmd.view
 		
 		public function onReceiveCustomRuleset( ruleset : RootRuleset ) : void
 		{
-			onReceiveRootRuleset( ruleset );
+			markRulesetAsEntirelyDeleted();
+			
+			for each ( var rule : Rule in Ruleset( ruleset.rulesets.getItemAt( 0 ) ).rules )
+			{
+				markRuleAsUsed( rule )
+			}
+			
+			rootRuleset.onCustomRulesetImported();
+			dispatchEvent( new Event( ROOT_RULESET_RECEIVED ) );
 			dispatchEvent( new RulesetReceivedEvent( ruleset.rulesets.getItemAt( 0 ) as Ruleset ) );			
 		}
+		
+		private function markRuleAsUsed( ruleToFind : Rule ) : void
+		{
+			for each ( var childRuleset : Ruleset in rootRuleset.rulesets )
+			{
+				for each ( var rule : Rule in childRuleset.rules )
+				{
+					if ( rule.name == ruleToFind.name )
+					{
+						rule.unDelete();
+						return;
+					}
+				}
+			}
 
+		}
+
+		private function markRulesetAsEntirelyDeleted() : void
+		{
+			for each ( var childRuleset : Ruleset in rootRuleset.rulesets )
+			{
+				for each ( var rule : Rule in childRuleset.rules )
+				{
+					rule.remove();
+				}
+			}
+		}
 		
         public function onReceiveRootRuleset( ruleset : RootRuleset ) : void
         {

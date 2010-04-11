@@ -66,7 +66,8 @@
          parentRuleset.rules.addItem( rule );
          rule.remove();
          
-         assertEquals( 0, parentRuleset.rules.length );
+		 assertEquals( 1, parentRuleset.rules.length );
+		 assertTrue( Rule( parentRuleset.rules.getItemAt( 0 ) ).deleted );
       }
    }
 }

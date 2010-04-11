@@ -57,6 +57,7 @@
             public function onRuleRemoved() : void
             {
                 dg.selectedItem = null;
+				model.rootRuleset.onCustomRulesetImported();
                 onChange();
             }
 

@@ -9,12 +9,11 @@
       <libraryPathEntry kind="3" linkType="1" path="${M2_REPO}/com/adobe/cairngorm/cairngorm/2.2.1/cairngorm-2.2.1.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${M2_REPO}/com/adobe/flexunit/flexunit/0.9/flexunit-0.9.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="${M2_REPO}/com/adobe/cairngorm/event-source/1.1/event-source-1.1.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/player/10/playerglobal.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/flexunit-theme/bin/flexunit-theme.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/flex-pmd-flex-lib/bin/flex-pmd-flex-lib.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
-          <libraryPathEntry index="1" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="true">
+          <libraryPathEntry index="3" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="true">
             <crossDomainRsls>
               <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_3.5.0.12683.swz"/>
               <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_3.5.0.12683.swf"/>

@@ -108,7 +108,10 @@ package com.adobe.ac.pmd.services.translators
 			
 			for each( var rule : Rule in ruleset.rules )
 			{
-				xmlString += RuleTranslator.serialize( rule ).toXMLString();
+				if ( !rule.deleted )
+				{
+					xmlString += RuleTranslator.serialize( rule ).toXMLString();
+				}
 			}
 			
 			return new XMLList( xmlString );

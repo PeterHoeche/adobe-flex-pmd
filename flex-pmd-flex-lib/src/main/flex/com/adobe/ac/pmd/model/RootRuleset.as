@@ -65,6 +65,11 @@ package com.adobe.ac.pmd.model
 			dispatchEvent( new Event( RULES_CHANGED ) );
 		}
 		
+		public function onCustomRulesetImported() : void
+		{
+			dispatchEvent( new Event( RULES_CHANGED ) );			
+		}
+		
 		[Bindable("rulesChange")]
 		public function get rulesNb() : Number
 		{
@@ -72,7 +77,13 @@ package com.adobe.ac.pmd.model
 			
 			for each ( var ruleset : Ruleset in rulesets )
 			{
-				result += ruleset.rules.length;
+				for each ( var rule : Rule in ruleset.rules )
+				{
+					if ( !rule.deleted )
+					{
+						result++;
+					}
+				}
 			}
 			
 			return result;

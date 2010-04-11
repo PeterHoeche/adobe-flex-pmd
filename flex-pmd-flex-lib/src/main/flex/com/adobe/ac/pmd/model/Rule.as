@@ -40,7 +40,8 @@ package com.adobe.ac.pmd.model
 
    public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass TooManyFields
    {
-      public static const NAME_CHANGE : String = "nameChange";
+	   public static const NAME_CHANGE : String = "nameChange";
+	   public static const DELETED_CHANGE : String = "deleteChange";
 
       public var since : String;
 	  [Bindable]
@@ -55,6 +56,8 @@ package com.adobe.ac.pmd.model
       public var priority : ViolationPriority;
 	  [Bindable]
       public var ruleset : Ruleset;
+
+	  private var _deleted : Boolean = false;
 
       private var _name : String;
 
@@ -80,15 +83,23 @@ package com.adobe.ac.pmd.model
       {
          return name.substr( name.lastIndexOf( "." ) + 1 );
       }
+	  
+	  [Bindable( "deleteChange" )]
+	  public function get deleted() : Boolean
+	  {
+		  return _deleted;
+	  }
 
-      public function remove() : void
-      {
-         var ruleIndex : int = ruleset.rules.getItemIndex( this );
+	  public function remove() : void
+	  {
+		  _deleted = true;
+		  dispatchEvent( new Event( DELETED_CHANGE ) );
+	  }
 
-         if( ruleIndex != -1 )
-         {
-            ruleset.rules.removeItemAt( ruleIndex );
-         }
-      }
-   }
+	  public function unDelete() : void
+	  {
+		  _deleted = false;
+		  dispatchEvent( new Event( DELETED_CHANGE ) );
+	  }
+	}
 }
