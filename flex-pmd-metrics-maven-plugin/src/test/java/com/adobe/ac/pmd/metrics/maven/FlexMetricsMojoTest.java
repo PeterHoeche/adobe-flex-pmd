@@ -28,50 +28,35 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.nodes.utils;
+package com.adobe.ac.pmd.metrics.maven;
 
-import static org.junit.Assert.assertEquals;
+import java.io.File;
 
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.junit.Test;
 
-import com.adobe.ac.pmd.nodes.asdoc.impl.ClassAsDocNode;
-import com.adobe.ac.pmd.nodes.asdoc.impl.FunctionAsDocNode;
-import com.adobe.ac.pmd.nodes.asdoc.impl.ParameterAsDocNode;
+import com.adobe.ac.pmd.FlexPmdTestBase;
 
-public class AsDocUtilsTest
+public class FlexMetricsMojoTest extends FlexPmdTestBase
 {
    @Test
-   public void testComputeClassDoc()
+   public void executeReport() throws MojoExecutionException,
+                              MojoFailureException
    {
-      final ClassAsDocNode emptyDoc = AsDocUtils.computeClassDoc( "" );
+      final MavenProjectStub project = new MavenProjectStub();
+      final File outputDirectoryToBeSet = new File( project.getBasedir().getAbsolutePath()
+            + "/target/pmd" );
+      final FlexMetricsMojo mojo = new FlexMetricsMojo( outputDirectoryToBeSet, getTestDirectory() );
 
-      assertEquals( "",
-                    emptyDoc.getDescription() );
+      outputDirectoryToBeSet.mkdirs();
+      mojo.setXmlOutputDirectory( outputDirectoryToBeSet );
+      mojo.setTempFileName( "javancss-raw-report.xml" );
+      mojo.setCcnLimit( 50 );
+      mojo.setFailOnViolation( true );
+      mojo.setNcssLimit( 200 );
 
-      AsDocUtils.computeClassDoc( "/** description \n        * description2\n @see mx.kjnerkjlef.btbt*/" );
-   }
-
-   @Test
-   public void testComputeFunctionDoc()
-   {
-      final FunctionAsDocNode emptyDoc = AsDocUtils.computeFunctionDoc( "" );
-
-      assertEquals( "",
-                    emptyDoc.getDescription() );
-
-      final FunctionAsDocNode functionDoc = AsDocUtils.computeFunctionDoc( "/** description \n        * description2\n @see mx.kjnerkjlef.btbt*/" );
-
-      final ParameterAsDocNode parameter = AsDocUtils.computeParameterDoc( "name",
-                                                                           "description" );
-      functionDoc.addParameter( parameter );
-
-      assertEquals( parameter,
-                    functionDoc.getParameter( 0 ) );
-
-      assertEquals( "name",
-                    parameter.getName() );
-
-      assertEquals( "description",
-                    parameter.getDescription() );
+      mojo.execute();
    }
 }

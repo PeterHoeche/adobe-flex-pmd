@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.nodes.utils;
 
 import com.adobe.ac.pmd.nodes.asdoc.impl.ClassAsDocNode;
 import com.adobe.ac.pmd.nodes.asdoc.impl.FunctionAsDocNode;
+import com.adobe.ac.pmd.nodes.asdoc.impl.ParameterAsDocNode;
 
 /**
  * @author xagnetti
@@ -54,6 +55,17 @@ public final class AsDocUtils
    public static FunctionAsDocNode computeFunctionDoc( final String doc )
    {
       return new FunctionAsDocNode( doc );
+   }
+
+   /**
+    * @param nameToBeSet
+    * @param descriptionToBeSet
+    * @return
+    */
+   public static ParameterAsDocNode computeParameterDoc( final String nameToBeSet,
+                                                         final String descriptionToBeSet )
+   {
+      return new ParameterAsDocNode( nameToBeSet, descriptionToBeSet );
    }
 
    private AsDocUtils()
