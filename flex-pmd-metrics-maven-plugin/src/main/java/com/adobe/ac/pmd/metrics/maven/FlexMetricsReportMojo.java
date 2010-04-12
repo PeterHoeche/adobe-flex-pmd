@@ -103,7 +103,6 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
     * @readonly
     */
    private SiteRenderer         siteRenderer;
-
    /**
     * Specifies the location of the source files to be used.
     * 
@@ -143,6 +142,15 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
       project = projectToBeSet;
       sourceDirectory = source;
       outputDirectory = output;
+   }
+
+   public void addReactorProject( final MavenProject project )
+   {
+      if ( reactorProjects == null )
+      {
+         reactorProjects = new ArrayList< MavenProject >();
+      }
+      reactorProjects.add( project );
    }
 
    /**

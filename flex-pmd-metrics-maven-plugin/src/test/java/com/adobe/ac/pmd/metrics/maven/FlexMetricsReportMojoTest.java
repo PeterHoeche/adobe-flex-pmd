@@ -53,8 +53,8 @@ public class FlexMetricsReportMojoTest extends FlexPmdTestBase
       final FlexMetricsReportMojo mojo = new FlexMetricsReportMojo( project, null, outputDirectoryToBeSet );
 
       outputDirectoryToBeSet.mkdirs();
-      project.addProjectReference( new MavenProjectStub() );
-      project.addProjectReference( new MavenProjectStub() );
+      mojo.addReactorProject( new MavenProjectStub() );
+      mojo.addReactorProject( new MavenProjectStub() );
       mojo.setLineThreshold( 5 );
       mojo.setSiteRenderer( new DefaultSiteRenderer() );
       mojo.setXmlOutputDirectory( outputDirectoryToBeSet );
