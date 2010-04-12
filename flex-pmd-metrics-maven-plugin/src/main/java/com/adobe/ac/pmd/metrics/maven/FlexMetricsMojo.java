@@ -110,6 +110,7 @@ public final class FlexMetricsMojo extends AbstractMojo
    public FlexMetricsMojo( final File outputDirectoryToBeSet,
                            final File sourceDirectoryToBeSet )
    {
+      super();
       xmlOutputDirectory = outputDirectoryToBeSet;
       sourceDirectory = sourceDirectoryToBeSet;
    }

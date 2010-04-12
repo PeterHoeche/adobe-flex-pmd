@@ -32,9 +32,7 @@ package com.adobe.ac.pmd;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,26 +57,6 @@ import com.adobe.ac.utils.StackTraceUtils;
 
 public class FlexPmdViolations implements Serializable
 {
-   private static class DescendentSpeedRuleComparator implements Comparator< IFlexRule >, Serializable
-   {
-      private static final long            serialVersionUID = 1879779636767696987L;
-      private final Map< IFlexRule, Long > ruleSpeeds;
-
-      public DescendentSpeedRuleComparator( final Map< IFlexRule, Long > ruleSpeedsToBeSet )
-      {
-         ruleSpeeds = ruleSpeedsToBeSet;
-      }
-
-      public int compare( final IFlexRule firstRule,
-                          final IFlexRule secondRule )
-      {
-
-         final Long firstValue = ruleSpeeds.get( firstRule );
-         final Long secondValue = ruleSpeeds.get( secondRule );
-         return firstValue.compareTo( secondValue );
-      }
-   }
-
    private static final Logger                            LOGGER;
 
    /**
@@ -124,7 +102,6 @@ public class FlexPmdViolations implements Serializable
          computeAsts();
          processRules();
          sortViolations();
-         displayRuleSpeeds();
       }
    }
 
@@ -193,21 +170,6 @@ public class FlexPmdViolations implements Serializable
 
       LOGGER.info( "computed RulesList in "
             + ( System.currentTimeMillis() - startTime ) + " ms" );
-   }
-
-   private void displayRuleSpeeds()
-   {
-      if ( LOGGER.isLoggable( Level.FINER ) )
-      {
-         final List< IFlexRule > rulesSortedByTime = new ArrayList< IFlexRule >( ruleSpeeds.keySet() );
-         Collections.sort( rulesSortedByTime,
-                           new DescendentSpeedRuleComparator( ruleSpeeds ) );
-         for ( final IFlexRule flexRule : rulesSortedByTime )
-         {
-            LOGGER.finer( flexRule.getRuleName()
-                  + " took " + ruleSpeeds.get( flexRule ) + "ms to compute" );
-         }
-      }
    }
 
    private void processFile( final IFlexRule currentRule,
