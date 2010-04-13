@@ -125,6 +125,13 @@ public class PackageNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetFunctions()
+   {
+      assertEquals( 0,
+                    stylePackage.getFunctions().size() );
+   }
+
+   @Test
    public void testGetName()
    {
       assertEquals( "com.test.testy.ui.components",

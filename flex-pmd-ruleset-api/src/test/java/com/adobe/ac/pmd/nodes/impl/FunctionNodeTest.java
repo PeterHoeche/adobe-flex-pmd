@@ -119,6 +119,13 @@ public class FunctionNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetAllMetaData()
+   {
+      assertEquals( 0,
+                    constructor.getAllMetaData().size() );
+   }
+
+   @Test
    public void testGetBody()
    {
       assertEquals( 1,

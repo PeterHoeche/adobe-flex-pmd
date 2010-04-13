@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * @author xagnetti
  */
-public interface IMetaData extends INamable, INode, IAsDocHolder
+public interface IMetaData extends INamable, INode
 {
    /**
     * @return

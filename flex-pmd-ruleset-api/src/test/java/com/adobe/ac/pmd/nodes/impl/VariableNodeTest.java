@@ -56,6 +56,13 @@ public class VariableNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testGetAllMetaData()
+   {
+      assertEquals( 0,
+                    first.getAllMetaData().size() );
+   }
+
+   @Test
    public void testGetInitializationExpression()
    {
       assertNull( first.getInitializationExpression() );

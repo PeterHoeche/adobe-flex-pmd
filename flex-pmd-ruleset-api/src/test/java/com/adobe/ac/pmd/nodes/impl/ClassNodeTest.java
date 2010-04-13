@@ -37,6 +37,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import junit.framework.Assert;
 import net.sourceforge.pmd.PMDException;
 
 import org.junit.Before;
@@ -70,10 +71,31 @@ public class ClassNodeTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testBlock()
+   {
+      Assert.assertNull( radonDataGrid.getBlock() );
+   }
+
+   @Test
+   public void testGetAllMetaData()
+   {
+      assertEquals( 0,
+                    radonDataGrid.getAllMetaData().size() );
+   }
+
+   @Test
    public void testGetAttributes()
    {
       assertEquals( 0,
                     radonDataGrid.getAttributes().size() );
+   }
+
+   @Test
+   public void testGetAverageCyclomaticComplexity()
+   {
+      assertEquals( 3.0,
+                    radonDataGrid.getAverageCyclomaticComplexity(),
+                    0.1 );
    }
 
    @Test

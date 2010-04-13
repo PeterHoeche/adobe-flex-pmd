@@ -38,11 +38,9 @@ import java.util.Map;
 
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.parser.NodeKind;
 
 class MetaDataNode extends AbstractNode implements IMetaData
 {
-   private IParserNode             asDoc;
    private List< String >          attributeNames;
    private String                  name;
    private String                  parameter;
@@ -66,23 +64,7 @@ class MetaDataNode extends AbstractNode implements IMetaData
                                                   : "";
 
       computeAttributeNames();
-      if ( getInternalNode().getChildren() != null )
-      {
-         for ( final IParserNode child : getInternalNode().getChildren() )
-         {
-            if ( child.is( NodeKind.AS_DOC ) )
-            {
-               asDoc = child;
-               break;
-            }
-         }
-      }
       return this;
-   }
-
-   public IParserNode getAsDoc()
-   {
-      return asDoc;
    }
 
    public List< String > getAttributeNames()
