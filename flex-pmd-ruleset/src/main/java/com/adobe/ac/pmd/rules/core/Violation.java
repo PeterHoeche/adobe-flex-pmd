@@ -32,6 +32,8 @@ package com.adobe.ac.pmd.rules.core;
 
 import java.util.Formatter;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 
@@ -40,13 +42,15 @@ import com.adobe.ac.pmd.files.IFlexFile;
  */
 public final class Violation implements IFlexViolation
 {
-   private final int       beginColumn;
-   private final int       beginLine;
-   private int             endColumn;
-   private final int       endLine;
-   private final IFlexFile file;
-   private final IFlexRule rule;
-   private String          ruleMessage = "";
+   public static final String RULESET_CREATOR_URL = "http://opensource.adobe.com/svn/opensource/"
+                                                        + "flexpmd/bin/flex-pmd-ruleset-creator.html?rule=";
+   private final int          beginColumn;
+   private final int          beginLine;
+   private int                endColumn;
+   private final int          endLine;
+   private final IFlexFile    file;
+   private final IFlexRule    rule;
+   private String             ruleMessage         = "";
 
    /**
     * @param position
@@ -259,7 +263,7 @@ public final class Violation implements IFlexViolation
 
          formatter.format( "      <violation beginline=\"%d\" "
                                  + "endline=\"%d\" begincolumn=\"%d\" " + "endcolumn=\"%d\" rule=\"%s\" "
-                                 + "ruleset=\"%s\" package=\"%s\" " + "class=\"%s\" externalInfoUrl=\"\" "
+                                 + "ruleset=\"%s\" package=\"%s\" " + "class=\"%s\" externalInfoUrl=\"%s\" "
                                  + "priority=\"%s\">%s</violation>" + getNewLine(),
                            beginLine,
                            endLine,
@@ -269,6 +273,8 @@ public final class Violation implements IFlexViolation
                            ruleSetName,
                            violatedFile.getPackageName(),
                            violatedFile.getClassName(),
+                           RULESET_CREATOR_URL
+                                 + extractShortName( rule.getName() ),
                            rule.getPriority(),
                            message );
       }
@@ -278,6 +284,12 @@ public final class Violation implements IFlexViolation
    String getNewLine()
    {
       return System.getProperty( "line.separator" );
+   }
+
+   private String extractShortName( final String name )
+   {
+      return StringUtils.substringAfterLast( name,
+                                             "." );
    }
 
    private int getLinePriority( final IFlexViolation otherViolation )

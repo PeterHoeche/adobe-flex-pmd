@@ -41,10 +41,6 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.IFlexFile;
-import com.adobe.ac.pmd.rules.core.IFlexRule;
-import com.adobe.ac.pmd.rules.core.Violation;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class ViolationTest extends FlexPmdTestBase
@@ -212,8 +208,10 @@ public class ViolationTest extends FlexPmdTestBase
                           + BEGINNING_COLUMN + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\""
                           + INFO_RULE.getRuleName() + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
                           + abstractRowData.getPackageName() + "\" class=\"" + abstractRowData.getClassName()
-                          + "\" externalInfoUrl=\"\" " + "priority=\"" + INFO_RULE.getPriority() + "\">"
-                          + "emptyMessage" + "</violation>" + infoViolation.getNewLine(),
+                          + "\" externalInfoUrl=\"http://opensource.adobe.com/svn/opensource/"
+                          + "flexpmd/bin/flex-pmd-ruleset-creator.html?rule=EmptyRule\" " + "priority=\""
+                          + INFO_RULE.getPriority() + "\">" + "emptyMessage" + "</violation>"
+                          + infoViolation.getNewLine(),
                     infoViolation.toXmlString( abstractRowData,
                                                RULE_SET_NAME ) );
 
@@ -230,9 +228,11 @@ public class ViolationTest extends FlexPmdTestBase
                           + BEGINNING_COLUMN + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\""
                           + WARNING_RULE.getRuleName() + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
                           + abstractRowDataWithPackage.getPackageName() + "\" class=\""
-                          + abstractRowData.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\""
-                          + WARNING_RULE.getPriority() + "\">" + "warning message" + "</violation>"
-                          + warningViolation.getNewLine(),
+                          + abstractRowData.getClassName()
+                          + "\" externalInfoUrl=\"http://opensource.adobe.com/svn/"
+                          + "opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=WarningRule\" "
+                          + "priority=\"" + WARNING_RULE.getPriority() + "\">" + "warning message"
+                          + "</violation>" + warningViolation.getNewLine(),
                     warningViolation.toXmlString( abstractRowDataWithPackage,
                                                   RULE_SET_NAME ) );
 
@@ -242,9 +242,11 @@ public class ViolationTest extends FlexPmdTestBase
                           + BEGINNING_COLUMN + "\" endcolumn=\"" + ENDING_COLUMN + "\" rule=\""
                           + WARNING_RULE.getRuleName() + "\" ruleset=\"" + RULE_SET_NAME + "\" package=\""
                           + iterationsListMxml.getPackageName() + "\" class=\""
-                          + iterationsListMxml.getClassName() + "\" externalInfoUrl=\"\" " + "priority=\""
-                          + WARNING_RULE.getPriority() + "\">" + "warning message" + "</violation>"
-                          + warningViolation.getNewLine(),
+                          + iterationsListMxml.getClassName()
+                          + "\" externalInfoUrl=\"http://opensource.adobe.com/"
+                          + "svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=WarningRule\" "
+                          + "priority=\"" + WARNING_RULE.getPriority() + "\">" + "warning message"
+                          + "</violation>" + warningViolation.getNewLine(),
                     warningViolation.toXmlString( iterationsListMxml,
                                                   RULE_SET_NAME ) );
    }
