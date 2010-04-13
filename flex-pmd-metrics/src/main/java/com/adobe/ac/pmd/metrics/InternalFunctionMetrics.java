@@ -36,7 +36,6 @@ package com.adobe.ac.pmd.metrics;
 import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.nodes.IMetaData;
 
 public final class InternalFunctionMetrics
 {
@@ -51,15 +50,10 @@ public final class InternalFunctionMetrics
       for ( final IFunction function : classNode.getFunctions() )
       {
          final int multipleDoc = MetricUtils.computeMultiLineComments( function );
-         int asDocs = MetricUtils.computeAsDocs( function );
+         final int asDocs = MetricUtils.computeAsDocs( function );
 
          ncssInClass += function.getStatementNbInBody();
          multipleLineCommentInClass += multipleDoc;
-
-         for ( final IMetaData metaData : function.getAllMetaData() )
-         {
-            asDocs += MetricUtils.computeAsDocs( metaData );
-         }
 
          asDocsInClass += asDocs;
 
@@ -73,17 +67,8 @@ public final class InternalFunctionMetrics
       for ( final IAttribute attribute : classNode.getAttributes() )
       {
          asDocsInClass += MetricUtils.computeAsDocs( attribute );
-
-         for ( final IMetaData metaData : attribute.getAllMetaData() )
-         {
-            asDocsInClass += MetricUtils.computeAsDocs( metaData );
-         }
       }
 
-      for ( final IMetaData metaData : classNode.getAllMetaData() )
-      {
-         asDocsInClass += MetricUtils.computeAsDocs( metaData );
-      }
       return new InternalFunctionMetrics( ncssInClass, asDocsInClass, multipleLineCommentInClass );
    }
 
