@@ -37,8 +37,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.ac.pmd.files.IAs3File;
+import com.adobe.ac.pmd.nodes.IAttribute;
 import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.IVariable;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -68,6 +71,22 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
       {
          findUnusedFunction( function.getBody() );
       }
+   }
+
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+      super.findViolationsFromAttributes( variables );
+
+      findViolationsFromVariables( variables );
+   }
+
+   @Override
+   protected void findViolationsFromConstants( final List< IConstant > constants )
+   {
+      super.findViolationsFromConstants( constants );
+
+      findViolationsFromVariables( constants );
    }
 
    @Override
@@ -130,6 +149,17 @@ public class UnusedPrivateMethodRule extends AbstractAstFlexRule
             {
                findUnusedFunction( child );
             }
+         }
+      }
+   }
+
+   private void findViolationsFromVariables( final List< ? extends IVariable > variables )
+   {
+      for ( final IVariable constant : variables )
+      {
+         if ( constant.getInitializationExpression() != null )
+         {
+            findUnusedFunction( constant.getInitializationExpression().getInternalNode() );
          }
       }
    }

@@ -28,42 +28,25 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.files.impl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-
-import org.junit.Test;
-
-import com.adobe.ac.pmd.FlexPmdTestBase;
-import com.adobe.ac.pmd.files.IFlexFile;
-
-public class FileUtilsTest extends FlexPmdTestBase
+package
 {
-   @Test
-   public void testComputeFilesList() throws PMDException
-   {
-      Map< String, IFlexFile > files;
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          null );
+	public class PmdPrivateTest
+	{
+		private static const REPORT_SKELETON : XML = read( null );
+		private var REPORT_SKELETON_VAR : XML = readAgain( null );
+		
+		private static function read( clazz : Class ) : XML
+		{
+			var byteArray : ByteArray = new clazz() as ByteArray;
+			
+			return new XML( byteArray.readUTFBytes( byteArray.length ) ) || REPORT_SKELETON_VAR;
+		}
 
-      Assert.assertEquals( 94,
-                           files.size() );
-
-      final List< String > excludePatterns = new ArrayList< String >();
-      excludePatterns.add( "bug" );
-      files = FileUtils.computeFilesList( getTestDirectory(),
-                                          null,
-                                          "",
-                                          excludePatterns );
-
-      Assert.assertEquals( 82,
-                           files.size() );
-   }
+		private static function readAgain( clazz : Class ) : XML
+		{
+			var byteArray : ByteArray = new clazz() as ByteArray;
+			
+			return new XML( byteArray.readUTFBytes( byteArray.length ) );
+		}
+	}
 }

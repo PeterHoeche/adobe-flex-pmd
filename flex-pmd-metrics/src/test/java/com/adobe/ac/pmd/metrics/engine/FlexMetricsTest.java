@@ -84,43 +84,43 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadClassMetrics()
    {
-      assertEquals( 93,
+      assertEquals( 94,
                     projectMetrics.getClasses().size() );
       assertEquals( 0,
                     projectMetrics.getClasses().get( 3 ).getFunctions() );
       assertEquals( "bug.FlexPMD60",
-                    projectMetrics.getClasses().get( 7 ).getFullName() );
-      assertEquals( 7,
-                    projectMetrics.getClasses().get( 7 ).getMultiLineComments() );
-      assertEquals( "bug.FlexPMD61",
                     projectMetrics.getClasses().get( 8 ).getFullName() );
+      assertEquals( 7,
+                    projectMetrics.getClasses().get( 8 ).getMultiLineComments() );
+      assertEquals( "bug.FlexPMD61",
+                    projectMetrics.getClasses().get( 9 ).getFullName() );
       assertEquals( 3,
-                    projectMetrics.getClasses().get( 8 ).getFunctions() );
+                    projectMetrics.getClasses().get( 9 ).getFunctions() );
       assertEquals( 9,
-                    projectMetrics.getClasses().get( 8 ).getNonCommentStatements() );
+                    projectMetrics.getClasses().get( 9 ).getNonCommentStatements() );
       assertEquals( "cairngorm.FatController",
-                    projectMetrics.getClasses().get( 14 ).getFullName() );
+                    projectMetrics.getClasses().get( 15 ).getFullName() );
       assertEquals( 3,
-                    projectMetrics.getClasses().get( 14 ).getAsDocs() );
+                    projectMetrics.getClasses().get( 15 ).getAsDocs() );
    }
 
    @Test
    public void loadFunctionMetrics()
    {
-      assertEquals( 228,
+      assertEquals( 230,
                     projectMetrics.getFunctions().size() );
       assertEquals( "TestEvent",
-                    projectMetrics.getFunctions().get( 15 ).getName() );
+                    projectMetrics.getFunctions().get( 17 ).getName() );
       assertEquals( 3,
-                    projectMetrics.getFunctions().get( 15 ).getNonCommentStatements() );
+                    projectMetrics.getFunctions().get( 17 ).getNonCommentStatements() );
       assertEquals( "clone",
-                    projectMetrics.getFunctions().get( 16 ).getName() );
+                    projectMetrics.getFunctions().get( 18 ).getName() );
       assertEquals( 2,
-                    projectMetrics.getFunctions().get( 16 ).getNonCommentStatements() );
+                    projectMetrics.getFunctions().get( 18 ).getNonCommentStatements() );
       assertEquals( "BugDemo",
-                    projectMetrics.getFunctions().get( 19 ).getName() );
+                    projectMetrics.getFunctions().get( 21 ).getName() );
       assertEquals( 10,
-                    projectMetrics.getFunctions().get( 19 ).getNonCommentStatements() );
+                    projectMetrics.getFunctions().get( 21 ).getNonCommentStatements() );
    }
 
    @Test
@@ -132,13 +132,13 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getPackages()
                                   .get( projectMetrics.getPackages().size() - 1 )
                                   .getPackageName() );
-      assertEquals( 11,
+      assertEquals( 12,
                     projectMetrics.getPackages().get( 1 ).getClasses() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 1 ).getFullName() );
-      assertEquals( 15,
+      assertEquals( 17,
                     projectMetrics.getPackages().get( 1 ).getFunctions() );
-      assertEquals( 54,
+      assertEquals( 58,
                     projectMetrics.getPackages().get( 1 ).getNonCommentStatements() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 1 ).getPackageName() );
@@ -147,11 +147,11 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadTotalPackageMetrics()
    {
-      assertEquals( 93,
+      assertEquals( 94,
                     projectMetrics.getTotalPackages().getTotalClasses() );
-      assertEquals( 228,
+      assertEquals( 230,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1223,
+      assertEquals( 1227,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 227,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
