@@ -42,7 +42,7 @@ import com.adobe.ac.pmd.IFlexViolation;
  */
 public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 {
-   private final Pattern pattern;
+   private Pattern pattern;
 
    /**
     * 
@@ -50,6 +50,11 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    public AbstractRegexpBasedRule()
    {
       super();
+      compilePattern();
+   }
+
+   public void compilePattern()
+   {
       pattern = Pattern.compile( getRegexp() );
    }
 
@@ -63,19 +68,22 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    {
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-      for ( int i = 1; i <= getCurrentFile().getLinesNb(); i++ )
+      if ( "".compareTo( getRegexp() ) != 0 )
       {
-         final String line = getCurrentFile().getLineAt( i );
-
-         if ( isCurrentLineConcerned( line )
-               && doesCurrentLineMacthes( line ) && isViolationDetectedOnThisMatchingLine( line )
-               && !line.contains( "/*" ) && !line.contains( "//" ) )
+         for ( int i = 1; i <= getCurrentFile().getLinesNb(); i++ )
          {
-            addViolation( violations,
-                          ViolationPosition.create( i,
-                                                    i,
-                                                    0,
-                                                    line.length() ) );
+            final String line = getCurrentFile().getLineAt( i );
+
+            if ( isCurrentLineConcerned( line )
+                  && doesCurrentLineMacthes( line ) && isViolationDetectedOnThisMatchingLine( line )
+                  && !line.contains( "/*" ) && !line.contains( "//" ) )
+            {
+               addViolation( violations,
+                             ViolationPosition.create( i,
+                                                       i,
+                                                       0,
+                                                       line.length() ) );
+            }
          }
       }
       return violations;

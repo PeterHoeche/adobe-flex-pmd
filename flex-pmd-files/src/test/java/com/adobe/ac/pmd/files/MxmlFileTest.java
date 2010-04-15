@@ -96,7 +96,7 @@ public class MxmlFileTest extends FlexPmdTestBase
                     deleteRendererLines[ 43 ] );
       assertEquals( "class DeleteButtonRenderer{",
                     deleteRendererLines[ 44 ] );
-      assertEquals( Integer.valueOf( 107 ),
+      assertEquals( Integer.valueOf( 115 ),
                     Integer.valueOf( deleteRendererLines.length ) );
       assertEquals( "            import com.adobe.ac.pmd.model.Rule;",
                     deleteRendererLines[ 49 ] );

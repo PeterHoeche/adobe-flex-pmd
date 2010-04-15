@@ -177,6 +177,22 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violation;
    }
 
+   protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
+                                                final ViolationPosition position,
+                                                final String... messageToReplace )
+   {
+      final IFlexViolation violation = addViolation( violations,
+                                                     position );
+
+      for ( int i = 0; i < messageToReplace.length; i++ )
+      {
+         violation.replacePlaceholderInMessage( messageToReplace[ i ],
+                                                i );
+      }
+
+      return violation;
+   }
+
    protected abstract List< IFlexViolation > findViolationsInCurrentFile();
 
    /**
