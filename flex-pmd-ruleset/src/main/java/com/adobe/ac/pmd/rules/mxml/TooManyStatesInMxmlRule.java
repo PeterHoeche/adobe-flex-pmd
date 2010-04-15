@@ -51,13 +51,11 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
 {
    private Double statesNb;
 
-   @Override
    public int getActualValueForTheCurrentViolation()
    {
       return statesNb.intValue();
    }
 
-   @Override
    public int getDefaultThreshold()
    {
       return 5;

@@ -97,7 +97,6 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
          return prefixMap;
       }
 
-      @Override
       public String getNamespaceURI( final String prefix )
       {
          final String nsURI = prefixMap.get( prefix );
@@ -105,7 +104,6 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
                              : nsURI;
       }
 
-      @Override
       public String getPrefix( final String namespaceURI )
       {
          final Set< String > set = nsMap.get( namespaceURI );
@@ -113,7 +111,6 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
                            : set.iterator().next();
       }
 
-      @Override
       public Iterator< String > getPrefixes( final String namespaceURI )
       {
          final Set< String > set = nsMap.get( namespaceURI );
