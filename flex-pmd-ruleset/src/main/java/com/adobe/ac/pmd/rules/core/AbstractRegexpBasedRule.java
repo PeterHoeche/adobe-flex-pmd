@@ -53,7 +53,7 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
       compilePattern();
    }
 
-   public void compilePattern()
+   public final void compilePattern()
    {
       pattern = Pattern.compile( getRegexp() );
    }

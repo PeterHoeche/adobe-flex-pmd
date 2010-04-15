@@ -117,12 +117,12 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
          return set.iterator();
       }
 
-      private void addConstant( final Map< String, String > prefixMap,
+      private void addConstant( final Map< String, String > map,
                                 final String prefix,
                                 final String nsURI )
       {
-         final String previous = prefixMap.put( prefix,
-                                                nsURI );
+         final String previous = map.put( prefix,
+                                          nsURI );
          if ( previous != null
                && !previous.equals( nsURI ) )
          {
@@ -131,39 +131,39 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
          }
       }
 
-      private Map< String, Set< String >> createNamespaceMap( final Map< String, String > prefixMap )
+      private Map< String, Set< String >> createNamespaceMap( final Map< String, String > map )
       {
-         final Map< String, Set< String >> nsMap = new HashMap< String, Set< String >>();
-         for ( final Map.Entry< String, String > entry : prefixMap.entrySet() )
+         final Map< String, Set< String >> namespaceMap = new HashMap< String, Set< String >>();
+         for ( final Map.Entry< String, String > entry : map.entrySet() )
          {
             final String nsURI = entry.getValue();
-            Set< String > prefixes = nsMap.get( nsURI );
+            Set< String > prefixes = namespaceMap.get( nsURI );
             if ( prefixes == null )
             {
                prefixes = new HashSet< String >();
-               nsMap.put( nsURI,
-                          prefixes );
+               namespaceMap.put( nsURI,
+                                 prefixes );
             }
             prefixes.add( entry.getKey() );
          }
-         for ( final Map.Entry< String, Set< String >> entry : nsMap.entrySet() )
+         for ( final Map.Entry< String, Set< String >> entry : namespaceMap.entrySet() )
          {
             final Set< String > readOnly = Collections.unmodifiableSet( entry.getValue() );
             entry.setValue( readOnly );
          }
-         return nsMap;
+         return namespaceMap;
       }
 
       private Map< String, String > createPrefixMap( final Map< String, String > prefixMappings )
       {
-         final Map< String, String > prefixMap = new HashMap< String, String >( prefixMappings );
-         addConstant( prefixMap,
+         final Map< String, String > map = new HashMap< String, String >( prefixMappings );
+         addConstant( map,
                       XMLConstants.XML_NS_PREFIX,
                       XMLConstants.XML_NS_URI );
-         addConstant( prefixMap,
+         addConstant( map,
                       XMLConstants.XMLNS_ATTRIBUTE,
                       XMLConstants.XMLNS_ATTRIBUTE_NS_URI );
-         return Collections.unmodifiableMap( prefixMap );
+         return Collections.unmodifiableMap( map );
       }
 
    }
@@ -179,11 +179,6 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
                              mappingPairs[ ++i ] );
       }
       return prefixMappings;
-   }
-
-   public AbstractXpathRelatedRule()
-   {
-      super();
    }
 
    protected abstract Object evaluate( final Document doc,
@@ -240,7 +235,7 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
       return getCurrentFile().isMxml();
    }
 
-   protected abstract void onEvaluated( final ArrayList< IFlexViolation > violations,
+   protected abstract void onEvaluated( final List< IFlexViolation > violations,
                                         final Document doc,
                                         final XPath xPath ) throws XPathExpressionException;
 
@@ -251,8 +246,7 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setNamespaceAware( true );
       final DocumentBuilder builder = factory.newDocumentBuilder();
-      final Document doc = builder.parse( getCurrentFile().getFilePath() );
-      return doc;
+      return builder.parse( getCurrentFile().getFilePath() );
    }
 
    private XPath buildXPath()

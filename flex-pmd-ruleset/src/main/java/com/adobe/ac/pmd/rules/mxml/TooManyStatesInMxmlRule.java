@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.xpath.XPath;
@@ -49,7 +49,7 @@ import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements IThresholdedRule
 {
-   private Double statesNb;
+   private Double statesNb = 0.0;
 
    public int getActualValueForTheCurrentViolation()
    {
@@ -104,7 +104,7 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
    }
 
    @Override
-   protected void onEvaluated( final ArrayList< IFlexViolation > violations,
+   protected void onEvaluated( final List< IFlexViolation > violations,
                                final Document doc,
                                final XPath xPath ) throws XPathExpressionException
    {
