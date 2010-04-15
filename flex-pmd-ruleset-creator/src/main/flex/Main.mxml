@@ -65,7 +65,7 @@
             />
 
          <view:Title styleName="panelTitleSubStyle"
-            text="powered by Adobe technical services"
+            text="powered by Adobe Technical Services"
             buttonMode="true"
             click="navigateToURL( new URLRequest( 'http://www.adobe.com/consulting/' ) )"
             mouseChildren="false"
@@ -118,17 +118,26 @@
 
       <mx:HBox width="100%"
          horizontalAlign="center"
+		 verticalAlign="middle"
          >
 
 		  <mx:Button label="Import"
 					 icon="@Embed(source='/assets/up.png')"
 					 click="navigator.model.getCustomRuleset()"
+					 height="100%"
 					 />
 		  
 		  <mx:Button label="Export"
 					 icon="@Embed(source='/assets/down.png')"
 					 click="navigator.model.exportRootRuleset()"
+					 height="100%"
 					 />
+
+		  <mx:Button label="Add a regexp based rule"
+					 icon="@Embed(source='/assets/add-48.png')"
+					 click="navigator.openRuleset( navigator.model.addNewRegExpBasedRule() )"
+					 height="100%"
+					  paddingLeft="10"/>
 		  
       </mx:HBox>
 

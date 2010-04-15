@@ -35,9 +35,11 @@ package com.adobe.ac.pmd.view
     import com.adobe.ac.pmd.api.IGetRootRuleset;
     import com.adobe.ac.pmd.control.events.GetCustomRulesetEvent;
     import com.adobe.ac.pmd.control.events.GetRootRulesetEvent;
+    import com.adobe.ac.pmd.model.Property;
     import com.adobe.ac.pmd.model.RootRuleset;
     import com.adobe.ac.pmd.model.Rule;
     import com.adobe.ac.pmd.model.Ruleset;
+    import com.adobe.ac.pmd.model.ViolationPriority;
     import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
     import com.adobe.ac.pmd.services.translators.RootRulesetTranslator;
     
@@ -50,18 +52,32 @@ package com.adobe.ac.pmd.view
     public class RuleSetNavigatorPM extends EventDispatcher implements IPresentationModel, IGetRootRuleset, IGetCustomRuleset
     {
 		public static const ROOT_RULESET_RECEIVED : String = "rootRulesetReceived";
+		public static const PARAMETERIZED_RULE_NAME : String = "com.adobe.ac.pmd.rules.parameterized.ParameterizedRegExpBasedRule";
 
 		[Bindable]
 		public var rootRuleset : RootRuleset;
-		
-		[Bindable]
-		public var customRuleset : RootRuleset;
 		
 		private var rulesetReceived : int;
 
         public function RuleSetNavigatorPM()
         {
         }
+		
+		public function addNewRegExpBasedRule() : Ruleset
+		{
+			var property : Property = new Property();
+			
+			property.name = "expression";
+
+			var rule : Rule = new Rule();
+			
+			rule.name = PARAMETERIZED_RULE_NAME;
+			rule.properties.addItem( property );
+			rule.priority = ViolationPriority.INFO;
+			rootRuleset.addRegExpBasedRule( rule );
+			
+			return rootRuleset.customRuleset;
+		}
 
         public function getRootRuleset() : void
         {
@@ -79,12 +95,26 @@ package com.adobe.ac.pmd.view
 			
 			for each ( var rule : Rule in Ruleset( ruleset.rulesets.getItemAt( 0 ) ).rules )
 			{
-				markRuleAsUsed( rule )
+				if ( rule.name != PARAMETERIZED_RULE_NAME )
+				{
+					markRuleAsUsed( rule );
+				}
 			}
-			
-			rootRuleset.onCustomRulesetImported();
+			addCustomRuleset( ruleset );			
+			rootRuleset.rulesChanged();
 			dispatchEvent( new Event( ROOT_RULESET_RECEIVED ) );
 			dispatchEvent( new RulesetReceivedEvent( ruleset.rulesets.getItemAt( 0 ) as Ruleset ) );			
+		}
+		
+		private function addCustomRuleset( ruleset : RootRuleset ) : void
+		{
+			for each ( var rule : Rule in Ruleset( ruleset.rulesets.getItemAt( 0 ) ).rules )
+			{
+				if ( rule.name == PARAMETERIZED_RULE_NAME )
+				{
+					rootRuleset.addRegExpBasedRule( rule );
+				}
+			}
 		}
 		
 		private function markRuleAsUsed( ruleToFind : Rule ) : void

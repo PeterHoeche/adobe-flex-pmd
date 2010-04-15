@@ -39,8 +39,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   public static final Map< String, ViolationPosition[] > VIOLATING_FILES;
+
+   static
    {
       final Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
 
@@ -55,10 +56,16 @@ public class AlertShowRuleTest extends AbstractRegExpBasedRuleTest
                 new ViolationPosition[]
                 { new ViolationPosition( 43 ) } );
 
-      return addToMap( violations,
-                       "com.adobe.ac.ncss.ConfigProxy.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 48 ) } );
+      VIOLATING_FILES = addToMap( violations,
+                                  "com.adobe.ac.ncss.ConfigProxy.as",
+                                  new ViolationPosition[]
+                                  { new ViolationPosition( 48 ) } );
+   }
+
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   {
+      return VIOLATING_FILES;
    }
 
    @Override

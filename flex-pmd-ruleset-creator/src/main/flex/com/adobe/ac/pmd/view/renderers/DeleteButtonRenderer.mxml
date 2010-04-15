@@ -59,7 +59,7 @@
 			[Embed(source='/assets/icon_tool_trash2.png')]
 			private static const DELETE_SKIN : Class;
 			
-			[Embed(source='/assets/icon_tool_trash_undelete.png')]
+			[Embed(source='/assets/add-10.png')]
 			private static const UNDELETE_SKIN : Class;
 			
             override public function set data( value : Object ) : void // NO PMD

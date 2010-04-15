@@ -43,21 +43,19 @@
 
     <mx:Script>
         <![CDATA[
+			import com.adobe.ac.pmd.model.Rule;
+			import com.adobe.ac.pmd.model.Ruleset;
+			import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
+			import com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent;
+			
+			import mx.collections.IHierarchicalCollectionViewCursor;
 			import mx.core.Application;
-            import com.adobe.ac.pmd.model.events.RulesetReceivedEvent;
-            import com.adobe.ac.pmd.model.Ruleset;
-            import com.adobe.ac.pmd.model.Rule;
-            import com.adobe.ac.pmd.view.events.SelectedRuleChangeEvent;
-
-            import mx.events.CollectionEventKind;
-            import mx.events.CollectionEvent;
-
-            import mx.collections.IHierarchicalCollectionViewCursor;
+			import mx.events.CollectionEvent;
+			import mx.events.CollectionEventKind;
 
             public function onRuleRemoved() : void
             {
-                dg.selectedItem = null;
-				model.rootRuleset.onCustomRulesetImported();
+				model.rootRuleset.rulesChanged();
                 onChange();
             }
 
@@ -68,10 +66,15 @@
 
             private function onRulesetReceived( event : RulesetReceivedEvent ) : void
             {
-                dg.dataProvider.openNode( event.ruleset );
-                event.ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
-				selectDefaultRule();
+				openRuleset( event.ruleset )
             }
+			
+			public function openRuleset( ruleset : Ruleset ) : void
+			{
+				dg.dataProvider.openNode( ruleset );
+				ruleset.rules.addEventListener( CollectionEvent.COLLECTION_CHANGE, onRulesChange );
+				selectDefaultRule();
+			}
 
             private function onRulesChange( event : CollectionEvent ) : void
             {

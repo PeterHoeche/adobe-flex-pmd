@@ -28,77 +28,26 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.model
+package com.adobe.ac.pmd.rules.parameterized;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class ParameterizedRegExpBasedRuleWithEmptyRegexpTest extends AbstractFlexRuleTest
 {
-   import com.adobe.ac.model.IDomainModel;
-   
-   import flash.events.Event;
-   import flash.events.EventDispatcher;
-   
-   import mx.collections.ArrayCollection;
-   import mx.collections.ListCollectionView;
-
-   public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass TooManyFields
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-	   public static const NAME_CHANGE : String = "nameChange";
-	   public static const DELETED_CHANGE : String = "deleteChange";
+      return new HashMap< String, ViolationPosition[] >();
+   }
 
-      public var since : String;
-	  [Bindable]
-      public var message : String;
-	  [Bindable]
-      public var examples : String;
-	  [Bindable]
-      public var description : String;
-	  [Bindable]
-      public var properties : ListCollectionView = new ArrayCollection();
-	  [Bindable]
-      public var priority : ViolationPriority;
-	  [Bindable]
-      public var ruleset : Ruleset;
-
-	  private var _deleted : Boolean = false;
-      private var _name : String;
-
-      public function Rule()
-      {
-      	ruleset = new Ruleset();
-      }
-
-      [Bindable( "nameChange" )]
-      public function get name() : String
-      {
-         return _name;
-      }
-
-      public function set name( value : String ) : void
-      {
-         _name = value;
-         dispatchEvent( new Event( NAME_CHANGE ) );
-      }
-
-      [Bindable( "nameChange" )]
-      public function get shortName() : String
-      {
-         return name.substr( name.lastIndexOf( "." ) + 1 );
-      }
-	  
-	  [Bindable( "deleteChange" )]
-	  public function get deleted() : Boolean
-	  {
-		  return _deleted;
-	  }
-
-	  public function remove() : void
-	  {
-		  _deleted = true;
-		  dispatchEvent( new Event( DELETED_CHANGE ) );
-	  }
-
-	  public function unDelete() : void
-	  {
-		  _deleted = false;
-		  dispatchEvent( new Event( DELETED_CHANGE ) );
-	  }
-	}
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new ParameterizedRegExpBasedRule();
+   }
 }

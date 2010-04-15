@@ -62,7 +62,7 @@
                 />
 
             <view:Title styleName="panelTitleSubStyle"
-                text="powered by Adobe technical services"
+                text="powered by Adobe Technical Services"
                 buttonMode="true"
                 click="navigateToURL( new URLRequest( 'http://www.adobe.com/consulting/' ) )"
                 mouseChildren="false"

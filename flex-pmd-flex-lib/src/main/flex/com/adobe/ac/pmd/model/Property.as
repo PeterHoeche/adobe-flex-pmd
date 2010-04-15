@@ -38,7 +38,7 @@ package com.adobe.ac.pmd.model
    public class Property implements IDomainModel
    {
       public var name : String;
-      public var value : int;
+      public var value : String;
 
       public function Property()
       {

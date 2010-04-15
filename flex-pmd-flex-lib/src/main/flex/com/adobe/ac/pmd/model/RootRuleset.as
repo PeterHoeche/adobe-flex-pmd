@@ -41,15 +41,38 @@ package com.adobe.ac.pmd.model
 
 	public class RootRuleset  extends EventDispatcher implements IDomainModel
 	{
+		public static const CUSTOM_RULESET_NAME : String = "Parameterized rules";
 		private static const RULES_CHANGED : String = "rulesChange";
 		public var name : String;
 		public var description : String;
 		[Bindable]
 		public var rulesets : ListCollectionView = new ArrayCollection();
 		
+		private var _customRuleset : Ruleset = null;
+		
 		public function RootRuleset()
 		{
 			rulesets.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleRulesetChange);
+		}
+		
+
+		public function get customRuleset():Ruleset
+		{
+			return _customRuleset;
+		}
+
+		public function addRegExpBasedRule( rule : Rule ) : void
+		{
+			if ( ! customRuleset )
+			{
+				_customRuleset = new Ruleset();
+				_customRuleset.name = CUSTOM_RULESET_NAME;
+				rulesets.addItem( _customRuleset );
+			}
+			
+			rule.ruleset = _customRuleset;
+			_customRuleset.rules.addItem( rule );
+			rulesChanged();
 		}
 		
 		private function handleRulesetChange( event : CollectionEvent ) : void
@@ -62,10 +85,10 @@ package com.adobe.ac.pmd.model
 		
 		private function handleRulesChange( event : CollectionEvent ) : void
 		{
-			dispatchEvent( new Event( RULES_CHANGED ) );
+			rulesChanged();
 		}
 		
-		public function onCustomRulesetImported() : void
+		public function rulesChanged() : void
 		{
 			dispatchEvent( new Event( RULES_CHANGED ) );			
 		}

@@ -230,7 +230,7 @@ protected function foo() : void
 		</example>
 	</rule>
 	
-	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUsingPublicStaticFieldRule"
+	<rule class="com.adobe.ac.pmd.rules.maintanability.ReferenceToVariableBindingFromItsInitializerRule"
 		message="The initializer refers to its variable. Its value will be null.">
 		<priority>1</priority>
 		<example>

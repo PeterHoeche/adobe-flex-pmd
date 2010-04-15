@@ -28,77 +28,53 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.model
+package com.adobe.ac.pmd.rules.parameterized;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import net.sourceforge.pmd.PropertyDescriptor;
+import net.sourceforge.pmd.properties.StringProperty;
+
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
+
+public class ParameterizedRegExpBasedRule extends AbstractRegexpBasedRule
 {
-   import com.adobe.ac.model.IDomainModel;
-   
-   import flash.events.Event;
-   import flash.events.EventDispatcher;
-   
-   import mx.collections.ArrayCollection;
-   import mx.collections.ListCollectionView;
+   public static final String PROPERTY_NAME = "expression";
 
-   public class Rule extends EventDispatcher implements IDomainModel // NO PMD BindableClass TooManyFields
+   @Override
+   protected ViolationPriority getDefaultPriority()
    {
-	   public static const NAME_CHANGE : String = "nameChange";
-	   public static const DELETED_CHANGE : String = "deleteChange";
+      return ViolationPriority.NORMAL;
+   }
 
-      public var since : String;
-	  [Bindable]
-      public var message : String;
-	  [Bindable]
-      public var examples : String;
-	  [Bindable]
-      public var description : String;
-	  [Bindable]
-      public var properties : ListCollectionView = new ArrayCollection();
-	  [Bindable]
-      public var priority : ViolationPriority;
-	  [Bindable]
-      public var ruleset : Ruleset;
+   @Override
+   protected String getRegexp()
+   {
+      return getStringProperty( propertyDescriptorFor( PROPERTY_NAME ) );
+   }
 
-	  private var _deleted : Boolean = false;
-      private var _name : String;
+   @Override
+   protected boolean isConcernedByTheCurrentFile()
+   {
+      return true;
+   }
 
-      public function Rule()
-      {
-      	ruleset = new Ruleset();
-      }
+   @Override
+   protected boolean isViolationDetectedOnThisMatchingLine( final String line )
+   {
+      return true;
+   }
 
-      [Bindable( "nameChange" )]
-      public function get name() : String
-      {
-         return _name;
-      }
+   @Override
+   protected final Map< String, PropertyDescriptor > propertiesByName()
+   {
+      final Map< String, PropertyDescriptor > properties = new LinkedHashMap< String, PropertyDescriptor >();
 
-      public function set name( value : String ) : void
-      {
-         _name = value;
-         dispatchEvent( new Event( NAME_CHANGE ) );
-      }
+      properties.put( PROPERTY_NAME,
+                      new StringProperty( PROPERTY_NAME, "", "", properties.size() ) );
 
-      [Bindable( "nameChange" )]
-      public function get shortName() : String
-      {
-         return name.substr( name.lastIndexOf( "." ) + 1 );
-      }
-	  
-	  [Bindable( "deleteChange" )]
-	  public function get deleted() : Boolean
-	  {
-		  return _deleted;
-	  }
-
-	  public function remove() : void
-	  {
-		  _deleted = true;
-		  dispatchEvent( new Event( DELETED_CHANGE ) );
-	  }
-
-	  public function unDelete() : void
-	  {
-		  _deleted = false;
-		  dispatchEvent( new Event( DELETED_CHANGE ) );
-	  }
-	}
+      return properties;
+   }
 }
