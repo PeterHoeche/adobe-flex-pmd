@@ -261,6 +261,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   /**
+    * find violations in every function in a class
+    * 
+    * @param function
+    */
    protected void findViolations( final IFunction function )
    {
    }
@@ -401,6 +406,11 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitBlock( ifNode.getChild( 2 ) );
    }
 
+   /**
+    * Visit empty statement
+    * 
+    * @param statementNode
+    */
    protected void visitEmptyStatetement( final IParserNode statementNode )
    {
    }
