@@ -45,4 +45,9 @@
 		<priority>1</priority>
 	</rule>
 
+	<rule since="1.2" class="com.adobe.ac.pmd.rules.multiscreen.AvoidTooltipRule" 
+			message="Tooltip cannot be visible on a multi-touch device.">
+		<priority>1</priority>
+	</rule>
+
 </ruleset>
