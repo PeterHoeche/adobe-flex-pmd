@@ -95,7 +95,8 @@ abstract class AbstractFlexFile implements IFlexFile
                                final File rootDirectory )
    {
       final String filePath = underlyingFile.getPath();
-      final CharSequence rootPath = rootDirectory.getPath();
+      final CharSequence rootPath = rootDirectory == null ? ""
+                                                         : rootDirectory.getPath();
 
       file = underlyingFile;
       className = underlyingFile.getName();

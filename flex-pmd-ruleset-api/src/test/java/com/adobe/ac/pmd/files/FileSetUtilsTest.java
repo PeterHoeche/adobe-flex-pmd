@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd.files;
 
+import junit.framework.Assert;
 import net.sourceforge.pmd.PMDException;
 
 import org.junit.Test;
@@ -42,6 +43,14 @@ public class FileSetUtilsTest extends FlexPmdTestBase
    public void buildAst() throws PMDException
    {
       FileSetUtils.buildAst( getTestFiles().get( "bug.Duane.mxml" ) );
+   }
+
+   @Test
+   public void testBuildMessage()
+   {
+      Assert.assertEquals( "While building AST on bug.Duane.mxml, an error occured: message",
+                           FileSetUtils.buildLogMessage( getTestFiles().get( "bug.Duane.mxml" ),
+                                                         "message" ) );
    }
 
    @Test

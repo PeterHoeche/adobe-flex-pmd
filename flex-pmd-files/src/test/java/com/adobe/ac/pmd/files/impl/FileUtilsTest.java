@@ -30,6 +30,7 @@
  */
 package com.adobe.ac.pmd.files.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,65 @@ public class FileUtilsTest extends FlexPmdTestBase
                                           excludePatterns );
 
       Assert.assertEquals( 82,
+                           files.size() );
+   }
+
+   @Test
+   public void testComputeFilesListWithEmptySourceFolder() throws PMDException
+   {
+      final Map< String, IFlexFile > files = FileUtils.computeFilesList( new File( getTestDirectory().getAbsolutePath()
+                                                                               + "/" + "empty/emptyFolder" ),
+                                                                         null,
+                                                                         "",
+                                                                         null );
+
+      Assert.assertEquals( 1,
+                           files.size() );
+   }
+
+   @Test
+   public void testComputeFilesListWithoutSource()
+   {
+      try
+      {
+         FileUtils.computeFilesList( null,
+                                     null,
+                                     "",
+                                     null );
+         Assert.fail();
+      }
+      catch ( final PMDException e )
+      {
+         Assert.assertEquals( "sourceDirectory is not specified",
+                              e.getMessage() );
+      }
+   }
+
+   @Test
+   public void testComputeFilesListWithSourceFile() throws PMDException
+   {
+      final Map< String, IFlexFile > files = FileUtils.computeFilesList( new File( getTestFiles().get( "AbstractRowData.as" )
+                                                                                                 .getFilePath() ),
+                                                                         null,
+                                                                         "",
+                                                                         null );
+
+      Assert.assertEquals( 1,
+                           files.size() );
+   }
+
+   @Test
+   public void testComputeFilesListWithSourceList() throws PMDException
+   {
+      final List< File > sourceList = new ArrayList< File >();
+
+      sourceList.add( getTestDirectory() );
+      final Map< String, IFlexFile > files = FileUtils.computeFilesList( null,
+                                                                         sourceList,
+                                                                         "",
+                                                                         null );
+
+      Assert.assertEquals( 94,
                            files.size() );
    }
 }

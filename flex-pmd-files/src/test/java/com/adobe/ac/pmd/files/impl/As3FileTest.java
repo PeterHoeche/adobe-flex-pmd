@@ -68,4 +68,11 @@ public class As3FileTest extends FlexPmdTestBase
       assertEquals( "      public const logger : ILogger;",
                     data.getLineAt( 45 ) );
    }
+
+   @Test
+   public void testGetSingleLineComment()
+   {
+      assertEquals( "//",
+                    data.getSingleLineComment() );
+   }
 }

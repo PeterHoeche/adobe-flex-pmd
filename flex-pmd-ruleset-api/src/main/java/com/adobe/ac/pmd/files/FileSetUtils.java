@@ -153,10 +153,10 @@ public final class FileSetUtils
       return asts;
    }
 
-   private static String buildLogMessage( final IFlexFile file,
-                                          final String message )
+   protected static String buildLogMessage( final IFlexFile file,
+                                            final String message )
    {
-      return "while building AST on "
+      return "While building AST on "
             + file.getFullyQualifiedName() + ", an error occured: " + message;
    }
 

@@ -85,9 +85,19 @@ public class FlexPmdAntTask extends Task // NO_UCD
       }
    }
 
+   public final String getPackageToExclude()
+   {
+      return packageToExclude;
+   }
+
    public final void setFailOnError( final boolean failOnErrorToBeSet )
    {
       failOnError = failOnErrorToBeSet;
+   }
+
+   public final void setFailOnRuleViolation( final boolean failOnRuleViolation )
+   {
+      this.failOnRuleViolation = failOnRuleViolation;
    }
 
    public final void setOutputDirectory( final File outputDirectoryToBeSet )
@@ -108,16 +118,6 @@ public class FlexPmdAntTask extends Task // NO_UCD
    public final void setSourceDirectory( final File sourceDirectoryToBeSet )
    {
       sourceDirectory = sourceDirectoryToBeSet;
-   }
-
-   final String getPackageToExclude()
-   {
-      return packageToExclude;
-   }
-
-   protected void setFailOnRuleViolation( final boolean failOnRuleViolation )
-   {
-      this.failOnRuleViolation = failOnRuleViolation;
    }
 
    private void presetParameters()

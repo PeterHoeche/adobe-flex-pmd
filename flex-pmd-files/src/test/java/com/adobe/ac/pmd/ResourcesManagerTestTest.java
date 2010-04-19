@@ -28,47 +28,19 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.cpd.commandline;
+package com.adobe.ac.pmd;
 
-import java.io.File;
-import java.util.List;
+import junit.framework.Assert;
 
-public class FlexCpdParameters
+import org.junit.Test;
+
+public class ResourcesManagerTestTest
 {
-   private final Integer      minimumTokenCount;
-   private final File         outputFile;
-   private final File         sourceDirectory;
-   private final List< File > sourceList;
-
-   public FlexCpdParameters( final File outputFileToBeSet,
-                             final Integer minimumTokenCountToBeSet,
-                             final File sourceDirectoryToBeSet,
-                             final List< File > sourceListToBeSet )
+   @Test
+   public void testGetInstance()
    {
-      super();
-      minimumTokenCount = minimumTokenCountToBeSet;
-      outputFile = outputFileToBeSet;
-      sourceDirectory = sourceDirectoryToBeSet;
-      sourceList = sourceListToBeSet;
-   }
+      final ResourcesManagerTest manager = ResourcesManagerTest.getInstance();
 
-   public final Integer getMinimumTokenCount()
-   {
-      return minimumTokenCount;
-   }
-
-   public final File getOutputFile()
-   {
-      return outputFile;
-   }
-
-   public final File getSourceDirectory()
-   {
-      return sourceDirectory;
-   }
-
-   public List< File > getSourceList()
-   {
-      return sourceList;
+      Assert.assertNotNull( manager.getTestFiles() );
    }
 }

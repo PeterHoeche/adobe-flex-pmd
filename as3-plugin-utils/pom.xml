@@ -4,6 +4,7 @@
   <artifactId>as3-plugin-utils</artifactId>
   <name>As3 Maven plugin Utils</name>
   <url>http://maven.apache.org</url>
+  <packaging>jar</packaging>
   
   <parent>
 	<groupId>com.adobe.ac</groupId>

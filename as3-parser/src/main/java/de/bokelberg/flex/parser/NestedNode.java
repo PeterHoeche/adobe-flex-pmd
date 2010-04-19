@@ -161,8 +161,7 @@ class NestedNode
     */
    public final boolean is( final NodeKind expectedType ) // NOPMD
    {
-      return getId() == null
-            && expectedType == null || getId().equals( expectedType );
+      return getId().equals( expectedType );
    }
 
    /**

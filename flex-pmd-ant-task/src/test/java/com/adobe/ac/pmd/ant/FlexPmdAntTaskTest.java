@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.pmd.ant;
 
+import java.io.File;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.junit.Test;
@@ -38,12 +40,54 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class FlexPmdAntTaskTest extends FlexPmdTestBase
 {
+   private static final String TARGET = "target";
+
+   @Test(expected = BuildException.class)
+   public void testExecuteWithFailOnError()
+   {
+      final FlexPmdAntTask task = new FlexPmdAntTask();
+      final Project project = new Project();
+
+      task.setFailOnError( true );
+      task.setSourceDirectory( getTestDirectory() );
+      task.setOutputDirectory( new File( TARGET ) );
+      task.setProject( project );
+      task.execute();
+   }
+
+   @Test(expected = BuildException.class)
+   public void testExecuteWithFailOnViolation()
+   {
+      final FlexPmdAntTask task = new FlexPmdAntTask();
+      final Project project = new Project();
+
+      task.setFailOnRuleViolation( true );
+      task.setPackageToExclude( "" );
+      task.setRuleSet( null );
+      task.setSourceDirectory( getTestDirectory() );
+      task.setOutputDirectory( new File( TARGET ) );
+      task.setProject( project );
+      task.execute();
+   }
+
    @Test(expected = BuildException.class)
    public void testExecuteWithoutSettingParameters()
    {
       final FlexPmdAntTask task = new FlexPmdAntTask();
       final Project project = new Project();
 
+      task.setProject( project );
+      task.execute();
+   }
+
+   @Test
+   public void testExecuteWithParameters()
+   {
+      final FlexPmdAntTask task = new FlexPmdAntTask();
+      final Project project = new Project();
+
+      task.setSourceDirectory( getTestDirectory() );
+      task.setOutputDirectory( new File( TARGET ) );
       task.setProject( project );
       task.execute();
    }

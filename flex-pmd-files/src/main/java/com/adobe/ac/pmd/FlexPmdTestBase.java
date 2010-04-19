@@ -62,14 +62,6 @@ public class FlexPmdTestBase // NO_UCD
    /**
     * @return
     */
-   protected String getLineSeparator()
-   {
-      return System.getProperty( "line.separator" );
-   }
-
-   /**
-    * @return
-    */
    protected File getTestDirectory() // NO_UCD
    {
       return ResourcesManagerTest.getInstance().getTestRootDirectory();

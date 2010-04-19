@@ -28,47 +28,34 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.cpd.commandline;
+package com.adobe.ac.pmd;
 
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
-public class FlexCpdParameters
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+public class FlexPmdParametersTest
 {
-   private final Integer      minimumTokenCount;
-   private final File         outputFile;
-   private final File         sourceDirectory;
-   private final List< File > sourceList;
-
-   public FlexCpdParameters( final File outputFileToBeSet,
-                             final Integer minimumTokenCountToBeSet,
-                             final File sourceDirectoryToBeSet,
-                             final List< File > sourceListToBeSet )
+   @Test
+   public void testFlexPmdParametersStringBooleanBooleanFileFileFile()
    {
-      super();
-      minimumTokenCount = minimumTokenCountToBeSet;
-      outputFile = outputFileToBeSet;
-      sourceDirectory = sourceDirectoryToBeSet;
-      sourceList = sourceListToBeSet;
+      final FlexPmdParameters parameters = new FlexPmdParameters( "", true, true, null, null, null );
+
+      Assert.assertTrue( parameters.isFailOnError() );
+      Assert.assertTrue( parameters.isFailOnRuleViolation() );
    }
 
-   public final Integer getMinimumTokenCount()
+   @Test
+   public void testFlexPmdParametersStringFileFileFileListOfFile()
    {
-      return minimumTokenCount;
-   }
+      final File file = new File( "" );
+      final ArrayList< File > sourceList = new ArrayList< File >();
+      final FlexPmdParameters parameters = new FlexPmdParameters( "", file, file, file, sourceList );
 
-   public final File getOutputFile()
-   {
-      return outputFile;
-   }
-
-   public final File getSourceDirectory()
-   {
-      return sourceDirectory;
-   }
-
-   public List< File > getSourceList()
-   {
-      return sourceList;
+      Assert.assertEquals( sourceList,
+                           parameters.getSourceList() );
    }
 }

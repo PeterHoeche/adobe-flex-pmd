@@ -35,11 +35,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
@@ -61,8 +59,7 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
 {
    public class NamespaceContextMap implements NamespaceContext
    {
-      private final Map< String, Set< String >> nsMap;
-      private final Map< String, String >       prefixMap;
+      private final Map< String, String > prefixMap;
 
       /**
        * Constructor that takes a map of XML prefix-namespaceURI values. A
@@ -75,7 +72,6 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
       public NamespaceContextMap( final Map< String, String > prefixMappings )
       {
          prefixMap = createPrefixMap( prefixMappings );
-         nsMap = createNamespaceMap( prefixMap );
       }
 
       /**
@@ -88,70 +84,28 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
          this( toMap( mappingPairs ) );
       }
 
-      /**
-       * @return an unmodifiable map of the mappings in the form
-       *         prefix-namespaceURI
-       */
-      public Map< String, String > getMap()
-      {
-         return prefixMap;
-      }
-
       public String getNamespaceURI( final String prefix )
       {
-         final String nsURI = prefixMap.get( prefix );
-         return nsURI == null ? XMLConstants.NULL_NS_URI
-                             : nsURI;
+         prefixMap.get( prefix );
+         return prefixMap.get( prefix );
       }
 
       public String getPrefix( final String namespaceURI )
       {
-         final Set< String > set = nsMap.get( namespaceURI );
-         return set == null ? null
-                           : set.iterator().next();
+         return null;
       }
 
       public Iterator< String > getPrefixes( final String namespaceURI )
       {
-         final Set< String > set = nsMap.get( namespaceURI );
-         return set.iterator();
+         return null;
       }
 
       private void addConstant( final Map< String, String > map,
                                 final String prefix,
                                 final String nsURI )
       {
-         final String previous = map.put( prefix,
-                                          nsURI );
-         if ( previous != null
-               && !previous.equals( nsURI ) )
-         {
-            throw new IllegalArgumentException( prefix
-                  + " -> " + previous + "; see NamespaceContext contract" );
-         }
-      }
-
-      private Map< String, Set< String >> createNamespaceMap( final Map< String, String > map )
-      {
-         final Map< String, Set< String >> namespaceMap = new HashMap< String, Set< String >>();
-         for ( final Map.Entry< String, String > entry : map.entrySet() )
-         {
-            final String nsURI = entry.getValue();
-            Set< String > prefixes = namespaceMap.get( nsURI );
-            if ( prefixes == null )
-            {
-               prefixes = new HashSet< String >();
-               namespaceMap.put( nsURI,
-                                 prefixes );
-            }
-            prefixes.add( entry.getKey() );
-         }
-         for ( final Map.Entry< String, Set< String >> entry : namespaceMap.entrySet() )
-         {
-            final Set< String > readOnly = Collections.unmodifiableSet( entry.getValue() );
-            entry.setValue( readOnly );
-         }
-         return namespaceMap;
+         map.put( prefix,
+                  nsURI );
       }
 
       private Map< String, String > createPrefixMap( final Map< String, String > prefixMappings )

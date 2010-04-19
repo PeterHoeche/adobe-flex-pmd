@@ -28,47 +28,27 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.cpd.commandline;
+package com.adobe.ac.pmd;
 
-import java.io.File;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class FlexCpdParameters
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import com.adobe.ac.pmd.files.IFlexFile;
+
+public class FlexPmdTestBaseTest
 {
-   private final Integer      minimumTokenCount;
-   private final File         outputFile;
-   private final File         sourceDirectory;
-   private final List< File > sourceList;
-
-   public FlexCpdParameters( final File outputFileToBeSet,
-                             final Integer minimumTokenCountToBeSet,
-                             final File sourceDirectoryToBeSet,
-                             final List< File > sourceListToBeSet )
+   @Test
+   public void testSetTestFiles()
    {
-      super();
-      minimumTokenCount = minimumTokenCountToBeSet;
-      outputFile = outputFileToBeSet;
-      sourceDirectory = sourceDirectoryToBeSet;
-      sourceList = sourceListToBeSet;
-   }
+      final FlexPmdTestBase testBase = new FlexPmdTestBase();
+      final Map< String, IFlexFile > testFilesToBeSet = new HashMap< String, IFlexFile >();
 
-   public final Integer getMinimumTokenCount()
-   {
-      return minimumTokenCount;
-   }
-
-   public final File getOutputFile()
-   {
-      return outputFile;
-   }
-
-   public final File getSourceDirectory()
-   {
-      return sourceDirectory;
-   }
-
-   public List< File > getSourceList()
-   {
-      return sourceList;
+      testBase.setTestFiles( testFilesToBeSet );
+      Assert.assertEquals( testFilesToBeSet,
+                           testBase.getTestFiles() );
    }
 }

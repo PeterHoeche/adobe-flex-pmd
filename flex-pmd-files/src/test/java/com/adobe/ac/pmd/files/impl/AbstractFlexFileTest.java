@@ -77,6 +77,14 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testEquals()
+   {
+      Assert.assertTrue( as3.equals( as3 ) );
+      Assert.assertFalse( mxml.equals( as3 ) );
+      Assert.assertFalse( as3.equals( mxml ) );
+   }
+
+   @Test
    public void testFlexPMD152()
    {
       Assert.assertEquals( "com.something",
@@ -99,6 +107,13 @@ public class AbstractFlexFileTest extends FlexPmdTestBase
                     as3.getClassName() );
       assertEquals( "IterationsList.mxml",
                     mxml.getClassName() );
+   }
+
+   @Test
+   public void testGetFileName()
+   {
+      Assert.assertEquals( "AbstractRowData.as",
+                           as3.getFilename() );
    }
 
    @Test

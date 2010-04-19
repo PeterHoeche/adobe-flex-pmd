@@ -141,7 +141,7 @@ public final class FileUtils
       if ( source == null
             && sourceList == null )
       {
-         throw new PMDException( "sourceDirectory is empty", null );
+         throw new PMDException( "sourceDirectory is not specified", null );
       }
       Collection< File > foundFiles;
       if ( source == null )

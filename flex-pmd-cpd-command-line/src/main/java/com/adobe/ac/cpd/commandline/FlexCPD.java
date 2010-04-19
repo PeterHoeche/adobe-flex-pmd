@@ -106,16 +106,13 @@ public final class FlexCPD
       if ( areCommandLineOptionsCorrect( args ) )
       {
          final String minimumTokens = getParameterValue( CpdCommandLineOptions.MINIMUM_TOKENS );
-         final String excludePackage = getParameterValue( CommandLineOptions.EXLUDE_PACKAGE );
          final String source = getParameterValue( CommandLineOptions.SOURCE_DIRECTORY );
          final File sourceDirectory = source.contains( "," ) ? null
                                                             : new File( source );
          final List< File > sourceList = CommandLineUtils.computeSourceList( source );
          final File outputDirectory = new File( getParameterValue( CpdCommandLineOptions.OUTPUT_FILE ) );
 
-         parameters = new FlexCpdParameters( excludePackage == null ? ""
-                                                                   : excludePackage,
-                                             outputDirectory,
+         parameters = new FlexCpdParameters( outputDirectory,
                                              minimumTokens == null ? FlexTokenizer.DEFAULT_MINIMUM_TOKENS
                                                                   : Integer.valueOf( minimumTokens ),
                                              sourceDirectory,

@@ -28,47 +28,37 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.cpd.commandline;
+package com.adobe.ac.pmd.files.impl;
 
-import java.io.File;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-public class FlexCpdParameters
+import org.junit.Before;
+import org.junit.Test;
+
+import com.adobe.ac.pmd.FlexPmdTestBase;
+import com.adobe.ac.pmd.files.IMxmlFile;
+
+public class MxmlFileTest extends FlexPmdTestBase
 {
-   private final Integer      minimumTokenCount;
-   private final File         outputFile;
-   private final File         sourceDirectory;
-   private final List< File > sourceList;
+   private IMxmlFile data;
 
-   public FlexCpdParameters( final File outputFileToBeSet,
-                             final Integer minimumTokenCountToBeSet,
-                             final File sourceDirectoryToBeSet,
-                             final List< File > sourceListToBeSet )
+   @Before
+   public void setUp()
    {
-      super();
-      minimumTokenCount = minimumTokenCountToBeSet;
-      outputFile = outputFileToBeSet;
-      sourceDirectory = sourceDirectoryToBeSet;
-      sourceList = sourceListToBeSet;
+      data = ( IMxmlFile ) getTestFiles().get( "Main.mxml" );
    }
 
-   public final Integer getMinimumTokenCount()
+   @Test
+   public void testGetActualScriptBlock()
    {
-      return minimumTokenCount;
+      assertEquals( Integer.valueOf( 5 ),
+                    Integer.valueOf( data.getActualScriptBlock().length ) );
    }
 
-   public final File getOutputFile()
+   @Test
+   public void testGetSingleLineComment()
    {
-      return outputFile;
-   }
-
-   public final File getSourceDirectory()
-   {
-      return sourceDirectory;
-   }
-
-   public List< File > getSourceList()
-   {
-      return sourceList;
+      assertEquals( "<!--",
+                    data.getSingleLineComment() );
    }
 }

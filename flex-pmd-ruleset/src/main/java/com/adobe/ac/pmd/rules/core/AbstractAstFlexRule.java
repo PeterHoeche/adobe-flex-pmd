@@ -549,9 +549,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       switch ( statementNode.getId() )
       {
-      case LEFT_CURLY_BRACKET:
-         visitBlock( statementNode );
-         break;
       case RETURN:
          visitReturn( statementNode );
          break;
@@ -584,6 +581,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
          break;
       case STMT_EMPTY:
          visitEmptyStatetement( statementNode );
+         break;
+      case LEFT_CURLY_BRACKET:
+         visitBlock( statementNode );
          break;
       default:
          visitExpressionList( statementNode );
