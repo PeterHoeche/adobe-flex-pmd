@@ -30,6 +30,8 @@
  */
 package com.adobe.ac.cpd.ant;
 
+import java.io.File;
+
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 import org.junit.Test;
@@ -49,5 +51,20 @@ public class FlexCpdAntTaskTest extends FlexPmdTestBase
       task.setProject( project );
       task.addFileset( set );
       task.execute();
+   }
+
+   @Test
+   public void testParameter()
+   {
+      final FlexCpdAntTask task = new FlexCpdAntTask();
+      final String encodingValue = "encoding";
+      final String desc = "desc";
+      final int minimumTokenCountToBeSet = 10;
+      final File outputFile = null;
+
+      task.setDescription( desc );
+      task.setEncoding( encodingValue );
+      task.setOutputFile( outputFile );
+      task.setMinimumTokenCount( minimumTokenCountToBeSet );
    }
 }

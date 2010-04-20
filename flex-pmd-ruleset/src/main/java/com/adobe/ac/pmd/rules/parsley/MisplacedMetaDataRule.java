@@ -87,7 +87,8 @@ public final class MisplacedMetaDataRule extends AbstractFlexMetaDataRule
       {
          if ( tags.contains( metaData.getName() ) )
          {
-            addViolation( metaData );
+            addViolation( metaData,
+                          metaData.getName() );
          }
       }
    }

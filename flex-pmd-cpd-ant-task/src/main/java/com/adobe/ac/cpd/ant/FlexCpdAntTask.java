@@ -140,12 +140,6 @@ public class FlexCpdAntTask extends Task
 
    private void report( final CPD cpd ) throws ReportException
    {
-      if ( !cpd.getMatches().hasNext() )
-      {
-         log( "No duplicates over "
-                    + minimumTokenCount + " tokens found",
-              Project.MSG_INFO );
-      }
       final Renderer renderer = new XMLRenderer( encoding );
       FileReporter reporter;
       if ( outputFile == null )
