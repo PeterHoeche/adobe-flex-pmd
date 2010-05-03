@@ -64,7 +64,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     * 
     * @parameter expression="${flexpmd.excludePackage}"
     */
-   private final String excludePackage;
+   private String       excludePackage = "";
 
    /**
     * Build fails if an violation error occurs.
@@ -128,7 +128,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    public AbstractFlexPmdMojo( final MavenProject projectToBeSet,
                                final FlexPmdParameters parameters )
    {
-      super();
+      this();
 
       project = projectToBeSet;
       outputDirectory = parameters.getOutputDirectory();

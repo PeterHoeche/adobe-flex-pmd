@@ -131,21 +131,22 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    boolean isViolationIgnored( final String violatedLine )
    {
       final boolean containsNoPmd = violatedLine.contains( "// No PMD" )
-            || violatedLine.contains( "// NO PMD" );
+            || violatedLine.contains( "// NO PMD" ) || violatedLine.contains( "// NOPMD" )
+            || violatedLine.contains( "//NOPMD" );
 
       if ( !containsNoPmd )
       {
          return false;
       }
-      final String strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) );
       final String name = getRuleName().replaceAll( "Rule",
                                                     "" );
       final String ruleName = name.contains( "." ) ? StringUtils.substringAfterLast( name,
                                                                                      "." )
                                                   : name;
-      final boolean ignored = strippedLine.endsWith( "// No PMD" )
-            || strippedLine.endsWith( "// NO PMD" ) || strippedLine.contains( ruleName );
-      return ignored;
+      final String strippedLine = computeStrippedLine( violatedLine );
+      return strippedLine.endsWith( "// No PMD" )
+            || strippedLine.endsWith( "// NO PMD" ) || strippedLine.endsWith( "// NOPMD" )
+            || strippedLine.endsWith( "//NOPMD" ) || strippedLine.contains( ruleName );
    }
 
    protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
@@ -238,6 +239,12 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
     */
    protected void onRuleStart()
    {
+   }
+
+   private String computeStrippedLine( final String violatedLine )
+   {
+      return violatedLine.indexOf( "// N" ) > 0 ? StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) )
+                                               : StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "//N" ) ) );
    }
 
    private boolean isFileExcluded( final IFlexFile file )
