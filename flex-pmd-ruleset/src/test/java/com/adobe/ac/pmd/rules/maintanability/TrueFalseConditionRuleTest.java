@@ -64,7 +64,10 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
                             new ViolationPosition( 190 ),
                             new ViolationPosition( 194 ) } );
 
-      return addToMap( addToMap( addToMap( violatingFiles,
+      return addToMap( addToMap( addToMap( addToMap( violatingFiles,
+                                                     "bug.FlexPMD181.as",
+                                                     new ViolationPosition[]
+                                                     { new ViolationPosition( 2222 ) } ),
                                            "AbstractRowData.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 106 ),

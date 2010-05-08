@@ -179,14 +179,23 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
 
    protected abstract Map< String, ViolationPosition[] > getExpectedViolatingFiles();
 
+   protected List< String > getIgnoreFiles()
+   {
+      return new ArrayList< String >();
+   }
+
    protected abstract AbstractFlexRule getRule();
 
    protected List< IFlexViolation > processFile( final String resourcePath ) throws IOException,
                                                                             TokenException
    {
-      return getRule().processFile( getTestFiles().get( resourcePath ),
-                                    null,
-                                    getTestFiles() );
+      if ( !getIgnoreFiles().contains( resourcePath ) )
+      {
+         return getRule().processFile( getTestFiles().get( resourcePath ),
+                                       null,
+                                       getTestFiles() );
+      }
+      return new ArrayList< IFlexViolation >();
    }
 
    private void assertViolations( final String resourcePath,

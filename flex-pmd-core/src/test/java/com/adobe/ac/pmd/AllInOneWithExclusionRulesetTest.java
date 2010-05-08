@@ -47,6 +47,6 @@ public class AllInOneWithExclusionRulesetTest extends AbstractEntireRulesetTest
    @Override
    protected int getViolatedFilesNb()
    {
-      return 27;
+      return 28;
    }
 }

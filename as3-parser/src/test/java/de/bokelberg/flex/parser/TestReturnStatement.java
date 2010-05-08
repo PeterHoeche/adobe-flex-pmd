@@ -49,6 +49,27 @@ public class TestReturnStatement extends AbstractStatementTest
    }
 
    @Test
+   public void testFlexPMD181a() throws TokenException
+   {
+      assertStatement( "1",
+                       "return (str1 === str2);",
+                       "<return line=\"1\"><primary line=\"1\"><encapsulated line=\"1\">"
+                             + "<equality line=\"1\"><primary line=\"1\">str1</primary><op line=\"1\">"
+                             + "===</op><primary line=\"1\">str2</primary></equality>"
+                             + "</encapsulated></primary></return>" );
+   }
+
+   @Test
+   public void testFlexPMD181b() throws TokenException
+   {
+      assertStatement( "1",
+                       "return testString(str, /^[a-zA-Z\\s]*$/);",
+                       "<return line=\"1\"><call line=\"1\"><primary line=\"1\">testString"
+                             + "</primary><arguments line=\"1\"><primary line=\"1\">str</primary>"
+                             + "<primary line=\"1\">/^[a-zA-Z\\s]*$/</primary></arguments></call></return>" );
+   }
+
+   @Test
    public void testReturnArrayLiteral() throws TokenException
    {
       assertStatement( "1",

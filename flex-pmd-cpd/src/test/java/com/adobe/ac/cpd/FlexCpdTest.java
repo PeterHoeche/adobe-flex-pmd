@@ -66,21 +66,18 @@ public class FlexCpdTest extends FlexPmdTestBase
                                              { new ExpectedMatchInformation( 107, 2, 7 ),
                new ExpectedMatchInformation( 79, 2, 17 ),
                new ExpectedMatchInformation( 77, 2, 6 ),
+               new ExpectedMatchInformation( 76, 2, 18 ),
                new ExpectedMatchInformation( 64, 2, 7 ),
                new ExpectedMatchInformation( 60, 3, 14 ),
                new ExpectedMatchInformation( 57, 2, 7 ),
                new ExpectedMatchInformation( 54, 2, 9 ),
                new ExpectedMatchInformation( 53, 2, 8 ),
                new ExpectedMatchInformation( 48, 2, 18 ),
+               new ExpectedMatchInformation( 48, 2, 12 ),
+               new ExpectedMatchInformation( 46, 2, 9 ),
                new ExpectedMatchInformation( 44, 2, 7 ),
                new ExpectedMatchInformation( 44, 2, 13 ),
-               new ExpectedMatchInformation( 43, 2, 13 ),
-               new ExpectedMatchInformation( 41, 2, 16 ),
-               new ExpectedMatchInformation( 41, 2, 17 ),
-               new ExpectedMatchInformation( 40, 2, 14 ),
-               new ExpectedMatchInformation( 40, 2, 15 ),
-               new ExpectedMatchInformation( 40, 2, 15 ),
-               new ExpectedMatchInformation( 38, 2, 3 ) };
+               new ExpectedMatchInformation( 43, 2, 13 ) };
 
    @Test
    public void test119() throws IOException

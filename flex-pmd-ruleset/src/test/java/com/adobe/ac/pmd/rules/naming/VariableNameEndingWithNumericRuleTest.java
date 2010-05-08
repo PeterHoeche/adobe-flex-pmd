@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.naming;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -70,6 +71,15 @@ public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTe
                                    new ViolationPosition( 62 ),
                                    new ViolationPosition( 62 ),
                                    new ViolationPosition( 64 ) } );
+   }
+
+   @Override
+   protected List< String > getIgnoreFiles()
+   {
+      final List< String > files = super.getIgnoreFiles();
+
+      files.add( "bug.FlexPMD181.as" );
+      return files;
    }
 
    @Override

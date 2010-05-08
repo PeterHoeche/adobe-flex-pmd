@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.maintanability;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -50,6 +51,15 @@ public class OnlyOneReturnRuleTest extends AbstractAstFlexRuleTest
                        "com.adobe.ac.AbstractRowData.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 66 ) } );
+   }
+
+   @Override
+   protected List< String > getIgnoreFiles()
+   {
+      final List< String > files = super.getIgnoreFiles();
+
+      files.add( "bug.FlexPMD181.as" );
+      return files;
    }
 
    @Override

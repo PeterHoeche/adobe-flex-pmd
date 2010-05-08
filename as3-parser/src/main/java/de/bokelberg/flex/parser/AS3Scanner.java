@@ -522,7 +522,8 @@ public class AS3Scanner
 
       Token result;
 
-      if ( getPreviousCharacter() == '=' )
+      if ( getPreviousCharacter() == '='
+            || getPreviousCharacter() == '(' || getPreviousCharacter() == ',' )
       {
          result = scanRegExp();
 
