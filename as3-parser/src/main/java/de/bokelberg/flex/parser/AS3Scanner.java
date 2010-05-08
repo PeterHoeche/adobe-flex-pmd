@@ -155,7 +155,6 @@ public class AS3Scanner
          }
          catch ( final SAXException e )
          {
-            LOGGER.warning( StackTraceUtils.print( e ) );
          }
       }
 
