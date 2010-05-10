@@ -55,7 +55,7 @@ public class ExcessiveImportRule extends AbstractMaximizedAstFlexRule
 
       if ( importNumber > getThreshold() )
       {
-         addViolation( packageNode );
+         addViolation( packageNode.getClassNode() );
       }
    }
 
