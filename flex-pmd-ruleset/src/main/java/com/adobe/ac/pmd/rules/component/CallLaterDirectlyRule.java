@@ -39,8 +39,7 @@ public class CallLaterDirectlyRule extends AbstractPrimaryAstRule
 {
    @Override
    protected void addViolation( final IParserNode statement,
-                                final IFunction function,
-                                final String firstName )
+                                final IFunction function )
    {
       addViolation( statement );
    }

@@ -46,8 +46,7 @@ public class CairngormEventDispatcherCallExplicitlyRule extends AbstractPrimaryA
 
    @Override
    protected void addViolation( final IParserNode statement,
-                                final IFunction function,
-                                final String firstName )
+                                final IFunction function )
    {
       final String violationLine = getCurrentFile().getLineAt( statement.getLine() );
       final String messageToAppend = violationLine.contains( DISPATCH_EVENT ) ? ADD_EVENT_LISTENER_MESSAGE

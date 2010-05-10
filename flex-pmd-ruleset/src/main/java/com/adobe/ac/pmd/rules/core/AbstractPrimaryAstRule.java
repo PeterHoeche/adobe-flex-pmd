@@ -44,29 +44,12 @@ import com.adobe.ac.pmd.parser.IParserNode;
 public abstract class AbstractPrimaryAstRule extends AbstractAstFlexRule
 {
    protected abstract void addViolation( IParserNode statement,
-                                         IFunction function,
-                                         String firstName );
+                                         IFunction function );
 
    @Override
    protected final void findViolations( final IFunction function )
    {
-      findStatement( function,
-                     getFirstPrimaryToFind(),
-                     getSecondPrimaryToFind() );
-   }
-
-   protected abstract String getFirstPrimaryToFind();
-
-   protected String getSecondPrimaryToFind()
-   {
-      return null;
-   }
-
-   private void findStatement( final IFunction function,
-                               final String firstName,
-                               final String secondName )
-   {
-      final List< IParserNode > firstStatements = function.findPrimaryStatementsInBody( firstName );
+      final List< IParserNode > firstStatements = function.findPrimaryStatementsInBody( getFirstPrimaryToFind() );
       if ( !firstStatements.isEmpty() )
       {
          for ( final IParserNode firstStatement : firstStatements )
@@ -74,23 +57,28 @@ public abstract class AbstractPrimaryAstRule extends AbstractAstFlexRule
             if ( getSecondPrimaryToFind() == null )
             {
                addViolation( firstStatement,
-                             function,
-                             firstName );
+                             function );
             }
             else
             {
-               final List< IParserNode > secondStatements = function.findPrimaryStatementsInBody( secondName );
+               final List< IParserNode > secondStatements = function.findPrimaryStatementsInBody( getSecondPrimaryToFind() );
                if ( !secondStatements.isEmpty() )
                {
                   for ( final IParserNode secondStatement : secondStatements )
                   {
                      addViolation( secondStatement,
-                                   function,
-                                   secondName );
+                                   function );
                   }
                }
             }
          }
       }
+   }
+
+   protected abstract String getFirstPrimaryToFind();
+
+   protected String getSecondPrimaryToFind()
+   {
+      return null;
    }
 }
