@@ -28,65 +28,65 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.parsley;
+package com.adobe.ac.pmd.rules.parsley.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.nodes.IClass;
-import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
-import com.adobe.ac.pmd.nodes.IVisible;
 import com.adobe.ac.pmd.nodes.MetaData;
-import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
-public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
+public final class MetaDataTag
 {
-   @Override
-   protected void findViolationsFromAttributeMetaData( final IAttribute attribute )
+   public enum Location
    {
-      findInaccessibleNodes( attribute,
-                             attribute );
+      ATTRIBUTE, CLASS_DECLARATION, FUNCTION
+   };
+
+   private final String[]   attributes;
+
+   private final String     name;
+
+   private final Location[] placedOn;
+
+   public MetaDataTag( final String nameToBeSet,
+                       final String[] attributesToBeSet,
+                       final Location[] placedOnToBeSet )
+   {
+      name = nameToBeSet;
+      attributes = attributesToBeSet;
+      placedOn = placedOnToBeSet;
    }
 
-   @Override
-   protected void findViolationsFromClassMetaData( final IClass classNode )
+   public List< String > getAttributes()
    {
-      findInaccessibleNodes( classNode,
-                             classNode );
+      return Arrays.asList( attributes );
    }
 
-   @Override
-   protected void findViolationsFromFunctionMetaData( final IFunction function )
+   public List< IMetaData > getMetaDataList( final IMetaDataListHolder holder )
    {
-      findInaccessibleNodes( function,
-                             function );
-   }
+      final List< IMetaData > list = new ArrayList< IMetaData >();
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.NORMAL;
-   }
-
-   private void findInaccessibleNodes( final IMetaDataListHolder holder,
-                                       final IVisible visibility )
-   {
-      final List< IMetaData > allMetaData = holder.getMetaData( MetaData.OTHER );
-
-      if ( allMetaData != null )
+      for ( final IMetaData metaData : holder.getMetaData( MetaData.OTHER ) )
       {
-         for ( final IMetaData metaData : allMetaData )
+         if ( metaData.getName().equals( name ) )
          {
-            if ( ParsleyMetaData.isParsleyMetaData( metaData.getName() )
-                  && !visibility.isPublic() )
-            {
-               addViolation( metaData );
-            }
+            list.add( metaData );
          }
       }
+
+      return list;
+   }
+
+   public String getName()
+   {
+      return name;
+   }
+
+   public List< Location > getPlacedOn()
+   {
+      return Arrays.asList( placedOn );
    }
 }

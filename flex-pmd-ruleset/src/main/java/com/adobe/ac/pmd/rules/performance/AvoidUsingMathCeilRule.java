@@ -30,11 +30,21 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class AvoidUsingMathCeilRule extends AbstractRegexpBasedRule
+public class AvoidUsingMathCeilRule extends AbstractPrimaryAstRule
 {
+   @Override
+   protected void addViolation( final IParserNode statement,
+                                final IFunction function,
+                                final String firstName )
+   {
+      addViolation( statement );
+   }
+
    @Override
    protected ViolationPriority getDefaultPriority()
    {
@@ -42,20 +52,14 @@ public class AvoidUsingMathCeilRule extends AbstractRegexpBasedRule
    }
 
    @Override
-   protected String getRegexp()
+   protected String getFirstPrimaryToFind()
    {
-      return ".*Math.ceil.*";
+      return "Math";
    }
 
    @Override
-   protected boolean isConcernedByTheCurrentFile()
+   protected String getSecondPrimaryToFind()
    {
-      return true;
-   }
-
-   @Override
-   protected boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      return true;
+      return "ceil";
    }
 }

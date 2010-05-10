@@ -41,7 +41,9 @@ import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.parsley.MetaDataTag.Location;
+import com.adobe.ac.pmd.rules.parsley.utils.MetaDataTag;
+import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
+import com.adobe.ac.pmd.rules.parsley.utils.MetaDataTag.Location;
 
 public final class MisplacedMetaDataRule extends AbstractFlexMetaDataRule
 {

@@ -38,6 +38,8 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.parsley.utils.MetaDataTag;
+import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
 public final class RedundantMethodAttributeRule extends AbstractFlexMetaDataRule
 {

@@ -30,28 +30,20 @@
  */
 package com.adobe.ac.pmd.rules.binding;
 
-import com.adobe.ac.pmd.nodes.IPackage;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractForbiddenImportRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class BindingUtilsRule extends AbstractAstFlexRule // NO_UCD
+public class BindingUtilsRule extends AbstractForbiddenImportRule // NO_UCD
 {
-   @Override
-   protected final void findViolations( final IPackage packageNode )
-   {
-      for ( final IParserNode importNode : packageNode.getImports() )
-      {
-         if ( importNode.getStringValue().contains( "BindingUtils" ) )
-         {
-            addViolation( importNode );
-         }
-      }
-   }
-
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
+   }
+
+   @Override
+   protected String getForbiddenImport()
+   {
+      return "BindingUtils";
    }
 }

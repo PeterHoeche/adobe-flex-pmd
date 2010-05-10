@@ -28,63 +28,67 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.parsley;
+package com.adobe.ac.pmd.rules.core;
 
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
-import com.adobe.ac.pmd.nodes.IVisible;
-import com.adobe.ac.pmd.nodes.MetaData;
-import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
+/**
+ * Abstract rule which find a primary (or a couple of primaries) in a body
+ * function.
+ * 
+ * @author xagnetti
+ */
+public abstract class AbstractPrimaryAstRule extends AbstractAstFlexRule
 {
-   @Override
-   protected void findViolationsFromAttributeMetaData( final IAttribute attribute )
-   {
-      findInaccessibleNodes( attribute,
-                             attribute );
-   }
+   protected abstract void addViolation( IParserNode statement,
+                                         IFunction function,
+                                         String firstName );
 
    @Override
-   protected void findViolationsFromClassMetaData( final IClass classNode )
+   protected final void findViolations( final IFunction function )
    {
-      findInaccessibleNodes( classNode,
-                             classNode );
+      findStatement( function,
+                     getFirstPrimaryToFind(),
+                     getSecondPrimaryToFind() );
    }
 
-   @Override
-   protected void findViolationsFromFunctionMetaData( final IFunction function )
+   protected abstract String getFirstPrimaryToFind();
+
+   protected String getSecondPrimaryToFind()
    {
-      findInaccessibleNodes( function,
-                             function );
+      return null;
    }
 
-   @Override
-   protected ViolationPriority getDefaultPriority()
+   private void findStatement( final IFunction function,
+                               final String firstName,
+                               final String secondName )
    {
-      return ViolationPriority.NORMAL;
-   }
-
-   private void findInaccessibleNodes( final IMetaDataListHolder holder,
-                                       final IVisible visibility )
-   {
-      final List< IMetaData > allMetaData = holder.getMetaData( MetaData.OTHER );
-
-      if ( allMetaData != null )
+      final List< IParserNode > firstStatements = function.findPrimaryStatementsInBody( firstName );
+      if ( !firstStatements.isEmpty() )
       {
-         for ( final IMetaData metaData : allMetaData )
+         for ( final IParserNode firstStatement : firstStatements )
          {
-            if ( ParsleyMetaData.isParsleyMetaData( metaData.getName() )
-                  && !visibility.isPublic() )
+            if ( getSecondPrimaryToFind() == null )
             {
-               addViolation( metaData );
+               addViolation( firstStatement,
+                             function,
+                             firstName );
+            }
+            else
+            {
+               final List< IParserNode > secondStatements = function.findPrimaryStatementsInBody( secondName );
+               if ( !secondStatements.isEmpty() )
+               {
+                  for ( final IParserNode secondStatement : secondStatements )
+                  {
+                     addViolation( secondStatement,
+                                   function,
+                                   secondName );
+                  }
+               }
             }
          }
       }

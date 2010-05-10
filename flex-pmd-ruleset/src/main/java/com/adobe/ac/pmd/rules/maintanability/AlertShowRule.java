@@ -30,15 +30,19 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class AlertShowRule extends AbstractRegexpBasedRule
+public class AlertShowRule extends AbstractPrimaryAstRule
 {
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected void addViolation( final IParserNode statement,
+                                final IFunction function,
+                                final String firstName )
    {
-      return true;
+      addViolation( statement );
    }
 
    @Override
@@ -48,20 +52,14 @@ public class AlertShowRule extends AbstractRegexpBasedRule
    }
 
    @Override
-   protected final String getRegexp()
+   protected String getFirstPrimaryToFind()
    {
-      return ".*\\s+Alert.show\\(.*";
+      return "Alert";
    }
 
    @Override
-   protected boolean isCurrentLineConcerned( final String line )
+   protected String getSecondPrimaryToFind()
    {
-      return line.contains( "Alert" );
-   }
-
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      return true;
+      return "show";
    }
 }

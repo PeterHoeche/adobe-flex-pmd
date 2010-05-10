@@ -30,29 +30,30 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.List;
-
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UseTraceFunctionRule extends AbstractAstFlexRule
+public class UseTraceFunctionRule extends AbstractPrimaryAstRule
 {
    @Override
-   protected final void findViolations( final IFunction function )
+   protected void addViolation( final IParserNode statement,
+                                final IFunction function,
+                                final String firstName )
    {
-      final List< IParserNode > traceStatements = function.findPrimaryStatementsInBody( "trace" );
-
-      for ( final IParserNode statement : traceStatements )
-      {
-         addViolation( statement );
-      }
+      addViolation( statement );
    }
 
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
+   }
+
+   @Override
+   protected String getFirstPrimaryToFind()
+   {
+      return "trace";
    }
 }

@@ -33,13 +33,12 @@ package com.adobe.ac.pmd.rules.performance;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class AvoidUsingMathFloorRuleTest extends AbstractRegExpBasedRuleTest
+public class AvoidUsingMathFloorRuleTest extends AbstractAstFlexRuleTest
 {
-
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
@@ -51,23 +50,8 @@ public class AvoidUsingMathFloorRuleTest extends AbstractRegExpBasedRuleTest
    }
 
    @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { "var position:Number = Math.floor ( floatingValue )" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   protected AbstractFlexRule getRule()
    {
       return new AvoidUsingMathFloorRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "var position:int = floatingValue;",
-                  "var position:int = (floatingValue > 0.0) ? int(floatingValue + 0.5) : int(floatingValue - 0.5); " };
    }
 }

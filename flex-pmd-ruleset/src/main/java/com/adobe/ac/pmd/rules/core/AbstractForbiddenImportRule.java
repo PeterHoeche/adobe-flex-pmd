@@ -28,65 +28,30 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.parsley;
+package com.adobe.ac.pmd.rules.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.parser.IParserNode;
 
-import com.adobe.ac.pmd.nodes.IMetaData;
-import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
-import com.adobe.ac.pmd.nodes.MetaData;
-
-public final class MetaDataTag
+public abstract class AbstractForbiddenImportRule extends AbstractAstFlexRule
 {
-   public enum Location
+
+   public AbstractForbiddenImportRule()
    {
-      ATTRIBUTE, CLASS_DECLARATION, FUNCTION
-   };
-
-   private final String[]   attributes;
-
-   private final String     name;
-
-   private final Location[] placedOn;
-
-   public MetaDataTag( final String nameToBeSet,
-                       final String[] attributesToBeSet,
-                       final Location[] placedOnToBeSet )
-   {
-      name = nameToBeSet;
-      attributes = attributesToBeSet;
-      placedOn = placedOnToBeSet;
+      super();
    }
 
-   public List< String > getAttributes()
+   @Override
+   protected final void findViolations( final IPackage packageNode )
    {
-      return Arrays.asList( attributes );
-   }
-
-   public List< IMetaData > getMetaDataList( final IMetaDataListHolder holder )
-   {
-      final List< IMetaData > list = new ArrayList< IMetaData >();
-
-      for ( final IMetaData metaData : holder.getMetaData( MetaData.OTHER ) )
+      for ( final IParserNode importNode : packageNode.getImports() )
       {
-         if ( metaData.getName().equals( name ) )
+         if ( importNode.getStringValue().contains( getForbiddenImport() ) )
          {
-            list.add( metaData );
+            addViolation( importNode );
          }
       }
-
-      return list;
    }
 
-   public String getName()
-   {
-      return name;
-   }
-
-   public List< Location > getPlacedOn()
-   {
-      return Arrays.asList( placedOn );
-   }
+   protected abstract String getForbiddenImport();
 }

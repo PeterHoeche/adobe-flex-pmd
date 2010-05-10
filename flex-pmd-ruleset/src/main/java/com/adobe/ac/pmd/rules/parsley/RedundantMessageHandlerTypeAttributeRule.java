@@ -38,6 +38,7 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
 public final class RedundantMessageHandlerTypeAttributeRule extends AbstractFlexMetaDataRule
 {

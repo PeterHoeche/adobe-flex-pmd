@@ -38,6 +38,7 @@ import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
 public final class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
 {
@@ -57,19 +58,22 @@ public final class MessageInterceptorSignatureRule extends AbstractFlexMetaDataR
                           name.getStringValue(),
                           "It is not public" );
          }
-         if ( function.getParameters().size() != 1 )
+         if ( function.getParameters().size() == 1 )
+         {
+            if ( !hasMessageProcessorParameter( function ) )
+            {
+               addViolation( name,
+                             name,
+                             name.getStringValue(),
+                             "The argument type should be MessageProcessor" );
+            }
+         }
+         else
          {
             addViolation( name,
                           name,
                           name.getStringValue(),
                           "Its argument number is not 1" );
-         }
-         else if ( !hasMessageProcessorParameter( function ) )
-         {
-            addViolation( name,
-                          name,
-                          name.getStringValue(),
-                          "The argument type should be MessageProcessor" );
          }
       }
    }

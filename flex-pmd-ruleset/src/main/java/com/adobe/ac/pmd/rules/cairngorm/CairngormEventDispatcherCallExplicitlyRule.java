@@ -30,14 +30,12 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.util.List;
-
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexRule // NO_UCD
+public class CairngormEventDispatcherCallExplicitlyRule extends AbstractPrimaryAstRule // NO_UCD
 {
    private static final String ADD_EVENT_LISTENER_MESSAGE = "The Cairngorm event is listened directly. "
                                                                 + "The Controller is then avoided, and "
@@ -47,24 +45,27 @@ public class CairngormEventDispatcherCallExplicitlyRule extends AbstractAstFlexR
    private static final String EVENT_DISPATCHER           = "CairngormEventDispatcher";
 
    @Override
-   protected final void findViolations( final IFunction function )
+   protected void addViolation( final IParserNode statement,
+                                final IFunction function,
+                                final String firstName )
    {
-      final List< IParserNode > primaries = function.findPrimaryStatementsInBody( EVENT_DISPATCHER );
+      final String violationLine = getCurrentFile().getLineAt( statement.getLine() );
+      final String messageToAppend = violationLine.contains( DISPATCH_EVENT ) ? ADD_EVENT_LISTENER_MESSAGE
+                                                                             : DISPATCH_EVENT_MESSAGE;
 
-      for ( final IParserNode primary : primaries )
-      {
-         final String violationLine = getCurrentFile().getLineAt( primary.getLine() );
-         final String messageToAppend = violationLine.contains( DISPATCH_EVENT ) ? ADD_EVENT_LISTENER_MESSAGE
-                                                                                : DISPATCH_EVENT_MESSAGE;
-
-         addViolation( primary,
-                       messageToAppend );
-      }
+      addViolation( statement,
+                    messageToAppend );
    }
 
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
+   }
+
+   @Override
+   protected String getFirstPrimaryToFind()
+   {
+      return EVENT_DISPATCHER;
    }
 }
