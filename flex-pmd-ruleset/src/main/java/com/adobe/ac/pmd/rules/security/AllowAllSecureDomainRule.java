@@ -37,6 +37,7 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 public class AllowAllSecureDomainRule extends AbstractRegexpBasedRule
 {
+
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
@@ -83,4 +84,5 @@ public class AllowAllSecureDomainRule extends AbstractRegexpBasedRule
       }
       return result;
    }
+
 }

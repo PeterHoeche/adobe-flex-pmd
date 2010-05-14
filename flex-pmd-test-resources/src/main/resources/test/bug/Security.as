@@ -28,48 +28,21 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.security;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class LocalConnectionStarRuleTest extends AbstractRegExpBasedRuleTest
+package
 {
-   @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
-   {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "bug.Security.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 42 ) } );
-   }
-
-   @Override
-   protected String[] getMatchableLines()
-   {
-      return new String[]
-      { " LocalConnection.allowDomain(\"*\");",
-                  " LocalConnection.allowDomain( \"*\" );",
-                  " LocalConnection.allowDomain('*');" };
-   }
-
-   @Override
-   protected AbstractRegexpBasedRule getRegexpBasedRule()
-   {
-      return new LocalConnectionStarRule();
-   }
-
-   @Override
-   protected String[] getUnmatchableLines()
-   {
-      return new String[]
-      { "LocalConnection.allowDomain(\"www.example.org\")",
-                  "Security.allowDomain(\"www.example.org\");",
-                  "SecurityDomain.loadBytes",
-                  "LocalConnection.allowDomain(\"www.example.org\");" };
-   }
+	public class Security
+	{
+		public static function read() : void
+		{
+			Security.allowDomain("www.google.com");
+			Security.allowDomain("*");
+			Security.allowInsecureDomain("www.google.com");
+			Security.allowInsecureDomain("*");
+			Security.exactSettings = false;
+			LocalConnection.allowDomain("*");
+			LocalConnection.allowDomain("www.example.org");
+			LSO.getLocal(name, null, true);
+			LSO.getLocal(name, null, false);
+		}
+	}
 }

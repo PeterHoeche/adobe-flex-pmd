@@ -84,7 +84,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadClassMetrics()
    {
-      assertEquals( 95,
+      assertEquals( 96,
                     projectMetrics.getClasses().size() );
       assertEquals( 0,
                     projectMetrics.getClasses().get( 3 ).getFunctions() );
@@ -99,15 +99,15 @@ public class FlexMetricsTest extends FlexPmdTestBase
       assertEquals( 9,
                     projectMetrics.getClasses().get( 10 ).getNonCommentStatements() );
       assertEquals( "cairngorm.FatController",
-                    projectMetrics.getClasses().get( 16 ).getFullName() );
+                    projectMetrics.getClasses().get( 17 ).getFullName() );
       assertEquals( 3,
-                    projectMetrics.getClasses().get( 16 ).getAsDocs() );
+                    projectMetrics.getClasses().get( 17 ).getAsDocs() );
    }
 
    @Test
    public void loadFunctionMetrics()
    {
-      assertEquals( 311,
+      assertEquals( 312,
                     projectMetrics.getFunctions().size() );
       assertEquals( "TestEvent",
                     projectMetrics.getFunctions().get( 98 ).getName() );
@@ -132,13 +132,13 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getPackages()
                                   .get( projectMetrics.getPackages().size() - 1 )
                                   .getPackageName() );
-      assertEquals( 13,
+      assertEquals( 14,
                     projectMetrics.getPackages().get( 1 ).getClasses() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 1 ).getFullName() );
-      assertEquals( 98,
+      assertEquals( 99,
                     projectMetrics.getPackages().get( 1 ).getFunctions() );
-      assertEquals( 351,
+      assertEquals( 360,
                     projectMetrics.getPackages().get( 1 ).getNonCommentStatements() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 1 ).getPackageName() );
@@ -147,11 +147,11 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadTotalPackageMetrics()
    {
-      assertEquals( 95,
+      assertEquals( 96,
                     projectMetrics.getTotalPackages().getTotalClasses() );
-      assertEquals( 311,
+      assertEquals( 312,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1520,
+      assertEquals( 1529,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 3025,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );

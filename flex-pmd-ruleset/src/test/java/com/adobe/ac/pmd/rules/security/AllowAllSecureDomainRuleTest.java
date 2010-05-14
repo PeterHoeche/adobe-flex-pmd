@@ -42,7 +42,10 @@ public class AllowAllSecureDomainRuleTest extends AbstractRegExpBasedRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return new HashMap< String, ViolationPosition[] >();
+      return addToMap( new HashMap< String, ViolationPosition[] >(),
+                       "bug.Security.as",
+                       new ViolationPosition[]
+                       { new ViolationPosition( 38 ) } );
    }
 
    @Override
