@@ -28,63 +28,45 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core;
+package com.adobe.ac.pmd.rules.security;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import junit.framework.Assert;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.Test;
+import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public abstract class AbstractRegExpBasedRuleTest extends AbstractFlexRuleTest
+public class LocalConnectionStarRuleTest extends AbstractRegExpBasedRuleTest
 {
-   @Test
-   public void testDoesCurrentLineMacthCorrectLine()
+   @Override
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
-
-      if ( getMatchableLines().length == 0 )
-      {
-         Assert.fail( "the getMatchableLines() is empty" );
-      }
-      for ( int i = 0; i < getMatchableLines().length; i++ )
-      {
-         final String correctLine = getMatchableLines()[ i ];
-
-         assertTrue( "This line (\""
-                           + correctLine + "\") should be matched",
-                     rule.doesCurrentLineMacthes( correctLine ) );
-      }
+      return new HashMap< String, ViolationPosition[] >();
    }
-
-   @Test
-   public void testDoesCurrentLineMacthIncorrectLine()
-   {
-      final AbstractRegexpBasedRule rule = getRegexpBasedRule();
-
-      if ( getUnmatchableLines().length == 0 )
-      {
-         Assert.fail( "the getUnmatchableLines() is empty" );
-      }
-      for ( int i = 0; i < getUnmatchableLines().length; i++ )
-      {
-         final String incorrectLine = getUnmatchableLines()[ i ];
-
-         assertFalse( "This line  (\""
-                            + incorrectLine + "\") should not be matched",
-                      rule.doesCurrentLineMacthes( incorrectLine ) );
-      }
-   }
-
-   protected abstract String[] getMatchableLines();
-
-   protected abstract AbstractRegexpBasedRule getRegexpBasedRule();
 
    @Override
-   protected AbstractFlexRule getRule()
+   protected String[] getMatchableLines()
    {
-      return getRegexpBasedRule();
+      return new String[]
+      { " LocalConnection.allowDomain(\"*\");",
+                  " LocalConnection.allowDomain( \"*\" );",
+                  " LocalConnection.allowDomain('*');" };
    }
 
-   protected abstract String[] getUnmatchableLines();
+   @Override
+   protected AbstractRegexpBasedRule getRegexpBasedRule()
+   {
+      return new LocalConnectionStarRule();
+   }
+
+   @Override
+   protected String[] getUnmatchableLines()
+   {
+      return new String[]
+      { "LocalConnection.allowDomain(\"www.example.org\")",
+                  "Security.allowDomain(\"www.example.org\");",
+                  "SecurityDomain.loadBytes",
+                  "LocalConnection.allowDomain(\"www.example.org\");" };
+   }
 }

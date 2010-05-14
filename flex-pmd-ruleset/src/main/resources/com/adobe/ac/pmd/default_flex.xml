@@ -50,6 +50,7 @@
 	<rule ref="com/adobe/ac/pmd/rulesets/naming.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/parsley.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/performance.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/security.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/sizing.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/style.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/switches.xml" />
