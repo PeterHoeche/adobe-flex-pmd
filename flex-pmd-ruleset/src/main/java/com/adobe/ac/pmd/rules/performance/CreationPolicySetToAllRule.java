@@ -35,26 +35,47 @@ import java.util.Locale;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class CreationPolicySetToAllRule extends AbstractRegexpBasedRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected final String getRegexp()
    {
       return ".*creationPolicy.*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {

@@ -32,6 +32,9 @@ package com.adobe.ac.pmd.nodes;
 
 import java.util.List;
 
+/**
+ * @author xagnetti
+ */
 public interface IMetaDataListHolder
 {
    /**

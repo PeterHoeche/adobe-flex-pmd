@@ -48,6 +48,12 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 
+/**
+ * @author xagnetti
+ */
+/**
+ * @author xagnetti
+ */
 class FunctionNode extends AbstractNode implements IFunction
 {
    private IParserNode                              asDoc;
@@ -61,6 +67,9 @@ class FunctionNode extends AbstractNode implements IFunction
    private final List< IParameter >                 parameters;
    private IIdentifierNode                          returnType;
 
+   /**
+    * @param node
+    */
    protected FunctionNode( final IParserNode node )
    {
       super( node );
@@ -73,6 +82,12 @@ class FunctionNode extends AbstractNode implements IFunction
       multiLinesComments = new ArrayList< IParserNode >();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IMetaDataListHolder#add(com.adobe.ac.pmd.nodes.
+    * IMetaData)
+    */
    public void add( final IMetaData metaData )
    {
       final MetaData metaDataImpl = MetaData.create( metaData.getName() );
@@ -85,11 +100,21 @@ class FunctionNode extends AbstractNode implements IFunction
       metaDataList.get( metaDataImpl ).add( metaData );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IModifiersHolder#add(com.adobe.ac.pmd.nodes.Modifier
+    * )
+    */
    public void add( final Modifier modifier )
    {
       modifiers.add( modifier );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public FunctionNode compute()
    {
@@ -132,12 +157,24 @@ class FunctionNode extends AbstractNode implements IFunction
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementInBody(java.lang.
+    * String[])
+    */
    public List< IParserNode > findPrimaryStatementInBody( final String[] primaryNames )
    {
       return body == null ? null
                          : body.findPrimaryStatementsFromNameInChildren( primaryNames );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IFunction#findPrimaryStatementsInBody(java.lang
+    * .String)
+    */
    public List< IParserNode > findPrimaryStatementsInBody( final String primaryName )
    {
       return body == null ? new ArrayList< IParserNode >()
@@ -145,6 +182,10 @@ class FunctionNode extends AbstractNode implements IFunction
                          { primaryName } );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaDataListHolder#getAllMetaData()
+    */
    public List< IMetaData > getAllMetaData()
    {
       final List< IMetaData > list = new ArrayList< IMetaData >();
@@ -157,26 +198,48 @@ class FunctionNode extends AbstractNode implements IFunction
       return list;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IAsDocHolder#getAsDoc()
+    */
    public IParserNode getAsDoc()
    {
       return asDoc;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getBody()
+    */
    public IParserNode getBody()
    {
       return body;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getCyclomaticComplexity()
+    */
    public int getCyclomaticComplexity()
    {
       return cyclomaticComplexity;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getLocalVariables()
+    */
    public Map< String, IParserNode > getLocalVariables()
    {
       return localVariables;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IMetaDataListHolder#getMetaData(com.adobe.ac.pmd
+    * .nodes.MetaData)
+    */
    public List< IMetaData > getMetaData( final MetaData metaDataName )
    {
       if ( metaDataList.containsKey( metaDataName ) )
@@ -189,36 +252,64 @@ class FunctionNode extends AbstractNode implements IFunction
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaDataListHolder#getMetaDataCount()
+    */
    public int getMetaDataCount()
    {
       return metaDataList.size();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.ICommentHolder#getMultiLinesComment()
+    */
    public List< IParserNode > getMultiLinesComment()
    {
       return multiLinesComments;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.INamable#getName()
+    */
    public String getName()
    {
       return name.toString();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getParameters()
+    */
    public List< IParameter > getParameters()
    {
       return parameters;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getReturnType()
+    */
    public IIdentifierNode getReturnType()
    {
       return returnType;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getStatementNbInBody()
+    */
    public int getStatementNbInBody()
    {
       return 1 + getStatementInNode( body );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#getSuperCall()
+    */
    public IParserNode getSuperCall()
    {
       if ( body != null
@@ -242,26 +333,48 @@ class FunctionNode extends AbstractNode implements IFunction
       return null;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IModifiersHolder#is(com.adobe.ac.pmd.nodes.Modifier
+    * )
+    */
    public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#isGetter()
+    */
    public boolean isGetter()
    {
       return getInternalNode().is( NodeKind.GET );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#isOverriden()
+    */
    public boolean isOverriden()
    {
       return is( Modifier.OVERRIDE );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IVisible#isPublic()
+    */
    public boolean isPublic()
    {
       return is( Modifier.PUBLIC );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IFunction#isSetter()
+    */
    public boolean isSetter()
    {
       return getInternalNode().is( NodeKind.SET );

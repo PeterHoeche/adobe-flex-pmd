@@ -40,8 +40,17 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class ReferenceToVariableBindingFromItsInitializerRule extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromAttributes
+    * (java.util.List)
+    */
    @Override
    protected void findViolationsFromAttributes( final List< IAttribute > variables )
    {
@@ -51,6 +60,12 @@ public class ReferenceToVariableBindingFromItsInitializerRule extends AbstractAs
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromConstants
+    * (java.util.List)
+    */
    @Override
    protected void findViolationsFromConstants( final List< IConstant > constants )
    {
@@ -60,6 +75,10 @@ public class ReferenceToVariableBindingFromItsInitializerRule extends AbstractAs
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

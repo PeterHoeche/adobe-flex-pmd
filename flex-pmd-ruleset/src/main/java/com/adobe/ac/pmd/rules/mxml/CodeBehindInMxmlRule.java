@@ -33,26 +33,47 @@ package com.adobe.ac.pmd.rules.mxml;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class CodeBehindInMxmlRule extends AbstractRegexpBasedRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return getCurrentFile().isMxml();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected final String getRegexp()
    {
       return ".*<.*Script.*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {

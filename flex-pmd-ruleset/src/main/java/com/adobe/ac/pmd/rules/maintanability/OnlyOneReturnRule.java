@@ -34,16 +34,30 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class OnlyOneReturnRule extends AbstractAstFlexRule
 {
    private int returnStatement;
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitFunction(com.adobe
+    * .ac.pmd.parser.IParserNode,
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule.FunctionType)
+    */
    @Override
    protected void visitFunction( final IParserNode functionNode,
                                  final FunctionType type )
@@ -53,6 +67,12 @@ public class OnlyOneReturnRule extends AbstractAstFlexRule
                            type );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitReturn(com.adobe.
+    * ac.pmd.parser.IParserNode)
+    */
    @Override
    protected void visitReturn( final IParserNode ast )
    {

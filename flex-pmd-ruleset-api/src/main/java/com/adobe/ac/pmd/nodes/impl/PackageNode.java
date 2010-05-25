@@ -39,6 +39,9 @@ import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
+/**
+ * @author xagnetti
+ */
 class PackageNode extends AbstractNode implements IPackage
 {
    private IClass                    classNode;
@@ -46,6 +49,9 @@ class PackageNode extends AbstractNode implements IPackage
    private final List< IParserNode > imports;
    private String                    name;
 
+   /**
+    * @param node
+    */
    protected PackageNode( final IParserNode node )
    {
       super( node );
@@ -55,6 +61,10 @@ class PackageNode extends AbstractNode implements IPackage
       classNode = null;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public PackageNode compute()
    {
@@ -92,11 +102,19 @@ class PackageNode extends AbstractNode implements IPackage
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getClassNode()
+    */
    public IClass getClassNode()
    {
       return classNode;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getFullyQualifiedClassName()
+    */
    public String getFullyQualifiedClassName()
    {
       if ( !"".equals( name ) )
@@ -108,16 +126,28 @@ class PackageNode extends AbstractNode implements IPackage
                               : classNode.getName();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getFunctions()
+    */
    public List< IFunction > getFunctions()
    {
       return functions;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IPackage#getImports()
+    */
    public List< IParserNode > getImports()
    {
       return imports;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.INamable#getName()
+    */
    public String getName()
    {
       return name;

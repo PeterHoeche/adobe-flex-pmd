@@ -37,20 +37,39 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class UnusedFieldRule extends AbstractUnusedVariableRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#isConcernedByTheCurrentFile
+    * ()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().isMxml();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitClass(com.adobe.ac
+    * .pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitClass( final IParserNode classNode )
    {
@@ -68,6 +87,12 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitVariableInitialization
+    * (com.adobe.ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitVariableInitialization( final IParserNode node )
    {
@@ -76,6 +101,14 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
       tryToMarkVariableAsUsed( node );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitVarOrConstList(com
+    * .adobe.ac.pmd.parser.IParserNode,
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule.VariableOrConstant,
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule.VariableScope)
+    */
    @Override
    protected final void visitVarOrConstList( final IParserNode ast,
                                              final VariableOrConstant varOrConst,

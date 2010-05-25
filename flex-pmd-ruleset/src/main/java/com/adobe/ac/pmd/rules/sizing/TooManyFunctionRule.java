@@ -37,22 +37,42 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
 {
    public static final int DEFAULT_THRESHOLD = 10;
    private IClass          classNode         = null;
    private int             functionNb;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public final int getActualValueForTheCurrentViolation()
    {
       return functionNb;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected final void findViolations( final IClass classNodeToSet )
    {
@@ -62,6 +82,12 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
       super.findViolations( classNodeToSet );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(java.util
+    * .List)
+    */
    @Override
    protected final void findViolations( final List< IFunction > functions )
    {
@@ -79,6 +105,10 @@ public class TooManyFunctionRule extends AbstractMaximizedAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

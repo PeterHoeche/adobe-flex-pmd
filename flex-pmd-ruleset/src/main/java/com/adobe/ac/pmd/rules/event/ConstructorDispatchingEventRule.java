@@ -35,14 +35,29 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#isConcernedByTheCurrentFile
+    * ()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return !getCurrentFile().isMxml();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromConstructor
+    * (com.adobe.ac.pmd.nodes.IFunction)
+    */
    @Override
    protected final void findViolationsFromConstructor( final IFunction constructor )
    {
@@ -52,6 +67,10 @@ public class ConstructorDispatchingEventRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

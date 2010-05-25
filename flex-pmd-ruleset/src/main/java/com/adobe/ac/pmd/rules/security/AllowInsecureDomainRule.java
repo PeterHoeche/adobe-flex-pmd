@@ -35,33 +35,59 @@ import java.util.regex.Matcher;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class AllowInsecureDomainRule extends AbstractRegexpBasedRule
 {
-
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected final String getRegexp()
    {
       return ".*\\.allowInsecureDomain[ \\(]+.*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#isCurrentLineConcerned
+    * (java.lang.String)
+    */
    @Override
    protected boolean isCurrentLineConcerned( final String line )
    {
       return line.contains( "allowInsecureDomain" );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {

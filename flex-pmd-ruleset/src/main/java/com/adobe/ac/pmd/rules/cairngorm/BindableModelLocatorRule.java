@@ -34,14 +34,29 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class BindableModelLocatorRule extends AbstractAstFlexRule // NO_UCD
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#isConcernedByTheCurrentFile
+    * ()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return getCurrentFile().getClassName().endsWith( "ModelLocator.as" );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected final void findViolations( final IClass classNode )
    {
@@ -51,6 +66,10 @@ public class BindableModelLocatorRule extends AbstractAstFlexRule // NO_UCD
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

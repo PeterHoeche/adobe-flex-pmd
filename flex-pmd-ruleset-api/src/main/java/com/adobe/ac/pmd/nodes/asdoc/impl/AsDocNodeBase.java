@@ -30,16 +30,25 @@
  */
 package com.adobe.ac.pmd.nodes.asdoc.impl;
 
+/**
+ * @author xagnetti
+ */
 public class AsDocNodeBase
 {
    private final String description;
 
+   /**
+    * @param descriptionToBeSet
+    */
    public AsDocNodeBase( final String descriptionToBeSet )
    {
       super();
       description = descriptionToBeSet;
    }
 
+   /**
+    * @return
+    */
    public String getDescription()
    {
       return description;

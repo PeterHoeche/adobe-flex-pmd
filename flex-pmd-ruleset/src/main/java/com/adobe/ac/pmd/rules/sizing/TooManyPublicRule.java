@@ -38,22 +38,42 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
 {
    public static final int DEFAULT_THRESHOLD = 10;
    private IFunction       constructor;
    private int             publicCount;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public final int getActualValueForTheCurrentViolation()
    {
       return publicCount;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected final void findViolations( final IClass classNode )
    {
@@ -68,6 +88,12 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected final void findViolations( final IFunction function )
    {
@@ -78,6 +104,12 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromAttributes
+    * (java.util.List)
+    */
    @Override
    protected final void findViolationsFromAttributes( final List< IAttribute > variables )
    {
@@ -90,6 +122,10 @@ public class TooManyPublicRule extends AbstractMaximizedAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

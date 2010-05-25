@@ -34,14 +34,27 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public final class RecursiveStyleManagerRule extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitMethodCall(com.adobe
+    * .ac.pmd.parser.IParserNode)
+    */
    @Override
    protected void visitMethodCall( final IParserNode methodCallNode )
    {

@@ -33,32 +33,59 @@ package com.adobe.ac.pmd.rules.event;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class DispatchHardCodedEventNameRule extends AbstractRegexpBasedRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected final String getRegexp()
    {
       return ".*dispatchEvent *\\( *new Event\\( *(\"|\').*(\"|\') *\\) *\\).*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#isCurrentLineConcerned
+    * (java.lang.String)
+    */
    @Override
    protected boolean isCurrentLineConcerned( final String line )
    {
       return line.contains( "dispatchEvent" );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {

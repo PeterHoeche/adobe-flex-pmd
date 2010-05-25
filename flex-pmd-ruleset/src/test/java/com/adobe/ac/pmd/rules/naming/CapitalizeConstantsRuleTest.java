@@ -28,61 +28,45 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.performance;
+package com.adobe.ac.pmd.rules.naming;
 
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * @author xagnetti
- */
-public class AvoidUsingMathCeilRule extends AbstractPrimaryAstRule
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class CapitalizeConstantsRuleTest extends AbstractAstFlexRuleTest
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#addViolation(com.adobe
-    * .ac.pmd.parser.IParserNode, com.adobe.ac.pmd.nodes.IFunction)
-    */
    @Override
-   protected void addViolation( final IParserNode statement,
-                                final IFunction function )
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      addViolation( statement );
+      final HashMap< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
+
+      addToMap( violatedFiles,
+                "AbstractRowData.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 45 ),
+                            new ViolationPosition( 46 ) } );
+
+      addToMap( violatedFiles,
+                "com.adobe.ac.ncss.ArrayVO.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 39 ),
+                            new ViolationPosition( 40 ) } );
+
+      addToMap( violatedFiles,
+                "GenericType.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 36 ) } );
+
+      return violatedFiles;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
-    */
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected AbstractFlexRule getRule()
    {
-      return ViolationPriority.LOW;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getFirstPrimaryToFind()
-    */
-   @Override
-   protected String getFirstPrimaryToFind()
-   {
-      return "Math";
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getSecondPrimaryToFind
-    * ()
-    */
-   @Override
-   protected String getSecondPrimaryToFind()
-   {
-      return "ceil";
+      return new CapitalizeConstantsRule();
    }
 }

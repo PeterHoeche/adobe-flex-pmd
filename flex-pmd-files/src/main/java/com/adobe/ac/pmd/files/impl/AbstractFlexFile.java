@@ -51,6 +51,13 @@ abstract class AbstractFlexFile implements IFlexFile
 {
    private static final Logger LOGGER = Logger.getLogger( AbstractFlexFile.class.getName() );
 
+   /**
+    * @param filePath
+    * @param rootPath
+    * @param className
+    * @param fileSeparator
+    * @return
+    */
    protected static String computePackageName( final String filePath,
                                                final CharSequence rootPath,
                                                final String className,
@@ -205,6 +212,10 @@ abstract class AbstractFlexFile implements IFlexFile
             + className;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getLineAt(int)
+    */
    public String getLineAt( final int lineIndex )
    {
       return lines.get( lineIndex - 1 );

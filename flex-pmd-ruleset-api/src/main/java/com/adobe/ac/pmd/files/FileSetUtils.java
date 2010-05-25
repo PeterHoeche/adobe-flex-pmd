@@ -90,6 +90,13 @@ public final class FileSetUtils
       return rootNode;
    }
 
+   /**
+    * @param file
+    * @return
+    * @throws PMDException
+    * @throws InterruptedException
+    * @throws ExecutionException
+    */
    public static IParserNode buildThreadedAst( final IFlexFile file ) throws PMDException,
                                                                      InterruptedException,
                                                                      ExecutionException
@@ -153,6 +160,11 @@ public final class FileSetUtils
       return asts;
    }
 
+   /**
+    * @param file
+    * @param message
+    * @return
+    */
    protected static String buildLogMessage( final IFlexFile file,
                                             final String message )
    {

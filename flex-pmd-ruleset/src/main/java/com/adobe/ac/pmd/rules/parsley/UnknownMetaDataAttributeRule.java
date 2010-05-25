@@ -40,8 +40,16 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.parsley.utils.MetaDataTag;
 import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
+/**
+ * @author xagnetti
+ */
 public final class UnknownMetaDataAttributeRule extends AbstractFlexMetaDataRule
 {
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule#
+    * findViolationsFromMetaDataList(com.adobe.ac.pmd.nodes.IMetaDataListHolder)
+    */
    @Override
    protected void findViolationsFromMetaDataList( final IMetaDataListHolder holder )
    {
@@ -73,6 +81,10 @@ public final class UnknownMetaDataAttributeRule extends AbstractFlexMetaDataRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

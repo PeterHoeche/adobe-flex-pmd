@@ -30,8 +30,14 @@
  */
 package com.adobe.ac.pmd.nodes.asdoc.impl;
 
+/**
+ * @author xagnetti
+ */
 public class ClassAsDocNode extends AsDocNodeBase
 {
+   /**
+    * @param descriptionToBeSet
+    */
    public ClassAsDocNode( final String descriptionToBeSet )
    {
       super( descriptionToBeSet );

@@ -39,27 +39,51 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
 {
    public static final int DEFAULT_THRESHOLD = 50;
    private int             linesInScriptBlock;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public final int getActualValueForTheCurrentViolation()
    {
       return linesInScriptBlock;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return getCurrentFile().isMxml();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#findViolationsInCurrentFile()
+    */
    @Override
    protected final List< IFlexViolation > findViolationsInCurrentFile()
    {
@@ -77,6 +101,10 @@ public class TooLongScriptBlockRule extends AbstractMaximizedFlexRule
       return violations;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

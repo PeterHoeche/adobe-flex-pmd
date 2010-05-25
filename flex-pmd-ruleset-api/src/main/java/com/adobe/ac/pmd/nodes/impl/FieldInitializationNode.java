@@ -33,18 +33,32 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.nodes.IFieldInitialization;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 class FieldInitializationNode extends AbstractNode implements IFieldInitialization
 {
+   /**
+    * @param node
+    * @return
+    */
    static FieldInitializationNode create( final IParserNode node )
    {
       return new FieldInitializationNode( node );
    }
 
+   /**
+    * @param node
+    */
    protected FieldInitializationNode( final IParserNode node )
    {
       super( node );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public FieldInitializationNode compute()
    {

@@ -40,8 +40,16 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
+/**
+ * @author xagnetti
+ */
 public final class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
 {
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule#
+    * findViolationsFromClassMetaData(com.adobe.ac.pmd.nodes.IClass)
+    */
    @Override
    protected void findViolationsFromClassMetaData( final IClass classNode )
    {
@@ -64,6 +72,10 @@ public final class MismatchedManagedEventRule extends AbstractFlexMetaDataRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

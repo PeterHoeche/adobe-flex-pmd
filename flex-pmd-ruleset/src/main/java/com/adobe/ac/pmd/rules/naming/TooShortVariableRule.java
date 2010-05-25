@@ -39,55 +39,104 @@ import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
+/**
+ * @author xagnetti
+ */
 public class TooShortVariableRule extends AbstractRegexpBasedRule implements IThresholdedRule
 {
    public static final int DEFAULT_THRESHOLD = 3;
    private int             length;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public final int getActualValueForTheCurrentViolation()
    {
       return length;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThreshold()
+    */
    public final int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThresholdName
+    * ()
+    */
    public final String getThresholdName()
    {
       return MINIMUM;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    public final boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected final String getRegexp()
    {
       return ".*var (.*):.*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#isCurrentLineConcerned
+    * (java.lang.String)
+    */
    @Override
    protected boolean isCurrentLineConcerned( final String line )
    {
       return line.contains( "var" );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
@@ -104,6 +153,10 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
       return result;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
+    */
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {

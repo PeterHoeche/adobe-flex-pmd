@@ -68,6 +68,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    private Set< String >            excludes;
    private Map< String, IFlexFile > filesInSourcePath;
 
+   /**
+    * 
+    */
    public AbstractFlexRule()
    {
       super();
@@ -123,11 +126,19 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violations;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.IFlexRule#setExcludes(java.util.Set)
+    */
    public void setExcludes( final Set< String > excludesToBeSet )
    {
       excludes = excludesToBeSet;
    }
 
+   /**
+    * @param violatedLine
+    * @return
+    */
    boolean isViolationIgnored( final String violatedLine )
    {
       final boolean containsNoPmd = violatedLine.contains( "// No PMD" )
@@ -149,6 +160,11 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
             || strippedLine.endsWith( "//NOPMD" ) || strippedLine.contains( ruleName );
    }
 
+   /**
+    * @param violations
+    * @param position
+    * @return
+    */
    protected final IFlexViolation addViolation( final List< IFlexViolation > violations,
                                                 final ViolationPosition position )
    {
@@ -194,6 +210,9 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return violation;
    }
 
+   /**
+    * @return
+    */
    protected abstract List< IFlexViolation > findViolationsInCurrentFile();
 
    /**
@@ -204,18 +223,31 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       return currentFile;
    }
 
+   /**
+    * @return
+    */
    protected final IPackage getCurrentPackageNode()
    {
       return currentPackageNode;
    }
 
+   /**
+    * @return
+    */
    protected abstract ViolationPriority getDefaultPriority();
 
+   /**
+    * @return
+    */
    protected final Map< String, IFlexFile > getFilesInSourcePath()
    {
       return filesInSourcePath;
    }
 
+   /**
+    * @param rule
+    * @return
+    */
    protected final Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
    {
       final Map< String, PropertyDescriptor > properties = new LinkedHashMap< String, PropertyDescriptor >();

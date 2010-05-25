@@ -34,8 +34,17 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class MethodAsDocMissingRule extends AbstractAsDocRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void findViolations( final IFunction function )
    {
@@ -46,6 +55,10 @@ public class MethodAsDocMissingRule extends AbstractAsDocRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

@@ -36,6 +36,9 @@ import java.util.regex.Matcher;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule // NO_UCD
 {
    private static final String ALERT_CLASS_NAME           = "Alert";
@@ -44,18 +47,31 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule 
    private static final String MODEL_PACKAGE_NAME         = ".model";
    private static final String VIEW_PACKAGE_NAME          = ".view";
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected final String getRegexp()
    {
       return ".*import (.*);?.*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    protected final boolean isConcernedByTheCurrentFile()
    {
@@ -65,6 +81,11 @@ public class ViewComponentReferencedInModelRule extends AbstractRegexpBasedRule 
                                .contains( MODEL_CLASS_SUFFIX );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {

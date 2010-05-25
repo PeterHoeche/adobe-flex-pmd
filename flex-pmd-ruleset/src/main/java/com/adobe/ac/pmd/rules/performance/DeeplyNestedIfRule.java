@@ -34,26 +34,50 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
 {
    private int ifLevel = 0;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public final int getActualValueForTheCurrentViolation()
    {
       return ifLevel;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public final int getDefaultThreshold()
    {
       return 2;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitElse(com.adobe.ac
+    * .pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitElse( final IParserNode ifNode )
    {
@@ -64,6 +88,13 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
       afterVisitingIfBlock( ifNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitFunction(com.adobe
+    * .ac.pmd.parser.IParserNode,
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule.FunctionType)
+    */
    @Override
    protected final void visitFunction( final IParserNode ast,
                                        final FunctionType type )
@@ -74,6 +105,12 @@ public class DeeplyNestedIfRule extends AbstractMaximizedAstFlexRule
                            type );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitThen(com.adobe.ac
+    * .pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitThen( final IParserNode ifNode )
    {

@@ -34,13 +34,24 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 public final class NodeFactory
 {
+   /**
+    * @param metadataNode
+    * @return
+    */
    public static IMetaData createMetaData( final IParserNode metadataNode )
    {
       return new MetaDataNode( metadataNode ).compute();
    }
 
+   /**
+    * @param packageNode
+    * @return
+    */
    public static IPackage createPackage( final IParserNode packageNode )
    {
       return new PackageNode( packageNode ).compute();

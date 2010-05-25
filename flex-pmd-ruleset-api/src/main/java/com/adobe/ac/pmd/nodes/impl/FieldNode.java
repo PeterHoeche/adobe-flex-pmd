@@ -44,11 +44,18 @@ class FieldNode extends VariableNode implements IField
 {
    private IParserNode asDocs;
 
+   /**
+    * @param rootNode
+    */
    protected FieldNode( final IParserNode rootNode )
    {
       super( rootNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.VariableNode#compute()
+    */
    @Override
    public FieldNode compute()
    {
@@ -72,16 +79,28 @@ class FieldNode extends VariableNode implements IField
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IAsDocHolder#getAsDoc()
+    */
    public IParserNode getAsDoc()
    {
       return asDocs;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IVisible#isPublic()
+    */
    public boolean isPublic()
    {
       return is( Modifier.PUBLIC );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IField#isStatic()
+    */
    public boolean isStatic()
    {
       return is( Modifier.STATIC );

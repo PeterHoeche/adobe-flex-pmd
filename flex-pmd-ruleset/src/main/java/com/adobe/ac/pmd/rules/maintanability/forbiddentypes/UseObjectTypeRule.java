@@ -35,10 +35,18 @@ import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class UseObjectTypeRule extends AbstractUseForbiddenTypeRule // NO_UCD
 {
    private boolean isResponder;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.maintanability.forbiddentypes.
+    * AbstractUseForbiddenTypeRule#findViolations(com.adobe.ac.pmd.nodes.IClass)
+    */
    @Override
    protected void findViolations( final IClass classNode )
    {
@@ -54,6 +62,12 @@ public class UseObjectTypeRule extends AbstractUseForbiddenTypeRule // NO_UCD
       super.findViolations( classNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.maintanability.forbiddentypes.
+    * AbstractUseForbiddenTypeRule
+    * #findViolationsInParametersList(com.adobe.ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void findViolationsInParametersList( final IFunction function )
    {
@@ -63,12 +77,21 @@ public class UseObjectTypeRule extends AbstractUseForbiddenTypeRule // NO_UCD
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.maintanability.forbiddentypes.
+    * AbstractUseForbiddenTypeRule#getForbiddenType()
+    */
    @Override
    protected String getForbiddenType()
    {

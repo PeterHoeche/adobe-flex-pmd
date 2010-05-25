@@ -30,11 +30,18 @@
  */
 package com.adobe.ac.pmd.nodes.asdoc.impl;
 
+/**
+ * @author xagnetti
+ */
 public class ParameterAsDocNode
 {
    private final String description;
    private final String name;
 
+   /**
+    * @param nameToBeSet
+    * @param descriptionToBeSet
+    */
    public ParameterAsDocNode( final String nameToBeSet,
                               final String descriptionToBeSet )
    {
@@ -44,11 +51,17 @@ public class ParameterAsDocNode
       description = descriptionToBeSet;
    }
 
+   /**
+    * @return
+    */
    public String getDescription()
    {
       return description;
    }
 
+   /**
+    * @return
+    */
    public String getName()
    {
       return name;

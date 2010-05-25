@@ -40,6 +40,9 @@ import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IPackage;
 
+/**
+ * @author xagnetti
+ */
 public interface IFlexRule extends Rule
 {
    /**

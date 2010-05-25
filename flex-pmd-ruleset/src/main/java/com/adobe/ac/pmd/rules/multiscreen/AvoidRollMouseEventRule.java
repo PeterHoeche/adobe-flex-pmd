@@ -33,14 +33,25 @@ package com.adobe.ac.pmd.rules.multiscreen;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class AvoidRollMouseEventRule extends AbstractRegexpBasedRule
 {
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected String getRegexp()
    {
@@ -48,12 +59,22 @@ public class AvoidRollMouseEventRule extends AbstractRegexpBasedRule
             + "(rollOut)|(ROLL_OUT)|(rollOver)|(ROLL_OVER)).*";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    protected boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line )
    {

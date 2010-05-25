@@ -28,61 +28,26 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.performance;
+package com.adobe.ac.pmd.rules.naming;
 
-import com.adobe.ac.pmd.nodes.IFunction;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * @author xagnetti
- */
-public class AvoidUsingMathCeilRule extends AbstractPrimaryAstRule
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class BooleanAttributeShouldContainIsHasRuleTest extends AbstractAstFlexRuleTest
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#addViolation(com.adobe
-    * .ac.pmd.parser.IParserNode, com.adobe.ac.pmd.nodes.IFunction)
-    */
    @Override
-   protected void addViolation( final IParserNode statement,
-                                final IFunction function )
+   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      addViolation( statement );
+      return new HashMap< String, ViolationPosition[] >();
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
-    */
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected AbstractFlexRule getRule()
    {
-      return ViolationPriority.LOW;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getFirstPrimaryToFind()
-    */
-   @Override
-   protected String getFirstPrimaryToFind()
-   {
-      return "Math";
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getSecondPrimaryToFind
-    * ()
-    */
-   @Override
-   protected String getSecondPrimaryToFind()
-   {
-      return "ceil";
+      return new BooleanAttributeShouldContainIsHasRule();
    }
 }

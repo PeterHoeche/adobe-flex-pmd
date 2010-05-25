@@ -38,8 +38,14 @@ import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.nodes.IMetaDataListHolder;
 import com.adobe.ac.pmd.nodes.MetaData;
 
+/**
+ * @author xagnetti
+ */
 public final class MetaDataTag
 {
+   /**
+    * @author xagnetti
+    */
    public enum Location
    {
       ATTRIBUTE, CLASS_DECLARATION, FUNCTION
@@ -51,6 +57,11 @@ public final class MetaDataTag
 
    private final Location[] placedOn;
 
+   /**
+    * @param nameToBeSet
+    * @param attributesToBeSet
+    * @param placedOnToBeSet
+    */
    public MetaDataTag( final String nameToBeSet,
                        final String[] attributesToBeSet,
                        final Location[] placedOnToBeSet )
@@ -60,11 +71,18 @@ public final class MetaDataTag
       placedOn = placedOnToBeSet;
    }
 
+   /**
+    * @return
+    */
    public List< String > getAttributes()
    {
       return Arrays.asList( attributes );
    }
 
+   /**
+    * @param holder
+    * @return
+    */
    public List< IMetaData > getMetaDataList( final IMetaDataListHolder holder )
    {
       final List< IMetaData > list = new ArrayList< IMetaData >();
@@ -80,11 +98,17 @@ public final class MetaDataTag
       return list;
    }
 
+   /**
+    * @return
+    */
    public String getName()
    {
       return name;
    }
 
+   /**
+    * @return
+    */
    public List< Location > getPlacedOn()
    {
       return Arrays.asList( placedOn );

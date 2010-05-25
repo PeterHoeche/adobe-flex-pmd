@@ -34,16 +34,29 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
 {
    private boolean defaultStatementFound = false;
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitSwitch(com.adobe.
+    * ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitSwitch( final IParserNode ast )
    {
@@ -57,6 +70,12 @@ public class SwitchStatementsShouldHaveDefaultRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitSwitchDefaultCase
+    * (com.adobe.ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitSwitchDefaultCase( final IParserNode child )
    {

@@ -33,14 +33,28 @@ package com.adobe.ac.pmd.rules.binding;
 import com.adobe.ac.pmd.rules.core.AbstractForbiddenImportRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class ChangeWatcherRule extends AbstractForbiddenImportRule
 {
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractForbiddenImportRule#getForbiddenImport
+    * ()
+    */
+   @Override
    protected String getForbiddenImport()
    {
       return "ChangeWatcher";

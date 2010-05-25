@@ -38,10 +38,17 @@ import com.adobe.ac.pmd.nodes.INode;
 import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 abstract class AbstractNode implements INode
 {
    protected static final Logger LOGGER = Logger.getLogger( "Node" );
 
+   /**
+    * @param metaDataHolder
+    * @param child
+    */
    protected static void computeMetaDataList( final IMetaDataListHolder metaDataHolder,
                                               final IParserNode child )
    {
@@ -54,6 +61,10 @@ abstract class AbstractNode implements INode
       }
    }
 
+   /**
+    * @param modifiable
+    * @param child
+    */
    protected static final void computeModifierList( final IModifiersHolder modifiable,
                                                     final IParserNode child )
    {
@@ -69,13 +80,23 @@ abstract class AbstractNode implements INode
    }
    private final IParserNode internalNode;
 
+   /**
+    * @param node
+    */
    protected AbstractNode( final IParserNode node )
    {
       internalNode = node;
    }
 
+   /**
+    * @return
+    */
    public abstract AbstractNode compute();
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.INode#getInternalNode()
+    */
    public IParserNode getInternalNode()
    {
       return internalNode;

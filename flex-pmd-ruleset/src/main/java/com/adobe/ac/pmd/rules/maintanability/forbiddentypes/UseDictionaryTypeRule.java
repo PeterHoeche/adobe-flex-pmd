@@ -32,14 +32,26 @@ package com.adobe.ac.pmd.rules.maintanability.forbiddentypes;
 
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class UseDictionaryTypeRule extends AbstractUseForbiddenTypeRule // NO_UCD
 {
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.maintanability.forbiddentypes.
+    * AbstractUseForbiddenTypeRule#getForbiddenType()
+    */
    @Override
    protected String getForbiddenType()
    {

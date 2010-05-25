@@ -32,6 +32,9 @@ package com.adobe.ac.pmd.rules.core.thresholded;
 
 import com.adobe.ac.pmd.rules.core.IFlexRule;
 
+/**
+ * @author xagnetti
+ */
 public interface IThresholdedRule extends IFlexRule
 {
    /**

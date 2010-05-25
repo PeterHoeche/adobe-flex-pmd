@@ -28,88 +28,62 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.security;
+package com.adobe.ac.pmd.rules.naming;
 
-import java.util.regex.Matcher;
+import java.util.List;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IAttribute;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.nodes.INamableNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-/**
- * @author xagnetti
- */
-public class LocalConnectionStarRule extends AbstractRegexpBasedRule
+public class BooleanAttributeShouldContainIsHasRule extends AbstractAstFlexRule
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
-    */
-   @Override
-   public final boolean isConcernedByTheCurrentFile()
-   {
-      return true;
-   }
+   private static final String   BOOLEAN         = "Boolean";
+   private static final String[] FORBIDDEN_NAMES = new String[]
+                                                 { "has",
+               "is",
+               "can"                            };
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
-    */
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected void findViolations( final IFunction function )
    {
-      return ViolationPriority.HIGH;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
-    */
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*\\s([a-zA-Z0-9\\.\\-_]+)\\.allowDomain\\s*\\(\\s*['\"]\\*['\"]\\s*\\).*";
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#isCurrentLineConcerned
-    * (java.lang.String)
-    */
-   @Override
-   protected boolean isCurrentLineConcerned( final String line )
-   {
-      return line.contains( "allowDomain" );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
-    * isViolationDetectedOnThisMatchingLine(java.lang.String)
-    */
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      final Matcher matcher = getMatcher( line );
-      boolean result = false;
-
-      if ( matcher.matches() )
+      if ( function.isGetter()
+            && function.isPublic() && function.getReturnType().toString().compareTo( BOOLEAN ) == 0 )
       {
-         final String objectName = matcher.group( 1 ).trim();
-
-         if ( objectName == null )
-         {
-            return false;
-         }
-
-         if ( objectName.equalsIgnoreCase( "Security" ) )
-         {
-            return false;
-         }
-
-         result = true;
+         isWronglyNamed( function );
       }
-      return result;
+   }
+
+   @Override
+   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   {
+      for ( final IAttribute variable : variables )
+      {
+         if ( variable.getName().compareTo( BOOLEAN ) == 0 )
+         {
+            isWronglyNamed( variable );
+         }
+      }
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.LOW;
+   }
+
+   private void isWronglyNamed( final INamableNode namable )
+   {
+      for ( final String forbiddenName : FORBIDDEN_NAMES )
+      {
+         if ( namable.getName().startsWith( forbiddenName ) )
+         {
+            return;
+         }
+      }
+      addViolation( namable,
+                    namable.getName() );
    }
 }

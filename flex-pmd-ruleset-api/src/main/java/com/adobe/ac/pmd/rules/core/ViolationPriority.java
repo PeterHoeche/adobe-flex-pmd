@@ -30,6 +30,9 @@
  */
 package com.adobe.ac.pmd.rules.core;
 
+/**
+ * @author xagnetti
+ */
 public enum ViolationPriority
 {
    HIGH("1"), LOW("5"), NORMAL("3");

@@ -37,6 +37,9 @@ import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class UnusedParameterRule extends AbstractUnusedVariableRule
 {
    private static final String DATA_GRID_COLUMN         = "DataGridColumn";
@@ -92,12 +95,22 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
    private IParserNode currentClass;
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitClass(com.adobe.ac
+    * .pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitClass( final IParserNode classNode )
    {
@@ -105,6 +118,13 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
       super.visitClass( classNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitFunction(com.adobe
+    * .ac.pmd.parser.IParserNode,
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule.FunctionType)
+    */
    @Override
    protected final void visitFunction( final IParserNode functionAst,
                                        final FunctionType type )
@@ -133,6 +153,12 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitParameters(com.adobe
+    * .ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitParameters( final IParserNode ast )
    {

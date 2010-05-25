@@ -39,43 +39,82 @@ import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
+/**
+ * @author xagnetti
+ */
 public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule implements IThresholdedRule
 {
    public static final int DEFAULT_THRESHOLD = 3;
    private int             switchCases;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public final int getActualValueForTheCurrentViolation()
    {
       return switchCases;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public final int getDefaultThreshold()
    {
       return DEFAULT_THRESHOLD;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThreshold()
+    */
    public final int getThreshold()
    {
       return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThresholdName
+    * ()
+    */
    public final String getThresholdName()
    {
       return MINIMUM;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
+    */
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {
       return getRuleProperties( this );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitSwitch(com.adobe.
+    * ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitSwitch( final IParserNode ast )
    {
@@ -89,6 +128,12 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitSwitchCase(com.adobe
+    * .ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitSwitchCase( final IParserNode child )
    {
@@ -97,6 +142,12 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
       switchCases++;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitSwitchDefaultCase
+    * (com.adobe.ac.pmd.parser.IParserNode)
+    */
    @Override
    protected void visitSwitchDefaultCase( final IParserNode defaultCaseNode )
    {

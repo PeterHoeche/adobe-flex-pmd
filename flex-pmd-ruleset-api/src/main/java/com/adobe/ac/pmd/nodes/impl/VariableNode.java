@@ -63,6 +63,9 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
    private IdentifierNode                           name;
    private IdentifierNode                           type;
 
+   /**
+    * @param rootNode
+    */
    protected VariableNode( final IParserNode rootNode )
    {
       super( rootNode );
@@ -71,6 +74,12 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       modifiers = new HashSet< Modifier >();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IMetaDataListHolder#add(com.adobe.ac.pmd.nodes.
+    * IMetaData)
+    */
    public void add( final IMetaData metaData )
    {
       final MetaData metaDataImpl = MetaData.create( metaData.getName() );
@@ -82,11 +91,21 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       metaDataList.get( metaDataImpl ).add( metaData );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IModifiersHolder#add(com.adobe.ac.pmd.nodes.Modifier
+    * )
+    */
    public void add( final Modifier modifier )
    {
       modifiers.add( modifier );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public VariableNode compute()
    {
@@ -115,6 +134,10 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaDataListHolder#getAllMetaData()
+    */
    public List< IMetaData > getAllMetaData()
    {
       final List< IMetaData > list = new ArrayList< IMetaData >();
@@ -136,16 +159,30 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       return initializationExpression;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IMetaDataListHolder#getMetaData(com.adobe.ac.pmd
+    * .nodes.MetaData)
+    */
    public List< IMetaData > getMetaData( final MetaData metaDataName )
    {
       return metaDataList.get( metaDataName );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaDataListHolder#getMetaDataCount()
+    */
    public int getMetaDataCount()
    {
       return metaDataList.size();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.INamable#getName()
+    */
    public String getName()
    {
       return name == null ? ""
@@ -161,6 +198,12 @@ class VariableNode extends AbstractNode implements IVariable, IModifiersHolder
       return type;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IModifiersHolder#is(com.adobe.ac.pmd.nodes.Modifier
+    * )
+    */
    public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );

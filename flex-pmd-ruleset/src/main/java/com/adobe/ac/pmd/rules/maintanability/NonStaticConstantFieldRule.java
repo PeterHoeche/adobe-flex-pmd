@@ -36,8 +36,17 @@ import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class NonStaticConstantFieldRule extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromConstants
+    * (java.util.List)
+    */
    @Override
    protected final void findViolationsFromConstants( final List< IConstant > constants )
    {
@@ -52,6 +61,10 @@ public class NonStaticConstantFieldRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

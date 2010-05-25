@@ -281,6 +281,9 @@ public final class Violation implements IFlexViolation
       return formatter.toString();
    }
 
+   /**
+    * @return
+    */
    String getNewLine()
    {
       return System.getProperty( "line.separator" );

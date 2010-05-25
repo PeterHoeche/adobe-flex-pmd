@@ -43,9 +43,19 @@ import com.adobe.ac.pmd.parser.IParserNode;
  */
 public abstract class AbstractPrimaryAstRule extends AbstractAstFlexRule
 {
+   /**
+    * @param statement
+    * @param function
+    */
    protected abstract void addViolation( IParserNode statement,
                                          IFunction function );
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected final void findViolations( final IFunction function )
    {
@@ -75,8 +85,14 @@ public abstract class AbstractPrimaryAstRule extends AbstractAstFlexRule
       }
    }
 
+   /**
+    * @return
+    */
    protected abstract String getFirstPrimaryToFind();
 
+   /**
+    * @return
+    */
    protected String getSecondPrimaryToFind()
    {
       return null;

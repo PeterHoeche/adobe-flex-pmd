@@ -39,34 +39,59 @@ import net.sourceforge.pmd.properties.StringProperty;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class ParameterizedRegExpBasedRule extends AbstractRegexpBasedRule
 {
    public static final String PROPERTY_NAME = "expression";
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
+    */
    @Override
    protected String getRegexp()
    {
       return getStringProperty( propertyDescriptorFor( PROPERTY_NAME ) );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    protected boolean isConcernedByTheCurrentFile()
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
       return true;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
+    */
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {

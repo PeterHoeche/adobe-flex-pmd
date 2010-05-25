@@ -35,6 +35,9 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class CairngormEventDispatcherCallExplicitlyRule extends AbstractPrimaryAstRule // NO_UCD
 {
    private static final String ADD_EVENT_LISTENER_MESSAGE = "The Cairngorm event is listened directly. "
@@ -44,6 +47,12 @@ public class CairngormEventDispatcherCallExplicitlyRule extends AbstractPrimaryA
    private static final String DISPATCH_EVENT_MESSAGE     = "Use cairngormEvent.dispatch instead";
    private static final String EVENT_DISPATCHER           = "CairngormEventDispatcher";
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#addViolation(com.adobe
+    * .ac.pmd.parser.IParserNode, com.adobe.ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void addViolation( final IParserNode statement,
                                 final IFunction function )
@@ -56,12 +65,21 @@ public class CairngormEventDispatcherCallExplicitlyRule extends AbstractPrimaryA
                     messageToAppend );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getFirstPrimaryToFind()
+    */
    @Override
    protected String getFirstPrimaryToFind()
    {

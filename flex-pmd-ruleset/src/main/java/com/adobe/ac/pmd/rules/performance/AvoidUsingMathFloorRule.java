@@ -35,8 +35,17 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class AvoidUsingMathFloorRule extends AbstractPrimaryAstRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#addViolation(com.adobe
+    * .ac.pmd.parser.IParserNode, com.adobe.ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void addViolation( final IParserNode statement,
                                 final IFunction function )
@@ -44,18 +53,33 @@ public class AvoidUsingMathFloorRule extends AbstractPrimaryAstRule
       addViolation( statement );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.LOW;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getFirstPrimaryToFind()
+    */
    @Override
    protected String getFirstPrimaryToFind()
    {
       return "Math";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractPrimaryAstRule#getSecondPrimaryToFind
+    * ()
+    */
    @Override
    protected String getSecondPrimaryToFind()
    {

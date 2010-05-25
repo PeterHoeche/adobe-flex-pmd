@@ -48,6 +48,9 @@ import com.adobe.ac.pmd.nodes.Modifier;
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 
+/**
+ * @author xagnetti
+ */
 class ClassNode extends AbstractNode implements IClass
 {
    private IParserNode                              asDoc;
@@ -63,6 +66,9 @@ class ClassNode extends AbstractNode implements IClass
    private final List< IParserNode >                multiLinesComments;
    private IdentifierNode                           name;
 
+   /**
+    * @param node
+    */
    protected ClassNode( final IParserNode node )
    {
       super( node );
@@ -78,6 +84,12 @@ class ClassNode extends AbstractNode implements IClass
       asDoc = null;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IMetaDataListHolder#add(com.adobe.ac.pmd.nodes.
+    * IMetaData)
+    */
    public void add( final IMetaData metaData )
    {
       final MetaData metaDataImpl = MetaData.create( metaData.getName() );
@@ -90,11 +102,21 @@ class ClassNode extends AbstractNode implements IClass
       metaDataList.get( metaDataImpl ).add( metaData );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IModifiersHolder#add(com.adobe.ac.pmd.nodes.Modifier
+    * )
+    */
    public void add( final Modifier modifier )
    {
       modifiers.add( modifier );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public ClassNode compute()
    {
@@ -142,6 +164,10 @@ class ClassNode extends AbstractNode implements IClass
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaDataListHolder#getAllMetaData()
+    */
    public List< IMetaData > getAllMetaData()
    {
       final List< IMetaData > list = new ArrayList< IMetaData >();
@@ -154,16 +180,28 @@ class ClassNode extends AbstractNode implements IClass
       return list;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IAsDocHolder#getAsDoc()
+    */
    public IParserNode getAsDoc()
    {
       return asDoc;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getAttributes()
+    */
    public List< IAttribute > getAttributes()
    {
       return attributes;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getAverageCyclomaticComplexity()
+    */
    public double getAverageCyclomaticComplexity()
    {
       if ( functions.isEmpty() )
@@ -181,6 +219,10 @@ class ClassNode extends AbstractNode implements IClass
             / functions.size();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#getBlock()
+    */
    public final IParserNode getBlock()
    {
       return block;
@@ -231,6 +273,12 @@ class ClassNode extends AbstractNode implements IClass
       return implementations;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IMetaDataListHolder#getMetaData(com.adobe.ac.pmd
+    * .nodes.MetaData)
+    */
    public List< IMetaData > getMetaData( final MetaData metaDataName )
    {
       if ( metaDataList.containsKey( metaDataName ) )
@@ -243,11 +291,19 @@ class ClassNode extends AbstractNode implements IClass
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaDataListHolder#getMetaDataCount()
+    */
    public int getMetaDataCount()
    {
       return metaDataList.size();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.ICommentHolder#getMultiLinesComment()
+    */
    public List< IParserNode > getMultiLinesComment()
    {
       return multiLinesComments;
@@ -262,11 +318,21 @@ class ClassNode extends AbstractNode implements IClass
       return name.toString();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.nodes.IModifiersHolder#is(com.adobe.ac.pmd.nodes.Modifier
+    * )
+    */
    public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IClass#isBindable()
+    */
    public boolean isBindable()
    {
       return metaDataList.get( MetaData.BINDABLE ) != null;
@@ -281,6 +347,10 @@ class ClassNode extends AbstractNode implements IClass
       return is( Modifier.FINAL );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IVisible#isPublic()
+    */
    public boolean isPublic()
    {
       return is( Modifier.PUBLIC );

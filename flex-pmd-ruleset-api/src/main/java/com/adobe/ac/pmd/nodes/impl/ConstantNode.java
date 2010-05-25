@@ -33,13 +33,23 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 class ConstantNode extends FieldNode implements IConstant
 {
+   /**
+    * @param rootNode
+    */
    protected ConstantNode( final IParserNode rootNode )
    {
       super( rootNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.FieldNode#compute()
+    */
    @Override
    public ConstantNode compute()
    {

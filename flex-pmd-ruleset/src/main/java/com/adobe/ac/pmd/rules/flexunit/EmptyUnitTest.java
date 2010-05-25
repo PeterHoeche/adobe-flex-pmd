@@ -36,6 +36,9 @@ import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public final class EmptyUnitTest extends AbstractAstFlexRule
 {
    private static final String[] ASSERTIONS = new String[]
@@ -59,6 +62,12 @@ public final class EmptyUnitTest extends AbstractAstFlexRule
 
    private boolean               isExtendingTestCase;
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
    protected void findViolations( final IClass classNode )
    {
@@ -68,6 +77,12 @@ public final class EmptyUnitTest extends AbstractAstFlexRule
       super.findViolations( classNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void findViolations( final IFunction function )
    {
@@ -86,6 +101,10 @@ public final class EmptyUnitTest extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

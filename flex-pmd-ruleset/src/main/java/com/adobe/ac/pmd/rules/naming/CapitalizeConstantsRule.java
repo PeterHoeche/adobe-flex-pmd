@@ -28,88 +28,37 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.security;
+package com.adobe.ac.pmd.rules.naming;
 
-import java.util.regex.Matcher;
+import java.util.List;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IConstant;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-/**
- * @author xagnetti
- */
-public class LocalConnectionStarRule extends AbstractRegexpBasedRule
+public class CapitalizeConstantsRule extends AbstractAstFlexRule
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
-    */
    @Override
-   public final boolean isConcernedByTheCurrentFile()
+   protected void findViolationsFromConstants( final List< IConstant > constants )
    {
-      return true;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
-    */
-   @Override
-   protected final ViolationPriority getDefaultPriority()
-   {
-      return ViolationPriority.HIGH;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#getRegexp()
-    */
-   @Override
-   protected final String getRegexp()
-   {
-      return ".*\\s([a-zA-Z0-9\\.\\-_]+)\\.allowDomain\\s*\\(\\s*['\"]\\*['\"]\\s*\\).*";
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#isCurrentLineConcerned
-    * (java.lang.String)
-    */
-   @Override
-   protected boolean isCurrentLineConcerned( final String line )
-   {
-      return line.contains( "allowDomain" );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
-    * isViolationDetectedOnThisMatchingLine(java.lang.String)
-    */
-   @Override
-   protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
-   {
-      final Matcher matcher = getMatcher( line );
-      boolean result = false;
-
-      if ( matcher.matches() )
+      for ( final IConstant constant : constants )
       {
-         final String objectName = matcher.group( 1 ).trim();
-
-         if ( objectName == null )
+         if ( nameContainsLowerCase( constant.getName() ) )
          {
-            return false;
+            addViolation( constant,
+                          constant.getName() );
          }
-
-         if ( objectName.equalsIgnoreCase( "Security" ) )
-         {
-            return false;
-         }
-
-         result = true;
       }
-      return result;
+   }
+
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.NORMAL;
+   }
+
+   private boolean nameContainsLowerCase( final String name )
+   {
+      return name.toUpperCase().compareTo( name ) != 0;
    }
 }

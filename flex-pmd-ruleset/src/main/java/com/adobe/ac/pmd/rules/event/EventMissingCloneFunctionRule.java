@@ -36,10 +36,19 @@ import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.IFunction;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class EventMissingCloneFunctionRule extends AbstractEventRelatedRule
 {
    private IClass classNode = null;
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.event.AbstractEventRelatedRule#findViolations(com
+    * .adobe.ac.pmd.nodes.IClass)
+    */
    @Override
    protected final void findViolations( final IClass classNodeToBeSet )
    {
@@ -50,6 +59,12 @@ public class EventMissingCloneFunctionRule extends AbstractEventRelatedRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(java.util
+    * .List)
+    */
    @Override
    protected final void findViolations( final List< IFunction > functions )
    {
@@ -69,6 +84,10 @@ public class EventMissingCloneFunctionRule extends AbstractEventRelatedRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

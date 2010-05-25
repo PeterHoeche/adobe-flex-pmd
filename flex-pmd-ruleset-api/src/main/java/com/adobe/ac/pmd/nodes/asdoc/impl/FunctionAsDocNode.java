@@ -33,21 +33,34 @@ package com.adobe.ac.pmd.nodes.asdoc.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author xagnetti
+ */
 public class FunctionAsDocNode extends AsDocNodeBase
 {
    private final List< ParameterAsDocNode > parameters;
 
+   /**
+    * @param descriptionToBeSet
+    */
    public FunctionAsDocNode( final String descriptionToBeSet )
    {
       super( descriptionToBeSet );
       parameters = new ArrayList< ParameterAsDocNode >();
    }
 
+   /**
+    * @param param
+    */
    public void addParameter( final ParameterAsDocNode param )
    {
       parameters.add( param );
    }
 
+   /**
+    * @param index
+    * @return
+    */
    public ParameterAsDocNode getParameter( final int index )
    {
       return parameters.get( index );

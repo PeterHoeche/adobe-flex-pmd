@@ -35,16 +35,29 @@ import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
 {
    private int loopLevel = 0;
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitFor(com.adobe.ac.
+    * pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitFor( final IParserNode ast )
    {
@@ -53,6 +66,12 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
       loopLevel--;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitForEach(com.adobe
+    * .ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitForEach( final IParserNode ast )
    {
@@ -61,6 +80,12 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
       loopLevel--;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitStatement(com.adobe
+    * .ac.pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitStatement( final IParserNode ast )
    {
@@ -74,6 +99,12 @@ public class AvoidInstanciationInLoopRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitWhile(com.adobe.ac
+    * .pmd.parser.IParserNode)
+    */
    @Override
    protected final void visitWhile( final IParserNode ast )
    {

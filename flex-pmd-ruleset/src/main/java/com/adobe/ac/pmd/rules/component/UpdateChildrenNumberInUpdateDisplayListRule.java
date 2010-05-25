@@ -35,6 +35,9 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlexRule // NO_UCD
 {
    private static final String[] METHOD_NAMES        =
@@ -44,6 +47,12 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
                "removeChildAt"                      };
    private static final String   UPDATE_DISPLAY_LIST = "updateDisplayList";
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IFunction)
+    */
    @Override
    protected final void findViolations( final IFunction function )
    {
@@ -59,6 +68,10 @@ public class UpdateChildrenNumberInUpdateDisplayListRule extends AbstractAstFlex
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

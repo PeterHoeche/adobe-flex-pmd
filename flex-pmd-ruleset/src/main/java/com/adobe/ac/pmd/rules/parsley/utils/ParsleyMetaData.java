@@ -39,7 +39,7 @@ public final class ParsleyMetaData
    {
       super();
    }
-
+ 
    private static final String                     KEY                  = "key";
 
    private static final String                     BUNDLE               = "bundle";

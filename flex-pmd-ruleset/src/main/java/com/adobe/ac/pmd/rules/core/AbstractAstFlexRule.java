@@ -56,16 +56,25 @@ import com.adobe.ac.utils.StackTraceUtils;
  */
 public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IFlexAstRule
 {
+   /**
+    *
+    */
    protected enum FunctionType
    {
       GETTER, NORMAL, SETTER
    }
 
+   /**
+    *
+    */
    protected enum VariableOrConstant
    {
       CONSTANT, VARIABLE
    }
 
+   /**
+    *
+    */
    protected enum VariableScope
    {
       IN_CLASS, IN_FUNCTION
@@ -78,6 +87,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
 
    private static final Logger LOGGER = Logger.getLogger( AbstractAstFlexRule.class.getName() );
 
+   /**
+    * @param functionNode
+    * @return
+    */
    /**
     * @param functionNode
     * @return

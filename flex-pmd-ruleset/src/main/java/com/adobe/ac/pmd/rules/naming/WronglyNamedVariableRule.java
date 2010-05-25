@@ -42,14 +42,25 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
+/**
+ * @author xagnetti
+ */
 public class WronglyNamedVariableRule extends AbstractAstFlexRule
 {
    private static final String[] FORBIDDEN_NAMES =
                                                  { "tmp",
                "temp",
                "foo",
-               "bar"                            };
+               "bar",
+               "object",
+               "evt"                            };
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(java.util
+    * .List)
+    */
    @Override
    protected final void findViolations( final List< IFunction > functions )
    {
@@ -66,18 +77,34 @@ public class WronglyNamedVariableRule extends AbstractAstFlexRule
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromAttributes
+    * (java.util.List)
+    */
    @Override
    protected final void findViolationsFromAttributes( final List< IAttribute > attributes )
    {
       findViolationsInVariables( attributes );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromConstants
+    * (java.util.List)
+    */
    @Override
    protected final void findViolationsFromConstants( final List< IConstant > constants )
    {
       findViolationsInVariables( constants );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected final ViolationPriority getDefaultPriority()
    {

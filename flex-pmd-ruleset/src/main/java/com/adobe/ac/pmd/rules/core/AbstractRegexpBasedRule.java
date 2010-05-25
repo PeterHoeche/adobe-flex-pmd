@@ -53,6 +53,9 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
       compilePattern();
    }
 
+   /**
+    * 
+    */
    public final void compilePattern()
    {
       pattern = Pattern.compile( getRegexp() );
@@ -89,6 +92,10 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
       return violations;
    }
 
+   /**
+    * @param line
+    * @return
+    */
    final boolean doesCurrentLineMacthes( final String line )
    {
       return getMatcher( line ).matches();

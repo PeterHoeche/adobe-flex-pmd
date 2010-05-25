@@ -39,6 +39,9 @@ import java.util.Map;
 import com.adobe.ac.pmd.nodes.IMetaData;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 class MetaDataNode extends AbstractNode implements IMetaData
 {
    private List< String >          attributeNames;
@@ -46,11 +49,18 @@ class MetaDataNode extends AbstractNode implements IMetaData
    private String                  parameter;
    private Map< String, String[] > parameters;
 
+   /**
+    * @param node
+    */
    protected MetaDataNode( final IParserNode node )
    {
       super( node );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public MetaDataNode compute()
    {
@@ -67,21 +77,37 @@ class MetaDataNode extends AbstractNode implements IMetaData
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getAttributeNames()
+    */
    public List< String > getAttributeNames()
    {
       return attributeNames;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getDefaultValue()
+    */
    public String getDefaultValue()
    {
       return parameter;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.INamable#getName()
+    */
    public String getName()
    {
       return name;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getProperty(java.lang.String)
+    */
    public String[] getProperty( final String property )
    {
       return parameters.containsKey( property ) ? parameters.get( property )
@@ -89,6 +115,10 @@ class MetaDataNode extends AbstractNode implements IMetaData
                                                {};
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getPropertyAsList(java.lang.String)
+    */
    public List< String > getPropertyAsList( final String property )
    {
       return Arrays.asList( getProperty( property ) );

@@ -33,24 +33,42 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.nodes.IIdentifierNode;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 class IdentifierNode extends AbstractNode implements IIdentifierNode
 {
+   /**
+    * @param node
+    * @return
+    */
    static IdentifierNode create( final IParserNode node )
    {
       return new IdentifierNode( node ).compute();
    }
 
+   /**
+    * @param node
+    */
    protected IdentifierNode( final IParserNode node )
    {
       super( node );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.AbstractNode#compute()
+    */
    @Override
    public IdentifierNode compute()
    {
       return this;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see java.lang.Object#toString()
+    */
    @Override
    public String toString()
    {

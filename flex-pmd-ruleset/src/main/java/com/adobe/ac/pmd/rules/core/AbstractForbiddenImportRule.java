@@ -33,14 +33,26 @@ package com.adobe.ac.pmd.rules.core;
 import com.adobe.ac.pmd.nodes.IPackage;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 public abstract class AbstractForbiddenImportRule extends AbstractAstFlexRule
 {
 
+   /**
+    * 
+    */
    public AbstractForbiddenImportRule()
    {
       super();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IPackage)
+    */
    @Override
    protected final void findViolations( final IPackage packageNode )
    {
@@ -53,5 +65,8 @@ public abstract class AbstractForbiddenImportRule extends AbstractAstFlexRule
       }
    }
 
+   /**
+    * @return
+    */
    protected abstract String getForbiddenImport();
 }

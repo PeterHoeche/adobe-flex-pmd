@@ -42,7 +42,19 @@ public class WronglyNamedVariableRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
+      final LinkedHashMap< String, ViolationPosition[] > violatedFiles = new LinkedHashMap< String, ViolationPosition[] >();
+
+      addToMap( violatedFiles,
+                "AbstractRowData.as",
+                new ViolationPosition[]
+                { new ViolationPosition( 52 ) } );
+
+      addToMap( violatedFiles,
+                "bug.FlexPMD141a.mxml",
+                new ViolationPosition[]
+                { new ViolationPosition( 40 ) } );
+
+      return addToMap( addToMap( addToMap( violatedFiles,
                                            "PngEncoder.as",
                                            new ViolationPosition[]
                                            { new ViolationPosition( 340 ),

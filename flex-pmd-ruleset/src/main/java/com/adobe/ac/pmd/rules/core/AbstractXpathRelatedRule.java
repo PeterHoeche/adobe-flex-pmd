@@ -55,8 +55,14 @@ import org.xml.sax.SAXException;
 import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.utils.StackTraceUtils;
 
+/**
+ * @author xagnetti
+ */
 public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
 {
+   /**
+    * @author xagnetti
+    */
    public class NamespaceContextMap implements NamespaceContext
    {
       private final Map< String, String > prefixMap;
@@ -84,17 +90,30 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
          this( toMap( mappingPairs ) );
       }
 
+      /*
+       * (non-Javadoc)
+       * @see
+       * javax.xml.namespace.NamespaceContext#getNamespaceURI(java.lang.String)
+       */
       public String getNamespaceURI( final String prefix )
       {
          prefixMap.get( prefix );
          return prefixMap.get( prefix );
       }
 
+      /*
+       * (non-Javadoc)
+       * @see javax.xml.namespace.NamespaceContext#getPrefix(java.lang.String)
+       */
       public String getPrefix( final String namespaceURI )
       {
          return null;
       }
 
+      /*
+       * (non-Javadoc)
+       * @see javax.xml.namespace.NamespaceContext#getPrefixes(java.lang.String)
+       */
       public Iterator< String > getPrefixes( final String namespaceURI )
       {
          return null;
@@ -135,9 +154,20 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
       return prefixMappings;
    }
 
+   /**
+    * @param doc
+    * @param xPath
+    * @return
+    * @throws XPathExpressionException
+    */
    protected abstract Object evaluate( final Document doc,
                                        final XPath xPath ) throws XPathExpressionException;
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#findViolationsInCurrentFile()
+    */
    @Override
    protected List< IFlexViolation > findViolationsInCurrentFile()
    {
@@ -181,14 +211,28 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
       return violations;
    }
 
+   /**
+    * @return
+    */
    protected abstract String getXPathExpression();
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
    @Override
    protected boolean isConcernedByTheCurrentFile()
    {
       return getCurrentFile().isMxml();
    }
 
+   /**
+    * @param violations
+    * @param doc
+    * @param xPath
+    * @throws XPathExpressionException
+    */
    protected abstract void onEvaluated( final List< IFlexViolation > violations,
                                         final Document doc,
                                         final XPath xPath ) throws XPathExpressionException;

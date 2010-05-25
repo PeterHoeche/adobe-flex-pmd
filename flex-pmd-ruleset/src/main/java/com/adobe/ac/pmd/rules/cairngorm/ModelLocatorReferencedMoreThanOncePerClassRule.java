@@ -30,11 +30,20 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
+/**
+ * @author xagnetti
+ */
 public class ModelLocatorReferencedMoreThanOncePerClassRule extends
                                                            ReferenceModelLocatorOutsideTheMainApplicationRule
 {
    private int referencesPerFile;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.cairngorm.
+    * ReferenceModelLocatorOutsideTheMainApplicationRule
+    * #isViolationDetectedOnThisMatchingLine(java.lang.String)
+    */
    @Override
    protected final boolean isViolationDetectedOnThisMatchingLine( final String line )
    {
@@ -46,6 +55,10 @@ public class ModelLocatorReferencedMoreThanOncePerClassRule extends
       return referencesPerFile > 1;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#onRuleStart()
+    */
    @Override
    protected final void onRuleStart()
    {

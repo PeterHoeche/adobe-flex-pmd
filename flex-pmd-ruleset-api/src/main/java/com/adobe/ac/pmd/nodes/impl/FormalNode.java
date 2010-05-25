@@ -33,18 +33,32 @@ package com.adobe.ac.pmd.nodes.impl;
 import com.adobe.ac.pmd.nodes.IParameter;
 import com.adobe.ac.pmd.parser.IParserNode;
 
+/**
+ * @author xagnetti
+ */
 final class FormalNode extends VariableNode implements IParameter
 {
+   /**
+    * @param node
+    * @return
+    */
    static FormalNode create( final IParserNode node )
    {
       return new FormalNode( node ).compute();
    }
 
+   /**
+    * @param node
+    */
    private FormalNode( final IParserNode node )
    {
       super( node );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.impl.VariableNode#compute()
+    */
    @Override
    public FormalNode compute()
    {

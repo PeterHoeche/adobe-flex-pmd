@@ -40,8 +40,16 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
+/**
+ * @author xagnetti
+ */
 public final class MessageInterceptorSignatureRule extends AbstractFlexMetaDataRule
 {
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule#
+    * findViolationsFromFunctionMetaData(com.adobe.ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void findViolationsFromFunctionMetaData( final IFunction function )
    {
@@ -78,6 +86,10 @@ public final class MessageInterceptorSignatureRule extends AbstractFlexMetaDataR
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

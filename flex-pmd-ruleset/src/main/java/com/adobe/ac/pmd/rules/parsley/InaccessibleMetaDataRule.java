@@ -43,8 +43,16 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
 
+/**
+ * @author xagnetti
+ */
 public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
 {
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule#
+    * findViolationsFromAttributeMetaData(com.adobe.ac.pmd.nodes.IAttribute)
+    */
    @Override
    protected void findViolationsFromAttributeMetaData( final IAttribute attribute )
    {
@@ -52,6 +60,11 @@ public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
                              attribute );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule#
+    * findViolationsFromClassMetaData(com.adobe.ac.pmd.nodes.IClass)
+    */
    @Override
    protected void findViolationsFromClassMetaData( final IClass classNode )
    {
@@ -59,6 +72,11 @@ public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
                              classNode );
    }
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractFlexMetaDataRule#
+    * findViolationsFromFunctionMetaData(com.adobe.ac.pmd.nodes.IFunction)
+    */
    @Override
    protected void findViolationsFromFunctionMetaData( final IFunction function )
    {
@@ -66,6 +84,10 @@ public final class InaccessibleMetaDataRule extends AbstractFlexMetaDataRule
                              function );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {

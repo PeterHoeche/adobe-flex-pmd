@@ -47,15 +47,29 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
+/**
+ * @author xagnetti
+ */
 public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements IThresholdedRule
 {
    private Double statesNb = 0.0;
 
+   /*
+    * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
+    * getActualValueForTheCurrentViolation()
+    */
    public int getActualValueForTheCurrentViolation()
    {
       return statesNb.intValue();
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
+    * ()
+    */
    public int getDefaultThreshold()
    {
       return 5;
@@ -82,6 +96,12 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
       return MAXIMUM;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractXpathRelatedRule#evaluate(org.w3c.
+    * dom.Document, javax.xml.xpath.XPath)
+    */
    @Override
    protected Object evaluate( final Document doc,
                               final XPath xPath ) throws XPathExpressionException
@@ -91,18 +111,33 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
                              XPathConstants.NUMBER );
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
    protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractXpathRelatedRule#getXPathExpression()
+    */
    @Override
    protected String getXPathExpression()
    {
       return "count(//mx:states/*)";
    }
 
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractXpathRelatedRule#onEvaluated(java.
+    * util.List, org.w3c.dom.Document, javax.xml.xpath.XPath)
+    */
    @Override
    protected void onEvaluated( final List< IFlexViolation > violations,
                                final Document doc,
