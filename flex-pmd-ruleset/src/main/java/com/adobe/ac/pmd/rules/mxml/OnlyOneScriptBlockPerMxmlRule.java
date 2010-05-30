@@ -31,13 +31,10 @@
 package com.adobe.ac.pmd.rules.mxml;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-
-import net.sourceforge.pmd.PropertyDescriptor;
 
 import org.w3c.dom.Document;
 
@@ -45,57 +42,12 @@ import com.adobe.ac.pmd.IFlexViolation;
 import com.adobe.ac.pmd.rules.core.AbstractXpathRelatedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
-import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
 
 /**
  * @author xagnetti
  */
-public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements IThresholdedRule
+public class OnlyOneScriptBlockPerMxmlRule extends AbstractXpathRelatedRule
 {
-   private Double statesNb = 0.0;
-
-   /*
-    * (non-Javadoc)
-    * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
-    * getActualValueForTheCurrentViolation()
-    */
-   public int getActualValueForTheCurrentViolation()
-   {
-      return statesNb.intValue();
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
-    * ()
-    */
-   public int getDefaultThreshold()
-   {
-      return 5;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThreshold()
-    */
-   public int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThresholdName
-    * ()
-    */
-   public final String getThresholdName()
-   {
-      return MAXIMUM;
-   }
-
    /*
     * (non-Javadoc)
     * @see
@@ -118,7 +70,7 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
    @Override
    protected ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.NORMAL;
+      return ViolationPriority.HIGH;
    }
 
    /*
@@ -129,7 +81,7 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
    @Override
    protected String getXPathExpression()
    {
-      return "count(//mx:states/*)";
+      return "count(//mx:Script)";
    }
 
    /*
@@ -143,31 +95,17 @@ public class TooManyStatesInMxmlRule extends AbstractXpathRelatedRule implements
                                final Document doc,
                                final XPath xPath ) throws XPathExpressionException
    {
-      statesNb = ( Double ) evaluate( doc,
-                                      xPath );
+      final Double scriptNb = ( Double ) evaluate( doc,
+                                                   xPath );
 
-      if ( statesNb >= getThreshold() )
+      if ( scriptNb >= 2 )
       {
-         xPath.evaluate( "//mx:states/*",
-                         doc,
-                         XPathConstants.NODESET );
-
          addViolation( violations,
                        ViolationPosition.create( 1,
                                                  1,
                                                  0,
                                                  0 ),
-                       String.valueOf( getActualValueForTheCurrentViolation() ) );
+                       String.valueOf( scriptNb ) );
       }
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
-    */
-   @Override
-   protected final Map< String, PropertyDescriptor > propertiesByName()
-   {
-      return getRuleProperties( this );
    }
 }

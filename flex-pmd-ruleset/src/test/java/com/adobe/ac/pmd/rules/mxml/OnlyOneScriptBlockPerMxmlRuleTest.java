@@ -37,13 +37,16 @@ import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-public class TooManyStatesInMxmlRuleTest extends AbstractFlexRuleTest
+public class OnlyOneScriptBlockPerMxmlRuleTest extends AbstractFlexRuleTest
 {
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
-                       "DeleteButtonRenderer.mxml",
+      return addToMap( addToMap( new HashMap< String, ViolationPosition[] >(),
+                                 "Main.mxml",
+                                 new ViolationPosition[]
+                                 { new ViolationPosition( 1 ) } ),
+                       "AbstractRowData.mxml",
                        new ViolationPosition[]
                        { new ViolationPosition( 1 ) } );
    }
@@ -51,6 +54,6 @@ public class TooManyStatesInMxmlRuleTest extends AbstractFlexRuleTest
    @Override
    protected AbstractFlexRule getRule()
    {
-      return new TooManyStatesInMxmlRule();
+      return new OnlyOneScriptBlockPerMxmlRule();
    }
 }

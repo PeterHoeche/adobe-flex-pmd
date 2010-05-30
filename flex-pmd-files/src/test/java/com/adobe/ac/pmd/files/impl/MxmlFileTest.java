@@ -51,7 +51,7 @@ public class MxmlFileTest extends FlexPmdTestBase
    @Test
    public void testGetActualScriptBlock()
    {
-      assertEquals( Integer.valueOf( 5 ),
+      assertEquals( Integer.valueOf( 4 ),
                     Integer.valueOf( data.getActualScriptBlock().length ) );
    }
 
