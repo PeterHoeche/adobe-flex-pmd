@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,25 +37,23 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class AvoidInstanciationInLoopRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 255 ),
-                                             new ViolationPosition( 282 ),
-                                             new ViolationPosition( 289 ) } ),
-                       "Looping.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 43 ),
-                                   new ViolationPosition( 46 ),
-                                   new ViolationPosition( 50 ),
-                                   new ViolationPosition( 56 ),
-                                   new ViolationPosition( 59 ),
-                                   new ViolationPosition( 63 ),
-                                   new ViolationPosition( 68 ),
-                                   new ViolationPosition( 71 ),
-                                   new ViolationPosition( 75 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+       { new ViolationPosition( 255 ),
+                   new ViolationPosition( 282 ),
+                   new ViolationPosition( 289 ) } ),
+                  new ExpectedViolation( "Looping.as", new ViolationPosition[]
+                  { new ViolationPosition( 43 ),
+                              new ViolationPosition( 46 ),
+                              new ViolationPosition( 50 ),
+                              new ViolationPosition( 56 ),
+                              new ViolationPosition( 59 ),
+                              new ViolationPosition( 63 ),
+                              new ViolationPosition( 68 ),
+                              new ViolationPosition( 71 ),
+                              new ViolationPosition( 75 ) } ) };
    }
 
    @Override

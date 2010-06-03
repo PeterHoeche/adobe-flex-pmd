@@ -30,9 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -41,16 +39,15 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class OnlyOneReturnRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 189 ),
-                                             new ViolationPosition( 609 ) } ),
-                       "com.adobe.ac.AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 66 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+       { new ViolationPosition( 189 ),
+                   new ViolationPosition( 609 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 66 ) } ) };
+
    }
 
    @Override

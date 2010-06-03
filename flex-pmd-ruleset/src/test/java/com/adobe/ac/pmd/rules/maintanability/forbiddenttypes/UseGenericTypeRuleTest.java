@@ -30,9 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.maintanability.forbiddenttypes;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -42,16 +40,15 @@ import com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseGenericTypeRule;
 public class UseGenericTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "GenericType.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 39 ),
-                                   new ViolationPosition( 46 ),
-                                   new ViolationPosition( 35 ),
-                                   new ViolationPosition( 36 ),
-                                   new ViolationPosition( 37 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "GenericType.as", new ViolationPosition[]
+      { new ViolationPosition( 39 ),
+                  new ViolationPosition( 46 ),
+                  new ViolationPosition( 35 ),
+                  new ViolationPosition( 36 ),
+                  new ViolationPosition( 37 ) } ) };
    }
 
    @Override

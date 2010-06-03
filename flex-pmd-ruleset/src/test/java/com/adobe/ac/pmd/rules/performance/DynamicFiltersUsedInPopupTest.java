@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,16 +37,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class DynamicFiltersUsedInPopupTest extends AbstractRegExpBasedRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "filters.MyPopup.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 37 ) } ),
-                       "filters.MyPopup.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 41 ),
-                                   new ViolationPosition( 44 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "filters.MyPopup.as", new ViolationPosition[]
+       { new ViolationPosition( 37 ) } ),
+                  new ExpectedViolation( "filters.MyPopup.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 41 ),
+                              new ViolationPosition( 44 ) } ) };
    }
 
    @Override

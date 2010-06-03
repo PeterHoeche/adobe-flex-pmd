@@ -30,40 +30,25 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class AlertShowRuleTest extends AbstractAstFlexRuleTest
 {
-   public static final Map< String, ViolationPosition[] > VIOLATING_FILES;
-
-   static
-   {
-      final Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( addToMap( addToMap( violations,
-                                    "flexpmd114.a.Test.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 43 ) } ),
-                          "flexpmd114.b.Test.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 43 ) } ),
-                "flexpmd114.c.Test.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 43 ) } );
-
-      VIOLATING_FILES = addToMap( violations,
-                                  "com.adobe.ac.ncss.ConfigProxy.as",
-                                  new ViolationPosition[]
-                                  { new ViolationPosition( 48 ) } );
-   }
+   public static final ExpectedViolation[] VIOLATING_FILES = new ExpectedViolation[]
+                                                           { new ExpectedViolation( "flexpmd114.a.Test.as",
+                                                                                    new ViolationPosition[]
+                                                                                    { new ViolationPosition( 43 ) } ),
+               new ExpectedViolation( "flexpmd114.b.Test.as", new ViolationPosition[]
+               { new ViolationPosition( 43 ) } ),
+               new ExpectedViolation( "flexpmd114.c.Test.as", new ViolationPosition[]
+               { new ViolationPosition( 43 ) } ),
+               new ExpectedViolation( "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
+               { new ViolationPosition( 48 ) } )          };
 
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
       return VIOLATING_FILES;
    }

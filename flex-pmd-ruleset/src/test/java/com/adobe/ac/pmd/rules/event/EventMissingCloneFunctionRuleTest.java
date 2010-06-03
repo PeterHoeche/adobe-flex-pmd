@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.event;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,15 +37,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class EventMissingCloneFunctionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "com.adobe.ac.ncss.SearchBarEvent.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 35 ) } ),
-                       "com.adobe.ac.ncss.event.FirstCustomEvent.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 33 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "com.adobe.ac.ncss.SearchBarEvent.as", new ViolationPosition[]
+       { new ViolationPosition( 35 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.event.FirstCustomEvent.as",
+                                         new ViolationPosition[]
+                                         { new ViolationPosition( 33 ) } ) };
    }
 
    @Override

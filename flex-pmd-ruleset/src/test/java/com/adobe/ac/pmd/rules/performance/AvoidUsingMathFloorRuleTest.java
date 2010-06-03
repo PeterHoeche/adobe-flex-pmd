@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,13 +37,12 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class AvoidUsingMathFloorRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "PngEncoder.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 205 ),
-                                   new ViolationPosition( 224 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+      { new ViolationPosition( 205 ),
+                  new ViolationPosition( 224 ) } ) };
    }
 
    @Override

@@ -72,13 +72,18 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       }
    }
 
-   protected static Map< String, ViolationPosition[] > addToMap( final Map< String, ViolationPosition[] > map,
-                                                                 final String resource,
-                                                                 final ViolationPosition[] positions )
+   protected final static class ExpectedViolation
    {
-      map.put( resource,
-               positions );
-      return map;
+      protected String              file;
+      protected ViolationPosition[] positions;
+
+      public ExpectedViolation( final String fileToBeSet,
+                                final ViolationPosition[] positionsToBeSet )
+      {
+         super();
+         file = fileToBeSet;
+         positions = positionsToBeSet;
+      }
    }
 
    protected static StringBuffer buildFailuresMessage( final List< AssertPosition > failures )
@@ -170,14 +175,16 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
    @Test
    public final void testProcessViolatingFiles()
    {
-      for ( final String fileName : getExpectedViolatingFiles().keySet() )
+      final Map< String, ViolationPosition[] > expectedPositions = computeExpectedViolations( getExpectedViolatingFiles() );
+
+      for ( final String fileName : expectedPositions.keySet() )
       {
          assertViolations( fileName,
-                           getExpectedViolatingFiles().get( fileName ) );
+                           expectedPositions.get( fileName ) );
       }
    }
 
-   protected abstract Map< String, ViolationPosition[] > getExpectedViolatingFiles();
+   protected abstract ExpectedViolation[] getExpectedViolatingFiles();
 
    protected List< String > getIgnoreFiles()
    {
@@ -227,14 +234,27 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
       }
    }
 
+   private Map< String, ViolationPosition[] > computeExpectedViolations( final ExpectedViolation[] expectedViolatingFiles )
+   {
+      final Map< String, ViolationPosition[] > expectedViolations = new LinkedHashMap< String, ViolationPosition[] >();
+
+      for ( final ExpectedViolation expectedViolatingFile : expectedViolatingFiles )
+      {
+         expectedViolations.put( expectedViolatingFile.file,
+                                 expectedViolatingFile.positions );
+      }
+      return expectedViolations;
+   }
+
    private Map< String, List< IFlexViolation >> extractActualViolatedFiles() throws IOException,
                                                                             TokenException
    {
       final Map< String, List< IFlexViolation > > violatedFiles = new LinkedHashMap< String, List< IFlexViolation > >();
+      final Map< String, ViolationPosition[] > expectedPositions = computeExpectedViolations( getExpectedViolatingFiles() );
 
       for ( final Map.Entry< String, IFlexFile > fileNameEntry : getTestFiles().entrySet() )
       {
-         if ( !getExpectedViolatingFiles().containsKey( fileNameEntry.getKey() ) )
+         if ( !expectedPositions.containsKey( fileNameEntry.getKey() ) )
          {
             final List< IFlexViolation > violations = processFile( fileNameEntry.getKey() );
 

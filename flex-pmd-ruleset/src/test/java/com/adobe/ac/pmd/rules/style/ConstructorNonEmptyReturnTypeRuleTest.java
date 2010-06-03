@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.style;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,12 +37,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class ConstructorNonEmptyReturnTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "com.adobe.ac.ncss.VoidConstructor.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 37 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "com.adobe.ac.ncss.VoidConstructor.as", new ViolationPosition[]
+      { new ViolationPosition( 37 ) } ) };
    }
 
    @Override

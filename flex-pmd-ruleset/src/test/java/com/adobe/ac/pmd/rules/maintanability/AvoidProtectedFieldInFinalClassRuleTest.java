@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,13 +37,12 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class AvoidProtectedFieldInFinalClassRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 44 ),
-                                   new ViolationPosition( 89 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
+      { new ViolationPosition( 44 ),
+                  new ViolationPosition( 89 ) } ) };
    }
 
    @Override

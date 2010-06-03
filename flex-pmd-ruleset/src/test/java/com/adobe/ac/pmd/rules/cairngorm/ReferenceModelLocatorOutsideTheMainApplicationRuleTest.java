@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,18 +37,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class ReferenceModelLocatorOutsideTheMainApplicationRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "UnboundMetadata.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 43 ),
-                                             new ViolationPosition( 45 ),
-                                             new ViolationPosition( 50 ) } ),
-                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 91 ),
-                                   new ViolationPosition( 93 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "UnboundMetadata.as", new ViolationPosition[]
+       { new ViolationPosition( 43 ),
+                   new ViolationPosition( 45 ),
+                   new ViolationPosition( 50 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                                         new ViolationPosition[]
+                                         { new ViolationPosition( 91 ),
+                                                     new ViolationPosition( 93 ) } ) };
    }
 
    @Override

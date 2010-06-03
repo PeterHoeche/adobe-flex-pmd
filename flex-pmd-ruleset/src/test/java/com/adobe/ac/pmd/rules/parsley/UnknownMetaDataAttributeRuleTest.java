@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,14 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnknownMetaDataAttributeRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "parsley.UnknownMetaDataAttribute.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 36, 36 ),
-                                   new ViolationPosition( 39, 39 ),
-                                   new ViolationPosition( 33, 33 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "parsley.UnknownMetaDataAttribute.as", new ViolationPosition[]
+      { new ViolationPosition( 36, 36 ),
+                  new ViolationPosition( 39, 39 ),
+                  new ViolationPosition( 33, 33 ) } ) };
    }
 
    @Override

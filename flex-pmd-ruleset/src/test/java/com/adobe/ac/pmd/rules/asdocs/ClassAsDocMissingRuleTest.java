@@ -30,21 +30,17 @@
  */
 package com.adobe.ac.pmd.rules.asdocs;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ClassAsDocMissingRuleTest extends AbstractAsDocRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "EmptyClass.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 33 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "EmptyClass.as", new ViolationPosition[]
+      { new ViolationPosition( 33 ) } ) };
    }
 
    @Override

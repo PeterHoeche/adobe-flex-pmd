@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,12 +37,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UncorrectClassCaseTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "com.adobe.ac.foo.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 1, 34 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "com.adobe.ac.foo.as", new ViolationPosition[]
+      { new ViolationPosition( 1, 34 ) } ) };
    }
 
    @Override

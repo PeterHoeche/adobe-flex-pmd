@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,22 +37,18 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class CyclomaticComplexityRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "bug.FlexPMD181.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 2194 ),
-                                                                 new ViolationPosition( 2292 ) } ),
-                                           "com.adobe.ac.ncss.LongSwitch.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 39 ) } ),
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 548 ) } ),
-                       "RadonDataGrid.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 160 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.FlexPMD181.as", new ViolationPosition[]
+       { new ViolationPosition( 2194 ),
+                   new ViolationPosition( 2292 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 39 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 548 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 160 ) } ) };
    }
 
    @Override

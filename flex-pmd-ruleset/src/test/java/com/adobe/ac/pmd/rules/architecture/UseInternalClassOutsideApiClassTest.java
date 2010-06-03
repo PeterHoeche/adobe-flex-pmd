@@ -30,10 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.architecture;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -41,31 +37,21 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UseInternalClassOutsideApiClassTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violatedFiles = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( addToMap( addToMap( addToMap( violatedFiles,
-                                              "functional.func2.restricted.Func2RestrictedClass.as",
-                                              new ViolationPosition[]
-                                              { new ViolationPosition( 34 ) } ),
-                                    "functional.func1.restricted.Func1RestrictedClass.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 35 ) } ),
-                          "functional.func2.api.Func2ExposedClass.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 34 ) } ),
-                "functional.func1.api.Func1ExposedClass.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 36 ) } );
-
-      addToMap( violatedFiles,
-                "functional.FunctionalClient.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 34 ),
-                            new ViolationPosition( 36 ) } );
-
-      return violatedFiles;
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "functional.func2.restricted.Func2RestrictedClass.as", new ViolationPosition[]
+       { new ViolationPosition( 34 ) } ),
+                  new ExpectedViolation( "functional.func1.restricted.Func1RestrictedClass.as",
+                                         new ViolationPosition[]
+                                         { new ViolationPosition( 35 ) } ),
+                  new ExpectedViolation( "functional.func2.api.Func2ExposedClass.as", new ViolationPosition[]
+                  { new ViolationPosition( 34 ) } ),
+                  new ExpectedViolation( "functional.func1.api.Func1ExposedClass.as", new ViolationPosition[]
+                  { new ViolationPosition( 36 ) } ),
+                  new ExpectedViolation( "functional.FunctionalClient.as", new ViolationPosition[]
+                  { new ViolationPosition( 34 ),
+                              new ViolationPosition( 36 ) } ) };
    }
 
    @Override

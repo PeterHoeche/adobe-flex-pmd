@@ -30,10 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -41,28 +37,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class CapitalizeConstantsRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violatedFiles = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( violatedFiles,
-                "AbstractRowData.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 45 ),
-                            new ViolationPosition( 46 ) } );
-
-      addToMap( violatedFiles,
-                "com.adobe.ac.ncss.ArrayVO.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 39 ),
-                            new ViolationPosition( 40 ) } );
-
-      addToMap( violatedFiles,
-                "GenericType.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 36 ) } );
-
-      return violatedFiles;
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
+       { new ViolationPosition( 45 ),
+                   new ViolationPosition( 46 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
+                  { new ViolationPosition( 39 ),
+                              new ViolationPosition( 40 ) } ),
+                  new ExpectedViolation( "GenericType.as", new ViolationPosition[]
+                  { new ViolationPosition( 36 ) } ) };
    }
 
    @Override

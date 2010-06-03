@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,31 +37,21 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( addToMap( addToMap( addToMap( violations,
-                                              "bug.Duane.mxml",
-                                              new ViolationPosition[]
-                                              { new ViolationPosition( 68 ) } ),
-                                    "flexpmd114.a.Test.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 42 ) } ),
-                          "flexpmd114.b.Test.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 42 ) } ),
-                "flexpmd114.c.Test.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 42 ) } );
-
-      return addToMap( addToMap( violations,
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 47 ) } ),
-                       "Looping.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 63 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+       { new ViolationPosition( 68 ) } ),
+                  new ExpectedViolation( "flexpmd114.a.Test.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "flexpmd114.b.Test.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "flexpmd114.c.Test.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 47 ) } ),
+                  new ExpectedViolation( "Looping.as", new ViolationPosition[]
+                  { new ViolationPosition( 63 ) } ) };
    }
 
    @Override

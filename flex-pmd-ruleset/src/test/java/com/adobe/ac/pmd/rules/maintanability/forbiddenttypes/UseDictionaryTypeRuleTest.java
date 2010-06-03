@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.maintanability.forbiddenttypes;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -41,12 +38,11 @@ import com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseDictionaryTypeRul
 public class UseDictionaryTypeRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "Responder.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 36 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "Responder.as", new ViolationPosition[]
+      { new ViolationPosition( 36 ) } ) };
    }
 
    @Override

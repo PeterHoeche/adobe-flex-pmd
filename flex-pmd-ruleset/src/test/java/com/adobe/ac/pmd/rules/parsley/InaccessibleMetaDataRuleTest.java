@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,23 +37,16 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class InaccessibleMetaDataRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final Map< String, ViolationPosition[] > expectedViolations = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( expectedViolations,
-                "parsley.InaccessibleMetaData.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 38, 38 ),
-                            new ViolationPosition( 47, 47 ),
-                            new ViolationPosition( 59, 59 ) } );
-
-      addToMap( expectedViolations,
-                "parsley.InaccessibleMetaDataInternalClass.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 33, 33 ) } );
-
-      return expectedViolations;
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "parsley.InaccessibleMetaData.as", new ViolationPosition[]
+       { new ViolationPosition( 38, 38 ),
+                   new ViolationPosition( 47, 47 ),
+                   new ViolationPosition( 59, 59 ) } ),
+                  new ExpectedViolation( "parsley.InaccessibleMetaDataInternalClass.as",
+                                         new ViolationPosition[]
+                                         { new ViolationPosition( 33, 33 ) } ) };
    }
 
    @Override

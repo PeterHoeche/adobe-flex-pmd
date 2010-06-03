@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,21 +37,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooManyFieldsRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "com.adobe.ac.ncss.TestResult.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 46 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 37 ) } ),
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 42 ) } ),
-                       "com.adobe.ac.ncss.BigModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 35 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "com.adobe.ac.ncss.TestResult.as", new ViolationPosition[]
+       { new ViolationPosition( 46 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 37 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 35 ) } ) };
    }
 
    @Override

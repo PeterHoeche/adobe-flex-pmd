@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.empty;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,26 +37,22 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "bug.Duane.mxml",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 91 ),
-                                                                 new ViolationPosition( 87 ),
-                                                                 new ViolationPosition( 83 ) } ),
-                                           "PngEncoder.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 578 ),
-                                                       new ViolationPosition( 584 ) } ),
-                                 "RadonDataGrid.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 63 ),
-                                             new ViolationPosition( 190 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 106 ),
-                                   new ViolationPosition( 113 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+       { new ViolationPosition( 91 ),
+                   new ViolationPosition( 87 ),
+                   new ViolationPosition( 83 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 578 ),
+                              new ViolationPosition( 584 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 63 ),
+                              new ViolationPosition( 190 ) } ),
+                  new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 106 ),
+                              new ViolationPosition( 113 ) } ) };
    }
 
    @Override

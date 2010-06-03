@@ -30,17 +30,14 @@
  */
 package com.adobe.ac.pmd.rules.parameterized;
 
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.maintanability.AlertShowRuleTest;
 
 public class ParameterizedRegExpBasedRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
       return AlertShowRuleTest.VIOLATING_FILES;
    }

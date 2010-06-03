@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.switchrules;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,15 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooFewBrancheInSwitchStatementRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "com.adobe.ac.ncss.LongSwitch.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 53 ) } ),
-                       "com.adobe.ac.ncss.NestedSwitch.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 43 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+       { new ViolationPosition( 53 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 43 ) } ) };
    }
 
    @Override

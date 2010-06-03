@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.event;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,15 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnboundTypeInMetadataRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "bug.Nico.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 36 ) } ),
-                       "UnboundMetadata.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 38 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Nico.as", new ViolationPosition[]
+       { new ViolationPosition( 36 ) } ),
+                  new ExpectedViolation( "UnboundMetadata.as", new ViolationPosition[]
+                  { new ViolationPosition( 38 ) } ) };
    }
 
    @Override

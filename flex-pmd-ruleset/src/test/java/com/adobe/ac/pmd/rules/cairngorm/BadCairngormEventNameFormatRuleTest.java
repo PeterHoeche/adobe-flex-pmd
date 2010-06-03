@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.cairngorm;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,16 +37,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class BadCairngormEventNameFormatRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
       final ViolationPosition[] positions =
       { new ViolationPosition( 38 ) };
 
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "cairngorm.events.UncorrectConstructorEvent.as",
-                                 positions ),
-                       "cairngorm.events.UncorrectConstantEvent.as",
-                       positions );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "cairngorm.events.UncorrectConstructorEvent.as", positions ),
+                  new ExpectedViolation( "cairngorm.events.UncorrectConstantEvent.as", positions ) };
    }
 
    @Override

@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,22 +37,19 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class DeeplyNestedIfRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                           "bug.Duane.mxml",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 87 ),
-                                                       new ViolationPosition( 91 ),
-                                                       new ViolationPosition( 96 ) } ),
-                                 "com.adobe.ac.AbstractRowData.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 59 ) } ),
-                       "PngEncoder.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 578 ),
-                                   new ViolationPosition( 576 ),
-                                   new ViolationPosition( 584 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+       { new ViolationPosition( 87 ),
+                   new ViolationPosition( 91 ),
+                   new ViolationPosition( 96 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 59 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 578 ),
+                              new ViolationPosition( 576 ),
+                              new ViolationPosition( 584 ) } ) };
    }
 
    @Override

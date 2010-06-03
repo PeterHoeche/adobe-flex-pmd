@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,20 +37,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooManyParametersRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                           "RadonDataGrid.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 68 ),
-                                                       new ViolationPosition( 84 ),
-                                                       new ViolationPosition( 117 ) } ),
-                                 "PngEncoder.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 548 ) } ),
-                       "com.adobe.ac.ncss.BigImporterModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 62 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+       { new ViolationPosition( 68 ),
+                   new ViolationPosition( 84 ),
+                   new ViolationPosition( 117 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 548 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 62 ) } ) };
    }
 
    @Override

@@ -30,9 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -41,36 +39,32 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "PngEncoder.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 405 ),
-                                                                 new ViolationPosition( 441 ),
-                                                                 new ViolationPosition( 459 ) } ),
-                                           "com.adobe.ac.ncss.BigModel.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 82 ),
-                                                       new ViolationPosition( 86 ),
-                                                       new ViolationPosition( 90 ),
-                                                       new ViolationPosition( 94 ),
-                                                       new ViolationPosition( 98 ) } ),
-                                 "cairngorm.LightController.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 115 ),
-                                             new ViolationPosition( 134 ),
-                                             new ViolationPosition( 153 ),
-                                             new ViolationPosition( 172 ),
-                                             new ViolationPosition( 191 ) } ),
-                       "com.adobe.ac.ncss.BigImporterModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 62 ),
-                                   new ViolationPosition( 62 ),
-                                   new ViolationPosition( 62 ),
-                                   new ViolationPosition( 62 ),
-                                   new ViolationPosition( 62 ),
-                                   new ViolationPosition( 64 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+       { new ViolationPosition( 405 ),
+                   new ViolationPosition( 441 ),
+                   new ViolationPosition( 459 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 82 ),
+                              new ViolationPosition( 86 ),
+                              new ViolationPosition( 90 ),
+                              new ViolationPosition( 94 ),
+                              new ViolationPosition( 98 ) } ),
+                  new ExpectedViolation( "cairngorm.LightController.as", new ViolationPosition[]
+                  { new ViolationPosition( 115 ),
+                              new ViolationPosition( 134 ),
+                              new ViolationPosition( 153 ),
+                              new ViolationPosition( 172 ),
+                              new ViolationPosition( 191 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 62 ),
+                              new ViolationPosition( 62 ),
+                              new ViolationPosition( 62 ),
+                              new ViolationPosition( 62 ),
+                              new ViolationPosition( 62 ),
+                              new ViolationPosition( 64 ) } ) };
    }
 
    @Override

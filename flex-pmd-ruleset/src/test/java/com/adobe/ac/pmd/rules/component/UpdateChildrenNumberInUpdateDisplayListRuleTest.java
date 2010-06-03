@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.component;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,15 +37,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UpdateChildrenNumberInUpdateDisplayListRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "BadComponent.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 42 ),
-                                   new ViolationPosition( 43 ),
-                                   new ViolationPosition( 44 ),
-                                   new ViolationPosition( 45 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "BadComponent.as", new ViolationPosition[]
+      { new ViolationPosition( 42 ),
+                  new ViolationPosition( 43 ),
+                  new ViolationPosition( 44 ),
+                  new ViolationPosition( 45 ) } ) };
    }
 
    @Override

@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.multiscreen;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,12 +37,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class AvoidTooltipRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "DeleteButtonRenderer.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 36 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "DeleteButtonRenderer.mxml", new ViolationPosition[]
+      { new ViolationPosition( 36 ) } ) };
    }
 
    @Override

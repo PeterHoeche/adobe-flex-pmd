@@ -30,19 +30,16 @@
  */
 package com.adobe.ac.pmd.rules.security;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
 public class ImportLoadBestPracticeRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return new LinkedHashMap< String, ViolationPosition[] >();
+      return new ExpectedViolation[]
+      {};
    }
 
    @Override

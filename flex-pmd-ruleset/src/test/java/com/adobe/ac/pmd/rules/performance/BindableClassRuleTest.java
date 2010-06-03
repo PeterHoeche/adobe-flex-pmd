@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,15 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class BindableClassRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "bug.FlexPMD60.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 19 ) } ),
-                       "cairngorm.BindableModelLocator.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 32 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.FlexPMD60.as", new ViolationPosition[]
+       { new ViolationPosition( 19 ) } ),
+                  new ExpectedViolation( "cairngorm.BindableModelLocator.as", new ViolationPosition[]
+                  { new ViolationPosition( 32 ) } ) };
    }
 
    @Override

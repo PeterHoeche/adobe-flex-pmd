@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.event;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,16 +37,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class DispatchHardCodedEventNameRuleTest extends AbstractRegExpBasedRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "com.adobe.ac.ncss.BigImporterModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 58 ) } ),
-                       "AbstractRowData.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 110 ),
-                                   new ViolationPosition( 111 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+       { new ViolationPosition( 58 ) } ),
+                  new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 110 ),
+                              new ViolationPosition( 111 ) } ) };
    }
 
    @Override

@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,14 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class MessageInterceptorSignatureRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "parsley.MessageInterceptorSignature.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 42, 42 ),
-                                   new ViolationPosition( 47, 47 ),
-                                   new ViolationPosition( 53, 53 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "parsley.MessageInterceptorSignature.as", new ViolationPosition[]
+      { new ViolationPosition( 42, 42 ),
+                  new ViolationPosition( 47, 47 ),
+                  new ViolationPosition( 53, 53 ) } ) };
    }
 
    @Override

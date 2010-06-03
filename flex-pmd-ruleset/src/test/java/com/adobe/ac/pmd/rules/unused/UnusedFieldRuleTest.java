@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,22 +37,17 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedFieldRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "Responder.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 37 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 54 ) } ),
-
-                                 "com.adobe.ac.ncss.BigModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 42 ) } ),
-                       "Title.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 41 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "Responder.as", new ViolationPosition[]
+       { new ViolationPosition( 37 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 54 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "Title.as", new ViolationPosition[]
+                  { new ViolationPosition( 41 ) } ) };
    }
 
    @Override

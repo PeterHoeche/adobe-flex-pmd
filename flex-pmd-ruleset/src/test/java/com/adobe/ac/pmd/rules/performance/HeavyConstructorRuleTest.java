@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.performance;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,24 +37,19 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class HeavyConstructorRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                               "bug.FlexPMD88.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 38 ) } ),
-                                                     "flexunit.RaoulTest.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 71 ) } ),
-                                           "PngEncoder.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 130 ) } ),
-                                 "Looping.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 39 ) } ),
-                       "RadonDataGrid.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 53 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.FlexPMD88.as", new ViolationPosition[]
+       { new ViolationPosition( 38 ) } ),
+                  new ExpectedViolation( "flexunit.RaoulTest.as", new ViolationPosition[]
+                  { new ViolationPosition( 71 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 130 ) } ),
+                  new ExpectedViolation( "Looping.as", new ViolationPosition[]
+                  { new ViolationPosition( 39 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 53 ) } ) };
    }
 
    @Override

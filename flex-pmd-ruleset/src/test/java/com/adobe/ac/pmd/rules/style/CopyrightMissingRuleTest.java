@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.style;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,15 +37,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class CopyrightMissingRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "Simple.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( -1 ) } ),
-                       "MainWithNoCopyright.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( -1 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "Simple.as", new ViolationPosition[]
+       { new ViolationPosition( -1 ) } ),
+                  new ExpectedViolation( "MainWithNoCopyright.mxml", new ViolationPosition[]
+                  { new ViolationPosition( -1 ) } ) };
    }
 
    @Override

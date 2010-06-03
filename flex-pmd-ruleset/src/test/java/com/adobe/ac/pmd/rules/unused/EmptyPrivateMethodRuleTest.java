@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,26 +37,22 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class EmptyPrivateMethodRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                     "bug.FlexPMD97.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 39 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 62 ),
-                                                       new ViolationPosition( 71 ) } ),
-                                 "com.adobe.ac.ncss.BigModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 82 ),
-                                             new ViolationPosition( 86 ),
-                                             new ViolationPosition( 90 ),
-                                             new ViolationPosition( 94 ),
-                                             new ViolationPosition( 98 ) } ),
-                       "cairngorm.events.CorrectConstantEvent.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 53 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.FlexPMD97.as", new ViolationPosition[]
+       { new ViolationPosition( 39 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 62 ),
+                              new ViolationPosition( 71 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 82 ),
+                              new ViolationPosition( 86 ),
+                              new ViolationPosition( 90 ),
+                              new ViolationPosition( 94 ),
+                              new ViolationPosition( 98 ) } ),
+                  new ExpectedViolation( "cairngorm.events.CorrectConstantEvent.as", new ViolationPosition[]
+                  { new ViolationPosition( 53 ) } ) };
    }
 
    @Override

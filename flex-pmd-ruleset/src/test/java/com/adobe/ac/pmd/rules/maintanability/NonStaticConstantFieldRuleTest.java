@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,29 +37,24 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class NonStaticConstantFieldRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                               "bug.FlexPMD115.as",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 38 ),
-                                                                           new ViolationPosition( 40 ) } ),
-                                                     "AbstractRowData.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 45 ),
-                                                                 new ViolationPosition( 46 ),
-                                                                 new ViolationPosition( 47 ),
-                                                                 new ViolationPosition( 48 ),
-                                                                 new ViolationPosition( 50 ) } ),
-                                           "Sorted.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 43 ) } ),
-                                 "GenericType.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 36 ) } ),
-                       "com.adobe.ac.ncss.ArrayVO.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 39 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.FlexPMD115.as", new ViolationPosition[]
+       { new ViolationPosition( 38 ),
+                   new ViolationPosition( 40 ) } ),
+                  new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 45 ),
+                              new ViolationPosition( 46 ),
+                              new ViolationPosition( 47 ),
+                              new ViolationPosition( 48 ),
+                              new ViolationPosition( 50 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 43 ) } ),
+                  new ExpectedViolation( "GenericType.as", new ViolationPosition[]
+                  { new ViolationPosition( 36 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
+                  { new ViolationPosition( 39 ) } ) };
    }
 
    @Override

@@ -31,7 +31,6 @@
 package com.adobe.ac.pmd.rules.unused;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -40,22 +39,19 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
       final LinkedHashMap< String, ViolationPosition[] > files = new LinkedHashMap< String, ViolationPosition[] >();
 
-      return addToMap( addToMap( addToMap( files,
-                                           "cairngorm.NonBindableModelLocator.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 43 ) } ),
-                                 "com.adobe.ac.ncss.BigImporterModel.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 62 ),
-                                             new ViolationPosition( 62 ),
-                                             new ViolationPosition( 62 ) } ),
-                       "Sorted.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 67 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "cairngorm.NonBindableModelLocator.as", new ViolationPosition[]
+       { new ViolationPosition( 43 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 62 ),
+                              new ViolationPosition( 62 ),
+                              new ViolationPosition( 62 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 67 ) } ) };
    }
 
    @Override

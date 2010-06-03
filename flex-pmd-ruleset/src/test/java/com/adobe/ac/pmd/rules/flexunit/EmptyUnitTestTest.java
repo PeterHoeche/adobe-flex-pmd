@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.flexunit;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,16 +37,14 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class EmptyUnitTestTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                 "flexunit.RaoulTest.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 54 ),
-                                             new ViolationPosition( 60 ) } ),
-                       "flexunit.RulesetTest.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 48 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "flexunit.RaoulTest.as", new ViolationPosition[]
+       { new ViolationPosition( 54 ),
+                   new ViolationPosition( 60 ) } ),
+                  new ExpectedViolation( "flexunit.RulesetTest.as", new ViolationPosition[]
+                  { new ViolationPosition( 48 ) } ) };
    }
 
    @Override

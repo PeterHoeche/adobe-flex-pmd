@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.component;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -41,12 +38,11 @@ public class CallLaterDirectlyRuleTest extends AbstractAstFlexRuleTest
 {
 
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "GenericType.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 41 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "GenericType.as", new ViolationPosition[]
+      { new ViolationPosition( 41 ) } ) };
    }
 
    @Override

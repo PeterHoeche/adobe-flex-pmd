@@ -30,10 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -41,62 +37,43 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( addToMap( addToMap( addToMap( addToMap( violations,
-                                                        "bug.Duane.mxml",
-                                                        new ViolationPosition[]
-                                                        { new ViolationPosition( 68 ) } ),
-                                              "bug.FlexPMD88.as",
-                                              new ViolationPosition[]
-                                              { new ViolationPosition( 42 ),
-                                                          new ViolationPosition( 43 ),
-                                                          new ViolationPosition( 44 ),
-                                                          new ViolationPosition( 45 ) } ),
-                                    "flexpmd114.a.Test.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 42 ) } ),
-                          "flexpmd114.b.Test.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 42 ) } ),
-                "flexpmd114.c.Test.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 42 ) } );
-
-      addToMap( addToMap( addToMap( addToMap( violations,
-                                              "UnboundMetadata.as",
-                                              new ViolationPosition[]
-                                              { new ViolationPosition( 50 ) } ),
-                                    "com.adobe.ac.ncss.BigImporterModel.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 64 ) } ),
-                          "GenericType.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 46 ) } ),
-                "ErrorToltipSkin.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 163 ),
-                            new ViolationPosition( 165 ),
-                            new ViolationPosition( 166 ),
-                            new ViolationPosition( 183 ),
-                            new ViolationPosition( 184 ) } );
-
-      return addToMap( addToMap( addToMap( addToMap( violations,
-                                                     "DeleteButtonRenderer.mxml",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 69 ) } ),
-                                           "com.adobe.ac.ncss.VoidConstructor.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 40 ) } ),
-                                 "RadonDataGrid.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 100 ),
-                                             new ViolationPosition( 101 ) } ),
-                       "com.adobe.ac.ncss.BigModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 47 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "DeleteButtonRenderer.mxml", new ViolationPosition[]
+       { new ViolationPosition( 69 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.VoidConstructor.as", new ViolationPosition[]
+                  { new ViolationPosition( 40 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 100 ),
+                              new ViolationPosition( 101 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 47 ) } ),
+                  new ExpectedViolation( "UnboundMetadata.as", new ViolationPosition[]
+                  { new ViolationPosition( 50 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 64 ) } ),
+                  new ExpectedViolation( "GenericType.as", new ViolationPosition[]
+                  { new ViolationPosition( 46 ) } ),
+                  new ExpectedViolation( "ErrorToltipSkin.as", new ViolationPosition[]
+                  { new ViolationPosition( 163 ),
+                              new ViolationPosition( 165 ),
+                              new ViolationPosition( 166 ),
+                              new ViolationPosition( 183 ),
+                              new ViolationPosition( 184 ) } ),
+                  new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 68 ) } ),
+                  new ExpectedViolation( "bug.FlexPMD88.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ),
+                              new ViolationPosition( 43 ),
+                              new ViolationPosition( 44 ),
+                              new ViolationPosition( 45 ) } ),
+                  new ExpectedViolation( "flexpmd114.a.Test.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "flexpmd114.b.Test.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ),
+                  new ExpectedViolation( "flexpmd114.c.Test.as", new ViolationPosition[]
+                  { new ViolationPosition( 42 ) } ) };
    }
 
    @Override

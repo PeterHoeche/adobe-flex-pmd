@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.parsley;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,12 +37,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class MismatchedManagedEventRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "parsley.MismatchedManagedEvent.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 36, 36 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "parsley.MismatchedManagedEvent.as", new ViolationPosition[]
+      { new ViolationPosition( 36, 36 ) } ) };
    }
 
    @Override

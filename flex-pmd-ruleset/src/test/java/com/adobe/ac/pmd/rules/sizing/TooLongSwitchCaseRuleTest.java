@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.sizing;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,23 +37,20 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooLongSwitchCaseRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                           "ErrorToltipSkin.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 189 ),
-                                                       new ViolationPosition( 214 ),
-                                                       new ViolationPosition( 252 ),
-                                                       new ViolationPosition( 290 ) } ),
-                                 "com.adobe.ac.ncss.NestedSwitch.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 38 ),
-                                             new ViolationPosition( 58 ) } ),
-                       "com.adobe.ac.ncss.LongSwitch.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 47 ),
-                                   new ViolationPosition( 52 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "ErrorToltipSkin.as", new ViolationPosition[]
+       { new ViolationPosition( 189 ),
+                   new ViolationPosition( 214 ),
+                   new ViolationPosition( 252 ),
+                   new ViolationPosition( 290 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 38 ),
+                              new ViolationPosition( 58 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 47 ),
+                              new ViolationPosition( 52 ) } ) };
    }
 
    @Override

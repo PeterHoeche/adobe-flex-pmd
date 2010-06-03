@@ -30,10 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.maintanability;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -41,43 +37,32 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violatingFiles = new LinkedHashMap< String, ViolationPosition[] >();
-
-      addToMap( addToMap( addToMap( violatingFiles,
-                                    "PngEncoder.as",
-                                    new ViolationPosition[]
-                                    { new ViolationPosition( 574 ),
-                                                new ViolationPosition( 576 ),
-                                                new ViolationPosition( 578 ),
-                                                new ViolationPosition( 584 ) } ),
-                          "Looping.as",
-                          new ViolationPosition[]
-                          { new ViolationPosition( 44 ),
-                                      new ViolationPosition( 57 ),
-                                      new ViolationPosition( 66 ),
-                                      new ViolationPosition( 69 ) } ),
-                "RadonDataGrid.as",
-                new ViolationPosition[]
-                { new ViolationPosition( 63 ),
-                            new ViolationPosition( 190 ),
-                            new ViolationPosition( 194 ) } );
-
-      return addToMap( addToMap( addToMap( addToMap( violatingFiles,
-                                                     "bug.FlexPMD181.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 2222 ) } ),
-                                           "AbstractRowData.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 106 ),
-                                                       new ViolationPosition( 113 ) } ),
-                                 "com.adobe.ac.AbstractRowData.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 59 ) } ),
-                       "com.adobe.ac.ncss.TestResult.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 208 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+       { new ViolationPosition( 574 ),
+                   new ViolationPosition( 576 ),
+                   new ViolationPosition( 578 ),
+                   new ViolationPosition( 584 ) } ),
+                  new ExpectedViolation( "Looping.as", new ViolationPosition[]
+                  { new ViolationPosition( 44 ),
+                              new ViolationPosition( 57 ),
+                              new ViolationPosition( 66 ),
+                              new ViolationPosition( 69 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 63 ),
+                              new ViolationPosition( 190 ),
+                              new ViolationPosition( 194 ) } ),
+                  new ExpectedViolation( "bug.FlexPMD181.as", new ViolationPosition[]
+                  { new ViolationPosition( 2222 ) } ),
+                  new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 106 ),
+                              new ViolationPosition( 113 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
+                  { new ViolationPosition( 59 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.TestResult.as", new ViolationPosition[]
+                  { new ViolationPosition( 208 ) } ) };
    }
 
    @Override

@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.mxml;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -46,17 +43,15 @@ public class TooLongScriptBlockRuleTest extends AbstractFlexRuleTest
    }
 
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                           "bug.Duane.mxml",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 42, 142 ) } ),
-                                 "DeleteButtonRenderer.mxml",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 49, 103 ) } ),
-                       "com.adobe.ac.ncss.mxml.IterationsList.mxml",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 40, 94 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+       { new ViolationPosition( 42, 142 ) } ),
+                  new ExpectedViolation( "DeleteButtonRenderer.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 49, 103 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.mxml.IterationsList.mxml",
+                                         new ViolationPosition[]
+                                         { new ViolationPosition( 40, 94 ) } ) };
    }
 }

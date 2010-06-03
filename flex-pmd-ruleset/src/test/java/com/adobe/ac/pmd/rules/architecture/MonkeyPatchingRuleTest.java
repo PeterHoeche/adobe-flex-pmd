@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.architecture;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,12 +37,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class MonkeyPatchingRuleTest extends AbstractFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "mx.controls.DateChooser2.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 0 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "mx.controls.DateChooser2.as", new ViolationPosition[]
+      { new ViolationPosition( 0 ) } ) };
    }
 
    @Override

@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.unused;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,27 +37,22 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class UnusedPrivateMethodRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( addToMap( addToMap( addToMap( addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                                                               "bug.Duane.mxml",
-                                                               new ViolationPosition[]
-                                                               { new ViolationPosition( 66 ) } ),
-                                                     "Sorted.as",
-                                                     new ViolationPosition[]
-                                                     { new ViolationPosition( 71 ) } ),
-                                           "cairngorm.LightController.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 191 ) } ),
-                                 "RadonDataGrid.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 207 ) } ),
-                       "com.adobe.ac.ncss.BigModel.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 86 ),
-                                   new ViolationPosition( 90 ),
-                                   new ViolationPosition( 94 ),
-                                   new ViolationPosition( 98 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+       { new ViolationPosition( 66 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 71 ) } ),
+                  new ExpectedViolation( "cairngorm.LightController.as", new ViolationPosition[]
+                  { new ViolationPosition( 191 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 207 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
+                  { new ViolationPosition( 86 ),
+                              new ViolationPosition( 90 ),
+                              new ViolationPosition( 94 ),
+                              new ViolationPosition( 98 ) } ) };
    }
 
    @Override

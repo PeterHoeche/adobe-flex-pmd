@@ -31,7 +31,6 @@
 package com.adobe.ac.pmd.rules.sizing;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -40,32 +39,25 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class TooLongFunctionRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      Map< String, ViolationPosition[] > violations = new LinkedHashMap< String, ViolationPosition[] >();
+      new LinkedHashMap< String, ViolationPosition[] >();
 
-      violations = addToMap( addToMap( addToMap( violations,
-                                                 "ErrorToltipSkin.as",
-                                                 new ViolationPosition[]
-                                                 { new ViolationPosition( 156 ) } ),
-                                       "PngEncoder.as",
-                                       new ViolationPosition[]
-                                       { new ViolationPosition( 150 ),
-                                                   new ViolationPosition( 335 ),
-                                                   new ViolationPosition( 548 ) } ),
-                             "RadonDataGrid.as",
-                             new ViolationPosition[]
-                             { new ViolationPosition( 84 ) } );
-      return addToMap( addToMap( addToMap( violations,
-                                           "cairngorm.FatController.as",
-                                           new ViolationPosition[]
-                                           { new ViolationPosition( 97 ) } ),
-                                 "com.adobe.ac.ncss.NestedSwitch.as",
-                                 new ViolationPosition[]
-                                 { new ViolationPosition( 35 ) } ),
-                       "com.adobe.ac.ncss.LongSwitch.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 39 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "cairngorm.FatController.as", new ViolationPosition[]
+       { new ViolationPosition( 97 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 35 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.LongSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 39 ) } ),
+                  new ExpectedViolation( "ErrorToltipSkin.as", new ViolationPosition[]
+                  { new ViolationPosition( 156 ) } ),
+                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
+                  { new ViolationPosition( 150 ),
+                              new ViolationPosition( 335 ),
+                              new ViolationPosition( 548 ) } ),
+                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
+                  { new ViolationPosition( 84 ) } ) };
    }
 
    @Override

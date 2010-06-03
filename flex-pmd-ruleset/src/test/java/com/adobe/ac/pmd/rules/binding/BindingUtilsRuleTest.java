@@ -30,9 +30,6 @@
  */
 package com.adobe.ac.pmd.rules.binding;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
@@ -40,12 +37,11 @@ import com.adobe.ac.pmd.rules.core.ViolationPosition;
 public class BindingUtilsRuleTest extends AbstractAstFlexRuleTest
 {
    @Override
-   protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
-                       "cairngorm.FatController.as",
-                       new ViolationPosition[]
-                       { new ViolationPosition( 90 ) } );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "cairngorm.FatController.as", new ViolationPosition[]
+      { new ViolationPosition( 90 ) } ) };
    }
 
    @Override
