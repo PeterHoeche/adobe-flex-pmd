@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.metrics.engine;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -131,7 +131,7 @@ public final class FlexMetrics extends AbstractMetrics
 
    private Map< String, IPackage > initAst()
    {
-      Map< String, IPackage > result = new HashMap< String, IPackage >();
+      Map< String, IPackage > result = new LinkedHashMap< String, IPackage >();
       try
       {
          result = FileSetUtils.computeAsts( com.adobe.ac.pmd.files.impl.FileUtils.computeFilesList( getSourceDirectory(),

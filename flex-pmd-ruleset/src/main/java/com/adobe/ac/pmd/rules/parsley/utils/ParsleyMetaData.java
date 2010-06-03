@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.parsley.utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class ParsleyMetaData
@@ -215,7 +216,7 @@ public final class ParsleyMetaData
                TARGET,
                INTERNAL                                                };
 
-   private static final Map< String, MetaDataTag > TAG_MAP              = new HashMap< String, MetaDataTag >();
+   private static final Map< String, MetaDataTag > TAG_MAP              = new LinkedHashMap< String, MetaDataTag >();
 
    static
    {

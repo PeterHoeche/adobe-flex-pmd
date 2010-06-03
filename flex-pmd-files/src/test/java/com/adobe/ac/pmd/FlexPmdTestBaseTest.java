@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -45,7 +45,7 @@ public class FlexPmdTestBaseTest
    public void testSetTestFiles()
    {
       final FlexPmdTestBase testBase = new FlexPmdTestBase();
-      final Map< String, IFlexFile > testFilesToBeSet = new HashMap< String, IFlexFile >();
+      final Map< String, IFlexFile > testFilesToBeSet = new LinkedHashMap< String, IFlexFile >();
 
       testBase.setTestFiles( testFilesToBeSet );
       Assert.assertEquals( testFilesToBeSet,

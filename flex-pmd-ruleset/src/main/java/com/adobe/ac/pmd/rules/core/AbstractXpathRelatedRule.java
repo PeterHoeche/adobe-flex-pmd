@@ -34,8 +34,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -129,7 +129,7 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
 
       private Map< String, String > createPrefixMap( final Map< String, String > prefixMappings )
       {
-         final Map< String, String > map = new HashMap< String, String >( prefixMappings );
+         final Map< String, String > map = new LinkedHashMap< String, String >( prefixMappings );
          addConstant( map,
                       XMLConstants.XML_NS_PREFIX,
                       XMLConstants.XML_NS_URI );
@@ -145,7 +145,7 @@ public abstract class AbstractXpathRelatedRule extends AbstractFlexRule
 
    private static Map< String, String > toMap( final String... mappingPairs )
    {
-      final Map< String, String > prefixMappings = new HashMap< String, String >( mappingPairs.length / 2 );
+      final Map< String, String > prefixMappings = new LinkedHashMap< String, String >( mappingPairs.length / 2 );
       for ( int i = 0; i < mappingPairs.length; i++ )
       {
          prefixMappings.put( mappingPairs[ i ],

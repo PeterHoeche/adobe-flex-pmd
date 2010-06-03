@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.multiscreen;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -42,7 +42,7 @@ public class AvoidRollMouseEventRuleTest extends AbstractRegExpBasedRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return new HashMap< String, ViolationPosition[] >();
+      return new LinkedHashMap< String, ViolationPosition[] >();
    }
 
    @Override

@@ -32,7 +32,7 @@ package com.adobe.ac.pmd.nodes.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,7 +127,7 @@ class MetaDataNode extends AbstractNode implements IMetaData
    private void computeAttributeNames()
    {
       attributeNames = new ArrayList< String >();
-      parameters = new HashMap< String, String[] >();
+      parameters = new LinkedHashMap< String, String[] >();
 
       final String[] pairs = getPairs();
 

@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.security;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegExpBasedRuleTest;
@@ -42,7 +42,7 @@ public class AllowInsecureDomainRuleTest extends AbstractRegExpBasedRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return addToMap( new HashMap< String, ViolationPosition[] >(),
+      return addToMap( new LinkedHashMap< String, ViolationPosition[] >(),
                        "bug.Security.as",
                        new ViolationPosition[]
                        { new ViolationPosition( 39 ),

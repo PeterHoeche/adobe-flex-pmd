@@ -30,7 +30,7 @@
  */
 package com.adobe.ac.pmd.rules.parameterized;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
@@ -42,7 +42,7 @@ public class ParameterizedRegExpBasedRuleWithEmptyRegexpTest extends AbstractFle
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      return new HashMap< String, ViolationPosition[] >();
+      return new LinkedHashMap< String, ViolationPosition[] >();
    }
 
    @Override

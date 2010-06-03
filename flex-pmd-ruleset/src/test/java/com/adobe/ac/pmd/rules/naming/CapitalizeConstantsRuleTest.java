@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.naming;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
@@ -42,7 +43,7 @@ public class CapitalizeConstantsRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected Map< String, ViolationPosition[] > getExpectedViolatingFiles()
    {
-      final HashMap< String, ViolationPosition[] > violatedFiles = new HashMap< String, ViolationPosition[] >();
+      final HashMap< String, ViolationPosition[] > violatedFiles = new LinkedHashMap< String, ViolationPosition[] >();
 
       addToMap( violatedFiles,
                 "AbstractRowData.as",
