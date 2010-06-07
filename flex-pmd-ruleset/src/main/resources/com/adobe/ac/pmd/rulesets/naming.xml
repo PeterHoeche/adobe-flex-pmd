@@ -150,4 +150,15 @@ public class SomeClass
 		message="Interface name should start with I">
 		<priority>1</priority>
 	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.naming.TooLongFunctionNameRule"
+		message="This function name ({0}) is too long ({1} characters minimum, but {2} actually)">
+		<priority>5</priority>
+		<properties>
+			<property name="minimum">
+				<value>3</value>
+			</property>
+		</properties>
+	</rule>
+
 </ruleset>
