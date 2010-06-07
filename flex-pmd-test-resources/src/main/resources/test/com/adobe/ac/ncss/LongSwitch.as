@@ -128,6 +128,17 @@ package com.adobe.ac
 		  do
 		  {
 		  } while( i < 5 );
+		  
+		  switch(event.type){
+			  case GoogleSearchPanel.LAUNCH_GOOGLE_WEB_SEARCH:
+				  googleResquest.url = "";
+			  case GoogleSearchPanel.LAUNCH_GOOGLE_IMAGE_SEARCH:                   
+			  case GoogleSearchPanel.LAUNCH_GOOGLE_IMAGE_SEARCH2:                   
+				  googleResquest.url = "";
+				  break;
+			  default:
+				  return;
+		  }
 	  }
    }
 }

@@ -46,17 +46,17 @@
 		<description>Switch statements should have a default label in order to detect corner cases.</description>
 		<priority>1</priority>
 		<example>
-   public class Foo 
+public class Foo 
+{
+   public funciton bar() : void 
    {
-      public funciton bar() : void 
+      var  x : int = 2;
+      switch (x) 
       {
-         var  x : int = 2;
-         switch (x) 
-         {
-            case 2: var j : int = 8;
-         }
+         case 2: var j : int = 8;
       }
-   }     
+   }
+}     
       </example>
 	</rule>
 
@@ -65,23 +65,40 @@
 		<description>As a general practice, switch statement should not be used. Prefer using inheritance. It is even harder to read when switch statements are nested.</description>
 		<priority>3</priority>
 		<example>
-      public function foo( a : Number, b : Number ) : void
-      {
-          switch( a )
+public function foo( a : Number, b : Number ) : void
+{
+    switch( a )
+    {
+       case 1:
+          break;
+       case 2:                   
+          switch ( b ) 
           {
-             case 1:
-                break;
-             case 2:                   
-                switch ( b ) 
-                {
-                  case 3 :
-                     break;
-                  case 4 :
-                     break;
-                }
-                break;                     
+            case 3 :
+               break;
+            case 4 :
+               break;
           }
-      }
+          break;                     
+    }
+}
+      </example>
+	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.switchrules.NonBreakableSwitchCaseRule"
+		message="Switch case must include break statement">
+		<priority>1</priority>
+		<example>
+switch(event.type){
+  case GoogleSearchPanel.LAUNCH_GOOGLE_WEB_SEARCH:
+	  googleResquest.url = ""; // VIOLATION
+  case GoogleSearchPanel.LAUNCH_GOOGLE_IMAGE_SEARCH:                   
+  case GoogleSearchPanel.LAUNCH_GOOGLE_IMAGE_SEARCH2:                   
+	  googleResquest.url = "";
+	  break;
+  default:
+	  return;
+}
       </example>
 	</rule>
 

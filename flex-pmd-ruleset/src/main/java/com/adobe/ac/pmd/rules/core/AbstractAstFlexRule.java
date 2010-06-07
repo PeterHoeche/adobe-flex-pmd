@@ -530,6 +530,10 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitExpressionList( newExpression.getChild( 1 ) );
    }
 
+   protected void visitOperator( final IParserNode statementNode )
+   {
+   }
+
    /**
     * @param functionParametersNode
     */
@@ -562,6 +566,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    {
       switch ( statementNode.getId() )
       {
+      case OP:
+         visitOperator( statementNode );
+         break;
       case RETURN:
          visitReturn( statementNode );
          break;
