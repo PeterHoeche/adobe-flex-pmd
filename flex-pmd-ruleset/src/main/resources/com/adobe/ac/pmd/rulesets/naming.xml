@@ -145,4 +145,9 @@ public class SomeClass
 		message="Constant variables should be in all CAPS with each word separated by an underscore ({0})">
 		<priority>3</priority>
 	</rule>
+
+	<rule class="com.adobe.ac.pmd.rules.naming.InterfaceNamingRule"
+		message="Interface name should start with I">
+		<priority>1</priority>
+	</rule>
 </ruleset>
