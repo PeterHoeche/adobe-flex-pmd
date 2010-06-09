@@ -30,23 +30,41 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.nodes.IClass;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-public class UncorrectClassCaseTest extends AbstractAstFlexRuleTest
+/**
+ * @author xagnetti
+ */
+public class IncorrectClassCase extends AbstractAstFlexRule
 {
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolations(com.adobe
+    * .ac.pmd.nodes.IClass)
+    */
    @Override
-   protected ExpectedViolation[] getExpectedViolatingFiles()
+   protected final void findViolations( final IClass classNode )
    {
-      return new ExpectedViolation[]
-      { new ExpectedViolation( "com.adobe.ac.foo.as", new ViolationPosition[]
-      { new ViolationPosition( 1, 34 ) } ) };
+      final char firstChar = classNode.getName().charAt( 0 );
+
+      if ( firstChar < 'A'
+            || firstChar > 'Z' )
+      {
+         addViolation( new ViolationPosition( 1, getCurrentFile().getLinesNb() ) );
+      }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+    */
    @Override
-   protected AbstractFlexRule getRule()
+   protected final ViolationPriority getDefaultPriority()
    {
-      return new UncorrectClassCase();
+      return ViolationPriority.NORMAL;
    }
 }

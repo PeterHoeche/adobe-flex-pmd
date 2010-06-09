@@ -248,7 +248,7 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
     * @param rule
     * @return
     */
-   protected final Map< String, PropertyDescriptor > getRuleProperties( final IThresholdedRule rule )
+   protected final Map< String, PropertyDescriptor > getThresholdedRuleProperties( final IThresholdedRule rule )
    {
       final Map< String, PropertyDescriptor > properties = new LinkedHashMap< String, PropertyDescriptor >();
 

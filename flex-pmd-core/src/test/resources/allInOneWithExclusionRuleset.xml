@@ -361,7 +361,7 @@ package com.adobe.ac
 }
            ]]></example>
 	</rule>
-	<rule since="0.1" class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase"
+	<rule since="0.1" class="com.adobe.ac.pmd.rules.naming.IncorrectClassCase"
 		message="A class name must start by a majuscule character">
 		<description />
 		<priority>3</priority>

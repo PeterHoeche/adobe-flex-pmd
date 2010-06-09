@@ -106,7 +106,7 @@ public class TooFewBrancheInSwitchStatementRule extends AbstractAstFlexRule impl
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {
-      return getRuleProperties( this );
+      return getThresholdedRuleProperties( this );
    }
 
    /*

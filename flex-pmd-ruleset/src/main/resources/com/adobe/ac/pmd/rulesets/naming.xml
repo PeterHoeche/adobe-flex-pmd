@@ -107,7 +107,7 @@ public class SomeClass
 		</example>
 	</rule>
 
-	<rule class="com.adobe.ac.pmd.rules.naming.UncorrectClassCase"
+	<rule class="com.adobe.ac.pmd.rules.naming.IncorrectClassCase"
 		message="A class name must start by a majuscule character">
 		<description></description>
 		<priority>3</priority>
@@ -161,4 +161,16 @@ public class SomeClass
 		</properties>
 	</rule>
 
+	<rule class="com.adobe.ac.pmd.rules.naming.IncorrectEventHandlerNameRule"
+		message="This event handler name ({0}) is not correct. You should use [{1}] as prefix and [{2}] as suffix">
+		<priority>5</priority>
+		<properties>
+			<property name="prefix">
+				<value>on</value>
+			</property>
+			<property name="suffix">
+				<value></value>
+			</property>
+		</properties>
+	</rule>
 </ruleset>

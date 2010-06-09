@@ -35,12 +35,15 @@ import java.io.File;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
+import org.codehaus.doxia.site.renderer.DefaultSiteRenderer;
 import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 
 public class FlexMetricsMojoTest extends FlexPmdTestBase
 {
+   private static final String TEMP_FILE_NAME = "javancss-raw-report.xml";
+
    @Test
    public void executeReport() throws MojoExecutionException,
                               MojoFailureException
@@ -48,11 +51,20 @@ public class FlexMetricsMojoTest extends FlexPmdTestBase
       final MavenProjectStub project = new MavenProjectStub();
       final File outputDirectoryToBeSet = new File( project.getBasedir().getAbsolutePath()
             + "/target/pmd" );
+      final FlexMetricsReportMojo reportMojo = new FlexMetricsReportMojo( project,
+                                                                          getTestDirectory(),
+                                                                          outputDirectoryToBeSet );
       final FlexMetricsMojo mojo = new FlexMetricsMojo( outputDirectoryToBeSet, getTestDirectory() );
 
       outputDirectoryToBeSet.mkdirs();
+      reportMojo.setLineThreshold( 5 );
+      reportMojo.setSiteRenderer( new DefaultSiteRenderer() );
+      reportMojo.setXmlOutputDirectory( outputDirectoryToBeSet );
+      reportMojo.setTempFileName( TEMP_FILE_NAME );
+      reportMojo.execute();
+
       mojo.setXmlOutputDirectory( outputDirectoryToBeSet );
-      mojo.setTempFileName( "javancss-raw-report.xml" );
+      mojo.setTempFileName( TEMP_FILE_NAME );
       mojo.setCcnLimit( 50 );
       mojo.setFailOnViolation( true );
       mojo.setNcssLimit( 200 );

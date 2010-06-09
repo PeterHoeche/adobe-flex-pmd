@@ -95,6 +95,8 @@ public interface IFunction extends IVisible, IMetaDataListHolder, INamableNode, 
     */
    IParserNode getSuperCall();
 
+   boolean isEventHandler();
+
    /**
     * @return
     */

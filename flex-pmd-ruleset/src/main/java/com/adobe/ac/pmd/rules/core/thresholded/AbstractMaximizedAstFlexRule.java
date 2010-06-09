@@ -69,6 +69,6 @@ public abstract class AbstractMaximizedAstFlexRule extends AbstractAstFlexRule i
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {
-      return getRuleProperties( this );
+      return getThresholdedRuleProperties( this );
    }
 }

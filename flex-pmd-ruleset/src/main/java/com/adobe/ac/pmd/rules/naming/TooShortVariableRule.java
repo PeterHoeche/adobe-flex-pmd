@@ -160,6 +160,6 @@ public class TooShortVariableRule extends AbstractRegexpBasedRule implements ITh
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {
-      return getRuleProperties( this );
+      return getThresholdedRuleProperties( this );
    }
 }

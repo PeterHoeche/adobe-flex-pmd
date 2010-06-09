@@ -51,9 +51,6 @@ import com.adobe.ac.pmd.parser.NodeKind;
 /**
  * @author xagnetti
  */
-/**
- * @author xagnetti
- */
 class FunctionNode extends AbstractNode implements IFunction
 {
    private IParserNode                              asDoc;
@@ -342,6 +339,13 @@ class FunctionNode extends AbstractNode implements IFunction
    public boolean is( final Modifier modifier ) // NOPMD
    {
       return modifiers.contains( modifier );
+   }
+
+   @Override
+   public boolean isEventHandler()
+   {
+      return getParameters().size() == 1
+            && getParameters().get( 0 ).getType().toString().contains( "Event" );
    }
 
    /*

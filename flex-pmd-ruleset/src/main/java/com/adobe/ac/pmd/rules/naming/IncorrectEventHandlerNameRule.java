@@ -28,48 +28,66 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.thresholded;
+package com.adobe.ac.pmd.rules.naming;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
+import net.sourceforge.pmd.properties.StringProperty;
 
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
+import com.adobe.ac.pmd.nodes.IFunction;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-/**
- * @author xagnetti
- */
-public abstract class AbstractMaximizedRegexpBasedRule extends AbstractRegexpBasedRule implements
-                                                                                      IThresholdedRule
+public class IncorrectEventHandlerNameRule extends AbstractAstFlexRule
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThreshold()
-    */
-   public final int getThreshold()
+   private static final String DEFAULT_PREFIX = "on";
+   private static final String DEFAULT_SUFFIX = "";
+   private static final String PREFIX_NAME    = "prefix";
+   private static final String SUFFIX_NAME    = "suffix";
+   private final String        prefix;
+   private final String        suffix;
+
+   public IncorrectEventHandlerNameRule()
    {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
+      super();
+      prefix = getStringProperty( propertyDescriptorFor( PREFIX_NAME ) );
+      suffix = getStringProperty( propertyDescriptorFor( SUFFIX_NAME ) );
    }
 
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThresholdName
-    * ()
-    */
-   public final String getThresholdName()
+   @Override
+   protected void findViolations( final IFunction function )
    {
-      return MAXIMUM;
+      if ( function.isEventHandler()
+            && !( function.getName().startsWith( prefix ) && function.getName().endsWith( suffix ) ) )
+      {
+         final IParserNode name = getNameFromFunctionDeclaration( function.getInternalNode() );
+
+         addViolation( name,
+                       name.getStringValue(),
+                       prefix,
+                       suffix );
+      }
    }
 
-   /*
-    * (non-Javadoc)
-    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
-    */
+   @Override
+   protected ViolationPriority getDefaultPriority()
+   {
+      return ViolationPriority.LOW;
+   }
+
    @Override
    protected final Map< String, PropertyDescriptor > propertiesByName()
    {
-      return getThresholdedRuleProperties( this );
+      final Map< String, PropertyDescriptor > properties = new LinkedHashMap< String, PropertyDescriptor >();
+
+      properties.put( PREFIX_NAME,
+                      new StringProperty( PREFIX_NAME, "", DEFAULT_PREFIX, properties.size() ) );
+      properties.put( SUFFIX_NAME,
+                      new StringProperty( SUFFIX_NAME, "", DEFAULT_SUFFIX, properties.size() ) );
+
+      return properties;
    }
 }

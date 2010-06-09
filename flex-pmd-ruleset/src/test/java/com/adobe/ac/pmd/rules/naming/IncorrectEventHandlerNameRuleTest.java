@@ -28,48 +28,34 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.core.thresholded;
+package com.adobe.ac.pmd.rules.naming;
 
-import java.util.Map;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 
-import net.sourceforge.pmd.PropertyDescriptor;
-
-import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
-
-/**
- * @author xagnetti
- */
-public abstract class AbstractMaximizedRegexpBasedRule extends AbstractRegexpBasedRule implements
-                                                                                      IThresholdedRule
+public class IncorrectEventHandlerNameRuleTest extends AbstractAstFlexRuleTest
 {
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThreshold()
-    */
-   public final int getThreshold()
-   {
-      return getIntProperty( propertyDescriptorFor( getThresholdName() ) );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getThresholdName
-    * ()
-    */
-   public final String getThresholdName()
-   {
-      return MAXIMUM;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
-    */
    @Override
-   protected final Map< String, PropertyDescriptor > propertiesByName()
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      return getThresholdedRuleProperties( this );
+      return new ExpectedViolation[]
+      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+       { new ViolationPosition( 71 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.MyCairngormCommand.as", new ViolationPosition[]
+                  { new ViolationPosition( 35 ) } ),
+                  new ExpectedViolation( "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+                  { new ViolationPosition( 35 ) } ),
+                  new ExpectedViolation( "parsley.InaccessibleMetaData.as", new ViolationPosition[]
+                  { new ViolationPosition( 54 ),
+                              new ViolationPosition( 60 ) } ),
+                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+                  { new ViolationPosition( 71 ) } ) };
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      return new IncorrectEventHandlerNameRule();
    }
 }
