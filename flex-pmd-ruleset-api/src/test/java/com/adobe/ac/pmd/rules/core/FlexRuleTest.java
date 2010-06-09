@@ -42,10 +42,47 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.impl.NodeFactory;
-import com.adobe.ac.pmd.rules.empty.EmptyIfStmtRule;
+import com.adobe.ac.pmd.parser.IParserNode;
+import com.adobe.ac.pmd.parser.NodeKind;
 
 public class FlexRuleTest extends FlexPmdTestBase
 {
+   public class EmptyIfStmtRule extends AbstractAstFlexRule
+   {
+      /*
+       * (non-Javadoc)
+       * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
+       */
+      @Override
+      protected final ViolationPriority getDefaultPriority()
+      {
+         return ViolationPriority.NORMAL;
+      }
+
+      /*
+       * (non-Javadoc)
+       * @see
+       * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#visitIf(com.adobe.ac
+       * .pmd .parser.IParserNode)
+       */
+      @Override
+      protected final void visitIf( final IParserNode ast )
+      {
+         super.visitIf( ast );
+
+         if ( isBlockEmpty( ast.getChild( 1 ) ) )
+         {
+            addViolation( ast );
+         }
+      }
+
+      private boolean isBlockEmpty( final IParserNode block )
+      {
+         return block.is( NodeKind.BLOCK )
+               && block.numChildren() == 0 || block.is( NodeKind.STMT_EMPTY );
+      }
+   }
+
    @Test
    public void testExclusions() throws PMDException
    {
