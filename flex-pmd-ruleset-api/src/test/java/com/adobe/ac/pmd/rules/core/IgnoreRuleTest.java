@@ -37,12 +37,22 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
 
-public class IgnoreRuleTest
+public class IgnoreRuleTest extends FlexPmdTestBase
 {
    private class IgnoredRule extends AbstractFlexRule
    {
+      private final IFlexFile currentFile;
+
+      protected IgnoredRule( final IFlexFile file )
+      {
+         super();
+         currentFile = file;
+      }
+
       @Override
       public String getName()
       {
@@ -53,6 +63,12 @@ public class IgnoreRuleTest
       protected List< IFlexViolation > findViolationsInCurrentFile()
       {
          return null;
+      }
+
+      @Override
+      protected IFlexFile getCurrentFile()
+      {
+         return currentFile;
       }
 
       @Override
@@ -67,45 +83,61 @@ public class IgnoreRuleTest
          return true;
       }
    }
+   private static final String AS3_LINE  = "var i : int;";
+   private static final String MXML_LINE = "addedToStage=\"callLater( myFunction )\"";
+
+   private final IgnoredRule   ruleWithAsFile;
+   private final IgnoredRule   ruleWithMxmlFile;
+
+   public IgnoreRuleTest()
+   {
+      ruleWithAsFile = new IgnoredRule( getTestFiles().get( "AbstractRowData.as" ) );
+      ruleWithMxmlFile = new IgnoredRule( getTestFiles().get( "Main.mxml" ) );
+   }
 
    @Test
    public final void testIsViolationIgnored()
    {
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD AlertShow" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD IgnoreTest$Ignored" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NO PMD adobe.ac.pmd.rules.core.IgnoreTest$Ignored" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int;" ) );
+      isIgnored( " NO PMD" );
    }
 
    @Test
    public final void testIsViolationIgnoredCollapsed()
    {
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NOPMD" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int; // NOPMD AlertShow" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NOPMD IgnoreTest$Ignored" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // NOPMD adobe.ac.pmd.rules.core.IgnoreTest$Ignored" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int;" ) );
+      isIgnored( " NOPMD" );
    }
 
    @Test
    public final void testIsViolationIgnoredWithFullCollapsed()
    {
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; //NOPMD" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int; //NOPMD AlertShow" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; //NOPMD IgnoreTest$Ignored" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; //NOPMD adobe.ac.pmd.rules.core.IgnoreTest$Ignored" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int;" ) );
+      isIgnored( "NOPMD" );
    }
 
    @Test
    public final void testIsViolationIgnoredWithLowerCase()
    {
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // No PMD" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int; // No PMD AlertShow" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // No PMD IgnoreTest$Ignored" ) );
-      assertTrue( new IgnoredRule().isViolationIgnored( "var i : int; // No PMD adobe.ac.pmd.rules.core.IgnoreTest$Ignored" ) );
-      assertFalse( new IgnoredRule().isViolationIgnored( "var i : int;" ) );
+      isIgnored( " No PMD" );
    }
 
+   private void isIgnored( final String noPmd )
+   {
+      assertTrue( ruleWithAsFile.isViolationIgnored( AS3_LINE
+            + " //" + noPmd ) );
+      assertFalse( ruleWithAsFile.isViolationIgnored( AS3_LINE
+            + " //" + noPmd + " AlertShow" ) );
+      assertTrue( ruleWithAsFile.isViolationIgnored( AS3_LINE
+            + " //" + noPmd + " IgnoreTest$Ignored" ) );
+      assertTrue( ruleWithAsFile.isViolationIgnored( AS3_LINE
+            + " //" + noPmd + " adobe.ac.pmd.rules.core.IgnoreTest$Ignored" ) );
+      assertFalse( ruleWithAsFile.isViolationIgnored( AS3_LINE ) );
+      assertTrue( ruleWithMxmlFile.isViolationIgnored( MXML_LINE
+            + " <!--" + noPmd ) );
+      assertFalse( ruleWithMxmlFile.isViolationIgnored( MXML_LINE
+            + " <!--" + noPmd + " AlertShow" ) );
+      assertTrue( ruleWithMxmlFile.isViolationIgnored( MXML_LINE
+            + " <!--" + noPmd + " IgnoreTest$Ignored" ) );
+      assertTrue( ruleWithMxmlFile.isViolationIgnored( MXML_LINE
+            + " <!--" + noPmd + " adobe.ac.pmd.rules.core.IgnoreTest$Ignored" ) );
+      assertFalse( ruleWithMxmlFile.isViolationIgnored( MXML_LINE ) );
+   }
 }

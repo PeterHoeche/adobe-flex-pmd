@@ -60,9 +60,11 @@ import com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule;
  */
 public abstract class AbstractFlexRule extends CommonAbstractRule implements IFlexRule
 {
-   protected static final String    MAXIMUM = "maximum";
-   protected static final String    MINIMUM = "minimum";
-   private static final Logger      LOGGER  = Logger.getLogger( AbstractFlexRule.class.getName() );
+   protected static final String    MAXIMUM            = "maximum";
+   protected static final String    MINIMUM            = "minimum";
+   private static final String      AS3_COMMENT_TOKEN  = "//";
+   private static final Logger      LOGGER             = Logger.getLogger( AbstractFlexRule.class.getName() );
+   private static final String      MXML_COMMENT_TOKEN = "<!--";
    private IFlexFile                currentFile;
    private IPackage                 currentPackageNode;
    private Set< String >            excludes;
@@ -141,9 +143,14 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
     */
    boolean isViolationIgnored( final String violatedLine )
    {
-      final boolean containsNoPmd = violatedLine.contains( "// No PMD" )
-            || violatedLine.contains( "// NO PMD" ) || violatedLine.contains( "// NOPMD" )
-            || violatedLine.contains( "//NOPMD" );
+      final String comment_token = getCurrentFile().isMxml() ? MXML_COMMENT_TOKEN
+                                                            : AS3_COMMENT_TOKEN;
+      final boolean containsNoPmd = violatedLine.contains( comment_token
+            + " No PMD" )
+            || violatedLine.contains( comment_token
+                  + " NO PMD" ) || violatedLine.contains( comment_token
+                  + " NOPMD" ) || violatedLine.contains( comment_token
+                  + "NOPMD" );
 
       if ( !containsNoPmd )
       {
@@ -155,9 +162,12 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
                                                                                      "." )
                                                   : name;
       final String strippedLine = computeStrippedLine( violatedLine );
-      return strippedLine.endsWith( "// No PMD" )
-            || strippedLine.endsWith( "// NO PMD" ) || strippedLine.endsWith( "// NOPMD" )
-            || strippedLine.endsWith( "//NOPMD" ) || strippedLine.contains( ruleName );
+      return strippedLine.endsWith( comment_token
+            + " No PMD" )
+            || strippedLine.endsWith( comment_token
+                  + " NO PMD" ) || strippedLine.endsWith( comment_token
+                  + " NOPMD" ) || strippedLine.endsWith( comment_token
+                  + "NOPMD" ) || strippedLine.contains( ruleName );
    }
 
    /**
@@ -275,8 +285,13 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    private String computeStrippedLine( final String violatedLine )
    {
-      return violatedLine.indexOf( "// N" ) > 0 ? StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "// N" ) ) )
-                                               : StringUtils.strip( violatedLine.substring( violatedLine.indexOf( "//N" ) ) );
+      final String comment_token = getCurrentFile().isMxml() ? MXML_COMMENT_TOKEN
+                                                            : AS3_COMMENT_TOKEN;
+      return violatedLine.indexOf( comment_token
+            + " N" ) > 0 ? StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
+                              + " N" ) ) )
+                        : StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
+                              + "N" ) ) );
    }
 
    private boolean isFileExcluded( final IFlexFile file )
