@@ -79,7 +79,7 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
    /**
     * @param function
     */
-   protected void findViolationsFromAttributeMetaData( final IAttribute function )
+   protected void findViolationsFromAttributeMetaData( final IAttribute attribute )
    {
    }
 
@@ -110,9 +110,9 @@ public abstract class AbstractFlexMetaDataRule extends AbstractAstFlexRule
    }
 
    /**
-    * @param attribute
+    * @param function
     */
-   protected void findViolationsFromFunctionMetaData( final IFunction attribute )
+   protected void findViolationsFromFunctionMetaData( final IFunction function )
    {
    }
 

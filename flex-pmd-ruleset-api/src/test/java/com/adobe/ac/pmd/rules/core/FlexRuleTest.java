@@ -86,7 +86,7 @@ public class FlexRuleTest extends FlexPmdTestBase
    @Test
    public void testExclusions() throws PMDException
    {
-      final EmptyIfStmtRule rule = new EmptyIfStmtRule();
+      final AbstractFlexRule rule = new EmptyIfStmtRule();
       final IFlexFile duaneMxml = getTestFiles().get( "bug.Duane.mxml" );
       final Set< String > excludes = new HashSet< String >();
 
