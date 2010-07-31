@@ -31,14 +31,31 @@
 package com.adobe.ac.pmd.maven;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
@@ -119,6 +136,13 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     */
    private File         sourceDirectory;
 
+   /**
+    * URL of the file
+    * 
+    * @parameter expression="${flexpmd.url}"
+    */
+   private URL          url;
+
    public AbstractFlexPmdMojo()
    {
       super();
@@ -164,13 +188,15 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
             + ruleSet );
       getLog().info( "   sourceDirectory "
             + sourceDirectory );
+      getLog().info( "   ruleSetURL      "
+            + url );
       try
       {
          final AbstractFlexPmdEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( excludePackage,
                                                                                            failOnError,
                                                                                            failOnRuleViolation,
                                                                                            outputDirectory,
-                                                                                           ruleSet,
+                                                                                           getRuleSet(),
                                                                                            sourceDirectory ) );
          final FlexPmdViolations violations = new FlexPmdViolations();
          engine.executeReport( violations );
@@ -208,6 +234,22 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
 
    protected final File getRuleSet()
    {
+      if ( ruleSet == null )
+      {
+         try
+         {
+            getRulesetFromURL();
+         }
+         catch ( final IOException ioe )
+         {
+            throw new RuntimeException( "Could not get ruleset from URL", ioe );
+         }
+         catch ( final Exception e )
+         {
+            // if this goes wrong, we're experiencing an unrecoverable
+            // error, so we'll fall back on the default rules
+         }
+      }
       return ruleSet;
    }
 
@@ -244,5 +286,52 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    protected final void setSiteRenderer( final SiteRenderer siteRendererToBeSet ) // NO_UCD
    {
       this.siteRenderer = siteRendererToBeSet;
+   }
+
+   /**
+    * @throws FactoryConfigurationError
+    * @throws ParserConfigurationException
+    * @throws SAXException
+    * @throws SAXException
+    * @throws TransformerException
+    * @throws TransformerFactoryConfigurationError
+    * @throws IOException
+    */
+   private void getRulesetFromURL() throws ParserConfigurationException,
+                                   SAXException,
+                                   TransformerFactoryConfigurationError,
+                                   TransformerException,
+                                   IOException
+   {
+      getLog().info( "getting RuleSet from URL" );
+      if ( url == null )
+      {
+         getLog().info( "Ruleset URL is not set" );
+         return;
+      }
+      ruleSet = File.createTempFile( "pmdRuleset",
+                                     "" );
+
+      final DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+      final Document pmdRules = db.parse( url.toExternalForm() );
+
+      writeToFile( pmdRules,
+                   ruleSet );
+
+   }
+
+   private void writeToFile( final Document pmdRules,
+                             final File ruleSet ) throws TransformerFactoryConfigurationError,
+                                                 IOException,
+                                                 TransformerException
+   {
+      final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+      transformer.setOutputProperty( OutputKeys.INDENT,
+                                     "yes" );
+      final StreamResult result = new StreamResult( new FileWriter( ruleSet ) );
+      final DOMSource source = new DOMSource( pmdRules );
+      transformer.transform( source,
+                             result );
+
    }
 }
