@@ -81,6 +81,7 @@
 		<maven-plugin-testing-harness.version>1.0-beta-1</maven-plugin-testing-harness.version>
 		<ant.version>1.7.0</ant.version>
 		<dom4j.version>1.6.1</dom4j.version>
+		<javadoc-plugin.version>2.7</javadoc-plugin.version>
 
 		<jsap.version>2.1</jsap.version>
 
@@ -264,6 +265,20 @@
 						<phase>package</phase>
 						<goals>
 							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${javadoc-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>deploy</phase>
+						<goals>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
