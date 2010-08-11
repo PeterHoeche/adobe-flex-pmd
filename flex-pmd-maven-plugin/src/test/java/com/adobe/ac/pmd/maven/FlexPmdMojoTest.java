@@ -49,16 +49,26 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
    @Test
    public void testExecuteReport()
    {
-      executeReport( false );
+      executeReport( false,
+                     null );
    }
 
    @Test
    public void testExecuteReportFailOnError()
    {
-      executeReport( true );
+      executeReport( true,
+                     null );
    }
 
-   private void executeReport( final boolean failOnError )
+   @Test
+   public void testExecuteReportWithCustomRuleset()
+   {
+      executeReport( true,
+                     new File( this.getClass().getResource( "/broken_pmd.xml" ).getFile() ) );
+   }
+
+   private void executeReport( final boolean failOnError,
+                               final File ruleset )
    {
       final File outputDirectoryToBeSet = new File( "target/pmd" );
 
@@ -69,7 +79,7 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
                                                                        failOnError,
                                                                        false,
                                                                        outputDirectoryToBeSet,
-                                                                       null,
+                                                                       ruleset,
                                                                        getTestDirectory() ) );
 
       mojo.setSiteRenderer( new DefaultSiteRenderer() );

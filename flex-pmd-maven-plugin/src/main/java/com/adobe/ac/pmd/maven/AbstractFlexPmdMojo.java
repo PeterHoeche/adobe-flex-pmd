@@ -132,7 +132,6 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
     * 
     * @parameter expression="${project.build.sourceDirectory}"
     * @required
-    * @readonly
     */
    private File         sourceDirectory;
 
