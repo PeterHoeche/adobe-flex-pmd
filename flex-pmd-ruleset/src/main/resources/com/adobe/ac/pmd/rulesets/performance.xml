@@ -77,7 +77,7 @@
 	<rule class="com.adobe.ac.pmd.rules.performance.AvoidInstanciationInLoopRule"
 		message="Instanciating a variable in a loop can be expensive">
 		<description></description>
-		<priority>3</priority>
+		<priority>5</priority>
 		<example>
       </example>
 	</rule>
