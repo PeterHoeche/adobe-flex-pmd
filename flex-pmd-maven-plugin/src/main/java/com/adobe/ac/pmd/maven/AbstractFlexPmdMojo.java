@@ -31,8 +31,12 @@
 package com.adobe.ac.pmd.maven;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -312,11 +316,47 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
                                      "" );
 
       final DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      final Document pmdRules = db.parse( url.toExternalForm() );
 
-      writeToFile( pmdRules,
-                   ruleSet );
+      try
+      {
+         final Document pmdRules = db.parse( url.toExternalForm() );
+         writeToFile( pmdRules,
+                      ruleSet );
+      }
+      catch ( final SAXException sax )
+      {
+         saveUTF8SafeXML();
+      }
+   }
 
+   private void saveUTF8SafeXML() throws IOException,
+                                 FileNotFoundException
+   {
+      final InputStream inputstream = url.openStream();
+      final OutputStream outputstream = new FileOutputStream( ruleSet );
+      int thisByteAsInt;
+      while ( ( thisByteAsInt = inputstream.read() ) != -1 )
+      {
+         outputstream.write( stripNonValidXMLCharacters( ( byte ) thisByteAsInt ) );
+
+      }
+      inputstream.close();
+      outputstream.flush();
+      outputstream.close();
+   }
+
+   private byte stripNonValidXMLCharacters( final byte in )
+   {
+      byte current; // Used to reference the current character.
+
+      current = in;
+      if ( current == 0x9
+            || current == 0xA || current == 0xD || current >= 0x20 && current <= 0xD7FF || current >= 0xE000
+            && current <= 0xFFFD || current >= 0x10000 && current <= 0x10FFFF )
+      {
+         return current;
+      }
+      return '\n';
    }
 
    private void writeToFile( final Document pmdRules,

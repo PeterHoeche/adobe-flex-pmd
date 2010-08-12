@@ -283,11 +283,21 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    {
       final String comment_token = getCurrentFile().isMxml() ? MXML_COMMENT_TOKEN
                                                             : AS3_COMMENT_TOKEN;
-      return violatedLine.indexOf( comment_token
-            + " N" ) > 0 ? StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
-                              + " N" ) ) )
-                        : StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
-                              + "N" ) ) );
+      String strippedLine = violatedLine;
+
+      if ( violatedLine.indexOf( comment_token
+            + " N" ) > 0 )
+      {
+         strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
+               + " N" ) ) );
+      }
+      else if ( violatedLine.indexOf( comment_token
+            + "N" ) > 0 )
+      {
+         strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
+               + "N" ) ) );
+      }
+      return strippedLine;
    }
 
    private boolean isFileExcluded( final IFlexFile file )
