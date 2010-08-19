@@ -34,6 +34,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Locale;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -63,8 +64,9 @@ public class FlexPmdMojoTest extends FlexPmdTestBase
    @Test
    public void testExecuteReportWithCustomRuleset()
    {
+      final URL resource = this.getClass().getResource( "/rulesets/broken_pmd.xml" );
       executeReport( true,
-                     new File( this.getClass().getResource( "/broken_pmd.xml" ).getFile() ) );
+                     new File( resource.getFile() ) );
    }
 
    private void executeReport( final boolean failOnError,
