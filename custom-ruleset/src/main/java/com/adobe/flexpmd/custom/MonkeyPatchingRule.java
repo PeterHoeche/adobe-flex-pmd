@@ -28,51 +28,39 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.maintanability;
+package com.adobe.flexpmd.custom;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.adobe.ac.pmd.nodes.IAttribute;
-import com.adobe.ac.pmd.nodes.IConstant;
-import com.adobe.ac.pmd.nodes.IField;
-import com.adobe.ac.pmd.nodes.IFieldInitialization;
-import com.adobe.ac.pmd.parser.IParserNode;
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
 /**
  * @author xagnetti
  */
-public class ReferenceToVariableBindingFromItsInitializerRule extends AbstractAstFlexRule
+public class MonkeyPatchingRule extends AbstractFlexRule
 {
    /*
     * (non-Javadoc)
     * @see
-    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromAttributes
-    * (java.util.List)
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#findViolationsInCurrentFile()
     */
    @Override
-   protected void findViolationsFromAttributes( final List< IAttribute > variables )
+   protected final List< IFlexViolation > findViolationsInCurrentFile()
    {
-      for ( final IAttribute attribute : variables )
-      {
-         findViolation( attribute );
-      }
-   }
+      final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
-   /*
-    * (non-Javadoc)
-    * @see
-    * com.adobe.ac.pmd.rules.core.AbstractAstFlexRule#findViolationsFromConstants
-    * (java.util.List)
-    */
-   @Override
-   protected void findViolationsFromConstants( final List< IConstant > constants )
-   {
-      for ( final IConstant constant : constants )
+      if ( getCurrentFile().getPackageName().startsWith( "mx." )
+            && !getCurrentFile().getClassName().equals( "Version.as" )
+            && !getCurrentFile().getClassName().endsWith( "Style.as" ) )
       {
-         findViolation( constant );
+         addViolation( violations,
+                       new ViolationPosition( 0 ) );
       }
+      return violations;
    }
 
    /*
@@ -80,26 +68,19 @@ public class ReferenceToVariableBindingFromItsInitializerRule extends AbstractAs
     * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
     */
    @Override
-   protected ViolationPriority getDefaultPriority()
+   protected final ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.HIGH;
    }
 
-   private void findViolation( final IField attribute )
+   /*
+    * (non-Javadoc)
+    * @see
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    */
+   @Override
+   protected final boolean isConcernedByTheCurrentFile()
    {
-      final IFieldInitialization initialization = attribute.getInitializationExpression();
-      final String name = attribute.getName();
-
-      if ( initialization != null )
-      {
-         final List< IParserNode > statements = initialization.getInternalNode()
-                                                              .findPrimaryStatementsFromNameInChildren( new String[]
-                                                              { name } );
-         if ( statements != null
-               && !statements.isEmpty() )
-         {
-            addViolation( attribute );
-         }
-      }
+      return !getCurrentFile().isMxml();
    }
 }

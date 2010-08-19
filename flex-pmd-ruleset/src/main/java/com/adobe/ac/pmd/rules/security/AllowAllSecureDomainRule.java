@@ -103,7 +103,7 @@ public class AllowAllSecureDomainRule extends AbstractRegexpBasedRule
             return false;
          }
 
-         if ( objectName.equalsIgnoreCase( "Security" ) == true )
+         if ( objectName.equalsIgnoreCase( "Security" ) )
          {
             return true;
          }
