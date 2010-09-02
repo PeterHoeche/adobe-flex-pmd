@@ -102,7 +102,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
    @Override
    protected final ViolationPriority getDefaultPriority()
    {
-      return ViolationPriority.HIGH;
+      return ViolationPriority.NORMAL;
    }
 
    /*
