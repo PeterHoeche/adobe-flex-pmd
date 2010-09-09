@@ -50,6 +50,7 @@ public class TestAS3Parser extends AbstractAs3ParserTest
       asp.buildAst( getClass().getResource( "/examples/unformatted/IContext.as" ).toURI().getPath() );
       asp.buildAst( getClass().getResource( "/examples/FlexPMD115.as" ).toURI().getPath() );
       asp.buildAst( getClass().getResource( "/examples/JPEGEncoder.as" ).toURI().getPath() );
+      asp.buildAst( getClass().getResource( "/examples/JPEGEncoder2.as" ).toURI().getPath() );
       asp.buildAst( getClass().getResource( "/examples/FisheyeBase.as" ).toURI().getPath() );
       asp.buildAst( getClass().getResource( "/examples/FlexPMD98.as" ).toURI().getPath() );
       asp.buildAst( getClass().getResource( "/examples/FlexPMD195.as" ).toURI().getPath() );

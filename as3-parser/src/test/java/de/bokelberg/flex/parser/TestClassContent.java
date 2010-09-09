@@ -95,6 +95,37 @@ public class TestClassContent extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testFlexPMD211() throws TokenException
+   {
+      assertClassContent( "",
+                          "private function foo(sf:int):void{"
+                                + "var a:Vector.<String> = new Vector.<String>()}",
+                          "<function line=\"2\"><mod-list line=\"2\"><mod line=\"2\">private</mod>"
+                                + "</mod-list><name line=\"2\">foo</name><parameter-list line=\"2\">"
+                                + "<parameter line=\"2\"><name-type-init line=\"2\"><name line=\"2\">sf</name>"
+                                + "<type line=\"2\">int</type></name-type-init></parameter></parameter-list>"
+                                + "<type line=\"2\">void</type><block line=\"2\"><var-list line=\"2\">"
+                                + "<name-type-init line=\"2\"><name line=\"2\">a</name><vector line=\"2\">"
+                                + "<type line=\"2\">String</type></vector><init line=\"2\"><new line=\"2\">"
+                                + "<primary line=\"2\">Vector</primary><vector line=\"2\"><vector line=\"2\">"
+                                + "<type line=\"2\">String</type></vector></vector><arguments line=\"2\">"
+                                + "</arguments></new></init></name-type-init></var-list></block></function>" );
+      assertClassContent( "",
+                          "private function foo(sf:int):void{"
+                                + "var a:Vector.<String> = new Vector.<String>();}",
+                          "<function line=\"2\"><mod-list line=\"2\"><mod line=\"2\">private</mod></mod-list>"
+                                + "<name line=\"2\">foo</name><parameter-list line=\"2\"><parameter line=\"2\">"
+                                + "<name-type-init line=\"2\"><name line=\"2\">sf</name><type line=\"2\">int</type>"
+                                + "</name-type-init></parameter></parameter-list><type line=\"2\">void</type>"
+                                + "<block line=\"2\"><var-list line=\"2\"><name-type-init line=\"2\">"
+                                + "<name line=\"2\">a</name><vector line=\"2\"><type line=\"2\">String</type>"
+                                + "</vector><init line=\"2\"><new line=\"2\"><primary line=\"2\">Vector</primary>"
+                                + "<vector line=\"2\"><vector line=\"2\"><type line=\"2\">String</type></vector>"
+                                + "</vector><arguments line=\"2\"></arguments></new></init></name-type-init>"
+                                + "</var-list></block></function>" );
+   }
+
+   @Test
    public void testImports() throws TokenException
    {
       assertClassContent( "1",

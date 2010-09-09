@@ -1138,6 +1138,7 @@ public class AS3Parser implements IAS3Parser
       result.addChild( parseExpressionList() );
 
       consume( Operators.RIGHT_PARENTHESIS );
+
       return result;
    }
 
@@ -1636,6 +1637,13 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn() );
       result.addChild( parseExpression() ); // name
+      if ( tokIs( Operators.VECTOR_START ) )
+      {
+         result.addChild( Node.create( NodeKind.VECTOR,
+                                       tok.getLine(),
+                                       tok.getColumn(),
+                                       parseVector() ) );
+      }
       if ( tokIs( Operators.LEFT_PARENTHESIS ) )
       {
          result.addChild( parseArgumentList() );
@@ -2209,7 +2217,10 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        "" );
-      nextToken();
+      if ( tok.getText().compareTo( "Vector" ) == 0 )
+      {
+         nextToken();
+      }
       consume( Operators.VECTOR_START );
 
       result.addChild( parseType() );

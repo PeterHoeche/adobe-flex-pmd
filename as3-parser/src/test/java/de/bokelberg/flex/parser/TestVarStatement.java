@@ -37,6 +37,19 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 public class TestVarStatement extends AbstractStatementTest
 {
    @Test
+   public void testFlexPMD211() throws TokenException
+   {
+      assertStatement( "",
+                       "var a:Vector.<String> = new Vector.<String>();\nvar i:int;",
+                       "<var-list line=\"1\"><name-type-init line=\"1\"><name line=\"1\">a</name>"
+                             + "<vector line=\"1\"><type line=\"1\">String</type></vector>"
+                             + "<init line=\"1\"><new line=\"1\"><primary line=\"1\">Vector</primary>"
+                             + "<vector line=\"1\"><vector line=\"1\"><type line=\"1\">String</type>"
+                             + "</vector></vector><arguments line=\"1\"></arguments></new></init>"
+                             + "</name-type-init></var-list>" );
+   }
+
+   @Test
    public void testFullFeaturedVar() throws TokenException
    {
       assertStatement( "1",
@@ -104,11 +117,7 @@ public class TestVarStatement extends AbstractStatementTest
    {
       assertStatement( "vector",
                        "var v:Vector.<DisplayObject> = new Vector.<Sprite>();",
-                       "<var-list line=\"1\"><name-type-init line=\"1\"><name line=\"1\""
-                             + ">v</name><vector line=\"1\"><type line=\"1\">"
-                             + "DisplayObject</type></vector><init line=\"1\"><new line=\"1\">"
-                             + "<primary line=\"1\">Vector</primary></new></init>"
-                             + "</name-type-init></var-list>" );
+                       "<var-list line=\"1\"><name-type-init line=\"1\"><name line=\"1\">v</name><vector line=\"1\"><type line=\"1\">DisplayObject</type></vector><init line=\"1\"><new line=\"1\"><primary line=\"1\">Vector</primary><vector line=\"1\"><vector line=\"1\"><type line=\"1\">Sprite</type></vector></vector><arguments line=\"1\"></arguments></new></init></name-type-init></var-list>" );
 
       assertStatement( "vector",
                        "var v:Vector.< Vector.< String > >",
@@ -126,10 +135,6 @@ public class TestVarStatement extends AbstractStatementTest
 
       assertStatement( "",
                        "var HT:Vector.<BitString> = new Vector.<BitString>(251, true);",
-                       "<var-list line=\"1\"><name-type-init line=\"1\">"
-                             + "<name line=\"1\">HT</name><vector line=\"1\"><type line=\"1\""
-                             + ">BitString</type></vector><init line=\"1\"><new "
-                             + "line=\"1\"><primary line=\"1\">Vector</primary>"
-                             + "</new></init></name-type-init></var-list>" );
+                       "<var-list line=\"1\"><name-type-init line=\"1\"><name line=\"1\">HT</name><vector line=\"1\"><type line=\"1\">BitString</type></vector><init line=\"1\"><new line=\"1\"><primary line=\"1\">Vector</primary><vector line=\"1\"><vector line=\"1\"><type line=\"1\">BitString</type></vector></vector><arguments line=\"1\"><primary line=\"1\">251</primary><primary line=\"1\">true</primary></arguments></new></init></name-type-init></var-list>" );
    }
 }
