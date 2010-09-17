@@ -326,6 +326,17 @@
 				<checksumPolicy>ignore</checksumPolicy>
 			</releases>
 		</repository>
+		<repository>
+			<id>nexus.codehaus</id>
+			<name>Nexus Codehaus</name>
+			<url>https://nexus.codehaus.org/content/repositories/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
