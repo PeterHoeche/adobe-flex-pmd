@@ -243,4 +243,8 @@ package
 } 		
 		</example>
 	</rule>
+	<rule class="com.adobe.ac.pmd.rules.maintanability.AvoidUseOfAsKeywordRule"
+		message="Enforce that as is not used (silently ignores the cast and nulls the property when the type is wrong)">
+		<priority>5</priority>
+	</rule>
 </ruleset>

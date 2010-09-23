@@ -124,7 +124,7 @@ public class TestExpression extends AbstractStatementTest
                        "<assign line=\"1\"><primary line=\"1\">"
                              + "<encapsulated line=\"1\"><relation line=\"1\">"
                              + "<primary line=\"1\">dataProvider</primary>"
-                             + "<op line=\"1\">as</op><primary line=\"1\">"
+                             + "<as line=\"1\">as</as><primary line=\"1\">"
                              + "ArrayCollection</primary></relation></encapsulated></primary>"
                              + "<op line=\"1\">=</op><primary line=\"1\">" + "null</primary></assign>" );
    }

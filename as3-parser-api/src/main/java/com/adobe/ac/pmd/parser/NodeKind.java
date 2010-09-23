@@ -40,6 +40,7 @@ public enum NodeKind
    ARGUMENTS("arguments"),
    ARRAY("array"),
    ARRAY_ACCESSOR("arr-acc"),
+   AS("as"),
    AS_DOC("as-doc"),
    ASSIGN("assign"),
    B_AND("b-and"),

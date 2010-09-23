@@ -49,7 +49,7 @@ import com.adobe.ac.utils.StackTraceUtils;
 /**
  * Abstract class for AST-based rule Extends this class if your rule is only
  * detectable in an AS script block, which can be converted into an Abstract
- * Synthax Tree. Then you will be able to either use the visitor pattern, or to
+ * Syntax Tree. Then you will be able to either use the visitor pattern, or to
  * iterate from the package node, in order to find your violation(s).
  * 
  * @author xagnetti
@@ -367,6 +367,13 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    }
 
    /**
+    * @param statementNode
+    */
+   protected void visitAs( final IParserNode statementNode )
+   {
+   }
+
+   /**
     * @param catchNode
     */
    protected void visitCatch( final IParserNode catchNode )
@@ -548,6 +555,19 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       }
    }
 
+   protected void visitRelationalExpression( final IParserNode ast )
+   {
+      visitExpression( ast,
+                       NodeKind.RELATION,
+                       new ExpressionVisitor()
+                       {
+                          public void visitExpression( final IParserNode ast )
+                          {
+                             visitShiftExpression( ast );
+                          }
+                       } );
+   }
+
    /**
     * @param ast
     */
@@ -568,6 +588,9 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       {
       case OP:
          visitOperator( statementNode );
+         break;
+      case AS:
+         visitAs( statementNode );
          break;
       case RETURN:
          visitReturn( statementNode );
@@ -1070,19 +1093,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       {
          visitExpressionList( ast );
       }
-   }
-
-   private void visitRelationalExpression( final IParserNode ast )
-   {
-      visitExpression( ast,
-                       NodeKind.RELATION,
-                       new ExpressionVisitor()
-                       {
-                          public void visitExpression( final IParserNode ast )
-                          {
-                             visitShiftExpression( ast );
-                          }
-                       } );
    }
 
    private void visitShiftExpression( final IParserNode ast )

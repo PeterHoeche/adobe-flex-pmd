@@ -1864,10 +1864,20 @@ public class AS3Parser implements IAS3Parser
             || tokIs( Operators.SUPERIOR_OR_EQUAL ) || tokIs( KeyWords.IS ) || tokIs( KeyWords.IN )
             && !isInFor || tokIs( KeyWords.AS ) || tokIs( KeyWords.INSTANCE_OF ) )
       {
-         result.addChild( Node.create( NodeKind.OP,
-                                       tok.getLine(),
-                                       tok.getColumn(),
-                                       tok.getText() ) );
+         if ( !tokIs( KeyWords.AS ) )
+         {
+            result.addChild( Node.create( NodeKind.OP,
+                                          tok.getLine(),
+                                          tok.getColumn(),
+                                          tok.getText() ) );
+         }
+         else
+         {
+            result.addChild( Node.create( NodeKind.AS,
+                                          tok.getLine(),
+                                          tok.getColumn(),
+                                          tok.getText() ) );
+         }
          nextToken();
          result.addChild( parseShiftExpression() );
       }
