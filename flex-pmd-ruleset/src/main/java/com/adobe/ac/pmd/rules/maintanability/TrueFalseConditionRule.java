@@ -39,6 +39,9 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
  */
 public class TrueFalseConditionRule extends AbstractAstFlexRule // NO_UCD
 {
+   private static final int FALSE = 2;
+   private static final int TRUE  = 1;
+
    /*
     * (non-Javadoc)
     * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
@@ -60,16 +63,36 @@ public class TrueFalseConditionRule extends AbstractAstFlexRule // NO_UCD
    {
       super.visitCondition( condition );
 
-      final String conditionStr = condition.toString();
-      final boolean containsTrue = conditionStr.contains( "true" );
+      final int conditionChidrenHaveBooleans = conditionChidrenHaveBooleans( condition );
 
-      if ( containsTrue
-            || conditionStr.contains( "false" ) )
+      if ( conditionChidrenHaveBooleans > 0 )
       {
          addViolation( condition,
-                       ( containsTrue ? ""
-                                     : "!" )
+                       ( conditionChidrenHaveBooleans == TRUE ? ""
+                                                             : "!" )
                              + "condition" );
       }
+   }
+
+   private int conditionChidrenHaveBooleans( final IParserNode condition )
+   {
+      if ( condition != null )
+      {
+         for ( final IParserNode child : condition.getChildren() )
+         {
+            if ( child.getStringValue() != null )
+            {
+               if ( child.getStringValue().compareTo( "true" ) == 0 )
+               {
+                  return TRUE;
+               }
+               if ( child.getStringValue().compareTo( "false" ) == 0 )
+               {
+                  return FALSE;
+               }
+            }
+         }
+      }
+      return 0;
    }
 }

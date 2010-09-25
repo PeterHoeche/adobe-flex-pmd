@@ -41,8 +41,7 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
    {
       return new ExpectedViolation[]
       { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
-       { new ViolationPosition( 574 ),
-                   new ViolationPosition( 576 ),
+       { new ViolationPosition( 576 ),
                    new ViolationPosition( 578 ),
                    new ViolationPosition( 584 ) } ),
                   new ExpectedViolation( "Looping.as", new ViolationPosition[]
@@ -52,7 +51,6 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
                               new ViolationPosition( 69 ) } ),
                   new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
                   { new ViolationPosition( 63 ),
-                              new ViolationPosition( 190 ),
                               new ViolationPosition( 194 ) } ),
                   new ExpectedViolation( "bug.FlexPMD181.as", new ViolationPosition[]
                   { new ViolationPosition( 2222 ) } ),
@@ -60,9 +58,7 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
                   { new ViolationPosition( 106 ),
                               new ViolationPosition( 113 ) } ),
                   new ExpectedViolation( "com.adobe.ac.AbstractRowData.as", new ViolationPosition[]
-                  { new ViolationPosition( 59 ) } ),
-                  new ExpectedViolation( "com.adobe.ac.ncss.TestResult.as", new ViolationPosition[]
-                  { new ViolationPosition( 208 ) } ) };
+                  { new ViolationPosition( 59 ) } ) };
    }
 
    @Override
