@@ -82,6 +82,14 @@
       </example>
 	</rule>
 
+	<rule class="com.adobe.ac.pmd.rules.performance.AvoidDeclarationInLoopRule"
+		message="Declaring a variable in a loop can be expensive">
+		<description></description>
+		<priority>5</priority>
+		<example>
+      </example>
+	</rule>
+
 	<rule class="com.adobe.ac.pmd.rules.performance.DeeplyNestedIfRule"
 		message="Nested if statements are not a good design">
 		<priority>3</priority>

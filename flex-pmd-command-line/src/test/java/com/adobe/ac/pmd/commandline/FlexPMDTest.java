@@ -118,7 +118,7 @@ public class FlexPMDTest extends FlexPmdTestBase
 
       FlexPMD.startFlexPMD( args );
 
-      assertEquals( 5,
+      assertEquals( 6,
                     loadDocument( new File( "target/test3/pmd.xml" ) ).selectNodes( "//pmd/file[1]/violation" )
                                                                       .size() );
    }

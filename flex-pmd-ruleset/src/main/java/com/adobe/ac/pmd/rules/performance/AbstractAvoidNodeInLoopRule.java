@@ -32,27 +32,68 @@ package com.adobe.ac.pmd.rules.performance;
 
 import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
-import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
 
-/**
- * @author xagnetti
- */
-public class AvoidInstanciationInLoopRule extends AbstractAvoidNodeInLoopRule
+public abstract class AbstractAvoidNodeInLoopRule extends AbstractAstFlexRule
 {
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
-    */
-   @Override
-   protected final ViolationPriority getDefaultPriority()
+   private int loopLevel = 0;
+
+   protected int getLoopLevel()
    {
-      return ViolationPriority.NORMAL;
+      return loopLevel;
+   }
+
+   protected abstract boolean isNodeForbidden( final IParserNode ast );
+
+   @Override
+   protected final void visitFor( final IParserNode ast )
+   {
+      loopLevel++;
+      super.visitFor( ast );
+      loopLevel--;
    }
 
    @Override
-   protected boolean isNodeForbidden( final IParserNode ast )
+   protected final void visitForEach( final IParserNode ast )
    {
-      return ast.getId() != null
-            && ast.is( NodeKind.NEW ) && getLoopLevel() != 0;
+      loopLevel++;
+      super.visitForEach( ast );
+      loopLevel--;
+   }
+
+   @Override
+   protected final void visitStatement( final IParserNode ast )
+   {
+      super.visitStatement( ast );
+
+      if ( ast != null
+            && !ast.is( NodeKind.WHILE ) && !ast.is( NodeKind.FOR ) && !ast.is( NodeKind.FOREACH )
+            && !ast.is( NodeKind.FOR ) )
+      {
+         searchForbiddenNode( ast );
+      }
+   }
+
+   @Override
+   protected final void visitWhile( final IParserNode ast )
+   {
+      loopLevel++;
+      super.visitWhile( ast );
+      loopLevel--;
+   }
+
+   private void searchForbiddenNode( final IParserNode ast )
+   {
+      if ( ast.numChildren() > 0 )
+      {
+         for ( final IParserNode child : ast.getChildren() )
+         {
+            searchForbiddenNode( child );
+         }
+      }
+      if ( isNodeForbidden( ast ) )
+      {
+         addViolation( ast );
+      }
    }
 }

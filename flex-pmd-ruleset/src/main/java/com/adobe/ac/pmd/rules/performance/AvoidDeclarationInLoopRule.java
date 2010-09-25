@@ -34,17 +34,10 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
 
-/**
- * @author xagnetti
- */
-public class AvoidInstanciationInLoopRule extends AbstractAvoidNodeInLoopRule
+public class AvoidDeclarationInLoopRule extends AbstractAvoidNodeInLoopRule
 {
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.rules.core.AbstractFlexRule#getDefaultPriority()
-    */
    @Override
-   protected final ViolationPriority getDefaultPriority()
+   protected ViolationPriority getDefaultPriority()
    {
       return ViolationPriority.NORMAL;
    }
@@ -53,6 +46,6 @@ public class AvoidInstanciationInLoopRule extends AbstractAvoidNodeInLoopRule
    protected boolean isNodeForbidden( final IParserNode ast )
    {
       return ast.getId() != null
-            && ast.is( NodeKind.NEW ) && getLoopLevel() != 0;
+            && ( ast.is( NodeKind.VAR ) || ast.is( NodeKind.VAR_LIST ) ) && getLoopLevel() != 0;
    }
 }
