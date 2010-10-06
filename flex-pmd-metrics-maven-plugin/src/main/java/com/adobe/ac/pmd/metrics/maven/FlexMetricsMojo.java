@@ -44,6 +44,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
+import com.adobe.ac.pmd.LoggerUtils;
+
 /**
  * @author xagnetti
  * @goal check
@@ -119,6 +121,7 @@ public final class FlexMetricsMojo extends AbstractMojo
    public void execute() throws MojoExecutionException,
                         MojoFailureException
    {
+      new LoggerUtils().loadConfiguration();
       if ( sourceDirectory != null
             && sourceDirectory.exists() )
       {

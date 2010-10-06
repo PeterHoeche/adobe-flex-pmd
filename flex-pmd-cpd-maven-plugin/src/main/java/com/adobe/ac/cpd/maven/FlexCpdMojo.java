@@ -50,6 +50,7 @@ import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
 
 import com.adobe.ac.cpd.FlexLanguage;
+import com.adobe.ac.pmd.LoggerUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
 
@@ -150,6 +151,8 @@ public class FlexCpdMojo extends AbstractMavenReport
    @Override
    protected void executeReport( final Locale locale ) throws MavenReportException
    {
+      new LoggerUtils().loadConfiguration();
+
       final CPD cpd = new CPD( minimumTokenCount, new FlexLanguage() );
 
       try

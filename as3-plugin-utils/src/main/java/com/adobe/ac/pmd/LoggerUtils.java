@@ -28,63 +28,32 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.metrics.ant;
+package com.adobe.ac.pmd;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.LogManager;
 
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
-import org.dom4j.DocumentException;
-
-import com.adobe.ac.pmd.LoggerUtils;
-import com.adobe.ac.pmd.metrics.engine.FlexMetrics;
-
-public class FlexMetricsAntTask extends Task
+public class LoggerUtils
 {
-   private File outputFile;
-
-   private File sourceDirectory;
-
-   @Override
-   public final void execute()
+   public void loadConfiguration()
    {
-      new LoggerUtils().loadConfiguration();
-      validateFields();
-
       try
       {
-         new FlexMetrics( sourceDirectory ).execute( outputFile );
+         if ( System.getProperty( "java.util.logging.config.file" ) == null )
+         {
+            InputStream resourceAsStream = getClass().getResourceAsStream( "/logger.properties" );
+            LogManager.getLogManager()
+                      .readConfiguration( resourceAsStream );
+         }
       }
-      catch ( final DocumentException e )
+      catch ( final SecurityException e )
       {
-         throw new BuildException( e );
+         e.printStackTrace();
       }
       catch ( final IOException e )
       {
-         throw new BuildException( e );
-      }
-   }
-
-   public final void setOutputFile( final File outputFileToBeSet )
-   {
-      outputFile = outputFileToBeSet;
-   }
-
-   public final void setSourceDirectory( final File sourceDirectoryToBeSet )
-   {
-      sourceDirectory = sourceDirectoryToBeSet;
-   }
-
-   private void validateFields()
-   {
-      if ( outputFile == null )
-      {
-         throw new BuildException( "outputFile is required" );
-      }
-      else if ( sourceDirectory == null )
-      {
-         throw new BuildException( "sourceDirectory is required" );
+         e.printStackTrace();
       }
    }
 }

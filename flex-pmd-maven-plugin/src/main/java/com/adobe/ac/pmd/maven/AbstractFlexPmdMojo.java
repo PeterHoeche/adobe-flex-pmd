@@ -63,6 +63,7 @@ import org.xml.sax.SAXException;
 
 import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.LoggerUtils;
 import com.adobe.ac.pmd.engines.AbstractFlexPmdEngine;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.adobe.ac.pmd.engines.PmdEngineUtils;
@@ -184,6 +185,7 @@ abstract class AbstractFlexPmdMojo extends AbstractMavenReport
    @Override
    protected final void executeReport( final Locale locale ) throws MavenReportException
    {
+      new LoggerUtils().loadConfiguration();
       getLog().info( "FlexPmdMojo starts" );
       getLog().info( "   failOnError     "
             + failOnError );

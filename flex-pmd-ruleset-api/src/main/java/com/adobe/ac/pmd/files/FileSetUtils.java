@@ -43,7 +43,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMDException;
@@ -122,7 +121,6 @@ public final class FileSetUtils
     */
    public static Map< String, IPackage > computeAsts( final Map< String, IFlexFile > files ) throws PMDException
    {
-      LOGGER.setLevel( Level.SEVERE );
       final Map< String, IPackage > asts = new LinkedHashMap< String, IPackage >();
 
       for ( final Entry< String, IFlexFile > fileEntry : files.entrySet() )

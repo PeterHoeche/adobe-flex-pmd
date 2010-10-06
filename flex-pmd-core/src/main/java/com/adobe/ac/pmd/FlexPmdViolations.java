@@ -67,7 +67,6 @@ public class FlexPmdViolations implements Serializable
    static
    {
       LOGGER = Logger.getLogger( FlexPmdViolations.class.getName() );
-      LOGGER.setLevel( Level.WARNING );
    }
 
    private Map< String, IPackage >                        asts;

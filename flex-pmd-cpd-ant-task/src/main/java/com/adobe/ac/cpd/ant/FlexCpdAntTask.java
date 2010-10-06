@@ -49,6 +49,7 @@ import org.apache.tools.ant.types.FileSet;
 
 import com.adobe.ac.cpd.FlexLanguage;
 import com.adobe.ac.cpd.FlexTokenizer;
+import com.adobe.ac.pmd.LoggerUtils;
 
 public class FlexCpdAntTask extends Task
 {
@@ -68,6 +69,7 @@ public class FlexCpdAntTask extends Task
       try
       {
          validateFields();
+         new LoggerUtils().loadConfiguration();
 
          log( "Starting run, minimumTokenCount is "
                     + minimumTokenCount,

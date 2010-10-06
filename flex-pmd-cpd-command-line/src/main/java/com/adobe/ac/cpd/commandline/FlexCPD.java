@@ -51,6 +51,7 @@ import com.adobe.ac.cpd.FlexTokenizer;
 import com.adobe.ac.pmd.CommandLineOptions;
 import com.adobe.ac.pmd.CommandLineUtils;
 import com.adobe.ac.pmd.ICommandLineOptions;
+import com.adobe.ac.pmd.LoggerUtils;
 import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.files.impl.FileUtils;
 import com.martiansoftware.jsap.JSAP;
@@ -70,7 +71,7 @@ public final class FlexCPD
                                                  ReportException,
                                                  PMDException
    {
-      LOGGER.setLevel( Level.SEVERE );
+      new LoggerUtils().loadConfiguration();
       startFlexCPD( args );
       LOGGER.info( "FlexCPD terminated" );
       System.exit( 0 ); // NOPMD

@@ -43,6 +43,7 @@ import com.adobe.ac.pmd.CommandLineOptions;
 import com.adobe.ac.pmd.CommandLineUtils;
 import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.LoggerUtils;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
@@ -66,7 +67,7 @@ public final class FlexPMD // NO_UCD
                                                  URISyntaxException,
                                                  IOException
    {
-      LOGGER.setLevel( Level.SEVERE );
+      new LoggerUtils().loadConfiguration();
       startFlexPMD( args );
       LOGGER.info( "FlexPMD terminated" );
       System.exit( 0 ); // NOPMD

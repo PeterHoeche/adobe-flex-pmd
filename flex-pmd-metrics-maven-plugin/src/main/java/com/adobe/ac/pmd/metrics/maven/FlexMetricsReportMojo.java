@@ -45,6 +45,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
+import com.adobe.ac.pmd.LoggerUtils;
 import com.adobe.ac.pmd.metrics.maven.generators.NcssAggregateReportGenerator;
 import com.adobe.ac.pmd.metrics.maven.generators.NcssReportGenerator;
 import com.adobe.ac.pmd.metrics.maven.utils.ModuleReport;
@@ -159,6 +160,7 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
    @Override
    public void executeReport( final Locale locale ) throws MavenReportException
    {
+      new LoggerUtils().loadConfiguration();
       if ( sourceDirectory != null )
       {
          if ( sourceDirectory.exists() )

@@ -37,6 +37,7 @@ import org.apache.tools.ant.Task;
 
 import com.adobe.ac.pmd.FlexPmdParameters;
 import com.adobe.ac.pmd.FlexPmdViolations;
+import com.adobe.ac.pmd.LoggerUtils;
 import com.adobe.ac.pmd.engines.FlexPmdXmlEngine;
 import com.adobe.ac.pmd.engines.PmdEngineUtils;
 
@@ -55,6 +56,8 @@ public class FlexPmdAntTask extends Task // NO_UCD
       try
       {
          presetParameters();
+
+         new LoggerUtils().loadConfiguration();
 
          final FlexPmdXmlEngine engine = new FlexPmdXmlEngine( new FlexPmdParameters( packageToExclude,
                                                                                       outputDirectory,
