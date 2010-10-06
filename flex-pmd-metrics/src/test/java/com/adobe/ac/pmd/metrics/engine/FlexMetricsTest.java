@@ -107,7 +107,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadFunctionMetrics()
    {
-      assertEquals( 312,
+      assertEquals( 313,
                     projectMetrics.getFunctions().size() );
       assertEquals( "TestEvent",
                     projectMetrics.getFunctions().get( 98 ).getName() );
@@ -149,9 +149,9 @@ public class FlexMetricsTest extends FlexPmdTestBase
    {
       assertEquals( 96,
                     projectMetrics.getTotalPackages().getTotalClasses() );
-      assertEquals( 312,
+      assertEquals( 313,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1538,
+      assertEquals( 1539,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 3025,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
