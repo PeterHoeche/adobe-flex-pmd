@@ -119,12 +119,15 @@ public class UnusedFieldRule extends AbstractUnusedVariableRule
          final List< IParserNode > modifiers = ast.getChild( 0 ).getChildren();
          boolean isPrivate = false;
 
-         for ( final IParserNode modifierNode : modifiers )
+         if ( !modifiers.isEmpty() )
          {
-            if ( modifierNode.getStringValue().equals( KeyWords.PRIVATE.toString() ) )
+            for ( final IParserNode modifierNode : modifiers )
             {
-               isPrivate = true;
-               break;
+               if ( modifierNode.getStringValue().equals( KeyWords.PRIVATE.toString() ) )
+               {
+                  isPrivate = true;
+                  break;
+               }
             }
          }
          if ( isPrivate )
