@@ -36,6 +36,8 @@ import com.adobe.ac.pmd.parser.IParserNode;
 import com.adobe.ac.pmd.parser.KeyWords;
 import com.adobe.ac.pmd.parser.NodeKind;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
+import com.adobe.ac.pmd.rules.parsley.utils.ParsleyMetaData;
+import com.adobe.ac.pmd.rules.parsley.utils.MetaDataTag.Location;
 
 /**
  * @author xagnetti
@@ -134,7 +136,7 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
       if ( !isOverriden
             && !isResponderImplementation( currentClass,
-                                           functionAst ) )
+                                           functionAst ) && !isParsleyFunction( functionAst ) )
       {
          super.visitFunction( functionAst,
                               type );
@@ -227,5 +229,25 @@ public class UnusedParameterRule extends AbstractUnusedVariableRule
 
       return parameterType != null
             && parameterType.getStringValue() != null && parameterType.getStringValue().contains( "Event" );
+   }
+
+   private boolean isParsleyFunction( final IParserNode functionAst )
+   {
+      for ( final IParserNode child : functionAst.getChildren() )
+      {
+         if ( child.is( NodeKind.META_LIST ) )
+         {
+            for ( final IParserNode metaDataChild : child.getChildren() )
+            {
+               if ( metaDataChild.getStringValue() != null
+                     && ParsleyMetaData.getPossibleMetaDataFromLocation( Location.FUNCTION )
+                                       .containsKey( metaDataChild.getStringValue() ) )
+               {
+                  return true;
+               }
+            }
+         }
+      }
+      return false;
    }
 }

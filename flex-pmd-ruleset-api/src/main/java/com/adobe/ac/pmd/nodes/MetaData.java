@@ -38,6 +38,7 @@ public enum MetaData
    ARRAY_ELEMENT_TYPE("ArrayElementType"),
    BEFORE("Before"),
    BINDABLE("Bindable"),
+   COMMAND_COMPLETE("CommandComplete"),
    DEFAULT_PROPERTY("DefaultProperty"),
    DEPRECATED("Deprecated"),
    EFFECT("Effect"),

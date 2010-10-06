@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.adobe.ac.pmd.rules.parsley.utils.MetaDataTag.Location;
+
 public final class ParsleyMetaData
 {
    private ParsleyMetaData()
@@ -95,6 +97,11 @@ public final class ParsleyMetaData
                                                                                            { COMPLETE_EVENT,
                ERROR_EVENT                                                                },
                                                                                            CLASS_LOCATION );
+
+   public static final MetaDataTag                 COMMAND_COMPLETE     = new MetaDataTag( "CommandComplete",
+                                                                                           new String[]
+                                                                                           {},
+                                                                                           FUNCTION_LOCATION );
 
    public static final MetaDataTag                 DESTROY              = new MetaDataTag( "Destroy",
                                                                                            new String[]
@@ -207,6 +214,7 @@ public final class ParsleyMetaData
                MESSAGE_ERROR,
                MESSAGE_HANDLER,
                MESSAGE_INTERCEPTOR,
+               COMMAND_COMPLETE,
                ASYNC_INIT,
                INIT,
                DESTROY,
@@ -222,6 +230,8 @@ public final class ParsleyMetaData
    {
       TAG_MAP.put( INJECT.getName(),
                    INJECT );
+      TAG_MAP.put( COMMAND_COMPLETE.getName(),
+                   COMMAND_COMPLETE );
       TAG_MAP.put( INJECT_CONSTRUCTOR.getName(),
                    INJECT_CONSTRUCTOR );
       TAG_MAP.put( MANAGED_EVENTS.getName(),
@@ -262,5 +272,19 @@ public final class ParsleyMetaData
    public static boolean isParsleyMetaData( final String name )
    {
       return TAG_MAP.containsKey( name );
+   }
+   
+   public static Map< String, MetaDataTag > getPossibleMetaDataFromLocation( Location location )
+   {
+      Map< String, MetaDataTag > tags = new HashMap< String, MetaDataTag >();
+      
+      for ( MetaDataTag metaDataTag : ALL_TAGS )
+      {
+         if ( metaDataTag.getPlacedOn().contains( location ) )
+         {
+            tags.put( metaDataTag.getName(), metaDataTag );
+         }
+      }
+      return tags;
    }
 }
