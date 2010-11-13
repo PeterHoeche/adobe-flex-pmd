@@ -108,7 +108,7 @@ public class SomeClass
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.naming.IncorrectClassCase"
-		message="A class name must start by a majuscule character">
+		message="A class name must start by an uppercase character">
 		<description></description>
 		<priority>3</priority>
 		<example>

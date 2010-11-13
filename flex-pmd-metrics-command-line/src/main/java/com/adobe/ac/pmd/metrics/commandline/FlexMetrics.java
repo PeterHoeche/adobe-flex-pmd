@@ -43,6 +43,7 @@ import org.dom4j.DocumentException;
 
 import com.adobe.ac.pmd.CommandLineOptions;
 import com.adobe.ac.pmd.CommandLineUtils;
+import com.adobe.ac.pmd.LoggerUtils;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.JSAPResult;
@@ -59,7 +60,7 @@ public final class FlexMetrics
                                                  PMDException,
                                                  DocumentException
    {
-      LOGGER.setLevel( Level.SEVERE );
+      new LoggerUtils().loadConfiguration();
       startFlexMetrics( args );
       LOGGER.info( "FlexMetrics terminated" );
       System.exit( 0 ); // NOPMD

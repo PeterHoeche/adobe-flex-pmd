@@ -37,7 +37,7 @@
 	xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 	
 	<description>
-      The Empty ruleset contains a collection of rules detecting empty statements.
+      The Event ruleset contains a collection of rules related to event bad practices.
 	</description>
 	
 	<rule class="com.adobe.ac.pmd.rules.event.EventMissingCloneFunctionRule"

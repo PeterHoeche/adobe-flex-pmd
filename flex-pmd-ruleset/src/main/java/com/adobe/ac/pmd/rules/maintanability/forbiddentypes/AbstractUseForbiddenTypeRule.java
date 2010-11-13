@@ -114,8 +114,12 @@ public abstract class AbstractUseForbiddenTypeRule extends AbstractAstFlexRule
 
    private void findViolationsInReturnType( final IFunction function )
    {
-      tryToAddViolation( function.getReturnType().getInternalNode(),
-                         function.getReturnType().toString() );
+      if ( function != null
+            && function.getReturnType() != null )
+      {
+         tryToAddViolation( function.getReturnType().getInternalNode(),
+                            function.getReturnType().toString() );
+      }
    }
 
    private void tryToAddViolation( final IParserNode node,
