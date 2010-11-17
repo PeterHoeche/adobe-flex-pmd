@@ -114,9 +114,9 @@ public class EmptyRuleTest extends FlexPmdTestBase
       assertEquals( 2,
                     positions.size() );
       assertEquals( "Begining line is not correct at 0th violation on ",
-                    positions.get( 0 ).message );
+                    positions.get( 0 ).getMessage() );
       assertEquals( "Ending line is not correct at 0th violation on ",
-                    positions.get( 1 ).message );
+                    positions.get( 1 ).getMessage() );
    }
 
    @Test
