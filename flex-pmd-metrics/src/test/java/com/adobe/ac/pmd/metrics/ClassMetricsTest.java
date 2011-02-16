@@ -87,6 +87,25 @@ public class ClassMetricsTest extends FlexPmdTestBase
    }
 
    @Test
+   public void testBug232() throws PMDException
+   {
+      final IFlexFile file = getTestFiles().get( "bug.FlexPMD232.as" );
+      final IParserNode ast = FileSetUtils.buildAst( file );
+      final IClass classNode = NodeFactory.createPackage( ast ).getClassNode();
+      final ClassMetrics classMetrics = ClassMetrics.create( "bug",
+                                                             new File( file.getFilePath() ),
+                                                             InternalFunctionMetrics.create( new ProjectMetrics(),
+                                                                                             file.getFullyQualifiedName(),
+                                                                                             classNode ),
+                                                             classNode );
+
+      assertEquals( "<object><name>bug.FlexPMD232</name><ccn>4</ccn><ncss>7</ncss><javadocs>0</javadocs>"
+                          + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
+                          + "<single_comment_lines>0</single_comment_lines><functions>1</functions></object>",
+                    classMetrics.toXmlString() );
+   }
+
+   @Test
    public void testToXmlString() throws PMDException
    {
       final IFlexFile file = getTestFiles().get( "RadonDataGrid.as" );

@@ -118,17 +118,29 @@ public class AS3Parser implements IAS3Parser
       return scn;
    }
 
+   final void nextToken() throws TokenException
+   {
+      nextToken( false );
+   }
+
    /**
     * Get the next token Skip comments and newlines for now In the end we want
     * to keep them though.
     * 
     * @throws TokenException
     */
-   final void nextToken() throws TokenException
+   final void nextToken( final boolean ignoreDocumentation ) throws TokenException
    {
       do
       {
-         nextTokenAllowNewLine();
+         if ( ignoreDocumentation )
+         {
+            nextTokenIgnoringDocumentation();
+         }
+         else
+         {
+            nextTokenAllowNewLine();
+         }
       }
       while ( tok.getText().equals( NEW_LINE ) );
    }
@@ -1742,7 +1754,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseAndExpression() );
       }
       return result.numChildren() > 1 ? result

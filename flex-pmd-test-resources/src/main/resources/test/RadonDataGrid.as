@@ -61,7 +61,7 @@ package com.adobe.radon.core.controls
             resizableColumns = false;
 
             if ( true )
-            {
+            {if (!EligibigityConflictController.getInstance().canDisplayWhileRecording(ssi, true)){}
             }
         }
 

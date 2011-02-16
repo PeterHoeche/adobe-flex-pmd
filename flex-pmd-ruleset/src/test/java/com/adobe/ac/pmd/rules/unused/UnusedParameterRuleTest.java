@@ -41,11 +41,14 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
    @Override
    protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      final LinkedHashMap< String, ViolationPosition[] > files = new LinkedHashMap< String, ViolationPosition[] >();
+      new LinkedHashMap< String, ViolationPosition[] >();
 
       return new ExpectedViolation[]
       { new ExpectedViolation( "cairngorm.NonBindableModelLocator.as", new ViolationPosition[]
        { new ViolationPosition( 43 ) } ),
+                  new ExpectedViolation( "bug.FlexPMD232.as", new ViolationPosition[]
+                  { new ViolationPosition( 35 ),
+                              new ViolationPosition( 35 ) } ),
                   new ExpectedViolation( "com.adobe.ac.ncss.BigImporterModel.as", new ViolationPosition[]
                   { new ViolationPosition( 62 ),
                               new ViolationPosition( 62 ),

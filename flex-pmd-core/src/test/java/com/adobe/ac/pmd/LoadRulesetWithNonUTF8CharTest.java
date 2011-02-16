@@ -47,6 +47,6 @@ public class LoadRulesetWithNonUTF8CharTest extends AbstractEntireRulesetTest
    @Override
    protected int getViolatedFilesNb()
    {
-      return 58;
+      return 59;
    }
 }

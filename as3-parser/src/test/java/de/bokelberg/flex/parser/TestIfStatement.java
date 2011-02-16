@@ -37,6 +37,17 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 public class TestIfStatement extends AbstractStatementTest
 {
    @Test
+   public void testBug232() throws TokenException
+   {
+      assertStatement( "",
+                       "if (true || /* comment */!false) ) )",
+                       "<if line=\"1\"><condition line=\"1\"><or line=\"1\"><primary line=\"1\">"
+                             + "true</primary><op line=\"1\">||</op><not line=\"1\"><primary "
+                             + "line=\"1\">false</primary></not></or></condition><primary "
+                             + "line=\"1\">)</primary></if>" );
+   }
+
+   @Test
    public void testIf() throws TokenException
    {
       assertStatement( "1",

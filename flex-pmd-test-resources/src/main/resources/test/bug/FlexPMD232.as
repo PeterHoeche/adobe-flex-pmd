@@ -28,36 +28,21 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.empty;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
+package src.live ;
 {
-   @Override
-   protected ExpectedViolation[] getExpectedViolatingFiles()
-   {
-      return new ExpectedViolation[]
-      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
-       { new ViolationPosition( 91 ),
-                   new ViolationPosition( 87 ),
-                   new ViolationPosition( 83 ) } ),
-                  new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
-                  { new ViolationPosition( 578 ),
-                              new ViolationPosition( 584 ) } ),
-                  new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
-                  { new ViolationPosition( 64 ),
-                              new ViolationPosition( 190 ) } ),
-                  new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
-                  { new ViolationPosition( 106 ),
-                              new ViolationPosition( 113 ) } ) };
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new EmptyIfStmtRule();
-   }
+	class LiveRecording13
+	{
+		public function recordNoCheckTimeShifting(program:EpgProgramShort, epgDay:EpgDay, channelNumber:Number):Void
+		{		
+			if (channelNumber != Zapping.getInstance().getCurrentLCN() &&
+				( (aPossibilities.length == 0) 
+					|| /* Shouldn't be necessery to test because of getTheBestPossibleUriToRecord() */
+					!EligibigityConflictController.getInstance().canRecordWhileDisplaying(uriToRecord, videoDefToRecord)
+				) 
+			)
+			{
+				return ;
+			}
+		}
+	}
 }
