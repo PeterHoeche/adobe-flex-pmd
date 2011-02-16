@@ -97,11 +97,6 @@ public class LSOSecureFalseRule extends AbstractRegexpBasedRule
       {
          final String secureFlag = matcher.group( 1 ).trim();
 
-         if ( secureFlag == null )
-         {
-            return false;
-         }
-
          if ( secureFlag.equalsIgnoreCase( "false" ) )
          {
             return true;

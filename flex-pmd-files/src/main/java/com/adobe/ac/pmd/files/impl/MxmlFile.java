@@ -64,6 +64,91 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       }
    }
 
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getActualScriptBlock()
+    */
+   public final String[] getActualScriptBlock()
+   {
+      return actualScriptBlock; // NOPMD
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getBeginningScriptBlock()
+    */
+   public int getBeginningScriptBlock()
+   {
+      return startLine;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentClosingTag()
+    */
+   @Override
+   public final String getCommentClosingTag()
+   {
+      return "-->";
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentOpeningTag()
+    */
+   @Override
+   public final String getCommentOpeningTag()
+   {
+      return "<!--";
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getEndingScriptBlock()
+    */
+   public int getEndingScriptBlock()
+   {
+      return endLine;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IMxmlFile#getScriptBlock()
+    */
+   public final String[] getScriptBlock()
+   {
+      return scriptBlock; // NOPMD by xagnetti on 7/7/09 3:15 PM
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.IFlexFile#getSingleLineComment()
+    */
+   public String getSingleLineComment()
+   {
+      return getCommentOpeningTag();
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMainApplication()
+    */
+   @Override
+   public final boolean isMainApplication()
+   {
+      return mainApplication;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMxml()
+    */
+   @Override
+   public final boolean isMxml()
+   {
+      return true;
+   }
+
    private void computeIfIsMainApplication()
    {
       for ( final String line : getLines() )
@@ -102,7 +187,8 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       scriptLines.set( 0,
                        packageLine );
 
-      if ( metaDataLines.isEmpty() )
+      if ( metaDataLines.isEmpty()
+            || metaDataLines.get( 0 ).compareTo( "HostComponent" ) == 0 )
       {
          if ( scriptLines.size() > 1 )
          {
@@ -145,9 +231,14 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
             if ( line.contains( "</" ) )
             {
                end = currentLineIndex;
+               if ( line.contains( "<fx" )
+                     || line.contains( "<mx" ) )
+               {
+                  start = end;
+               }
                break;
             }
-            else if ( line.contains( "<" ) )
+            if ( line.contains( "<" ) )
             {
                start = currentLineIndex + 1;
             }
@@ -209,53 +300,6 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
       return scriptLines;
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IMxmlFile#getActualScriptBlock()
-    */
-   public final String[] getActualScriptBlock()
-   {
-      return actualScriptBlock; // NOPMD
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IMxmlFile#getBeginningScriptBlock()
-    */
-   public int getBeginningScriptBlock()
-   {
-      return startLine;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentClosingTag()
-    */
-   @Override
-   public final String getCommentClosingTag()
-   {
-      return "-->";
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#getCommentOpeningTag()
-    */
-   @Override
-   public final String getCommentOpeningTag()
-   {
-      return "<!--";
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IMxmlFile#getEndingScriptBlock()
-    */
-   public int getEndingScriptBlock()
-   {
-      return endLine;
-   }
-
    private int getFirstMetaDataLine( final List< String > lines )
    {
       for ( int i = 0; i < lines.size(); i++ )
@@ -269,44 +313,6 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
          }
       }
       return 0;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IMxmlFile#getScriptBlock()
-    */
-   public final String[] getScriptBlock()
-   {
-      return scriptBlock; // NOPMD by xagnetti on 7/7/09 3:15 PM
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.IFlexFile#getSingleLineComment()
-    */
-   public String getSingleLineComment()
-   {
-      return getCommentOpeningTag();
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMainApplication()
-    */
-   @Override
-   public final boolean isMainApplication()
-   {
-      return mainApplication;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.files.impl.AbstractFlexFile#isMxml()
-    */
-   @Override
-   public final boolean isMxml()
-   {
-      return true;
    }
 
    // private String printMetaData( final List< String > metaDataLines )

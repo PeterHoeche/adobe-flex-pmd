@@ -45,6 +45,7 @@ import org.junit.Test;
 
 import com.adobe.ac.pmd.FlexPmdTestBase;
 import com.adobe.ac.pmd.files.FileSetUtils;
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 import com.adobe.ac.pmd.nodes.MetaData;
 import com.adobe.ac.pmd.nodes.Modifier;
@@ -53,6 +54,7 @@ import com.adobe.ac.pmd.parser.exceptions.TokenException;
 
 public class ClassNodeTest extends FlexPmdTestBase
 {
+   private IClass bug233;
    private IClass modelLocator;
    private IClass nonBindableModelLocator;
    private IClass radonDataGrid;
@@ -64,6 +66,9 @@ public class ClassNodeTest extends FlexPmdTestBase
    {
       IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "RadonDataGrid.as" ) );
       radonDataGrid = NodeFactory.createPackage( ast ).getClassNode();
+      IFlexFile file = getTestFiles().get( "bug.FlexPMD233.mxml" );
+      ast = FileSetUtils.buildAst( file );
+      bug233 = NodeFactory.createPackage( ast ).getClassNode();
       ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.BindableModelLocator.as" ) );
       modelLocator = NodeFactory.createPackage( ast ).getClassNode();
       ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.NonBindableModelLocator.as" ) );
@@ -74,6 +79,12 @@ public class ClassNodeTest extends FlexPmdTestBase
    public void testBlock()
    {
       Assert.assertNull( radonDataGrid.getBlock() );
+   }
+
+   @Test
+   public void testFlexPMD233()
+   {
+      Assert.assertNull( bug233.getBlock() );
    }
 
    @Test

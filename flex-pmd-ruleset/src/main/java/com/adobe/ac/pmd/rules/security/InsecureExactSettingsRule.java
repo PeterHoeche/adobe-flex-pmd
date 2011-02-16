@@ -96,15 +96,7 @@ public class InsecureExactSettingsRule extends AbstractRegexpBasedRule
 
       if ( matcher.matches() )
       {
-         final String setting = matcher.group( 1 ).trim();
-
-         if ( setting == null )
-         {
-            return false;
-         }
-
-         result = setting.equalsIgnoreCase( "false" );
-
+         result = matcher.group( 1 ).trim().equalsIgnoreCase( "false" );
       }
       return result;
    }

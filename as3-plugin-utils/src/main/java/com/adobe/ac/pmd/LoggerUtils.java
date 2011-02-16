@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
 
-public class LoggerUtils
+public final class LoggerUtils
 {
    public void loadConfiguration()
    {
@@ -42,9 +42,8 @@ public class LoggerUtils
       {
          if ( System.getProperty( "java.util.logging.config.file" ) == null )
          {
-            InputStream resourceAsStream = getClass().getResourceAsStream( "/logger.properties" );
-            LogManager.getLogManager()
-                      .readConfiguration( resourceAsStream );
+            final InputStream resourceAsStream = getClass().getResourceAsStream( "/logger.properties" );
+            LogManager.getLogManager().readConfiguration( resourceAsStream );
          }
       }
       catch ( final SecurityException e )

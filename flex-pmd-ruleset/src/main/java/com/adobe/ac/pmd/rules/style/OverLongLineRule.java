@@ -44,7 +44,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedFlexRule;
  */
 public class OverLongLineRule extends AbstractMaximizedFlexRule
 {
-   private int currentLineLength;
+   private static final int DEFAULT_THRESHOLD = 120;
+   private int              currentLineLength;
 
    /*
     * (non-Javadoc)
@@ -86,6 +87,7 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
     * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
     * getActualValueForTheCurrentViolation()
     */
+   @Override
    public final int getActualValueForTheCurrentViolation()
    {
       return currentLineLength;
@@ -97,9 +99,10 @@ public class OverLongLineRule extends AbstractMaximizedFlexRule
     * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
     * ()
     */
+   @Override
    public final int getDefaultThreshold()
    {
-      return 120;
+      return DEFAULT_THRESHOLD;
    }
 
    /*

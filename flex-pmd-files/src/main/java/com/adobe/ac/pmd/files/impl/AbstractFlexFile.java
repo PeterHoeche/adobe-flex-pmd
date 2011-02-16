@@ -158,7 +158,8 @@ abstract class AbstractFlexFile implements IFlexFile
    @Override
    public final boolean equals( final Object obj )
    {
-      return hashCode() == ( ( AbstractFlexFile ) obj ).hashCode();
+      return obj != null
+            && obj instanceof AbstractFlexFile && hashCode() == ( ( AbstractFlexFile ) obj ).hashCode();
    }
 
    /*

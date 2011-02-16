@@ -43,6 +43,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
  */
 public class FatControllerRule extends AbstractAstFlexRule // NO_UCD
 {
+   private static final int DEFAULT_THRESHOLD = 5;
+
    /*
     * (non-Javadoc)
     * @see
@@ -73,7 +75,7 @@ public class FatControllerRule extends AbstractAstFlexRule // NO_UCD
 
          if ( methodsCount > 0
                && commandsCount
-                     / methodsCount > 5 )
+                     / methodsCount > DEFAULT_THRESHOLD )
          {
             addViolation( classNode );
          }

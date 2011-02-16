@@ -98,11 +98,6 @@ public class LocalConnectionStarRule extends AbstractRegexpBasedRule
       {
          final String objectName = matcher.group( 1 ).trim();
 
-         if ( objectName == null )
-         {
-            return false;
-         }
-
          if ( objectName.equalsIgnoreCase( "Security" ) )
          {
             return false;

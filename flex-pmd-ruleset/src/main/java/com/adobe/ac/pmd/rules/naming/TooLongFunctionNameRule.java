@@ -36,7 +36,8 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
 
 public class TooLongFunctionNameRule extends AbstractMaximizedAstFlexRule
 {
-   private int currentMethodNameLength;
+   private static final int DEFAULT_THRESHOLD = 25;
+   private int              currentMethodNameLength;
 
    @Override
    public int getActualValueForTheCurrentViolation()
@@ -47,7 +48,7 @@ public class TooLongFunctionNameRule extends AbstractMaximizedAstFlexRule
    @Override
    public int getDefaultThreshold()
    {
-      return 25;
+      return DEFAULT_THRESHOLD;
    }
 
    @Override

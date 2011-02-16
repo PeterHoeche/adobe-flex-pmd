@@ -39,13 +39,15 @@ import com.adobe.ac.pmd.rules.core.thresholded.AbstractMaximizedAstFlexRule;
  */
 public class ExcessiveImportRule extends AbstractMaximizedAstFlexRule
 {
-   private int importNumber;
+   private static final int DEFAULT_THRESHOLD = 15;
+   private int              importNumber;
 
    /*
     * (non-Javadoc)
     * @seecom.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#
     * getActualValueForTheCurrentViolation()
     */
+   @Override
    public final int getActualValueForTheCurrentViolation()
    {
       return importNumber;
@@ -57,9 +59,10 @@ public class ExcessiveImportRule extends AbstractMaximizedAstFlexRule
     * com.adobe.ac.pmd.rules.core.thresholded.IThresholdedRule#getDefaultThreshold
     * ()
     */
+   @Override
    public final int getDefaultThreshold()
    {
-      return 15;
+      return DEFAULT_THRESHOLD;
    }
 
    /*

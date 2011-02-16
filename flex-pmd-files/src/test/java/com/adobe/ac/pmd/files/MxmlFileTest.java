@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.files;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +41,7 @@ import com.adobe.ac.pmd.FlexPmdTestBase;
 public class MxmlFileTest extends FlexPmdTestBase
 {
    private IMxmlFile bug141;
+   private IMxmlFile bug233;
    private IMxmlFile deleteRenderer;
    private IMxmlFile iterationsList;
    private IMxmlFile nestedComponent;
@@ -48,6 +50,7 @@ public class MxmlFileTest extends FlexPmdTestBase
    public void setUp()
    {
       bug141 = ( IMxmlFile ) getTestFiles().get( "bug.FlexPMD141a.mxml" );
+      bug233 = ( IMxmlFile ) getTestFiles().get( "bug.FlexPMD233.mxml" );
       iterationsList = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.IterationsList.mxml" );
       nestedComponent = ( IMxmlFile ) getTestFiles().get( "com.adobe.ac.ncss.mxml.NestedComponent.mxml" );
       deleteRenderer = ( IMxmlFile ) getTestFiles().get( "DeleteButtonRenderer.mxml" );
@@ -83,6 +86,15 @@ public class MxmlFileTest extends FlexPmdTestBase
                     lines[ 39 ].trim() );
       assertEquals( "}}",
                     lines[ lines.length - 1 ] );
+   }
+
+   @Test
+   public void testFlexPMD233()
+   {
+      final String[] lines = bug233.getScriptBlock();
+
+      Assert.assertEquals( "",
+                           lines[ 47 ] );
    }
 
    @Test

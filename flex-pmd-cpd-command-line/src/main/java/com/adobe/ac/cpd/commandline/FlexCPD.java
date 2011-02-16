@@ -179,7 +179,10 @@ public final class FlexCPD
 
       if ( !parameters.getOutputFile().exists() )
       {
-         parameters.getOutputFile().createNewFile();
+         if ( parameters.getOutputFile().createNewFile() == false )
+         {
+            LOGGER.warning( "Could not create a new output file" );
+         }
       }
 
       final FileReporter reporter = new FileReporter( parameters.getOutputFile(), ENCODING );

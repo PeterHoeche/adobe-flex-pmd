@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -60,6 +61,8 @@ public abstract class AbstractMetrics
          return file.isDirectory();
       }
    }
+
+   private static final Logger LOGGER = Logger.getLogger( AbstractMetrics.class.getName() );
 
    private static Collection< File > listFiles( final File directory,
                                                 final FilenameFilter filter,
@@ -136,7 +139,10 @@ public abstract class AbstractMetrics
 
       if ( !outputFile.exists() )
       {
-         outputFile.createNewFile();
+         if ( outputFile.createNewFile() == false )
+         {
+            LOGGER.warning( "Could not create a new output file" );
+         }
       }
 
       final XMLWriter writer = new XMLWriter( new FileOutputStream( outputFile ), format );
