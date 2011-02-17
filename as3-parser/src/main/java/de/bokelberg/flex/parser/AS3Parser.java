@@ -376,7 +376,7 @@ public class AS3Parser implements IAS3Parser
       }
       else
       {
-         nextToken();
+         nextToken( true );
       }
       return result;
    }
@@ -501,7 +501,7 @@ public class AS3Parser implements IAS3Parser
       result.addChild( parseNameTypeInit() );
       while ( tokIs( Operators.COMMA ) )
       {
-         nextToken();
+         nextToken( true );
          result.addChild( parseNameTypeInit() );
       }
       return result;
@@ -679,7 +679,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseMultiplicativeExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -702,7 +702,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseBitwiseOrExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -735,7 +735,7 @@ public class AS3Parser implements IAS3Parser
       result.addChild( node );
       while ( tokIs( Operators.LEFT_SQUARE_BRACKET ) )
       {
-         nextToken(); // [
+         nextToken( true );
          result.addChild( parseExpression() );
          consume( Operators.RIGHT_SQUARE_BRACKET );
       }
@@ -776,7 +776,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -795,7 +795,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseEqualityExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -814,7 +814,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseBitwiseXorExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -833,7 +833,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseBitwiseAndExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -886,15 +886,15 @@ public class AS3Parser implements IAS3Parser
                                                     tok.getLine(),
                                                     tok.getColumn(),
                                                     tok.getText() ) );
-      nextToken(); // name
+      nextToken( true ); // name
       if ( tokIs( Operators.COLUMN ) )
       {
-         nextToken(); // :
+         nextToken( true ); // :
          result.addChild( Node.create( NodeKind.TYPE,
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken(); // type
+         nextToken( true ); // type
       }
       consume( Operators.RIGHT_PARENTHESIS );
       result.addChild( parseBlock() );
@@ -931,14 +931,14 @@ public class AS3Parser implements IAS3Parser
                        tok.getLine(),
                        tok.getColumn(),
                        tok.getText() );
-      nextToken(); // name
+      nextToken( true ); // name
       result.addChild( convertMeta( meta ) );
       result.addChild( convertModifiers( modifier ) );
       do
       {
          if ( tokIs( KeyWords.EXTENDS ) )
          {
-            nextToken(); // extends
+            nextToken( true ); // extends
             result.addChild( NodeKind.EXTENDS,
                              tok.getLine(),
                              tok.getColumn(),
@@ -1030,9 +1030,9 @@ public class AS3Parser implements IAS3Parser
                                                tok.getLine(),
                                                tok.getColumn(),
                                                result );
-         nextToken(); // ?
+         nextToken( true ); // ?
          conditional.addChild( parseExpression() );
-         nextToken(); // :
+         nextToken( true ); // :
          conditional.addChild( parseExpression() );
 
          return conditional;
@@ -1071,7 +1071,7 @@ public class AS3Parser implements IAS3Parser
 
    private Node parseDecrement( final Node node ) throws TokenException
    {
-      nextToken();
+      nextToken( true );
       final Node result = Node.create( NodeKind.POST_DEC,
                                        tok.getLine(),
                                        tok.getColumn() );
@@ -1095,7 +1095,7 @@ public class AS3Parser implements IAS3Parser
       result.addChild( parseCondition() );
       if ( tokIs( Operators.SEMI_COLUMN ) )
       {
-         nextToken();
+         nextToken( true );
       }
       return result;
    }
@@ -1137,7 +1137,7 @@ public class AS3Parser implements IAS3Parser
                             tok.getLine(),
                             tok.getColumn(),
                             Operators.SEMI_COLUMN.toString() );
-      nextToken();
+      nextToken( true );
       return result;
    }
 
@@ -1168,7 +1168,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseRelationalExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -1183,7 +1183,7 @@ public class AS3Parser implements IAS3Parser
                                        parseAssignmentExpression() );
       while ( tokIs( Operators.COMMA ) )
       {
-         nextToken();
+         nextToken( true );
          result.addChild( parseAssignmentExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -1193,7 +1193,7 @@ public class AS3Parser implements IAS3Parser
    private Node parseFinally() throws TokenException
    {
       Node result;
-      nextToken();
+      nextToken( true );
       result = Node.create( NodeKind.FINALLY,
                             tok.getLine(),
                             tok.getColumn(),
@@ -1380,7 +1380,7 @@ public class AS3Parser implements IAS3Parser
       result.addChild( parseStatement() );
       if ( tokIs( KeyWords.ELSE ) )
       {
-         nextToken();
+         nextToken( true );
          result.addChild( parseStatement() );
       }
       return result;
@@ -1405,7 +1405,7 @@ public class AS3Parser implements IAS3Parser
                        parseQualifiedName() );
       while ( tokIs( Operators.COMMA ) )
       {
-         nextToken();
+         nextToken( true );
          result.addChild( NodeKind.IMPLEMENTS,
                           tok.getLine(),
                           tok.getColumn(),
@@ -1464,7 +1464,7 @@ public class AS3Parser implements IAS3Parser
 
    private Node parseIncrement( final Node node ) throws TokenException
    {
-      nextToken();
+      nextToken( true );
       final Node result = Node.create( NodeKind.POST_INC,
                                        tok.getLine(),
                                        tok.getColumn() );
@@ -1549,8 +1549,7 @@ public class AS3Parser implements IAS3Parser
                                tok.getLine(),
                                tok.getColumn(),
                                tok.getText() );
-         nextToken();
-
+         nextToken( true );
       }
       result.addChild( parseParameterList() );
       result.addChild( parseOptionalType() );
@@ -1612,7 +1611,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseUnaryExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -1635,7 +1634,7 @@ public class AS3Parser implements IAS3Parser
                        tok.getLine(),
                        tok.getColumn(),
                        tok.getText() );
-      nextToken(); // name
+      nextToken( true ); // name
       result.addChild( parseOptionalType() );
       result.addChild( parseOptionalInit() );
       return result;
@@ -1713,7 +1712,7 @@ public class AS3Parser implements IAS3Parser
       Node result = null;
       if ( tokIs( Operators.EQUAL ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.INIT,
                                tok.getLine(),
                                tok.getColumn(),
@@ -1736,7 +1735,7 @@ public class AS3Parser implements IAS3Parser
                                  "" );
       if ( tokIs( Operators.COLUMN ) )
       {
-         nextToken();
+         nextToken( true );
          result = parseType();
       }
       return result;
@@ -1800,12 +1799,12 @@ public class AS3Parser implements IAS3Parser
                                        tok.getColumn() );
       if ( tokIs( Operators.REST_PARAMETERS ) )
       {
-         nextToken(); // ...
+         nextToken( true ); // ...
          final Node rest = Node.create( NodeKind.REST,
                                         tok.getLine(),
                                         tok.getColumn(),
                                         tok.getText() );
-         nextToken(); // rest
+         nextToken( true ); // rest
          result.addChild( rest );
       }
       else
@@ -1832,7 +1831,7 @@ public class AS3Parser implements IAS3Parser
          result.addChild( parseParameter() );
          if ( tokIs( Operators.COMMA ) )
          {
-            nextToken();
+            nextToken( true );
          }
          else
          {
@@ -1890,7 +1889,7 @@ public class AS3Parser implements IAS3Parser
                                           tok.getColumn(),
                                           tok.getText() ) );
          }
-         nextToken();
+         nextToken( true );
          result.addChild( parseShiftExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -1905,7 +1904,7 @@ public class AS3Parser implements IAS3Parser
       if ( tokIs( NEW_LINE )
             || tokIs( Operators.SEMI_COLUMN ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.RETURN,
                                tok.getLine(),
                                tok.getColumn(),
@@ -1936,7 +1935,7 @@ public class AS3Parser implements IAS3Parser
                                        tok.getLine(),
                                        tok.getColumn(),
                                        tok.getText() ) );
-         nextToken();
+         nextToken( true );
          result.addChild( parseAdditiveExpression() );
       }
       return result.numChildren() > 1 ? result
@@ -2000,7 +1999,7 @@ public class AS3Parser implements IAS3Parser
          }
          else if ( tokIs( KeyWords.CASE ) )
          {
-            nextToken(); // case
+            nextToken( true ); // case
             final Node caseNode = Node.create( NodeKind.CASE,
                                                tok.getLine(),
                                                tok.getColumn(),
@@ -2011,7 +2010,7 @@ public class AS3Parser implements IAS3Parser
          }
          else if ( tokIs( KeyWords.DEFAULT ) )
          {
-            nextToken(); // default
+            nextToken( true ); // default
             consume( Operators.COLUMN );
             final Node caseNode = Node.create( NodeKind.CASE,
                                                tok.getLine(),
@@ -2088,7 +2087,7 @@ public class AS3Parser implements IAS3Parser
    private Node parseTry() throws TokenException
    {
       Node result;
-      nextToken();
+      nextToken( true );
       result = Node.create( NodeKind.TRY,
                             tok.getLine(),
                             tok.getColumn(),
@@ -2109,7 +2108,7 @@ public class AS3Parser implements IAS3Parser
                                tok.getLine(),
                                tok.getColumn(),
                                tok.getText() );
-         nextToken();
+         nextToken( true );
       }
       return result;
    }
@@ -2119,7 +2118,7 @@ public class AS3Parser implements IAS3Parser
       Node result;
       if ( tokIs( KeyWords.DELETE ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.DELETE,
                                tok.getLine(),
                                tok.getColumn(),
@@ -2127,7 +2126,7 @@ public class AS3Parser implements IAS3Parser
       }
       else if ( tokIs( KeyWords.VOID ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.VOID,
                                tok.getLine(),
                                tok.getColumn(),
@@ -2135,7 +2134,7 @@ public class AS3Parser implements IAS3Parser
       }
       else if ( tokIs( KeyWords.TYPEOF ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.TYPEOF,
                                tok.getLine(),
                                tok.getColumn(),
@@ -2143,7 +2142,7 @@ public class AS3Parser implements IAS3Parser
       }
       else if ( tokIs( "!" ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.NOT,
                                tok.getLine(),
                                tok.getColumn(),
@@ -2151,7 +2150,7 @@ public class AS3Parser implements IAS3Parser
       }
       else if ( tokIs( "~" ) )
       {
-         nextToken();
+         nextToken( true );
          result = Node.create( NodeKind.B_NOT,
                                tok.getLine(),
                                tok.getColumn(),
