@@ -96,5 +96,9 @@ package com.adobe.ac
 		<example>
       </example>
 	</rule>
+	
+	<rule class="com.adobe.ac.pmd.rules.style.TabUsedAsIndentorRule" message="Tabulations are not accepted for indentation. Please use spaces instead.">
+		<priority>3</priority>
+	</rule>
 		
 </ruleset>
