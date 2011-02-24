@@ -43,6 +43,8 @@ public class CapitalizeConstantsRuleTest extends AbstractAstFlexRuleTest
       { new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
        { new ViolationPosition( 45 ),
                    new ViolationPosition( 46 ) } ),
+                  new ExpectedViolation( "bug.FlexPMD233b.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 66 ) } ),
                   new ExpectedViolation( "com.adobe.ac.ncss.ArrayVO.as", new ViolationPosition[]
                   { new ViolationPosition( 39 ),
                               new ViolationPosition( 40 ) } ),

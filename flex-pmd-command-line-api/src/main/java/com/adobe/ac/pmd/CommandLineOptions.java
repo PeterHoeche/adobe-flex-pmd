@@ -33,6 +33,7 @@ package com.adobe.ac.pmd;
 public enum CommandLineOptions implements ICommandLineOptions
 {
    EXLUDE_PACKAGE("excludePackage"),
+   MXML_FACTOR("mxmlFactor"),
    OUTPUT("outputDirectory"),
    RULE_SET("ruleSet"),
    SOURCE_DIRECTORY("sourceDirectory");

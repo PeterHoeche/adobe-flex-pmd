@@ -42,9 +42,11 @@ import com.adobe.ac.pmd.metrics.engine.FlexMetrics;
 
 public class FlexMetricsAntTask extends Task
 {
-   private File outputFile;
+   private double mxmlFactor;
 
-   private File sourceDirectory;
+   private File   outputFile;
+
+   private File   sourceDirectory;
 
    @Override
    public final void execute()
@@ -54,7 +56,7 @@ public class FlexMetricsAntTask extends Task
 
       try
       {
-         new FlexMetrics( sourceDirectory ).execute( outputFile );
+         new FlexMetrics( sourceDirectory, mxmlFactor ).execute( outputFile );
       }
       catch ( final DocumentException e )
       {
@@ -64,6 +66,11 @@ public class FlexMetricsAntTask extends Task
       {
          throw new BuildException( e );
       }
+   }
+
+   public void setMxmlFactor( final double mxmlFactorToBeSet )
+   {
+      this.mxmlFactor = mxmlFactorToBeSet;
    }
 
    public final void setOutputFile( final File outputFileToBeSet )

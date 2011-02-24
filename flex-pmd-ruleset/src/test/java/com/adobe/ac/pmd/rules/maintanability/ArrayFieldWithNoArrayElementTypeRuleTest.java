@@ -41,7 +41,9 @@ public class ArrayFieldWithNoArrayElementTypeRuleTest extends AbstractAstFlexRul
    {
       return new ExpectedViolation[]
       { new ExpectedViolation( "fu.main.flex.TestRunnerApplication.mxml", new ViolationPosition[]
-      { new ViolationPosition( 48 ) } ) };
+       { new ViolationPosition( 48 ) } ),
+                  new ExpectedViolation( "bug.FlexPMD233b.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 66 ) } ) };
    }
 
    @Override

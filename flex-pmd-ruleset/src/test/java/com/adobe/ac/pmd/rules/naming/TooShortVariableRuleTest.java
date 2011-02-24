@@ -42,6 +42,8 @@ public class TooShortVariableRuleTest extends AbstractRegExpBasedRuleTest
       return new ExpectedViolation[]
       { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
        { new ViolationPosition( 68 ) } ),
+                  new ExpectedViolation( "bug.FlexPMD233b.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 102 ) } ),
                   new ExpectedViolation( "flexpmd114.a.Test.as", new ViolationPosition[]
                   { new ViolationPosition( 42 ) } ),
                   new ExpectedViolation( "flexpmd114.b.Test.as", new ViolationPosition[]

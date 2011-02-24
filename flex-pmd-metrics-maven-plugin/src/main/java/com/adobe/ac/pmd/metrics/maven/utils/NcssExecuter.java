@@ -56,20 +56,23 @@ import com.adobe.ac.pmd.metrics.engine.FlexMetrics;
 
 public final class NcssExecuter
 {
-   private final File outputDirectory;
-   private final File sourceLocation;
+   private final double mxmlFactor;
+   private final File   outputDirectory;
+   private final File   sourceLocation;
 
    public NcssExecuter( final File sourceLocationToBeSet,
-                        final File outputDirectoryToBeSet )
+                        final File outputDirectoryToBeSet,
+                        final double mxmlFactorToBeSet )
    {
       sourceLocation = sourceLocationToBeSet;
       outputDirectory = outputDirectoryToBeSet;
+      mxmlFactor = mxmlFactorToBeSet;
    }
 
    public void execute() throws MavenReportException,
                         DocumentException,
                         IOException
    {
-      new FlexMetrics( sourceLocation ).execute( outputDirectory );
+      new FlexMetrics( sourceLocation, mxmlFactor ).execute( outputDirectory );
    }
 }

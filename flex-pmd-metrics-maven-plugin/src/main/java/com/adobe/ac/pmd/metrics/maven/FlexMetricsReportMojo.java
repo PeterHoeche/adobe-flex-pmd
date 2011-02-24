@@ -74,6 +74,14 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
    private int                  lineThreshold;
 
    /**
+    * Specifies the factor the mxml files nb of lines will be taken into account
+    * 
+    * @parameter default-value="0"
+    * @required
+    */
+   private double               mxmlFactor;
+
+   /**
     * Specifies the directory where the HTML report will be generated.
     * 
     * @parameter expression="${project.reporting.outputDirectory}"
@@ -96,7 +104,6 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
     * @readonly
     */
    private List< MavenProject > reactorProjects;
-
    /**
     * @parameter 
     *            expression="${component.org.codehaus.doxia.site.renderer.SiteRenderer}"
@@ -104,6 +111,7 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
     * @readonly
     */
    private SiteRenderer         siteRenderer;
+
    /**
     * Specifies the location of the source files to be used.
     * 
@@ -351,7 +359,7 @@ public final class FlexMetricsReportMojo extends AbstractMavenReport
                + buildOutputFile() );
       }
       // run javaNCss and produce an temp xml file
-      new NcssExecuter( sourceDirectory, buildOutputFile() ).execute();
+      new NcssExecuter( sourceDirectory, buildOutputFile(), mxmlFactor ).execute();
       if ( !isTempReportGenerated() )
       {
          throw new MavenReportException( "Can't process temp ncss xml file." );

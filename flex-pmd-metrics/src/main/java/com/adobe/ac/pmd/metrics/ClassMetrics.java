@@ -32,6 +32,7 @@ package com.adobe.ac.pmd.metrics;
 
 import java.io.File;
 
+import com.adobe.ac.pmd.files.IFlexFile;
 import com.adobe.ac.pmd.nodes.IClass;
 
 public final class ClassMetrics extends AbstractNamedMetrics
@@ -39,31 +40,50 @@ public final class ClassMetrics extends AbstractNamedMetrics
    public static ClassMetrics create( final String packageFullName,
                                       final File fileInPackage,
                                       final InternalFunctionMetrics functionMetrics,
-                                      final IClass classNodeToBeSet )
+                                      final IClass classNode,
+                                      final IFlexFile file,
+                                      final double mxmlFactor )
    {
-      final int average = classNodeToBeSet == null ? 0
-                                                  : ( int ) Math.round( classNodeToBeSet.getAverageCyclomaticComplexity() );
-      final int asDocs = ( classNodeToBeSet == null
-            || classNodeToBeSet.getAsDoc() == null ? 0
-                                                  : MetricUtils.computeNbOfLines( classNodeToBeSet.getAsDoc()
-                                                                                                  .getStringValue() ) )
+      final int average = classNode == null ? 0
+                                           : ( int ) Math.round( classNode.getAverageCyclomaticComplexity() );
+      final int asDocs = ( classNode == null
+            || classNode.getAsDoc() == null ? 0
+                                           : MetricUtils.computeNbOfLines( classNode.getAsDoc()
+                                                                                    .getStringValue() ) )
             + ( functionMetrics == null ? 0
                                        : functionMetrics.getAsDocsInClass() );
-      final int multiLineComments = ( classNodeToBeSet == null ? 0
-                                                              : MetricUtils.computeMultiLineComments( classNodeToBeSet ) )
+      final int multiLineComments = ( classNode == null ? 0
+                                                       : MetricUtils.computeMultiLineComments( classNode ) )
             + ( functionMetrics == null ? 0
                                        : functionMetrics.getMultipleLineCommentInClass() );
-      return new ClassMetrics( functionMetrics == null ? 0
-                                                      : functionMetrics.getNcssInClass(), // NOPMD
-                               classNodeToBeSet == null ? 0
-                                                       : classNodeToBeSet.getFunctions().size(),
+      final int nonCommentStatements = computeStatements( functionMetrics,
+                                                          file,
+                                                          mxmlFactor );
+      return new ClassMetrics( nonCommentStatements, // NOPMD
+                               classNode == null ? 0
+                                                : classNode.getFunctions().size(),
                                fileInPackage.getName().replace( ".as",
-                                                                "" ),
+                                                                "" ).replace( ".mxml",
+                                                                              "" ),
                                packageFullName,
                                average,
                                asDocs,
                                multiLineComments,
-                               classNodeToBeSet );
+                               classNode );
+   }
+
+   private static int computeStatements( final InternalFunctionMetrics functionMetrics,
+                                         final IFlexFile file,
+                                         final double mxmlFactor )
+   {
+      int stts = functionMetrics == null ? 0
+                                        : functionMetrics.getNcssInClass();
+      if ( file.isMxml() )
+      {
+         stts += file.getLinesNb()
+               * mxmlFactor;
+      }
+      return stts;
    }
 
    private final IClass classNode;

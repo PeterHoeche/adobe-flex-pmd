@@ -59,12 +59,15 @@ public final class FlexMetrics extends AbstractMetrics
    private static final Logger           LOGGER      = Logger.getLogger( FlexMetrics.class.getName() );
 
    private final Map< String, IPackage > asts;
+   private final double                  mxmlFactor;
 
-   public FlexMetrics( final File sourceDirectoryPath )
+   public FlexMetrics( final File sourceDirectoryPath,
+                       final double mxmlFactorToBeSet )
    {
       super( sourceDirectoryPath );
 
       asts = initAst();
+      mxmlFactor = mxmlFactorToBeSet;
    }
 
    @Override
@@ -110,7 +113,9 @@ public final class FlexMetrics extends AbstractMetrics
                final ClassMetrics classMetrics = ClassMetrics.create( packageFullName,
                                                                       fileInPackage,
                                                                       functionMetrics,
-                                                                      classNode );
+                                                                      classNode,
+                                                                      file,
+                                                                      mxmlFactor );
                asDocsInPackage += classMetrics.getAsDocs();
                multipleLineCommentInPackage += classMetrics.getMultiLineComments();
                metrics.getClassMetrics().add( classMetrics );

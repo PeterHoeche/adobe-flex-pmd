@@ -41,7 +41,7 @@ import com.adobe.ac.pmd.files.IMxmlFile;
  */
 class MxmlFile extends AbstractFlexFile implements IMxmlFile
 {
-   private static final String METADATA_TAG    = "Metadata>";
+   private static final String METADATA_TAG    = "Metadata";
    private String[]            actualScriptBlock;
    private int                 endLine;
    private boolean             mainApplication = false;
@@ -166,13 +166,23 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
    {
       int currentLineIndex = startingLineIndex + 1;
       while ( getLines().get( currentLineIndex ).contains( "CDATA[" )
-            || getLines().get( currentLineIndex ).contains( "/*" )
+            || getLines().get( currentLineIndex ).contains( "//" ) || containsCloseComment( currentLineIndex )
             || getLines().get( currentLineIndex ).trim().equals( "" ) )
       {
          currentLineIndex++;
       }
       return currentLineIndex
             - startingLineIndex;
+   }
+
+   private boolean containsCloseComment( final int currentLineIndex )
+   {
+      final boolean closedAsComment = getLines().get( currentLineIndex ).contains( "/*" )
+            && getLines().get( currentLineIndex ).contains( "*/" );
+      final boolean closeMxmlComment = getLines().get( currentLineIndex ).contains( "<!--" )
+            && getLines().get( currentLineIndex ).contains( "-->" );
+      return closedAsComment
+            || closeMxmlComment;
    }
 
    private void copyScriptLinesKeepingOriginalLineIndices()
@@ -230,7 +240,9 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
          {
             if ( line.contains( "</" ) )
             {
-               end = currentLineIndex;
+               end = currentLineIndex
+                     - ( getLines().get( currentLineIndex - 1 ).contains( "]]>" ) ? 1
+                                                                                 : 0 );
                if ( line.contains( "<fx" )
                      || line.contains( "<mx" ) )
                {
@@ -240,7 +252,9 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
             }
             if ( line.contains( "<" ) )
             {
-               start = currentLineIndex + 1;
+               start = currentLineIndex
+                     + ( getLines().get( currentLineIndex + 1 ).contains( "CDATA[" ) ? 2
+                                                                                    : 1 );
             }
          }
          currentLineIndex++;
@@ -258,11 +272,13 @@ class MxmlFile extends AbstractFlexFile implements IMxmlFile
 
       for ( final String line : getLines() )
       {
-         if ( line.contains( "Script>" ) )
+         if ( line.contains( "Script" ) )
          {
             if ( line.contains( "</" ) )
             {
-               endLine = currentLineIndex - 1;
+               endLine = currentLineIndex
+                     - ( getLines().get( currentLineIndex - 1 ).contains( "]]>" ) ? 1
+                                                                                 : 0 );
                break;
             }
             else if ( line.contains( "<" ) )

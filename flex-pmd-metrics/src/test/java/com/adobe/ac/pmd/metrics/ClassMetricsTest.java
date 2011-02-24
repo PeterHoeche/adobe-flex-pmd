@@ -58,7 +58,9 @@ public class ClassMetricsTest extends FlexPmdTestBase
                                                              InternalFunctionMetrics.create( new ProjectMetrics(),
                                                                                              file.getFullyQualifiedName(),
                                                                                              classNode ),
-                                                             classNode );
+                                                             classNode,
+                                                             file,
+                                                             0 );
 
       assertEquals( "<object><name>bug.FlexPMD157</name><ccn>0</ccn><ncss>3</ncss><javadocs>0</javadocs>"
                           + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
@@ -77,7 +79,9 @@ public class ClassMetricsTest extends FlexPmdTestBase
                                                              InternalFunctionMetrics.create( new ProjectMetrics(),
                                                                                              file.getFullyQualifiedName(),
                                                                                              classNode ),
-                                                             classNode );
+                                                             classNode,
+                                                             file,
+                                                             0 );
 
       assertEquals( "<object><name>bug.FlexPMD181</name><ccn>3</ccn><ncss>379</ncss><javadocs>1403"
                           + "</javadocs><javadoc_lines>1403</javadoc_lines><multi_comment_lines>4"
@@ -97,11 +101,34 @@ public class ClassMetricsTest extends FlexPmdTestBase
                                                              InternalFunctionMetrics.create( new ProjectMetrics(),
                                                                                              file.getFullyQualifiedName(),
                                                                                              classNode ),
-                                                             classNode );
+                                                             classNode,
+                                                             file,
+                                                             0 );
 
       assertEquals( "<object><name>bug.FlexPMD232</name><ccn>4</ccn><ncss>7</ncss><javadocs>0</javadocs>"
                           + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
                           + "<single_comment_lines>0</single_comment_lines><functions>1</functions></object>",
+                    classMetrics.toXmlString() );
+   }
+
+   @Test
+   public void testBug233() throws PMDException
+   {
+      final IFlexFile file = getTestFiles().get( "bug.Duane.mxml" );
+      final IParserNode ast = FileSetUtils.buildAst( file );
+      final IClass classNode = NodeFactory.createPackage( ast ).getClassNode();
+      final ClassMetrics classMetrics = ClassMetrics.create( "bug",
+                                                             new File( file.getFilePath() ),
+                                                             InternalFunctionMetrics.create( new ProjectMetrics(),
+                                                                                             file.getFullyQualifiedName(),
+                                                                                             classNode ),
+                                                             classNode,
+                                                             file,
+                                                             1 );
+
+      assertEquals( "<object><name>bug.Duane</name><ccn>1</ccn><ncss>217</ncss><javadocs>0</javadocs>"
+                          + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
+                          + "<single_comment_lines>0</single_comment_lines><functions>8</functions></object>",
                     classMetrics.toXmlString() );
    }
 
@@ -116,7 +143,9 @@ public class ClassMetricsTest extends FlexPmdTestBase
                                                              InternalFunctionMetrics.create( new ProjectMetrics(),
                                                                                              file.getFullyQualifiedName(),
                                                                                              classNode ),
-                                                             classNode );
+                                                             classNode,
+                                                             file,
+                                                             0 );
 
       assertEquals( "<object><name>com.adobe.ac.RadonDataGrid</name><ccn>3</ccn><ncss>87</ncss><javadocs>0</javadocs>"
                           + "<javadoc_lines>0</javadoc_lines><multi_comment_lines>0</multi_comment_lines>"
@@ -135,7 +164,9 @@ public class ClassMetricsTest extends FlexPmdTestBase
                                                              InternalFunctionMetrics.create( new ProjectMetrics(),
                                                                                              file.getFullyQualifiedName(),
                                                                                              classNode ),
-                                                             classNode );
+                                                             classNode,
+                                                             file,
+                                                             0 );
 
       assertEquals( "<object><name>bug.FlexPMD60</name><ccn>1</ccn><ncss>4</ncss><javadocs>9</javadocs>"
                           + "<javadoc_lines>9</javadoc_lines><multi_comment_lines>7</multi_comment_lines>"

@@ -39,6 +39,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -49,6 +51,15 @@ import com.adobe.ac.utils.StackTraceUtils;
  */
 public final class FileUtils
 {
+   public static class FilePathComparator implements Comparator< File >
+   {
+      public int compare( final File arg0,
+                          final File arg1 )
+      {
+         return arg0.getAbsolutePath().compareTo( arg1.getAbsolutePath() );
+      }
+   }
+
    public static final Logger LOGGER = Logger.getLogger( FileUtils.class.getName() );
 
    /**
@@ -72,9 +83,12 @@ public final class FileUtils
                                                final FilenameFilter filter,
                                                final boolean recurse )
    {
-      return listFilesRecurse( directory,
-                               filter,
-                               recurse );
+      final ArrayList< File > files = listFilesRecurse( directory,
+                                                        filter,
+                                                        recurse );
+      Collections.sort( files,
+                        new FilePathComparator() );
+      return files;
    }
 
    /**
@@ -87,7 +101,7 @@ public final class FileUtils
                                                final FilenameFilter filter,
                                                final boolean recurse )
    {
-      final Collection< File > files = new ArrayList< File >();
+      final ArrayList< File > files = new ArrayList< File >();
 
       for ( final File topDirectory : sourceDirectory )
       {
@@ -95,6 +109,9 @@ public final class FileUtils
                                          filter,
                                          recurse ) );
       }
+
+      Collections.sort( files,
+                        new FilePathComparator() );
       return files;
    }
 
@@ -128,11 +145,11 @@ public final class FileUtils
       return result;
    }
 
-   private static Collection< File > listFilesRecurse( final File directory,
-                                                       final FilenameFilter filter,
-                                                       final boolean recurse )
+   private static ArrayList< File > listFilesRecurse( final File directory,
+                                                      final FilenameFilter filter,
+                                                      final boolean recurse )
    {
-      final Collection< File > files = new ArrayList< File >();
+      final ArrayList< File > files = new ArrayList< File >();
       final File[] entries = directory.listFiles();
 
       if ( entries != null )
