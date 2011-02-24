@@ -90,5 +90,7 @@ public class FlexPmdAntTaskTest extends FlexPmdTestBase
       task.setOutputDirectory( new File( TARGET ) );
       task.setProject( project );
       task.execute();
+      new File( TARGET
+            + "/pmd.xml" ).delete();
    }
 }
