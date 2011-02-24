@@ -58,7 +58,7 @@ public enum KeyWords
    IMPORT("import"),
    IN("in"),
    INCLUDE("include"),
-   INSTANCE_OF("instanceOf"),
+   INSTANCE_OF("instanceof"),
    INTERFACE("interface"),
    INTERNAL("internal"),
    IS("is"),

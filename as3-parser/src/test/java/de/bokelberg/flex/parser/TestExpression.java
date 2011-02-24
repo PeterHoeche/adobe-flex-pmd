@@ -151,6 +151,16 @@ public class TestExpression extends AbstractStatementTest
    }
 
    @Test
+   public void testInstanceOf() throws TokenException
+   {
+      assertStatement( "bug237",
+                       "if (a instanceof b){}",
+                       "<if line=\"1\"><condition line=\"1\"><relation line=\"1\"><primary "
+                             + "line=\"1\">a</primary><op line=\"1\">instanceof</op><primary line=\"1\">"
+                             + "b</primary></relation></condition><block line=\"1\"></block></if>" );
+   }
+
+   @Test
    public void testMulExpression() throws TokenException
    {
       assertStatement( "1",
