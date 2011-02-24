@@ -66,7 +66,7 @@ public class ClassNodeTest extends FlexPmdTestBase
    {
       IParserNode ast = FileSetUtils.buildAst( getTestFiles().get( "RadonDataGrid.as" ) );
       radonDataGrid = NodeFactory.createPackage( ast ).getClassNode();
-      IFlexFile file = getTestFiles().get( "bug.FlexPMD233.mxml" );
+      final IFlexFile file = getTestFiles().get( "bug.FlexPMD233a.mxml" );
       ast = FileSetUtils.buildAst( file );
       bug233 = NodeFactory.createPackage( ast ).getClassNode();
       ast = FileSetUtils.buildAst( getTestFiles().get( "cairngorm.BindableModelLocator.as" ) );
