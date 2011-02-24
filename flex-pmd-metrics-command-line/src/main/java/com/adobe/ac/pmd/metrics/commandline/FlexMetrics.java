@@ -47,6 +47,7 @@ import com.adobe.ac.pmd.LoggerUtils;
 import com.martiansoftware.jsap.JSAP;
 import com.martiansoftware.jsap.JSAPException;
 import com.martiansoftware.jsap.JSAPResult;
+import com.martiansoftware.jsap.UnspecifiedParameterException;
 
 public final class FlexMetrics
 {
@@ -82,6 +83,11 @@ public final class FlexMetrics
       return config.success();
    }
 
+   static double getDoubleParameter( final CommandLineOptions option )
+   {
+      return config.getDouble( option.toString() );
+   }
+
    static String getParameterValue( final CommandLineOptions option )
    {
       return config.getString( option.toString() );
@@ -97,8 +103,16 @@ public final class FlexMetrics
       {
          final File sourceDirectory = new File( getParameterValue( CommandLineOptions.SOURCE_DIRECTORY ) );
          final File outputDirectory = new File( getParameterValue( CommandLineOptions.OUTPUT ) );
+         double mxmlFactor = 0;
+         try
+         {
+            mxmlFactor = getDoubleParameter( CommandLineOptions.MXML_FACTOR );
+         }
+         catch ( final UnspecifiedParameterException e )
+         {
+         }
 
-         new com.adobe.ac.pmd.metrics.engine.FlexMetrics( sourceDirectory ).execute( outputDirectory );
+         new com.adobe.ac.pmd.metrics.engine.FlexMetrics( sourceDirectory, mxmlFactor ).execute( outputDirectory );
       }
 
       return config.success();
@@ -110,6 +124,9 @@ public final class FlexMetrics
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.SOURCE_DIRECTORY,
                                           true );
+      CommandLineUtils.registerParameter( jsap,
+                                          CommandLineOptions.MXML_FACTOR,
+                                          false );
       CommandLineUtils.registerParameter( jsap,
                                           CommandLineOptions.OUTPUT,
                                           true );
