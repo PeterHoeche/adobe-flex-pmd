@@ -44,7 +44,7 @@ import com.adobe.ac.pmd.metrics.ProjectMetrics;
 
 public class FlexMetricsTest extends FlexPmdTestBase
 {
-   private static final int     TOTAL_CLASSES_NUMBER = 100;
+   private static final int     TOTAL_CLASSES_NUMBER = 99;
    private final FlexMetrics    flexMetrics;
    private final ProjectMetrics projectMetrics;
 
@@ -89,24 +89,24 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getClasses().size() );
       assertEquals( 0,
                     projectMetrics.getClasses().get( 3 ).getFunctions() );
-      assertEquals( "bug.FlexPMD233",
+      assertEquals( "bug.FlexPMD233a",
                     projectMetrics.getClasses().get( 10 ).getFullName() );
       assertEquals( 1,
                     projectMetrics.getClasses().get( 10 ).getNonCommentStatements() );
       assertEquals( "bug.FlexPMD60",
-                    projectMetrics.getClasses().get( 13 ).getFullName() );
+                    projectMetrics.getClasses().get( 12 ).getFullName() );
       assertEquals( 7,
-                    projectMetrics.getClasses().get( 13 ).getMultiLineComments() );
+                    projectMetrics.getClasses().get( 12 ).getMultiLineComments() );
       assertEquals( "bug.FlexPMD61",
-                    projectMetrics.getClasses().get( 14 ).getFullName() );
+                    projectMetrics.getClasses().get( 13 ).getFullName() );
       assertEquals( 3,
-                    projectMetrics.getClasses().get( 14 ).getFunctions() );
+                    projectMetrics.getClasses().get( 13 ).getFunctions() );
       assertEquals( 9,
-                    projectMetrics.getClasses().get( 14 ).getNonCommentStatements() );
+                    projectMetrics.getClasses().get( 13 ).getNonCommentStatements() );
       assertEquals( "cairngorm.FatController",
-                    projectMetrics.getClasses().get( 21 ).getFullName() );
+                    projectMetrics.getClasses().get( 20 ).getFullName() );
       assertEquals( 3,
-                    projectMetrics.getClasses().get( 21 ).getAsDocs() );
+                    projectMetrics.getClasses().get( 20 ).getAsDocs() );
    }
 
    @Test
@@ -137,7 +137,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getPackages()
                                   .get( projectMetrics.getPackages().size() - 1 )
                                   .getPackageName() );
-      assertEquals( 18,
+      assertEquals( 17,
                     projectMetrics.getPackages().get( 1 ).getClasses() );
       assertEquals( "bug",
                     projectMetrics.getPackages().get( 1 ).getFullName() );
