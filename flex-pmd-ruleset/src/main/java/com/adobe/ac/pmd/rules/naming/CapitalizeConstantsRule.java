@@ -31,6 +31,7 @@
 package com.adobe.ac.pmd.rules.naming;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.adobe.ac.pmd.nodes.IConstant;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRule;
@@ -59,6 +60,6 @@ public class CapitalizeConstantsRule extends AbstractAstFlexRule
 
    private boolean nameContainsLowerCase( final String name )
    {
-      return name.toUpperCase().compareTo( name ) != 0;
+      return name.toUpperCase( Locale.getDefault() ).compareTo( name ) != 0;
    }
 }
