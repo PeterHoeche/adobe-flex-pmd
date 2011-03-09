@@ -47,6 +47,7 @@
 	<rule ref="com/adobe/ac/pmd/rulesets/css.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/empty.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/event.xml" />
+	<rule ref="com/adobe/ac/pmd/rulesets/indentation.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/maintanability.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/multitouch.xml" />
 	<rule ref="com/adobe/ac/pmd/rulesets/naming.xml" />
