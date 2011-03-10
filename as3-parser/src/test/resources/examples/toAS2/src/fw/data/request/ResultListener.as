@@ -1,4 +1,4 @@
-/**
+﻿/**
  *    Copyright (c) 2009, Adobe Systems, Incorporated
  *    All rights reserved.
  *
@@ -28,41 +28,12 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.maintanability.forbiddenttypes;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-import com.adobe.ac.pmd.rules.maintanability.forbiddentypes.UseObjectTypeRule;
-
-public class UseObjectTypeRuleTest extends AbstractAstFlexRuleTest
+ 
+import src.fw.data.request.Request;
+interface src.fw.data.request.ResultListener
 {
-   @Override
-   protected ExpectedViolation[] getExpectedViolatingFiles()
-   {
-      return new ExpectedViolation[]
-      { new ExpectedViolation( "pseudo.look.IEditLook.as", new ViolationPosition[]
-       { new ViolationPosition( 34 ),
-                   new ViolationPosition( 35 ) } ),
-                  new ExpectedViolation( "flexpmd114.a.Test.as", new ViolationPosition[]
-                  { new ViolationPosition( 42 ) } ),
-                  new ExpectedViolation( "flexpmd114.b.Test.as", new ViolationPosition[]
-                  { new ViolationPosition( 42 ) } ),
-                  new ExpectedViolation( "flexpmd114.c.Test.as", new ViolationPosition[]
-                  { new ViolationPosition( 42 ) } ),
-                  new ExpectedViolation( "Looping.as", new ViolationPosition[]
-                  { new ViolationPosition( 63 ) } ),
-                  new ExpectedViolation( "com.adobe.ac.ncss.ConfigProxy.as", new ViolationPosition[]
-                  { new ViolationPosition( 42 ) } ),
-                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
-                  { new ViolationPosition( 67 ) } ),
-                  new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
-                  { new ViolationPosition( 52 ) } ) };
-   }
+	public function onResultLoad(request:Request) : Void;
 
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-      return new UseObjectTypeRule();
-   }
+	public function onResultError(request:Request) : Void;
+
 }

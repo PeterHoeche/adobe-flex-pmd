@@ -48,7 +48,7 @@ public class EmptyIfStmtRuleTest extends AbstractAstFlexRuleTest
                   { new ViolationPosition( 578 ),
                               new ViolationPosition( 584 ) } ),
                   new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
-                  { new ViolationPosition( 64 ),
+                  { new ViolationPosition( 63 ),
                               new ViolationPosition( 190 ) } ),
                   new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
                   { new ViolationPosition( 106 ),

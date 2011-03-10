@@ -57,9 +57,9 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          return new AssertPosition( message, expectedLine, actualLine );
       }
 
-      private final int    actualLine;
-      private final int    expectedLine;
-      private final String message;
+      public int    actualLine;
+      public int    expectedLine;
+      public String message;
 
       private AssertPosition( final String messageToBeSet,
                               final int expectedLineToBeSet,
@@ -70,27 +70,12 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          expectedLine = expectedLineToBeSet;
          actualLine = actualLineToBeSet;
       }
-
-      public int getActualLine()
-      {
-         return actualLine;
-      }
-
-      public int getExpectedLine()
-      {
-         return expectedLine;
-      }
-
-      public String getMessage()
-      {
-         return message;
-      }
    }
 
    protected final static class ExpectedViolation
    {
-      private final String              file;
-      private final ViolationPosition[] positions;
+      protected String              file;
+      protected ViolationPosition[] positions;
 
       public ExpectedViolation( final String fileToBeSet,
                                 final ViolationPosition[] positionsToBeSet )
@@ -98,16 +83,6 @@ public abstract class AbstractFlexRuleTest extends FlexPmdTestBase
          super();
          file = fileToBeSet;
          positions = positionsToBeSet;
-      }
-
-      public String getFile()
-      {
-         return file;
-      }
-
-      public ViolationPosition[] getPositions()
-      {
-         return positions;
       }
    }
 

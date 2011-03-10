@@ -46,6 +46,13 @@ public class VariableNameEndingWithNumericRuleTest extends AbstractAstFlexRuleTe
        { new ViolationPosition( 405 ),
                    new ViolationPosition( 441 ),
                    new ViolationPosition( 459 ) } ),
+                  new ExpectedViolation( "src.epg.StateExit_AS2.as", new ViolationPosition[]
+                  { new ViolationPosition( 62 ),
+                              new ViolationPosition( 63 ),
+                              new ViolationPosition( 69 ),
+                              new ViolationPosition( 70 ),
+                              new ViolationPosition( 71 ),
+                              new ViolationPosition( 60 ) } ),
                   new ExpectedViolation( "com.adobe.ac.ncss.BigModel.as", new ViolationPosition[]
                   { new ViolationPosition( 82 ),
                               new ViolationPosition( 86 ),

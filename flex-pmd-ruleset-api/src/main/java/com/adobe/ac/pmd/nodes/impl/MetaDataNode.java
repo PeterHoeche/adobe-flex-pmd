@@ -69,13 +69,59 @@ class MetaDataNode extends AbstractNode implements IMetaData
       name = stringValue.indexOf( " ( " ) > -1 ? stringValue.substring( 0,
                                                                         stringValue.indexOf( " ( " ) )
                                               : stringValue;
-      parameter = stringValue.indexOf( "( " ) > -1
-            && stringValue.lastIndexOf( " )" ) > -1 ? stringValue.substring( stringValue.indexOf( "( " ) + 2,
-                                                                             stringValue.lastIndexOf( " )" ) )
-                                                   : "";
+      parameter = stringValue.indexOf( "( " ) > -1 ? stringValue.substring( stringValue.indexOf( "( " ) + 2,
+                                                                            stringValue.lastIndexOf( " )" ) )
+                                                  : "";
 
       computeAttributeNames();
       return this;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getAttributeNames()
+    */
+   public List< String > getAttributeNames()
+   {
+      return attributeNames;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getDefaultValue()
+    */
+   public String getDefaultValue()
+   {
+      return parameter;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.INamable#getName()
+    */
+   public String getName()
+   {
+      return name;
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getProperty(java.lang.String)
+    */
+   public String[] getProperty( final String property )
+   {
+      return parameters.containsKey( property ) ? parameters.get( property )
+                                               : new String[]
+                                               {};
+   }
+
+   /*
+    * (non-Javadoc)
+    * @see com.adobe.ac.pmd.nodes.IMetaData#getPropertyAsList(java.lang.String)
+    */
+   public List< String > getPropertyAsList( final String property )
+   {
+      return Arrays.asList( getProperty( property ) );
    }
 
    private void computeAttributeNames()
@@ -100,60 +146,8 @@ class MetaDataNode extends AbstractNode implements IMetaData
       }
    }
 
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IMetaData#getAttributeNames()
-    */
-   @Override
-   public List< String > getAttributeNames()
-   {
-      return attributeNames;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IMetaData#getDefaultValue()
-    */
-   @Override
-   public String getDefaultValue()
-   {
-      return parameter;
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.INamable#getName()
-    */
-   @Override
-   public String getName()
-   {
-      return name;
-   }
-
    private String[] getPairs()
    {
       return parameter.split( "," );
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IMetaData#getProperty(java.lang.String)
-    */
-   @Override
-   public String[] getProperty( final String property )
-   {
-      return parameters.containsKey( property ) ? parameters.get( property )
-                                               : new String[]
-                                               {};
-   }
-
-   /*
-    * (non-Javadoc)
-    * @see com.adobe.ac.pmd.nodes.IMetaData#getPropertyAsList(java.lang.String)
-    */
-   @Override
-   public List< String > getPropertyAsList( final String property )
-   {
-      return Arrays.asList( getProperty( property ) );
    }
 }

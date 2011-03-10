@@ -138,7 +138,7 @@ public class FunctionNodeTest extends FlexPmdTestBase
    @Test
    public void testGetCyclomaticComplexity()
    {
-      assertEquals( 3,
+      assertEquals( 2,
                     constructor.getCyclomaticComplexity() );
       assertEquals( 1,
                     drawHighlightIndicator.getCyclomaticComplexity() );

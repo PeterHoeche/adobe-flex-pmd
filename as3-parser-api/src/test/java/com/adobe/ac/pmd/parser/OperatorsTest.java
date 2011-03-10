@@ -41,5 +41,7 @@ public class OperatorsTest
    {
       assertEquals( "&&",
                     Operators.AND.toString() );
+      assertEquals( "and",
+                    Operators.AND_AS2.toString() );
    }
 }

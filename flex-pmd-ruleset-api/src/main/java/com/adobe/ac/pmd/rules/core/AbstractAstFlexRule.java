@@ -33,6 +33,7 @@ package com.adobe.ac.pmd.rules.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
 import com.adobe.ac.pmd.IFlexViolation;
@@ -49,7 +50,7 @@ import com.adobe.ac.utils.StackTraceUtils;
 /**
  * Abstract class for AST-based rule Extends this class if your rule is only
  * detectable in an AS script block, which can be converted into an Abstract
- * Syntax Tree. Then you will be able to either use the visitor pattern, or to
+ * Synthax Tree. Then you will be able to either use the visitor pattern, or to
  * iterate from the package node, in order to find your violation(s).
  * 
  * @author xagnetti
@@ -134,7 +135,8 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    /*
     * (non-Javadoc)
     * @see
-    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile()
+    * com.adobe.ac.pmd.rules.core.AbstractFlexRule#isConcernedByTheCurrentFile
+    * ()
     */
    @Override
    public boolean isConcernedByTheCurrentFile()
@@ -367,13 +369,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    }
 
    /**
-    * @param statementNode
-    */
-   protected void visitAs( final IParserNode statementNode )
-   {
-   }
-
-   /**
     * @param catchNode
     */
    protected void visitCatch( final IParserNode catchNode )
@@ -482,8 +477,15 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       visitParameters( currentNode );
       currentNode = iterator.next();
       visitFunctionReturnType( currentNode );
-      currentNode = iterator.next();
-      visitFunctionBody( currentNode );
+      try
+      {
+         // Intrinsic functions in AS2
+         currentNode = iterator.next();
+         visitFunctionBody( currentNode );
+      }
+      catch ( final NoSuchElementException e )
+      {
+      }
    }
 
    /**
@@ -588,9 +590,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
       {
       case OP:
          visitOperator( statementNode );
-         break;
-      case AS:
-         visitAs( statementNode );
          break;
       case RETURN:
          visitReturn( statementNode );

@@ -41,7 +41,15 @@ public class PackageCaseRuleTest extends AbstractAstFlexRuleTest
    {
       return new ExpectedViolation[]
       { new ExpectedViolation( "cairngorm.FatController.as", new ViolationPosition[]
-      { new ViolationPosition( -1 ) } ) };
+       { new ViolationPosition( -1 ) } ),
+                  new ExpectedViolation( "FTestError10.IpStack1.as", new ViolationPosition[]
+                  { new ViolationPosition( -1 ) } ),
+                  new ExpectedViolation( "FTestError10.IpStack2.as", new ViolationPosition[]
+                  { new ViolationPosition( -1 ) } ),
+                  new ExpectedViolation( "src.epg.StateExit_AS2.as", new ViolationPosition[]
+                  { new ViolationPosition( -1 ) } ),
+                  new ExpectedViolation( "src.fw.data.request.ResultListener.as", new ViolationPosition[]
+                  { new ViolationPosition( -1 ) } ) };
    }
 
    @Override

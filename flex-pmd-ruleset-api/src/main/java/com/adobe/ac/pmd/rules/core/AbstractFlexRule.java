@@ -281,20 +281,20 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
 
    private String computeStrippedLine( final String violatedLine )
    {
-      final String commentToken = getCurrentFile().isMxml() ? MXML_COMMENT_TOKEN
+      final String comment_token = getCurrentFile().isMxml() ? MXML_COMMENT_TOKEN
                                                             : AS3_COMMENT_TOKEN;
       String strippedLine = violatedLine;
 
-      if ( violatedLine.indexOf( commentToken
+      if ( violatedLine.indexOf( comment_token
             + " N" ) > 0 )
       {
-         strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( commentToken
+         strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
                + " N" ) ) );
       }
-      else if ( violatedLine.indexOf( commentToken
+      else if ( violatedLine.indexOf( comment_token
             + "N" ) > 0 )
       {
-         strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( commentToken
+         strippedLine = StringUtils.strip( violatedLine.substring( violatedLine.indexOf( comment_token
                + "N" ) ) );
       }
       return strippedLine;
@@ -319,13 +319,13 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
    }
 
    private boolean lineContainsNoPmd( final String violatedLine,
-                                      final String commentToken )
+                                      final String comment_token )
    {
-      return violatedLine.contains( commentToken
+      return violatedLine.contains( comment_token
             + " No PMD" )
-            || violatedLine.contains( commentToken
-                  + " NO PMD" ) || violatedLine.contains( commentToken
-                  + " NOPMD" ) || violatedLine.contains( commentToken
+            || violatedLine.contains( comment_token
+                  + " NO PMD" ) || violatedLine.contains( comment_token
+                  + " NOPMD" ) || violatedLine.contains( comment_token
                   + "NOPMD" );
    }
 
@@ -354,15 +354,15 @@ public abstract class AbstractFlexRule extends CommonAbstractRule implements IFl
       setPriority( Integer.valueOf( getDefaultPriority().toString() ) );
    }
 
-   private boolean strippedLineContainsNoPmdAndRuleName( final String commentToken,
+   private boolean strippedLineContainsNoPmdAndRuleName( final String comment_token,
                                                          final String ruleName,
                                                          final String strippedLine )
    {
-      return strippedLine.endsWith( commentToken
+      return strippedLine.endsWith( comment_token
             + " No PMD" )
-            || strippedLine.endsWith( commentToken
-                  + " NO PMD" ) || strippedLine.endsWith( commentToken
-                  + " NOPMD" ) || strippedLine.endsWith( commentToken
+            || strippedLine.endsWith( comment_token
+                  + " NO PMD" ) || strippedLine.endsWith( comment_token
+                  + " NOPMD" ) || strippedLine.endsWith( comment_token
                   + "NOPMD" ) || strippedLine.contains( ruleName );
    }
 }

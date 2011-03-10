@@ -44,7 +44,8 @@ import com.adobe.ac.pmd.metrics.ProjectMetrics;
 
 public class FlexMetricsTest extends FlexPmdTestBase
 {
-   private static final int     TOTAL_CLASSES_NUMBER = 99;
+   private static final int     TOTAL_CLASSES_NUMBER   = 105;
+   private static final int     TOTAL_FUNCTIONS_NUMBER = 335;
    private final FlexMetrics    flexMetrics;
    private final ProjectMetrics projectMetrics;
 
@@ -74,9 +75,9 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     Math.round( projectMetrics.getAverageFunctions().getAverageStatements() ) );
       assertEquals( 3,
                     Math.round( projectMetrics.getAverageObjects().getAverageFunctions() ) );
-      assertEquals( 16,
+      assertEquals( 15,
                     Math.round( projectMetrics.getAverageObjects().getAverageStatements() ) );
-      assertEquals( 31,
+      assertEquals( 30,
                     Math.round( projectMetrics.getAverageObjects().getAverageDocs() ) );
       assertEquals( 2,
                     Math.round( projectMetrics.getAverageObjects().getAverageMultipleComments() + 0.95 ) );
@@ -112,7 +113,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadFunctionMetrics()
    {
-      assertEquals( 318,
+      assertEquals( TOTAL_FUNCTIONS_NUMBER,
                     projectMetrics.getFunctions().size() );
       assertEquals( "TestEvent",
                     projectMetrics.getFunctions().get( 103 ).getName() );
@@ -131,7 +132,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadPackageMetrics()
    {
-      assertEquals( 26,
+      assertEquals( 30,
                     projectMetrics.getPackages().size() );
       assertEquals( "",
                     projectMetrics.getPackages()
@@ -154,13 +155,13 @@ public class FlexMetricsTest extends FlexPmdTestBase
    {
       assertEquals( TOTAL_CLASSES_NUMBER,
                     projectMetrics.getTotalPackages().getTotalClasses() );
-      assertEquals( 318,
+      assertEquals( TOTAL_FUNCTIONS_NUMBER,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1579,
+      assertEquals( 1615,
                     projectMetrics.getTotalPackages().getTotalStatements() );
-      assertEquals( 3052,
+      assertEquals( 3188,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
-      assertEquals( 104,
+      assertEquals( 110,
                     projectMetrics.getTotalPackages().getTotalMultiLineComment() );
    }
 
@@ -168,7 +169,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    public void testBug157()
    {
       assertEquals( "org.as3commons.concurrency.thread",
-                    projectMetrics.getPackageMetrics().get( 23 ).getFullName() );
+                    projectMetrics.getPackageMetrics().get( 24 ).getFullName() );
 
    }
 }

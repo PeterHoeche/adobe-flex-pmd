@@ -44,8 +44,10 @@ public class UnusedParameterRuleTest extends AbstractAstFlexRuleTest
       new LinkedHashMap< String, ViolationPosition[] >();
 
       return new ExpectedViolation[]
-      { new ExpectedViolation( "cairngorm.NonBindableModelLocator.as", new ViolationPosition[]
-       { new ViolationPosition( 43 ) } ),
+      { new ExpectedViolation( "FileReferenceList.as", new ViolationPosition[]
+       { new ViolationPosition( 70 ) } ),
+                  new ExpectedViolation( "cairngorm.NonBindableModelLocator.as", new ViolationPosition[]
+                  { new ViolationPosition( 43 ) } ),
                   new ExpectedViolation( "bug.FlexPMD232.as", new ViolationPosition[]
                   { new ViolationPosition( 35 ),
                               new ViolationPosition( 35 ) } ),

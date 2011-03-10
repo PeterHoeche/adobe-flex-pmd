@@ -41,7 +41,8 @@ public class TrueFalseConditionRuleTest extends AbstractAstFlexRuleTest
    {
       return new ExpectedViolation[]
       { new ExpectedViolation( "PngEncoder.as", new ViolationPosition[]
-       { new ViolationPosition( 576 ),
+       { new ViolationPosition( 574 ),
+                   new ViolationPosition( 576 ),
                    new ViolationPosition( 578 ),
                    new ViolationPosition( 584 ) } ),
                   new ExpectedViolation( "Looping.as", new ViolationPosition[]

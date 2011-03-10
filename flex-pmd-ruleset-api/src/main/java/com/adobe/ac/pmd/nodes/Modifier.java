@@ -37,7 +37,7 @@ import com.adobe.ac.pmd.parser.KeyWords;
  */
 public enum Modifier
 {
-   DYNAMIC, FINAL, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, STATIC;
+   DYNAMIC, FINAL, INTERNAL, OVERRIDE, PRIVATE, PROTECTED, PUBLIC, STATIC, INTRINSIC;
 
    /**
     * @param name
@@ -77,6 +77,11 @@ public enum Modifier
       else if ( KeyWords.FINAL.toString().equals( name ) )
       {
          modifier = Modifier.FINAL;
+      }
+      // class modifier AS2
+      else if ( KeyWords.INTRINSIC.toString().equals( name ) )
+      {
+         modifier = Modifier.INTRINSIC;
       }
       return modifier;
    }

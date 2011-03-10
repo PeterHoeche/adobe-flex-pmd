@@ -571,7 +571,7 @@ package org.encoding
 			if ( end0pos == 0) {
 				writeBits(EOB);
 				return DC;
-				if ( functionCall(true)  )
+				if ( true )
 				{
 					if ( false )
 					{

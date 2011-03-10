@@ -848,7 +848,8 @@ public class AS3Scanner
          {
             level--;
          }
-         else if ( !currentToken.text.endsWith( "/>" ) )
+         else if ( !currentToken.text.endsWith( "/>" )
+               && !currentToken.text.equals( "<>" ) ) // NOT operator in AS2
          {
             level++;
          }

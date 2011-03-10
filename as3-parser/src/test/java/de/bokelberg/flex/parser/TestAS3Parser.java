@@ -62,6 +62,18 @@ public class TestAS3Parser extends AbstractAs3ParserTest
    }
 
    @Test
+   public void testBuildAst_AS2() throws IOException,
+                                 URISyntaxException,
+                                 TokenException
+   {
+      asp.buildAst( getClass().getResource( "/examples/toAS2/src/fw/data/request/ResultListener.as" )
+                              .toURI()
+                              .getPath() );
+
+      asp.buildAst( getClass().getResource( "/examples/toAS2/src/epg/StateExit_AS2.as" ).toURI().getPath() );
+   }
+
+   @Test
    public void testBuildAst2() throws IOException,
                               TokenException,
                               URISyntaxException

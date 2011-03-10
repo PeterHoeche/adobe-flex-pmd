@@ -42,6 +42,8 @@ public class InterfaceNamingRuleTest extends AbstractAstFlexRuleTest
       return new ExpectedViolation[]
       { new ExpectedViolation( "Color.as", new ViolationPosition[]
        { new ViolationPosition( 35 ) } ),
+                  new ExpectedViolation( "src.fw.data.request.ResultListener.as", new ViolationPosition[]
+                  { new ViolationPosition( 33 ) } ),
                   new ExpectedViolation( "org.as3commons.concurrency.thread.Color.as",
                                          new ViolationPosition[]
                                          { new ViolationPosition( 33 ) } ) };

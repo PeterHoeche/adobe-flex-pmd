@@ -341,7 +341,7 @@ class FunctionNode extends AbstractNode implements IFunction
       return modifiers.contains( modifier );
    }
 
-   @Override
+   //@Override
    public boolean isEventHandler()
    {
       return getParameters().size() == 1

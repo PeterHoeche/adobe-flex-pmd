@@ -46,6 +46,8 @@ public class OverLongLineRuleTest extends AbstractFlexRuleTest
                    new ViolationPosition( 117 ) } ),
                   new ExpectedViolation( "Simple.as", new ViolationPosition[]
                   { new ViolationPosition( 1 ) } ),
+                  new ExpectedViolation( "FileReferenceList.as", new ViolationPosition[]
+                  { new ViolationPosition( 47 ) } ),
                   new ExpectedViolation( "AbstractRowData.as", new ViolationPosition[]
                   { new ViolationPosition( 46 ),
                               new ViolationPosition( 47 ),

@@ -40,8 +40,22 @@ public class UnusedLocalVariableRuleTest extends AbstractAstFlexRuleTest
    protected ExpectedViolation[] getExpectedViolatingFiles()
    {
       return new ExpectedViolation[]
-      { new ExpectedViolation( "DeleteButtonRenderer.mxml", new ViolationPosition[]
-       { new ViolationPosition( 69 ) } ),
+      { new ExpectedViolation( "src.epg.StateExit_AS2.as", new ViolationPosition[]
+       { new ViolationPosition( 62 ),
+                   new ViolationPosition( 63 ),
+                   new ViolationPosition( 67 ),
+                   new ViolationPosition( 68 ),
+                   new ViolationPosition( 69 ),
+                   new ViolationPosition( 70 ),
+                   new ViolationPosition( 71 ),
+                   new ViolationPosition( 72 ),
+                   new ViolationPosition( 73 ),
+                   new ViolationPosition( 74 ),
+                   new ViolationPosition( 75 ),
+                   new ViolationPosition( 76 ),
+                   new ViolationPosition( 77 ) } ),
+                  new ExpectedViolation( "DeleteButtonRenderer.mxml", new ViolationPosition[]
+                  { new ViolationPosition( 69 ) } ),
                   new ExpectedViolation( "com.adobe.ac.ncss.VoidConstructor.as", new ViolationPosition[]
                   { new ViolationPosition( 40 ) } ),
                   new ExpectedViolation( "RadonDataGrid.as", new ViolationPosition[]
