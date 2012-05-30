@@ -15,13 +15,13 @@
 
 	<properties>
 
-		<flex.version>3.2.0.3958</flex.version>
+		<flex.version>4.1.0.16076</flex.version>
 		<flash-player.version>10</flash-player.version>
 		<flexunit.version>0.9</flexunit.version>
 		<event-source.version>1.1</event-source.version>
 		<flexunit-optional.version>0.85</flexunit-optional.version>
 		<event-source.version>1.1</event-source.version>
-		<cairngorm.version>2.2.1</cairngorm.version>
+		<cairngorm.version>2.2.2</cairngorm.version>
 		<flexunit-theme.version>1.0</flexunit-theme.version>
 
 	</properties>

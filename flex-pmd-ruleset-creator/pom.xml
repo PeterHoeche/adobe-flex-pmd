@@ -91,7 +91,8 @@
 		<dependency>
 			<groupId>com.adobe.flex.framework</groupId>
 			<artifactId>playerglobal</artifactId>
-			<version>${flash-player.version}-${flex.version}</version>
+			<version>${flex.version}</version>
+			<classifier>${flash-player.version}</classifier>
 			<type>swc</type>
 		</dependency>
 
@@ -185,10 +186,18 @@
 				<version>${flex-mojos-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+					<targetPlayer>${flash-player.version}</targetPlayer>
 					<defaultSizeWidth>1000</defaultSizeWidth>
 					<defaultSizeHeight>750</defaultSizeHeight>
 				</configuration>
+				<dependencies>
+          			<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
 			</plugin>
 
 			<plugin>
@@ -207,6 +216,14 @@
 					<templateURI>folder:html-template</templateURI>
 					<htmlName>${project.artifactId}</htmlName>
 				</configuration>
+				<dependencies>
+          			<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
 			</plugin>
 			
 		</plugins>
@@ -214,14 +231,14 @@
 
 	<repositories>
 		<repository>
-			<id>flexmojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>flexmojos-repository</id>
-			<url>http://repository.sonatype.org/content/groups/public/</url>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
 		</pluginRepository>
 	</pluginRepositories>
 

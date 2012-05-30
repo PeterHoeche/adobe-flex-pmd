@@ -90,7 +90,7 @@
 		<!-- Flex project versions -->
 		<!-- Plugin versions -->
 
-		<flex-mojos-plugin.version>3.5.0</flex-mojos-plugin.version>
+		<flex-mojos-plugin.version>3.8</flex-mojos-plugin.version>
 		<ant-run-plugin.version>1.2</ant-run-plugin.version>
 		<maven-dependency-plugin.version>2.0</maven-dependency-plugin.version>
 
@@ -325,6 +325,14 @@
 				<enabled>true</enabled>
 				<checksumPolicy>ignore</checksumPolicy>
 			</releases>
+		</repository>
+		<repository>
+			<id>fna-v2-repository</id>
+			<url>http://fna-v2.googlecode.com/svn/trunk/fna_m2_repository/</url>
+		</repository>
+		<repository>
+			<id>adobe-cairngorm3-repository</id>
+			<url>http://opensource.adobe.com/svn//opensource/cairngorm3/maven-repository</url>
 		</repository>
 		<repository>
 			<id>nexus.codehaus</id>
