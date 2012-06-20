@@ -44,8 +44,8 @@ import com.adobe.ac.pmd.metrics.ProjectMetrics;
 
 public class FlexMetricsTest extends FlexPmdTestBase
 {
-   private static final int     TOTAL_CLASSES_NUMBER   = 105;
-   private static final int     TOTAL_FUNCTIONS_NUMBER = 335;
+   private static final int     TOTAL_CLASSES_NUMBER   = 108;
+   private static final int     TOTAL_FUNCTIONS_NUMBER = 338;
    private final FlexMetrics    flexMetrics;
    private final ProjectMetrics projectMetrics;
 
@@ -132,7 +132,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    @Test
    public void loadPackageMetrics()
    {
-      assertEquals( 30,
+      assertEquals( 31,
                     projectMetrics.getPackages().size() );
       assertEquals( "",
                     projectMetrics.getPackages()
@@ -157,7 +157,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getTotalPackages().getTotalClasses() );
       assertEquals( TOTAL_FUNCTIONS_NUMBER,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1615,
+      assertEquals( 1619,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 3188,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );
@@ -169,7 +169,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
    public void testBug157()
    {
       assertEquals( "org.as3commons.concurrency.thread",
-                    projectMetrics.getPackageMetrics().get( 24 ).getFullName() );
+                    projectMetrics.getPackageMetrics().get( 25 ).getFullName() );
 
    }
 }

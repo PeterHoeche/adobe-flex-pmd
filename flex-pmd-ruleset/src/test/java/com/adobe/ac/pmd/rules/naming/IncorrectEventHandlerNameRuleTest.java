@@ -30,9 +30,25 @@
  */
 package com.adobe.ac.pmd.rules.naming;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+
+import com.adobe.ac.pmd.IFlexViolation;
+import com.adobe.ac.pmd.files.IFlexFile;
+import com.adobe.ac.pmd.nodes.IPackage;
+import com.adobe.ac.pmd.nodes.impl.NodeFactory;
+import com.adobe.ac.pmd.parser.IAS3Parser;
+import com.adobe.ac.pmd.parser.exceptions.TokenException;
 import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
 import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
 import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+import de.bokelberg.flex.parser.AS3Parser;
 
 public class IncorrectEventHandlerNameRuleTest extends AbstractAstFlexRuleTest
 {
@@ -40,22 +56,106 @@ public class IncorrectEventHandlerNameRuleTest extends AbstractAstFlexRuleTest
    protected ExpectedViolation[] getExpectedViolatingFiles()
    {
       return new ExpectedViolation[]
-      { new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
-       { new ViolationPosition( 71 ) } ),
-                  new ExpectedViolation( "com.adobe.ac.ncss.MyCairngormCommand.as", new ViolationPosition[]
-                  { new ViolationPosition( 35 ) } ),
-                  new ExpectedViolation( "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
-                  { new ViolationPosition( 35 ) } ),
-                  new ExpectedViolation( "parsley.InaccessibleMetaData.as", new ViolationPosition[]
-                  { new ViolationPosition( 54 ),
-                              new ViolationPosition( 60 ) } ),
-                  new ExpectedViolation( "Sorted.as", new ViolationPosition[]
-                  { new ViolationPosition( 71 ) } ) };
+      { 
+         new ExpectedViolation( "bug.Duane.mxml", new ViolationPosition[]
+         { 
+            new ViolationPosition( 71 ) 
+         } ),
+         new ExpectedViolation( "com.adobe.ac.ncss.MyCairngormCommand.as", new ViolationPosition[]
+         { 
+            new ViolationPosition( 35 ) 
+         } ),
+         new ExpectedViolation( "com.adobe.ac.ncss.NestedSwitch.as", new ViolationPosition[]
+         {
+            new ViolationPosition( 35 ) 
+         } ),
+         new ExpectedViolation( "parsley.InaccessibleMetaData.as", new ViolationPosition[]
+         {
+            new ViolationPosition( 54 ),
+            new ViolationPosition( 60 ) 
+         } ),
+         new ExpectedViolation( "Sorted.as", new ViolationPosition[]
+         {
+            new ViolationPosition( 71 ) 
+         } ), 
+         new ExpectedViolation( "de.hopa.flexpmd.EventHandlerNameRuleTestTwo.as", new ViolationPosition[]
+		 {
+        	new ViolationPosition( 37 ) 
+		 } ) 
+      };
+   }
+
+   @Test
+   public void testIncorrectEventHandlerNameRuleWithConfiguredPrefixFail() throws IOException, TokenException
+   {
+	   IAS3Parser parser = new AS3Parser();
+	   Map< String, IFlexFile > files = getTestFiles();
+	   IFlexFile file = files.get( "de.hopa.flexpmd.EventHandlerNameRuleTestOne.as" );
+	   IPackage packageNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
+	   
+	   IncorrectEventHandlerNameRule rule = new IncorrectEventHandlerNameRule();
+	   rule.addProperty( "prefix", "handle" );
+	   
+	   List< IFlexViolation > violations = rule.processFile( file, packageNode, files );
+	   
+	   assertEquals( "unexpected number of violations!", 1, violations.size() );
+   }
+   
+   @Test
+   public void testIncorrectEventHandlerNameRuleWithConfiguredPrefixSucceed() throws IOException, TokenException
+   {
+	   IAS3Parser parser = new AS3Parser();
+	   Map< String, IFlexFile > files = getTestFiles();
+	   IFlexFile file = files.get( "de.hopa.flexpmd.EventHandlerNameRuleTestTwo.as" );
+	   IPackage packageNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
+	   
+	   IncorrectEventHandlerNameRule rule = new IncorrectEventHandlerNameRule();
+	   rule.addProperty( "prefix", "handle" );
+	   
+	   List< IFlexViolation > violations = rule.processFile( file, packageNode, files );
+	   
+	   assertEquals( "unexpected number of violations!", 0, violations.size() );
+   }
+   
+   @Test
+   public void testIncorrectEventHandlerNameRuleWithConfiguredSuffixFail() throws IOException, TokenException
+   {
+	   IAS3Parser parser = new AS3Parser();
+	   Map< String, IFlexFile > files = getTestFiles();
+	   IFlexFile file = files.get( "de.hopa.flexpmd.EventHandlerNameRuleTestTwo.as" );
+	   IPackage packageNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
+	   
+	   IncorrectEventHandlerNameRule rule = new IncorrectEventHandlerNameRule();
+	   rule.addProperty( "prefix", "" ); 
+	   rule.addProperty( "suffix", "Handler" ); 
+	   
+	   List< IFlexViolation > violations = rule.processFile( file, packageNode, files );
+	   
+	   assertEquals( "unexpected number of violations!", 1, violations.size() );
+   }
+   
+   @Test
+   public void testIncorrectEventHandlerNameRuleWithConfiguredSuffixSucceed() throws IOException, TokenException
+   {
+	   IAS3Parser parser = new AS3Parser();
+	   Map< String, IFlexFile > files = getTestFiles();
+	   IFlexFile file = files.get( "de.hopa.flexpmd.EventHandlerNameRuleTestOne.as" );
+	   IPackage packageNode = NodeFactory.createPackage( parser.buildAst( file.getFilePath() ) );
+	   
+	   IncorrectEventHandlerNameRule rule = new IncorrectEventHandlerNameRule();
+	   rule.addProperty( "prefix", "" ); 
+	   rule.addProperty( "suffix", "Handler" ); 
+	   
+	   List< IFlexViolation > violations = rule.processFile( file, packageNode, files );
+	   
+	   assertEquals( "unexpected number of violations!", 0, violations.size() );
    }
 
    @Override
    protected AbstractFlexRule getRule()
    {
+      IncorrectEventHandlerNameRule rule = new IncorrectEventHandlerNameRule();
+      rule.addProperty( "prefix", "handle" ); 
       return new IncorrectEventHandlerNameRule();
    }
 }

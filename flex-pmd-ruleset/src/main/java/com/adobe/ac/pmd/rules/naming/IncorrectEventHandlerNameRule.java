@@ -47,19 +47,20 @@ public class IncorrectEventHandlerNameRule extends AbstractAstFlexRule
    private static final String DEFAULT_SUFFIX = "";
    private static final String PREFIX_NAME    = "prefix";
    private static final String SUFFIX_NAME    = "suffix";
-   private final String        prefix;
-   private final String        suffix;
+   private String prefix;
+   private String suffix;
 
    public IncorrectEventHandlerNameRule()
    {
       super();
-      prefix = getStringProperty( propertyDescriptorFor( PREFIX_NAME ) );
-      suffix = getStringProperty( propertyDescriptorFor( SUFFIX_NAME ) );
    }
 
    @Override
    protected void findViolations( final IFunction function )
    {
+      prefix = getStringProperty( propertyDescriptorFor( PREFIX_NAME ) );
+      suffix = getStringProperty( propertyDescriptorFor( SUFFIX_NAME ) );
+
       if ( function.isEventHandler()
             && !( function.getName().startsWith( prefix ) && function.getName().endsWith( suffix ) ) )
       {

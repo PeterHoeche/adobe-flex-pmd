@@ -28,31 +28,13 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.adobe.ac.pmd.rules.naming;
-
-import com.adobe.ac.pmd.rules.core.AbstractAstFlexRuleTest;
-import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
-import com.adobe.ac.pmd.rules.core.ViolationPosition;
-
-public class TooLongFunctionNameRuleTest extends AbstractAstFlexRuleTest
+package de.hopa.flexpmd
 {
-   @Override
-   protected ExpectedViolation[] getExpectedViolatingFiles()
+   public class TooLongFunctionNameRuleTest
    {
-      return new ExpectedViolation[]
-      { 
-         new ExpectedViolation( "de.hopa.flexpmd.TooLongFunctionNameRuleTest.as", new ViolationPosition[]
-         { 
-            new ViolationPosition( 35 ) 
-         } ) 
-      };
-   }
-
-   @Override
-   protected AbstractFlexRule getRule()
-   {
-	  TooLongFunctionNameRule rule = new TooLongFunctionNameRule();
-	  rule.addProperty( "maximum", "30" );
-      return rule;
+      public function tooLongFunctionNameTestFunction() : void
+      {
+         //DO NOTHING
+      }
    }
 }
