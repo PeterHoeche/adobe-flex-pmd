@@ -1,18 +1,15 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.ac</groupId>
 	<artifactId>flex-pmd-java-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Adobe Flex PMD Java Parent</name>
-
 	<parent>
 		<groupId>com.adobe.ac</groupId>
 		<artifactId>flex-pmd</artifactId>
 		<version>1.3-SNAPSHOT</version>
 		<relativePath>../flex-pmd-parent/pom.xml</relativePath>
 	</parent>
-
 	<modules>
 		<module>../as3-parser</module>
 		<module>../as3-parser-api</module>
@@ -35,5 +32,29 @@
 		<module>../flex-pmd-metrics-ant-task</module>
 		<module>../flex-pmd-metrics-maven-plugin</module>
 	</modules>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeArtifactIds>flex-pmd-test-resources</excludeArtifactIds>
+							<outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+							<excludeTransitive>true</excludeTransitive>
+							<includeScope>compile</includeScope>
+							<excludeScope>test</excludeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
