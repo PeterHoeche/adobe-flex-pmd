@@ -75,14 +75,20 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
     */
    protected final void tryToAddVariableNodeInChildren( final IParserNode ast )
    {
-      if ( ast != null
-            && !tryToAddVariableNode( ast ) && ast.is( NodeKind.VAR_LIST ) )
-      {
-         for ( final IParserNode child : ast.getChildren() )
-         {
-            tryToAddVariableNode( child );
-         }
-      }
+	   if ( ast != null && !tryToAddVariableNode( ast ) ) 
+	   {
+		   if ( ast.is( NodeKind.VAR_LIST ) )
+		   {
+			   for ( final IParserNode child : ast.getChildren() )
+			   {
+				   tryToAddVariableNode( child );
+			   }
+		   }
+		   else if ( ast.is(NodeKind.BLOCK) && !isBlockEmpty( ast ) ) 
+		   {
+			   visitBlock(ast);
+		   }
+	   }
    }
 
    /**
@@ -115,7 +121,7 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
    {
       if ( ast.numChildren() == 0 )
       {
-         if ( variablesUnused.containsKey( ast.getStringValue() ) )
+         if ( variablesUnused.containsKey( ast.getStringValue() ) && ast.is( NodeKind.PRIMARY ) )
          {
             variablesUnused.remove( ast.getStringValue() );
          }
@@ -140,5 +146,10 @@ abstract class AbstractUnusedVariableRule extends AbstractAstFlexRule
          result = true;
       }
       return result;
+   }
+   
+   private boolean isBlockEmpty( final IParserNode block )
+   {
+       return block.is( NodeKind.BLOCK ) && block.numChildren() == 0 || block.is( NodeKind.STMT_EMPTY );
    }
 }

@@ -374,6 +374,24 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
    protected void visitAs( final IParserNode statementNode )
    {
    }
+   
+   /**
+    * @param ast
+    */
+   protected void visitBlock( final IParserNode ast )
+   {
+      if ( isNodeNavigable( ast ) )
+      {
+         for ( final IParserNode node : ast.getChildren() )
+         {
+            visitStatement( node );
+         }
+      }
+      else if ( ast != null )
+      {
+         visitStatement( ast );
+      }
+   }
 
    /**
     * @param catchNode
@@ -836,21 +854,6 @@ public abstract class AbstractAstFlexRule extends AbstractFlexRule implements IF
                              visitBitwiseAndExpression( ast );
                           }
                        } );
-   }
-
-   private void visitBlock( final IParserNode ast )
-   {
-      if ( isNodeNavigable( ast ) )
-      {
-         for ( final IParserNode node : ast.getChildren() )
-         {
-            visitStatement( node );
-         }
-      }
-      else if ( ast != null )
-      {
-         visitStatement( ast );
-      }
    }
 
    private void visitClassContent( final IParserNode ast )
