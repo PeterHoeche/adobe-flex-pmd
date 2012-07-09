@@ -35,6 +35,7 @@ import java.util.Map;
 
 import net.sourceforge.pmd.PropertyDescriptor;
 import net.sourceforge.pmd.properties.StringProperty;
+import net.sourceforge.pmd.properties.BooleanProperty;
 
 import com.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule;
 import com.adobe.ac.pmd.rules.core.ViolationPriority;
@@ -44,7 +45,8 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
  */
 public class ParameterizedRegExpBasedRule extends AbstractRegexpBasedRule
 {
-   public static final String PROPERTY_NAME = "expression";
+   public static final String EXPRESSION_PROPERTY_NAME = "expression";
+   public static final String CHECK_COMMENTS_PROPERTY_NAME = "checkComments";
 
    /*
     * (non-Javadoc)
@@ -63,7 +65,7 @@ public class ParameterizedRegExpBasedRule extends AbstractRegexpBasedRule
    @Override
    protected String getRegexp()
    {
-      return getStringProperty( propertyDescriptorFor( PROPERTY_NAME ) );
+      return getStringProperty( propertyDescriptorFor( EXPRESSION_PROPERTY_NAME ) );
    }
 
    /*
@@ -90,6 +92,20 @@ public class ParameterizedRegExpBasedRule extends AbstractRegexpBasedRule
 
    /*
     * (non-Javadoc)
+    * @seecom.adobe.ac.pmd.rules.core.AbstractRegexpBasedRule#
+    * isComment(java.lang.String)
+    */
+   @Override
+   protected boolean isComment( final String line )
+   {
+      if ( getBooleanProperty( propertyDescriptorFor( CHECK_COMMENTS_PROPERTY_NAME ) ) )
+        return false;
+      else
+        return super.isComment( line );
+   }
+
+   /*
+    * (non-Javadoc)
     * @see net.sourceforge.pmd.CommonAbstractRule#propertiesByName()
     */
    @Override
@@ -97,8 +113,10 @@ public class ParameterizedRegExpBasedRule extends AbstractRegexpBasedRule
    {
       final Map< String, PropertyDescriptor > properties = new LinkedHashMap< String, PropertyDescriptor >();
 
-      properties.put( PROPERTY_NAME,
-                      new StringProperty( PROPERTY_NAME, "", "", properties.size() ) );
+      properties.put( EXPRESSION_PROPERTY_NAME,
+                      new StringProperty( EXPRESSION_PROPERTY_NAME, "", "", properties.size() ) );
+      properties.put( CHECK_COMMENTS_PROPERTY_NAME,
+                      new BooleanProperty( CHECK_COMMENTS_PROPERTY_NAME, "", false, properties.size() ) );
 
       return properties;
    }

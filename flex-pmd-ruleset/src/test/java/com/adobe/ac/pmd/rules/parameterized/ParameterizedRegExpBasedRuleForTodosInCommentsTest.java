@@ -28,13 +28,42 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hopa.flexpmd
+package com.adobe.ac.pmd.rules.parameterized;
+
+import com.adobe.ac.pmd.rules.core.AbstractFlexRule;
+import com.adobe.ac.pmd.rules.core.AbstractFlexRuleTest;
+import com.adobe.ac.pmd.rules.core.ViolationPosition;
+
+public class ParameterizedRegExpBasedRuleForTodosInCommentsTest extends AbstractFlexRuleTest
 {
-   public class TooLongFunctionNameRuleTest
+   @Override
+   protected ExpectedViolation[] getExpectedViolatingFiles()
    {
-      public function tooLongFunctionNameTestFunction() : void
+      return new ExpectedViolation[]
       {
-         //FIXME: function name is to long
-      }
+      	new ExpectedViolation( "de.hopa.flexpmd.TooLongFunctionNameRuleTest.as", new ViolationPosition[]
+         { 
+            new ViolationPosition( 37 ) 
+         } ),
+         new ExpectedViolation( "RegExpTodoRuleTestClass.as", new ViolationPosition[]
+         {
+            new ViolationPosition( 37 ),
+            new ViolationPosition( 42 ),
+            new ViolationPosition( 47 )
+         } )
+
+      };
+   }
+
+   @Override
+   protected AbstractFlexRule getRule()
+   {
+      final ParameterizedRegExpBasedRule rule = new ParameterizedRegExpBasedRule();
+
+      rule.setProperty( rule.propertyDescriptorFor( ParameterizedRegExpBasedRule.EXPRESSION_PROPERTY_NAME ),
+                        ".*//.*((TODO)|(FIXME)|(XXX)).*" );
+      rule.setProperty( rule.propertyDescriptorFor( ParameterizedRegExpBasedRule.CHECK_COMMENTS_PROPERTY_NAME),
+      					true );
+      return rule;
    }
 }

@@ -69,6 +69,7 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    @Override
    public final List< IFlexViolation > findViolationsInCurrentFile()
    {
+      compilePattern();
       final List< IFlexViolation > violations = new ArrayList< IFlexViolation >();
 
       if ( "".compareTo( getRegexp() ) != 0 )
@@ -79,7 +80,7 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
 
             if ( isCurrentLineConcerned( line )
                   && doesCurrentLineMacthes( line ) && isViolationDetectedOnThisMatchingLine( line )
-                  && !line.contains( "/*" ) && !line.contains( "//" ) )
+                  && !isComment( line ) )
             {
                addViolation( violations,
                              ViolationPosition.create( i,
@@ -99,6 +100,15 @@ public abstract class AbstractRegexpBasedRule extends AbstractFlexRule
    final boolean doesCurrentLineMacthes( final String line )
    {
       return getMatcher( line ).matches();
+   }
+
+   /**
+    * @param line
+    * @return
+    */
+   protected boolean isComment( final String line )
+   {
+      return line.contains( "/*" ) || line.contains( "//" );
    }
 
    /**

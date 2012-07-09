@@ -28,13 +28,23 @@
  *    NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY  WAY  OUT OF THE USE OF THIS
  *    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.hopa.flexpmd
+package
 {
-   public class TooLongFunctionNameRuleTest
-   {
-      public function tooLongFunctionNameTestFunction() : void
-      {
-         //FIXME: function name is to long
-      }
-   }
+	public class RegExpTodoRuleTestClass
+	{
+		public function todoFunction() : void
+		{
+			// TODO: implement me
+		}
+		
+		public function fixmeFunction() : void
+		{
+			// FIXME: fixme please
+		}
+		
+		public function xxxFunction() : void
+		{
+			// XXX: ???
+		}
+	}
 }
