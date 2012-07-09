@@ -44,8 +44,8 @@ import com.adobe.ac.pmd.metrics.ProjectMetrics;
 
 public class FlexMetricsTest extends FlexPmdTestBase
 {
-   private static final int     TOTAL_CLASSES_NUMBER   = 109;
-   private static final int     TOTAL_FUNCTIONS_NUMBER = 341;
+   private static final int     TOTAL_CLASSES_NUMBER   = 110;
+   private static final int     TOTAL_FUNCTIONS_NUMBER = 346;
    private final FlexMetrics    flexMetrics;
    private final ProjectMetrics projectMetrics;
 
@@ -157,7 +157,7 @@ public class FlexMetricsTest extends FlexPmdTestBase
                     projectMetrics.getTotalPackages().getTotalClasses() );
       assertEquals( TOTAL_FUNCTIONS_NUMBER,
                     projectMetrics.getTotalPackages().getTotalFunctions() );
-      assertEquals( 1622,
+      assertEquals( 1627,
                     projectMetrics.getTotalPackages().getTotalStatements() );
       assertEquals( 3188,
                     projectMetrics.getTotalPackages().getTotalAsDocs() );

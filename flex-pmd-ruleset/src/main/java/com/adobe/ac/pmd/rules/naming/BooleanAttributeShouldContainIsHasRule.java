@@ -41,10 +41,13 @@ import com.adobe.ac.pmd.rules.core.ViolationPriority;
 public class BooleanAttributeShouldContainIsHasRule extends AbstractAstFlexRule
 {
    private static final String   BOOLEAN         = "Boolean";
-   private static final String[] FORBIDDEN_NAMES = new String[]
+   private static final String[] ALLOWED_NAMES = new String[]
                                                  { "has",
-               "is",
-               "can"                            };
+                                                   "is",
+                                                   "can",
+                                                   "should",
+                                                   "are"
+                                                };
 
    @Override
    protected void findViolations( final IFunction function )
@@ -76,9 +79,9 @@ public class BooleanAttributeShouldContainIsHasRule extends AbstractAstFlexRule
 
    private void isWronglyNamed( final INamableNode namable )
    {
-      for ( final String forbiddenName : FORBIDDEN_NAMES )
+      for ( final String allowedName : ALLOWED_NAMES )
       {
-         if ( namable.getName().startsWith( forbiddenName ) )
+         if ( namable.getName().startsWith( allowedName ) )
          {
             return;
          }
