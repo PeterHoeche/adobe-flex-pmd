@@ -43,9 +43,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/trunk</connection>
-		<developerConnection>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/trunk</developerConnection>
-		<url>scm:svn:http://opensource.adobe.com/svn/opensource/flexpmd/trunk</url>
+		<connection>scm:git:git://github.com/PeterHoeche/adobe-flex-pmd.git</connection>
+		<developerConnection>scm:git:git@github.com:PeterHoeche/adobe-flex-pmd.git</developerConnection>
+		<url>scm:git:https://github.com/PeterHoeche/adobe-flex-pmd</url>
 	</scm>
 
 	<organization>
@@ -57,7 +57,7 @@
 		<!-- Project properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<source.url>http://opensource.adobe.com/svn/opensource/flexpmd</source.url>
-		<source.local.path>file:///Users/xagnetti/Work/repositories/opensource.adobe/flexpmd</source.local.path>
+		<source.local.path>file:///~/Developer/workspaces/adobe-flex-pmd/</source.local.path>
 
 		<!-- Plugins/Dependencies version -->
 		<pmd.version>4.2.5</pmd.version>
@@ -190,8 +190,9 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>${release-plugin.version}</version>
 				<configuration>
-					<tagBase>${source.url}/tags</tagBase>
-				</configuration>
+          			<tagNameFormat>version-@{project.version}</tagNameFormat>
+          			<pushChanges>false</pushChanges>
+        		</configuration>
 			</plugin>
 
 			<plugin>
