@@ -137,7 +137,7 @@ public class SomeClass
 	</rule>
 
 	<rule class="com.adobe.ac.pmd.rules.naming.BooleanAttributeShouldContainIsHasRule"
-		message="Differentiate the Boolean variables from other variable types ({0}); for example: canAnimate, isConnected, or hasChildren.">
+		message="Differentiate the Boolean variables from other variable types ({0}); for example: canAnimate, isConnected, hasChildren, arePendingChanges or shouldExecute.">
 		<priority>5</priority>
 	</rule>
 	
@@ -157,6 +157,9 @@ public class SomeClass
 		<properties>
 			<property name="minimum">
 				<value>3</value>
+			</property>
+			<property name="maximum">
+				<value>25</value>
 			</property>
 		</properties>
 	</rule>
