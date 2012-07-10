@@ -58,7 +58,7 @@
 				<version>${flex-mojos-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<targetPlayer>${flash-player.version}</targetPlayer>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
 				</configuration>
 				<dependencies>
           			<dependency>

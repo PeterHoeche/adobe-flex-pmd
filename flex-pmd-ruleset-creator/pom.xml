@@ -186,7 +186,7 @@
 				<version>${flex-mojos-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<targetPlayer>${flash-player.version}</targetPlayer>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
 					<defaultSizeWidth>1000</defaultSizeWidth>
 					<defaultSizeHeight>750</defaultSizeHeight>
 				</configuration>
@@ -215,6 +215,7 @@
 				<configuration>
 					<templateURI>folder:html-template</templateURI>
 					<htmlName>${project.artifactId}</htmlName>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
 				</configuration>
 				<dependencies>
           			<dependency>

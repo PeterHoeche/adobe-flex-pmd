@@ -25,3 +25,4 @@ flex-pmd-ruleset-api/target/
 flex-pmd-ruleset-creator/target/
 flex-pmd-test-resources/target/
 flexunit-theme/target/
+flex-pmd-violations-viewer/target/
