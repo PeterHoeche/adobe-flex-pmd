@@ -53,10 +53,10 @@ public final class FileUtils
 {
    public static class FilePathComparator implements Comparator< File >
    {
-      public int compare( final File arg0,
-                          final File arg1 )
+      public int compare( final File fileOne,
+                          final File fileTwo )
       {
-         return arg0.getAbsolutePath().compareTo( arg1.getAbsolutePath() );
+         return fileOne.getAbsolutePath().compareToIgnoreCase( fileTwo.getAbsolutePath() );
       }
    }
 

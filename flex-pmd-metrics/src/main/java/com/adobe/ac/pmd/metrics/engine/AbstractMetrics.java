@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 import org.dom4j.Document;
@@ -47,6 +48,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
 import com.adobe.ac.ncss.filters.FlexFilter;
+import com.adobe.ac.ncss.utils.FileUtils;
 import com.adobe.ac.pmd.metrics.ClassMetrics;
 import com.adobe.ac.pmd.metrics.FunctionMetrics;
 import com.adobe.ac.pmd.metrics.PackageMetrics;
@@ -86,6 +88,9 @@ public abstract class AbstractMetrics
                                      recurse ) );
          }
       }
+
+      Collections.sort( (ArrayList)files, new FileUtils.FilePathComparator() );
+
       return files;
    }
 
@@ -112,6 +117,9 @@ public abstract class AbstractMetrics
                                                    recurse ) );
          }
       }
+
+      Collections.sort( (ArrayList)files, new FileUtils.FilePathComparator() );
+
       return files;
    }
 
