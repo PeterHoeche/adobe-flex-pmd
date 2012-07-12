@@ -1,0 +1,191 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-violations-viewer</artifactId>
+	<packaging>swf</packaging>
+	<name>Adobe Flex PMD Violations viewer</name>
+	<description>Adobe Flex PMD Violations viewer</description>
+
+	<parent>
+		<artifactId>flex-pmd-flex-parent</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>1.4-SNAPSHOT</version>
+		<relativePath>../flex-pmd-flex-parent/pom.xml</relativePath>
+	</parent>
+
+	
+	<dependencies>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>flexunit-theme</artifactId>
+			<version>${project.version}</version>
+			<type>swc</type>
+			<scope>theme</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>flex-pmd-flex-lib</artifactId>
+			<version>${project.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<!--  Cairngorm -->
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>event-source</artifactId>
+			<version>${event-source.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>cairngorm</artifactId>
+			<version>${cairngorm.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<!-- flex sdk dependencies -->
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>flex-framework</artifactId>
+			<version>${flex.version}</version>
+			<type>pom</type>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>playerglobal</artifactId>
+			<version>${flex.version}</version>
+			<classifier>${flash-player.version}</classifier>
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>datavisualization</artifactId>
+			<version>${flex.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>datavisualization</artifactId>
+			<version>${flex.version}</version>
+			<type>rb.swc</type>
+			<classifier>en_US</classifier>
+		</dependency>
+
+		<!-- flexmojos Unit testing support -->
+		<dependency>
+			<groupId>org.sonatype.flexmojos</groupId>
+			<artifactId>flexmojos-unittest-support</artifactId>
+			<version>${flex-mojos-plugin.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/flex</sourceDirectory>
+		<testSourceDirectory>src/test/flex</testSourceDirectory>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+					<defaultSizeWidth>1000</defaultSizeWidth>
+					<defaultSizeHeight>700</defaultSizeHeight>
+					<useNetwork>false</useNetwork>
+				</configuration>
+				<dependencies>
+          			<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wrapper</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<templateURI>folder:html-template</templateURI>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+				</configuration>
+				<dependencies>
+          			<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>

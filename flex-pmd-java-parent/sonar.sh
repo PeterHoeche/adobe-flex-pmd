@@ -1,0 +1,1 @@
+mvn sonar:sonar -Dsonar.jdbc.driver=com.mysql.jdbc.Driver -Dsonar.jdbc.url="jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8" -Dsonar.jdbc.username=root -Dsonar.jdbc.password= -o

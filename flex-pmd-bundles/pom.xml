@@ -1,0 +1,111 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>${project.parent.artifactId}-all-in-one-bundle</artifactId>
+	<name>Adobe Flex PMD All-in-one bundle</name>
+	<packaging>pom</packaging>
+
+	<parent>
+		<artifactId>flex-pmd-hybrid-parent</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>1.4-SNAPSHOT</version>
+		<relativePath>../flex-pmd-hybrid-parent/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+	
+
+		<dependency>
+			<groupId>com.martiansoftware</groupId>
+			<artifactId>jsap</artifactId>
+			<version>${jsap.version}</version>
+		</dependency>
+		
+		<!-- FlexPMD -->
+	
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-ant-task</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-command-line</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-automator</artifactId>
+			<version>${project.parent.version}</version>
+			<type>pom</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- FlexCPD -->
+
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-cpd-ant-task</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-cpd-command-line</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- FlexMetrics -->
+		
+	    <dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-metrics-ant-task</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>flex-pmd-metrics-command-line</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${maven-antrun-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>package-ant-task</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<mkdir dir="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-ant-task/target/flex-pmd-ant-task-${project.parent.version}.zip" dest="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-cpd-ant-task/target/flex-pmd-cpd-ant-task-${project.parent.version}.zip" dest="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-metrics-ant-task/target/flex-pmd-metrics-ant-task-${project.parent.version}.zip" dest="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-command-line/target/flex-pmd-command-line-${project.parent.version}.zip" dest="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-cpd-command-line/target/flex-pmd-cpd-command-line-${project.parent.version}.zip" dest="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-metrics-command-line/target/flex-pmd-metrics-command-line-${project.parent.version}.zip" dest="${project.build.directory}/release" />
+								<unzip src="${project.build.directory}/../../flex-pmd-automator-workflow/target/flex-pmd-automator-${project.parent.version}-workflow.zip" dest="${project.build.directory}/release" />
+								<delete dir="${project.build.directory}/release/command-line" />
+								<zip destfile="${project.build.directory}/${project.build.finalName}.zip" basedir="${project.build.directory}/release" excludes="*.zip" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

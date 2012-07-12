@@ -1,0 +1,199 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.adobe.ac</groupId>
+	<artifactId>flex-pmd-flex-lib</artifactId>
+	<packaging>swc</packaging>
+	<name>Adobe Flex PMD Flex lib</name>
+	<description>Adobe Flex PMD Flex library containing shared classes</description>
+
+	<parent>
+		<artifactId>flex-pmd-flex-parent</artifactId>
+		<groupId>com.adobe.ac</groupId>
+		<version>1.4-SNAPSHOT</version>
+		<relativePath>../flex-pmd-flex-parent/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>flex-pmd-ruleset</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>event-source</artifactId>
+			<version>${event-source.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.cairngorm</groupId>
+			<artifactId>cairngorm</artifactId>
+			<version>${cairngorm.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<!-- flex sdk dependencies -->
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>flex-framework</artifactId>
+			<version>${flex.version}</version>
+			<type>pom</type>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>playerglobal</artifactId>
+			<version>${flex.version}</version>
+			<classifier>${flash-player.version}</classifier>
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>datavisualization</artifactId>
+			<version>${flex.version}</version>
+			<type>swc</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>datavisualization</artifactId>
+			<version>${flex.version}</version>
+			<type>rb.swc</type>
+			<classifier>en_US</classifier>
+		</dependency>
+
+		<!-- flexmojos Unit testing support -->
+		<dependency>
+			<groupId>org.sonatype.flexmojos</groupId>
+			<artifactId>flexmojos-unittest-support</artifactId>
+			<version>${flex-mojos-plugin.version}</version>
+			<type>swc</type>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.adobe.flex.framework</groupId>
+					<artifactId>playerglobal</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/flex</sourceDirectory>
+		<testSourceDirectory>src/test/flex</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${ant-run-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-version-as</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<tasks>
+								<tstamp>
+									<format property="last.updated.date" pattern="yyyy-MM-dd" />
+									<format property="last.updated.time" pattern="HH:mm:ss" />
+								</tstamp>
+								<echo message="Generating Version.as..." />
+								<echo file="${basedir}/src/main/flex/Version.as" append="false" message="package" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="{" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public class Version" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" {" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public static const BUILD_NUMBER : String = '${project.version}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public static const BUILD_TIME : String = '${last.updated.time}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" public static const BUILD_DATE : String = '${last.updated.date}';" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message=" }" />
+								<echo file="${basedir}/src/main/flex/Version.as" append="true" message="}" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<version>${flex-mojos-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<targetPlayer>${flash-player.version}.0.0</targetPlayer>
+				</configuration>
+				
+				<dependencies>
+          			<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>flex-mojos</id>
+			<url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<configuration>
+					<reportsDirectory>surefire-reports</reportsDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>flex-pmd-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
+				<configuration>
+					<failOnError>true</failOnError>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</reporting>
+
+</project>
