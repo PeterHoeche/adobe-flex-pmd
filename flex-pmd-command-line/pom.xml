@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.adobe.ac</groupId>
 		<artifactId>flex-pmd-java-parent</artifactId>
-		<version>1.3</version>
+		<version>1.4-SNAPSHOT</version>
 		<relativePath>../flex-pmd-java-parent/pom.xml</relativePath>
 	</parent>
 
