@@ -57,7 +57,7 @@
 		<!-- Project properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<source.url>http://opensource.adobe.com/svn/opensource/flexpmd</source.url>
-		<source.local.path>file:///~/Developer/workspaces/adobe-flex-pmd/</source.local.path>
+		<source.local.path>file:///home/jenkins/workspace/adobe-flex-pmd/</source.local.path>
 
 		<!-- Plugins/Dependencies version -->
 		<pmd.version>4.2.5</pmd.version>
