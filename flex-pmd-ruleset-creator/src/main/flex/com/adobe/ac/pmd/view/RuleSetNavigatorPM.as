@@ -65,14 +65,18 @@ package com.adobe.ac.pmd.view
 		
 		public function addNewRegExpBasedRule() : Ruleset
 		{
-			var property : Property = new Property();
-			
-			property.name = "expression";
+			var expressionProperty : Property = new Property();
+			expressionProperty.name = "expression";
+
+			var checkCommentsProperty : Property = new Property();
+			checkCommentsProperty.name = "checkComments";
+			checkComments.value = "false";
 
 			var rule : Rule = new Rule();
 			
 			rule.name = PARAMETERIZED_RULE_NAME;
-			rule.properties.addItem( property );
+			rule.properties.addItem( expressionProperty );
+			rule.properties.addItem( checkCommentsProperty );
 			rule.priority = ViolationPriority.INFO;
 			rootRuleset.addRegExpBasedRule( rule );
 			
